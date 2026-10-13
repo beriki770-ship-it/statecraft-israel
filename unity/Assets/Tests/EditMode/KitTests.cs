@@ -526,6 +526,94 @@ public class KitTests
         Assert.IsTrue(kits.All(r => r.enabled)); Assert.IsTrue(markers.All(r => !r.enabled));
     }
 
+    /// <summary>A settlement's point on the ground plane (world x, z).</summary>
+    static Vector2 Spot(MapScene map, string id)
+    {
+        var s = map.Settlements.Single(x => x.Id == id); var w = map.Frame.ToWorld(s.Lon, s.Lat, 0);
+        return new Vector2(w.x, w.z);
+    }
+
+    /// <summary>Issue #32: a ma'abara of 1950-51 is mostly canvas tents with a few tin or canvas huts. The hut share is a
+    /// parameter (a staged look later), and it changes what stands on a plot, never which plots are used.</summary>
+    [Test]
+    public void AMaabaraIsMostlyTentsWithAFewHuts()
+    {
+        var map = OpenMap();
+        var g = PlacementLayer.CampGround(map);
+        var camp = new List<(string id, Vector2 at)> { ("transit_camp_revivim", Spot(map, "revivim")) };
+        var mixed = SettlementKits.Maabarot(camp, g)[0];
+        var tents = SettlementKits.Maabarot(camp, g, 0f)[0];
+        var huts = SettlementKits.Maabarot(camp, g, 1f)[0];
+        TestContext.WriteLine($"share {SettlementKits.MaabaraHutShare}: {mixed.tents} tents, {mixed.huts} huts, {mixed.mesh?.vertexCount} vertices");
+        Assert.IsNotNull(mixed.mesh, "the camp found free ground");
+        Assert.Greater(mixed.huts, 0, "a few huts"); Assert.Greater(mixed.tents, 2 * mixed.huts, "mostly tents");
+        Assert.AreEqual((mixed.tents + mixed.huts, 0), (tents.tents, tents.huts), "share 0: tents only, on the same plots");
+        Assert.AreEqual((0, mixed.tents + mixed.huts), (huts.tents, huts.huts), "share 1: huts only, on the same plots");
+        foreach (var k in new[] { mixed, tents, huts }) if (k.mesh != null) Object.DestroyImmediate(k.mesh);
+    }
+
+    /// <summary>Issue #32: ma'abarot are seeded (two builds, the same camps), stand on dry land clear of every town's plots,
+    /// the 1948 localities and the Bedouin camps, keep off the routes, and two camps asked for on the same ground keep
+    /// apart. A camp on Tel Aviv's own point finds ground at the city's edge.</summary>
+    [Test]
+    public void MaabarotAreSeededAndStandOnFreeDryGround()
+    {
+        var map = OpenMap();
+        var camps = new List<(string id, Vector2 at)> { ("a", Spot(map, "revivim")), ("b", Spot(map, "revivim")), ("c", Spot(map, "tel_aviv")) };
+        var g = PlacementLayer.CampGround(map);
+        var first = SettlementKits.Maabarot(camps, g, out var placed);
+        var second = SettlementKits.Maabarot(camps, PlacementLayer.CampGround(map));
+        for (int i = 0; i < camps.Count; i++)
+        {
+            Assert.IsNotNull(first[i].mesh, camps[i].id + ": found free ground");
+            Assert.AreEqual((first[i].tents, first[i].huts), (second[i].tents, second[i].huts), camps[i].id);
+            Assert.AreEqual(first[i].mesh!.vertexCount, second[i].mesh!.vertexCount, camps[i].id);
+            Assert.AreEqual(first[i].mesh!.bounds, second[i].mesh!.bounds, camps[i].id);
+            Assert.Greater(placed.Count(p => p.Id == camps[i].id && p.Kind == "tent"), 0, camps[i].id);
+            Assert.LessOrEqual(placed.Count(p => p.Id == camps[i].id && p.Kind == "communal_hut"), 1, camps[i].id);
+        }
+        foreach (var k in first.Concat(second)) if (k.mesh != null) Object.DestroyImmediate(k.mesh);
+        TestContext.WriteLine(string.Join(", ", camps.Select((c, i) => $"{c.id}: {first[i].tents} tents, {first[i].huts} huts")));
+        int wet = 0, inTown = 0, onRoute = 0, overlaps = 0;
+        foreach (var p in placed)
+        {
+            if (g.Water(p.C.x, p.C.y)) wet++;
+            if (g.InTown(p.C.x, p.C.y, SettlementKits.PlotReach)) inTown++;
+            if (g.OnRoute(p.C, 0f)) onRoute++;
+            // Half the longer side: a disc each structure fills, so two that overlap are really touching.
+            foreach (var q in placed)
+                if (string.CompareOrdinal(p.Id, q.Id) < 0 && (p.C - q.C).magnitude < 0.5f * (Mathf.Max(p.W, p.D) + Mathf.Max(q.W, q.D))) overlaps++;
+        }
+        Assert.AreEqual(0, wet, "a tent or hut in the water");
+        Assert.AreEqual(0, inTown, "a tent or hut on a town's, locality's or Bedouin camp's ground");
+        Assert.AreEqual(0, onRoute, "a tent or hut on a railway or road");
+        Assert.AreEqual(0, overlaps, "two camps overlap");
+    }
+
+    /// <summary>Issue #32: with the kits on, a transit camp is drawn as a ma'abara kit (Kit.mat, its own mesh) in place of its
+    /// marker box, built when the camp is placed; housing keeps its box, and the redraw frees the camp's mesh.</summary>
+    [Test]
+    public void ATransitCampIsDrawnAsAMaabaraWhenItIsPlaced()
+    {
+        var map = OpenMap();
+        var c = Statecraft.Sim.ContentLoader.Load(Statecraft.Game.Paths.Content);
+        var hex = c.SettlementHexes.Single(s => s.Id == "revivim");
+        var date = new System.DateTime(1950, 8, 26);
+        var layer = new GameObject("Placements").AddComponent<PlacementLayer>();
+        layer.Render(new[] { new Statecraft.Sim.Placement(Statecraft.Sim.MapActions.TransitCamp, hex.Q, hex.R, date) }, c, map);
+        Assert.AreEqual(1, layer.transform.childCount);
+        var camp = layer.transform.GetChild(0);
+        Assert.AreEqual($"{Statecraft.Sim.MapActions.TransitCamp}_{hex.Q}_{hex.R}", camp.name, "named as its box was");
+        Assert.AreSame(AssetDatabase.LoadAssetAtPath<Material>("Assets/Materials/Kit.mat"), camp.GetComponent<MeshRenderer>().sharedMaterial);
+        var mesh = camp.GetComponent<MeshFilter>().sharedMesh;
+        Assert.AreNotSame(Resources.GetBuiltinResource<Mesh>("Cube.fbx"), mesh, "a kit, not the marker box");
+        Assert.Greater(mesh.vertexCount, 300, "rows of tents");
+        layer.Render(new[] { new Statecraft.Sim.Placement(Statecraft.Sim.MapActions.Housing, hex.Q, hex.R, date) }, c, map);
+        Assert.IsTrue(mesh == null, "the camp's mesh goes with it");
+        Assert.AreEqual(1, layer.transform.childCount);
+        Assert.AreSame(map.MarkerMaterial, layer.transform.GetChild(0).GetComponent<MeshRenderer>().sharedMaterial, "housing keeps its box");
+    }
+
     /// <summary>Review I2: the populations come from content/map/settlement_population_1945.yaml through the map inputs.</summary>
     [Test]
     public void ThePopulationFileLoadsAndRejectsBadRows()

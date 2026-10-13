@@ -13,6 +13,10 @@ adds a line under **Unreleased**; CI's `Changelog` job checks this (see `CONTRIB
   it. It replaces the border skirt's flat tan slab and the sea past the map's edge. At 16:9 only the overview shows it (the
   camera fit of #174 keeps it off screen wherever the view is no wider than the map: below about 106 km at 16:9, 53 km
   at 32:9; a portrait window never shows it); one draw call, no shadow pass, no golden moves.
+- Map: a transit camp the player builds (from 1950) is drawn as a ma'abara instead of a marker box: rows of white and
+  khaki canvas tents with a few tin or canvas huts, a long communal hut and, in some camps, a water tower, at the
+  nearest free ground to its hex (a big town's edge, as the camps stood). Built when the camp is placed, not at map
+  build; the tent/hut share is a parameter for a staged look later. Presentation only (refs #32).
 - GDD v0.1 Phase 1, training (refs #377), behind the `systems.loop` switch: `Train` sends a city's civilians without work
   to basic training in a military camp (recruits, a count) or pioneer training in a Hakhshara (halutzim, movable units at
   the city's hex), paid from the Treasury without borrowing; `CancelTraining` returns the people but not the Money (D-A3).

@@ -25,6 +25,10 @@ namespace Statecraft.Game.Map
         public HexFile Hexes { get; private set; }
         public Terrain Terrain { get; private set; }
         public Material MarkerMaterial => markerMaterial;
+        /// <summary>Kit.mat (null without the kits), for the transit camps' kits PlacementLayer builds when a camp is placed.</summary>
+        public Material KitMaterial => kitMaterial;
+        /// <summary>The heightmap's lowest elevation (m) as the last Build read it: a KitGround built after the map needs it.</summary>
+        public float ElevMinM { get; private set; }
         /// <summary>The settlements the last Build placed (settlements_1948.yaml), for the UI's map labels.</summary>
         public IReadOnlyList<Settlement> Settlements { get; private set; } = new List<Settlement>();
         /// <summary>The 1948 localities the last Build drew with the kits (content/map/localities_1948.yaml; empty without the
@@ -177,6 +181,7 @@ namespace Statecraft.Game.Map
             Clear();
             kitColumns.Clear(); kitProbe = null;
             var (meta, heights) = HeightmapLoader.Load(inputs.HeightmapJson, inputs.HeightmapR16z, MetaPath);
+            ElevMinM = meta.elev_min_m;
             DiagLog.BootPhase("heightmap decoded");
             Hexes = MapBuilder.LoadHexes(inputs.HexesJson, HexesPath);
             DiagLog.BootPhase("hexes parsed");

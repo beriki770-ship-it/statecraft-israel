@@ -1,13 +1,18 @@
 #nullable enable
 using System.Collections.Generic;
+using Statecraft.Game.Map.Kits;
 using Statecraft.Sim;
 using UnityEngine;
+using UnityEngine.Rendering;
 
 namespace Statecraft.Game.Map
 {
     /// <summary>Draws the player's transit camps and housing projects as marker boxes on their hex centres (placeholder art
     /// like the M2 settlement markers; per-era prefabs are M4). Uses the editor-made marker material with a per-kind
-    /// colour through a MaterialPropertyBlock (no runtime Shader.Find). Render replaces what it drew before.</summary>
+    /// colour through a MaterialPropertyBlock (no runtime Shader.Find). Render replaces what it drew before.
+    /// With the map's kits built, a transit camp is drawn as a ma'abara kit instead (SettlementKits.Maabarot, issue #32),
+    /// built here when the camp is placed rather than at map build (the boot budget, #321); a camp that finds no free
+    /// ground keeps its box.</summary>
     public sealed class PlacementLayer : MonoBehaviour
     {
         static readonly Dictionary<string, (Color colour, float size)> Look = new Dictionary<string, (Color, float)>
@@ -19,17 +24,23 @@ namespace Statecraft.Game.Map
 
         public void Render(IEnumerable<Placement> placements, Content content, MapScene map)
         {
+            var cube = Resources.GetBuiltinResource<Mesh>("Cube.fbx");
             for (int i = transform.childCount - 1; i >= 0; i--)
             {
                 var old = transform.GetChild(i).gameObject;
-                if (Application.isPlaying) { old.transform.SetParent(null); Destroy(old); } else DestroyImmediate(old);
+                // A camp's kit mesh is its own (the boxes share the built-in cube): it goes with its object.
+                var filter = old.GetComponent<MeshFilter>();
+                var own = filter != null && filter.sharedMesh != cube ? filter.sharedMesh : null;
+                if (Application.isPlaying) { old.transform.SetParent(null); Destroy(old); if (own != null) Destroy(own); }
+                else { DestroyImmediate(old); if (own != null) DestroyImmediate(own); }
             }
-            var cube = Resources.GetBuiltinResource<Mesh>("Cube.fbx");
+            var list = new List<Placement>(placements);
+            var kits = map.KitStats != null ? Camps(list, content, map) : new HashSet<string>();
             var block = new MaterialPropertyBlock();
-            foreach (var p in placements)
+            foreach (var p in list)
             {
                 var hex = content.HexAt(p.Q, p.R);
-                if (hex == null || !Look.TryGetValue(p.Action, out var look)) continue;
+                if (hex == null || !Look.TryGetValue(p.Action, out var look) || kits.Contains($"{p.Action}_{p.Q}_{p.R}")) continue;
                 var at = map.Frame.ToWorld(hex.Lon, hex.Lat, 0);
                 at.y = map.Terrain.SampleHeight(at) + map.Terrain.transform.position.y;
                 var box = new GameObject($"{p.Action}_{p.Q}_{p.R}");
@@ -41,6 +52,47 @@ namespace Statecraft.Game.Map
                 box.transform.position = at + Vector3.up * look.size / 2;
                 box.transform.localScale = new Vector3(look.size * 1.6f, look.size, look.size);
             }
+        }
+
+        /// <summary>Draws every transit camp of <paramref name="list"/> as a ma'abara kit (one object each, named as its box
+        /// would be, drawn with Kit.mat); returns the names of those drawn.</summary>
+        HashSet<string> Camps(List<Placement> list, Content content, MapScene map)
+        {
+            var camps = new List<(string id, Vector2 at)>();
+            foreach (var p in list)
+            {
+                var hex = p.Action == MapActions.TransitCamp ? content.HexAt(p.Q, p.R) : null;
+                if (hex == null) continue;
+                var w = map.Frame.ToWorld(hex.Lon, hex.Lat, 0);
+                camps.Add(($"{p.Action}_{p.Q}_{p.R}", new Vector2(w.x, w.z)));
+            }
+            var drawn = new HashSet<string>();
+            if (camps.Count == 0) return drawn;
+            var built = SettlementKits.Maabarot(camps, CampGround(map));
+            for (int i = 0; i < camps.Count; i++)
+            {
+                var mesh = built[i].mesh;
+                if (mesh == null) continue;
+                var go = new GameObject(camps[i].id);
+                go.transform.SetParent(transform, false);
+                go.transform.SetPositionAndRotation(Vector3.zero, Quaternion.identity);   // the kit's vertices are in world space
+                go.AddComponent<MeshFilter>().sharedMesh = mesh;
+                var r = go.AddComponent<MeshRenderer>();
+                r.sharedMaterial = map.KitMaterial;
+                r.shadowCastingMode = ShadowCastingMode.On;
+                drawn.Add(camps[i].id);
+            }
+            return drawn;
+        }
+
+        /// <summary>The ground a camp is built on: the map's terrain with every kit's footprint (towns, 1948 localities,
+        /// Bedouin camps: MapScene.KitFootprints) and the railways' and roads' corridors, so a camp keeps off all of them.</summary>
+        internal static KitGround CampGround(MapScene map)
+        {
+            var ground = new KitGround(map.Terrain, map.Frame, map.Hexes, map.ElevMinM);
+            foreach (var f in map.KitFootprints) ground.Footprints.Add(f);
+            foreach (var (line, half) in map.RouteCorridors) ground.AddCorridor(line, half);
+            return ground;
         }
     }
 }
