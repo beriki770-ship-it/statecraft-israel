@@ -12,7 +12,7 @@ namespace Statecraft.Game.Map
     /// colour through a MaterialPropertyBlock (no runtime Shader.Find). Render replaces what it drew before.
     /// With the map's kits built, a transit camp is drawn as a ma'abara kit instead (SettlementKits.Maabarot, issue #32),
     /// built here when the camp is placed rather than at map build (the boot budget, #321); a camp that finds no free
-    /// ground keeps its box.</summary>
+    /// ground keeps its box. With the "kits" toggle off every camp is its box again, as the settlements are (KitLayer).</summary>
     public sealed class PlacementLayer : MonoBehaviour
     {
         static readonly Dictionary<string, (Color colour, float size)> Look = new Dictionary<string, (Color, float)>
@@ -21,6 +21,16 @@ namespace Statecraft.Game.Map
             [MapActions.Housing] = (new Color(0.95f, 0.94f, 0.90f), 900f),
         };
         static readonly int BaseColor = Shader.PropertyToID("_BaseColor");
+
+        // The last Render's inputs and the "kits" toggle as it drew them: a flip of the toggle redraws (MapScene.KitsShown is
+        // polled, as the map labels poll it), so a camp is always drawn by its kit or its box, never by both or neither.
+        List<Placement>? lastPlacements; Content? lastContent; MapScene? lastMap; bool kitsShown;
+
+        void LateUpdate()
+        {
+            if (lastPlacements != null && lastContent != null && lastMap != null && lastMap.KitsShown != kitsShown)
+                Render(lastPlacements, lastContent, lastMap);
+        }
 
         public void Render(IEnumerable<Placement> placements, Content content, MapScene map)
         {
@@ -35,7 +45,8 @@ namespace Statecraft.Game.Map
                 else { DestroyImmediate(old); if (own != null) DestroyImmediate(own); }
             }
             var list = new List<Placement>(placements);
-            var kits = map.KitStats != null ? Camps(list, content, map) : new HashSet<string>();
+            lastPlacements = list; lastContent = content; lastMap = map; kitsShown = map.KitsShown;
+            var kits = kitsShown ? Camps(list, content, map) : new HashSet<string>();
             var block = new MaterialPropertyBlock();
             foreach (var p in list)
             {
@@ -86,12 +97,15 @@ namespace Statecraft.Game.Map
         }
 
         /// <summary>The ground a camp is built on: the map's terrain with every kit's footprint (towns, 1948 localities,
-        /// Bedouin camps: MapScene.KitFootprints) and the railways' and roads' corridors, so a camp keeps off all of them.</summary>
+        /// Bedouin camps: MapScene.KitFootprints), the railways' and roads' corridors and the units' clearings and tokens (as
+        /// KitLayer.Build is given them), so a camp keeps off all of them.</summary>
         internal static KitGround CampGround(MapScene map)
         {
             var ground = new KitGround(map.Terrain, map.Frame, map.Hexes, map.ElevMinM);
             foreach (var f in map.KitFootprints) ground.Footprints.Add(f);
             foreach (var (line, half) in map.RouteCorridors) ground.AddCorridor(line, half);
+            foreach (var c in map.UnitClearings) ground.AddCorridor(new List<Vector2> { c.centre, c.centre + Vector2.right }, c.radius);
+            ground.Tokens.AddRange(map.UnitTokens);
             return ground;
         }
     }

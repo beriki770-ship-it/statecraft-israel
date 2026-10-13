@@ -614,6 +614,51 @@ public class KitTests
         Assert.AreSame(map.MarkerMaterial, layer.transform.GetChild(0).GetComponent<MeshRenderer>().sharedMaterial, "housing keeps its box");
     }
 
+    /// <summary>Review (issue #32): with the "kits" toggle off a transit camp is drawn as its marker box, as the settlements
+    /// are, and no camp kit is visible; switching the kits back on draws the ma'abara again.</summary>
+    [Test]
+    public void WithTheKitsOffATransitCampIsItsBox()
+    {
+        var map = OpenMap();
+        var c = Statecraft.Sim.ContentLoader.Load(Statecraft.Game.Paths.Content);
+        var hex = c.SettlementHexes.Single(s => s.Id == "revivim");
+        var camp = new[] { new Statecraft.Sim.Placement(Statecraft.Sim.MapActions.TransitCamp, hex.Q, hex.R, new System.DateTime(1950, 8, 26)) };
+        var layer = new GameObject("Placements").AddComponent<PlacementLayer>();
+        var kitMat = AssetDatabase.LoadAssetAtPath<Material>("Assets/Materials/Kit.mat");
+        VisualToggles.Set("kits", false);
+        layer.Render(camp, c, map);
+        Assert.AreEqual(1, layer.transform.childCount);
+        var box = layer.transform.GetChild(0);
+        Assert.AreSame(Resources.GetBuiltinResource<Mesh>("Cube.fbx"), box.GetComponent<MeshFilter>().sharedMesh, "the marker box");
+        Assert.AreSame(map.MarkerMaterial, box.GetComponent<MeshRenderer>().sharedMaterial);
+        Assert.IsFalse(layer.GetComponentsInChildren<MeshRenderer>().Any(r => r.enabled && r.sharedMaterial == kitMat), "no camp kit drawn");
+        VisualToggles.Set("kits", true);
+        layer.Render(camp, c, map);
+        Assert.AreSame(kitMat, layer.transform.GetChild(0).GetComponent<MeshRenderer>().sharedMaterial, "the kit again");
+    }
+
+    /// <summary>Review (issue #32): a ma'abara keeps to the Bedouin camps' rules (Encampments): no tent or hut on a unit
+    /// token, on a hex edge's grid mark or on steep ground, so a token on the camp's own hex moves it off.</summary>
+    [Test]
+    public void AMaabaraKeepsOffTokensGridMarksAndSteepGround()
+    {
+        var map = OpenMap();
+        var g = PlacementLayer.CampGround(map);
+        var at = Spot(map, "revivim");
+        g.Tokens.Add((at, 300f));
+        var built = SettlementKits.Maabarot(new List<(string id, Vector2 at)> { ("transit_camp_revivim", at) }, g, out var placed)[0];
+        Assert.IsNotNull(built.mesh, "the camp found free ground");
+        Object.DestroyImmediate(built.mesh);
+        Assert.Greater(placed.Count, 0);
+        foreach (var p in placed)
+        {
+            Assert.IsFalse(g.OnToken(p.C, 0f), p.Kind + " on a unit token");
+            if (p.Kind != "tent" && p.Kind != "hut") continue;
+            Assert.IsFalse(g.OnGridMark(p.C, 0f), p.Kind + " on a grid mark");
+            Assert.LessOrEqual(g.Slope(p.C.x, p.C.y, 600f), 0.12f, p.Kind + " on steep ground");
+        }
+    }
+
     /// <summary>Review I2: the populations come from content/map/settlement_population_1945.yaml through the map inputs.</summary>
     [Test]
     public void ThePopulationFileLoadsAndRejectsBadRows()

@@ -65,8 +65,11 @@ namespace Statecraft.Game.Map.Kits
             var rnd = new KitRandom(id, 1);
             float yaw = rnd.Range(0f, 90f), a = yaw * Mathf.Deg2Rad, ca = Mathf.Cos(a), sa = Mathf.Sin(a);
             Vector2 At(float u, float v) => c + new Vector2(u * ca - v * sa, u * sa + v * ca);
+            // As the Bedouin camps' tents (Encampments): off the routes and the units' clearings, the unit tokens, the hex
+            // grid's edge marks and steep ground.
             bool Free(Vector2 p, float r) => ground.Inside(p.x, p.y) && !ground.Water(p.x, p.y) && OffTowns(p, r, ground)
-                && !ground.OnRoute(p, r) && lots.Free(p, r, id, 0);
+                && !ground.OnRoute(p, r) && !ground.OnToken(p, r) && !ground.OnGridMark(p, r) && ground.Slope(p.x, p.y, 600f) <= 0.12f
+                && lots.Free(p, r, id, 0);
             // Huts at an even spread over the plots (a golden-ratio sequence from a seeded phase), not a coin per plot: the
             // camp shows the share asked for, not a lucky draw of it.
             float phase = rnd.Value();
@@ -126,7 +129,7 @@ namespace Statecraft.Game.Map.Kits
             // A water tower at the other end in some camps (the moshavot's, SettlementKits.Landmarks.cs). Its spot moves up to
             // 20 m (house scale) from the one asked for, so that whole reach must be off the towns.
             var tower = At(-((MaabaraCols - 1) * 0.5f * MaabaraPitchU + 10f) * m, 0f);
-            if (rnd.Chance(0.5f) && OffTowns(tower, 20f * m, ground)) WaterTower(id, tower, ground, km, lots);
+            if (rnd.Chance(0.5f) && OffTowns(tower, 20f * m, ground) && !ground.OnToken(tower, 20f * m)) WaterTower(id, tower, ground, km, lots);
             return (tents, huts);
         }
 
@@ -141,8 +144,9 @@ namespace Statecraft.Game.Map.Kits
         }
 
         /// <summary>The camp's centre: the dry spot nearest <paramref name="want"/> (rings of half a reach, out to
-        /// <see cref="MaabaraSearchHexes"/> hexes) whose inner half stays off every town's plots and whose whole reach is
-        /// clear of the camps built before it. False when there is none.</summary>
+        /// <see cref="MaabaraSearchHexes"/> hexes) whose inner half stays off every town's plots, that is gentle and whose
+        /// whole reach is clear of the unit tokens (Encampments' tests) and of the camps built before it. False when there is
+        /// none.</summary>
         static bool MaabaraSpot(Vector2 want, float reach, KitGround ground, Lots lots, out Vector2 at)
         {
             float step = reach * 0.5f, max = ground.HexSizeM * MaabaraSearchHexes;
@@ -153,7 +157,8 @@ namespace Statecraft.Game.Map.Kits
                 {
                     float a = 2f * Mathf.PI * k / around;
                     var p = want + new Vector2(Mathf.Cos(a), Mathf.Sin(a)) * (ring * step);
-                    if (!ground.Inside(p.x, p.y) || ground.Water(p.x, p.y) || !OffTowns(p, step, ground) || !lots.Free(p, reach)) continue;
+                    if (!ground.Inside(p.x, p.y) || ground.Water(p.x, p.y) || !OffTowns(p, step, ground) || ground.Slope(p.x, p.y, 600f) > 0.12f
+                        || ground.OnToken(p, reach) || !lots.Free(p, reach)) continue;
                     at = p; return true;
                 }
             }
