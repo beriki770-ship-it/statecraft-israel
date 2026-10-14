@@ -25,7 +25,7 @@ REBAKE = "run uv run tools/route_paths_bake.py"
 
 # The fingerprint of the readers (code_fingerprint). Re-pin only after RoutePathsRuntimeTests passes in Unity, with
 # RoutePaths.RuntimeVersion and route_paths_bake.VERSION bumped together if the runtime layout changed.
-PINNED_CODE = "f9da682e3e2e337cde4aa253735841e28cb6441afaadbfe004ff98cf2ac33ea4"
+PINNED_CODE = "a7cc9cf147bca7ec7bcf3a769fd86550bd4a92bbcfeea98ab0f74e60908fca00"
 
 
 def member(text: str, signature: str) -> str:
@@ -49,6 +49,8 @@ def code_fingerprint() -> str:
         member(paths, "public sealed class RoutePath\n"),
         member(paths, "public static List<RoutePath> ReadRuntimeOrYaml("),
         member(paths, "public static List<RoutePath> ParseRuntime("),
+        member(paths, "static RoutePathFile RuntimeDoc("),
+        member(paths, "public static int BodyCheck("),
         member(paths, "static (int version, int check, List<RoutePath> routes) RuntimeRows("),
         member(paths, "public static List<RoutePath> Parse("),
         member(paths, "static List<RoutePath> Validate("),
@@ -77,3 +79,15 @@ def test_the_check_is_the_ribbon_bakes():
     """The runtime file's yaml_check is the same FNV-1a the ribbon bake's header holds for the YAML."""
     from test_route_ribbon_bake import text_check
     assert bake.yaml_check(bake.SOURCE.read_bytes()) == text_check(bake.SOURCE)
+
+
+def test_the_file_ends_with_its_body_check():
+    """The last row is body_check over the route rows (review of #547, S1): a file cut anywhere, even inside a number,
+    loses it or no longer matches it, and RoutePaths.RuntimeRows refuses it."""
+    lines = bake.RUNTIME.read_text(encoding="utf-8").rstrip("\n").split("\n")
+    kind, name, value = lines[-1].split("\t")
+    assert (kind, name) == ("meta", "body_check")
+    rows = [line for line in lines if line.startswith("route\t")]
+    assert int(value) == bake.body_check(rows)
+    cut = rows[-1][:-1]                                       # the last number a digit short
+    assert bake.body_check(rows[:-1] + [cut]) != int(value)

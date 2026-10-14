@@ -266,10 +266,12 @@ measurement in `docs/units.md`:
 
 **Runtime form** (issue #321). Boot reads the traced lines from `content/map/route_paths_1948.tsv` instead of parsing
 the YAML (about 125 ms at `--cpu 4`), as the localities do since #291.
-- `tools/route_paths_bake.py` writes it: one row per route, its points in one field, the layout's version and the
-  YAML's FNV-1a check (the same check the ribbon bake's header holds).
-- The YAML still ships. When the runtime file is missing, of another version or made from another YAML, the map reads
-  the YAML with a warning (`...; reading the YAML`): the same routes, only slower.
+- `tools/route_paths_bake.py` writes it: one row per route, its points in one field, the layout's version, the YAML's
+  FNV-1a check (the same check the ribbon bake's header holds), the counts of routes and points, and a last
+  `body_check` row (FNV-1a over the route rows).
+- The YAML still ships. When the runtime file is missing, of another version, made from another YAML, cut short (even
+  inside a number) or edited by hand, the map reads the YAML with a warning (`...; reading the YAML`): the same routes,
+  only slower.
 - Rerun `uv run tools/route_paths_bake.py` after `tools/routes_1948.py` rewrites the YAML. `test_route_paths_bake.py`
   fails a stale file and pins a fingerprint of the C# readers; Unity's `RoutePathsRuntimeTests` compares every route
   and point with the YAML's.

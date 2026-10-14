@@ -15,9 +15,13 @@ with a warning, when either does not match. Rows, tab-separated:
   meta   yaml_check  <signed int32>
   meta   routes      <number of route rows>
   route  id kind status from to length_km on_symbol max_gap_m point_count points
+  ...
+  meta   body_check  <signed int32>   (the last row)
 
 `to` is empty when the route has no end; `points` is "lon lat" pairs joined by ';', each number as Python's shortest
-round-trip form of the YAML's value. The counts make a file cut short an error, not fewer routes or points. Lines starting with '#' are comments. No field may hold a tab or a line break.
+round-trip form of the YAML's value. `body_check` is FNV-1a over the UTF-8 bytes of every route row, each with its
+'\n', in order. The reader requires it as the last row and recomputes it, so a file cut anywhere (even inside a
+number, review of #547) or edited by hand is refused; the counts give the clearer message for a lost row or point. Lines starting with '#' are comments. No field may hold a tab or a line break.
 
 Usage: uv run tools/route_paths_bake.py [--check]
 --check exits 1 when the committed runtime file differs from a fresh bake (pytest runs the same comparison:
@@ -33,7 +37,7 @@ import yaml
 ROOT = Path(__file__).resolve().parents[1]
 SOURCE = ROOT / "content" / "map" / "route_paths_1948.yaml"
 RUNTIME = ROOT / "content" / "map" / "route_paths_1948.tsv"
-VERSION = 1   # RoutePaths.RuntimeVersion
+VERSION = 2   # RoutePaths.RuntimeVersion (2: the body_check row, review of #547)
 COLUMNS = ["route", "id", "kind", "status", "from", "to", "length_km", "on_symbol", "max_gap_m", "point_count", "points"]
 
 
@@ -43,6 +47,11 @@ def yaml_check(data: bytes) -> int:
     for b in data:
         h = ((h ^ b) * 16777619) & 0xFFFFFFFF
     return struct.unpack("<i", struct.pack("<I", h))[0]
+
+
+def body_check(rows: list[str]) -> int:
+    """RoutePaths.BodyCheck: FNV-1a over the route rows' UTF-8 bytes, each followed by '\n', as a signed int32."""
+    return yaml_check("".join(r + "\n" for r in rows).encode("utf-8"))
 
 
 def _number(value, where: str) -> str:
@@ -69,12 +78,15 @@ def bake(data: bytes) -> str:
         f"meta\tyaml_check\t{yaml_check(data)}",
         f"meta\troutes\t{len(doc['routes'])}",
     ]
+    rows = []
     for r in doc["routes"]:
         where = f"route '{r.get('id')}'"
         points = ";".join(f"{_number(p[0], where)} {_number(p[1], where)}" for p in r["points"])
         row = ["route", r["id"], r["kind"], r["status"], r["from"], r.get("to") or "", _number(r["length_km"], where),
                _number(r["on_symbol"], where), _number(r["max_gap_m"], where), str(len(r["points"]))]
-        out.append("\t".join(_field(v, where) for v in row) + "\t" + points)
+        rows.append("\t".join(_field(v, where) for v in row) + "\t" + points)
+    out += rows
+    out.append(f"meta\tbody_check\t{body_check(rows)}")
     return "\n".join(out) + "\n"
 
 

@@ -15,6 +15,7 @@ using UnityEngine.TestTools;
 /// its version) is refused with a warning and the YAML is read instead.</summary>
 public class RoutePathsRuntimeTests
 {
+
     static MapInputs Inputs() => GameInputs.MapFromDisk(Paths.Content, Paths.StreamingMap);
 
     static (double, double, double, double) Bounds()
@@ -68,10 +69,19 @@ public class RoutePathsRuntimeTests
         string badRow = inputs.RoutesTsv.Replace("\trail\t", "\tcanal\t");
         string cutRow = inputs.RoutesTsv.Substring(0, inputs.RoutesTsv.LastIndexOf(';'));
         string lastRowGone = inputs.RoutesTsv.Substring(0, inputs.RoutesTsv.TrimEnd('\n').LastIndexOf('\n') + 1);
+        // Review of #547, S1: a file cut inside a number. The last route row's last number loses its last digit, with the
+        // file ending there (a cut download) or with the rows after it intact; and the file loses its last two bytes.
+        int lastRoute = inputs.RoutesTsv.LastIndexOf("\nroute\t") + 1;
+        int lastRouteEnd = inputs.RoutesTsv.IndexOf('\n', lastRoute);
+        string cutMidNumber = inputs.RoutesTsv.Substring(0, lastRouteEnd - 1);
+        string shortNumber = inputs.RoutesTsv.Remove(lastRouteEnd - 1, 1);
+        string twoBytesOff = inputs.RoutesTsv.Substring(0, inputs.RoutesTsv.Length - 2);
         foreach (var (tsv, yaml, why) in new[]
         {
             (inputs.RoutesTsv, otherYaml, "made from another YAML"), (otherVersion, inputs.RoutesYaml, "version"),
-            (badRow, inputs.RoutesYaml, "unknown kind"), (cutRow, inputs.RoutesYaml, "a point cut short"), (lastRowGone, inputs.RoutesYaml, "a route row cut off"), ("", inputs.RoutesYaml, "missing"),
+            (badRow, inputs.RoutesYaml, "unknown kind"), (cutRow, inputs.RoutesYaml, "a point cut short"), (lastRowGone, inputs.RoutesYaml, "a route row cut off"),
+            (cutMidNumber, inputs.RoutesYaml, "cut inside the last number"), (shortNumber, inputs.RoutesYaml, "one number a digit short"),
+            (twoBytesOff, inputs.RoutesYaml, "two bytes off the end"), ("", inputs.RoutesYaml, "missing"),
         })
         {
             var warnings = new List<string>();
@@ -80,6 +90,22 @@ public class RoutePathsRuntimeTests
             StringAssert.Contains("reading the YAML", warnings[0], why);
             Assert.AreEqual(expected, routes.Count, why);
         }
+    }
+
+    /// <summary>Review of #547, N1: one cause, one warning. With both files missing, only the YAML's own warning; with a
+    /// runtime file that matches the YAML but fails the reader's checks (here every point is outside the bounds), one
+    /// warning and no routes, without parsing the YAML only to fail the same way.</summary>
+    [Test]
+    public void OneCauseGivesOneWarning()
+    {
+        var inputs = Inputs();
+        var warnings = new List<string>();
+        CollectionAssert.IsEmpty(RoutePaths.ReadRuntimeOrYaml("", "", Bounds(), warnings.Add));
+        Assert.AreEqual(1, warnings.Count, string.Join(" | ", warnings));
+        warnings.Clear();
+        CollectionAssert.IsEmpty(RoutePaths.ReadRuntimeOrYaml(inputs.RoutesTsv, inputs.RoutesYaml, (0.0, 1.0, 0.0, 1.0), warnings.Add));
+        Assert.AreEqual(1, warnings.Count, string.Join(" | ", warnings));
+        StringAssert.Contains("outside the map", warnings[0]);
     }
 
     /// <summary>A malformed row is an error naming the file and its line, as the localities' runtime file.</summary>

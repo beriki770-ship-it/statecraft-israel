@@ -54,7 +54,7 @@ namespace Statecraft.Game.Map.Routes
         public const string RuntimeFileName = "route_paths_1948.tsv";
         /// <summary>Bump it, with tools/route_paths_bake.py's VERSION, when the runtime file's layout or its reading
         /// (ParseRuntime, RuntimeRows) changes; tools/tests/test_route_paths_bake.py pins a fingerprint of that code.</summary>
-        public const int RuntimeVersion = 1;
+        public const int RuntimeVersion = 2;   // 2: the body_check row (review of #547)
         public const string Rail = "rail", Road = "road", Track = "track";
         static readonly HashSet<string> Kinds = new HashSet<string> { Rail, Road, Track };
         static readonly Regex IdRule = new Regex(@"^[a-z][a-z0-9_]*\z");
@@ -91,10 +91,15 @@ namespace Statecraft.Game.Map.Routes
         public static List<RoutePath> ReadRuntimeOrYaml(string? tsv, string? yaml, (double lon0, double lon1, double lat0, double lat1)? bounds,
             Action<string> warn)
         {
-            if (string.IsNullOrWhiteSpace(tsv)) { warn($"{RuntimeFileName}: missing; reading the YAML"); return ReadOrNone(yaml, bounds, warn); }
+            // One cause, one warning (review of #547, N1): with no YAML, only its own warning.
             if (string.IsNullOrWhiteSpace(yaml)) return ReadOrNone(yaml, bounds, warn);
-            try { return ParseRuntime(tsv!, yaml!, bounds, warn); }
+            if (string.IsNullOrWhiteSpace(tsv)) { warn($"{RuntimeFileName}: missing; reading the YAML"); return ReadOrNone(yaml, bounds, warn); }
+            RoutePathFile doc;
+            try { doc = RuntimeDoc(tsv!, yaml!, RuntimeFileName); }
             catch (InvalidDataException e) { warn($"{e.Message}; reading the YAML"); return ReadOrNone(yaml, bounds, warn); }
+            // The file is this YAML's bake, so the YAML would fail the checks the same way: no second parse.
+            try { return Validate(doc, bounds, RuntimeFileName, warn); }
+            catch (InvalidDataException e) { warn($"{e.Message}; the map draws no railways or roads"); return new List<RoutePath>(); }
         }
 
         /// <summary>Parses the runtime file with the same checks as <see cref="Parse"/>. Throws InvalidDataException naming
@@ -103,16 +108,37 @@ namespace Statecraft.Game.Map.Routes
         public static List<RoutePath> ParseRuntime(string tsv, string yaml, (double lon0, double lon1, double lat0, double lat1)? bounds = null,
             Action<string>? skipBadWindow = null, string file = RuntimeFileName)
         {
+            return Validate(RuntimeDoc(tsv, yaml, file), bounds, file, skipBadWindow);
+        }
+
+        /// <summary>The runtime file's routes before the reader's checks; throws when it is of another version, made from
+        /// another YAML, cut short or malformed.</summary>
+        static RoutePathFile RuntimeDoc(string tsv, string yaml, string file)
+        {
             var (version, check, routes) = RuntimeRows(tsv, file);
             if (version != RuntimeVersion) throw new InvalidDataException($"{file}: version {version}, this build reads {RuntimeVersion} (re-bake: tools/route_paths_bake.py)");
             if (check != RouteRibbonFile.Check(yaml)) throw new InvalidDataException($"{file}: made from another {DefaultFileName} (re-bake: tools/route_paths_bake.py)");
-            return Validate(new RoutePathFile { Routes = routes }, bounds, file, skipBadWindow);
+            return new RoutePathFile { Routes = routes };
+        }
+
+        /// <summary>The runtime file's body_check: FNV-1a over the UTF-8 bytes of its route rows, each followed by '\n', in
+        /// order (tools/route_paths_bake.py's body_check).</summary>
+        public static int BodyCheck(IEnumerable<string> routeRows)
+        {
+            uint h = 2166136261;
+            foreach (var row in routeRows)
+            {
+                foreach (var b in System.Text.Encoding.UTF8.GetBytes(row)) { h ^= b; h *= 16777619; }
+                h ^= (byte)'\n'; h *= 16777619;
+            }
+            return (int)h;
         }
 
         static (int version, int check, List<RoutePath> routes) RuntimeRows(string tsv, string file)
         {
-            int? version = null, check = null, count = null;
+            int? version = null, check = null, count = null, body = null;
             var routes = new List<RoutePath>();
+            var rows = new List<string>();
             var lines = tsv.Split('\n');
             double Num(string text, string what, int line) =>
                 double.TryParse(text, NumberStyles.Float, CultureInfo.InvariantCulture, out var v)
@@ -125,13 +151,16 @@ namespace Statecraft.Game.Map.Routes
                 var text = lines[i].TrimEnd('\r');
                 if (text.Length == 0 || text[0] == '#') continue;
                 int line = i + 1;
+                if (body != null) throw new InvalidDataException($"{file}:{line}: a row after body_check, which must be the last");
                 var c = text.Split('\t');
-                if (c[0] == "meta" && c.Length == 3 && c[1] == "version") version = Int(c[2], "version", line);
+                if (c[0] == "meta" && c.Length == 3 && c[1] == "body_check") body = Int(c[2], "body_check", line);
+                else if (c[0] == "meta" && c.Length == 3 && c[1] == "version") version = Int(c[2], "version", line);
                 else if (c[0] == "meta" && c.Length == 3 && c[1] == "yaml_check") check = Int(c[2], "yaml_check", line);
                 else if (c[0] == "meta" && c.Length == 3 && c[1] == "routes") count = Int(c[2], "routes", line);
                 else if (c[0] == "route")
                 {
                     if (c.Length != 11) throw new InvalidDataException($"{file}:{line}: a route row has {c.Length} fields, not 11");
+                    rows.Add(text);
                     var pairs = c[10].Split(';');
                     if (pairs.Length != Int(c[9], "point_count", line))
                         throw new InvalidDataException($"{file}:{line}: {pairs.Length} points, the row says {c[9]}");
@@ -152,6 +181,9 @@ namespace Statecraft.Game.Map.Routes
                 else throw new InvalidDataException($"{file}:{line}: unknown row '{c[0]}'");
             }
             if (version == null || check == null || count == null) throw new InvalidDataException($"{file}: no version, yaml_check or routes row");
+            // A file cut anywhere, even inside a number, loses the last row or no longer matches it (review of #547, S1).
+            if (body == null) throw new InvalidDataException($"{file}: no body_check row at the end (cut short?)");
+            if (body != BodyCheck(rows)) throw new InvalidDataException($"{file}: the route rows do not match body_check (cut short or edited?)");
             if (routes.Count != count) throw new InvalidDataException($"{file}: {routes.Count} routes, the file says {count}");
             return (version.Value, check.Value, routes);
         }
