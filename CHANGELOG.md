@@ -250,6 +250,12 @@ adds a line under **Unreleased**; CI's `Changelog` job checks this (see `CONTRIB
   +0.9 ms at the gameplay zoom), not yet on an idle one.
 
 ### Changed
+- Decision videos (refs #434): the clips no longer carry the burned-in "AI-generated · נוצר בבינה מלאכותית" caption.
+  Owner ruling of 14 October 2026, relayed by the coordinator: "the 3 ilustration clips are great but no need to say
+  there were created by ai". All 14 clips were re-encoded from their promo shots (each checked by SHA-256) with the same
+  encode otherwise; the card still says "AI-generated illustration" while a clip plays, every row keeps
+  `ai_generated: true`, and the Dreamina shots keep their own "AI" badge. The owner also reviewed the three sensitive
+  clips (operation_yoav, ten_days, the operation_horev outcome), so a shareable build may carry them. No golden moves.
 - CI checks the water and route-ribbon bakes against the code that makes them (#535), as it does the biome colours'
   (#529): a pinned fingerprint of `MapBuilder.WaterMeshGrid` and of `RouteLayer.Plan` and `Derive`, and a numpy port of
   the water mesh. Doc comments in `MapBuilder`, `RouteLayer` and `RouteRibbonFile` point to the checks. No change in the
