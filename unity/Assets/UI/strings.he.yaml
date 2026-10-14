@@ -1,5 +1,5 @@
-# Hebrew UI translation data for #12, not yet loaded by the game. Runtime language switch, Hebrew font and
-# Advanced Text Generator/RTL mixed-direction layout need Unity review before enabling this file.
+# UI strings (Hebrew, #12). GameRoot loads them in place of strings.en.yaml only when Hebrew is asked for by hand
+# ("?lang=he" on the web, "-lang he" on the desktop; UiLanguage, #193); there is no visible switch yet.
 # Keep logical Hebrew order, never reverse strings. Exact string.Format tokens match strings.en.yaml;
 # dates, money, names and content still arrive from the current English content/PlayerText paths.
 hud.turn: "תור {0}"

@@ -16,13 +16,15 @@ case "$zip_path" in /*) ;; *) zip_path="$PWD/$zip_path" ;; esac
 mkdir -p "$build/LICENSES"
 cp "$root/LICENSE" "$root/NOTICE" "$root/THIRD-PARTY-NOTICES.md" "$build/"
 cp "$root/LICENSES/"*.txt "$build/LICENSES/"
-cp "$root/unity/Assets/UI/Fonts/OFL.txt" "$build/OFL.txt"
+# Each font's own OFL text travels with it (its copyright line differs), under the names site/public/fonts uses.
+cp "$root/unity/Assets/UI/Fonts/OFL.txt" "$build/OFL-EBGaramond.txt"
+cp "$root/unity/Assets/UI/Fonts/FrankRuhlLibre/OFL.txt" "$build/OFL-FrankRuhlLibre.txt"
 
 rm -f "$zip_path"   # a refusal must not leave an earlier zip behind
 python3 "$packager" --build "$build" --zip "$zip_path"
 
 listing="$(unzip -Z1 "$zip_path")"
-for f in LICENSE NOTICE THIRD-PARTY-NOTICES.md OFL.txt LICENSES/CC-BY-4.0.txt LICENSES/CC-BY-SA-4.0.txt \
+for f in LICENSE NOTICE THIRD-PARTY-NOTICES.md OFL-EBGaramond.txt OFL-FrankRuhlLibre.txt LICENSES/CC-BY-4.0.txt LICENSES/CC-BY-SA-4.0.txt \
          LICENSES/CC0-1.0.txt LICENSES/YamlDotNet-MIT.txt index.html; do
   printf '%s\n' "$listing" | grep -qxF "$f" || { echo "MISSING in zip: $f"; rm -f "$zip_path"; exit 1; }
 done

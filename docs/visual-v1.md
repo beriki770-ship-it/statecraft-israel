@@ -2586,3 +2586,38 @@ The biome phase went from about 440 ms to 120 ms (82-88 terrain object, 38-41 th
   population, routes, unit clearings, the `?kitscale` flags fall back). About 300-400 ms, medium risk (many inputs).
   Without a bake, the hill scatter's per-cell checks could be reordered for 10-20 ms with the same trees.
 - `heightmap decoded` (about 190 ms): smaller, untested.
+
+### #321 round 2: the units' step (T47)
+
+The `units placed` span #529 uncovered, split by four more `?bootlog` markers. Branch build with the markers only, one
+`--exclusive` run of 3 cold loads at `--cpu 4`, median ms: `route paths read` 127, `route corridors` 8, `footprints` 3,
+`unit data read` 51, `units placed` (now the unit spots alone: `UnitGround` and `UnitPlacer.PlaceAll`) 184.
+
+- **Route paths** (127 ms): YamlDotNet over route_paths_1948.yaml's 1,544 points. `tools/route_paths_bake.py` writes
+  `content/map/route_paths_1948.tsv` (29 KB: one row per route, its points in one field, the version, the YAML's FNV-1a
+  check, the counts of routes and points, and a last `body_check` row, FNV-1a over the route rows), and
+  `RoutePaths.ParseRuntime` reads it with the YAML reader's checks. The YAML still ships (WebGL now fetches both: 29 KB
+  more). A runtime file that is missing, of another version, made from another YAML, cut anywhere (even inside a
+  number: the review of #547 found that version 1's counts missed that case, so version 2 adds `body_check`) or edited
+  by hand is refused with a warning and the YAML is read. CI: `test_route_paths_bake.py` fails a stale file and pins a fingerprint
+  of the C# readers; Unity's `RoutePathsRuntimeTests` compares every route and point bit for bit.
+- **Unit spots** (184 ms): `UnitPlacer.PlaceAll` made every hex's candidate spots (19 a hex in the compact rounds, with
+  their trigonometry) for each anchor and round, then dropped all but the seven hexes within its one-hex limit. It now
+  lists those seven first and makes only their candidates, in the same order. `UnitPlacerSpeedTests` keeps the old
+  algorithm verbatim and gets exactly its spots and skips on four grounds, from all clear to none clear.
+- **Not changed:** `unit data read` (about 35-51 ms; the unit YAML is also read again by `GameRoot`), the corridors and
+  the footprints.
+
+Base `abe2263` against the branch, ABBA under one `--exclusive` hold (machine load 3.7-4.6), median of 3 each:
+
+| | base round 1 | branch round 1 | branch round 2 | base round 2 |
+|---|---|---|---|---|
+| `map_build_ms` | 2507 | 2214 | 2196 | 2379 |
+| units' span (base: `units placed`; branch: its five phases) | 315 | 90 | 91 | 291 |
+| `start screen shown` | 576 | 427 | 426 | 528 |
+| `first_frame_ms` | 9165 | 8249 | 8217 | 8351 |
+
+The units' span goes from about 300 to 90 ms. The map build is at least 165 ms shorter: the closest base and branch
+rounds differ by 165 ms, and the two base rounds spread by 128 ms, so the mean difference (about 240 ms) is not a firm
+figure.
+`start screen shown` falls by about 120 ms, since the units layer places the tokens again there.

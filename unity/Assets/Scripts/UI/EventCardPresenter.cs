@@ -359,11 +359,17 @@ namespace Statecraft.Game.UI
         public string? PhotoAlt { get; private set; }
 
         /// <summary>The round sign in an option's left padding (Statecraft.uss .event-option), painted into the button so it
-        /// stays a leaf whose wrapped text Yoga measures (UiIcon.Paint).</summary>
+        /// stays a leaf whose wrapped text Yoga measures (UiIcon.Paint). In the Hebrew UI it sits in the right padding and
+        /// points left (#193).</summary>
         const float SignRadius = 15f, SignLeft = 9f;
 
-        static void PaintSign(MeshGenerationContext m) =>
-            UiIcon.PaintDisc(m, "chevron", new UnityEngine.Vector2(SignLeft + SignRadius, m.visualElement.layout.height / 2f), SignRadius);
+        static void PaintSign(MeshGenerationContext m)
+        {
+            var e = m.visualElement;
+            bool rtl = UiLanguage.Within(e);
+            var x = rtl ? e.layout.width - SignLeft - SignRadius : SignLeft + SignRadius;
+            UiIcon.PaintDisc(m, rtl ? "chevron-back" : "chevron", new UnityEngine.Vector2(x, e.layout.height / 2f), SignRadius);
+        }
 
         void Choose(GameEvent e, EventOption o)
         {

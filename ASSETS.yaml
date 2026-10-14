@@ -192,6 +192,10 @@ rules:
     source: "Railways and main roads of May 1948 (issue #35): traced by tools/routes_1948.py on the Survey of Palestine 1:250,000 map of 1946 (public domain; scans and georeferencing by Palestine Open Maps, https://palopenmaps.org/en/maps?basemap=pal250k1946) between waypoints at Wikipedia API (CC BY-SA) and Wikidata (CC0) coordinates; per-route sources and check dates in routes_1948.yaml"
     status: verified
     note: "Public domain checked 2026-10-11: PD-UKGov (expired Crown copyright: 50 years from publication for published works, which HMSO treats as worldwide) and PD-scan, as Wikimedia Commons files the 1946 Survey of Palestine sheets (e.g. https://commons.wikimedia.org/wiki/File:Gaza_sh._04,_1946.jpg). Palestine Open Maps' About page calls its maps public domain under the UK Copyright, Designs and Patents Act and publishes no terms of its own for its tiles or georeferencing; the traced lines are our own derivative and copy none of its layers. No OpenStreetMap (ODbL) geometry is copied: OSM and OpenHistoricalMap lines are only measured against (tools/routes_accuracy.py, docs/routes.md)."
+  - glob: "content/map/route_paths_1948.tsv"
+    licence: CC-BY-SA-4.0
+    source: "The baked runtime form of content/map/route_paths_1948.yaml (tools/route_paths_bake.py, issue #321): the same routes and points, with the YAML's check and the counts; no new facts. Sources as for the YAML above"
+    status: verified
   - glob: "unity/Assets/Resources/Routes/RouteRibbons.bytes"
     licence: CC-BY-SA-4.0
     source: "The route ribbons' meshes (issue #321), baked by Editor RouteRibbonBake from content/map/route_paths_1948.yaml (the traced lines above) draped on the Copernicus DEM GLO-30-derived heightmap (unity/Assets/StreamingAssets/map/heightmap.*); no new facts; attribution in NOTICE"

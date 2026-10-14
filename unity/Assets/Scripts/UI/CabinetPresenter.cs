@@ -46,6 +46,7 @@ namespace Statecraft.Game.UI
             list = screen.Q<ScrollView>("cabinet-seats"); candidates = screen.Q<ScrollView>("cabinet-candidates");
             pmOffices = screen.Q<VisualElement>("cabinet-pm-offices"); chips = screen.Q<VisualElement>("cabinet-parties");
             hemicycle = screen.Q<Hemicycle>("cabinet-hemicycle");
+            hemicycle.Mirrored = text["ui.lang"] == UiLanguage.Hebrew;   // the coalition from the right in a right-to-left UI
             onPm = () => Select(PrimeMinister);
             pmCard.clicked += onPm;
             onPmGeometry = _ => FramePm();

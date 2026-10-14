@@ -107,6 +107,7 @@ namespace Statecraft.Game.UI
             row.AddToClassList("row");
             var name = new Label { name = "budget-" + office + "-name" };
             name.AddToClassList("grow");
+            name.AddToClassList("budget-office");   // wraps in its column, so a long office never widens the row
             row.Add(name);
             row.Add(new Button(() => Change(office, -Step)) { name = "budget-" + office + "-down", text = "-" });
             row.Add(new Label { name = "budget-" + office + "-share" });

@@ -51,9 +51,41 @@ GitHub Releases page (and, from M4, on itch.io). Steps 1–3 are a normal pull r
    ```
 
    Paste the SHA-256 from step 5 into the release notes.
-7. **Check every published artefact:** download each uploaded zip (GitHub Releases, and itch.io once used) into an empty
-   folder, then run `unzip -Z1 <zip> | grep -E '^(LICENSE|NOTICE|THIRD-PARTY-NOTICES.md|OFL.txt)$'`. It must print four
-   lines for each zip.
+7. **Check every published artefact:** download each uploaded archive (GitHub Releases, and itch.io once used) into an
+   empty folder, then list it and look for the notices: for a `.zip` (the web zip, the macOS and Windows players),
+   `unzip -Z1 <zip> | grep -E '^(LICENSE|NOTICE|THIRD-PARTY-NOTICES.md|OFL-EBGaramond.txt|OFL-FrankRuhlLibre.txt)$'`;
+   for the Linux `.tar.gz`,
+   `tar -tzf <archive> | grep -E '^(\./)?(LICENSE|NOTICE|THIRD-PARTY-NOTICES.md|OFL-EBGaramond.txt|OFL-FrankRuhlLibre.txt)$'`.
+   It must print five lines for each archive.
+
+## Desktop builds (macOS, Linux, Windows)
+
+Desktop players are built on the owner's Mac (decisions O7 and O8 in `docs/oss/DECISIONS.md`; plan in
+`docs/superpowers/specs/2026-10-14-desktop-builds-and-release-pipeline.md`). On the merged `main`, after the tag
+(step 6's `git tag -a vX.Y.Z`, not yet pushed if you like) is on `HEAD`:
+
+```bash
+uv run tools/release_build.py --platform all --tag vX.Y.Z   # or mac, linux, windows; --dry-run prints the commands
+```
+
+Before building anything it refuses: a dirty tree; a branch other than `main`, or a `HEAD` that your last
+`git fetch origin` did not show on `origin/main` (the script never fetches); a tag that is not `v` plus `bundleVersion`
+(a `-suffix` is allowed; it is the default) or does not point at `HEAD`; an editor whose version is not the one in `ProjectVersion.txt`; an
+`--out` inside any checkout or worktree of the repository (ignored folders too: a build empties
+`StreamingAssets/content`), or one that is not empty. It also stops if Unity Hub lacks a module the platforms need: Mac
+Build Support (IL2CPP), Linux Build Support (Mono) or Windows Build Support (Mono); the message names them and gives the
+Hub command. `--dev` makes a test build from any branch: not `-shareable`, no `--tag`, and archives named
+`vX.Y.Z-dev.<commit>` so they cannot pass for a release.
+
+Each build runs under `tools/machine_lock.py --shared --wait-unity`. The script runs the `-golden` check on the macOS
+player, the only one the Mac can run; the Linux and Windows players are recorded as unchecked until the CI player check
+runs them. It archives each player under the names that check expects (`statecraft-israel-vX.Y.Z-macos-universal.zip`,
+made with `ditto`; `-linux-x64.tar.gz`; `-windows-x64.zip`), each with `LICENSE`, `NOTICE`, `THIRD-PARTY-NOTICES.md`, the two font
+licences (`OFL-EBGaramond.txt`, `OFL-FrankRuhlLibre.txt`) and `LICENSES/` beside the player (it lists the archive to check), and writes `build-record.json`, `build-record.md`, a
+`files-<platform>.sha256` list of each archive's files and the build's `event-photos-<platform>.json` to
+`~/statecraft-release/v<version>-<commit>-<UTC time>/` (or `--out`), and prints the path. It never commits, pushes or
+uploads: copy the record files to the build records repository by hand. Signing and Steam upload are later steps, not yet
+scripted.
 
 ## Refreshing the README screenshots
 

@@ -132,7 +132,8 @@ namespace Statecraft.Game.UI
         static void PaintHourglass(MeshGenerationContext m)
         {
             if (!m.visualElement.enabledInHierarchy) return;   // no bright sign on a disabled End Turn (game over)
-            UiIcon.Paint(m, "hourglass", new UnityEngine.Rect(10f, (m.visualElement.layout.height - 22f) / 2f, 22f, 22f), UiIcon.IsFocused(m.visualElement));
+            UiIcon.Paint(m, "hourglass", new UnityEngine.Rect(UiLanguage.Within(m.visualElement) ? m.visualElement.layout.width - 32f : 10f,
+                (m.visualElement.layout.height - 22f) / 2f, 22f, 22f), UiIcon.IsFocused(m.visualElement));   // the right side in Hebrew (#193)
         }
 
         void Set(string name, string value) => root.Q<Label>(name).text = value;

@@ -18,6 +18,9 @@ Offline data tools (uv inline-script Python). Run from the repo root.
   into `tools/.cache/pal250k-1946/`, not committed): it reads the hand-written routes, sources and waypoints in
   `content/map/routes_1948.yaml` and writes the traced lines to `content/map/route_paths_1948.yaml` (committed; the map
   draws it, the sim never reads it). `--preview` writes each traced segment over the map for checking by eye.
+- `route_paths_bake.py [--check]` bakes `content/map/route_paths_1948.yaml` into `content/map/route_paths_1948.tsv`
+  (committed), the compact runtime form the map reads at boot (issue #321). Rerun it after `routes_1948.py`:
+  `test_route_paths_bake.py` fails a stale bake, and `--check` does the same.
 - `localities_bake.py [--check]` bakes `content/map/localities_1948.yaml` (the sourced 1948 localities, edited by hand)
   into `content/map/localities_1948.tsv` (committed), the compact runtime form the map reads at boot. Rerun it after
   editing the YAML: `test_localities.py` fails a stale bake, and `--check` does the same.
@@ -30,6 +33,10 @@ Offline data tools (uv inline-script Python). Run from the repo root.
   (exit 1) until every sensitive event is `sensitivity-reviewed` (docs/m3-release.md). The files under `Build/` are
   named by their content hash (issue #437); it reads their names from the build's `index.html`, zips only those and
   refuses a build that is missing one.
+- `release_build.py [--platform mac|linux|windows|all] [--out DIR] [--tag vX.Y.Z] [--dev] [--dry-run] [--unity PATH]`
+  builds the desktop players under the machine lock, runs the macOS player's golden check and writes a build record
+  outside every checkout (`docs/RELEASING.md`, "Desktop builds"). A release must be `main` at its tag; `--dev` builds
+  anywhere under a `-dev.<commit>` name. It never commits, pushes or uploads.
 - `preview_map.py` renders the geography check image `tools/.cache/map-preview.png`.
 - `terrain_bake.py` writes `unity/Assets/Textures/Map/terrain_bake.png` (AO, curvature, sky-view), `ao.png` (the AO
   alone, imported uncompressed) and `coast.png`
