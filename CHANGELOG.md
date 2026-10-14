@@ -54,6 +54,11 @@ adds a line under **Unreleased**; CI's `Changelog` job checks this (see `CONTRIB
   text the direction of its own words (dates, money and names are still English, #55), and mirrors the layout: rows,
   bars, the hemicycle, the option signs and End Turn's hourglass. English stays the default and has no visible switch.
   A long Budget office name now wraps in its column, so no row is wider than the screen.
+- The Hebrew UI preview translates the texts `Game.uxml` wrote in English (refs #193): the top bar's captions (the same
+  words as their tooltips), screen buttons, New Game and End Turn; the screen titles; the Budget and Defence buttons; the
+  draft mark; the loading line; and the start screen's source line, recording credit and buttons. The game's name and the
+  Declaration's official English stay as they are. A seat count says "חברים" for the appointed Provisional State Council
+  and "מנדטים" for the Knesset. "כישורים" for competence and "המצב הביטחוני" for the ladder. English is unchanged.
 - Decision videos, phase 2 (#434 follow-up). On 11 decision cards an Illustration switch over the photograph plays a
   short, silent AI-generated loop. It is labelled "AI-generated illustration" in place of the credit and carries a small
   burned-in bilingual label. The photograph always shows first; nothing plays until the player asks, and the choice holds
