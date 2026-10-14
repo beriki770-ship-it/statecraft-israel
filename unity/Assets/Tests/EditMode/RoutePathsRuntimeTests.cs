@@ -1,11 +1,14 @@
 #nullable enable
 using System.Collections.Generic;
+using System.Globalization;
 using System.IO;
+using System.Linq;
 using NUnit.Framework;
 using Statecraft.Game;
 using Statecraft.Game.Boot;
 using Statecraft.Game.Map;
 using Statecraft.Game.Map.Routes;
+using UnityEditor.SceneManagement;
 using UnityEngine;
 using UnityEngine.TestTools;
 
@@ -15,6 +18,8 @@ using UnityEngine.TestTools;
 /// its version) is refused with a warning and the YAML is read instead.</summary>
 public class RoutePathsRuntimeTests
 {
+    [TearDown]
+    public void Reset() { EditorSceneManager.NewScene(NewSceneSetup.EmptyScene, NewSceneMode.Single); VisualToggles.Clear(); }
 
     static MapInputs Inputs() => GameInputs.MapFromDisk(Paths.Content, Paths.StreamingMap);
 
@@ -55,6 +60,38 @@ public class RoutePathsRuntimeTests
         var routes = RoutePaths.ReadRuntimeOrYaml(inputs.RoutesTsv, inputs.RoutesYaml, Bounds(), warnings.Add);
         CollectionAssert.IsEmpty(warnings);
         Assert.AreEqual(RoutePaths.Parse(inputs.RoutesYaml, Bounds()).Count, routes.Count);
+    }
+
+    /// <summary>Review of #547, S2: the map scene itself reads the runtime file, not only ReadRuntimeOrYaml. The first route's
+    /// first point is moved 0.01 degrees east in the runtime file alone (its body_check re-made, its yaml_check still the
+    /// YAML's), so the routes the map builds show which file it read: a MapScene that went back to the YAML would put the
+    /// corridor's first point where the YAML has it. No fallback warning is logged.</summary>
+    [Test]
+    public void TheMapSceneBuildsItsRoutesFromTheRuntimeFile()
+    {
+        var inputs = Inputs();
+        var lines = inputs.RoutesTsv.Split('\n').ToList();
+        int at = lines.FindIndex(l => l.StartsWith("route\t"));
+        var c = lines[at].Split('\t'); var points = c[10].Split(';'); var first = points[0].Split(' ');
+        double lon = double.Parse(first[0], CultureInfo.InvariantCulture) + 0.01, lat = double.Parse(first[1], CultureInfo.InvariantCulture);
+        points[0] = lon.ToString("R", CultureInfo.InvariantCulture) + " " + first[1];
+        c[10] = string.Join(";", points); lines[at] = string.Join("\t", c);
+        int end = lines.FindIndex(l => l.StartsWith("meta\tbody_check\t"));
+        lines[end] = "meta\tbody_check\t" + RoutePaths.BodyCheck(lines.Where(l => l.StartsWith("route\t"))).ToString(CultureInfo.InvariantCulture);
+        inputs.RoutesTsv = string.Join("\n", lines);
+
+        var fallbacks = new List<string>();
+        void Watch(string message, string stack, LogType type) { if (message.Contains("reading the YAML")) fallbacks.Add(message); }
+        EditorSceneManager.OpenScene("Assets/Map.unity", OpenSceneMode.Single);
+        var map = Object.FindFirstObjectByType<MapScene>();
+        Application.logMessageReceived += Watch;
+        try { map.Build(inputs); }
+        finally { Application.logMessageReceived -= Watch; }
+        CollectionAssert.IsEmpty(fallbacks);
+        var moved = map.Frame.ToWorld(lon, lat, 0);
+        var drawn = map.RouteCorridors[0].line[0];
+        Assert.AreEqual(moved.x, drawn.x, 0.01f, "the corridor starts where the runtime file puts the route, not the YAML");
+        Assert.AreEqual(moved.z, drawn.y, 0.01f);
     }
 
     /// <summary>A runtime file for another YAML, of another version, malformed or missing: a warning, and the YAML's routes.</summary>
