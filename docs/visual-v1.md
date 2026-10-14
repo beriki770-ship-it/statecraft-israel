@@ -1299,7 +1299,8 @@ Review round 1 (staff review I1-I2, M1-M8) is folded in; the values below are th
   - `MapCapture.SurfFrames` renders 60 gameplay03 frames on the web tier, consecutive at 60 fps or `-surfDt` seconds
     apart.
 - **Not done here.**
-  - Boats: the owner wants no civilian boats; navy ships are units, on another track.
+  - Boats: the owner wants no civilian boats; navy ships are units, on another track. (Superseded by #536: see "Sea and
+    boats".)
   - Harbour water and piers at Jaffa need geometry, which belongs to the settlement track.
   - Issue #16 (the 1948 Dead Sea level, Lake Hula) is untouched.
 
@@ -1337,7 +1338,8 @@ Against the bars:
 
 What still differs:
 - The sea's spread is a third of promo 03's and half of promo 02's. Promo 03's dark tail is boat hulls and building
-  shadows on the water, and its bright tail is glints and foam lace.
+  shadows on the water, and its bright tail is glints and foam lace. (The boats are superseded by #536: see "Sea and
+  boats".)
 - gameplay03 contrast falls as the sea brightens (0.196 -> 0.174).
 - gameplay03 warmth rises as the sea loses blue and gains a beach (0.077 -> 0.102 against the promo's 0.064).
 
@@ -1457,6 +1459,15 @@ Spread is luma p90 - p10.
 | diorama02 palette distance | 0.563 | **0.534** | - | no worse |
 | diorama02 warmth / saturation | 0.109 / 0.406 | 0.111 / 0.400 | 0.145 / 0.43 | [0.087, 0.145] / <= 0.48 |
 
+The gameplay03 floors above (detail >= 0.035, spread >= 0.15) are superseded by "Sea and boats" below (#388 and #536;
+the detail floor was the maintainer's call, the spread floor the owner's). Promo 03's own open sea measures 0.012 in
+edge density, so the far sea is now calmed on purpose. The floors are now:
+- detail >= 0.025 in #388's crop and >= 0.033 in the focus band, just under the branch's 0.029 and 0.037;
+- spread >= 0.09, under the branch's 0.096 and 0.104. The author proposed it and the reviewer recommended it; the owner
+  decided "Lower to 0.09" on 2026-10-14 (#536, "Changed acceptance criteria").
+
+They are kept so the sea cannot go flat. #388's "Done when" was updated to match.
+
 diorama02's spread misses its target by 0.001. Strengthening the streaks barely moves it (0.25 to 0.32 added 0.003). A
 stronger far ripple could close it, but the far ripple already runs at 84-100% at diorama02, at 2.3-3.7 px a swell cell.
 More contrast at that sampling would push it towards aliasing, so it was not raised. In the editor (web tier) the same
@@ -1500,11 +1511,135 @@ The goldens and the smoke run are unchanged: `GOLDEN OK 1950 71e9904d...`, `GOLD
 `SMOKE OK 5 turns 1948-06-19 d3fdd459...`. EditMode 747/747 on the merged head, with 0 `warning CS`.
 
 Still different from the promo:
-- promo 03's sea has boats and building shadows in its dark tail (out of scope: no civilian boats);
+- promo 03's sea has boats and building shadows in its dark tail (out of scope here: no civilian boats; superseded by
+  #536, "Sea and boats");
 - promo 02's sea sparkles finely at the overview, where ours is held back from aliasing;
 - the open sea's turquoise near the coast reads a little paler against the brighter, textured open sea at diorama02. The
   shallow-to-open gradient is unchanged (19 levels on both), and the turquoise thins slightly (g - r 43 to 40, 12-24 px
   from the coast).
+
+### Sea and boats (branch `sea-boats`, refs #388)
+The gap audit of 2026-10-13 (`.superpowers/audit-2026-10-13/`) found three gaps against promo 03:
+- the open sea at gameplay03 4x busier than the promo's (edge density 0.048 against 0.012, in its open-sea crop at
+  400 x 300);
+- the overview's sea flat;
+- 5 small wooden hulls with stub sails, where the promo has about 10 white-sailed boats and craft moored at Jaffa.
+
+#402 had raised the far sea's texture on purpose, so the calm applies only far from the shore and only at the gameplay
+zoom. There, #402's surf, shallows and near-coast chop are unchanged. Everything below is behind a new `seacalm` toggle,
+and the calm and swells are also behind `seatexture`.
+- **The zoom, not the pixel.** The calm and the swells fade out, and the overview's shelf fades in, with the water's
+  distance from the camera, not its pixel size, so a 1440p canvas or a device pixel ratio of 2 sees the same sea as
+  1080p. The calm and swells go between 110 and 190 km, and the shelf comes in between 150 and 220 km. The gameplay
+  pose's water lies 50-90 km from the camera; the overview's (`CameraController.MaxDistance`, 250 km) lies 205-360 km
+  away.
+- **The calm** (`ScWaterShade`, `StatecraftMap.hlsl`).
+  - It runs from `ScCalmNearM` (3.6 km offshore, past the shallows, whose edge reaches at most 3.5 km, and past the
+    surf) to `ScCalmFarM` (8 km), on the open Mediterranean only, not the rift lakes.
+  - Across it the ripple eases to 30%, the mottle's fine octave to 30% and the glint to 40%, and the whitecaps go. The
+    coarse streaks grow 1.3x.
+- **Broad swells:** a 14 km gradient-noise brightness variation, +-0.25, on the same far sea and at the same zooms as the
+  calm, so the calmed water keeps promo 03's broad lighter and darker reaches. It is off at the overview, where its
+  cells would read as blotches.
+- **The overview's coastal shelf.** The sea within 12 km of the shore lightens towards a pale teal (0.36, 0.62, 0.66),
+  by 60% times how far past the shallows' gradient the water lies, fading to nothing at 12 km. That is promo 02's
+  lighter shelf. It tints the shallows' outer gradient a little at the overview and is not applied to the rift lakes.
+- **The boats** (`Kits/SeaCraft.cs`, one more mesh under the kits' root, drawn with Kit.mat, so the "kits" toggle covers
+  it):
+  - 10 under way, 2.4 to 7.5 km out: 3 off Jaffa, 2 off Tel Aviv, 1 off Bat Yam, 2 off Haifa, 1 off Acre and 1 off Gaza.
+    The Jaffa, Tel Aviv and Haifa points are the ones the kits build those ports at; the others are approximate shore
+    points chosen for placement.
+  - Two sailing rigs of the period: lateen-rigged feluccas and gaff cutters.
+  - 7 moored: 2 in Jaffa's basin inside its breakwater, 2 at Tel Aviv's mole (in its lee or at anchor south of it,
+    clear of the Jaffa label the gameplay pose shows north-west of it), and at Haifa 2 fishing boats by the quays and a small coastal steamer at anchor off the breakwater.
+  - No motor launches or modern craft.
+  - Each hull, plus a margin, lies in open sea and meets no breakwater or mole piece. The kits now record each piece as
+    a "breakwater" in the census. `SeaCraftTests.NoHullEverMeetsABreakwaterOrMole` sweeps five landmark scales and 16
+    draws each.
+  - Sizes are symbolic, like the buildings: a felucca is 34 landmark metres (2 km at the default scale), a quarter of a
+    hex across, about promo 03's share.
+  - Every boat heads east or west, give or take 35 degrees, so the north-looking gameplay camera sees its sails side-on.
+  - The sails are lit as cloth turned mostly to the sky (each face's normal tipped up by 0.7). Lit as flat plates, the
+    face the camera saw was often the one turned from the sun, and the sails read grey.
+  - `KitMesh.Triangle` gains an overload with an explicit normal for this. The old overload produces the same vertices
+    as before.
+- **Jaffa's old boats** are gone from `SettlementKits.Port`. Their random draws stay, so every later Jaffa house is drawn
+  from the same stream. In pinned-clock renders at 25 km against main:
+  - every pixel of the old town, the lighthouse and the clock tower is unchanged (0 of 371,200 differ);
+  - so is Tel Aviv with its port;
+  - the breakwater differs only on its 29 edge pixels where it meets the calmer sea; none inside it differs.
+
+Measured: WebGL `?shot` of main `58d7b5d8` (with #525's frame) against the branch rebased on it, with the audit's
+`measure.py` crops and #388's crop:
+
+| | main | branch | promo |
+|---|---|---|---|
+| gameplay03 open sea: edge density (audit crop) | 0.048 | **0.020** | 0.012 |
+| the same, sea only (x 0.02-0.22, clear of the boats) | 0.044 | **0.015** | |
+| gameplay03 open sea: luma contrast | 0.054 | 0.055 | 0.052 |
+| gameplay03 sea, #388 crop: detail / spread | 0.046 / 0.163 | 0.029 / 0.096 | 0.060 / 0.20 |
+| gameplay03 sea, focus band: detail / spread | 0.055 / 0.185 | 0.037 / 0.104 | 0.075 / 0.32 |
+| diorama02 sea pixels (inside the frame): luma std / p10-p90 | 0.100 / 0.279 | 0.099 / 0.279 | 0.086 / 0.11 (audit crop) |
+| gameplay03 / diorama02 palette distance | 0.35 / 0.58 | 0.36 / 0.58 | |
+| diorama02 warmth / saturation | 0.129 / 0.36 | 0.129 / 0.36 | 0.145 / 0.43 |
+
+- #525's frame now crops diorama02's sea to the coastal strip. The audit's overview crop holds the frame, and the strip's
+  own spread is already above promo 02's, so the "flat overview sea" gap is closed by the frame.
+- The coastal shelf moves diorama02's sea pixels by 1.7 levels on average (18% of them by more than 2). In the editor
+  test below, on the open water off the strip, it is 0.086 against main's 0.048.
+- **The same at any resolution.** These are pinned-clock editor renders at 1920 x 1080 and at 3840 x 2160 (a device pixel
+  ratio of 2, scaled back to 1080p to measure), comparing `seacalm` on and off:
+
+  | pose | 1080p | 2160p |
+  |---|---|---|
+  | gameplay03, open-sea edge density, off / on | 0.051 / 0.016 | 0.061 / 0.018 |
+  | gameplay03, share of sea pixels changed | 61% | 64% |
+  | diorama02, share of sea pixels changed / mean change | 18.4% / 1.68 levels | 18.4% / 1.68 levels |
+- Before the rebase (main `dc4b272`, no frame), the audit's overview crop measured contrast 0.030 on main and 0.031 on
+  the branch.
+
+- #388's crop detail falls under #402's 0.035 floor. That crop's promo figure counts the promo's boats and Jaffa, and
+  promo 03's open water alone measures 0.012, so the floor contradicted the target. The new floors are in "Sea round 2"
+  and #388. The near-shore texture is unchanged at the gameplay zoom.
+- The shelf itself: `SeaTests.TheOverviewSeaIsLighterAlongTheCoast`. At diorama02, water 5 km out is 0.086 lighter in
+  luma than water 25 km out; main measures 0.048, and the bound is 0.07.
+- `SeaTests.TheOpenSeaCalmsAwayFromTheShore`, at gameplay03's distance with the water's clock pinned: the fine texture
+  20 km out against 2.2 km out is 0.23 on the branch and 0.89 on main (bound 0.6).
+- Three tests compare `seacalm` on and off, pixel for pixel. Each was run red against a mutated shader:
+
+  | test | what it checks | mutation | red |
+  |---|---|---|---|
+  | `TheGameplayZoomKeepsTheNearShoreSea` | gameplay03, 0.3-3.4 km out on nine rows: no change | `ScCalmNearM` 0 | 12/255 |
+  | | | the shelf at the gameplay zoom | 19/255 |
+  | `TheOverviewGetsNoCalmOrSwells` | diorama02, 15-40 km out: no change | no zoom fade | 13/255 |
+  | `TheShelfShowsAtTheOverview` | diorama02, 4-8 km out: changes by more than 3/255 (15/255 now) | | |
+- `SeaCraftTests` checks the boats:
+  - the count and the kinds;
+  - every hull and its margin in open sea, not a rift lake, with no two boats overlapping;
+  - the size against the hex;
+  - no hull meeting a breakwater or mole piece, over 1,337 boats from 5 scales x 16 draws;
+  - the seeding, and that the boats are drawn under the kits and toggled with them.
+- **The census's cost.** The kits now run with the census on, to read the ports and their works. The game towns' kits,
+  built 5 times each way, take a median of 11 ms without it and 12 ms with it.
+
+Frame time: `headed.py profile`, under the exclusive lock. The final round is main `58d7b5d8` first, then the branch, at a
+load of 4-6:
+
+| pose | `all` main / branch | `-seacalm` (branch) | `-water` main / branch | `none` main / branch | p95 `all` |
+|---|---|---|---|---|---|
+| gameplay03 | 3.35 / 3.62 | 3.47 | 3.51 / 3.16 | 2.64 / 2.50 | 5 / 5 |
+| diorama02 | 12.69 / 12.56 | 12.36 | 12.73 / 12.41 | 8.37 / 8.11 | 14 / 14 |
+
+- `seacalm` prices the calm, the swells and the shelf at about 0.15 ms at gameplay03 and 0.2 ms at diorama02.
+- `all` rises 0.27 ms at gameplay03, against spreads of 0.14 and 0.33 ms, and falls at diorama02.
+- p95 is unchanged.
+- Two earlier rounds, before the zoom-keyed fades and on a busier machine (load 5-27), gave gameplay03 `all` +0.35 ms
+  main first (spread 1.1-1.3 ms) and +0.97 ms branch first. In the branch-first round `-kits` and `-seatexture` rose
+  by as much as `all`.
+
+Boot (`headed.py boot --cpu 4 --runs 3`, one round each, before the rebase): map_build median 3389 ms on main and 3106
+on the branch, and `kits built` 828 against 785 ms in the last run. The branch is not slower: the boats' placement and
+one more mesh are not measurable against the run-to-run spread.
 
 ## Promo track: land use (issue #33, branch promo-land)
 The flat mustard/olive ground becomes the promo's patchwork. `tools/land_bake.py` (no network, about 20 s, deterministic:
@@ -1676,7 +1811,7 @@ Each item below was ruled to the art track (controller, rank 10). None blocks la
    0.39, and 0.08 at diorama02 against promo 02's 0.15. Its saturation p10/p90 is narrower too (0.43/0.55 against
    0.29/0.58). The means match ("promo-sea", Measured). The causes:
    - promo 03's dark tail is boat hulls and building shadows on the water. Boats are out of scope: navy ships are units,
-     and there are no civilian boats (owner).
+     and there are no civilian boats (owner). Superseded by #536 ("Sea and boats").
    - Its bright tail is foam lace and glints. The glint is held at 0.06 by the seam test (Task 7), and the surf is a
      smooth band, not lace.
    - diorama02's sea has a near-to-far gradient that ours keeps flat.
@@ -2586,3 +2721,64 @@ The biome phase went from about 440 ms to 120 ms (82-88 terrain object, 38-41 th
   population, routes, unit clearings, the `?kitscale` flags fall back). About 300-400 ms, medium risk (many inputs).
   Without a bake, the hill scatter's per-cell checks could be reordered for 10-20 ms with the same trees.
 - `heightmap decoded` (about 190 ms): smaller, untested.
+
+### #321 round 2: the units' step (T47)
+
+The `units placed` span #529 uncovered, split by four more `?bootlog` markers. Branch build with the markers only, one
+`--exclusive` run of 3 cold loads at `--cpu 4`, median ms: `route paths read` 127, `route corridors` 8, `footprints` 3,
+`unit data read` 51, `units placed` (now the unit spots alone: `UnitGround` and `UnitPlacer.PlaceAll`) 184.
+
+- **Route paths** (127 ms): YamlDotNet over route_paths_1948.yaml's 1,544 points. `tools/route_paths_bake.py` writes
+  `content/map/route_paths_1948.tsv` (29 KB: one row per route, its points in one field, the version, the YAML's FNV-1a
+  check, the counts of routes and points, and a last `body_check` row, FNV-1a over the route rows), and
+  `RoutePaths.ParseRuntime` reads it with the YAML reader's checks. The YAML still ships (WebGL now fetches both: 29 KB
+  more). A runtime file that is missing, of another version, made from another YAML, cut anywhere (even inside a
+  number: the review of #547 found that version 1's counts missed that case, so version 2 adds `body_check`) or edited
+  by hand is refused with a warning and the YAML is read. CI: `test_route_paths_bake.py` fails a stale file and pins a fingerprint
+  of the C# readers; Unity's `RoutePathsRuntimeTests` compares every route and point bit for bit.
+- **Unit spots** (184 ms): `UnitPlacer.PlaceAll` made every hex's candidate spots (19 a hex in the compact rounds, with
+  their trigonometry) for each anchor and round, then dropped all but the seven hexes within its one-hex limit. It now
+  lists those seven first and makes only their candidates, in the same order. `UnitPlacerSpeedTests` keeps the old
+  algorithm verbatim and gets exactly its spots and skips on four grounds, from all clear to none clear.
+- **Not changed:** `unit data read` (about 35-51 ms; the unit YAML is also read again by `GameRoot`), the corridors and
+  the footprints.
+
+Base `abe2263` against the branch, ABBA under one `--exclusive` hold (machine load 3.7-4.6), median of 3 each:
+
+| | base round 1 | branch round 1 | branch round 2 | base round 2 |
+|---|---|---|---|---|
+| `map_build_ms` | 2507 | 2214 | 2196 | 2379 |
+| units' span (base: `units placed`; branch: its five phases) | 315 | 90 | 91 | 291 |
+| `start screen shown` | 576 | 427 | 426 | 528 |
+| `first_frame_ms` | 9165 | 8249 | 8217 | 8351 |
+
+The units' span goes from about 300 to 90 ms. The map build is at least 165 ms shorter: the closest base and branch
+rounds differ by 165 ms, and the two base rounds spread by 128 ms, so the mean difference (about 240 ms) is not a firm
+figure.
+`start screen shown` falls by about 120 ms, since the units layer places the tokens again there.
+
+### #321 round 3: the units file parsed once (T52)
+
+`units_1948.yaml` was parsed at boot by the map (`unit data read`, for the unit spots) and again by `GameRoot` for the
+units layer. Three `?bootlog` markers round the layer (`screens wired`, `units layer data read`, `units layer built`),
+one `--exclusive` run of 3 cold loads at `--cpu 4` on main `4875d0e` plus the markers, median ms: the map's parse 31,
+the layer's parse 25, the layer's build 62 (its own run of the unit placer included), and `screens wired` 272.
+
+The map now keeps its parse (`MapScene.UnitEntries`) and `GameRoot` takes it through `MapScene.UnitEntriesFor`, which
+hands back the same list when the text is the one the map read and parses otherwise. `UnitDataOnceTests` checks that
+the layer's list is the map's (it failed with the old second parse), that it holds the same units as a fresh parse,
+field for field, and that a rebuild or other text never hands on a stale parse. New Game replaces only the session;
+the units are content, read once for the layer's life as before.
+
+Base `4875d0e` against the branch, base, branch, branch, base under one `--exclusive` hold (load 2.8-11.9; the first
+base round stalled after one cold load when another process loaded the machine, so the base has four loads):
+
+| | base | branch round 1 | branch round 2 |
+|---|---|---|---|
+| `units layer data read` | (25, the split) | 1 | 1 |
+| map built to start screen shown, per load | 437, 444, 445, 456 | 417, 422, 434 | 415, 416, 419 |
+| `map_build_ms` (median) | 2221 | 2206 | 2214 |
+
+About 25 ms off the time from the map to the start screen; the map build is unchanged, since the parse that stays is the
+map's. Not done: the layer's second run of the unit placer (about 40 ms of `units layer built`) could take the map's
+spots too, and `screens wired` (about 270 ms) is not split yet.

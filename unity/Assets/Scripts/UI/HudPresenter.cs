@@ -54,6 +54,14 @@ namespace Statecraft.Game.UI
         /// each wrapped caption back to its one-line width (<paramref name="captionGrowth"/>).</summary>
         public static float RoomyGrowth(float valueWidths, float captionGrowth = 0f) => 6 * 8f + 0.14f * valueWidths + captionGrowth;
 
+        /// <summary>The top bar's static texts and their strings (#193): the screen buttons, New Game and End Turn. The
+        /// meters' captions are hud.caption.*, the same words their tooltips say.</summary>
+        static readonly (string name, string key)[] Texts =
+        {
+            ("nav-cabinet", "hud.nav.cabinet"), ("nav-budget", "hud.nav.budget"), ("nav-defence", "hud.nav.defence"),
+            ("nav-why", "hud.nav.why"), ("new-game", "hud.new_game"), ("end-turn", "hud.end_turn"),
+        };
+
         public HudPresenter(VisualElement root, SimBridge bridge, UiText text)
         {
             this.root = root; this.bridge = bridge; this.text = text;
@@ -67,8 +75,13 @@ namespace Statecraft.Game.UI
             meters = root.Q<VisualElement>("meters").Children().ToList();
             nav = root.Q<VisualElement>("nav");
             foreach (var m in meters) m.RegisterCallback<GeometryChangedEvent>(OnMeterGeometry);
+            foreach (var (name, key) in Texts) root.Q<TextElement>(name).text = text[key];
             foreach (var id in new[] { "treasury", "immigration", "security", "support", "standing", "fx" })
-                said[id] = (root.Q<VisualElement>("meter-" + id), text["hud.caption." + id]);
+            {
+                var meter = root.Q<VisualElement>("meter-" + id); var caption = text["hud.caption." + id];
+                meter.Q<Label>(className: "meter-name").text = caption;   // the bar shows the words its tooltip says
+                said[id] = (meter, caption);
+            }
             SetCompact(bar.layout.width);   // the bar may already be laid out (the loading screen shows it) and never resize
             bridge.Changed += Render;
             Render();
@@ -132,7 +145,8 @@ namespace Statecraft.Game.UI
         static void PaintHourglass(MeshGenerationContext m)
         {
             if (!m.visualElement.enabledInHierarchy) return;   // no bright sign on a disabled End Turn (game over)
-            UiIcon.Paint(m, "hourglass", new UnityEngine.Rect(10f, (m.visualElement.layout.height - 22f) / 2f, 22f, 22f), UiIcon.IsFocused(m.visualElement));
+            UiIcon.Paint(m, "hourglass", new UnityEngine.Rect(UiLanguage.Within(m.visualElement) ? m.visualElement.layout.width - 32f : 10f,
+                (m.visualElement.layout.height - 22f) / 2f, 22f, 22f), UiIcon.IsFocused(m.visualElement));   // the right side in Hebrew (#193)
         }
 
         void Set(string name, string value) => root.Q<Label>(name).text = value;

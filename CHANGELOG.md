@@ -8,6 +8,12 @@ adds a line under **Unreleased**; CI's `Changelog` job checks this (see `CONTRIB
 ## [Unreleased]
 
 ### Added
+- Desktop release builds from the Mac (refs #54; Phases 0-1 of the plan in PR #482): `Build.LinuxMono` and
+  `Build.WindowsMono` build the Linux and Windows x64 players on Mono (decisions O7, O8) and put the committed IL2CPP
+  setting back afterwards, and
+  `tools/release_build.py` builds the macOS, Linux and Windows players under the machine lock, runs the player golden
+  check on the macOS player and writes a build record (commit, Unity version, UTC date, SHA-256 and size per player,
+  golden results) outside the repository. It never commits, pushes or uploads.
 - The map's frame (refs #36, promo 02): at the overview the board now ends in a walnut frame on a dark wooden table,
   with a bevel of cut earth where the relief stands above the frame and the frame's lip where the sea and low coast meet
   it. It replaces the border skirt's flat tan slab and the sea past the map's edge. At 16:9 only the overview shows it (the
@@ -55,6 +61,17 @@ adds a line under **Unreleased**; CI's `Changelog` job checks this (see `CONTRIB
   It is kept for a later accessibility layer: no screen reader reads a runtime tooltip yet. A resumed game now shows
   the same changes as before the reload on all six meters: `GameSession` keeps the step before the last
   (`BeforeLast`), so Immigration's change survives a load too. Not part of the state or the save: no golden moves.
+- A Hebrew UI preview, asked for by hand: "?lang=he" in the page URL or "-lang he" on the desktop command line (#193).
+  The UI loads `strings.he.yaml`, sets every text in Frank Ruhl Libre through the advanced text generator, gives each
+  text the direction of its own words (dates, money and names are still English, #55), and mirrors the layout: rows,
+  bars, the hemicycle, the option signs and End Turn's hourglass. English stays the default and has no visible switch.
+  A long Budget office name now wraps in its column, so no row is wider than the screen.
+- Map: boats and a calmer open sea (refs #388). Promo 03's white-sailed boats: 10 sailing boats off Jaffa, Tel Aviv, Bat Yam, Haifa, Acre and Gaza, and 7 craft moored in or off the harbours of Jaffa, Tel Aviv and Haifa (a small coastal steamer at anchor off Haifa), kept off the breakwaters and moles. Jaffa's 5 stub-sail hulls are gone and its houses are unchanged. At the gameplay zoom the open sea calms far from the shore (edge density 0.048 to 0.020; promo 0.012) and keeps broad light and dark swells, and #402's surf, shallows and near-coast chop are unchanged. At the overview a lighter teal shelf runs along the coast and tints the shallows' outer edge a little. The effects follow the camera's distance, not the pixel size, under a new `seacalm` toggle. Presentation only: no golden moves.
+- The Hebrew UI preview translates the texts `Game.uxml` wrote in English (refs #193): the top bar's captions (the same
+  words as their tooltips), screen buttons, New Game and End Turn; the screen titles; the Budget and Defence buttons; the
+  draft mark; the loading line; and the start screen's source line, recording credit and buttons. The game's name and the
+  Declaration's official English stay as they are. A seat count says "חברים" for the appointed Provisional State Council
+  and "מנדטים" for the Knesset. "כישורים" for competence and "המצב הביטחוני" for the ladder. English is unchanged.
 - Decision videos, phase 2 (#434 follow-up). On 11 decision cards an Illustration switch over the photograph plays a
   short, silent AI-generated loop. It is labelled "AI-generated illustration" in place of the credit and carries a small
   burned-in bilingual label. The photograph always shows first; nothing plays until the player asks, and the choice holds
@@ -251,6 +268,27 @@ adds a line under **Unreleased**; CI's `Changelog` job checks this (see `CONTRIB
   +0.9 ms at the gameplay zoom), not yet on an idle one.
 
 ### Changed
+- Decision videos (refs #434): the clips no longer carry the burned-in "AI-generated · נוצר בבינה מלאכותית" caption.
+  Owner ruling of 14 October 2026, relayed by the coordinator: "the 3 ilustration clips are great but no need to say
+  there were created by ai". All 14 clips were re-encoded from their promo shots (each checked by SHA-256) with the same
+  encode otherwise; the card still says "AI-generated illustration" while a clip plays, every row keeps
+  `ai_generated: true`, and the four Dreamina shots keep their own "AI" badge (owner: "Keep the badge"; DECISIONS G4, G5). The owner also reviewed the three sensitive
+  clips (operation_yoav, ten_days, the operation_horev outcome), so a shareable build may carry them. No golden moves.
+- The units file (`units_1948.yaml`) is parsed once at boot instead of twice: the map keeps its parse and the units
+  layer draws from the same list (refs #321). The units and where they stand are unchanged. The second parse cost about
+  25 ms at `--cpu 4` between the map and the start screen; the map build itself is unchanged. `?bootlog` has three more
+  phases round the units layer. Presentation only.
+- Tel Aviv's 1948 localities (Sheikh Muwannis, Jammasin, Salama, Ramat Gan, Givatayim, Bnei Brak and the rest inside its
+  footprint) keep their mosques and water towers, at a quarter and three tenths of their size elsewhere, at the street
+  crossing nearest their hearts (refs #318, owner ruling 2026-10-12). The city's blocks keep their plots round them: core
+  cover 18.5% to 25.6%, the whole footprint 17.4% to 25.2%, 43 to 55 blocks.
+- The map reads its railways' and roads' traced lines from a baked runtime form at boot (`route_paths_1948.tsv`,
+  `tools/route_paths_bake.py`) instead of parsing the YAML, as the localities do (refs #321). A missing or stale file is
+  refused with a warning and the YAML is read as before. The unit placer no longer makes candidate spots for hexes its
+  one-hex limit rules out; every token stands where it stood. At `--cpu 4` the units' step takes about 90 ms instead of
+  300, the map build at least 165 ms less (2379-2507 to 2196-2214 ms) and the start screen about 120 ms less (the
+  placer runs again there). `?bootlog` has four
+  more phases inside the units' step. Presentation only.
 - CI checks the water and route-ribbon bakes against the code that makes them (#535), as it does the biome colours'
   (#529): a pinned fingerprint of `MapBuilder.WaterMeshGrid` and of `RouteLayer.Plan` and `Derive`, and a numpy port of
   the water mesh. Doc comments in `MapBuilder`, `RouteLayer` and `RouteRibbonFile` point to the checks. No change in the
@@ -403,6 +441,12 @@ adds a line under **Unreleased**; CI's `Changelog` job checks this (see `CONTRIB
 - Keyboard focus that lands on something scrolled out of view, such as a Cabinet card below the first row or a
   candidate far down the list, now scrolls its list to it (accessibility audit H1, refs #41). Focus that follows a mouse
   press leaves the list where it is. Presentation only: no golden moves.
+- Wheel zoom in the web build: one small wheel delta, such as a touchpad's half pixel, made every later frame zoom 27%,
+  since Unity's player takes the smallest delta it has seen as one notch. The camera now counts the browser's wheel
+  events itself (`WheelInput.jslib`): a touchpad's small pixel deltas zoom by how far the fingers move (100 px to a
+  notch), and a mouse notch zooms 10% whatever its size: any pixel event of 50 px or more, a macOS mouse tick, three
+  lines or one page is one notch. The listener asks for the mode first so that Firefox keeps a mouse notch in lines
+  (refs #43).
 - "The Mediator Assassinated" cites the Official Gazette text of the Prevention of Terrorism Ordinance for its number,
   No. 33 of 1948, which no source on the card gave. Comment and source row only (refs #442).
 - Five recorded contradictions settled from primary sources. "The Second Truce": the Acting Mediator's report of

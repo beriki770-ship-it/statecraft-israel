@@ -446,6 +446,9 @@ Button:disabled { color: var(--ink-dim); border-color: rgba(120, 120, 120, 0.4);
 .defence-budget { flex-direction: row; align-items: center; }
 .budget-title { margin: 0 18px 0 0; }
 .budget-share { margin-left: 16px; font-size: 18px; }
+/* A Budget row's office name wraps within the room its buttons leave, so no row is wider than the screen (the
+   longest, "Minister of Education and Culture (no office until 10 March 1949)", in either language). */
+.budget-office { white-space: normal; flex-shrink: 1; min-width: 0; }
 /* A wide screen's header wraps its subtitle under the title when the window is narrow. */
 /* Square and narrower windows: a slimmer side column leaves room for two columns of cards. */
 .hud-two-row .cabinet-side { width: 250px; }
@@ -563,3 +566,61 @@ Button:disabled { color: var(--ink-dim); border-color: rgba(120, 120, 120, 0.4);
 .start-caption-en { font-size: 19px; color: var(--ink); white-space: normal; -unity-text-align: middle-center; margin: 4px 0 0 0; }
 /* New Game's prompt (the toast) shows at the top of the start screen, clear of the panel. */
 .start-open .toast { top: 24px; left: 25%; right: 25%; width: auto; }
+
+/* --- The Hebrew UI (#193; UiLanguage, "?lang=he") -------------------------------------------------------------------
+   GameRoot puts .lang-he on the root. Every text is then set in Frank Ruhl Libre (EB Garamond has no Hebrew; one weight,
+   so headings lose the semi-bold) through the advanced text generator, which orders right-to-left text and the numbers
+   in it. Each rule above that names EB Garamond is listed here; HebrewUiTests fails for one that is missed, including the
+   classes only presenters add (it gives a label each). */
+.lang-he, .lang-he .title, .lang-he .button, .lang-he Button, .lang-he .year, .lang-he .end-turn, .lang-he .draft,
+.lang-he .why-group, .lang-he .section-title, .lang-he .card-initials, .lang-he .card-name, .lang-he .house-size,
+.lang-he .big-figure, .lang-he .map-label, .lang-he .map-label-tooltip, .lang-he .start-title, .lang-he .start-button {
+    -unity-font-definition: url("project://database/Assets/UI/Fonts/FrankRuhlLibre/FrankRuhlLibre-Medium.ttf");
+    -unity-text-generator: advanced;
+}
+/* Mirrored for a right-to-left reader: text is set from the right, every row runs right to left (so a caption's value,
+   a card's bars and a button's neighbours follow it on its left), and the side margins swap. What is placed by the map
+   stays where it is: the minimap column, the info panel, the toast and the screens' position. Each text's paragraph
+   direction is set in code from its own words (UiDirection), because dates, money and names are still English (#55). */
+.lang-he { -unity-text-align: upper-right; }
+.lang-he .button, .lang-he Button, .lang-he #event-options Button { -unity-text-align: middle-right; }
+/* The buttons and cards whose text is centred stay centred (the rule above is the more specific one). */
+.lang-he .nav-button, .lang-he .seat { -unity-text-align: upper-center; }
+.lang-he .event-reopen, .lang-he .event-hide, .lang-he .event-illustration, .lang-he .start-button, .lang-he .start-listen { -unity-text-align: middle-center; }
+.lang-he .card-stat-name { -unity-text-align: middle-right; }
+.lang-he .card-stat-value { -unity-text-align: middle-left; }
+.lang-he .top-bar, .lang-he .date-row, .lang-he .meters, .lang-he .meter, .lang-he .meter-row, .lang-he .nav, .lang-he .row,
+.lang-he .event-foot, .lang-he .event-head, .lang-he .info-panel, .lang-he .info-row, .lang-he .card-stat, .lang-he .pm-offices,
+.lang-he .cabinet-house, .lang-he .party-chips, .lang-he .party-chip, .lang-he .defence-row, .lang-he .leaders, .lang-he .rung,
+.lang-he .defence-budget, .lang-he #cabinet-seats .unity-scroll-view__content-container { flex-direction: row-reverse; }
+.lang-he.hud-narrow .meter-row { flex-direction: column; align-items: flex-end; }
+.lang-he .turn-box { align-items: flex-start; }
+.lang-he .top-bar { padding: 0 8px 0 14px; }
+.lang-he .date-box { margin-right: 0; margin-left: 10px; padding: 0 12px 0 10px; }
+.lang-he .date-row Label { margin-right: 0; margin-left: 8px; }
+.lang-he .meter { border-right-width: 0; border-left-width: 1px; padding: 0 6px 0 7px; }
+.lang-he .meter-icon { margin-right: 0; margin-left: 5px; }
+.lang-he .meter-delta { margin-left: 0; margin-right: 7px; }
+.lang-he.hud-narrow .meter-delta { margin-right: 0; }
+.lang-he .event-hide { margin: 2px 12px 0 0; }
+.lang-he .event-image { margin-right: 0; margin-left: 12px; }
+.lang-he .info-thumb { margin-right: 0; margin-left: 14px; }
+.lang-he .info-row-sign { margin: 3px 0 0 10px; }
+.lang-he .info-body > .row Button { margin-right: 0; margin-left: 6px; }
+.lang-he .why-line { padding-left: 0; padding-right: 12px; }
+.lang-he .section-title { margin: 0 2px 8px 0; }
+.lang-he .cabinet-side { margin-right: 0; margin-left: 14px; }
+.lang-he .pm-office { margin: 0 0 4px 6px; }
+.lang-he .hemicycle-box { margin-right: 0; margin-left: 18px; }
+.lang-he .party-chip { margin: 0 0 2px 12px; }
+.lang-he .party-swatch { margin-right: 0; margin-left: 5px; }
+.lang-he .rung { border-left-width: 0; border-right-width: 3px; }
+.lang-he .rung-target { border-left-width: 1px; border-right-width: 3px; }
+.lang-he .rung-turn { margin-left: 0; margin-right: 8px; }
+.lang-he .budget-title { margin: 0 0 0 18px; }
+.lang-he .budget-share { margin-left: 0; margin-right: 16px; }
+/* The option's round sign and End Turn's hourglass are painted on the right in Hebrew (EventCardPresenter, HudPresenter). */
+.lang-he .event-option { padding: 5px 46px 5px 12px; }
+.lang-he .end-turn { padding: 4px 40px 4px 14px; }
+/* A bar fills from the right: the whole bar is flipped, so its fill and its mark (placed from the left in code) follow. */
+.lang-he .ui-bar { scale: -1 1; }

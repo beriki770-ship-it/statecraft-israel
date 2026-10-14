@@ -18,6 +18,9 @@ namespace Statecraft.Game.Boot
         public string RegionsYaml = "";
         /// <summary>content/map/route_paths_1948.yaml: the traced railways and roads the map draws (issue #35; map-only).</summary>
         public string RoutesYaml = "";
+        /// <summary>content/map/route_paths_1948.tsv, the baked runtime form of RoutesYaml the map reads at boot (issue #321;
+        /// "" when absent: the YAML is read, with a warning).</summary>
+        public string RoutesTsv = "";
         /// <summary>content/map/units_1948.yaml: the sourced units the map draws in play (docs/units.md; map-only, "" when
         /// absent).</summary>
         public string UnitsYaml = "";
@@ -50,6 +53,7 @@ namespace Statecraft.Game.Boot
             SettlementsYaml = File.ReadAllText(Path.Combine(contentDir, "map", SettlementPlacer.DefaultFileName)),
             RegionsYaml = File.ReadAllText(Path.Combine(contentDir, "map", Subdistricts1948.FileName)),
             RoutesYaml = ReadIfExists(Path.Combine(contentDir, "map", Statecraft.Game.Map.Routes.RoutePaths.DefaultFileName)),
+            RoutesTsv = ReadIfExists(Path.Combine(contentDir, "map", Statecraft.Game.Map.Routes.RoutePaths.RuntimeFileName)),
             UnitsYaml = ReadIfExists(Path.Combine(contentDir, "map", Statecraft.Game.Map.Units.UnitData.DefaultFileName)),
             PopulationYaml = File.Exists(Path.Combine(contentDir, "map", Statecraft.Game.Map.Kits.KitPopulation.FileName))
                 ? File.ReadAllText(Path.Combine(contentDir, "map", Statecraft.Game.Map.Kits.KitPopulation.FileName)) : "",
@@ -77,6 +81,7 @@ namespace Statecraft.Game.Boot
                     HexesJson = texts["map/hexes.json"], SettlementsYaml = texts["map/" + SettlementPlacer.DefaultFileName],
                     RegionsYaml = texts["map/" + Subdistricts1948.FileName],
                     RoutesYaml = texts.TryGetValue("map/" + Statecraft.Game.Map.Routes.RoutePaths.DefaultFileName, out var routes) ? routes : "",
+                    RoutesTsv = texts.TryGetValue("map/" + Statecraft.Game.Map.Routes.RoutePaths.RuntimeFileName, out var routesTsv) ? routesTsv : "",
                     UnitsYaml = texts.TryGetValue("map/" + Statecraft.Game.Map.Units.UnitData.DefaultFileName, out var unitsYaml) ? unitsYaml : "",
                     PopulationYaml = texts.TryGetValue("map/" + Statecraft.Game.Map.Kits.KitPopulation.FileName, out var pop) ? pop : "",
                     LocalitiesTsv = texts.TryGetValue("map/" + Statecraft.Game.Map.Kits.Localities.RuntimeFileName, out var loc) ? loc : "",

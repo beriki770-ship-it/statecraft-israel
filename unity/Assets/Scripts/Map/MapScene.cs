@@ -141,6 +141,18 @@ namespace Statecraft.Game.Map
         /// their figures off them. Empty before Build.</summary>
         public IReadOnlyList<(List<Vector2> line, float halfWidth)> RouteCorridors { get; private set; } = new List<(List<Vector2>, float)>();
 
+        /// <summary>The units of content/map/units_1948.yaml as the last Build read them (empty before a build, or when the
+        /// file is missing or malformed). Read only: the units layer draws from this same list (UnitEntriesFor).</summary>
+        public IReadOnlyList<Units.UnitEntry> UnitEntries { get; private set; } = Array.Empty<Units.UnitEntry>();
+        string unitsYamlRead;   // null before a build
+
+        /// <summary>The units for <paramref name="yaml"/>: the list the last Build parsed when it read the same text (issue
+        /// #321: the file was parsed twice at boot, here and for the units layer), else a parse of it (UnitData.ReadOrNone,
+        /// warning through <paramref name="warn"/>).</summary>
+        public IReadOnlyList<Units.UnitEntry> UnitEntriesFor(string yaml, Action<string> warn) =>
+            unitsYamlRead != null && string.Equals(yaml, unitsYamlRead, StringComparison.Ordinal)
+                ? UnitEntries : Units.UnitData.ReadOrNone(yaml, warn);
+
         /// <summary>Where the kits keep their buildings and trees off the units (centre x, z; radius m): the spot of a unit that
         /// stands in a town (UnitPlacer's last round, UnitGround.ClearingRadius), so no token stands in a building. Empty before
         /// Build or without the unit file.</summary>
@@ -254,14 +266,20 @@ namespace Statecraft.Game.Map
             DiagLog.BootPhase("settlements placed");
             KitStats = null;
             // The 1948 railways and roads (issue #35), read before the kits so buildings and trees keep off them.
-            var routes = Routes.RoutePaths.ReadOrNone(inputs.RoutesYaml, (meta.lon0, meta.lon1, meta.lat0, meta.lat1), Debug.LogWarning);
+            // From the baked runtime form when it matches the YAML (issue #321: boot time), else from the YAML with a warning.
+            var routes = Routes.RoutePaths.ReadRuntimeOrYaml(inputs.RoutesTsv, inputs.RoutesYaml, (meta.lon0, meta.lon1, meta.lat0, meta.lat1), Debug.LogWarning);
+            DiagLog.BootPhase("route paths read");   // issue #321: the splits of the units' phase
             RouteCorridors = Routes.RouteLayer.Corridors(Frame, routes);
+            DiagLog.BootPhase("route corridors");
             // The game settlements' and the 1948 localities' discs, as the kits will claim them (review I5: a token placed "off
             // the towns" keeps off the villages too). The camps are placed after the units and keep off them instead.
             SettlementFootprints = painted.Select(s => { var w = Frame.ToWorld(s.Lon, s.Lat, 0); return (new Vector2(w.x, w.z), Kits.SettlementKits.FootprintRadiusM(s, hexSizeM)); }).ToList();
             // The units' spots depend only on the footprints, the routes and the land, so they are known before the kits:
             // a unit placed in a town gets a clearing the kits keep free (UnitLayer places it the same way).
+            DiagLog.BootPhase("footprints");
             var unitData = Units.UnitData.ReadOrNone(inputs.UnitsYaml, Debug.LogWarning);
+            UnitEntries = unitData; unitsYamlRead = inputs.UnitsYaml ?? "";
+            DiagLog.BootPhase("unit data read");
             var unitHexes = Hexes.hexes.Select(h => new Statecraft.Sim.MapHex { Q = h.q, R = h.r, Lon = h.lon, Lat = h.lat, ElevM = h.elev_m, Land = h.land, Biome = h.biome }).ToList();
             var unitGround = new Units.UnitGround(SettlementFootprints, RouteCorridors, unitHexes,
                 (lon, lat) => { var w = Frame.ToWorld(lon, lat, 0); return new Vector2(w.x, w.z); }, hexSizeM);
@@ -405,6 +423,7 @@ namespace Statecraft.Game.Map
             }
             Terrain = null;
             Hexes = null;
+            UnitEntries = Array.Empty<Units.UnitEntry>(); unitsYamlRead = null;
         }
     }
 }

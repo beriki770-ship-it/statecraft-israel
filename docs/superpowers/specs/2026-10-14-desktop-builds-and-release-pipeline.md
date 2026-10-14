@@ -433,8 +433,7 @@ How it maps to the repository:
   writes `docs/ai-disclosure.md` from them (`docs/RELEASING.md` store-page checklist). The draft wording, and what each
   statement rests on, is in `docs/steam/store-page-draft.md` section 4 (#424).
 - **In a desktop build** the AI content is: the start-screen painting (`declaration-hall.jpg`, row `owner-verify`, D-D
-  open), the decision-card clips (11 today, 16 if #466 merges, rows citing D-V) and their burned-in label
-  (`tools/event_videos/ai-bug.png`). The WebGL tab icon is not in a desktop build.
+  open), the decision-card clips (11 today, 16 if #466 merges, rows citing D-V). The WebGL tab icon is not in a desktop build.
 - **Live generation:** none ("Nothing is generated live while you play", `docs/ai-disclosure.md`). Keep the statement only
   while it is true.
 - **Gap, proposed for a later issue:** `ai_disclosure.py` lists every manifest row, not what a given build carries. A
@@ -701,12 +700,13 @@ Each is a question with its options and what each costs. Recommended defaults ar
 - Add-on, any option: the licence-free player golden job (6.3). Cost: none.
 
 **O8. Windows backend?**
+- **Linux backend, decided (owner, 2026-10-14):** "sounds good", to keeping Mono for the Linux player (`Build.LinuxMono`, #542).
 - **Decided (owner, 2026-10-14):** first "use the best windows build type" (b), then, with O7's local builds, (a) Mono built on the Mac. IL2CPP would need a Windows PC.
 - (a) Mono, built on the Mac. Cost: the Windows Build Support (Mono) module; a Windows machine only to run the check.
 - (b) IL2CPP, built on a Windows PC. Cost: a Windows machine with Visual Studio C++ tools; a second build host.
 
 **O9. How do testers get unsigned builds?**
-- **Open.**
+- **Decided (owner, 2026-10-14):** "lets go with github pre-release". (a).
 - (a) A GitHub pre-release. Cost: public to anyone; every `docs/RELEASING.md` gate applies (`-shareable`, the sensitivity
   review, notices).
 - (b) Private links to named testers. Cost: manual; the same gates still apply, since the build leaves the machine.
@@ -719,7 +719,7 @@ Each is a question with its options and what each costs. Recommended defaults ar
 - (d) A Deck review. Cost: controller support first, or accept "Playable"/"Unsupported".
 
 **O11. Which Steamworks wrapper, when one is needed?**
-- **Open.**
+- **Decided (owner, 2026-10-14):** "lets go with Steamworks.NET". (a).
 - (a) Steamworks.NET (recommended): MIT, one-to-one with Valve's API, UPM install.
 - (b) Facepunch.Steamworks: MIT, idiomatic C#.
 

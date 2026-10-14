@@ -32,6 +32,7 @@ namespace Statecraft.Game.UI
         [SerializeField] GameBoot boot = null!;
         [SerializeField] UIDocument document = null!;
         [SerializeField] TextAsset strings = null!;
+        [SerializeField] TextAsset stringsHe = null!;
         [SerializeField] PortraitCatalog portraits = null!;
         [SerializeField] MapScene map = null!;
         [SerializeField] PlacementLayer placements = null!;
@@ -55,12 +56,14 @@ namespace Statecraft.Game.UI
         public SimBridge? Bridge { get; private set; }
         /// <summary>Where the autosave lives; null (the default) = SaveStore.ForPlatform(). Tests set a temporary folder.</summary>
         internal SaveStore? Store { get; set; }
+        /// <summary>The UI's language; null (the default) = UiLanguage.Requested(). Tests set it.</summary>
+        internal string? Language { get; set; }
 
-        public void Configure(GameBoot boot, UIDocument document, TextAsset strings, PortraitCatalog portraits, MapScene map,
-            PlacementLayer placements, MapPointer pointer, CameraController cameraController)
+        public void Configure(GameBoot boot, UIDocument document, TextAsset strings, TextAsset stringsHe, PortraitCatalog portraits,
+            MapScene map, PlacementLayer placements, MapPointer pointer, CameraController cameraController)
         {
             var oldBoot = this.boot;
-            this.boot = boot; this.document = document; this.strings = strings; this.portraits = portraits; this.map = map;
+            this.boot = boot; this.document = document; this.strings = strings; this.stringsHe = stringsHe; this.portraits = portraits; this.map = map;
             this.placements = placements; this.pointer = pointer; this.cameraController = cameraController;
             // An enabled GameRoot is already subscribed to the old boot's Ready (OnEnable): move the subscription.
             if (!isActiveAndEnabled) return;
@@ -70,14 +73,52 @@ namespace Statecraft.Game.UI
 
         void OnEnable() { if (boot != null) { boot.Ready += Begin; boot.Failed += OnBootFailed; } }
 
+        /// <summary>The loading line in the UI's language from the first frame (Start runs after every OnEnable, so the
+        /// document's tree exists).</summary>
+        void Start() { if (Application.isPlaying) Started(); }
+
+        /// <summary>Start's work: the loading line in the UI's language (ShowLoading), unless the boot has already failed or
+        /// the game has already begun. GameBoot and GameRoot set no execution order, and on the desktop the load reads from
+        /// disk, so a failure can land inside GameBoot.Start before this runs: its reason must stay (M3 final review I5).</summary>
+        internal void Started()
+        {
+            if ((boot == null || boot.Error == null) && Bridge == null) ShowLoading();
+        }
+
         /// <summary>A boot failure replaces the loading line with the reason; the loading state stays, so no half-built panel
         /// shows (M3 final review I5).</summary>
         internal void OnBootFailed(string reason)
         {
-            if (document == null || strings == null) return;
-            var line = document.rootVisualElement.Q<Label>("loading");
-            if (line != null) line.text = UiText.Parse(strings.text).Format("boot.failed", GameBoot.ForPlayer(reason).TrimEnd('.'));
+            var text = ShowLoading();
+            var line = text == null ? null : document.rootVisualElement.Q<Label>("loading");
+            if (line != null) Say(line, text!.Format("boot.failed", GameBoot.ForPlayer(reason).TrimEnd('.')), text["ui.lang"] == UiLanguage.Hebrew);
         }
+
+        /// <summary>Puts the loading line in the UI's language (boot.loading, #193). In Hebrew the root also gets its mark
+        /// (UiLanguage.HebrewClass) now, before Begin, so the line and a boot failure are set in the Hebrew face. Returns
+        /// the strings, or null before the scene's fields are set.</summary>
+        internal UiText? ShowLoading()
+        {
+            if (document == null || strings == null || stringsHe == null || document.rootVisualElement == null) return null;
+            var text = Strings();
+            var root = document.rootVisualElement;
+            bool hebrew = text["ui.lang"] == UiLanguage.Hebrew;
+            (root.Q("root") ?? root).EnableInClassList(UiLanguage.HebrewClass, hebrew);
+            var line = root.Q<Label>("loading");
+            if (line != null) Say(line, text["boot.loading"], hebrew);
+            return text;
+        }
+
+        /// <summary>A loading-line text, with its own direction in Hebrew (UiDirection is not running yet) and none in English.</summary>
+        static void Say(Label line, string words, bool hebrew)
+        {
+            line.text = words;
+            line.languageDirection = !hebrew ? LanguageDirection.Inherit : UiDirection.RightToLeft(words) ? LanguageDirection.RTL : LanguageDirection.LTR;
+        }
+
+        /// <summary>The strings of the UI's language (UiLanguage): strings.he.yaml when Hebrew is asked for, else English.</summary>
+        UiText Strings() => (Language ?? UiLanguage.Requested()) == UiLanguage.Hebrew
+            ? UiText.Parse(stringsHe.text, "strings.he.yaml") : UiText.Parse(strings.text);
 
         void OnDisable()
         {
@@ -121,13 +162,13 @@ namespace Statecraft.Game.UI
         internal void Begin(GameInputs inputs, int smoke, bool startScreen = false)
         {
             if (inputs == null) throw new ArgumentNullException(nameof(inputs));
-            foreach (var (value, field) in new (UnityEngine.Object?, string)[] { (document, nameof(document)), (strings, nameof(strings)),
+            foreach (var (value, field) in new (UnityEngine.Object?, string)[] { (document, nameof(document)), (strings, nameof(strings)), (stringsHe, nameof(stringsHe)),
                 (map, nameof(map)), (placements, nameof(placements)), (pointer, nameof(pointer)), (cameraController, nameof(cameraController)) })
                 if (value == null) throw new InvalidOperationException($"GameRoot: {field} is not assigned (run MapCapture.MakeScene)");
             if (map.Terrain == null) throw new InvalidOperationException("GameRoot: the map is not built (GameBoot builds it before Ready)");
             Shutdown();
 
-            var text = UiText.Parse(strings.text);
+            var text = Strings();
             var store = Store ?? SaveStore.ForPlatform();
             var notes = new List<string>();
             // A smoke run is reproducible: a fresh game with the golden seed, never the player's autosave.
@@ -138,6 +179,12 @@ namespace Statecraft.Game.UI
             DiagLog.BootPhase($"session started (turn {session.State.Turn}, replayed)");
             var bridge = Bridge = new SimBridge(session, text);
             var root = document.rootVisualElement;
+            bool hebrew = text["ui.lang"] == UiLanguage.Hebrew;
+            // Hebrew: the Hebrew face, the advanced text generator and the mirrored rows (.lang-he); each text's paragraph
+            // direction comes from its own text (UiDirection, made below once the presenters have rendered).
+            (root.Q("root") ?? root).EnableInClassList(UiLanguage.HebrewClass, hebrew);   // on .root, whose face it replaces
+            var loading = root.Q<Label>("loading");
+            if (loading != null) Say(loading, text["boot.loading"], hebrew);   // hidden from here on; set for a restart in the other language
 
             // The toast first: the autosave (below) must report a failed write after the toast has shown the turn's refusals.
             var toast = Own(new ToastPresenter(root, bridge, text));
@@ -179,8 +226,12 @@ namespace Statecraft.Game.UI
             owned.Add(new Undo(() => bridge.Changed -= onDate));
             // The units in play (docs/units.md): drawn from the state and the sourced unit data, before the info panel so
             // the layer has followed a change before the panel renders the selected unit's card.
+            DiagLog.BootPhase("screens wired");   // issue #321: the splits of the units layer
+            // The map's own parse of the unit file when it read this text (issue #321: it was parsed twice at boot).
+            var unitData = map.UnitEntriesFor(inputs.Map.UnitsYaml, Debug.LogWarning);
+            DiagLog.BootPhase("units layer data read");
             var unitLayer = units = Statecraft.Game.Map.Units.UnitLayer.Create(map,
-                Statecraft.Game.Map.Units.UnitData.ReadOrNone(inputs.Map.UnitsYaml, Debug.LogWarning), inputs.Content.Hexes,
+                unitData, inputs.Content.Hexes,
                 Statecraft.Game.Map.Units.UnitShowcase.StillRequested(Application.absoluteURL, Environment.GetCommandLineArgs(),
                     Application.platform == RuntimePlatform.WebGLPlayer));
             // A screenshot run (?shot) leaves the units out unless it also asks for them (&units), so the art log's plain
@@ -192,6 +243,7 @@ namespace Statecraft.Game.UI
             bridge.Changed += showUnits;
             owned.Add(new Undo(() => bridge.Changed -= showUnits));
             showUnits();
+            DiagLog.BootPhase("units layer built");
             var localitiesAt = LocalitiesAt(map);
             var info = Own(new InfoPanelPresenter(root, bridge, text, names, nav: nav,
                 selectedUnit: () => unitLayer.Selected is string id ? unitLayer.Tokens.First(p => p.Token.Unit.Id == id) : (Statecraft.Game.Map.Units.PlacedToken?)null,
@@ -223,7 +275,6 @@ namespace Statecraft.Game.UI
             var camRig = rig = cameraController.GetComponent<CameraRig>();
             Own(new TopBarInset(root, camRig));                            // the map is framed below the top bar
             var mini = minimap = Own(new MinimapPresenter(root, map.Hexes));
-            bool hebrew = text["ui.lang"] == "he";   // today's name in the UI's language (review M6)
             labels = Own(new MapLabelsPresenter(root, map, cameraController.GetComponent<Camera>(), null,
                 p => MapLabelsPresenter.TipOf(p, n => text.Format("map.today", n), text["map.mixed"], hebrew),
                 () => unitLayer != null ? unitLayer.KeepClear : null));   // the names keep clear of the unit tokens (issue #197)
@@ -256,9 +307,10 @@ namespace Statecraft.Game.UI
             {
                 var cam = cameraController;
                 var recording = Own(new DeclarationRecording(root, text, toast.Show));   // never built in automated runs (Skipped)
-                start = Own(new StartScreenPresenter(root, newGame, resumed, shown => { if (cam != null) cam.enabled = !shown; }, recording));
+                start = Own(new StartScreenPresenter(root, newGame, resumed, shown => { if (cam != null) cam.enabled = !shown; }, recording, text));
                 start.Show();
             }
+            if (hebrew) Own(new UiDirection(root, bridge));
             root.Q("root")?.RemoveFromClassList("loading");                // ready: the bar, panels and screens may show (P2-1)
             DiagLog.BootPhase("screens ready");
 

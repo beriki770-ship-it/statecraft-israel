@@ -175,11 +175,43 @@ Differences and notes:
   notch), so the three lines after it counted as 3/100 (3/200 in Chrome). Nothing in the game's code was changed for
   this.
 
-  What the measurements do show is a different risk, not tested here with real hardware: one small delta sets the notch
-  for the rest of the session. A touchpad that sends a delta of a pixel or less (as touchpads can, in fractions) makes
-  every later delta several notches, so each frame of a swipe, or each mouse notch after it, zooms the clamped 27%
-  (three notches). Chaiky3's Windows touchpad gave 10% steps, so it did not happen there. A Mac trackpad in Chrome or
-  Safari, and a touchpad followed by a mouse, are still to be tried by hand.
+  What the measurements did show is a different risk: one small delta sets the notch for the rest of the session.
+  **Fixed (T45).** A scripted swipe of 31 events, 0.5 to 8 px about 16 ms apart (108 px in all, a trackpad's ramp and
+  momentum), zoomed 95% (28 notches, three a frame, stopped by the 6 km limit) in Chrome and WebKit, on its own or after a
+  mouse notch; after it, one 100 px notch out zoomed three notches. The camera now counts the browser's wheel events
+  itself (`WheelInput.jslib` queues each event's `deltaY` and `deltaMode`, and `CameraController.WheelEventNotches`
+  scales them):
+  - a pixel event of 50 px or more is one notch, whatever its size. A mouse sends one event a notch, but its size
+    varies: 100 px in Chrome and Edge on Windows, more with display scaling (125 or 150 px at 125% or 150%, if Chrome
+    scales it; not measured), less at a page zoom above 100% (80 px at 125%), and 200 px from Chrome's synthetic
+    wheel (Playwright and CDP send 100 and the page sees 200, at `devicePixelRatio` 1). The threshold is half of
+    Chrome's 100 px notch, so a page zoom up to 200% still gives a notch;
+  - a whole number of macOS mouse ticks (4.000244140625 px, what Chrome and Safari send on a Mac; an accelerated tick
+    is several ticks' worth) is one notch;
+  - three lines, or one page, is one notch;
+  - smaller pixel events, as touchpads send, count 100 px to the notch. The measured swipe's events are 0.5 to 8 px.
+    There is no documented ceiling for a real trackpad's events, and a fast flick can send events of tens of pixels or
+    more; one of 50 px or more counts as one notch, so an event between 50 and 100 px zooms up to twice what its length
+    would, and a bigger one less. Each frame is still clamped to three notches.
+
+  The same swipe now zooms 1.08 notches (10.8%) over 30 or 31 frames, never more than 0.15 in a frame, and a notch of
+  100, 150 or 200 px or three lines, before or after it, zooms 10%. `uv run tools/headed.py wheel` repeats these cases
+  in Chrome, and `pytest tools/tests/test_headed.py --headed` checks them, including Chrome's own 100 px notch.
+
+  Firefox 88 and later report a mouse notch in lines only to a script that reads `deltaMode` before `deltaY`, and in
+  pixels (three line heights) otherwise; Unity's own handler reads `deltaY` first. So the listener sits on `window` in
+  the capture phase, ahead of Unity's handler, and reads the mode first; Firefox then keeps the notch in lines for
+  both. That listener is what handles Firefox; the 50 px rule is only a backstop in case a notch still arrives in
+  pixels. Not measured: Playwright's Firefox does not start on this Mac (headless: "Failed to launch the browser
+  process"; headed and with a persistent profile: no window within 60 s). Were the notch to arrive in pixels after
+  all, three line heights of 50 px or more would still be one notch. With a default font of 14 px or less, three line
+  heights come to about 48 px, so such a notch would zoom about 0.48 of a step: too little, never too much.
+
+  Known limits: a mouse notch below 50 px that is not a whole macOS tick counts in proportion, for instance a Mac mouse
+  tick at 110% page zoom (3.64 px, 3.6%), a notch at a page zoom of 200% or more, or a Firefox notch in pixels with a
+  default font of 14 px or less (about 48 px, 0.48 of a step). Still to be tried by hand: a Mac
+  trackpad (including fast flicks) and a Mac mouse in Chrome and Safari, a mouse in Firefox (Windows, Linux, Mac),
+  Chrome or Edge on Windows at 125% and 150% display scale (one notch), and a mouse on Linux.
 - **Aborted requests in Chrome.** At each start Chrome lists about 30 of the 51 content files (and the map files) as
   `net::ERR_ABORTED` in its network log. The files arrive whole: both browsers log the same `BOOT OK content` hash and
   the goldens pass. WebKit lists none. Not a console error, so it is left as it is.
@@ -190,8 +222,8 @@ Differences and notes:
 - Input in these runs is synthetic (Playwright's mouse, wheel and keys), not a physical mouse or touchpad.
 
 Still open: Safari itself (only its engine was run here), Firefox on a Mac, Chrome and Edge on Windows, a real mouse wheel
-in Firefox, a touchpad (above), and the two-upload itch.io save test below. Each needs the owner's machines or the
-project's itch.io account.
+in Firefox, a real touchpad and a Mac mouse (above), and the two-upload itch.io save test below. Each needs the owner's
+machines or the project's itch.io account.
 
 ## OWNER STEP: sensitivity review before any shared build
 Spec section 5.5 requires a recorded sensitivity review for events with sensitive tags (holocaust, terror, massacre,

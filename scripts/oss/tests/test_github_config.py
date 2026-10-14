@@ -142,3 +142,36 @@ def test_merge_workflow_waits_for_every_required_check():
     wf = yaml.safe_load(MERGE.read_text(encoding="utf-8"))
     need = set(wf["jobs"]["merge"]["env"]["REQUIRED_CHECKS"].split("|"))
     assert need == EXPECTED_JOBS
+
+
+PLAYER = ROOT / ".github/workflows/player-golden.yml"
+
+
+def test_player_golden_runs_only_the_repositorys_own_released_players():
+    # Plan 2026-10-14 section 6.3 and decision O7: GitHub runners only check the players the owner built and released.
+    # The workflow runs binaries, so nothing a pull request, a URL or an Actions artifact supplies may reach it.
+    wf = yaml.safe_load(PLAYER.read_text(encoding="utf-8"))
+    text = PLAYER.read_text(encoding="utf-8")
+    assert triggers(wf) == {"release": {"types": ["published"]},
+                            "workflow_dispatch": {"inputs": {"tag": triggers(wf)["workflow_dispatch"]["inputs"]["tag"]}}}
+    assert wf["permissions"] == {"contents": "read"}
+    assert "secrets." not in text and "UNITY_" not in text and "game-ci/" not in text   # no Unity licence or editor
+    for s in steps(wf):
+        if s.get("uses", "").startswith("actions/checkout@"):
+            assert s.get("with", {}).get("persist-credentials") is False, s
+        assert "${{" not in s.get("run", ""), s   # inputs and event fields reach the shell only through env:
+    # An empty matrix is a workflow error, so the player jobs need the guard; one platform's failure must not cancel the
+    # others' runs (review N2).
+    golden = wf["jobs"]["golden"]
+    assert golden["needs"] == "plan" and golden["if"] == "needs.plan.outputs.count != '0'"
+    assert golden["strategy"]["fail-fast"] is False
+    assert golden["strategy"]["matrix"] == "${{ fromJSON(needs.plan.outputs.matrix) }}"
+    run_step = next(s for s in golden["steps"] if "player_golden_check.py run" in s.get("run", ""))
+    assert '--sha256 "$SHA256"' in run_step["run"] and run_step["env"]["SHA256"] == "${{ matrix.sha256 }}"
+    assert '${ARCH:+--arch "$ARCH"}' in run_step["run"] and run_step["env"]["ARCH"] == "${{ matrix.arch }}"
+    assert golden["name"] == "Player golden (${{ matrix.label }})" and golden["runs-on"] == "${{ matrix.runner }}"
+    downloads = [s["run"] for s in steps(wf) if "gh release download" in s.get("run", "")]
+    assert downloads and all('--repo "$GITHUB_REPOSITORY"' in r for r in downloads)
+    assert "curl" not in text and "wget" not in text and "download-artifact" not in text
+    for ref_line in re.findall(r"uses:\s*[\w.-]+/[\w./-]+@[0-9a-f]{40}.*", text):
+        assert re.search(r"# v\d+\.\d+\.\d+$", ref_line), ref_line

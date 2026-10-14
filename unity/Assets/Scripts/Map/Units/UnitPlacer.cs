@@ -82,12 +82,16 @@ namespace Statecraft.Game.Map.Units
                     DateTime from = UnitData.Day(a.From), to = UnitData.Day(a.To);
                     int home = Nearest(centres, p);
                     var (hq, hr) = (hexes[home].Q, hexes[home].R);
+                    // The hexes within the one-hex limit, in list order: the only ones whose points can pass the test below,
+                    // so the others' candidate points are never made (issue #321: boot time; UnitPlacerSpeedTests).
+                    var near = new List<int>();
+                    for (int i = 0; i < hexes.Count; i++) if (MapActions.Distance(hexes[i].Q, hexes[i].R, hq, hr) <= MaxShift) near.Add(i);
                     AnchorSpot? best = null;
                     foreach (var round in new[] { 1, 2, 3 })
                     {
                         bool compact = round > 1, inTown = round == 3;
                         double bestD = double.MaxValue, bestDepth = double.MaxValue;
-                        foreach (var (i, x, z) in Candidates(hexes, centres, hexSizeM, compact, a.Toward != null ? target : ((double, double)?)null))
+                        foreach (var (i, x, z) in Candidates(near, centres, hexSizeM, compact, a.Toward != null ? target : ((double, double)?)null))
                         {
                             var h = hexes[i];
                             if (h.Land == sea || MapActions.Distance(h.Q, h.R, hq, hr) > MaxShift) continue;
@@ -121,12 +125,13 @@ namespace Statecraft.Game.Map.Units
         /// town's roads near the sourced place, not only on the hex grid's points.</summary>
         public const double TowardStepM = 500.0, TowardReachM = 2500.0;
 
-        /// <summary>The round's candidate spots, each with the index of the hex it lies in: every hex centre, and for a
-        /// compact round the points inside each hex; and in every round the rings round the `toward` point.</summary>
-        static IEnumerable<(int i, double x, double z)> Candidates(IReadOnlyList<MapHex> hexes, (double x, double z)[] centres, double hexSizeM,
+        /// <summary>The round's candidate spots, each with the index of the hex it lies in: the centre of every hex in
+        /// <paramref name="hexIndices"/> (in that order), and for a compact round the points inside each; and in every round
+        /// the rings round the `toward` point (each with its nearest hex, whichever it is).</summary>
+        static IEnumerable<(int i, double x, double z)> Candidates(IReadOnlyList<int> hexIndices, (double x, double z)[] centres, double hexSizeM,
             bool compact, (double x, double z)? toward)
         {
-            for (int i = 0; i < hexes.Count; i++)
+            foreach (var i in hexIndices)
             {
                 yield return (i, centres[i].x, centres[i].z);
                 if (!compact) continue;
