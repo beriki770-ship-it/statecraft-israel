@@ -554,7 +554,8 @@ public class KitTests
 
     /// <summary>Issue #32: ma'abarot are seeded (two builds, the same camps), stand on dry land clear of every town's plots,
     /// the 1948 localities and the Bedouin camps, keep off the routes, and two camps asked for on the same ground keep
-    /// apart. A camp on Tel Aviv's own point finds ground at the city's edge.</summary>
+    /// apart: a camp stands in its own hex (review #557), so the second finds none left there and is drawn as its box, as a
+    /// camp on Tel Aviv's own point is, the city's plots covering its hex.</summary>
     [Test]
     public void MaabarotAreSeededAndStandOnFreeDryGround()
     {
@@ -563,7 +564,9 @@ public class KitTests
         var g = PlacementLayer.CampGround(map);
         var first = SettlementKits.Maabarot(camps, g, out var placed);
         var second = SettlementKits.Maabarot(camps, PlacementLayer.CampGround(map));
-        for (int i = 0; i < camps.Count; i++)
+        Assert.IsNull(first[1].mesh, "b: no ground left in Revivim's hex"); Assert.IsNull(second[1].mesh);
+        Assert.IsNull(first[2].mesh, "c: no ground in Tel Aviv's hex"); Assert.IsNull(second[2].mesh);
+        for (int i = 0; i < 1; i++)
         {
             Assert.IsNotNull(first[i].mesh, camps[i].id + ": found free ground");
             Assert.AreEqual((first[i].tents, first[i].huts), (second[i].tents, second[i].huts), camps[i].id);
@@ -675,26 +678,74 @@ public class KitTests
         Assert.AreEqual(planted, In(veg.Drawable()));
     }
 
-    /// <summary>Review (issue #32): a ma'abara keeps to the Bedouin camps' rules (Encampments): no tent or hut on a unit
-    /// token, on a hex edge's grid mark or on steep ground, so a token on the camp's own hex moves it off.</summary>
+    /// <summary>Review (issue #32): a ma'abara keeps to the Bedouin camps' rules (Encampments): no tent, hut or water tower
+    /// on a unit token, on a hex edge's grid mark or on steep ground, so a token on the camp's own hex moves it off. Rosh
+    /// Pinna's camp stands on hilly ground by a hex edge, where those rules refuse plots a build without them fills (review
+    /// #557: on flat Revivim the test passed with the rules removed).</summary>
     [Test]
     public void AMaabaraKeepsOffTokensGridMarksAndSteepGround()
     {
         var map = OpenMap();
         var g = PlacementLayer.CampGround(map);
-        var at = Spot(map, "revivim");
+        var at = Spot(map, "rosh_pinna");
         g.Tokens.Add((at, 300f));
-        var built = SettlementKits.Maabarot(new List<(string id, Vector2 at)> { ("transit_camp_revivim", at) }, g, out var placed)[0];
+        var camp = new List<(string id, Vector2 at)> { ("transit_camp_rosh_pinna", at) };
+        var built = SettlementKits.Maabarot(camp, g, out var placed)[0];
         Assert.IsNotNull(built.mesh, "the camp found free ground");
         Object.DestroyImmediate(built.mesh);
         Assert.Greater(placed.Count, 0);
+        float lot = 4f * KitScale.Houses;   // a plot's lot and the water tower's (SettlementKits.MaabaraPlotR, WaterTower)
         foreach (var p in placed)
         {
             Assert.IsFalse(g.OnToken(p.C, 0f), p.Kind + " on a unit token");
-            if (p.Kind != "tent" && p.Kind != "hut") continue;
-            Assert.IsFalse(g.OnGridMark(p.C, 0f), p.Kind + " on a grid mark");
+            if (p.Kind != "tent" && p.Kind != "hut" && p.Kind != "water_tower") continue;
+            Assert.IsFalse(g.OnGridMark(p.C, lot), p.Kind + " on a grid mark");
             Assert.LessOrEqual(g.Slope(p.C.x, p.C.y, 600f), 0.12f, p.Kind + " on steep ground");
         }
+        SettlementKits.MaabaraGroundRules = false;
+        try
+        {
+            var loose = SettlementKits.Maabarot(camp, g)[0];
+            if (loose.mesh != null) Object.DestroyImmediate(loose.mesh);
+            TestContext.WriteLine($"{built.tents + built.huts} plots with the rules, {loose.tents + loose.huts} without; "
+                + $"{placed.Count(p => p.Kind == "water_tower")} water tower");
+            Assert.Greater(loose.tents + loose.huts, built.tents + built.huts, "the grid-mark and slope rules refused a plot");
+        }
+        finally { SettlementKits.MaabaraGroundRules = true; }
+    }
+
+    /// <summary>Review #557: a camp stands in the hex the player built it on, where selection and the info panel point. Over
+    /// the settlement hexes each camp's centre maps back to its own hex, or the camp has no kit and is drawn as its box. Its
+    /// tents, huts and water tower keep off the grid marks and steep ground (the water tower too: review #557, should-fix 3).</summary>
+    [Test]
+    public void AMaabaraStandsInItsOwnHex()
+    {
+        var map = OpenMap();
+        var c = Statecraft.Sim.ContentLoader.Load(Statecraft.Game.Paths.Content);
+        var g = PlacementLayer.CampGround(map);
+        float lot = 4f * KitScale.Houses;   // a plot's lot and the water tower's (SettlementKits.MaabaraPlotR, WaterTower)
+        int kits = 0, towers = 0;
+        var boxes = new List<string>();
+        foreach (var hex in c.SettlementHexes)
+        {
+            var at = c.HexAt(hex.Q, hex.R)!; var w = map.Frame.ToWorld(at.Lon, at.Lat, 0);
+            var camp = new List<(string id, Vector2 at)> { ($"{Statecraft.Sim.MapActions.TransitCamp}_{hex.Q}_{hex.R}", new Vector2(w.x, w.z)) };
+            var built = SettlementKits.Maabarot(camp, g, out var placed)[0];
+            if (built.mesh == null) { boxes.Add(hex.Id); continue; }
+            kits++;
+            Object.DestroyImmediate(built.mesh);
+            var (lon, lat) = map.Frame.ToLonLat(new Vector3(built.at.x, 0f, built.at.y));
+            Assert.AreEqual((hex.Q, hex.R), HexPicker.FromLonLat(lon, lat, map.Hexes.bounds, map.Hexes.hex_size_km), hex.Id + "'s camp");
+            foreach (var p in placed.Where(p => p.Kind == "tent" || p.Kind == "hut" || p.Kind == "water_tower"))
+            {
+                if (p.Kind == "water_tower") towers++;
+                Assert.IsFalse(g.OnGridMark(p.C, lot), $"{hex.Id}'s {p.Kind} on a grid mark");
+                Assert.LessOrEqual(g.Slope(p.C.x, p.C.y, 600f), 0.12f, $"{hex.Id}'s {p.Kind} on steep ground");
+            }
+        }
+        TestContext.WriteLine($"{c.SettlementHexes.Count} settlement hexes: {kits} camps drawn as kits ({towers} water towers), "
+            + $"{boxes.Count} as boxes ({string.Join(", ", boxes)})");
+        Assert.Greater(kits, 0, "some camp finds ground in its own hex");
     }
 
     /// <summary>Review I2: the populations come from content/map/settlement_population_1945.yaml through the map inputs.</summary>

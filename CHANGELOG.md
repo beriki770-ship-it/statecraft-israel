@@ -14,8 +14,8 @@ adds a line under **Unreleased**; CI's `Changelog` job checks this (see `CONTRIB
   camera fit of #174 keeps it off screen wherever the view is no wider than the map: below about 106 km at 16:9, 53 km
   at 32:9; a portrait window never shows it); one draw call, no shadow pass, no golden moves.
 - Map: a transit camp the player builds (from 1950) is drawn as a ma'abara instead of a marker box: rows of white and
-  khaki canvas tents with a few tin or canvas huts, a long communal hut and, in some camps, a water tower, at the
-  nearest free ground to its hex (a big town's edge, as the camps stood). Built when the camp is placed, not at map
+  khaki canvas tents with a few tin or canvas huts, a long communal hut and, in some camps, a water tower, on the
+  nearest free ground in its own hex (drawn as its box when the hex has none). Built when the camp is placed, not at map
   build; the tent/hut share is a parameter for a staged look later. The camp looks worn: tents sag between their poles,
   crease and lean, with dusty skirts, bleached roofs, patches and open door flaps; the tin huts are loose, rusting sheets,
   some lifted or missing; washing lines and bundles stand between the tents. Presentation only (refs #32).
