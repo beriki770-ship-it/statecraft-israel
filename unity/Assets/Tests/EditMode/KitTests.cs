@@ -637,6 +637,44 @@ public class KitTests
         Assert.AreSame(kitMat, layer.transform.GetChild(0).GetComponent<MeshRenderer>().sharedMaterial, "the kit again");
     }
 
+    /// <summary>Review (issue #32): the trees planted at map build do not stand in a ma'abara built later. While the camp's kit
+    /// is drawn no tree drawn has its crown on the camp's ground (the disc round each tent, hut, communal hut and water
+    /// tower); housing in its place, or the kits off (the camp is its box), gives them back. Rosh Pinna's camp lands among
+    /// the hill olives.</summary>
+    [Test]
+    public void NoTreeStandsInAMaabara()
+    {
+        var map = OpenMap();
+        var c = Statecraft.Sim.ContentLoader.Load(Statecraft.Game.Paths.Content);
+        var hex = c.SettlementHexes.Single(s => s.Id == "rosh_pinna");
+        var date = new System.DateTime(1950, 8, 26);
+        var veg = map.GetComponentInChildren<VegetationLayer>(); Assert.IsNotNull(veg);
+        int before = veg.Drawable().Count();
+        var layer = new GameObject("Placements").AddComponent<PlacementLayer>();
+        var camp = new[] { new Statecraft.Sim.Placement(Statecraft.Sim.MapActions.TransitCamp, hex.Q, hex.R, date) };
+        layer.Render(camp, c, map);
+        Assert.AreSame(AssetDatabase.LoadAssetAtPath<Material>("Assets/Materials/Kit.mat"), layer.transform.GetChild(0).GetComponent<MeshRenderer>().sharedMaterial, "drawn as its kit");
+        var at = c.HexAt(hex.Q, hex.R)!; var w = map.Frame.ToWorld(at.Lon, at.Lat, 0);
+        var built = SettlementKits.Maabarot(new List<(string id, Vector2 at)> { (layer.transform.GetChild(0).name, new Vector2(w.x, w.z)) },
+            PlacementLayer.CampGround(map), out var placed)[0];
+        if (built.mesh != null) Object.DestroyImmediate(built.mesh);
+        int In(IEnumerable<(TreeKind kind, Matrix4x4 m)> trees) => trees.Count(t => placed.Any(p =>
+            (new Vector2(t.m.m03, t.m.m23) - p.C).magnitude < 0.5f * new Vector2(p.W, p.D).magnitude + VegetationLayer.CrownRadius(t.kind, t.m)));
+        int planted = In(veg.Planted());
+        TestContext.WriteLine($"{placed.Count} structures: {planted} trees planted on them, {veg.Hidden} hidden");
+        Assert.Greater(planted, 0, "the camp stands where trees were planted");
+        Assert.AreEqual(0, In(veg.Drawable()), "a tree drawn in the camp");
+        VisualToggles.Set("kits", false);
+        layer.Render(camp, c, map);
+        Assert.AreEqual(before, veg.Drawable().Count(), "the camp as its box gives the trees back");
+        VisualToggles.Set("kits", true);
+        layer.Render(camp, c, map);
+        Assert.AreEqual(0, In(veg.Drawable()));
+        layer.Render(new[] { new Statecraft.Sim.Placement(Statecraft.Sim.MapActions.Housing, hex.Q, hex.R, date) }, c, map);
+        Assert.AreEqual(before, veg.Drawable().Count(), "housing in the camp's place gives the trees back");
+        Assert.AreEqual(planted, In(veg.Drawable()));
+    }
+
     /// <summary>Review (issue #32): a ma'abara keeps to the Bedouin camps' rules (Encampments): no tent or hut on a unit
     /// token, on a hex edge's grid mark or on steep ground, so a token on the camp's own hex moves it off.</summary>
     [Test]

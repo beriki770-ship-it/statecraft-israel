@@ -46,7 +46,11 @@ namespace Statecraft.Game.Map
             }
             var list = new List<Placement>(placements);
             lastPlacements = list; lastContent = content; lastMap = map; kitsShown = map.KitsShown;
-            var kits = kitsShown ? Camps(list, content, map) : new HashSet<string>();
+            var holes = new List<(Vector2 centre, float radius)>();
+            var kits = kitsShown ? Camps(list, content, map, holes) : new HashSet<string>();
+            // The kit trees planted at map build are left out under a camp's kit while it stands (as under the unit figures,
+            // issue #249), at draw time; a camp drawn as its box, or gone, gives them back.
+            Units.UnitShowcase.HideTrees(map, "placements", holes);
             var block = new MaterialPropertyBlock();
             foreach (var p in list)
             {
@@ -66,8 +70,9 @@ namespace Statecraft.Game.Map
         }
 
         /// <summary>Draws every transit camp of <paramref name="list"/> as a ma'abara kit (one object each, named as its box
-        /// would be, drawn with Kit.mat); returns the names of those drawn.</summary>
-        HashSet<string> Camps(List<Placement> list, Content content, MapScene map)
+        /// would be, drawn with Kit.mat); returns the names of those drawn and adds the ground each tent, hut, communal hut
+        /// and water tower stands on (the disc round it) to <paramref name="holes"/>.</summary>
+        HashSet<string> Camps(List<Placement> list, Content content, MapScene map, List<(Vector2 centre, float radius)> holes)
         {
             var camps = new List<(string id, Vector2 at)>();
             foreach (var p in list)
@@ -79,7 +84,8 @@ namespace Statecraft.Game.Map
             }
             var drawn = new HashSet<string>();
             if (camps.Count == 0) return drawn;
-            var built = SettlementKits.Maabarot(camps, CampGround(map));
+            var built = SettlementKits.Maabarot(camps, CampGround(map), out var placed);
+            foreach (var p in placed) holes.Add((p.C, 0.5f * new Vector2(p.W, p.D).magnitude));
             for (int i = 0; i < camps.Count; i++)
             {
                 var mesh = built[i].mesh;
