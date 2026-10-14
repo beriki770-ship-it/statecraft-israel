@@ -2595,9 +2595,11 @@ The `units placed` span #529 uncovered, split by four more `?bootlog` markers. B
 
 - **Route paths** (127 ms): YamlDotNet over route_paths_1948.yaml's 1,544 points. `tools/route_paths_bake.py` writes
   `content/map/route_paths_1948.tsv` (29 KB: one row per route, its points in one field, the version, the YAML's FNV-1a
-  check and the counts of routes and points), and `RoutePaths.ParseRuntime` reads it with the YAML reader's checks.
-  The YAML still ships; a runtime file that is missing, of another version, made from another YAML or cut short is
-  refused with a warning and the YAML is read. CI: `test_route_paths_bake.py` fails a stale file and pins a fingerprint
+  check, the counts of routes and points, and a last `body_check` row, FNV-1a over the route rows), and
+  `RoutePaths.ParseRuntime` reads it with the YAML reader's checks. The YAML still ships (WebGL now fetches both: 29 KB
+  more). A runtime file that is missing, of another version, made from another YAML, cut anywhere (even inside a
+  number: the review of #547 found that version 1's counts missed that case, so version 2 adds `body_check`) or edited
+  by hand is refused with a warning and the YAML is read. CI: `test_route_paths_bake.py` fails a stale file and pins a fingerprint
   of the C# readers; Unity's `RoutePathsRuntimeTests` compares every route and point bit for bit.
 - **Unit spots** (184 ms): `UnitPlacer.PlaceAll` made every hex's candidate spots (19 a hex in the compact rounds, with
   their trigonometry) for each anchor and round, then dropped all but the seven hexes within its one-hex limit. It now
@@ -2615,5 +2617,7 @@ Base `abe2263` against the branch, ABBA under one `--exclusive` hold (machine lo
 | `start screen shown` | 576 | 427 | 426 | 528 |
 | `first_frame_ms` | 9165 | 8249 | 8217 | 8351 |
 
-The units' span goes from about 300 to 90 ms; the map build is about 240 ms shorter (the base rounds spread by 130 ms).
+The units' span goes from about 300 to 90 ms. The map build is at least 165 ms shorter: the closest base and branch
+rounds differ by 165 ms, and the two base rounds spread by 128 ms, so the mean difference (about 240 ms) is not a firm
+figure.
 `start screen shown` falls by about 120 ms, since the units layer places the tokens again there.

@@ -153,6 +153,17 @@ public class UnitPlacerSpeedTests
             ("compact only", (s, x, z, c, t, ax, az) => c && Mix(x, z, t ? 5UL : 9UL) % 4 == 0, (x, z) => (Mix(x, z, 11) % 2000) / 3.0),
             ("closed", (s, x, z, c, t, ax, az) => false, (x, z) => 0.0),
         };
+        // Which neighbours of the anchors' home hexes the reference picks (review of #547, N2): the offsets (dq, dr) the
+        // test checks the fast placer against, by ground.
+        var centres = hexes.Select(h => toXZ(h.Lon, h.Lat)).ToArray();
+        (int, int) Home(UnitAnchor a)
+        {
+            var (px, pz) = toXZ(a.Lon, a.Lat);
+            int best = 0; double bestD = double.MaxValue;
+            for (int i = 0; i < centres.Length; i++) { double d = (centres[i].Item1 - px) * (centres[i].Item1 - px) + (centres[i].Item2 - pz) * (centres[i].Item2 - pz); if (d < bestD) { bestD = d; best = i; } }
+            return (hexes[best].Q, hexes[best].R);
+        }
+        var offsets = new SortedSet<(int, int)>();
         foreach (var (name, clear, overlap) in grounds)
         {
             var skippedA = new List<string>(); var skippedB = new List<string>();
@@ -160,11 +171,20 @@ public class UnitPlacerSpeedTests
             var reference = Reference.PlaceAll(units, hexes, hexSizeM, toXZ, clear, overlap, skippedB.Add);
             CollectionAssert.AreEqual(skippedB, skippedA, name);
             Assert.AreEqual(reference.Count, fast.Count, name);
+            var here = new SortedSet<(int, int)>();
+            foreach (var kv in reference) { var (hq, hr) = Home(kv.Key); here.Add((kv.Value.Q - hq, kv.Value.R - hr)); }
+            TestContext.WriteLine($"{name}: {reference.Count} spots, offsets from the home hex {string.Join(" ", here)}");
+            offsets.UnionWith(here);
             foreach (var kv in reference)
             {
                 Assert.IsTrue(fast.TryGetValue(kv.Key, out var spot), $"{name}: {kv.Key.Place}");
                 Assert.AreEqual(kv.Value, spot, $"{name}: {kv.Key.Place}");
             }
         }
+        // Measured on the units of 2026-10-14: the home hex and five of its six neighbours, (-1, 0) (0, -1) (0, 1) (1, -1)
+        // (1, 0); no reference spot lies at (-1, 1). A change to the units may move the set; it must keep at least four.
+        TestContext.WriteLine($"all grounds: offsets {string.Join(" ", offsets)}");
+        CollectionAssert.Contains(offsets, (0, 0));
+        Assert.GreaterOrEqual(offsets.Count(o => o != (0, 0)), 4, $"too few neighbour offsets exercised: {string.Join(" ", offsets)}");
     }
 }

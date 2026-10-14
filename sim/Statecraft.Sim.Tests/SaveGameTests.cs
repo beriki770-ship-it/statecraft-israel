@@ -407,6 +407,34 @@ public class SaveGameTests
         finally { if (Directory.Exists(copy)) Directory.Delete(copy, true); }   // review M13: no temp copy left behind
     }
 
+    /// <summary>content/map/route_paths_1948.tsv, the baked runtime form of route_paths_1948.yaml the map reads at boot
+    /// (issue #321), is map-only like the YAML: the sim never reads it, so it is outside the content hash and no save or
+    /// golden depends on it. Checked as the localities' file: on the fixture (added) and on the real content (removed).</summary>
+    [Fact]
+    public void TheRoutePathsRuntimeFileIsOutsideTheContentHash()
+    {
+        var dir = Fixture.Write();
+        var before = ContentLoader.Load(dir).Hash;
+        File.WriteAllText(Path.Combine(dir, "map", "route_paths_1948.tsv"), "meta\tversion\t2\n");
+        Assert.Equal(before, ContentLoader.Load(dir).Hash);
+
+        var real = RealContentTests.ContentRoot();
+        Assert.True(File.Exists(Path.Combine(real, "map", "route_paths_1948.tsv")));
+        var copy = Path.Combine(Path.GetTempPath(), "statecraft-noroutetsv-" + Guid.NewGuid().ToString("N"));
+        try
+        {
+            foreach (var f in Directory.GetFiles(real, "*", SearchOption.AllDirectories))
+            {
+                var rel = Path.GetRelativePath(real, f);
+                if (rel.Replace('\\', '/') == "map/route_paths_1948.tsv") continue;
+                Directory.CreateDirectory(Path.GetDirectoryName(Path.Combine(copy, rel))!);
+                File.Copy(f, Path.Combine(copy, rel));
+            }
+            Assert.Equal(ContentLoader.Load(real).Hash, ContentLoader.Load(copy).Hash);
+        }
+        finally { if (Directory.Exists(copy)) Directory.Delete(copy, true); }
+    }
+
     [Fact]
     public void TheContentHashChangesWithEventsAndSettlements()
     {
