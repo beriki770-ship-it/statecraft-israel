@@ -22,8 +22,9 @@ namespace Statecraft.Game.Boot
         /// localities_1948.yaml is the sourced input of tools/localities_bake.py; the map reads its baked runtime form.
         public static readonly IReadOnlyCollection<string> ToolInputs = new HashSet<string> { "map/routes_1948.yaml", "map/localities_1948.yaml" };
 
-        /// <summary>Baked map files that are not YAML, listed when present: the 1948 localities' runtime form (boot budget).</summary>
-        public static readonly IReadOnlyList<string> RuntimeData = new[] { "map/localities_1948.tsv" };
+        /// <summary>Baked map files that are not YAML, listed when present: the runtime forms of the 1948 localities and of the
+        /// route paths (boot budget). The route paths' YAML still ships: the runtime file is checked against it.</summary>
+        public static readonly IReadOnlyList<string> RuntimeData = new[] { "map/localities_1948.tsv", "map/route_paths_1948.tsv" };
 
         [Serializable] sealed class ManifestJson { public string[] files = new string[0]; }
 

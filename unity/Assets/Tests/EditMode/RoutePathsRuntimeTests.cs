@@ -1,0 +1,105 @@
+#nullable enable
+using System.Collections.Generic;
+using System.IO;
+using NUnit.Framework;
+using Statecraft.Game;
+using Statecraft.Game.Boot;
+using Statecraft.Game.Map;
+using Statecraft.Game.Map.Routes;
+using UnityEngine;
+using UnityEngine.TestTools;
+
+/// <summary>Issue #321: the map reads route_paths_1948.yaml's baked runtime form (route_paths_1948.tsv, tools/route_paths_bake.py)
+/// at boot instead of parsing the YAML (about 125 ms of the map build at cpu 4), as #291 did for the localities. The
+/// runtime file must give exactly the routes the YAML gives; one that does not match the YAML it ships with (its check or
+/// its version) is refused with a warning and the YAML is read instead.</summary>
+public class RoutePathsRuntimeTests
+{
+    static MapInputs Inputs() => GameInputs.MapFromDisk(Paths.Content, Paths.StreamingMap);
+
+    static (double, double, double, double) Bounds()
+    {
+        var b = HeightmapLoader.Load(Paths.StreamingMap).meta;
+        return (b.lon0, b.lon1, b.lat0, b.lat1);
+    }
+
+    [Test]
+    public void TheRuntimeFileYieldsTheSameRoutesAsTheYaml()
+    {
+        var inputs = Inputs();
+        Assert.IsNotEmpty(inputs.RoutesTsv, "content/map/" + RoutePaths.RuntimeFileName + " (tools/route_paths_bake.py)");
+        var yaml = RoutePaths.Parse(inputs.RoutesYaml, Bounds());
+        var tsv = RoutePaths.ParseRuntime(inputs.RoutesTsv, inputs.RoutesYaml, Bounds());
+        Assert.AreEqual(yaml.Count, tsv.Count);
+        for (int i = 0; i < yaml.Count; i++)
+        {
+            var (y, t) = (yaml[i], tsv[i]);
+            Assert.AreEqual((y.Id, y.Kind, y.Status, y.LengthKm, y.From, y.To, y.OnSymbol, y.MaxGapM, y.Points.Count),
+                (t.Id, t.Kind, t.Status, t.LengthKm, t.From, t.To, t.OnSymbol, t.MaxGapM, t.Points.Count), y.Id);
+            for (int k = 0; k < y.Points.Count; k++)
+            {
+                Assert.AreEqual(2, t.Points[k].Count, $"{y.Id} point {k}");
+                Assert.AreEqual(System.BitConverter.DoubleToInt64Bits(y.Points[k][0]), System.BitConverter.DoubleToInt64Bits(t.Points[k][0]), $"{y.Id} point {k} lon");
+                Assert.AreEqual(System.BitConverter.DoubleToInt64Bits(y.Points[k][1]), System.BitConverter.DoubleToInt64Bits(t.Points[k][1]), $"{y.Id} point {k} lat");
+            }
+        }
+    }
+
+    /// <summary>The boot read: the runtime file when it is for this YAML, without a warning.</summary>
+    [Test]
+    public void TheMapReadsTheRuntimeFile()
+    {
+        var inputs = Inputs();
+        var warnings = new List<string>();
+        var routes = RoutePaths.ReadRuntimeOrYaml(inputs.RoutesTsv, inputs.RoutesYaml, Bounds(), warnings.Add);
+        CollectionAssert.IsEmpty(warnings);
+        Assert.AreEqual(RoutePaths.Parse(inputs.RoutesYaml, Bounds()).Count, routes.Count);
+    }
+
+    /// <summary>A runtime file for another YAML, of another version, malformed or missing: a warning, and the YAML's routes.</summary>
+    [Test]
+    public void AStaleOrBrokenRuntimeFileFallsBackToTheYaml()
+    {
+        var inputs = Inputs();
+        int expected = RoutePaths.Parse(inputs.RoutesYaml, Bounds()).Count;
+        string otherYaml = inputs.RoutesYaml + "\n# an edit after the bake\n";
+        string otherVersion = inputs.RoutesTsv.Replace($"meta\tversion\t{RoutePaths.RuntimeVersion}\n", $"meta\tversion\t{RoutePaths.RuntimeVersion + 1}\n");
+        Assert.AreNotEqual(inputs.RoutesTsv, otherVersion, "the file carries its version");
+        string badRow = inputs.RoutesTsv.Replace("\trail\t", "\tcanal\t");
+        string cutRow = inputs.RoutesTsv.Substring(0, inputs.RoutesTsv.LastIndexOf(';'));
+        string lastRowGone = inputs.RoutesTsv.Substring(0, inputs.RoutesTsv.TrimEnd('\n').LastIndexOf('\n') + 1);
+        foreach (var (tsv, yaml, why) in new[]
+        {
+            (inputs.RoutesTsv, otherYaml, "made from another YAML"), (otherVersion, inputs.RoutesYaml, "version"),
+            (badRow, inputs.RoutesYaml, "unknown kind"), (cutRow, inputs.RoutesYaml, "a point cut short"), (lastRowGone, inputs.RoutesYaml, "a route row cut off"), ("", inputs.RoutesYaml, "missing"),
+        })
+        {
+            var warnings = new List<string>();
+            var routes = RoutePaths.ReadRuntimeOrYaml(tsv, yaml, Bounds(), warnings.Add);
+            Assert.AreEqual(1, warnings.Count, why);
+            StringAssert.Contains("reading the YAML", warnings[0], why);
+            Assert.AreEqual(expected, routes.Count, why);
+        }
+    }
+
+    /// <summary>A malformed row is an error naming the file and its line, as the localities' runtime file.</summary>
+    [Test]
+    public void TheRuntimeFileRejectsBadRowsByLine()
+    {
+        var inputs = Inputs();
+        var lines = inputs.RoutesTsv.Split('\n');
+        int at = System.Array.FindIndex(lines, l => l.StartsWith("route\t"));
+        lines[at] = lines[at].Replace("\t", "\t\t");
+        var e = Assert.Throws<InvalidDataException>(() => RoutePaths.ParseRuntime(string.Join("\n", lines), inputs.RoutesYaml, Bounds()));
+        StringAssert.Contains($"{RoutePaths.RuntimeFileName}:{at + 1}:", e!.Message);
+    }
+
+    /// <summary>The manifest ships the runtime file to the player, beside the YAML (the ribbon bake and this check read it).</summary>
+    [Test]
+    public void TheManifestShipsTheRuntimeFile()
+    {
+        var files = ContentManifest.Collect(Paths.Content);
+        CollectionAssert.Contains(files, "map/" + RoutePaths.RuntimeFileName);
+        CollectionAssert.Contains(files, "map/" + RoutePaths.DefaultFileName);
+    }
+}

@@ -260,6 +260,12 @@ adds a line under **Unreleased**; CI's `Changelog` job checks this (see `CONTRIB
   footprint) keep their mosques and water towers, at a quarter and three tenths of their size elsewhere, at the street
   crossing nearest their hearts (refs #318, owner ruling 2026-10-12). The city's blocks keep their plots round them: core
   cover 18.5% to 25.6%, the whole footprint 17.4% to 25.2%, 43 to 55 blocks.
+- The map reads its railways' and roads' traced lines from a baked runtime form at boot (`route_paths_1948.tsv`,
+  `tools/route_paths_bake.py`) instead of parsing the YAML, as the localities do (refs #321). A missing or stale file is
+  refused with a warning and the YAML is read as before. The unit placer no longer makes candidate spots for hexes its
+  one-hex limit rules out; every token stands where it stood. The map build takes about 240 ms less at `--cpu 4`
+  (2379-2507 to 2196-2214 ms), and the start screen about 120 ms less (the placer runs again there). `?bootlog` has four
+  more phases inside the units' step. Presentation only.
 - CI checks the water and route-ribbon bakes against the code that makes them (#535), as it does the biome colours'
   (#529): a pinned fingerprint of `MapBuilder.WaterMeshGrid` and of `RouteLayer.Plan` and `Derive`, and a numpy port of
   the water mesh. Doc comments in `MapBuilder`, `RouteLayer` and `RouteRibbonFile` point to the checks. No change in the
