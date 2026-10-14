@@ -13,7 +13,9 @@ H1952 = "62f8ec61a14acff4eab503381994a7c94d7a2f786dcfde5c4c19439ac8b4c5e8"
 SHA = "1b7a36cb" + "0" * 32
 LICENCE_TEXTS = ("CC-BY-4.0.txt", "CC-BY-SA-4.0.txt", "CC0-1.0.txt", "YamlDotNet-MIT.txt")
 NOTICES = ["LICENSE", "LICENSES/CC-BY-4.0.txt", "LICENSES/CC-BY-SA-4.0.txt", "LICENSES/CC0-1.0.txt",
-           "LICENSES/YamlDotNet-MIT.txt", "NOTICE", "OFL.txt", "THIRD-PARTY-NOTICES.md"]
+           "LICENSES/YamlDotNet-MIT.txt", "NOTICE", "OFL-EBGaramond.txt", "OFL-FrankRuhlLibre.txt", "THIRD-PARTY-NOTICES.md"]
+FONT_SOURCES = {"OFL-EBGaramond.txt": "unity/Assets/UI/Fonts/OFL.txt",
+                "OFL-FrankRuhlLibre.txt": "unity/Assets/UI/Fonts/FrankRuhlLibre/OFL.txt"}
 
 
 @pytest.fixture
@@ -33,8 +35,9 @@ def repo(tmp_path):
     (root / "LICENSES").mkdir()
     for name in LICENCE_TEXTS:
         (root / "LICENSES" / name).write_text(f"{name} text\n")
-    (root / "unity/Assets/UI/Fonts").mkdir(parents=True)
-    (root / "unity/Assets/UI/Fonts/OFL.txt").write_text("OFL text\n")
+    for name, src in FONT_SOURCES.items():
+        (root / src).parent.mkdir(parents=True, exist_ok=True)
+        (root / src).write_text(f"{name}: Copyright line of this font\n")
     return root
 
 
@@ -711,7 +714,7 @@ def test_every_archive_carries_the_notices_and_matches_its_file_list(repo, edito
         names = archive_files(out / a["archive"]["name"])
         for notice in NOTICES:
             assert notice in names, (a["platform"], notice)
-            assert (zip_text(out / a["archive"]["name"], notice)) == (repo / ("unity/Assets/UI/Fonts/OFL.txt" if notice == "OFL.txt" else notice)).read_text()
+            assert (zip_text(out / a["archive"]["name"], notice)) == (repo / FONT_SOURCES.get(notice, notice)).read_text()
         listed = sorted(l.split("  ", 1)[1].split(" -> ")[0] for l in (out / a["file_list"]).read_text().splitlines())
         assert listed == names, f"{a['platform']}: the file list is exactly the archive"
 
@@ -733,7 +736,8 @@ def test_the_mac_zip_keeps_the_app_whole_with_the_notices_beside_it_and_no_apple
     names = archive_files(out / "statecraft-israel-v0.1.0-macos-universal.zip")
     assert not [n for n in names if Path(n).name.startswith("._")]
     tops = sorted({n.split("/")[0] for n in names})
-    assert tops == sorted({"Statecraft.app", "LICENSE", "LICENSES", "NOTICE", "OFL.txt", "THIRD-PARTY-NOTICES.md"})
+    assert tops == sorted({"Statecraft.app", "LICENSE", "LICENSES", "NOTICE", "OFL-EBGaramond.txt", "OFL-FrankRuhlLibre.txt",
+                           "THIRD-PARTY-NOTICES.md"})
     ditto = next(c for c in fake.calls if c[0] == "ditto")
     assert "--norsrc" in ditto and ditto[-2].endswith("Statecraft.app"), "the bundle is still zipped by ditto"
 
@@ -745,7 +749,8 @@ def test_the_one_player_rule_still_holds_with_the_notices(repo, editor, monkeypa
         assert rb.player_problem(rb.PLATFORMS[name], out / "players" / name) is None
 
 
-@pytest.mark.parametrize("missing", ["NOTICE", "LICENSES/CC-BY-4.0.txt", "unity/Assets/UI/Fonts/OFL.txt"])
+@pytest.mark.parametrize("missing", ["NOTICE", "LICENSES/CC-BY-4.0.txt", "unity/Assets/UI/Fonts/OFL.txt",
+                                     "unity/Assets/UI/Fonts/FrankRuhlLibre/OFL.txt"])
 def test_a_missing_notice_file_is_refused_before_any_build(repo, editor, monkeypatch, tmp_path, capsys, missing):
     (repo / missing).unlink()
     fake = Fake()
@@ -771,3 +776,15 @@ def test_the_notice_list_is_the_web_packagers():
     loop = re.search(r"for f in (.*?); do", script, re.S).group(1).replace("\\\n", " ")
     web = sorted(set(loop.split()) - {"index.html"})
     assert sorted(rb.REQUIRED_NOTICES) == web == NOTICES
+
+
+def test_every_shipped_fonts_licence_is_a_required_notice():
+    """The OFL asks that each font's copyright notice and licence travel with it: every OFL.txt under
+    unity/Assets/UI/Fonts (one per font folder) is shipped under its own name, so the next font cannot be missed."""
+    root = Path(rb.__file__).resolve().parents[1]
+    found = sorted(p.relative_to(root).as_posix() for p in (root / "unity/Assets/UI/Fonts").rglob("OFL.txt"))
+    assert found == sorted(FONT_SOURCES.values())
+    assert sorted(rb.FONT_LICENCES.values()) == found
+    for name in rb.FONT_LICENCES:
+        assert name in rb.REQUIRED_NOTICES
+    assert rb.FONT_LICENCES == FONT_SOURCES, "the names site/public/fonts already uses"

@@ -32,7 +32,7 @@ Usage: uv run tools/release_build.py [--platform mac|linux|windows|all] [--out D
   statecraft-israel-<tag>-macos-universal.zip (the .app zipped by ditto --norsrc), statecraft-israel-<tag>-linux-x64.tar.gz
   and statecraft-israel-<tag>-windows-x64.zip. It checks first that the folder holds exactly one player executable.
   Every archive carries the notices at its top level, beside the player (RELEASING.md step 7): LICENSE, NOTICE,
-  THIRD-PARTY-NOTICES.md, OFL.txt and LICENSES/, the web packager's list (REQUIRED_NOTICES). It refuses before
+  THIRD-PARTY-NOTICES.md, OFL-EBGaramond.txt, OFL-FrankRuhlLibre.txt and LICENSES/, the web packager's list (REQUIRED_NOTICES). It refuses before
   building when one is missing from the repository, and lists each archive afterwards to prove they are in it. An
   archive leaves out Unity's *_DoNotShip folders and event-photos.json, the build's photo manifest (packaging
   evidence the player never reads), which is copied beside the record as event-photos-<platform>.json.
@@ -72,8 +72,13 @@ METHOD = "Statecraft.Game.EditorTools.Build."
 # scripts/oss/package_web.sh copies into the web zip and checks (test_the_notice_list_is_the_web_packagers keeps them
 # one list). Archive name -> source in the repository; LICENSES/ is copied whole, as the web packager does.
 REQUIRED_NOTICES = ["LICENSE", "LICENSES/CC-BY-4.0.txt", "LICENSES/CC-BY-SA-4.0.txt", "LICENSES/CC0-1.0.txt",
-                    "LICENSES/YamlDotNet-MIT.txt", "NOTICE", "OFL.txt", "THIRD-PARTY-NOTICES.md"]
-NOTICE_TOPS = {"LICENSE", "LICENSES", "NOTICE", "OFL.txt", "THIRD-PARTY-NOTICES.md"}
+                    "LICENSES/YamlDotNet-MIT.txt", "NOTICE", "OFL-EBGaramond.txt", "OFL-FrankRuhlLibre.txt",
+                    "THIRD-PARTY-NOTICES.md"]
+# Each font's own OFL text (its copyright line differs), under the names site/public/fonts uses. Every OFL.txt under
+# unity/Assets/UI/Fonts must be here (test_every_shipped_fonts_licence_is_a_required_notice).
+FONT_LICENCES = {"OFL-EBGaramond.txt": "unity/Assets/UI/Fonts/OFL.txt",
+                 "OFL-FrankRuhlLibre.txt": "unity/Assets/UI/Fonts/FrankRuhlLibre/OFL.txt"}
+NOTICE_TOPS = {"LICENSE", "LICENSES", "NOTICE", "THIRD-PARTY-NOTICES.md", *FONT_LICENCES}
 PHOTOS = "event-photos.json"   # Build.PhotoManifestName: written beside every player, read by packaging, not the player
 # The release asset names: a contract with the CI player golden check (tools/player_golden_check.py, PR #533), in the
 # form of the web zip (statecraft-israel-vX.Y.Z-web.zip, docs/RELEASING.md). {tag} carries the v.
@@ -275,10 +280,10 @@ def archive_name(tag: str, platform: str) -> str:
 
 
 def notice_sources() -> dict[str, Path]:
-    """Archive name -> file in the repository: the three root files, the font licence as OFL.txt, and every
+    """Archive name -> file in the repository: the three root files, each font's licence (FONT_LICENCES), and every
     LICENSES/*.txt (as package_web.sh copies them)."""
     sources = {name: REPO / name for name in ("LICENSE", "NOTICE", "THIRD-PARTY-NOTICES.md")}
-    sources["OFL.txt"] = REPO / "unity/Assets/UI/Fonts/OFL.txt"
+    sources.update({name: REPO / src for name, src in FONT_LICENCES.items()})
     for f in sorted((REPO / "LICENSES").glob("*.txt")):
         sources[f"LICENSES/{f.name}"] = f
     for name in REQUIRED_NOTICES:

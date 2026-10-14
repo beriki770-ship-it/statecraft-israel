@@ -6,7 +6,7 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[3]
 NOTICES = ["LICENSE", "NOTICE", "THIRD-PARTY-NOTICES.md", "LICENSES/CC-BY-4.0.txt", "LICENSES/CC-BY-SA-4.0.txt",
-           "LICENSES/CC0-1.0.txt", "LICENSES/YamlDotNet-MIT.txt", "OFL.txt"]
+           "LICENSES/CC0-1.0.txt", "LICENSES/YamlDotNet-MIT.txt", "OFL-EBGaramond.txt", "OFL-FrankRuhlLibre.txt"]
 # Stands in for tools/package_release.py (which needs dotnet and real content): zips the folder, index.html at the root.
 STUB = """import argparse, zipfile
 from pathlib import Path

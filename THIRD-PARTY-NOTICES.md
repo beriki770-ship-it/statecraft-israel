@@ -44,8 +44,9 @@ None of these is redistributed by this repository or shipped in a build: `UnityM
 
 A build is a different artefact. It contains the Unity runtime, `YamlDotNet.dll`, the fonts, the portraits, the event
 photographs (CC BY 4.0 credits in `NOTICE` and on the card) and the map data. Before a build is handed to anyone, it must carry `LICENSE`, `NOTICE`, this file, `LICENSES/` and
-`unity/Assets/UI/Fonts/OFL.txt`. `scripts/oss/package_web.sh` copies them into the build folder, has
-`tools/package_release.py` (the sensitivity gate) zip it, and refuses to finish unless the zip lists every one of them
+each font's licence: `unity/Assets/UI/Fonts/OFL.txt` as `OFL-EBGaramond.txt` and
+`unity/Assets/UI/Fonts/FrankRuhlLibre/OFL.txt` as `OFL-FrankRuhlLibre.txt`. `scripts/oss/package_web.sh` (WebGL) and
+`tools/release_build.py` (desktop) copy them in, and each refuses to finish unless the archive lists every one of them
 (see [`docs/RELEASING.md`](docs/RELEASING.md)).
 
 ## Third-party trademarks

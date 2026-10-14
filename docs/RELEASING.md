@@ -53,9 +53,10 @@ GitHub Releases page (and, from M4, on itch.io). Steps 1–3 are a normal pull r
    Paste the SHA-256 from step 5 into the release notes.
 7. **Check every published artefact:** download each uploaded archive (GitHub Releases, and itch.io once used) into an
    empty folder, then list it and look for the notices: for a `.zip` (the web zip, the macOS and Windows players),
-   `unzip -Z1 <zip> | grep -E '^(LICENSE|NOTICE|THIRD-PARTY-NOTICES.md|OFL.txt)$'`; for the Linux `.tar.gz`,
-   `tar -tzf <archive> | grep -E '^(\./)?(LICENSE|NOTICE|THIRD-PARTY-NOTICES.md|OFL.txt)$'`. It must print four lines for
-   each archive.
+   `unzip -Z1 <zip> | grep -E '^(LICENSE|NOTICE|THIRD-PARTY-NOTICES.md|OFL-EBGaramond.txt|OFL-FrankRuhlLibre.txt)$'`;
+   for the Linux `.tar.gz`,
+   `tar -tzf <archive> | grep -E '^(\./)?(LICENSE|NOTICE|THIRD-PARTY-NOTICES.md|OFL-EBGaramond.txt|OFL-FrankRuhlLibre.txt)$'`.
+   It must print five lines for each archive.
 
 ## Desktop builds (macOS, Linux, Windows)
 
@@ -79,8 +80,8 @@ Hub command. `--dev` makes a test build from any branch: not `-shareable`, no `-
 Each build runs under `tools/machine_lock.py --shared --wait-unity`. The script runs the `-golden` check on the macOS
 player, the only one the Mac can run; the Linux and Windows players are recorded as unchecked until the CI player check
 runs them. It archives each player under the names that check expects (`statecraft-israel-vX.Y.Z-macos-universal.zip`,
-made with `ditto`; `-linux-x64.tar.gz`; `-windows-x64.zip`), each with `LICENSE`, `NOTICE`, `THIRD-PARTY-NOTICES.md`, `OFL.txt` and
-`LICENSES/` beside the player (it lists the archive to check), and writes `build-record.json`, `build-record.md`, a
+made with `ditto`; `-linux-x64.tar.gz`; `-windows-x64.zip`), each with `LICENSE`, `NOTICE`, `THIRD-PARTY-NOTICES.md`, the two font
+licences (`OFL-EBGaramond.txt`, `OFL-FrankRuhlLibre.txt`) and `LICENSES/` beside the player (it lists the archive to check), and writes `build-record.json`, `build-record.md`, a
 `files-<platform>.sha256` list of each archive's files and the build's `event-photos-<platform>.json` to
 `~/statecraft-release/v<version>-<commit>-<UTC time>/` (or `--out`), and prints the path. It never commits, pushes or
 uploads: copy the record files to the build records repository by hand. Signing and Steam upload are later steps, not yet
