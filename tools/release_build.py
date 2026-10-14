@@ -29,10 +29,13 @@ Usage: uv run tools/release_build.py [--platform mac|linux|windows|all] [--out D
   `GOLDEN OK` lines carrying the hashes pinned in sim/Statecraft.Sim.Tests/golden/manifest.txt. The Linux and Windows
   players are recorded as unchecked, for the CI player check (spec 6.3).
 - Archives each player under the asset name the CI player check expects (PR #533's contract; ARCHIVES below):
-  statecraft-israel-<tag>-macos-universal.zip (ditto --norsrc, the .app alone), statecraft-israel-<tag>-linux-x64.tar.gz and
-  statecraft-israel-<tag>-windows-x64.zip. It checks first that the folder holds exactly one player executable. An
-  archive holds the player only: not Unity's *_DoNotShip folders, and not event-photos.json, the build's photo manifest
-  (packaging evidence the player never reads), which is copied beside the record as event-photos-<platform>.json.
+  statecraft-israel-<tag>-macos-universal.zip (the .app zipped by ditto --norsrc), statecraft-israel-<tag>-linux-x64.tar.gz
+  and statecraft-israel-<tag>-windows-x64.zip. It checks first that the folder holds exactly one player executable.
+  Every archive carries the notices at its top level, beside the player (RELEASING.md step 7): LICENSE, NOTICE,
+  THIRD-PARTY-NOTICES.md, OFL.txt and LICENSES/, the web packager's list (REQUIRED_NOTICES). It refuses before
+  building when one is missing from the repository, and lists each archive afterwards to prove they are in it. An
+  archive leaves out Unity's *_DoNotShip folders and event-photos.json, the build's photo manifest (packaging
+  evidence the player never reads), which is copied beside the record as event-photos-<platform>.json.
 - Writes build-record.json, build-record.md and files-<platform>.sha256: one `shasum -a 256` line per file the archive
   holds, so `shasum -a 256 -c` run where the archive was unpacked checks every file. The record carries the SHA-256 and
   size of each archive and file list, and whether the tree was still clean after the builds.
@@ -65,6 +68,12 @@ REPO = Path(__file__).resolve().parents[1]
 LOCK_TIMEOUT = 30 * 24 * 3600   # machine_lock's own default gives up after an hour; a release waits for the machine
 HUB = "/Applications/Unity Hub.app/Contents/MacOS/Unity Hub"
 METHOD = "Statecraft.Game.EditorTools.Build."
+# The licence and attribution files every archive carries beside the player (RELEASING.md step 7): the list
+# scripts/oss/package_web.sh copies into the web zip and checks (test_the_notice_list_is_the_web_packagers keeps them
+# one list). Archive name -> source in the repository; LICENSES/ is copied whole, as the web packager does.
+REQUIRED_NOTICES = ["LICENSE", "LICENSES/CC-BY-4.0.txt", "LICENSES/CC-BY-SA-4.0.txt", "LICENSES/CC0-1.0.txt",
+                    "LICENSES/YamlDotNet-MIT.txt", "NOTICE", "OFL.txt", "THIRD-PARTY-NOTICES.md"]
+NOTICE_TOPS = {"LICENSE", "LICENSES", "NOTICE", "OFL.txt", "THIRD-PARTY-NOTICES.md"}
 PHOTOS = "event-photos.json"   # Build.PhotoManifestName: written beside every player, read by packaging, not the player
 # The release asset names: a contract with the CI player golden check (tools/player_golden_check.py, PR #533), in the
 # form of the web zip (statecraft-israel-vX.Y.Z-web.zip, docs/RELEASING.md). {tag} carries the v.
@@ -265,13 +274,55 @@ def archive_name(tag: str, platform: str) -> str:
     return ARCHIVES[platform].format(tag=tag)
 
 
+def notice_sources() -> dict[str, Path]:
+    """Archive name -> file in the repository: the three root files, the font licence as OFL.txt, and every
+    LICENSES/*.txt (as package_web.sh copies them)."""
+    sources = {name: REPO / name for name in ("LICENSE", "NOTICE", "THIRD-PARTY-NOTICES.md")}
+    sources["OFL.txt"] = REPO / "unity/Assets/UI/Fonts/OFL.txt"
+    for f in sorted((REPO / "LICENSES").glob("*.txt")):
+        sources[f"LICENSES/{f.name}"] = f
+    for name in REQUIRED_NOTICES:
+        sources.setdefault(name, REPO / name)   # a required licence text that is missing: reported by missing_sources
+    return sources
+
+
+def missing_sources() -> list[str]:
+    return [str(src.relative_to(REPO)) for src in notice_sources().values() if not src.is_file()]
+
+
+def add_notices(folder: Path) -> None:
+    """Copies the notices into the player folder, beside the player, so the archive and its file list carry them."""
+    for name, src in notice_sources().items():
+        (folder / name).parent.mkdir(parents=True, exist_ok=True)
+        (folder / name).write_bytes(src.read_bytes())
+
+
+def archive_names(archive: Path) -> list[str]:
+    if archive.name.endswith(".tar.gz"):
+        with tarfile.open(archive) as t:
+            return [m.name for m in t.getmembers() if not m.isdir()]
+    with zipfile.ZipFile(archive) as z:
+        return [n for n in z.namelist() if not n.endswith("/")]
+
+
+def missing_notices(archive: Path) -> list[str]:
+    """The required notices the archive itself lacks (the artefact is checked, as package_web.sh does)."""
+    names = set(archive_names(archive))
+    return sorted(n for n in REQUIRED_NOTICES if n not in names)
+
+
 def make_archive(p: Platform, folder: Path, target: Path, dest: Path) -> None:
-    """The release archive of one player folder. macOS: ditto keeps the bundle (modes, links), and the zip holds the
-    .app alone. Linux: tar keeps the executable bit. Windows: a zip of the folder."""
+    """The release archive of one player folder, notices included. macOS: ditto keeps the bundle (modes, links) and
+    zips the .app; the notices are then added at the zip's top level. Linux: tar keeps the executable bit. Windows: a
+    zip of the folder."""
     if p.name == "mac":
         # --norsrc: no AppleDouble ._* entries, which unzip would leave as files the file list does not name.
         if run(["ditto", "-c", "-k", "--norsrc", "--keepParent", str(target), str(dest)]).returncode != 0:
             raise SystemExit(f"ditto failed for {target}")
+        with zipfile.ZipFile(dest, "a", zipfile.ZIP_DEFLATED) as z:
+            for path in shipped(folder, mac=True):
+                if path.is_file() and path.relative_to(folder).parts[0] in NOTICE_TOPS:
+                    z.write(path, path.relative_to(folder).as_posix())
     elif p.name == "linux":
         with tarfile.open(dest, "w:gz") as t:
             for path in shipped(folder):
@@ -307,20 +358,23 @@ def unity_seconds(log_text: str) -> int | None:
     return int(m.group(1)) if m else None
 
 
-def shipped(folder: Path) -> list[Path]:
-    """Every path under folder that is part of the player, sorted: Unity's own *_DoNotShip and
-    *_ButDontShipItWithYourGame folders (IL2CPP sources, Burst debug data) and the photo manifest are left out."""
+def shipped(folder: Path, mac: bool = False) -> list[Path]:
+    """Every path under folder that the archive carries, sorted: Unity's own *_DoNotShip and
+    *_ButDontShipItWithYourGame folders (IL2CPP sources, Burst debug data) and the photo manifest are left out. For the
+    Mac (mac=True) only the .app and the notices are kept: the zip holds nothing else."""
     def skip(path: Path) -> bool:
         top = path.relative_to(folder).parts[0]
+        if mac:
+            return not (top.endswith(".app") or top in NOTICE_TOPS)
         return top.endswith("_DoNotShip") or top.endswith("_ButDontShipItWithYourGame") or top == PHOTOS
     return sorted(p for p in folder.rglob("*") if not skip(p))
 
 
-def tree_manifest(folder: Path) -> tuple[str, int, int]:
+def tree_manifest(folder: Path, mac: bool = False) -> tuple[str, int, int]:
     """`shasum -a 256` lines for every file under folder, sorted by path; a symlink is listed by its target, not
     followed (`shasum -c` skips such a line with a warning); the do-not-ship folders are left out. Returns the text, the number of entries and the bytes of the regular files."""
     rows, size = [], 0
-    for path in shipped(folder):
+    for path in shipped(folder, mac):
         rel = path.relative_to(folder).as_posix()
         if path.is_symlink():
             rows.append((rel, f"symlink  {rel} -> {os.readlink(path)}"))
@@ -357,8 +411,9 @@ def markdown(r: dict) -> str:
         out.extend(f"  - `{line}`" for line in g["lines"])
     out += ["", "The archive is the release asset. Each file list (`" + "`, `".join(a["file_list"] for a in r["artifacts"])
             + "`) names exactly the files its archive holds; `shasum -a 256 -c` on it, run where the archive was "
-            "unpacked, checks every regular file (it skips `symlink` lines, which give a link's target instead). The build's photo manifest is kept beside the record "
-            "(`event-photos-<platform>.json`), not in the archive.",
+            "unpacked, checks every regular file (it skips `symlink` lines, which give a link's target instead). Each archive "
+            "carries the licence and attribution files beside the player. The build's photo manifest is kept beside the "
+            "record (`event-photos-<platform>.json`), not in the archive.",
             "Steam build ID: (added by the owner after an upload).", ""]
     return "\n".join(out)
 
@@ -391,6 +446,10 @@ def main(argv: list[str] | None = None) -> int:
               + "\n".join("  " + l for l in dirty)
               + "\nAfter a Unity run, `git checkout -- unity/Assets/Settings unity/ProjectSettings/ProjectSettings.asset` "
                 "drops the settings churn (and the UNITY_MCP_* defines).", file=sys.stderr)
+        return 1
+    if missing := missing_sources():
+        print("REFUSED: notice files every archive must carry are missing from the repository: " + ", ".join(missing)
+              + " (RELEASING.md step 7).", file=sys.stderr)
         return 1
 
     commit = git("rev-parse", "HEAD").stdout.strip()
@@ -470,7 +529,8 @@ def main(argv: list[str] | None = None) -> int:
             print(f"FAILED: the {p.name} build (exit {code}); see {log}", file=sys.stderr)
             return 1
         folder = out / "players" / p.name
-        text, files, size = tree_manifest(folder)
+        add_notices(folder)
+        text, files, size = tree_manifest(folder, mac=p.name == "mac")
         listing = out / f"files-{p.name}.sha256"
         listing.write_text(text)
         photos = None
@@ -483,6 +543,9 @@ def main(argv: list[str] | None = None) -> int:
             return 1
         archive = out / archive_name(tag, p.name)
         make_archive(p, folder, target, archive)
+        if lacking := missing_notices(archive):
+            print(f"FAILED: {archive.name} lacks the notices {', '.join(lacking)}", file=sys.stderr)
+            return 1
         arch = None
         if p.name == "mac":
             arch = run(["lipo", "-archs", str(mac_executable(target))], capture=True).stdout.strip() or None

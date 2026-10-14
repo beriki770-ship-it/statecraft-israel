@@ -11,6 +11,9 @@ import release_build as rb
 H1950 = "71e9904d0ee48083db9bbba281f3f046136482ba83ee056e48d57b62e76a5b07"
 H1952 = "62f8ec61a14acff4eab503381994a7c94d7a2f786dcfde5c4c19439ac8b4c5e8"
 SHA = "1b7a36cb" + "0" * 32
+LICENCE_TEXTS = ("CC-BY-4.0.txt", "CC-BY-SA-4.0.txt", "CC0-1.0.txt", "YamlDotNet-MIT.txt")
+NOTICES = ["LICENSE", "LICENSES/CC-BY-4.0.txt", "LICENSES/CC-BY-SA-4.0.txt", "LICENSES/CC0-1.0.txt",
+           "LICENSES/YamlDotNet-MIT.txt", "NOTICE", "OFL.txt", "THIRD-PARTY-NOTICES.md"]
 
 
 @pytest.fixture
@@ -25,6 +28,13 @@ def repo(tmp_path):
     (root / "sim/Statecraft.Sim/SimInfo.cs").write_text('        public const string Version = "0.1.0";\n')
     (root / "sim/Statecraft.Sim.Tests/golden").mkdir(parents=True)
     (root / "sim/Statecraft.Sim.Tests/golden/manifest.txt").write_text(f"# pinned\nhash1950 {H1950}\nhash1952 {H1952}\nsmoke5 abc\n")
+    for name in ("LICENSE", "NOTICE", "THIRD-PARTY-NOTICES.md"):
+        (root / name).write_text(f"{name} text\n")
+    (root / "LICENSES").mkdir()
+    for name in LICENCE_TEXTS:
+        (root / "LICENSES" / name).write_text(f"{name} text\n")
+    (root / "unity/Assets/UI/Fonts").mkdir(parents=True)
+    (root / "unity/Assets/UI/Fonts/OFL.txt").write_text("OFL text\n")
     return root
 
 
@@ -102,7 +112,13 @@ class Fake:
             log.write_text(f"boot\nGOLDEN OK 1950 {H1950}\n{second}\n")
             code = 0 if self.golden_ok else 1
         elif cmd[0] == "ditto":
-            Path(cmd[-1]).write_bytes(b"PK mac zip of " + Path(cmd[-2]).name.encode())
+            # Plays `ditto -c -k --norsrc --keepParent SRC ZIP`: a real zip, SRC's name as the top folder.
+            import zipfile
+            src, dest = Path(cmd[-2]), Path(cmd[-1])
+            with zipfile.ZipFile(dest, "w") as z:
+                for p in sorted(src.rglob("*")):
+                    if p.is_file():
+                        z.write(p, (Path(src.name) / p.relative_to(src)).as_posix())
         elif cmd[0] == "lipo":
             out = "x86_64 arm64\n"
         return rb.Result(code, out)
@@ -470,7 +486,8 @@ def test_the_record_holds_commit_unity_date_hashes_sizes_and_goldens(repo, edito
     exe = out / "players/mac/Statecraft.app/Contents/MacOS/Statecraft Israel"
     assert f"{hashlib.sha256(b'player').hexdigest()}  Statecraft.app/Contents/MacOS/Statecraft Israel" in lines
     assert not any(line.endswith("event-photos.json") for line in lines), "the list is exactly what the zip holds"
-    assert all(line.split("  ", 1)[1].startswith("Statecraft.app/") for line in lines)
+    assert all(line.split("  ", 1)[1].startswith("Statecraft.app/") or line.split("  ", 1)[1] in NOTICES for line in lines)
+    assert [l.split("  ", 1)[1] for l in lines if not l.split("  ", 1)[1].startswith("Statecraft.app/")] == NOTICES
     photos = out / mac["photo_manifest"]["file"]
     assert photos.name == "event-photos-mac.json" and photos.read_text() == "{}\n"
     assert mac["photo_manifest"]["sha256"] == hashlib.sha256(photos.read_bytes()).hexdigest()
@@ -483,7 +500,8 @@ def test_the_record_holds_commit_unity_date_hashes_sizes_and_goldens(repo, edito
         assert arts[name]["archive"] == {"name": asset, "bytes": archive.stat().st_size,
                                          "sha256": hashlib.sha256(archive.read_bytes()).hexdigest()}
     assert mac["files"] == len(lines)
-    assert mac["bytes"] == sum(p.stat().st_size for p in (out / "players/mac/Statecraft.app").rglob("*") if p.is_file())
+    assert mac["bytes"] == sum(p.stat().st_size for p in (out / "players/mac/Statecraft.app").rglob("*") if p.is_file()) \
+        + sum((out / "players/mac" / n).stat().st_size for n in NOTICES)
     assert exe.is_file()
 
     assert mac["golden"]["status"] == "pass"
@@ -565,9 +583,9 @@ def test_the_linux_and_windows_archives_hold_the_player_folder(repo, editor, mon
     out = tmp_path / "out"
     assert run_main(["--platform", "all", "--out", str(out)], repo, editor, Fake(), monkeypatch) == 0
     with tarfile.open(out / "statecraft-israel-v0.1.0-linux-x64.tar.gz") as t:
-        assert t.getnames() == ["Statecraft.x86_64"]
+        assert [m.name for m in t.getmembers() if m.isfile()] == sorted(NOTICES + ["Statecraft.x86_64"])
     with zipfile.ZipFile(out / "statecraft-israel-v0.1.0-windows-x64.zip") as z:
-        assert z.namelist() == ["Statecraft.exe"]
+        assert [n for n in z.namelist() if not n.endswith("/")] == sorted(NOTICES + ["Statecraft.exe"])
 
 
 def test_the_linux_archive_keeps_the_executable_bit(tmp_path):
@@ -671,3 +689,85 @@ def test_a_dangling_symlink_into_the_repository_is_refused(repo, editor, monkeyp
 def test_a_tag_with_non_ascii_digits_is_not_a_release_tag(tag):
     """\\d without re.ASCII matches Arabic-Indic and full-width digits; a tag reaches file names and the CI check."""
     assert rb.TAG.fullmatch(tag) is None
+
+
+# --- the notices in every desktop archive (RELEASING.md step 7; P47) -------------------------------------------------------
+
+def archive_files(path):
+    import tarfile
+    import zipfile
+    if path.name.endswith(".tar.gz"):
+        with tarfile.open(path) as t:
+            return sorted(m.name for m in t.getmembers() if m.isfile() or m.issym())
+    with zipfile.ZipFile(path) as z:
+        return sorted(n for n in z.namelist() if not n.endswith("/"))
+
+
+def test_every_archive_carries_the_notices_and_matches_its_file_list(repo, editor, monkeypatch, tmp_path):
+    out = tmp_path / "out"
+    assert run_main(["--platform", "all", "--out", str(out)], repo, editor, Fake(), monkeypatch) == 0
+    record = json.loads((out / "build-record.json").read_text())
+    for a in record["artifacts"]:
+        names = archive_files(out / a["archive"]["name"])
+        for notice in NOTICES:
+            assert notice in names, (a["platform"], notice)
+            assert (zip_text(out / a["archive"]["name"], notice)) == (repo / ("unity/Assets/UI/Fonts/OFL.txt" if notice == "OFL.txt" else notice)).read_text()
+        listed = sorted(l.split("  ", 1)[1].split(" -> ")[0] for l in (out / a["file_list"]).read_text().splitlines())
+        assert listed == names, f"{a['platform']}: the file list is exactly the archive"
+
+
+def zip_text(path, name):
+    import tarfile
+    import zipfile
+    if path.name.endswith(".tar.gz"):
+        with tarfile.open(path) as t:
+            return t.extractfile(name).read().decode()
+    with zipfile.ZipFile(path) as z:
+        return z.read(name).decode()
+
+
+def test_the_mac_zip_keeps_the_app_whole_with_the_notices_beside_it_and_no_appledouble(repo, editor, monkeypatch, tmp_path):
+    out = tmp_path / "out"
+    fake = Fake()
+    assert run_main(["--platform", "mac", "--out", str(out)], repo, editor, fake, monkeypatch) == 0
+    names = archive_files(out / "statecraft-israel-v0.1.0-macos-universal.zip")
+    assert not [n for n in names if Path(n).name.startswith("._")]
+    tops = sorted({n.split("/")[0] for n in names})
+    assert tops == sorted({"Statecraft.app", "LICENSE", "LICENSES", "NOTICE", "OFL.txt", "THIRD-PARTY-NOTICES.md"})
+    ditto = next(c for c in fake.calls if c[0] == "ditto")
+    assert "--norsrc" in ditto and ditto[-2].endswith("Statecraft.app"), "the bundle is still zipped by ditto"
+
+
+def test_the_one_player_rule_still_holds_with_the_notices(repo, editor, monkeypatch, tmp_path):
+    out = tmp_path / "out"
+    assert run_main(["--platform", "all", "--out", str(out)], repo, editor, Fake(), monkeypatch) == 0
+    for name in ("mac", "linux", "windows"):
+        assert rb.player_problem(rb.PLATFORMS[name], out / "players" / name) is None
+
+
+@pytest.mark.parametrize("missing", ["NOTICE", "LICENSES/CC-BY-4.0.txt", "unity/Assets/UI/Fonts/OFL.txt"])
+def test_a_missing_notice_file_is_refused_before_any_build(repo, editor, monkeypatch, tmp_path, capsys, missing):
+    (repo / missing).unlink()
+    fake = Fake()
+    assert run_main(["--platform", "linux", "--out", str(tmp_path / "o")], repo, editor, fake, monkeypatch) == 1
+    assert unity_calls(fake) == []
+    assert missing in capsys.readouterr().err
+
+
+def test_an_archive_without_its_notices_is_caught(tmp_path):
+    import zipfile
+    z = tmp_path / "a.zip"
+    with zipfile.ZipFile(z, "w") as f:
+        f.writestr("Statecraft.exe", "x")
+        f.writestr("LICENSE", "x")
+    assert "NOTICE" in rb.missing_notices(z)
+    assert rb.missing_notices(z) == sorted(set(NOTICES) - {"LICENSE"})
+
+
+def test_the_notice_list_is_the_web_packagers():
+    """One list: the files scripts/oss/package_web.sh copies and checks in the web zip (index.html aside)."""
+    import re
+    script = (Path(rb.__file__).resolve().parents[1] / "scripts/oss/package_web.sh").read_text()
+    loop = re.search(r"for f in (.*?); do", script, re.S).group(1).replace("\\\n", " ")
+    web = sorted(set(loop.split()) - {"index.html"})
+    assert sorted(rb.REQUIRED_NOTICES) == web == NOTICES
