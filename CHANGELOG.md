@@ -321,6 +321,9 @@ adds a line under **Unreleased**; CI's `Changelog` job checks this (see `CONTRIB
   It decodes to the same bytes, so the terrain is unchanged (#44).
 
 ### Fixed
+- Second Government ministers take their Second Knesset factions from 20 August 1951, per the Knesset faction records:
+  Haim-Moshe Shapira Hapoel HaMizrachi and Yitzhak-Meir Levin Agudat Yisrael (both United Religious Front before), and
+  Bechor-Shalom Sheetrit Mapai (Sephardim before). Each term is split on that date (refs #457). No golden moves.
 - Contradictions flagged in #457 and #442 that cannot move a golden. YAML comments: the Provisional State Council last
   met on 10 February 1949, not 3 February; the 120-seat ordinance passed on 18 November 1948 and the 25 January vote
   was fixed on 25 November 1948 (Harpaz, Kesher 61); the 57-36 vote of 8 August 1950 was for the coalition's motion,
