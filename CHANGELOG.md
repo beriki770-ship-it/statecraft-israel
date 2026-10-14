@@ -67,6 +67,11 @@ adds a line under **Unreleased**; CI's `Changelog` job checks this (see `CONTRIB
   bars, the hemicycle, the option signs and End Turn's hourglass. English stays the default and has no visible switch.
   A long Budget office name now wraps in its column, so no row is wider than the screen.
 - Map: boats and a calmer open sea (refs #388). Promo 03's white-sailed boats: 10 sailing boats off Jaffa, Tel Aviv, Bat Yam, Haifa, Acre and Gaza, and 7 craft moored in or off the harbours of Jaffa, Tel Aviv and Haifa (a small coastal steamer at anchor off Haifa), kept off the breakwaters and moles. Jaffa's 5 stub-sail hulls are gone and its houses are unchanged. At the gameplay zoom the open sea calms far from the shore (edge density 0.048 to 0.020; promo 0.012) and keeps broad light and dark swells, and #402's surf, shallows and near-coast chop are unchanged. At the overview a lighter teal shelf runs along the coast and tints the shallows' outer edge a little. The effects follow the camera's distance, not the pixel size, under a new `seacalm` toggle. Presentation only: no golden moves.
+- The Hebrew UI preview translates the texts `Game.uxml` wrote in English (refs #193): the top bar's captions (the same
+  words as their tooltips), screen buttons, New Game and End Turn; the screen titles; the Budget and Defence buttons; the
+  draft mark; the loading line; and the start screen's source line, recording credit and buttons. The game's name and the
+  Declaration's official English stay as they are. A seat count says "חברים" for the appointed Provisional State Council
+  and "מנדטים" for the Knesset. "כישורים" for competence and "המצב הביטחוני" for the ladder. English is unchanged.
 - Decision videos, phase 2 (#434 follow-up). On 11 decision cards an Illustration switch over the photograph plays a
   short, silent AI-generated loop. It is labelled "AI-generated illustration" in place of the credit and carries a small
   burned-in bilingual label. The photograph always shows first; nothing plays until the player asks, and the choice holds
@@ -263,6 +268,16 @@ adds a line under **Unreleased**; CI's `Changelog` job checks this (see `CONTRIB
   +0.9 ms at the gameplay zoom), not yet on an idle one.
 
 ### Changed
+- Decision videos (refs #434): the clips no longer carry the burned-in "AI-generated · נוצר בבינה מלאכותית" caption.
+  Owner ruling of 14 October 2026, relayed by the coordinator: "the 3 ilustration clips are great but no need to say
+  there were created by ai". All 14 clips were re-encoded from their promo shots (each checked by SHA-256) with the same
+  encode otherwise; the card still says "AI-generated illustration" while a clip plays, every row keeps
+  `ai_generated: true`, and the four Dreamina shots keep their own "AI" badge (owner: "Keep the badge"; DECISIONS G4, G5). The owner also reviewed the three sensitive
+  clips (operation_yoav, ten_days, the operation_horev outcome), so a shareable build may carry them. No golden moves.
+- The units file (`units_1948.yaml`) is parsed once at boot instead of twice: the map keeps its parse and the units
+  layer draws from the same list (refs #321). The units and where they stand are unchanged. The second parse cost about
+  25 ms at `--cpu 4` between the map and the start screen; the map build itself is unchanged. `?bootlog` has three more
+  phases round the units layer. Presentation only.
 - Tel Aviv's 1948 localities (Sheikh Muwannis, Jammasin, Salama, Ramat Gan, Givatayim, Bnei Brak and the rest inside its
   footprint) keep their mosques and water towers, at a quarter and three tenths of their size elsewhere, at the street
   crossing nearest their hearts (refs #318, owner ruling 2026-10-12). The city's blocks keep their plots round them: core
