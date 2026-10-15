@@ -569,6 +569,56 @@ public class UnitsInPlayTests
         Assert.Less(o.Max(v => v.magnitude) * step + 600f, UnitShowcase.RingRadius * 5000f, "the figures stay inside the ring");
     }
 
+    /// <summary>Issue #644: the trio and its flag were laid out for camera yaw 0, so at yaw 90 and 270 the figures stood in a
+    /// column and from about yaw 180 the pole stood in front of them. At every yaw from 0 to 315 in 45 degree steps, on a 30 km
+    /// look at each army token: its figures' feet, seen along the camera's right (flattened), stand side by side, each gap at
+    /// least 0.9 of the token's gap at yaw 0; each figure faces the camera as it does at yaw 0; and the pole's foot is farther
+    /// from the camera than every figure's feet, so the pole is drawn behind them.</summary>
+    [Test]
+    public void TheTrioReadsSideBySideAndThePoleStandsBehindItAtEveryYaw()
+    {
+        var map = BuildMap();
+        try
+        {
+            var layer = UnitLayer.Create(map, Units, C.Hexes, still: true);
+            layer.Show(C, StateAt(new DateTime(1948, 5, 29), 5, 0.8));
+            var cam = Camera.main; Assert.IsNotNull(cam, "the default scene's camera");
+            var tokens = map.Terrain.transform.Find(UnitLayer.RootName).Find("Tokens").Cast<Transform>().Where(t => t.Find(UnitPlinth.PlinthName) != null).ToList();
+            var atZero = new Dictionary<string, (float[] gaps, float[] facing)>();
+            int judged = 0, poles = 0;
+            foreach (var yaw in new[] { 0f, 45f, 90f, 135f, 180f, 225f, 270f, 315f })
+                foreach (var t in tokens)
+                {
+                    cam.transform.rotation = Quaternion.Euler(CameraRig.Pitch, yaw, 0f);
+                    cam.transform.position = t.Find(UnitPlinth.PlinthName).position - cam.transform.forward * 30000f;
+                    layer.FaceCamera(cam);
+                    var right = cam.transform.right; right.y = 0f; right.Normalize();
+                    var away = cam.transform.forward; away.y = 0f; away.Normalize();
+                    var figures = t.Cast<Transform>().Where(x => x.name.StartsWith("Rifleman")).OrderBy(x => x.name).ToList();
+                    if (figures.Count < 2) continue;
+                    var across = figures.Select(f => Vector3.Dot(f.position, right)).OrderBy(v => v).ToList();
+                    var gaps = Enumerable.Range(1, across.Count - 1).Select(i => across[i] - across[i - 1]).ToArray();
+                    var facing = figures.Select(f => Vector3.SignedAngle(-away, Vector3.ProjectOnPlane(f.forward, Vector3.up), Vector3.up)).ToArray();
+                    if (yaw == 0f) atZero[t.name] = (gaps, facing);
+                    var zero = atZero[t.name];
+                    for (int i = 0; i < gaps.Length; i++)
+                        Assert.GreaterOrEqual(gaps[i], 0.9f * zero.gaps[i], $"yaw {yaw} {t.name}: neighbours {i} and {i + 1} stand side by side across the view, not in a column");
+                    for (int i = 0; i < facing.Length; i++)
+                        Assert.AreEqual(zero.facing[i], facing[i], 1f, $"yaw {yaw} {t.name}/{figures[i].name}: faces the camera as at yaw 0");
+                    judged++;
+                    var flag = t.Find(UnitPlinth.FlagName); if (flag == null) continue;
+                    float pole = Vector3.Dot(flag.position, away), farthest = figures.Max(f => Vector3.Dot(f.position, away));
+                    Assert.Greater(pole, farthest, $"yaw {yaw} {t.name}: the pole's foot stands behind the figures, not in front ({pole - farthest:0} m)");
+                    poles++;
+                }
+            Debug.Log($"UNITS yaw: {judged} trios and {poles} poles judged over 8 yaws");
+            Assert.GreaterOrEqual(tokens.Count, 5, "the army tokens of 29 May 1948 (not a vacuous pass)");
+            Assert.AreEqual(8 * tokens.Count, judged, "every army token at every yaw");
+            Assert.AreEqual(judged, poles, "each with its flag");
+        }
+        finally { UnityEngine.Object.DestroyImmediate(map.gameObject); }
+    }
+
     [Test]
     public void ScreenshotsShowUnitsOnlyWhenAsked()
     {

@@ -24,6 +24,9 @@ adds a line under **Unreleased**; CI's `Changelog` job checks this (see `CONTRIB
 - The unit figures' shirts are darker (0.9 of their paint), so the figures read darker than their earth base as demo2
   T29's do, 0.5-0.9 of its luma at the Harel and plain 30 km looks and at gameplay03 (refs #645, #197), pinned by
   `TheFiguresReadDarkerThanTheirBaseAsT29`. #559's shirt sample landed on the chest brace; the new test reads the shirt.
+- Map: an army token's figures and its flag's pole turn about the base's middle with the camera's yaw (refs #644, from
+  #559), so from every side the trio stands side by side facing the camera with the pole behind it; at yaw 90 or 270 the
+  figures stood in a column, and from about yaw 180 the pole stood in front of them. Presentation only.
 - `bernadotte_assassination` says "about 250" Lehi members were arrested, not "about 200" (refs #516; owner, 15 October
   2026): Ben-Gurion told the Provisional State Council 246 (184 + 62), and S/1315 gives 266 by 23 September (184 + 82).
   Card text only: no golden moves, the content hash does, so an older save loads with the "different game content"
