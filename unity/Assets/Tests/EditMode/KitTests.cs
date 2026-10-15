@@ -657,14 +657,15 @@ public class KitTests
 
     /// <summary>Review (issue #32): the trees planted at map build do not stand in a ma'abara built later. While the camp's kit
     /// is drawn no tree drawn has its crown on the camp's ground (the disc round each tent, hut, communal hut and water
-    /// tower); housing in its place, or the kits off (the camp is its box), gives them back. Rosh Pinna's camp lands among
-    /// the hill olives.</summary>
+    /// tower); housing in its place, or the kits off (the camp is its box), gives them back. Safed's camp lands among the
+    /// hill olives (it was Rosh Pinna's until main's units file left that hex no ground for a camp: see
+    /// AMaabaraKeepsOffTokensGridMarksAndSteepGround).</summary>
     [Test]
     public void NoTreeStandsInAMaabara()
     {
         var map = OpenMap();
         var c = Statecraft.Sim.ContentLoader.Load(Statecraft.Game.Paths.Content);
-        var hex = c.SettlementHexes.Single(s => s.Id == "rosh_pinna");
+        var hex = c.SettlementHexes.Single(s => s.Id == "safed");
         var date = new System.DateTime(1950, 8, 26);
         var veg = map.GetComponentInChildren<VegetationLayer>(); Assert.IsNotNull(veg);
         int before = veg.Drawable().Count();
@@ -694,17 +695,18 @@ public class KitTests
     }
 
     /// <summary>Review (issue #32): a ma'abara keeps to the Bedouin camps' rules (Encampments): no tent, hut or water tower
-    /// on a unit token, on a hex edge's grid mark or on steep ground, so a token on the camp's own hex moves it off. Rosh
-    /// Pinna's camp stands on hilly ground by a hex edge, where those rules refuse plots a build without them fills (review
-    /// #557: on flat Revivim the test passed with the rules removed).</summary>
+    /// on a unit token, on a hex edge's grid mark or on steep ground, so a token on the camp's own hex moves it off. Safed's
+    /// camp stands on hilly ground by a hex edge, where those rules refuse plots a build without them fills (review #557: on
+    /// flat Revivim the test passed with the rules removed). It was Rosh Pinna until main's units file placed Carmeli's
+    /// Operation Brosh token beside it (July 1948), whose ring leaves the camp no ground in that hex, so it is a box there.</summary>
     [Test]
     public void AMaabaraKeepsOffTokensGridMarksAndSteepGround()
     {
         var map = OpenMap();
         var g = PlacementLayer.CampGround(map);
-        var at = Spot(map, "rosh_pinna");
+        var at = Spot(map, "safed");
         g.Tokens.Add((at, 300f));
-        var camp = new List<(string id, Vector2 at)> { ("transit_camp_rosh_pinna", at) };
+        var camp = new List<(string id, Vector2 at)> { ("transit_camp_safed", at) };
         var built = SettlementKits.Maabarot(camp, g, out var placed)[0];
         Assert.IsNotNull(built.mesh, "the camp found free ground");
         Object.DestroyImmediate(built.mesh);
