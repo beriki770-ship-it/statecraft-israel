@@ -342,7 +342,9 @@ figures tall standing at the base's back edge. `UnitPlinth` and `UnitFlags` draw
   is unchanged and still appears only on selection.
 - **On renders** (`TheBaseRingAndFlagReadAsT29OnARender`: a 30 km look at Harel's hill token and at the showcase trio,
   through the game's camera, measured as T29 was): see the numbers in PR #559. The bands are T29's own measures, set
-  before measuring ours.
+  before measuring ours. The figures read darker than their base, as T29's (0.5–0.9 of its luma), at those looks and at
+  gameplay03 (`TheFiguresReadDarkerThanTheirBaseAsT29`, #645: the shirts at 0.9 of #559's paint, read beside the chest
+  brace, which #559's sample point hit).
 - **Flag:** by the unit's `side` in `units_1948.yaml` (`israel` on every row today; the Arab states' sides are known to the
   loader for #226). The cloth is 0.52 of a figure's height tall and 0.72 wide, on a pole 1.5 tall at 0.9 of the base's
   radius, behind the trio and east of the badge (`TheFlagIsAboutHalfAFigureTallOnTheBasesEdge`). The cloth is drawn
