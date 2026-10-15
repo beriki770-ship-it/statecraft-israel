@@ -1094,7 +1094,7 @@ public class KitTests
     /// alone, the roof by the sun. With the trilight's own colour (near grey at a wall) a pale face in shade kept almost no
     /// colour, and the grade's teal shadows turned it green-grey: measured before the fix, hue 69 deg against the roof's
     /// 38, green over red. Graded, as the player sees it (the other switches off): the shaded wall must keep its hue within
-    /// <see cref="ShadeHueDegrees"/> of the sunlit roof's, red its strongest channel.</summary>
+    /// <see cref="ShadeHueDegrees"/> of the sunlit roof's, red its strongest channel, and at least 0.8 of its saturation.</summary>
     public const float ShadeHueDegrees = 15f;
 
     [UnityTest]
@@ -1132,6 +1132,8 @@ public class KitTests
             Assert.Less(vs, 0.8f * vl, "the wall is in shade");
             Assert.LessOrEqual(Mathf.Abs(Mathf.DeltaAngle(hs * 360f, hl * 360f)), ShadeHueDegrees, "the shaded face turns another hue");
             Assert.Greater(shade.r, Mathf.Max(shade.g, shade.b), "the shaded face of a warm albedo goes green- or blue-grey");
+            // The hue alone stops failing once the grade's shadows turn slate (#519); the washed-out colour still shows here.
+            Assert.GreaterOrEqual(ss, 0.8f * sl, "the shaded face keeps its colour");
         }
         finally { Object.DestroyImmediate(go); Object.DestroyImmediate(mesh); QualitySettings.SetQualityLevel(previous, false); }
     }

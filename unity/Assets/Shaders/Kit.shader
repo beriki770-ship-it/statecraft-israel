@@ -1,7 +1,8 @@
 // Settlement kits and trees (art spike, issues #31 #32 #34 #37). Vertex colour is the sRGB albedo; its alpha picks a
 // facade's window pattern (KitMesh.Facade), drawn from uv0 = the wall's (along, up) position in real metres, so storeys and
 // windows keep real proportions on symbolic-size buildings, box-filtered so they fade to their mean instead of shimmering
-// when a storey is a pixel or two. Lit like the terrain (the sun with its shadows, the trilight ambient through SH) and
+// when a storey is a pixel or two. Lit like the terrain (the sun with its shadows, the trilight ambient through SH; in shade
+// the ambient also takes a sun-warm bounce, KitBounce, so a face keeps its own colour) and
 // hazed with the terrain's own ScHazeAmount, so kits sit in the same air as the ground. GPU instancing for the trees, with a
 // per-instance tint hashed from the instance's origin (no per-instance buffer: WebGL 2 has instanced arrays only).
 // Shadows use the sun's own URP bias, unchanged (ApplyShadowBias): KitTests.AKitShadowStartsAtItsWalls finds no gap at
