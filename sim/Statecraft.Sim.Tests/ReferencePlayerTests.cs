@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text.RegularExpressions;
@@ -27,9 +28,9 @@ public class ReferencePlayerTests
     }
 
     // R-TRAIN-001: the stated policy trains a halutz group only when there is none, none in training, a civilian without
-    // work, and the Treasury and Attention to pay.
+    // work, and the Attention to pay. Training borrows, so Money does not hold it back (owner decision, 2026-10-15).
     [Fact]
-    public void ItTrainsNoHalutzWhenOneExistsOrTrainsOrNobodyIsFreeOrMoneyIsShort()
+    public void ItTrainsNoHalutzWhenOneExistsOrTrainsOrNobodyIsFreeButDoesWithNoMoney()
     {
         var s = Simulation.NewGame(Mvp, GoldenRun.Seed, Mode.Historical);
         var training = Simulation.Step(Mvp, s, ReferencePlayer.Commands(Mvp, s)).State;
@@ -47,8 +48,77 @@ public class ReferencePlayerTests
         busy.Cities["tel_aviv"] = busy.Cities["tel_aviv"].WithCounts(90, 80, 0);   // 90 jobs: all of them filled
         Assert.DoesNotContain(ReferencePlayer.Commands(Mvp, busy), x => x is Train);
         var poor = s.Clone();
-        poor.Treasury = 0.4;
-        Assert.DoesNotContain(ReferencePlayer.Commands(Mvp, poor), x => x is Train);
+        poor.Treasury = 0;   // training borrows (owner decision, 2026-10-15): an empty Treasury does not hold it back
+        Assert.Contains(ReferencePlayer.Commands(Mvp, poor), x => x is Train);
+    }
+
+    // R-SITE-001: the stated policy sends each idle halutz group, in id order, to the first available yishuv site in id order.
+    // Pioneer work borrows (question 13, owner decision 2026-10-15), so an empty Treasury does not hold it back.
+    [Fact]
+    public void ItSendsAnIdleHalutzToTheFirstAvailableSite()
+    {
+        var s = Simulation.NewGame(Mvp, GoldenRun.Seed, Mode.Historical);
+        s.Units.Add(7, new Unit(7, "halutz", -3, 19));
+        s.Units.Add(8, new Unit(8, "halutz", -3, 19));
+        s.NextId = 9;
+        s.Treasury = 10;
+        var build = Assert.Single(ReferencePlayer.Commands(Mvp, s).OfType<PioneerWork>());   // one site: the second group waits
+        Assert.Equal((7, "build_yishuv", "mefalsim"), (build.Unit, build.Action, build.Site));
+        Assert.Empty(Simulation.Step(Mvp, s, ReferencePlayer.Commands(Mvp, s)).Rejected);
+
+        var building = s.Clone();
+        building.Sites["mefalsim"] = new SiteWork("mefalsim", 7, 3, null);
+        Assert.DoesNotContain(ReferencePlayer.Commands(Mvp, building), x => x is PioneerWork);
+        var built = s.Clone();
+        built.Sites["mefalsim"] = SiteWork.Built("mefalsim", new DateTime(1949, 6, 15));
+        Assert.DoesNotContain(ReferencePlayer.Commands(Mvp, built), x => x is PioneerWork);
+        var poor = s.Clone();
+        poor.Treasury = 0;
+        Assert.Contains(ReferencePlayer.Commands(Mvp, poor), x => x is PioneerWork);
+    }
+
+    /// <summary>The GDD fixture with two yishuv sites, site_a on (2, 0) and site_b on (3, 0), and pioneer_work priced at
+    /// <paramref name="cost"/> Attention.</summary>
+    static Content TwoSites(int cost) => ContentLoader.Load(Fixture.Write(Fixture.Gdd(new Dictionary<string, string>
+    {
+        ["sites.yaml"] = Fixture.GddSites + Fixture.GddSites.Replace("sites:\n", "").Replace("site_a", "site_b").Replace("Site A", "Site B").Replace("q: 2", "q: 3"),
+        ["rules.yaml"] = Fixture.Files["rules.yaml"].Replace("map_action: 1 }", Fixture.GddCosts.Replace("pioneer_work: 0", "pioneer_work: " + cost)) + Fixture.GddRules,
+    })));
+
+    static GameState TwoHalutzim(Content c)
+    {
+        var s = Simulation.NewGame(c, 1, Mode.Historical);
+        for (int i = 0; i < 2; i++) { var id = s.NextId++; s.Units.Add(id, new Unit(id, "halutz", 1, 0)); }
+        return s;
+    }
+
+    // R-SITE-001: a busy unit is not sent again, even when another site is free; the idle one takes it.
+    [Fact]
+    public void ItSendsNoBusyUnit()
+    {
+        var c = TwoSites(0);
+        var s = TwoHalutzim(c);
+        var (busy, idle) = (s.Units.Keys[0], s.Units.Keys[1]);
+        s.Sites["site_a"] = new SiteWork("site_a", busy, 2, null);
+        var build = Assert.Single(ReferencePlayer.Commands(c, s).OfType<PioneerWork>());
+        Assert.Equal((idle, "site_b"), (build.Unit, build.Site));
+    }
+
+    // R-SITE-001: the policy sends builds only while the turn's Attention lasts (the slice prices them at 0; this fixture at 1).
+    [Fact]
+    public void ItSendsNoMoreBuildsThanAttentionPays()
+    {
+        var c = TwoSites(1);
+        var s = TwoHalutzim(c);
+        s.Cities["town_a"] = s.Cities["town_a"].WithCounts(8, 8, 0);   // the jobs are filled: no AssignWorkers takes Attention
+        var history = HistoricalAI.Commands(c, s).Sum(x => AttentionSystem.Cost(c, s, x.Kind));
+        var price = AttentionSystem.Cost(c, s, Projects.PioneerKind);
+        Assert.True(price > 0);
+        s.Attention = history + price * 1.5;   // one build, not two
+        var build = Assert.Single(ReferencePlayer.Commands(c, s).OfType<PioneerWork>());
+        Assert.Equal((s.Units.Keys[0], "site_a"), (build.Unit, build.Site));
+        s.Attention = history + price * 0.5;
+        Assert.DoesNotContain(ReferencePlayer.Commands(c, s), x => x is PioneerWork);
     }
 
     [Fact]

@@ -23,14 +23,16 @@ The geography is real (slope, rain, towns); the parcels are procedural. Determin
 import json
 import math
 import warnings
+import sys
 from pathlib import Path
 
 import numpy as np
-import yaml
 from PIL import Image
 
-import hexgrid
-import terrain_bake as tb
+sys.path.insert(0, str(Path(__file__).resolve().parent))  # under python -I the script's folder is not on sys.path
+import hexgrid  # noqa: E402
+import terrain_bake as tb  # noqa: E402
+import yaml12  # noqa: E402
 
 ROOT = Path(__file__).resolve().parents[1]
 MAP_DIR = ROOT / "unity" / "Assets" / "StreamingAssets" / "map"
@@ -132,7 +134,7 @@ def biome_at(xk: np.ndarray, yk: np.ndarray, hexes: dict) -> np.ndarray:
 
 
 def settlements_km(meta: dict) -> list[tuple[str, float, float]]:
-    doc = yaml.safe_load((CONTENT / "settlements_1948.yaml").read_text())
+    doc = yaml12.load((CONTENT / "settlements_1948.yaml").read_text())
     return [(s["id"], *hexgrid.lonlat_to_km(s["lon"], s["lat"], meta)) for s in doc["settlements"]]
 
 

@@ -76,24 +76,67 @@ units:
   number: 2nd Brigade
   service: army
   formed: 22 February 1948
-  sector: The northwest (split from the Levanoni Brigade in February 1948).
-  wikipedia_only: true
+  sector: "The Haifa area and the Zevulun district, that is Haifa and the Western Galilee (split from the Levanoni Brigade in February 1948). It took Acre in Operation Ben-Ami (from 13 May 1948; Acre surrendered on the night of 17-18 May), led Operation Brosh against the Syrian bridgehead at Mishmar HaYarden (9-18 July 1948) and fought in Operation Hiram."
+  wikipedia_only: false
   status: draft
-  hidden: The sources name its sector ("the northwest") but no place or headquarters.
-  anchors: []
+  anchors:
+  - place: Facing the Syrian bridgehead at Mishmar HaYarden
+    lon: 35.59972
+    lat: 33.00278
+    from: '1948-07-09'
+    since: 9 July 1948
+    to: '1948-07-19'
+    end_basis: source
+    end_note: "he.wiki Operation Brosh: the operation ran to 18 July 1948, when the second truce began at 19:00 with the front line unchanged. No source found places the brigade on this line between the truce and Operation Hiram (he.wiki Operation Hiram, at the end of October, names places for Carmeli, Manara and Misgav Am, where its main task was to block a possible Syrian attack, but no source dates the brigade at Mishmar HaYarden after Brosh), so the window ends with the operation, as Yiftach's ends with Dani."
+    note: "The Haganah Heritage lexicon (Brigade 2 Carmeli): the brigade's headquarters and most of its forces operated in Operation Brosh (July 1948) against the Syrian bridgehead at Mishmar HaYarden. he.wiki Operation Brosh: 9-18 July 1948, commanded by the Carmeli commander with the brigade's 22nd, 23rd and 24th battalions; the operation's headquarters was at the Hotel Shulamit in Rosh Pinna; the bridgehead was not taken. The Syrians held the moshava from 10 June 1948, so the token stands facing it on the Israeli side, by Rosh Pinna. Not drawn before 9 July: its sector place, Haifa, has no clear spot outside the town on the map (coordinator's option (d), 2026-10-15)."
+    toward:
+      place: Rosh Pinna
+      lon: 35.54222
+      lat: 32.97
+      note: "The headquarters of Operation Brosh (he.wiki Operation Brosh: the Hotel Shulamit in Rosh Pinna); Israeli throughout 1948, while Mishmar HaYarden's own hex was held by the Syrians from 10 June 1948."
+      sources:
+      - {url: 'https://he.wikipedia.org/wiki/%D7%9E%D7%91%D7%A6%D7%A2_%D7%91%D7%A8%D7%95%D7%A9', checked: '2026-10-15'}
+      - {url: 'https://en.wikipedia.org/wiki/Rosh_Pinna', checked: '2026-10-15'}
+    place_hex: [12, 6]
+    sources:
+    # Organisation of Haganah Heritage, Lexicon, "Brigade 2 Carmeli": the brigade's HQ and most of its forces in Operation Brosh (July 1948) against the Syrian bridgehead at Mishmar HaYarden.
+    - {url: 'https://hahagana.org.il/lexicon/lexiconpage/?itemId=47620', checked: '2026-10-15'}
+    - {url: 'https://he.wikipedia.org/wiki/%D7%9E%D7%91%D7%A6%D7%A2_%D7%91%D7%A8%D7%95%D7%A9', checked: '2026-10-15'}
+    - {url: 'https://en.wikipedia.org/wiki/Mishmar_HaYarden_(moshava)', checked: '2026-10-15'}
+    - {url: 'https://he.wikipedia.org/wiki/%D7%9E%D7%91%D7%A6%D7%A2_%D7%97%D7%99%D7%A8%D7%9D', checked: '2026-10-15'}
   sources:
   - {url: 'https://en.wikipedia.org/wiki/Carmeli_Brigade', checked: '2026-10-11'}
   - {url: 'https://en.wikipedia.org/wiki/Golani_Brigade', checked: '2026-10-11'}
+  # The sector's seat, Haifa (he.wiki Carmeli; the lexicon: organised in the Haifa area and the Western Galilee, operated in Haifa). Not a dated position: in mid-May the lexicon has the brigade in the Western Galilee and at Acre, then at Jenin (2-4 June). Not drawn there (no clear spot outside the town, #588).
+  - {url: 'https://he.wikipedia.org/wiki/%D7%97%D7%98%D7%99%D7%91%D7%AA_%D7%9B%D7%A8%D7%9E%D7%9C%D7%99', checked: '2026-10-15'}
+  - {url: 'https://en.wikipedia.org/wiki/Operation_Ben-Ami', checked: '2026-10-15'}
 - id: alexandroni
   name: Alexandroni Brigade
   number: 3rd Brigade
   service: army
   formed: November 1947 (the Haganah's decision of 7 November)
-  sector: The Sharon region.
-  wikipedia_only: true
+  sector: "The Sharon region: from the Carmel in the north to the Dan bloc in the south; headquarters at Camp Dora in Netanya. In November 1948 it replaced the Givati Brigade at the Faluja pocket."
+  wikipedia_only: false
   status: draft
-  hidden: The sources name its region ("the Sharon") but no place or headquarters.
-  anchors: []
+  anchors:
+  - place: Netanya (Camp Dora)
+    lon: 34.85667
+    lat: 32.32861
+    from: '1948-05-15'
+    since: March 1948
+    to: '1948-11-01'
+    precision: month
+    end_basis: source
+    end_note: "he.wiki: in November 1948 the brigade replaced the Givati Brigade at the siege of the Faluja pocket."
+    note: "he.wiki: in March 1948 the brigade had four battalions, three in the Sharon settlements and the fourth at the brigade's headquarters at Camp Dora in Netanya. en.wiki (Haganah) also has it headquartered in Netanya. The coordinates are Netanya's; Camp Dora is in the town. Netanya's municipal heritage site (Netanya Museum), citing Sar-El Davidovich, Netanya - Sipura shel Ir (Motiv-Dvir, 1992): in the War of Independence the brigade's headquarters sat at Camp Dora, a camp the British left in Netanya."
+    sources:
+    - {url: 'https://he.wikipedia.org/wiki/%D7%97%D7%98%D7%99%D7%91%D7%AA_%D7%90%D7%9C%D7%9B%D7%A1%D7%A0%D7%93%D7%A8%D7%95%D7%A0%D7%99', checked: '2026-10-15'}
+    # Netanya Municipality, Moreshet Netanya, "Bitachon ve-hagana - ad 1948", citing Sar-El Davidovich, Netanya - Sipura shel Ir (1992): the brigade's HQ was at Camp Dora in Netanya.
+    - {url: 'https://moreshet.netanya.muni.il/story/?itemId=28077', checked: '2026-10-15'}
+    # Netanya Municipality, Moreshet Netanya, timeline "Netanya in the War of Independence": the brigade's HQ was placed at Camp Dora, a British camp.
+    - {url: 'https://moreshet.netanya.muni.il/timeline/?itemId=27824', checked: '2026-10-15'}
+    - {url: 'https://en.wikipedia.org/wiki/Haganah', checked: '2026-10-15'}
+    - {url: 'https://en.wikipedia.org/wiki/Netanya', checked: '2026-10-15'}
   sources:
   - {url: 'https://en.wikipedia.org/wiki/Alexandroni_Brigade', checked: '2026-10-11'}
   - {url: 'https://en.wikipedia.org/wiki/Etzioni_Brigade', checked: '2026-10-11'}
@@ -104,7 +147,7 @@ units:
   service: army
   formed: February 1948
   sector: "The urban area of Tel Aviv, from the Yarkon River in the north to Bat Yam in the south and Yazur in the east."
-  wikipedia_only: true
+  wikipedia_only: false
   status: draft
   anchors:
   - place: Tel Aviv
@@ -115,9 +158,11 @@ units:
     to: '1949-04-03'
     end_basis: front_armistice
     front: jordan
-    note: Established in Tel Aviv in February 1948; its border was the city's urban area. The central front was covered by the agreement with Jordan.
+    note: "Established in Tel Aviv in February 1948; its border was the city's urban area. The central front was covered by the agreement with Jordan. The Haganah Heritage lexicon (Brigade 5 Givati): in February 1948 it was decided to set up the Kiryati Brigade in the city."
     sources:
     - {url: 'https://en.wikipedia.org/wiki/4th_Armored_Brigade_%22Kiryati%22', checked: '2026-10-11'}
+    # Organisation of Haganah Heritage, Lexicon, "Brigade 5 Givati": in February 1948 the decision to set up the Kiryati Brigade in Tel Aviv.
+    - {url: 'https://hahagana.org.il/lexicon/lexiconpage/?itemId=47227', checked: '2026-10-15'}
     - {url: 'https://en.wikipedia.org/wiki/Tel_Aviv', checked: '2026-10-11'}
 - id: givati
   name: Givati Brigade
@@ -126,19 +171,23 @@ units:
   formed: December 1947
   first_commander: Shimon Avidan
   sector: "Moved to the south as the war entered its second stage, concentrated mainly around Gedera, Gan Yavne and Be'er Tuvia."
-  wikipedia_only: true
+  wikipedia_only: false
   status: draft
   anchors:
   - place: Gedera
     lon: 34.77722
     lat: 31.81194
     from: '1948-05-15'
-    to: '1949-02-24'
-    end_basis: front_armistice
-    front: egypt
-    note: "One place picked from the sector: the first of the three the source names. The move south is not dated, so the card gives no start."
+    to: '1948-11-01'
+    precision: month
+    end_basis: source
+    end_note: "The Haganah Heritage lexicon (Brigade 5 Givati): the brigade was moved to the centre of the country in November 1948 (Iraqi attacks on Ramat HaKovesh); he.wiki Alexandroni: in November 1948 the Alexandroni Brigade replaced it at the Faluja pocket."
+    note: "One place picked from the sector: the first of the three the source names. The move south is not dated, so the card gives no start. The Haganah Heritage lexicon (Brigade 5 Givati): in Operation Barak (May 1948) the brigade took most of the area from Gedera and Be'er Tuvia south and west."
     sources:
     - {url: 'https://en.wikipedia.org/wiki/Givati_Brigade', checked: '2026-10-11'}
+    # Organisation of Haganah Heritage, Lexicon, "Brigade 5 Givati": Operation Barak took the area from Gedera and Be'er Tuvia south and west; moved to the centre in November 1948.
+    - {url: 'https://hahagana.org.il/lexicon/lexiconpage/?itemId=47227', checked: '2026-10-15'}
+    - {url: 'https://he.wikipedia.org/wiki/%D7%97%D7%98%D7%99%D7%91%D7%AA_%D7%90%D7%9C%D7%9B%D7%A1%D7%A0%D7%93%D7%A8%D7%95%D7%A0%D7%99', checked: '2026-10-15'}
     - {url: 'https://en.wikipedia.org/wiki/Gedera', checked: '2026-10-11'}
 - id: etzioni
   name: Etzioni Brigade
@@ -147,7 +196,7 @@ units:
   formed: Late 1947
   first_commander: Yisrael Amir
   sector: The defence of Jerusalem and its surroundings.
-  wikipedia_only: true
+  wikipedia_only: false
   status: draft
   anchors:
   - place: Jerusalem
@@ -158,7 +207,7 @@ units:
     to: '1949-04-03'
     end_basis: front_armistice
     front: jordan
-    note: Founded in late 1947 as the Field Corps unit responsible for the defence of Jerusalem.
+    note: "Founded in late 1947 as the Field Corps unit responsible for the defence of Jerusalem. The Haganah Heritage lexicon (Etzioni): its area was the city of Jerusalem and the settlements around it."
     toward:
       place: West Jerusalem
       lon: 35.21944
@@ -168,6 +217,8 @@ units:
       - {url: 'https://en.wikipedia.org/wiki/West_Jerusalem', checked: '2026-10-11'}
     sources:
     - {url: 'https://en.wikipedia.org/wiki/Etzioni_Brigade', checked: '2026-10-11'}
+    # Organisation of Haganah Heritage, Lexicon, "Etzioni": Brigade 6, its area the city of Jerusalem and the settlements around it.
+    - {url: 'https://www.hahagana.org.il/lexicon/lexiconpage/?itemId=47926', checked: '2026-10-15'}
     - {url: 'https://en.wikipedia.org/wiki/Jerusalem', checked: '2026-10-11'}
 - id: brigade_7
   name: 7th Brigade
@@ -210,24 +261,38 @@ units:
   service: army
   formed: 24 May 1948
   first_commander: Yitzhak Sadeh
-  sector: Not stated in the sources.
-  wikipedia_only: true
+  sector: "The IDF's first armoured brigade: after its founding it trained at Tel Litvinsky (later Tel HaShomer); its first operation was Operation Dani in July 1948, then Yoav, Assaf and Horev in the south. Disbanded in April 1949."
+  wikipedia_only: false
   status: draft
-  hidden: The sources give its founding but no sector or headquarters.
+  disbanded: {date: '1949-04-01', precision: month, sources: [{url: 'https://he.wikipedia.org/wiki/%D7%97%D7%98%D7%99%D7%91%D7%94_8', checked: '2026-10-15'}]}
+  # he.wiki 8th Brigade keeps the brigade's base at Tel Litvinsky until after its disbandment in April 1949 (the base then moved to Jaffa), and the Lehi Heritage page gives no dates: the end at Dani below is the first operation, not a sourced departure. Do not carry it over when #588 lets the row be drawn.
+  hidden: "Sourced at Tel Litvinsky (later Tel HaShomer; 34.85623 E, 32.04195 N) from 24 May 1948 to the start of Operation Dani on 9 July 1948 (owner, 2026-10-15: accepted, verify later), but the map has no clear spot for it: within one hex of the camp the placer finds none, and the only clear ground (UnitGround, full map, 2026-10-15) lies among the Arab villages of Fajja, 'Abbasiyya and Safiriya (content/map/localities_1948.yaml), not on the brigade's own side. Hidden until the placer can stand it at the camp; en.wiki (Haganah) has the brigade \"headquartered near Jerusalem\", with no source."
   anchors: []
   sources:
-  - {url: 'https://en.wikipedia.org/wiki/8th_Armored_Brigade_(Israel)', checked: '2026-10-11'}
+  - {url: 'https://he.wikipedia.org/wiki/%D7%97%D7%98%D7%99%D7%91%D7%94_8', checked: '2026-10-15'}
+  - {url: 'https://en.wikipedia.org/wiki/8th_Armored_Brigade_(Israel)', checked: '2026-10-15'}
+  # Lehi Heritage Association (lehi.org.il), "June 1948 - 1951": the brigade staff's base was at the Tel Litvinsky camp.
+  - {url: 'https://lehi.org.il/he/%d7%99%d7%95%d7%a0%d7%99-1948-1951/', checked: '2026-10-15'}
+  - {url: 'https://en.wikipedia.org/wiki/Operation_Danny', checked: '2026-10-15'}
+  - {url: 'https://en.wikipedia.org/wiki/Tel_HaShomer', checked: '2026-10-15'}
+  - {url: 'https://en.wikipedia.org/wiki/Haganah', checked: '2026-10-15'}
 - id: oded
   name: Oded Brigade
   number: 9th Brigade
   service: army
   sector: The sources conflict.
-  wikipedia_only: true
+  wikipedia_only: false
   status: draft
-  hidden: "The source says it was headquartered in Jerusalem, yet it fought at al-Malkiyya in the north in June 1948."
+  hidden: "The sources conflict and none names a place: en.wiki (Oded Brigade, Haganah) says it was headquartered in Jerusalem; he.wiki says it was formed on 1 June 1948 under Uri Yaffe (whose underground name was Oded; the brigade table in en.wiki's 1948 war article names Avraham Yoffe) from a Haifa-area battalion, local Guard Corps forces and new immigrants, to hold the east of the Galilee panhandle against the Golan, and it fought at al-Malkiyya in June 1948. Not yet formed on 15 May 1948 by he.wiki's date. P66: the Ministry of Defence memorial site (Izkor, Brigade 9 monument) has it formed in May 1948 as one of the three brigades for the north, named for Uri Yaffe's underground name, and fighting at al-Malkiyya; the Haganah Heritage lexicon (Golani) has Golani's 11th Battalion, posted in the eastern Upper Galilee, joining Oded at its formation at the end of May 1948. Both back he.wiki's northern account over en.wiki's Jerusalem headquarters; neither names a place."
   anchors: []
   sources:
   - {url: 'https://en.wikipedia.org/wiki/Oded_Brigade', checked: '2026-10-11'}
+  - {url: 'https://he.wikipedia.org/wiki/%D7%97%D7%98%D7%99%D7%91%D7%AA_%D7%A2%D7%95%D7%93%D7%93', checked: '2026-10-15'}
+  # Ministry of Defence, Izkor, "Brigade 9 monument": formed May 1948, one of three brigades for the north, named after Uri Yaffe's underground name.
+  - {url: 'https://www.izkor.gov.il/monument/en_25a0a8684b4a352bff01d50c475b2964/', checked: '2026-10-15'}
+  # Organisation of Haganah Heritage, Lexicon, "Golani": its 11th Battalion joined the Oded Brigade at its formation, end of May 1948.
+  - {url: 'https://www.hahagana.org.il/lexicon/lexiconpage/?itemId=47295', checked: '2026-10-15'}
+  - {url: 'https://en.wikipedia.org/wiki/Haganah', checked: '2026-10-15'}
 - id: harel
   name: Harel Brigade
   number: 10th Brigade (Palmach)
@@ -235,7 +300,7 @@ units:
   formed: 16 April 1948
   first_commander: Yitzhak Rabin
   sector: "All units in the Jerusalem corridor and hills; in the first half of May 1948 it took the corridor and opened the road to Sha'ar HaGai. Later it fought in Operation Horev."
-  wikipedia_only: true
+  wikipedia_only: false
   status: draft
   anchors:
   - place: "Sha'ar HaGai"
@@ -246,7 +311,7 @@ units:
     to: '1948-12-22'
     end_basis: source
     end_note: Operation Horev, from 22 December 1948, in the south; no place is given for the brigade there.
-    note: "One place picked from the sector: the source names the Jerusalem corridor as the sector and Sha'ar HaGai as the end of the road the brigade opened (and as a battalion's name)."
+    note: "One place picked from the sector: the source names the Jerusalem corridor as the sector and Sha'ar HaGai as the end of the road the brigade opened (and as a battalion's name). The Ministry of Defence memorial site (Izkor, Harel memorial rock): the brigade was the mobile strike force of the Jerusalem area, and the rock stands on the narrow stretch between Sha'ar HaGai and Saris where convoys to Jerusalem passed under its battalions' escort."
     place_hex: [-2, 23]
     toward:
       place: Saris
@@ -258,6 +323,8 @@ units:
       - {url: 'https://en.wikipedia.org/wiki/Kiryat_Anavim', checked: '2026-10-11'}
     sources:
     - {url: 'https://en.wikipedia.org/wiki/Harel_Brigade', checked: '2026-10-11'}
+    # Ministry of Defence, Izkor, "Memorial rock for the Palmach Harel Brigade": formed 16 April 1948; fought for the corridor; convoys between Sha'ar HaGai and Saris.
+    - {url: 'https://www.izkor.gov.il/en_5b66232e91a0aeffce2c5c9082b5de0c', checked: '2026-10-15'}
     - {url: 'https://en.wikipedia.org/wiki/Operation_Horev', checked: '2026-10-11'}
     - {url: "https://en.wikipedia.org/wiki/Sha'ar_HaGai", checked: '2026-10-11'}
 - id: yiftach
@@ -266,7 +333,7 @@ units:
   service: army
   formed: April 1948
   sector: "Formed from Palmach battalions of the Jezreel Valley and the eastern valleys; in July 1948 it fought in Operation Dani, which took Lydda and Ramle. Disbanded in May 1949."
-  wikipedia_only: true
+  wikipedia_only: false
   status: draft
   disbanded: {date: '1949-05-01', precision: month, sources: [{url: 'https://en.wikipedia.org/wiki/Yiftach_Brigade', checked: '2026-10-11'}]}
   anchors:
@@ -278,10 +345,12 @@ units:
     to: '1948-07-20'
     end_basis: source
     end_note: Operation Dani ended on 19 July 1948.
-    note: "The IDF entered Lydda on 11 July 1948 (Lod article); the Operation Danny article has the two towns taken on 10 July. Yiftach approached from the south from 9 July."
+    note: "The IDF entered Lydda on 11 July 1948 (Lod article); the Operation Danny article has the two towns taken on 10 July. Yiftach approached from the south from 9 July. The Palmach heritage site (Operation Dani): in the first stage Yiftach was to outflank Lydda and Ramle from the south; it dates the operation 10-18 July 1948."
     sources:
     - {url: 'https://en.wikipedia.org/wiki/Operation_Danny', checked: '2026-10-11'}
     - {url: 'https://en.wikipedia.org/wiki/Yiftach_Brigade', checked: '2026-10-11'}
+    # Palmach heritage site (palmach.org.il), "Operation Dani": Yiftach to outflank Lydda and Ramle from the south; 10-18 July 1948.
+    - {url: 'https://www.palmach.org.il/history/database/?itemId=5632', checked: '2026-10-15'}
     - {url: 'https://en.wikipedia.org/wiki/Lod', checked: '2026-10-11'}
 - id: negev
   name: Negev Brigade
@@ -324,19 +393,22 @@ units:
   - type: avia-s199
     from: '1948-05-20'
     to: '1948-10-15'
-    note: "The first four arrived on 20 May 1948 and flew first on 29 May (Avia S-199). The type flew on, sporadically, until mid-December (Avia S-199; Eduard p. 54 has one in Operation Horev); the map shows it until the squadron's Spitfires are first sourced in service."
+    note: "The first arrived at Ekron, disassembled, on 20 May 1948 (he.wiki Operation Balak, citing Cohen and Lavi, Hashamayim einam hagvul, 1990, pp. 50-52; 101squadron.com); a second on 21 May (both) and a third on 22 May (101squadron.com). The fourth was lost when the C-46 carrying it crashed; the sources disagree on when and where: 23 May, south of Latrun (101squadron.com), or the night of 23-24 May, near Tel Nof (he.wiki). Four flew first on 29 May (Avia S-199). The type flew on, sporadically, until mid-December (Avia S-199; Eduard p. 54 has one in Operation Horev); the map shows it until the squadron's Spitfires are first sourced in service."
     sources:
     - {url: 'https://en.wikipedia.org/wiki/Avia_S-199', checked: '2026-10-11'}
     - {url: 'https://info.eduard.com/en/11-2025-1/strana-53', checked: '2026-10-11'}
     - {url: 'https://info.eduard.com/en/11-2025-1/strana-54', checked: '2026-10-11'}
+    - {url: 'https://he.wikipedia.org/wiki/%D7%9E%D7%91%D7%A6%D7%A2_%D7%91%D7%9C%D7%A7', checked: '2026-10-15'}
+    - {url: 'https://101squadron.com/101/s-199s.html', checked: '2026-10-15'}
   - type: spitfire
     from: '1948-10-15'
-    note: "The first Spitfires flew in from Czechoslovakia on 27 September 1948 (Operation Velvetta, he.wiki), unarmed; the first sourced sortie is 15 October 1948, three Spitfires escorting Beaufighters to El Arish (he.wiki Supermarine Spitfire). The squadron flew both the Avias and the Spitfires (he.wiki 101 Squadron). en.wiki's Spitfire operational history has IAF Spitfires in combat on 21 October and calls a 101 Squadron claim that day the IAF's \"first ever aerial victory\", which is wrong: the first victories were on 3 June 1948 (101 Squadron, Avia S-199)."
+    note: "The first Spitfires flew in from Czechoslovakia on 27 September 1948, unarmed: of five that left Yugoslavia, three landed at Ramat David (he.wiki Operation Velvetta, citing Wein 2019; 101squadron.com). These two are the only sources read for that landing; no IAF or archival record was reached. The first sourced sortie is 15 October 1948, three Spitfires escorting Beaufighters to El Arish (he.wiki Supermarine Spitfire). The squadron flew both the Avias and the Spitfires (he.wiki 101 Squadron). en.wiki's Spitfire operational history has IAF Spitfires in combat on 21 October and calls a 101 Squadron claim that day the IAF's \"first ever aerial victory\", which is wrong: the first victories were on 3 June 1948 (101 Squadron, Avia S-199)."
     sources:
     - {url: 'https://he.wikipedia.org/wiki/%D7%A1%D7%95%D7%A4%D7%A8%D7%9E%D7%A8%D7%99%D7%9F_%D7%A1%D7%A4%D7%99%D7%98%D7%A4%D7%99%D7%99%D7%A8', checked: '2026-10-11'}
     - {url: 'https://he.wikipedia.org/wiki/%D7%9E%D7%91%D7%A6%D7%A2_%D7%95%D7%9C%D7%95%D7%95%D7%98%D7%94', checked: '2026-10-11'}
     - {url: 'https://he.wikipedia.org/wiki/%D7%98%D7%99%D7%99%D7%A1%D7%AA_101', checked: '2026-10-11'}
     - {url: 'https://en.wikipedia.org/wiki/Supermarine_Spitfire_operational_history', checked: '2026-10-11'}
+    - {url: 'https://101squadron.com/101real/spitfires.html', checked: '2026-10-15'}
   anchors:
   - place: Ekron (RAF Aqir)
     lon: 34.82184

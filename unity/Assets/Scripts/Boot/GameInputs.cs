@@ -16,6 +16,9 @@ namespace Statecraft.Game.Boot
         public string HeightmapJson = "", HexesJson = "", SettlementsYaml = "";
         /// <summary>content/map/subdistrict_hexes_1948.yaml: the 1948 sub-districts the map outlines (display only).</summary>
         public string RegionsYaml = "";
+        /// <summary>The baked runtime forms of the region files the map reads at boot (tools/regions_bake.py; issue #321;
+        /// "" when absent: the YAML is read, with a warning).</summary>
+        public string RegionsTsv = "", ArmisticeTsv = "", ControlTsv = "";
         /// <summary>content/map/route_paths_1948.yaml: the traced railways and roads the map draws (issue #35; map-only).</summary>
         public string RoutesYaml = "";
         /// <summary>content/map/route_paths_1948.tsv, the baked runtime form of RoutesYaml the map reads at boot (issue #321;
@@ -33,6 +36,9 @@ namespace Statecraft.Game.Boot
         /// <summary>content/map/armistice_hexes_1949.yaml: the 1949 armistice lines drawn over it from their dates (display
         /// only; "" when absent: no armistice layer, like the other cosmetic map inputs).</summary>
         public string ArmisticeYaml = "";
+        /// <summary>content/map/control_hexes_1948_49.yaml: who held which areas, 1948-49, by period (display only; "" when
+        /// absent: the older drawing, sub-districts with the armistice zones over them).</summary>
+        public string ControlYaml = "";
         /// <summary>heightmap.r16z as read: packed (HeightmapCodec); HeightmapLoader decodes it when the map is built.</summary>
         public byte[] HeightmapR16z = new byte[0];
     }
@@ -59,6 +65,10 @@ namespace Statecraft.Game.Boot
                 ? File.ReadAllText(Path.Combine(contentDir, "map", Statecraft.Game.Map.Kits.KitPopulation.FileName)) : "",
             LocalitiesTsv = ReadIfExists(Path.Combine(contentDir, "map", Statecraft.Game.Map.Kits.Localities.RuntimeFileName)),
             ArmisticeYaml = ReadIfExists(Path.Combine(contentDir, "map", Armistice1949.FileName)),
+            RegionsTsv = ReadIfExists(Path.Combine(contentDir, "map", Subdistricts1948.RuntimeFileName)),
+            ArmisticeTsv = ReadIfExists(Path.Combine(contentDir, "map", Armistice1949.RuntimeFileName)),
+            ControlTsv = ReadIfExists(Path.Combine(contentDir, "map", Control1948.RuntimeFileName)),
+            ControlYaml = ReadIfExists(Path.Combine(contentDir, "map", Control1948.FileName)),
         };
 
         /// <summary>A map-only, cosmetic input: "" when the file is missing (the map then skips that layer with a warning).</summary>
@@ -86,6 +96,10 @@ namespace Statecraft.Game.Boot
                     PopulationYaml = texts.TryGetValue("map/" + Statecraft.Game.Map.Kits.KitPopulation.FileName, out var pop) ? pop : "",
                     LocalitiesTsv = texts.TryGetValue("map/" + Statecraft.Game.Map.Kits.Localities.RuntimeFileName, out var loc) ? loc : "",
                     ArmisticeYaml = texts.TryGetValue("map/" + Armistice1949.FileName, out var armistice) ? armistice : "",
+                    RegionsTsv = texts.TryGetValue("map/" + Subdistricts1948.RuntimeFileName, out var regionsTsv) ? regionsTsv : "",
+                    ArmisticeTsv = texts.TryGetValue("map/" + Armistice1949.RuntimeFileName, out var armisticeTsv) ? armisticeTsv : "",
+                    ControlTsv = texts.TryGetValue("map/" + Control1948.RuntimeFileName, out var controlTsv) ? controlTsv : "",
+                    ControlYaml = texts.TryGetValue("map/" + Control1948.FileName, out var control) ? control : "",
                 },
             };
         }

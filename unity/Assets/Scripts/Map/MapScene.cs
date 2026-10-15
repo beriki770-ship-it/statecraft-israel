@@ -29,8 +29,17 @@ namespace Statecraft.Game.Map
         public Material KitMaterial => kitMaterial;
         /// <summary>The heightmap's lowest elevation (m) as the last Build read it: a KitGround built after the map needs it.</summary>
         public float ElevMinM { get; private set; }
-        /// <summary>The settlements the last Build placed (settlements_1948.yaml), for the UI's map labels.</summary>
+        /// <summary>The settlements the last Build placed (settlements_1948.yaml), for the UI's map labels and, through
+        /// SettlementsFor, the info panel's names. Read only: the markers, the kits, the labels and GameRoot share this one
+        /// list and its objects; nothing may write to them.</summary>
         public IReadOnlyList<Settlement> Settlements { get; private set; } = new List<Settlement>();
+        string settlementsYamlRead;   // null before a build
+
+        /// <summary>The settlements for <paramref name="yaml"/>: the list the last Build parsed when it read the same text
+        /// (issue #321: GameRoot parsed the file again at boot only for the names), else a parse of it.</summary>
+        public IReadOnlyList<Settlement> SettlementsFor(string yaml) =>
+            settlementsYamlRead != null && string.Equals(yaml, settlementsYamlRead, StringComparison.Ordinal)
+                ? Settlements : SettlementPlacer.Parse(yaml);
         /// <summary>The 1948 localities the last Build drew with the kits (content/map/localities_1948.yaml; empty without the
         /// kits), for the map labels: 1948 name, today's name. Presentation only, never in the sim.</summary>
         public IReadOnlyList<Kits.Localities.Place> Localities { get; private set; } = new List<Kits.Localities.Place>();
@@ -146,6 +155,44 @@ namespace Statecraft.Game.Map
         public IReadOnlyList<Units.UnitEntry> UnitEntries { get; private set; } = Array.Empty<Units.UnitEntry>();
         string unitsYamlRead;   // null before a build
 
+        /// <summary>The 1948 sub-districts as the last Build read them for the Bedouin camps' hexes (null when it did not:
+        /// no kits, or no sub-district file). Read only: GameRoot's region layers draw from this same object.</summary>
+        public Subdistricts1948 Subdistricts { get; private set; }
+        string regionsYamlRead;   // null before a build, or when Build did not read the file
+
+        /// <summary>The sub-districts for <paramref name="yaml"/>: the object the last Build read when it read the same text
+        /// (issue #321: the file was read twice at boot), else read from <paramref name="tsv"/> or the YAML
+        /// (Subdistricts1948.ReadRuntimeOrYaml, warning through <paramref name="warn"/>).</summary>
+        public Subdistricts1948 SubdistrictsFor(string tsv, string yaml, Action<string> warn) =>
+            regionsYamlRead != null && Subdistricts != null && string.Equals(yaml, regionsYamlRead, StringComparison.Ordinal)
+                ? Subdistricts : Subdistricts1948.ReadRuntimeOrYaml(tsv, yaml, warn);
+
+        /// <summary>The unit spots the last Build placed (UnitGround.Place over <see cref="UnitEntries"/>, keyed by their
+        /// anchors; an anchor it could not place has none) and the hexes it placed them on. The units layer takes them instead
+        /// of placing again when it draws the same units on the same hexes (issue #321; UnitSpotsFor).</summary>
+        public IReadOnlyDictionary<Units.UnitAnchor, Units.AnchorSpot> UnitSpots { get; private set; } = new Dictionary<Units.UnitAnchor, Units.AnchorSpot>();
+        /// <remarks>Kept for the map's life, not released once a layer has taken the spots: GameRoot.Begin may run again on
+        /// the same map (it shuts the old layer down and makes a new one; the editor tests do), and each layer checks its
+        /// hexes against these. 1,102 small objects; nothing writes to them after Build.</remarks>
+        public IReadOnlyList<Statecraft.Sim.MapHex> UnitHexes { get; private set; } = Array.Empty<Statecraft.Sim.MapHex>();
+
+        /// <summary>The map's unit spots when <paramref name="units"/> is the list the map
+        /// placed and <paramref name="hexes"/> match the hexes it placed them on (q, r, lon, lat and land, in order): the same
+        /// ground, so the same spots. Null otherwise: the caller places them itself.</summary>
+        public IReadOnlyDictionary<Units.UnitAnchor, Units.AnchorSpot> UnitSpotsFor(
+            IReadOnlyList<Units.UnitEntry> units, IReadOnlyList<Statecraft.Sim.MapHex> hexes)
+        {
+            if (unitsYamlRead == null || !ReferenceEquals(units, UnitEntries) || hexes == null || hexes.Count != UnitHexes.Count) return null;
+            for (int i = 0; i < hexes.Count; i++)
+            {
+                var (a, b) = (hexes[i], UnitHexes[i]);
+                if (a.Q != b.Q || a.R != b.R || a.Land != b.Land
+                    || BitConverter.DoubleToInt64Bits(a.Lon) != BitConverter.DoubleToInt64Bits(b.Lon)
+                    || BitConverter.DoubleToInt64Bits(a.Lat) != BitConverter.DoubleToInt64Bits(b.Lat)) return null;
+            }
+            return UnitSpots;
+        }
+
         /// <summary>The units for <paramref name="yaml"/>: the list the last Build parsed when it read the same text (issue
         /// #321: the file was parsed twice at boot, here and for the units layer), else a parse of it (UnitData.ReadOrNone,
         /// warning through <paramref name="warn"/>).</summary>
@@ -202,7 +249,7 @@ namespace Statecraft.Game.Map
             Hexes = MapBuilder.LoadHexes(inputs.HexesJson, HexesPath);
             DiagLog.BootPhase("hexes parsed");
             var list = SettlementPlacer.Parse(inputs.SettlementsYaml, (meta.lon0, meta.lon1, meta.lat0, meta.lat1), SettlementsPath);
-            Settlements = list;
+            Settlements = list; settlementsYamlRead = inputs.SettlementsYaml;
             bool kitsOn = kitMaterial != null && treeMaterial != null;
             var localities = new Kits.Localities.Doc();
             if (kitsOn)
@@ -237,7 +284,14 @@ namespace Statecraft.Game.Map
                 // The camps' areas are the sub-districts as the region layer draws them (review I4: no copy in the
                 // localities file).
                 if (string.IsNullOrWhiteSpace(inputs.RegionsYaml)) { localities.Encampments.Clear(); Debug.LogWarning($"KITS map/{Subdistricts1948.FileName} is missing: no Bedouin camps"); }
-                else Kits.Localities.FillHexes(localities, inputs.RegionsYaml, Hexes, "map/" + Kits.Localities.FileName);
+                else
+                {
+                    // The camps' hexes from the sub-districts, read once from their runtime form (issue #321) and handed on
+                    // to GameRoot's region layers (SubdistrictsFor).
+                    Subdistricts = Subdistricts1948.ReadRuntimeOrYaml(inputs.RegionsTsv, inputs.RegionsYaml, Debug.LogWarning);
+                    regionsYamlRead = inputs.RegionsYaml;
+                    Kits.Localities.FillHexes(localities, Subdistricts, Hexes, "map/" + Kits.Localities.FileName);
+                }
             }
             Kits.Localities.Use(localities.Places);   // on every build, so a map without the kits inherits nothing (review M13)
             if (kitsOn) DiagLog.BootPhase("localities parsed");
@@ -281,6 +335,7 @@ namespace Statecraft.Game.Map
             UnitEntries = unitData; unitsYamlRead = inputs.UnitsYaml ?? "";
             DiagLog.BootPhase("unit data read");
             var unitHexes = Hexes.hexes.Select(h => new Statecraft.Sim.MapHex { Q = h.q, R = h.r, Lon = h.lon, Lat = h.lat, ElevM = h.elev_m, Land = h.land, Biome = h.biome }).ToList();
+            UnitHexes = unitHexes;
             var unitGround = new Units.UnitGround(SettlementFootprints, RouteCorridors, unitHexes,
                 (lon, lat) => { var w = Frame.ToWorld(lon, lat, 0); return new Vector2(w.x, w.z); }, hexSizeM);
             var clearings = new List<(Vector2 centre, float radius)>();
@@ -288,6 +343,7 @@ namespace Statecraft.Game.Map
             if (unitData.Count > 0)
             {
                 var spots = unitGround.Place(unitData, (lon, lat) => { var w = Frame.ToWorld(lon, lat, 0); return new Vector2(w.x, w.z); }, null);
+                UnitSpots = spots;
                 foreach (var kv in spots.OrderBy(k => k.Value.X).ThenBy(k => k.Value.Z))
                 {
                     var c = new Vector2((float)kv.Value.X, (float)kv.Value.Z);
@@ -423,7 +479,10 @@ namespace Statecraft.Game.Map
             }
             Terrain = null;
             Hexes = null;
+            settlementsYamlRead = null;
             UnitEntries = Array.Empty<Units.UnitEntry>(); unitsYamlRead = null;
+            Subdistricts = null; regionsYamlRead = null;
+            UnitSpots = new Dictionary<Units.UnitAnchor, Units.AnchorSpot>(); UnitHexes = Array.Empty<Statecraft.Sim.MapHex>();
         }
     }
 }

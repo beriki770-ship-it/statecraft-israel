@@ -14,6 +14,13 @@ namespace Statecraft.Game.Map
     public sealed class Settlement
     {
         public string Id { get; set; } = ""; public string Name { get; set; } = ""; public string Type { get; set; } = "";
+        /// <summary>The 1948 Hebrew name (#558), with its own sources; empty when the file gives none (the UI keeps the English).</summary>
+        public string NameHe { get; set; } = ""; public List<SourceRef> NameHeSources { get; set; } = new List<SourceRef>();
+        /// <summary>"agent-checked" while the Hebrew name waits for a native speaker's review (#564); empty once reviewed.</summary>
+        public string NameHeReview { get => nameHeReview ?? ""; set => nameHeReview = value ?? ""; }
+        /// <summary>True when the row has the name_he_review key at all, even blank: a blank flag is an error, not a review.</summary>
+        [YamlIgnore] public bool NameHeReviewGiven => nameHeReview != null;
+        string nameHeReview;
         public double Lon { get; set; } = double.NaN; public double Lat { get; set; } = double.NaN; // NaN = missing
         public int? Founded { get; set; }      // null for pre-modern cities (no verifiable founding year)
         public bool PreModern { get; set; }
@@ -41,15 +48,20 @@ namespace Statecraft.Game.Map
 
         static readonly Regex IdRule = new Regex(@"^[a-z][a-z0-9_]*\z");
 
+        /// <summary>How many times <see cref="Parse"/> has run in this domain (a test aid: SettlementsOnceTests counts the
+        /// parses of one boot, issue #321).</summary>
+        internal static int Parses { get; private set; }
+
         /// <summary>Parses settlements_1948.yaml. Every malformed input throws InvalidDataException naming
         /// <paramref name="file"/>, and for content errors the settlement id and the field: YAML syntax, duplicate keys,
         /// unknown keys or bad scalars (with the id of the settlement they sit in); empty id or name; an id that is not
         /// lower snake_case; unknown type; duplicate id; missing or non-finite lon/lat (or outside
-        /// <paramref name="bounds"/> when given); empty sources, or a source with an empty url or checked; founded null
-        /// without pre_modern: true.</summary>
+        /// <paramref name="bounds"/> when given); empty sources, or a source with an empty url or checked; a name_he without
+        /// name_he_sources or the reverse (#558); founded null without pre_modern: true.</summary>
         public static List<Settlement> Parse(string yaml, (double lon0, double lon1, double lat0, double lat1)? bounds = null,
             string file = DefaultFileName)
         {
+            Parses++;
             SettlementFile doc;
             try { doc = new DeserializerBuilder().WithNamingConvention(UnderscoredNamingConvention.Instance).WithDuplicateKeyChecking().Build().Deserialize<SettlementFile>(yaml); }
             catch (YamlException e)
@@ -75,9 +87,28 @@ namespace Statecraft.Game.Map
                     if (string.IsNullOrWhiteSpace(s.Sources[i]?.Url)) throw new InvalidDataException($"{at} sources[{i}].url is empty");
                     if (string.IsNullOrWhiteSpace(s.Sources[i].Checked)) throw new InvalidDataException($"{at} sources[{i}].checked is empty");
                 }
+                CheckHebrewName(at, s);
                 if (s.Founded == null && !s.PreModern) throw new InvalidDataException($"{at} founded is null without pre_modern: true");
             }
             return doc.Settlements;
+        }
+
+        /// <summary>A Hebrew name needs its own sources (url and checked), and sources need the name (#558).</summary>
+        static void CheckHebrewName(string at, Settlement s)
+        {
+            var sources = s.NameHeSources ?? new List<SourceRef>();
+            bool named = !string.IsNullOrWhiteSpace(s.NameHe);
+            if (named && sources.Count == 0) throw new InvalidDataException($"{at} name_he_sources is empty: a Hebrew name needs a source");
+            if (!named && sources.Count > 0) throw new InvalidDataException($"{at} name_he is empty but name_he_sources is set");
+            // Absent (a person has reviewed the name) or exactly agent-checked: a blank or null value is neither.
+            if (s.NameHeReviewGiven && s.NameHeReview != "agent-checked")
+                throw new InvalidDataException($"{at} name_he_review '{s.NameHeReview}' is not agent-checked (delete the line once a person has reviewed the name)");
+            if (!named && s.NameHeReviewGiven) throw new InvalidDataException($"{at} name_he is empty but name_he_review is set");
+            for (int i = 0; i < sources.Count; i++)
+            {
+                if (string.IsNullOrWhiteSpace(sources[i]?.Url)) throw new InvalidDataException($"{at} name_he_sources[{i}].url is empty");
+                if (string.IsNullOrWhiteSpace(sources[i].Checked)) throw new InvalidDataException($"{at} name_he_sources[{i}].checked is empty");
+            }
         }
 
         /// <summary>The id of the settlement whose mapping contains <paramref name="at"/>, or null when the mark lies outside

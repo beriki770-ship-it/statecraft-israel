@@ -88,6 +88,11 @@ The owner ruled:
    2 at or above the level-3 floor (0.15), else 1.
 3. 101 Squadron shows an Avia S-199 until the Spitfire's sourced date, then the Spitfire.
 4. The four brigades with no sourced position (Carmeli, Alexandroni, the 8th, Oded) are listed in the file and hidden.
+   - 2026-10-15 (refs #385): Carmeli (from 9 July 1948; coordinator's option (d)) and Alexandroni now have sourced
+     positions (below) and are shown. The 8th
+     is sourced at Tel Litvinsky (24 May to 9 July 1948; owner, 2026-10-15: "Accept, verify later") but stays hidden:
+     the map has no clear spot for it on its own side within one hex of the camp. Oded stays hidden (its sources
+     conflict and name no place).
 
 The controller adopted the design's defaults:
 - tokens stand only at dated, sourced positions and do not move with operation events;
@@ -115,8 +120,10 @@ After the staff review the controller ruled:
 | Unit | Positions (dated, from the sources) | Ends |
 |---|---|---|
 | Golani (1st) | Yavne'el (since February 1948); the Julis camp from December 1948 | December 1948 (source); 24 Feb 1949 (Egypt) |
+| Carmeli (2nd) | Facing the Syrian bridgehead at Mishmar HaYarden, on the Rosh Pinna side, 9-18 July 1948 (Operation Brosh). Not drawn at Haifa, its sector's seat: no clear spot outside the town (#588) | 19 Jul 1948, the second truce (source) |
+| Alexandroni (3rd) | Netanya, its headquarters at Camp Dora (since March 1948) | November 1948, the move to the Faluja pocket (source) |
 | Kiryati (4th) | Tel Aviv (since February 1948) | 3 Apr 1949 (Jordan) |
-| Givati (5th) | Gedera, one of the three places its sector names (no start given) | 24 Feb 1949 (Egypt) |
+| Givati (5th) | Gedera, one of the three places its sector names (no start given) | November 1948, the move to the centre (source) |
 | Etzioni (6th) | Jerusalem (since late 1947) | 3 Apr 1949 (Jordan) |
 | 7th Brigade | Hulda, its headquarters for the Latrun attacks, 24–31 May 1948; Ein Shemer, June 1948 | sources |
 | Harel (10th) | Sha'ar HaGai, one place picked from the Jerusalem corridor (since the first half of May 1948) | 22 Dec 1948, Operation Horev (source) |

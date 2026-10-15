@@ -5,10 +5,10 @@ from datetime import date
 from pathlib import Path
 from urllib.parse import urlparse
 
-import yaml
+import yaml12
 
 ROOT = Path(__file__).resolve().parents[2]
-UNITS = yaml.safe_load((ROOT / 'content/map/units_1948.yaml').read_text(encoding='utf-8'))['units']
+UNITS = yaml12.load((ROOT / 'content/map/units_1948.yaml').read_text(encoding='utf-8'))['units']
 # The signing day of each front's armistice (https://en.wikipedia.org/wiki/1949_Armistice_Agreements, checked 2026-10-11).
 ARMISTICE = {'egypt': date(1949, 2, 24), 'lebanon': date(1949, 3, 23), 'jordan': date(1949, 4, 3), 'syria': date(1949, 7, 20)}
 GAME_START = date(1948, 5, 15)
@@ -65,7 +65,7 @@ def test_since_is_never_the_game_start():
             assert '15 May 1948' not in str(a.get('since', '')), f"{u['id']} {a['place']}"
 
 
-def test_every_source_has_a_url_and_a_check_date_and_wikipedia_only_is_true():
+def test_every_source_has_a_url_and_a_check_date_and_wikipedia_only_matches_its_sources():
     for u in UNITS:
         srcs = sources(u)
         assert srcs, u['id']
@@ -76,7 +76,7 @@ def test_every_source_has_a_url_and_a_check_date_and_wikipedia_only_is_true():
 
 
 def test_hidden_brigades_and_headgear():
-    assert {u['id'] for u in UNITS if u.get('hidden')} == {'carmeli', 'alexandroni', 'brigade_8', 'oded'}
+    assert {u['id'] for u in UNITS if u.get('hidden')} == {'brigade_8', 'oded'}
     for u in UNITS:
         if u.get('hidden'):
             assert u['anchors'] == []
@@ -90,3 +90,12 @@ def test_a_toward_point_is_sourced_and_says_why():
             t = a.get('toward')
             if t:
                 assert t['note'].strip() and t['sources'], f"{u['id']} {a['place']}"
+
+
+def test_a_window_ends_at_the_earliest_sourced_move():
+    """Review M1 and S2 (#570): Carmeli's Brosh window ends with the second truce, and Givati's with its move to the centre."""
+    def shown(uid, d):
+        u = next(x for x in UNITS if x['id'] == uid)
+        return any(day(a['from']) <= d < day(a['to']) for a in u['anchors'])
+    assert shown('carmeli', date(1948, 7, 10)) and not shown('carmeli', date(1948, 9, 1))
+    assert shown('givati', date(1948, 10, 1)) and not shown('givati', date(1948, 12, 15))

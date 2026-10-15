@@ -70,8 +70,8 @@ public class UnitsInPlayTests
         Assert.AreEqual(12, units.Count(u => u.Service == UnitData.Army), "the twelve brigades of 1948");
         Assert.AreEqual(1, units.Count(u => u.Service == UnitData.Air));
         Assert.AreEqual(2, units.Count(u => u.Service == UnitData.Navy));
-        CollectionAssert.AreEquivalent(new[] { "carmeli", "alexandroni", "brigade_8", "oded" }, units.Where(u => u.Hidden != null).Select(u => u.Id),
-            "owner ruling: the four brigades with no sourced position are listed and hidden");
+        CollectionAssert.AreEquivalent(new[] { "brigade_8", "oded" }, units.Where(u => u.Hidden != null).Select(u => u.Id),
+            "hidden: Oded (no sourced position) and the 8th (sourced at Tel Litvinsky, no clear spot on its own side); Carmeli (from 9 July 1948, by Mishmar HaYarden) and Alexandroni are placed (refs #385)");
         double lon0 = C.Hexes.Min(h => h.Lon), lon1 = C.Hexes.Max(h => h.Lon), lat0 = C.Hexes.Min(h => h.Lat), lat1 = C.Hexes.Max(h => h.Lat);
         foreach (var u in units)
         {
@@ -147,8 +147,8 @@ public class UnitsInPlayTests
     {
         var s = Simulation.NewGame(C, GoldenRun.Seed, Mode.Historical);
         var tokens = UnitRoster.Build(Units, C, s);
-        CollectionAssert.AreEqual(new[] { "golani", "kiryati", "givati", "etzioni", "harel", "negev", "ins_haganah", "ins_wedgwood" }, Ids(tokens),
-            "on 15 May 1948: no aircraft yet (101 Squadron from 20 May), the 7th Brigade from 24 May, Yiftach only in Operation Dani");
+        CollectionAssert.AreEqual(new[] { "golani", "alexandroni", "kiryati", "givati", "etzioni", "harel", "negev", "ins_haganah", "ins_wedgwood" }, Ids(tokens),
+            "on 15 May 1948: no aircraft yet (101 Squadron from 20 May), the 7th Brigade from 24 May, Carmeli from 9 July (Operation Brosh), Yiftach only in Operation Dani");
         Assert.AreEqual(5, s.Rung);
         Assert.IsTrue(tokens.Where(t => t.Unit.Service == UnitData.Army).All(t => t.Figures == 3), "full war: call-up at least 0.8");
         Assert.IsTrue(tokens.Where(t => t.Unit.Service == UnitData.Navy).All(t => t.ArtType == UnitShowcase.CorvetteType && t.Anchor.Place == "Haifa harbour"));
@@ -195,6 +195,10 @@ public class UnitsInPlayTests
     {
         CollectionAssert.AreEqual(new[] { "kiryati", "etzioni", "squadron_101" }, Ids(UnitRoster.Build(Units, C.Rules, new DateTime(1949, 2, 24), 4, 0.4)),
             "the southern brigades and the ships end on the Egypt armistice");
+        CollectionAssert.DoesNotContain(Ids(UnitRoster.Build(Units, C.Rules, new DateTime(1948, 9, 1), 4, 0.4)), "carmeli",
+            "Carmeli's window ends with Operation Brosh and the second truce (18 July 1948): no source keeps it there later");
+        CollectionAssert.DoesNotContain(Ids(UnitRoster.Build(Units, C.Rules, new DateTime(1948, 12, 15), 4, 0.4)), "givati",
+            "Givati moved to the centre in November 1948 (the Haganah lexicon)");
         CollectionAssert.AreEqual(new[] { "squadron_101" }, Ids(UnitRoster.Build(Units, C.Rules, new DateTime(1949, 4, 3), 2, 0.05)),
             "the central and Jerusalem brigades end on the Jordan armistice");
         Assert.IsEmpty(UnitRoster.Build(Units, C.Rules, LastArmistice, 2, 0.05));
@@ -237,8 +241,8 @@ public class UnitsInPlayTests
         Assert.AreEqual(WeeklyGolden, Sha256(all));
     }
 
-    const string RosterGolden1950 = "ef4544705105a98758dc843120b6e3493c52419d1d4afad28e0b4a3b6e87e01c";
-    const string WeeklyGolden = "2d111a792224b0abd544b2fdfd7469c8f20047cefc5492ea272b79134d6d3c06";
+    const string RosterGolden1950 = "f07b1655defbd0299767a2e214bf62558f8c64a37d2e408ecc9ee0ed4ed24c29";
+    const string WeeklyGolden = "323cbe046b9666b1d9ab46abeb139540d6e06e394a65ad03e043aa0912cba96e";
 
     // ---- Placement, the layer and the card (a built map) ---------------------------------------------------------
 
@@ -592,9 +596,9 @@ public class UnitsInPlayTests
             Assert.IsTrue(layer.Show(C, session.State));
             Assert.AreEqual(before, session.State.Hash(), "drawing the units changed the state");
             Assert.IsFalse(layer.Show(C, session.State), "the same roster draws nothing new");
-            Assert.AreEqual(8, layer.Tokens.Count);
+            Assert.AreEqual(9, layer.Tokens.Count);
             var tokens = map.Terrain.transform.Find(UnitLayer.RootName).Find("Tokens");
-            Assert.AreEqual(8, tokens.childCount);
+            Assert.AreEqual(9, tokens.childCount);
             var kiryati = tokens.Find("kiryati");
             Assert.AreEqual(3, kiryati.Cast<Transform>().Count(t => t.name.StartsWith("Rifleman")), "three riflemen at full call-up");
             var badge = kiryati.Find("Badge");
@@ -640,7 +644,7 @@ public class UnitsInPlayTests
         StringAssert.Contains("At Hulda (headquarters for the Latrun attacks) since 24 May 1948", UnitCard.For(Token("brigade_7", latrun), latrun, text).Body);
         var ship = UnitCard.For(Token("ins_haganah", start), start, text);
         StringAssert.Contains("commissioned 1948", ship.Subtitle);
-        StringAssert.Contains("Wikipedia only", kiryati.Note);
+        StringAssert.Contains("Wikipedia only", UnitCard.For(Token("golani", start), start, text).Note, "Golani is still Wikipedia only; Kiryati cites the Haganah lexicon (P66)");
         var hatzor = StateAt(new DateTime(1948, 12, 1), 5, 0.8);
         StringAssert.DoesNotContain("Wikipedia only", UnitCard.For(Token("squadron_101", hatzor), hatzor, text).Note,
             "Hatzor's position cites Eduard (review M8: the note is per position)");

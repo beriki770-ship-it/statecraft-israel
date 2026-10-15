@@ -21,8 +21,10 @@ import io
 import sys
 from pathlib import Path
 
-import yaml
 from PIL import Image
+
+sys.path.insert(0, str(Path(__file__).resolve().parent))  # under python -I the script's folder is not on sys.path
+import yaml12  # noqa: E402
 
 REPO = Path(__file__).resolve().parents[1]
 FOLDER = REPO / "unity/Assets/UI/EventImages"
@@ -96,7 +98,7 @@ def encode(im: Image.Image) -> bytes:
 
 
 def load_rows(mapping: Path = MAPPING) -> list[dict]:
-    return yaml.safe_load(mapping.read_text(encoding="utf-8"))["images"]
+    return yaml12.load(mapping.read_text(encoding="utf-8"))["images"]
 
 
 def isolated() -> bool:

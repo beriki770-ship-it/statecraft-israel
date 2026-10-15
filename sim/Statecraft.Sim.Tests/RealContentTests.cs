@@ -241,7 +241,7 @@ public class RealContentTests
         Assert.Equal("first_knesset", Offices.Legislature(C, new DateTime(1951, 8, 19))!.Id);
         Assert.Equal("second_knesset", Offices.Legislature(C, new DateTime(1951, 8, 20))!.Id);
         Assert.Equal((73, 120), PoliticsSystem.CoalitionSeats(C, new DateTime(1951, 1, 1)));
-        Assert.Equal((51, 120), PoliticsSystem.CoalitionSeats(C, new DateTime(1951, 9, 1)));   // transitional government, new Knesset
+        Assert.Equal((69, 120), PoliticsSystem.CoalitionSeats(C, new DateTime(1951, 9, 1)));   // transitional government, new Knesset (#315)
         Assert.Equal((65, 120), PoliticsSystem.CoalitionSeats(C, new DateTime(1951, 10, 8)));
     }
 
@@ -308,6 +308,15 @@ public class RealContentTests
         var sheetrit = C.People.Single(p => p.Id == "sheetrit");
         Assert.Equal("sephardim", Offices.PartyOf(C, sheetrit, new DateTime(1951, 1, 1)));
         Assert.Equal("mapai", Offices.PartyOf(C, sheetrit, new DateTime(1951, 10, 8)));
+        // Second Knesset factions from 20 August 1951 (Knesset faction records, #457).
+        Assert.Equal("mapai", Offices.PartyOf(C, sheetrit, new DateTime(1951, 8, 20)));
+        Assert.Equal("sephardim", Offices.PartyOf(C, sheetrit, new DateTime(1951, 8, 19)));
+        var shapira = C.People.Single(p => p.Id == "shapira");
+        Assert.Equal("united_religious_front", Offices.PartyOf(C, shapira, new DateTime(1951, 8, 19)));
+        Assert.Equal("hapoel_hamizrachi", Offices.PartyOf(C, shapira, new DateTime(1951, 8, 20)));
+        var levin = C.People.Single(p => p.Id == "levin");
+        Assert.Equal("united_religious_front", Offices.PartyOf(C, levin, new DateTime(1951, 8, 19)));
+        Assert.Equal("agudat_yisrael", Offices.PartyOf(C, levin, new DateTime(1951, 8, 20)));
         Assert.Equal("", Offices.PartyOf(C, C.People.Single(p => p.Id == "geri"), new DateTime(1951, 1, 1)));
     }
 

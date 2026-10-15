@@ -9,7 +9,8 @@ namespace Statecraft.Game.UI
     /// <summary>The UI's only door into the simulation (spec section 6). Holds the GameSession, collects this turn's
     /// orders, runs End Turn and tells the screens to refresh. Orders take effect at End Turn, in the order given; each
     /// order replaces an earlier one with the same key (one choice per event, one call-up level, one budget, one appointee
-    /// per office, one policy level per policy, one build per hex).</summary>
+    /// per office, one policy level per policy, one build per hex, one work order per city, one training order per city and
+    /// track, one cancel per cohort, one pioneer order per unit).</summary>
     public sealed class SimBridge
     {
         readonly List<Command> queue = new List<Command>();
@@ -45,12 +46,19 @@ namespace Statecraft.Game.UI
             this.text = text ?? throw new ArgumentNullException(nameof(text));
         }
 
-        static string Key(Command c) => c switch
+        /// <summary>The order's slot in the queue: a later order with the same key replaces the earlier one. Internal for
+        /// SimBridgeGuardTests, which checks that every command type is listed here or is one per turn by design.</summary>
+        internal static string Key(Command c) => c switch
         {
             ChooseEventOption e => "event:" + e.EventId,
             SetPolicy p => "policy:" + p.Policy,
             Appoint a => "appoint:" + a.Office,
             MapAction m => FormattableString.Invariant($"map:{m.Q},{m.R}"),
+            AssignWorkers w => "work:" + w.City,
+            Train t => "train:" + t.City + ":" + t.Track,
+            CancelTraining x => FormattableString.Invariant($"untrain:{x.Cohort}"),
+            PioneerWork w => FormattableString.Invariant($"unit:{w.Unit}"),
+            StopWork w => FormattableString.Invariant($"unit:{w.Unit}"),
             _ => c.Kind,
         };
 
@@ -82,6 +90,19 @@ namespace Statecraft.Game.UI
                     foreach (var k in b.Shares.Keys) { var r = Unknown("budget line", k, Content.Rules.BudgetStart.Keys); if (r != null) return r; }
                     return null;
                 case SetMobilization _: case SecurityOrder _: return null;
+                // The GDD orders (#380): ids only. Roles, counts and limits are the sim's, which refuses them with its own
+                // reason and refunds the Attention. The legacy content has no cities, so it queues none of these.
+                case AssignWorkers w: return Unknown("city", w.City, Content.Cities.Select(x => x.Id));
+                case Train t:
+                    return Unknown("city", t.City, Content.Cities.Select(x => x.Id))
+                        ?? Unknown("training", t.Track, Content.UnitTypes.Where(x => !string.IsNullOrEmpty(x.Facility)).Select(x => x.Id));
+                case CancelTraining x:
+                    return Unknown("cohort", x.Cohort.ToString(System.Globalization.CultureInfo.InvariantCulture), State.Cohorts.Keys.Select(k => k.ToString(System.Globalization.CultureInfo.InvariantCulture)));
+                // Pioneer work (#378): ids only; the sim refuses a busy unit, a built site or a short Treasury with its own reason.
+                case PioneerWork w:
+                    return Unknown("unit", w.Unit.ToString(System.Globalization.CultureInfo.InvariantCulture), State.Units.Keys.Select(k => k.ToString(System.Globalization.CultureInfo.InvariantCulture)))
+                        ?? Unknown("pioneer work", w.Action, new[] { Projects.BuildYishuv }) ?? Unknown("site", w.Site, Content.Sites.Select(x => x.Id));
+                case StopWork w: return Unknown("unit", w.Unit.ToString(System.Globalization.CultureInfo.InvariantCulture), State.Units.Keys.Select(k => k.ToString(System.Globalization.CultureInfo.InvariantCulture)));
                 default: return text["order.invalid"];
             }
         }

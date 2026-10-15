@@ -32,7 +32,9 @@ import sys
 import tempfile
 from pathlib import Path
 
-import yaml
+sys.path.insert(0, str(Path(__file__).resolve().parent))  # under python -I the script's folder is not on sys.path
+import yaml12  # noqa: E402
+
 
 REPO = Path(__file__).resolve().parents[1]
 MAPPING = REPO / "unity/Assets/Resources/EventVideos/event-videos.yaml"
@@ -45,7 +47,7 @@ FFMPEG_VIDEO = ["-c:v", "libx264", "-profile:v", "high", "-preset", "slow", "-cr
 
 def load_rows(mapping: Path = MAPPING) -> list[dict]:
     """The card loops (clips) and the End Turn outcome clips (outcomes), in that order."""
-    doc = yaml.safe_load(mapping.read_text(encoding="utf-8"))
+    doc = yaml12.load(mapping.read_text(encoding="utf-8"))
     return doc["clips"] + doc.get("outcomes", [])
 
 

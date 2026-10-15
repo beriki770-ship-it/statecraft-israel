@@ -18,6 +18,10 @@ Offline data tools (uv inline-script Python). Run from the repo root.
   into `tools/.cache/pal250k-1946/`, not committed): it reads the hand-written routes, sources and waypoints in
   `content/map/routes_1948.yaml` and writes the traced lines to `content/map/route_paths_1948.yaml` (committed; the map
   draws it, the sim never reads it). `--preview` writes each traced segment over the map for checking by eye.
+- `regions_bake.py [--check]` bakes the region files `content/map/subdistrict_hexes_1948.yaml`,
+  `armistice_hexes_1949.yaml` and `control_hexes_1948_49.yaml` into `.tsv` runtime forms beside them (committed), which
+  the map reads at boot (issue #321). Rerun it after `borders_bake.py`, `armistice_bake.py` or `control_bake.py`
+  rewrites one: `test_regions_bake.py` fails a stale file, naming it, and `--check` does the same.
 - `route_paths_bake.py [--check]` bakes `content/map/route_paths_1948.yaml` into `content/map/route_paths_1948.tsv`
   (committed), the compact runtime form the map reads at boot (issue #321). Rerun it after `routes_1948.py`:
   `test_route_paths_bake.py` fails a stale bake, and `--check` does the same.
@@ -62,6 +66,13 @@ Offline data tools (uv inline-script Python). Run from the repo root.
   profile deleted on exit): `boot` (?bootlog phase timings, optional CPU throttling), `navpairs` (same-frame click pairs
   under ?navlog), `loadshot` (screenshots during the load) and `profile` (visual v1's `?vprofile` in a headed window at a
   chosen DPR); `boot --runs N --baseline MS` checks the boot budget. Its browser test runs only with `pytest --headed`.
+- `yaml12.py` is how the tools, scripts and their tests read YAML. `yaml12.load` resolves plain scalars by the YAML 1.2
+  core schema and refuses duplicate keys, where `yaml.safe_load` follows YAML 1.1 (`yes` becomes True, `1:30` becomes
+  90, `2026-10-15` becomes a date). That matches YamlDotNet's reads into string fields, not its bool and int fields,
+  which also take `yes`, `y`, `off`, `017`, `1_000` and `1:30`. `yaml12.ambiguous` lists those scalars, and
+  `test_yaml12_data.py` keeps them out of the game's YAML. `load_raw` keeps every scalar as its text, and
+  `uv run tools/yaml12.py FILE...` lists both kinds of hit. `test_yaml12_guard.py` fails on a new PyYAML load in
+  `tools/`, `scripts/` or `.github/` outside its allowlist.
 
 ## Running the tests
 
@@ -71,7 +82,7 @@ Run from the repo root; this installs every pinned dependency (rasterio included
 uv run --with pytest==9.1.1 --with rasterio==1.5.2 --with numpy==2.5.3 --with pyyaml==6.0.3 --with pillow==12.3.0 --with requests==2.32.5 --with pyproj==3.8.0 pytest tools/tests -q
 ```
 
-Expected: `722 passed, 4 skipped` (one waits for `content/sites.yaml`, two need skimage and scipy, and one is the headed browser check; add `--headed` and `--with websockets==15.0.1` to run it). Omitting a dependency (e.g. rasterio) silently drops tests or fails collection.
+Expected: `917 passed, 4 skipped` (two need skimage and scipy, and two are the headed browser checks; add `--headed` and `--with websockets==15.0.1` to run them). Omitting a dependency (e.g. rasterio) silently drops tests or fails collection.
 
 ## Required attribution (Copernicus DEM licence, modified data)
 

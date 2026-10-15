@@ -47,6 +47,7 @@ namespace Statecraft.Sim
         sealed class SettlementHexesFile { public List<SettlementHex> Settlements { get; set; } = new List<SettlementHex>(); }
         sealed class CitiesFile { public List<CityStart> Cities { get; set; } = new List<CityStart>(); }
         sealed class UnitTypesFile { public List<UnitType> Types { get; set; } = new List<UnitType>(); }
+        sealed class SitesFile { public List<Site> Sites { get; set; } = new List<Site>(); }
 
         public const string HexesFile = "map/hexes.json";
         public const string SettlementHexesFileName = "map/settlement_hexes.yaml";
@@ -65,13 +66,45 @@ namespace Statecraft.Sim
             {
                 var file = new DeserializerBuilder().Build().Deserialize<Dictionary<string, List<Dictionary<string, object>>>>(text);
                 if (file == null || !file.TryGetValue("settlements", out var rows)) throw new ContentException(SettlementsFileName, "settlements", "required");
-                return rows.Select((r, i) => (
-                    r.TryGetValue("id", out var id) && id is string sid && sid != ""
-                        ? sid : throw new ContentException(SettlementsFileName, $"settlements[{i}].id", "required"),
-                    r.TryGetValue("name", out var name) && name is string sname && !string.IsNullOrWhiteSpace(sname)
-                        ? sname : throw new ContentException(SettlementsFileName, $"settlements[{i}].name", "required (the name shown to the player)"))).ToList();
+                return rows.Select((r, i) =>
+                {
+                    var sid = r.TryGetValue("id", out var id) && id is string s0 && s0 != ""
+                        ? s0 : throw new ContentException(SettlementsFileName, $"settlements[{i}].id", "required");
+                    // The sim reads these rows untyped, so it checks their keys itself: a misspelt key (name_he_reveiw)
+                    // would otherwise load as if absent. The same keys as Unity's SettlementPlacer.Settlement.
+                    foreach (var key in r.Keys)
+                        if (!SettlementKeys.Contains(key)) throw new ContentException(SettlementsFileName, $"settlements[{sid}].{key}", "unknown field");
+                    var sname = r.TryGetValue("name", out var name) && name is string n0 && !string.IsNullOrWhiteSpace(n0)
+                        ? n0 : throw new ContentException(SettlementsFileName, $"settlements[{i}].name", "required (the name shown to the player)");
+                    HebrewName(SettlementsFileName, $"settlements[{sid}]", "name_he", r.TryGetValue("name_he", out var he) && he is string hs ? hs : "",
+                        SettlementSources(r, $"settlements[{sid}].name_he_sources"),
+                        r.TryGetValue("name_he_review", out var rv) && rv is string rs ? rs : "", r.ContainsKey("name_he_review"));
+                    return (sid, sname);
+                }).ToList();
             }
             catch (YamlException e) { throw new ContentException(SettlementsFileName, $"line {e.Start.Line}", e.InnerException?.Message ?? e.Message); }
+        }
+
+        static readonly HashSet<string> SettlementKeys = new HashSet<string>
+        {
+            "id", "name", "name_he", "name_he_sources", "name_he_review", "lon", "lat", "type", "founded", "pre_modern", "sources",
+        };
+
+        /// <summary>A settlement row's name_he_sources, read from the untyped row: a list of { url, checked } maps.</summary>
+        static List<Source> SettlementSources(Dictionary<string, object> row, string field)
+        {
+            var list = new List<Source>();
+            if (!row.TryGetValue("name_he_sources", out var v) || v == null) return list;
+            if (!(v is List<object> items)) throw new ContentException(SettlementsFileName, field, "must be a list");
+            for (int i = 0; i < items.Count; i++)
+            {
+                var m = items[i] as Dictionary<object, object>;
+                var url = m != null && m.TryGetValue("url", out var u) && u is string us ? us : "";
+                var day = m != null && m.TryGetValue("checked", out var d) && d is string ds
+                    && DateTime.TryParseExact(ds, "yyyy-MM-dd", System.Globalization.CultureInfo.InvariantCulture, System.Globalization.DateTimeStyles.None, out var dt) ? dt : default;
+                list.Add(new Source { Url = url, Checked = day });
+            }
+            return list;
         }
 
         static readonly IDeserializer Yaml = new DeserializerBuilder()
@@ -192,6 +225,27 @@ namespace Statecraft.Sim
             if (!SaveText.IsEncodable(s)) throw new ContentException(file, field, "must be valid text (no lone surrogate)");
         }
 
+        /// <summary>A Hebrew display name (#558): when set it holds Hebrew letters and has at least one source, each an https URL
+        /// with its checked date; sources without a name are an error. Empty means no sourced Hebrew name (the UI keeps the English).</summary>
+        static void HebrewName(string file, string at, string key, string value, List<Source> sources, string review, bool reviewGiven)
+        {
+            // The flag is either absent (a person has reviewed the name) or exactly agent-checked; a blank or null value is
+            // neither, so it is an error rather than a silent "reviewed".
+            if (reviewGiven && review != HebrewReview.AgentChecked)
+                throw new ContentException(file, $"{at}.{key}_review", $"must be {HebrewReview.AgentChecked} (pending a native speaker's review, #564), or left out once a person has reviewed the name");
+            if (value == "")
+            {
+                if (sources.Count > 0) throw new ContentException(file, $"{at}.{key}", $"required: {key}_sources is set but the name is empty");
+                if (reviewGiven) throw new ContentException(file, $"{at}.{key}", $"required: {key}_review is set but the name is empty");
+                return;
+            }
+            if (!value.Any(ch => ch >= '\u05D0' && ch <= '\u05EA')) throw new ContentException(file, $"{at}.{key}", "must be the Hebrew name, in Hebrew letters");
+            if (sources.Count == 0) throw new ContentException(file, $"{at}.{key}_sources", "required: a Hebrew name needs a source (url and checked)");
+            for (int i = 0; i < sources.Count; i++)
+                if (!sources[i].Url.StartsWith("https://", StringComparison.Ordinal) || sources[i].Checked == default)
+                    throw new ContentException(file, FormattableString.Invariant($"{at}.{key}_sources[{i}]"), "needs an https url and a checked date");
+        }
+
         static bool IsContentType(Type t) => t.IsClass && t != typeof(string) && t.Namespace == typeof(Content).Namespace;
 
         /// <summary>Loads content through <paramref name="readFile"/>, which takes a path relative to the content root
@@ -258,6 +312,7 @@ namespace Statecraft.Sim
                 // the legacy content needs neither file.
                 c.Cities = Read<CitiesFile>(readFile, "cities.yaml").Cities;
                 c.UnitTypes = Read<UnitTypesFile>(readFile, "unit_types.yaml").Types;
+                c.Sites = Read<SitesFile>(readFile, "sites.yaml").Sites;   // sourced facts (Phase 1 PR 5)
                 ValidateGdd(c, settlementIds);
             }
             c.BuildWindows();
@@ -574,6 +629,16 @@ namespace Statecraft.Sim
             foreach (var e in c.Effects) Named("model.yaml", $"effects[{e.Id}].name", e.Name);
             foreach (var s in c.Situations) Named("model.yaml", $"situations[{s.Id}].name", s.Name);
             foreach (var g in c.Regions) Named("aliyah.yaml", $"regions[{g.Id}].name", g.Name);
+            // Hebrew display names (#558): each value carries its own sources, and sources need a value.
+            foreach (var o in c.Offices)
+            {
+                HebrewName("offices.yaml", $"offices[{o.Id}]", "title_he", o.TitleHe, o.TitleHeSources, o.TitleHeReview, o.TitleHeReviewGiven);
+                HebrewName("offices.yaml", $"offices[{o.Id}]", "title_he_f", o.TitleHeF, o.TitleHeFSources, o.TitleHeFReview, o.TitleHeFReviewGiven);
+                if (o.TitleHeF != "" && o.TitleHe == "") throw new ContentException("offices.yaml", $"offices[{o.Id}].title_he", "required: a feminine title_he_f needs the title_he beside it");
+            }
+            foreach (var p in c.Parties) HebrewName("parties.yaml", $"parties[{p.Id}]", "name_he", p.NameHe, p.NameHeSources, p.NameHeReview, p.NameHeReviewGiven);
+            foreach (var l in c.Legislatures) HebrewName("legislatures.yaml", $"legislatures[{l.Id}]", "body_he", l.BodyHe, l.BodyHeSources, l.BodyHeReview, l.BodyHeReviewGiven);
+            foreach (var g in c.Governments) HebrewName("governments.yaml", $"governments[{g.Id}]", "name_he", g.NameHe, g.NameHeSources, g.NameHeReview, g.NameHeReviewGiven);
             foreach (var a in c.Money)
             {
                 if (Array.IndexOf(PlayerText.MoneyIds, a.Id) < 0)
@@ -905,6 +970,44 @@ namespace Statecraft.Sim
                 if (Math.Abs(m.CohesionHousingWeight + m.CohesionJobsWeight - 1) > 1e-9)
                     throw new ContentException(file, "mvp.cohesion_jobs_weight", "the two cohesion weights must sum to 1");
                 if (!cities.Contains(m.ArrivalsCity)) throw new ContentException(file, "mvp.arrivals_city", $"'{m.ArrivalsCity}' is not a city in cities.yaml");
+                if (m.BuildYishuvTurns < 1) throw new ContentException(file, "mvp.build_yishuv_turns", "must be >= 1");
+                if (!(m.BuildYishuvCost >= 0 && IsFinite(m.BuildYishuvCost))) throw new ContentException(file, "mvp.build_yishuv_cost", "must be a finite number >= 0");
+            }
+            ValidateSites(c);
+        }
+
+        /// <summary>What a designated site may be built as (sites.yaml kinds). Phase 1 has "build yishuv" only.</summary>
+        static readonly string[] SiteKinds = { Projects.YishuvKind };
+
+        /// <summary>The designated sites (sites.yaml, Phase 1 PR 5): sourced facts on a land hex that holds no 1948 settlement,
+        /// founded inside the MVP's years (D-B1). The armistice line hexes are not checked: that file is display only, and a
+        /// site may sit on a line hex (#378, question 2).</summary>
+        static void ValidateSites(Content c)
+        {
+            const string sf = "sites.yaml";
+            Unique(sf, "sites", c.Sites.Select(x => x.Id));
+            var from = new DateTime(1948, 5, 15);
+            var to = new DateTime(1952, 1, 1);
+            foreach (var x in c.Sites)
+            {
+                var at = $"sites[{x.Id}]";
+                Named(sf, at + ".name", x.Name);
+                Named(sf, at + ".name_he", x.NameHe);
+                var hex = c.HexAt(x.Q, x.R);
+                if (hex == null || !hex.Land)
+                    throw new ContentException(sf, at + ".q", FormattableString.Invariant($"hex q={x.Q} r={x.R} is not a land hex in {HexesFile}"));
+                var settled = c.SettlementHexes.FirstOrDefault(h => h.Q == x.Q && h.R == x.R);
+                if (settled != null)
+                    throw new ContentException(sf, at + ".q", FormattableString.Invariant($"hex q={x.Q} r={x.R} holds the 1948 settlement {settled.Id} ({SettlementHexesFileName})"));
+                foreach (var k in x.Kinds)
+                    if (!SiteKinds.Contains(k)) throw new ContentException(sf, at + ".kinds", $"unknown kind '{k}' (yishuv)");
+                if (x.Founded < from || x.Founded >= to)
+                    throw new ContentException(sf, at + ".founded", "required, between 15 May 1948 and 31 December 1951 (the MVP's years, D-B1)");
+                if (x.Sources.Count == 0) throw new ContentException(sf, at + ".sources", "required: a designated site is a historical fact");
+                for (int i = 0; i < x.Sources.Count; i++)
+                    if (x.Sources[i] == null || string.IsNullOrWhiteSpace(x.Sources[i].Url) || x.Sources[i].Checked == default)
+                        throw new ContentException(sf, FormattableString.Invariant($"{at}.sources[{i}]"), "needs a url and checked date");
+                Status(sf, at + ".status", x.Status);
             }
         }
 

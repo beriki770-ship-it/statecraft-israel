@@ -38,8 +38,10 @@ import urllib.request
 from pathlib import Path
 
 import numpy as np
-import yaml
 from PIL import Image
+
+sys.path.insert(0, str(Path(__file__).resolve().parent))  # under python -I the script's folder is not on sys.path
+import yaml12  # noqa: E402
 
 ROOT = Path(__file__).resolve().parents[1]
 ROUTES = ROOT / "content" / "map" / "routes_1948.yaml"
@@ -416,7 +418,7 @@ def trace_route(route: dict, fetch: bool, preview: Path | None = None) -> list[t
 
 # --- files -------------------------------------------------------------------------------------------------------
 def load_routes(path: Path = ROUTES) -> dict:
-    doc = yaml.safe_load(path.read_text(encoding="utf-8"))
+    doc = yaml12.load(path.read_text(encoding="utf-8"))
     validate_routes(doc, json_bounds())
     return doc
 
@@ -518,7 +520,7 @@ def main(argv: list[str] | None = None) -> int:
     routes = doc["routes"]
     old = {}
     if PATHS.exists():
-        for r in (yaml.safe_load(PATHS.read_text(encoding="utf-8")) or {}).get("routes", []):
+        for r in (yaml12.load(PATHS.read_text(encoding="utf-8")) or {}).get("routes", []):
             old[r["id"]] = r
     lines = {}
     for r in routes:

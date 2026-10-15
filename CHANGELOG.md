@@ -8,6 +8,56 @@ adds a line under **Unreleased**; CI's `Changelog` job checks this (see `CONTRIB
 ## [Unreleased]
 
 ### Added
+- Hebrew names wait for a person (refs #582, #564; owner, 15 October 2026): every Hebrew name #582 added, which only an
+  AI agent checked against its sources, now carries `*_review: agent-checked` (`title_he_review`, `title_he_f_review`,
+  `name_he_review`, `body_he_review`; 100 flags: offices, parties, governments, legislatures, the game settlements and
+  five 1948 localities). A native speaker's review in #564 removes the flag. The loader and the map's readers accept
+  only `agent-checked`, and only beside a name. CONTENT_POLICY section 2, rule 6, says so. The content hash moves; no
+  golden does.
+- GDD v0.1 Phase 1, the Unity queue takes the GDD orders (refs #380): `AssignWorkers`, `Train` and `CancelTraining`
+  now queue in the slice, one per city, per city and track, and per cohort; an unknown city, training track or cohort is
+  refused before End Turn. A reflection test fails for any command type that reaches the queue's default branch.
+- Sourced Hebrew names in content (refs #558, #193), data only (no screen shows them yet): `title_he` for 30 of 31
+  offices, plus `title_he_f` where a woman held the office (Labour, Foreign Affairs), `name_he` for 25 of 26 parties,
+  the 8 governments and the 25 game settlements, `body_he` for the 4 legislatures, each with its own `*_he_sources`
+  (Knesset records or Hebrew Wikipedia, checked 14 October 2026); the loader and `SettlementPlacer` refuse a Hebrew name
+  without a source. Places take their 1948 form (Tel Aviv, Beisan, Kfar Ata, Pardes Hanna, Tarshiha), and the localities'
+  runtime file carries `name_he`. The content hash moves; the goldens do not.
+- Two more brigades on the map (refs #385, #197): Carmeli facing the Syrian bridgehead at Mishmar HaYarden, from the
+  Rosh Pinna side, during Operation Brosh (9 to 18 July 1948), and Alexandroni at its Netanya headquarters (Camp Dora;
+  15 May to November 1948), each sourced in `content/map/units_1948.yaml`. Givati's window at Gedera now ends with its
+  sourced move to the centre in November 1948 (it ran to the Egyptian armistice). Carmeli is
+  not drawn at Haifa, its sector's place: the map has no clear spot outside the town (#588). The 8th Brigade's position
+  (Tel Litvinsky, 24 May to 9 July 1948) is recorded, but it stays hidden: the map has no clear spot for it on its own
+  side (#588). Oded stays hidden:
+  its sources conflict and name no place. Map-only data: the sim goldens do not move; the units roster pins in
+  `UnitsInPlayTests` are re-pinned.
+- Two-colour borders (refs #196, owner rulings 2026-10-14): from 11 June 1948 the map colours areas by side, as promo 03 does:
+  the Israeli side in a deeper blue, the other side orange-red, and a dashed grey for contested ground (only for the days an
+  operation ran there), no-man's land and the demilitarized zones. The sides come from the front lines of Israel State
+  Archives map 6158/1 (9 July, 18 July and end of October 1948), traced from the best public copy (about +-1-2 km), and from
+  each 1949 agreement's date from the sides of its armistice line. Before 11 June 1948 the 1947 sub-districts are drawn in
+  grey (no sourced line). The label names each side before its colour, the source line's date and, for Jordan, low accuracy;
+  the info panel says who held the hex. The colours claim military control on a date, nothing else; the 1948 localities are
+  unchanged. New data `content/map/control_1948_49.geojson` and `control_hexes_1948_49.yaml` (draft, owner-verify; licence
+  basis decision D-C), tools `control_digitise.py` and `control_bake.py`, a third (neutral, dashed) border style in the
+  shader. Presentation only: no golden moves.
+- Portraits for Maimon, Bentov and Shapira (refs #30, D-P): their Government Press Office photographs, which Commons
+  marks PD-Israel only, are replaced by Knesset Archives portraits under CC BY-SA 4.0 (Maimon, Bentov) and a Meitar
+  Collection photograph by Benno Rothenberg, 23 October 1952, under CC BY 4.0 (Shapira, cropped from a group shot), each
+  cropped and downscaled to 512 px tall with no upscaling, credited in `NOTICE`. `scripts/oss/commons_licences.py` now
+  records an explicit Cc-by-sa-4.0 file as `CC-BY-SA-4.0`, verified only with a named artist and a `NOTICE` entry, with a
+  share-alike note; `PortraitImport` accepts CC BY-SA 4.0. Kaplan, Gruenbaum, Bernstein, Zisling, Rosen and Sheetrit stay
+  on GPO photographs for now.
+- GDD v0.1 Phase 1, build yishuv at one designated site (refs #378), behind the `systems.loop` switch: `content/sites.yaml`
+  holds Mefalsim (founded 12 June 1949; Gvati's settlement list and Yad Ben-Zvi), read only by the GDD loop.
+  `PioneerWork(build_yishuv)` sends an idle halutz unit to build there, paid at once; `StopWork` frees the
+  unit and the site and keeps the Money spent (D-A3). Construction is step 5 of the GDD turn (D-A6) (R-SITE-001 to
+  R-SITE-003). The build turns and cost are placeholders in `MvpSlice.Overlay`, never under `content/`; both orders cost 0
+  Attention (D-A6: unit orders free). By the owner's decision "Allow borrowing" (15 October 2026), `PioneerWork` and
+  `Train` borrow what the Treasury lacks, as map actions do. `mvp-slice` moves (the reference player builds Mefalsim by
+  15 March 1949, and the golden now runs to that date); the legacy goldens and `scenario-mvp-absorb-first` do not.
+  The Unity order queue (`SimBridge`) takes both orders, one per unit.
 - Desktop release builds from the Mac (refs #54; Phases 0-1 of the plan in PR #482): `Build.LinuxMono` and
   `Build.WindowsMono` build the Linux and Windows x64 players on Mono (decisions O7, O8) and put the committed IL2CPP
   setting back afterwards, and
@@ -27,7 +77,8 @@ adds a line under **Unreleased**; CI's `Changelog` job checks this (see `CONTRIB
   some lifted or missing; washing lines and bundles stand between the tents. Presentation only (refs #32).
 - GDD v0.1 Phase 1, training (refs #377), behind the `systems.loop` switch: `Train` sends a city's civilians without work
   to basic training in a military camp (recruits, a count) or pioneer training in a Hakhshara (halutzim, movable units at
-  the city's hex), paid from the Treasury without borrowing; `CancelTraining` returns the people but not the Money (D-A3).
+  the city's hex), paid from the Treasury, with any shortfall borrowed as debt (owner decision, 15 October 2026);
+  `CancelTraining` returns the people but not the Money (D-A3).
   Cohorts progress as step 4 of the GDD turn (D-A6) (R-TRAIN-001 to R-TRAIN-003). One camp and one Hakhshara at the start
   is a labelled design assumption (D-D5); training turns, costs and Attention costs are placeholders in `MvpSlice.Overlay`,
   never under `content/`. `mvp-slice` moves (the reference player trains one halutz group); the legacy goldens and
@@ -268,12 +319,28 @@ adds a line under **Unreleased**; CI's `Changelog` job checks this (see `CONTRIB
   +0.9 ms at the gameplay zoom), not yet on an idle one.
 
 ### Changed
+- The map's region files (the 1948 sub-districts, the 1949 armistice lines, the 1948-49 control areas) are read
+  from baked runtime forms at boot instead of being parsed as YAML (`tools/regions_bake.py`, refs #321), as the
+  localities and the route paths are. The sub-districts are read once, for the camps and the region layers. A stale,
+  cut or missing runtime file is refused with one warning and the YAML is read as before. The borders, the layer
+  labels and the info panel are unchanged. Presentation only.
+- The settlements file is parsed once at boot instead of twice: the info panel's settlement names come from the map's
+  own parse (refs #321). The names are unchanged. Presentation only.
+- The units layer takes the unit spots the map placed instead of placing every unit again (refs #321), when it draws
+  the same units on the same hexes; otherwise it places them as before. Every token stands where it stood, and the
+  anchors with no clear spot are reported as before. Presentation only.
 - Decision videos (refs #434): the clips no longer carry the burned-in "AI-generated · נוצר בבינה מלאכותית" caption.
   Owner ruling of 14 October 2026, relayed by the coordinator: "the 3 ilustration clips are great but no need to say
   there were created by ai". All 14 clips were re-encoded from their promo shots (each checked by SHA-256) with the same
   encode otherwise; the card still says "AI-generated illustration" while a clip plays, every row keeps
   `ai_generated: true`, and the four Dreamina shots keep their own "AI" badge (owner: "Keep the badge"; DECISIONS G4, G5). The owner also reviewed the three sensitive
   clips (operation_yoav, ten_days, the operation_horev outcome), so a shareable build may carry them. No golden moves.
+- For a new game, the event photo catalog (`EventImageCatalog`, with its 24 crunched photographs) loads in the background
+  a second after the game starts, while the start screen is up, instead of in `GameRoot.Begin` (refs #321). The "screens
+  wired" step is about 80 ms shorter at `--cpu 4`. The first event card shows its photograph as before, in a frame no
+  longer than with the old load; a card that comes before the load ends waits for it. A Continue whose turn has a
+  decision waiting still loads the catalog in `Begin`, as before (#592). `?bootlog` logs when the card first gets the
+  catalog. Presentation only.
 - The units file (`units_1948.yaml`) is parsed once at boot instead of twice: the map keeps its parse and the units
   layer draws from the same list (refs #321). The units and where they stand are unchanged. The second parse cost about
   25 ms at `--cpu 4` between the map and the start screen; the map build itself is unchanged. `?bootlog` has three more
@@ -430,6 +497,18 @@ adds a line under **Unreleased**; CI's `Changelog` job checks this (see `CONTRIB
   It decodes to the same bytes, so the terrain is unchanged (#44).
 
 ### Fixed
+- Content: 101 Squadron's aircraft notes in `content/map/units_1948.yaml` (refs #607). The Avia S-199 note now gives the
+  sourced arrivals (one on 20 May 1948, one each on 21 and 22 May, the fourth lost in a C-46 crash dated 23 or 23-24 May,
+  sources disagree) instead of "the first four arrived on 20 May"; the Spitfire note names the two sources for the
+  27 September 1948 landing of three aircraft at Ramat David. Sources added, checked 15 October 2026. Notes only: no
+  date changes, map-only file outside the content hash, no golden moves.
+- Hebrew UI preview (refs #596, #585): the map layer label (`MapRegions.Label`) formats through `UiText.Format`, so the
+  values its Hebrew patterns insert (a front's English name, the "1950 modus vivendi" note) get the same left-to-right
+  marks as the rest of the Hebrew UI and keep their own order. English is unchanged.
+- Hebrew UI preview (refs #543, #193): a value inserted into a Hebrew line keeps its own order. `UiText.Format` puts a
+  left-to-right mark (U+200E) on each side of each value with no Hebrew in it that it inserts into a Hebrew template, so
+  negative foreign currency reads "-$4.2m" (not "$4.2m-") and "15 May 1948" in the Why screen's turn line stays one
+  run. English templates, and templates with no letter of their own, format as before.
 - Keyboard play, small fixes from the accessibility audit (refs #41): a Budget + or - keeps the focus on its button, as
   the rows are now updated in place (H2). Closing the start screen, answering the last open event and Escape from a
   screen no longer leave nothing focused: the focus goes to End Turn, End Turn, and the screen's top-bar button (M1).
@@ -494,6 +573,15 @@ adds a line under **Unreleased**; CI's `Changelog` job checks this (see `CONTRIB
   adds Hansard for the RAF clash of 7 January 1949, and "Education in the Immigrant Camps" adds the JTA's report of
   the commission's findings, completed on 9 May 1950. Wikipedia stays only for lines these sources do not cover. Text,
   dates and effects are unchanged (refs #442).
+- Second Government ministers take their Second Knesset factions from 20 August 1951, per the Knesset faction records:
+  Haim-Moshe Shapira Hapoel HaMizrachi and Yitzhak-Meir Levin Agudat Yisrael (both United Religious Front before), and
+  Bechor-Shalom Sheetrit Mapai (Sephardim before). Each term is split on that date (refs #457). No golden moves.
+- The transitional Second Government holds 69 of 120 seats in the Second Knesset, not 51 (#315). From 20 August 1951
+  its coalition gains the lists its parties' MKs sat for in the new Knesset, per the Knesset faction records: Hapoel
+  HaMizrachi, Mizrachi, Agudat Yisrael and Poalei Agudat Yisrael (the United Religious Front) and the Democratic List
+  for Israeli Arabs (the Democratic List of Nazareth). It has a majority again, and the player can re-appoint Shapira
+  and Levin, whose parties follow those factions. No golden moves: the historical run holds no vote and makes no
+  appointment, so the coalition is not read into its state.
 - Contradictions flagged in #457 and #442 that cannot move a golden. YAML comments: the Provisional State Council last
   met on 10 February 1949, not 3 February; the 120-seat ordinance passed on 18 November 1948 and the 25 January vote
   was fixed on 25 November 1948 (Harpaz, Kesher 61); the 57-36 vote of 8 August 1950 was for the coalition's motion,

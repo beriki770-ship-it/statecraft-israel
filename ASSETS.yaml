@@ -39,14 +39,14 @@ rules:
     licence: CC0-1.0
     ai_generated: true
     source: "ElevenLabs Image API (Pro plan, decision D5), model GPT Image 2.5 Sunburst (gpt-image-2.5-sunburst), 2K, quality high, 2026-10-12 (#268); the start screen's painting, native 2048x1152, saved as JPEG (quality 90), no upscale. Take 1: prompt promo/start-screen/prompt-d.txt, with the previous painting (this file as merged in #255: Dreamina option C, resized to 1920x1080) as the composition reference and promo/final/03-gameplay-1936.png as the style reference. Take 2 (used): prompt promo/start-screen/prompt-d-edit.txt, an edit of take 1 that changes only the row of figures at the table. The previous painting (Dreamina, #255) showed sunbeams through the windows"
-    status: owner-verify
-    note: "Decision D1: AI-only images CC0 / no rights claimed. Its composition reference is a Dreamina output, so it stays under D-D's open sign-off (docs/oss/DECISIONS.md). History: on 14 May 1948 some of the hall's windows were darkened for fear of an air raid, so the painting shows the windows covered with blackout cloth and the hall lit by lamps, with no daylight. Source: Ynet, '110 שנות היסטוריה: סיפורו של הבית שבו נולדה המדינה', 6 May 2022, https://www.ynet.co.il/architecture/article/rkgpx4bi5 ('וחלק מהחלונות הואפלו מחשש לתקיפה אווירית'), cited by https://en.wikipedia.org/wiki/Independence_Hall_(Israel) ('windows were darkened over fears of an air raid'); both checked 2026-10-12. The lamps themselves are not in the source. Content policy: no identifiable real person (the hall from behind the audience; the figures at the table are a soft, even row of tiny dark-haired silhouettes with an empty place at the centre, so no one reads as a speaker; the frame between the flags holds an abstract warm blur with no figure or face in it, not a portrait). An ElevenLabs output carries no provenance badge; the start screen's source line says 'Painting: AI-generated.'"
+    status: verified
+    note: "Decision D1: AI-only images CC0 / no rights claimed. Its composition reference is a Dreamina output, so it is covered by D-D, decided (owner, 2026-10-14, docs/oss/DECISIONS.md): approved for free, non-commercial distribution and CC0 marking; before any paid release the owner confirms commercial rights for the plan used or replaces the image. History: on 14 May 1948 some of the hall's windows were darkened for fear of an air raid, so the painting shows the windows covered with blackout cloth and the hall lit by lamps, with no daylight. Source: Ynet, '110 שנות היסטוריה: סיפורו של הבית שבו נולדה המדינה', 6 May 2022, https://www.ynet.co.il/architecture/article/rkgpx4bi5 ('וחלק מהחלונות הואפלו מחשש לתקיפה אווירית'), cited by https://en.wikipedia.org/wiki/Independence_Hall_(Israel) ('windows were darkened over fears of an air raid'); both checked 2026-10-12. The lamps themselves are not in the source. Content policy: no identifiable real person (the hall from behind the audience; the figures at the table are a soft, even row of tiny dark-haired silhouettes with an empty place at the centre, so no one reads as a speaker; the frame between the flags holds an abstract warm blur with no figure or face in it, not a portrait). An ElevenLabs output carries no provenance badge; the start screen's source line says 'Painting: AI-generated.'"
   - glob: "promo/start-screen/declaration-hall-option-*.png"
     licence: CC0-1.0
     ai_generated: true
     source: "Dreamina (dreamina.capcut.com), model GPT Image 2.5, 2026-10-12, 1536x864 as downloaded, with promo/final/03-gameplay-1936.png as the style reference; prompts in promo/start-screen/prompt-b.txt and -c.txt"
-    status: owner-verify
-    note: "Decision D1: AI-only images CC0 / no rights claimed. Two options for the start screen; C is used."
+    status: verified
+    note: "Decision D1: AI-only images CC0 / no rights claimed. Two options for the start screen; C is used. Decision D-D decided (owner, 2026-10-14, docs/oss/DECISIONS.md): approved for free, non-commercial distribution and CC0 marking; before any paid release the owner confirms commercial rights for the plan used or replaces the image."
   - glob: "docs/sources/declaration-1948/*.txt"
     licence: Public-Domain
     source: "The Declaration of the Establishment of the State of Israel: the Hebrew as published in Iton Rishmi (Official Gazette) No. 1, 14 May 1948, via https://he.wikisource.org/wiki/הכרזה_על_הקמת_מדינת_ישראל; the English translation via https://avalon.law.yale.edu/20th_century/israel.asp, checked against the Israel MFA's https://www.gov.il/en/pages/declaration-of-establishment-state-of-israel (all 2026-10-12)"
@@ -79,6 +79,21 @@ rules:
     licence: CC-BY-4.0
     source: "In-engine capture: about 11 seconds of real play recorded from the game's own WebGL build (commit f93fd5e, 2026-10-13) in headed Chrome at 1920x1080; the animated WebP for the README, the MP4 (H.264) and WebM (VP9) for the website. Map derived from Copernicus DEM; the event-card photograph CC BY 4.0 with its credit line in the picture (Meitar Collection / National Library of Israel; NOTICE)"
     status: verified
+  - glob: "docs/steam/kit/*_capsule_*.png"
+    licence: CC-BY-SA-4.0
+    source: "Steam Coming Soon kit previews (P57, #424; docs/steam/coming-soon-kit.md): the header and small capsules, composed from a 3840x2160 engine render of the game's own map scene (main at c0a38256, PC quality tier, pose telaviv40); the only text is the title 'Statecraft: Israel' set in EB Garamond SemiBold (unity/Assets/UI/Fonts/EBGaramond-SemiBold.ttf, OFL-1.1, its row above; the font is credited, the images are not under the OFL). Byte-identical to the files of the same name in the kit folder kept outside git (SHA-256 in the doc's manifest). Map derived from Copernicus DEM (NOTICE)"
+    status: verified
+    note: "Not AI. CC BY-SA 4.0 by coordinator ruling (2026-10-15): the render shows the CC BY-SA 4.0 bakes of D13 (landuse.png, BiomeColours.bytes, RouteRibbons.bytes). Attribution text in docs/steam/coming-soon-kit.md section 3."
+  - glob: "docs/steam/kit/library_logo_1280w.png"
+    licence: CC-BY-4.0
+    source: "Steam Coming Soon kit library logo (P57, #424): the wordmark 'Statecraft: Israel' set in EB Garamond SemiBold (unity/Assets/UI/Fonts/EBGaramond-SemiBold.ttf, OFL-1.1, its row above; the font is credited, the image is not under the OFL), cream on transparency with a soft dark halo, made with Pillow; no engine render in it. Byte-identical to library/library_logo_1280w.png in the kit folder kept outside git"
+    status: verified
+    note: "Not AI. Original type setting with no render content, so CC BY 4.0 like the project's other original art (LICENSING.md)."
+  - glob: "docs/steam/kit/screenshots-contact-sheet.jpg"
+    licence: CC-BY-SA-4.0
+    source: "The kit's eight 1920x1080 screenshots of the game's own WebGL build (main at c0a38256, captured 2026-10-14/15 with tools/web_check.py --shots and tools/headed.py's Browser), each at half size on one sheet; listed with their SHA-256 in docs/steam/coming-soon-kit.md. Map derived from Copernicus DEM (NOTICE); the Defence screen's portraits are David Ben-Gurion (public domain, NARA) and Yaakov Dori (CC0), their rows in ASSETS.portraits.yaml"
+    status: verified
+    note: "Not AI. No Cabinet screen, no GPO portrait, no AI painting or clip, no sensitive event card. CC BY-SA 4.0 by coordinator ruling (2026-10-15): the screenshots show the CC BY-SA 4.0 bakes of D13."
   - glob: "docs/GDD-v0.1.pdf"
     licence: CC-BY-4.0
     source: "The owner's game design document (Statecraft-Israel-GDD-v0.1.pages), exported to PDF on 2026-10-12; text copy in docs/GDD.md"
@@ -161,14 +176,19 @@ rules:
     note: "Decision D6 (the M3 plan's deferred 'Legal review of map-data licences' row). Published 2026-10-10 before the check."
   - glob: "content/map/subdistrict*"
     licence: CC-BY-SA-4.0
-    source: "tools/borders_digitise.py from the Survey of Palestine map 'Administrative Divisions' (1:750,000, 1946, overprinted May 1947; two Commons scans, SHA-256 in the file) per the 1947 Schedule (Palestine Gazette No. 1552); coast from the Copernicus DEM (NOTICE); the hex layer by tools/borders_bake.py; content/ is CC BY-SA 4.0"
+    source: "tools/borders_digitise.py from the Survey of Palestine map 'Administrative Divisions' (1:750,000, 1946, overprinted May 1947; two Commons scans, SHA-256 in the file) per the 1947 Schedule (Palestine Gazette No. 1552); coast from the Copernicus DEM (NOTICE); the hex layer by tools/borders_bake.py; content/ is CC BY-SA 4.0. subdistrict_hexes_1948.tsv is the YAML's baked runtime form (tools/regions_bake.py, issue #321), with the same rows and no new facts"
     status: verified
     note: "Decision D-B (owner-delegated, 2026-10-11): allowed; facts redrawn, no image copied. Government of Palestine works of 1945-47, public domain in Israel and the UK since 1997; the file holds facts (where legally defined lines run) redrawn by our own method, which a possible US copyright in the map's drawing does not reach (Feist). Hebrew and Arabic names from Wikipedia, noted per row."
   - glob: "content/map/armistice*"
     licence: CC-BY-SA-4.0
-    source: "tools/armistice_digitise.py from the 1949 General Armistice Agreements (UNTS vol. 42) and their annexed maps: Syria, Annex I's MR points and the annexed 1:50,000 map (S/1353/Rev.1: the UN ODS colour scan and the UNISPAL 1-bit scan, SHA-256 in the tool); Lebanon, Art. V.1's international boundary as the Mandate frontier of content/map/subdistricts_1948.geojson; Egypt, Art. VI.1 and VIII.2 with the Survey of Palestine 1:100,000 sheet 9 'Gaza' (Commons, NLI copy) for the Wadi Hasi mouth, Deir Suneid and the highway; the 1950 modus vivendi line from S/1471's signed map (UNISPAL; sheet 2 from the UN Treaty Collection); Jordan from the low-resolution UNISPAL copy of the signed map 1 (source_quality low_res_scan), georeferenced on town coordinates from Wikidata (CC0) and Wikipedia; IBS 46 (1965) a named cross-check only; coast from the Copernicus DEM (NOTICE); the hex layer by tools/armistice_bake.py; content/ is CC BY-SA 4.0"
-    status: owner-verify
-    note: "Decision D-A: UN documents with symbols are not copyrighted (ST/AI/189/Add.9/Rev.2 para. 2); the Gaza sheet, the Mandate frontier and Jordan map 1's 1:250,000 base fall under D-B (Government of Palestine); S/1471's base sheets are a Survey of Israel reprint of about 1949-50 (outside D-B; facts only taken). Only the lines' positions are taken, redrawn by our own method. Status draft until the owner's fact check and sensitivity review."
+    source: "tools/armistice_digitise.py from the 1949 General Armistice Agreements (UNTS vol. 42) and their annexed maps: Syria, Annex I's MR points and the annexed 1:50,000 map (S/1353/Rev.1: the UN ODS colour scan and the UNISPAL 1-bit scan, SHA-256 in the tool); Lebanon, Art. V.1's international boundary as the Mandate frontier of content/map/subdistricts_1948.geojson; Egypt, Art. VI.1 and VIII.2 with the Survey of Palestine 1:100,000 sheet 9 'Gaza' (Commons, NLI copy) for the Wadi Hasi mouth, Deir Suneid and the highway; the 1950 modus vivendi line from S/1471's signed map (UNISPAL; sheet 2 from the UN Treaty Collection); Jordan from the low-resolution UNISPAL copy of the signed map 1 (source_quality low_res_scan), georeferenced on town coordinates from Wikidata (CC0) and Wikipedia; IBS 46 (1965) a named cross-check only; coast from the Copernicus DEM (NOTICE); the hex layer by tools/armistice_bake.py; content/ is CC BY-SA 4.0. armistice_hexes_1949.tsv is the YAML's baked runtime form (tools/regions_bake.py, issue #321), with the same rows and no new facts"
+    status: verified
+    note: "Decision D-A: UN documents with symbols are not copyrighted (ST/AI/189/Add.9/Rev.2 para. 2); the Gaza sheet, the Mandate frontier and Jordan map 1's 1:250,000 base fall under D-B (Government of Palestine); S/1471's base sheets are a Survey of Israel reprint of about 1949-50 (outside D-B; facts only taken). Only the lines' positions are taken, redrawn by our own method. Status draft until the owner's fact check and sensitivity review. Decision D-A decided (owner, 2026-10-14, docs/oss/DECISIONS.md): the rulings accepted as recorded; no archive request for a full-resolution Jordan scan now (it can be requested later)."
+  - glob: "content/map/control*"
+    licence: CC-BY-SA-4.0
+    source: "tools/control_digitise.py from Israel State Archives map 6158/1 ('Palestine: the partition lines and the front lines', 1949, ISA-PMO-GovernmentSecretary-R0005czg; the NYU Faculty Digital Archive copy, hdl 2451/72921, SHA-256 in the tool; source_quality low_res_scan), georeferenced on its printed 10-km Palestine grid; its red (9 July 1948), blue (18 July 1948) and green (end of October 1948) front lines traced; the dates of the operations from Wikipedia; from each 1949 agreement's date the sides of content/map/armistice_lines_1949.geojson (D-A); the Mandate outline of content/map/subdistricts_1948.geojson (D-B); the hex layer by tools/control_bake.py; content/ is CC BY-SA 4.0. control_hexes_1948_49.tsv is the YAML's baked runtime form (tools/regions_bake.py, issue #321), with the same rows and no new facts"
+    status: verified
+    note: "Decision D-C (owner, 2026-10-14): allowed. A 1949 Israeli state work, out of copyright in Israel (Copyright Act 2007 s. 42); a possible URAA US term in its drawing does not reach the facts taken (where a front line ran on a date: Feist); its base is a Survey of Palestine sheet (D-B). Only the lines' positions are taken, redrawn by our own method; no image is copied or committed. Status draft, owner-verify: the owner's fact check and sensitivity review before a shareable build."
   - glob: "content/map/settlements_1948.yaml"
     licence: CC-BY-SA-4.0
     source: "Coordinates from the Wikipedia API (prop=coordinates) and tools/settlement_hexes.py; per-settlement URLs and check dates in settlements_1948.yaml"
@@ -184,7 +204,7 @@ rules:
     note: "Presentation only (settlement kit footprints); the sim never reads it. To be checked against a scan of the 1945 publication."
   - glob: "content/map/localities_1948.*"
     licence: CC-BY-SA-4.0
-    source: "1948 localities of 1,000+ people and Bedouin camp totals: populations and 1948 names from Village Statistics, 1945 (Government of Palestine) as transcribed on Wikipedia, revision 1359600351 (CC BY-SA 4.0, attribution in each row's sources); coordinates, today's names and Hebrew/Arabic labels from Wikidata (CC0); camp areas read at load from content/map/subdistrict_hexes_1948.yaml. Read 2026-10-11; per-row sources in the YAML. localities_1948.tsv is its baked runtime form (tools/localities_bake.py), with the same rows and no new facts"
+    source: "1948 localities of 1,000+ people and Bedouin camp totals: populations and 1948 names from Village Statistics, 1945 (Government of Palestine) as transcribed on Wikipedia, revision 1359600351 (CC BY-SA 4.0, attribution in each row's sources); coordinates, today's names and Hebrew/Arabic labels from Wikidata (CC0); camp areas read at load from content/map/subdistrict_hexes_1948.yaml. Read 2026-10-11; per-row sources in the YAML. Five 1948 Hebrew names (Beisan, Kfar Ata, Pardes Hanna, Tarshiha, Majdal) from Hebrew Wikipedia (CC BY-SA 4.0), read 2026-10-14, cited in each row's name_he_sources (#558). localities_1948.tsv is its baked runtime form (tools/localities_bake.py), with the same rows and no new facts"
     status: owner-verify
     note: "Presentation only (map kits and labels); the sim never reads it. Rows with match low or manual need the owner's check; VS figures not yet checked against a scan."
   - glob: "content/map/route*_1948.yaml"
@@ -199,8 +219,8 @@ rules:
   - glob: "unity/Assets/Resources/Routes/RouteRibbons.bytes"
     licence: CC-BY-SA-4.0
     source: "The route ribbons' meshes (issue #321), baked by Editor RouteRibbonBake from content/map/route_paths_1948.yaml (the traced lines above) draped on the Copernicus DEM GLO-30-derived heightmap (unity/Assets/StreamingAssets/map/heightmap.*); no new facts; attribution in NOTICE"
-    status: owner-verify
-    note: "Decision D13 (docs/oss/DECISIONS.md): the owner rules the licence of data derived from DEM and coordinate inputs."
+    status: verified
+    note: "Decision D13 decided (owner, 2026-10-14, docs/oss/DECISIONS.md): CC BY-SA 4.0, the most restrictive input (the map content in content/map/); the DEM, CHELSA and IMS findings accepted as recorded."
   - glob: "content/map/units_1948.yaml"
     licence: CC-BY-SA-4.0
     source: "The 1948 brigades, 101 Squadron and the first navy ships, with their dated positions (docs/units.md, Units in play): facts and place coordinates read from English and Hebrew Wikipedia (CC BY-SA; Wikipedia API prop=coordinates) and Wikidata (CC0), and the S-199 markings from Eduard Info 11/2025 pp. 53-54 (facts only, no text or image copied); per-row sources and check dates in the file"
@@ -208,15 +228,15 @@ rules:
     note: "Presentation only (the map's unit tokens); the sim never reads it, so the content hash does not move (UnitsInPlayTests). Rows marked wikipedia_only are drafts until checked against a published history (Lorch, The Edge of the Sword) or the IDF and Defense Establishment Archives."
   # --- Baked map textures (derived from the heightmap) ---
   - glob: "unity/Assets/Textures/Map/landuse.png"
-    licence: Copernicus-DEM
+    licence: CC-BY-SA-4.0
     source: "tools/land_bake.py (issue #33): the land-use colour and weight (procedural field parcels with farm tracks, garrigue, terraces and scrub) placed by: slope and water from the Copernicus DEM-derived heightmap (Copernicus-DEM); rainfall from CHELSA V2.1 bio12 (CC0-1.0) bias-corrected by the IMS station normals of content/map/precip_stations.json (data.gov.il dataset 481, IMS-data.gov.il, decision D6); content/map/hexes.json biomes (this project's own content, CC-BY-SA-4.0); and the town coordinates of content/map/settlements_1948.yaml (Wikipedia API, CC-BY-SA-4.0) for the citrus belt. Procedural, not AI-generated; attribution in NOTICE"
-    status: owner-verify
-    note: "Decision D13 (docs/oss/DECISIONS.md): the owner rules the licence of textures derived from DEM, CHELSA, IMS and coordinate inputs."
+    status: verified
+    note: "Decision D13 decided (owner, 2026-10-14, docs/oss/DECISIONS.md): CC BY-SA 4.0, the most restrictive input (the 1948 settlement coordinates from Wikipedia); the DEM, CHELSA and IMS findings accepted as recorded."
   - glob: "unity/Assets/Resources/Map/BiomeColours.bytes"
     licence: CC-BY-SA-4.0
     source: "The biome ground colours (issue #321, #529), baked by Editor BiomeColourBake from the biomes and centres of content/map/hexes.json, the heightmap's bounds (unity/Assets/StreamingAssets/map/heightmap.json) and this project's MapPalette.Ground colours. The biomes are derived by tools/hexgrid.py from the Copernicus DEM GLO-30-derived heightmap (Copernicus-DEM), CHELSA V2.1 bio12 rainfall (CC0-1.0) and the IMS station normals of content/map/precip_stations.json (data.gov.il dataset 481, decision D6); no new facts; attribution in NOTICE"
-    status: owner-verify
-    note: "Decision D13 (docs/oss/DECISIONS.md): the owner rules the licence of data derived from DEM, CHELSA, IMS and coordinate inputs; CC-BY-SA-4.0 is recorded until then."
+    status: verified
+    note: "Decision D13 decided (owner, 2026-10-14, docs/oss/DECISIONS.md): CC BY-SA 4.0, the most restrictive input (the map content in content/map/); the DEM, CHELSA and IMS findings accepted as recorded."
   - glob: "unity/Assets/Textures/*"
     licence: Copernicus-DEM
     source: "tools/terrain_bake.py from the Copernicus DEM GLO-30-derived heightmap (unity/Assets/StreamingAssets/map/heightmap.*): AO, curvature, sky-view (Map/terrain_bake.png), coast distance (Map/coast.png) and the AO copy (Map/ao.png); the terrain water's mesh samples (Map/terrain_water.bytes, Editor TerrainWaterBake from the same heightmap); attribution in NOTICE"

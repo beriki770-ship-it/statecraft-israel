@@ -6,6 +6,7 @@ from pathlib import Path
 
 import pytest
 import yaml
+import yaml12
 
 import hexgrid as hg
 
@@ -13,14 +14,14 @@ ROOT = Path(__file__).resolve().parents[2]
 MAP = ROOT / "content" / "map"
 HEXES = json.loads((MAP / "hexes.json").read_text())
 BY_QR = {(h["q"], h["r"]): h for h in HEXES["hexes"]}
-DOC = yaml.safe_load((MAP / "localities_1948.yaml").read_text())
+DOC = yaml12.load((MAP / "localities_1948.yaml").read_text())
 PLACES = DOC["places"]
 CAMPS = DOC["encampments"]
-GAME_IDS = {s["id"] for s in yaml.safe_load((MAP / "settlements_1948.yaml").read_text())["settlements"]}
+GAME_IDS = {s["id"] for s in yaml12.load((MAP / "settlements_1948.yaml").read_text())["settlements"]}
 TYPES = {"town", "kibbutz", "moshav", "arab_town", "village"}
 KINDS = {"arab_town": "arab_town", "arab_village": "village", "jewish_town": "town", "moshava": "town",
          "kibbutz": "kibbutz", "moshav": "moshav", "mixed_locality": "town"}
-SUBDISTRICTS = yaml.safe_load((MAP / "subdistrict_hexes_1948.yaml").read_text())
+SUBDISTRICTS = yaml12.load((MAP / "subdistrict_hexes_1948.yaml").read_text())
 NO_TODAY = {line.strip() for line in (ROOT / "tools" / "tests" / "data" / "localities_no_today_qids.txt").read_text().splitlines()
             if line.strip() and not line.startswith("#")}
 LANDMARKS = {"mosque", "church", "none", "water_tower", "mosque_and_water_tower"}
@@ -73,6 +74,36 @@ def test_names_are_1948_names():
     for p in PLACES:   # the VS spellings' marks are gone: plain letters and an apostrophe for ayn
         assert not re.search(r"[‘’āīūḥṭ]|, El$", p["name"]), p["name"]
         assert "(" not in p["name"], p["name"]
+
+
+def flagged_ids(places):
+    return [p["id"] for p in places if "name_he_review" in p]
+
+
+def test_hebrew_names_are_the_1948_forms_with_their_sources():
+    """#558, owner 2026-10-14: name_he is the 1948 form matching the English name. Where it is not the place's Wikidata
+    label (a row source), it carries name_he_sources: an https he.wiki page, read on the day given. The places with no
+    Hebrew source have no name_he, and the runtime file carries name_he for the map."""
+    by = {p["id"]: p for p in PLACES}
+    assert {i: by[i]["name_he"] for i in ("beit_shean", "kiryat_ata", "pardes_hanna_karkur", "tarshiha", "al_majdal", "caesarea")} == {
+        "beit_shean": "ביסאן", "kiryat_ata": "כפר אתא", "pardes_hanna_karkur": "פרדס חנה", "tarshiha": "תרשיחא",
+        "al_majdal": "אל-מג'דל", "caesarea": "קיסריה"}
+    with_sources = {p["id"] for p in PLACES if "name_he_sources" in p}
+    assert with_sources == {"beit_shean", "kiryat_ata", "pardes_hanna_karkur", "tarshiha", "al_majdal"}
+    # The review flag (#564, owner 2026-10-15): agent-checked until a native speaker reads the name, then removed.
+    assert all(by[i]["name_he"] and by[i]["name_he_review"] == "agent-checked" for i in flagged_ids(PLACES))
+    for i in with_sources:
+        assert by[i]["name_he"], i
+        for s in by[i]["name_he_sources"]:
+            assert set(s) == {"url", "checked"} and s["url"].startswith("https://he.wikipedia.org/") and str(s["checked"]) == "2026-10-14"
+    assert {p["id"] for p in PLACES if not p.get("name_he")} == {
+        "naana", "al_salihiyya", "karatiyya", "simsim_gaza", "niilya", "al_naima", "al_jiyya", "al_mansi", "az_zakariyya",
+        "al_qubayba_hebron", "al_zuq_al_tahtani", "al_sawafir_al_gharbiyya", "al_ghazzawiyya"}
+    import localities_bake
+    rows = {r.split("\t")[1]: r.split("\t") for r in localities_bake.bake((MAP / "localities_1948.yaml").read_text(encoding="utf-8")).splitlines()
+            if r.startswith("place\t")}
+    assert rows["beit_shean"][localities_bake.PLACE_COLUMNS.index("name_he")] == "ביסאן"
+    assert rows["naana"][localities_bake.PLACE_COLUMNS.index("name_he")] == ""
 
 
 def test_start_of_game_only_no_later_fate():
@@ -130,6 +161,6 @@ def test_the_bake_refuses_a_field_with_a_tab_and_keeps_every_row():
     rows = [line for line in localities_bake.bake(text).splitlines() if not line.startswith("#")]
     assert len([r for r in rows if r.startswith("place\t")]) == len(PLACES)
     assert len([r for r in rows if r.startswith("camp\t")]) == len(CAMPS)
-    assert all(len(r.split("\t")) == (14 if r.startswith("place\t") else 6) for r in rows)
+    assert all(len(r.split("\t")) == (15 if r.startswith("place\t") else 6) for r in rows)
     with pytest.raises(ValueError, match="place 'hebron'"):
         localities_bake.bake(text.replace("  name: Hebron\n", "  name: \"Heb\\tron\"\n", 1))

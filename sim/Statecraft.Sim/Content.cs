@@ -9,10 +9,37 @@ namespace Statecraft.Sim
 
     public sealed class Source { public string Url { get; set; } = ""; public DateTime Checked { get; set; } }
 
+    /// <summary>The review flag of a Hebrew display name (`*_he_review`, CONTENT_POLICY section 2, rule 6). A name an AI agent
+    /// checked against its sources, but no person has read yet, carries <see cref="AgentChecked"/>; the row's own `status`
+    /// stays what it is for the English facts. A native speaker's review clears the flag (the key is removed).</summary>
+    public static class HebrewReview
+    {
+        public const string AgentChecked = "agent-checked";
+    }
+
     public sealed class Office
     {
         public string Id { get; set; } = "";
         public string Title { get; set; } = "";
+        /// <summary>The Hebrew title (#558), sourced in <see cref="TitleHeSources"/>; empty when no source gives one (the UI then
+        /// keeps the English).</summary>
+        public string TitleHe { get; set; } = "";
+        public List<Source> TitleHeSources { get; set; } = new List<Source>();
+        /// <summary>"agent-checked" while <see cref="TitleHe"/> waits for a native speaker's review (#564); empty once a
+        /// person has reviewed it (<see cref="HebrewReview"/>).</summary>
+        public string TitleHeReview { get => titleHeReview ?? ""; set => titleHeReview = value ?? ""; }
+        /// <summary>True when the file has the key at all, even blank: a blank flag is an error, not a review.</summary>
+        [YamlIgnore] public bool TitleHeReviewGiven => titleHeReview != null;
+        string? titleHeReview;
+        /// <summary>The feminine Hebrew title, only where a woman held the office (the Knesset records write שרת העבודה);
+        /// sourced in <see cref="TitleHeFSources"/>. Needs <see cref="TitleHe"/>.</summary>
+        public string TitleHeF { get; set; } = "";
+        public List<Source> TitleHeFSources { get; set; } = new List<Source>();
+        /// <summary>As <see cref="TitleHeReview"/>, for <see cref="TitleHeF"/>.</summary>
+        public string TitleHeFReview { get => titleHeFReview ?? ""; set => titleHeFReview = value ?? ""; }
+        /// <summary>True when the file has the key at all, even blank: a blank flag is an error, not a review.</summary>
+        [YamlIgnore] public bool TitleHeFReviewGiven => titleHeFReview != null;
+        string? titleHeFReview;
         /// <summary>Historical record only: no Cabinet seat, player appointment or gameplay responsibility. Defaults false for existing offices.</summary>
         public bool HistoricalOnly { get; set; }
         /// <summary>True when several people may hold the office on the same day (Minister without Portfolio, a second
@@ -59,7 +86,19 @@ namespace Statecraft.Sim
         public string Loop { get; set; } = Legacy;
     }
 
-    public sealed class Party { public string Id { get; set; } = ""; public string Name { get; set; } = ""; }
+    public sealed class Party
+    {
+        public string Id { get; set; } = "";
+        public string Name { get; set; } = "";
+        /// <summary>The Hebrew name (#558), sourced in <see cref="NameHeSources"/>; empty when no source gives one.</summary>
+        public string NameHe { get; set; } = "";
+        public List<Source> NameHeSources { get; set; } = new List<Source>();
+        /// <summary>"agent-checked" while <see cref="NameHe"/> waits for a native speaker's review (#564); empty once reviewed.</summary>
+        public string NameHeReview { get => nameHeReview ?? ""; set => nameHeReview = value ?? ""; }
+        /// <summary>True when the file has the key at all, even blank: a blank flag is an error, not a review.</summary>
+        [YamlIgnore] public bool NameHeReviewGiven => nameHeReview != null;
+        string? nameHeReview;
+    }
 
     public sealed class OfficeTerm
     {
@@ -104,6 +143,14 @@ namespace Statecraft.Sim
     {
         public string Id { get; set; } = "";
         public string Body { get; set; } = "";
+        /// <summary>The Hebrew name of the body (#558), sourced in <see cref="BodyHeSources"/>; empty when no source gives one.</summary>
+        public string BodyHe { get; set; } = "";
+        public List<Source> BodyHeSources { get; set; } = new List<Source>();
+        /// <summary>"agent-checked" while <see cref="BodyHe"/> waits for a native speaker's review (#564); empty once reviewed.</summary>
+        public string BodyHeReview { get => bodyHeReview ?? ""; set => bodyHeReview = value ?? ""; }
+        /// <summary>True when the file has the key at all, even blank: a blank flag is an error, not a review.</summary>
+        [YamlIgnore] public bool BodyHeReviewGiven => bodyHeReview != null;
+        string? bodyHeReview;
         public DateTime? Elected { get; set; }
         public DateTime From { get; set; }
         public DateTime? To { get; set; }
@@ -120,6 +167,14 @@ namespace Statecraft.Sim
     {
         public string Id { get; set; } = "";
         public string Name { get; set; } = "";
+        /// <summary>The Hebrew name (#558), sourced in <see cref="NameHeSources"/>; empty when no source gives one.</summary>
+        public string NameHe { get; set; } = "";
+        public List<Source> NameHeSources { get; set; } = new List<Source>();
+        /// <summary>"agent-checked" while <see cref="NameHe"/> waits for a native speaker's review (#564); empty once reviewed.</summary>
+        public string NameHeReview { get => nameHeReview ?? ""; set => nameHeReview = value ?? ""; }
+        /// <summary>True when the file has the key at all, even blank: a blank flag is an error, not a review.</summary>
+        [YamlIgnore] public bool NameHeReviewGiven => nameHeReview != null;
+        string? nameHeReview;
         public DateTime From { get; set; }
         public DateTime? To { get; set; }
         /// <summary>The parties in the coalition when the government took office. Parties that join or leave later are
@@ -324,6 +379,27 @@ namespace Statecraft.Sim
         public double CohesionJobsWeight { get; set; }
         /// <summary>The city every arrival lands in (Phase 1 has one city; R-CITY-003).</summary>
         public string ArrivalsCity { get; set; } = "";
+        /// <summary>Turns a "build yishuv" takes, counting the turn it was ordered in (R-SITE-003).</summary>
+        public int BuildYishuvTurns { get; set; }
+        /// <summary>IL millions a "build yishuv" costs, paid in full when it starts (R-SITE-001).</summary>
+        public double BuildYishuvCost { get; set; }
+    }
+
+    /// <summary>A designated site (sites.yaml; docs/GDD.md "Pioneer work": building is allowed only at designated spots, and a
+    /// new yishuv takes its site's name). Sourced facts only: the balance values of building are rules (MvpRules).</summary>
+    public sealed class Site
+    {
+        public string Id { get; set; } = "";
+        public string Name { get; set; } = "";
+        public string NameHe { get; set; } = "";
+        public int Q { get; set; }
+        public int R { get; set; }
+        /// <summary>What pioneers may build here (yishuv).</summary>
+        public List<string> Kinds { get; set; } = new List<string>();
+        /// <summary>The historical founding date: the objective card's reference date (PR 6).</summary>
+        public DateTime Founded { get; set; }
+        public List<Source> Sources { get; set; } = new List<Source>();
+        public string Status { get; set; } = "";
     }
 
     /// <summary>A city's start values (cities.yaml, GDD "Cities and construction"). Counts are population units (D-A1).</summary>
@@ -577,6 +653,8 @@ namespace Statecraft.Sim
         public List<CityStart> Cities = new List<CityStart>();
         /// <summary>The GDD population and unit types (unit_types.yaml). Empty in the legacy loop.</summary>
         public List<UnitType> UnitTypes = new List<UnitType>();
+        /// <summary>The GDD designated sites (sites.yaml), in file order. Empty in the legacy loop.</summary>
+        public List<Site> Sites = new List<Site>();
         /// <summary>SHA-256 (lowercase hex) over every file the loader read, in read order, with CRLF read as LF. A save
         /// records it; loading a save made with other content shows a warning (spec section 7).</summary>
         public string Hash = "";
