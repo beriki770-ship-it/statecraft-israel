@@ -68,8 +68,12 @@ namespace Statecraft.Game.Map.Kits
             // grid's edge marks and steep ground. Each tent, hut, the communal hut and the water tower's spot stands in the
             // camp's own hex, not only its centre (review #557): the rows reach about 1.6 km from the centre at the house
             // scale, the communal hut about 3 km, against the hex's 4.33 km inradius.
+            // The whole disc of radius r, not only its centre (review #557, c9): r is at least the half-width of what stands
+            // there, so nothing overhangs the hex's edge (HexGrid.EdgeDistance: the drawn grid's own distance field).
             var hex = ground.Hex(hexCentre.x, hexCentre.y);
-            bool Free(Vector2 p, float r) => ground.Inside(p.x, p.y) && ground.Hex(p.x, p.y) == hex && !ground.Water(p.x, p.y) && OffTowns(p, r, ground)
+            bool InHex(Vector2 p, float r) => ground.Hex(p.x, p.y) == hex
+                && HexGrid.EdgeDistance(HexGrid.FromWorld(new Vector3(p.x, 0f, p.y), ground.TerrainOrigin, ground.Length), ground.HexSizeM) >= r;
+            bool Free(Vector2 p, float r) => ground.Inside(p.x, p.y) && InHex(p, r) && !ground.Water(p.x, p.y) && OffTowns(p, r, ground)
                 && !ground.OnRoute(p, r) && !ground.OnToken(p, r)
                 && (!MaabaraGroundRules || (!ground.OnGridMark(p, r) && ground.Slope(p.x, p.y, 600f) <= 0.12f)) && lots.Free(p, r, id, 0);
             // Huts at an even spread over the plots (a golden-ratio sequence from a seeded phase), not a coin per plot: the

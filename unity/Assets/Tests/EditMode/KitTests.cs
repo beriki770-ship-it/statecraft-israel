@@ -731,8 +731,8 @@ public class KitTests
     }
 
     /// <summary>Review #557: a camp stands in the hex the player built it on, where selection and the info panel point. Over
-    /// the settlement hexes each camp's centre and every structure it places (tents, huts, the communal hut, the water tower)
-    /// map back to its own hex, or the camp has no kit and is drawn as its box. Its
+    /// the settlement hexes each camp's centre and the whole footprint of every structure it places (tents, huts, the
+    /// communal hut, the water tower) map back to its own hex, or the camp has no kit and is drawn as its box. Its
     /// tents, huts and water tower keep off the grid marks and steep ground (the water tower too: review #557, should-fix 3).</summary>
     [Test]
     public void AMaabaraStandsInItsOwnHex()
@@ -758,11 +758,19 @@ public class KitTests
             }
             Assert.AreEqual((hex.Q, hex.R), HexOf(built.at), hex.Id + "'s camp");
             // Every structure, not only the centre: at the house scale the rows reach about 1.6 km from it, the communal
-            // hut about 3 km and the water tower about 2.6 km, against the hex's 4.33 km inradius (review #557).
+            // hut about 3 km and the water tower about 2.6 km, against the hex's 4.33 km inradius (review #557). And the
+            // whole of each, not only its centre (review #557, c9): the disc it claims (a plot's lot, which holds a tent or
+            // hut with its washing and belongings, and the water tower; the communal hut's half-diagonal), sampled every 30°.
             foreach (var p in placed)
             {
                 structures++;
                 Assert.AreEqual((hex.Q, hex.R), HexOf(p.C), $"{hex.Id}'s {p.Kind} at ({p.C.x:F0}, {p.C.y:F0}) stands in another hex");
+                float r = p.Kind == "communal_hut" ? 0.5f * new Vector2(p.W, p.D).magnitude : lot;
+                for (int k = 0; k < 12; k++)
+                {
+                    var q = p.C + new Vector2(Mathf.Cos(k * Mathf.PI / 6f), Mathf.Sin(k * Mathf.PI / 6f)) * r;
+                    Assert.AreEqual((hex.Q, hex.R), HexOf(q), $"{hex.Id}'s {p.Kind} at ({p.C.x:F0}, {p.C.y:F0}) reaches into another hex at {k * 30}°");
+                }
             }
             foreach (var p in placed.Where(p => p.Kind == "tent" || p.Kind == "hut" || p.Kind == "water_tower"))
             {
