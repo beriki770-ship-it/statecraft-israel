@@ -174,9 +174,12 @@ namespace Statecraft.Game.Map.Units
             right = right.sqrMagnitude > 1e-6f ? right.normalized : Vector3.right;
             // The trio and its pole turn with the camera's yaw, so the camera always sees them as at yaw 0: three figures side
             // by side, the pole behind them (issue #644). Only a new yaw moves them; each is set on the draped top where it lands.
+            // Only the game camera turns them: this runs for every camera (the scene view, a preview), and two cameras taking
+            // turns would re-drape the figures every frame and leave them turned for whichever rendered last (review of #644).
             float yaw = Mathf.Atan2(away.x, away.z) * Mathf.Rad2Deg;
-            bool turn = turnedFor != yaw; turnedFor = yaw;
-            var turning = Quaternion.Euler(0f, yaw, 0f);
+            bool turn = cam == Camera.main && turnedFor != yaw;
+            if (turn) turnedFor = yaw;
+            var turning = Quaternion.Euler(0f, turnedFor ?? 0f, 0f);   // as the figures stand now (yaw 0 until first turned)
             for (int i = 0; i < badges.Count; i++)
             {
                 var b = badges[i]; if (b == null) continue;
