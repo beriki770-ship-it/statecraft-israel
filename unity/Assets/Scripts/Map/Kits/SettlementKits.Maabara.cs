@@ -65,8 +65,11 @@ namespace Statecraft.Game.Map.Kits
             float yaw = rnd.Range(0f, 90f), a = yaw * Mathf.Deg2Rad, ca = Mathf.Cos(a), sa = Mathf.Sin(a);
             Vector2 At(float u, float v) => c + new Vector2(u * ca - v * sa, u * sa + v * ca);
             // As the Bedouin camps' tents (Encampments): off the routes and the units' clearings, the unit tokens, the hex
-            // grid's edge marks and steep ground.
-            bool Free(Vector2 p, float r) => ground.Inside(p.x, p.y) && !ground.Water(p.x, p.y) && OffTowns(p, r, ground)
+            // grid's edge marks and steep ground. Each tent, hut, the communal hut and the water tower's spot stands in the
+            // camp's own hex, not only its centre (review #557): the rows reach about 1.6 km from the centre at the house
+            // scale, the communal hut about 3 km, against the hex's 4.33 km inradius.
+            var hex = ground.Hex(hexCentre.x, hexCentre.y);
+            bool Free(Vector2 p, float r) => ground.Inside(p.x, p.y) && ground.Hex(p.x, p.y) == hex && !ground.Water(p.x, p.y) && OffTowns(p, r, ground)
                 && !ground.OnRoute(p, r) && !ground.OnToken(p, r)
                 && (!MaabaraGroundRules || (!ground.OnGridMark(p, r) && ground.Slope(p.x, p.y, 600f) <= 0.12f)) && lots.Free(p, r, id, 0);
             // Huts at an even spread over the plots (a golden-ratio sequence from a seeded phase), not a coin per plot: the

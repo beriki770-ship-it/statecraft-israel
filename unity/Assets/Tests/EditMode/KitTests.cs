@@ -730,7 +730,8 @@ public class KitTests
     }
 
     /// <summary>Review #557: a camp stands in the hex the player built it on, where selection and the info panel point. Over
-    /// the settlement hexes each camp's centre maps back to its own hex, or the camp has no kit and is drawn as its box. Its
+    /// the settlement hexes each camp's centre and every structure it places (tents, huts, the communal hut, the water tower)
+    /// map back to its own hex, or the camp has no kit and is drawn as its box. Its
     /// tents, huts and water tower keep off the grid marks and steep ground (the water tower too: review #557, should-fix 3).</summary>
     [Test]
     public void AMaabaraStandsInItsOwnHex()
@@ -739,7 +740,7 @@ public class KitTests
         var c = Statecraft.Sim.ContentLoader.Load(Statecraft.Game.Paths.Content);
         var g = PlacementLayer.CampGround(map);
         float lot = 4f * KitScale.Houses;   // a plot's lot and the water tower's (SettlementKits.MaabaraPlotR, WaterTower)
-        int kits = 0, towers = 0;
+        int kits = 0, towers = 0, structures = 0;
         var boxes = new List<string>();
         foreach (var hex in c.SettlementHexes)
         {
@@ -749,8 +750,19 @@ public class KitTests
             if (built.mesh == null) { boxes.Add(hex.Id); continue; }
             kits++;
             Object.DestroyImmediate(built.mesh);
-            var (lon, lat) = map.Frame.ToLonLat(new Vector3(built.at.x, 0f, built.at.y));
-            Assert.AreEqual((hex.Q, hex.R), HexPicker.FromLonLat(lon, lat, map.Hexes.bounds, map.Hexes.hex_size_km), hex.Id + "'s camp");
+            (int, int) HexOf(Vector2 p)
+            {
+                var (lon, lat) = map.Frame.ToLonLat(new Vector3(p.x, 0f, p.y));
+                return HexPicker.FromLonLat(lon, lat, map.Hexes.bounds, map.Hexes.hex_size_km);
+            }
+            Assert.AreEqual((hex.Q, hex.R), HexOf(built.at), hex.Id + "'s camp");
+            // Every structure, not only the centre: at the house scale the rows reach about 1.6 km from it, the communal
+            // hut about 3 km and the water tower about 2.6 km, against the hex's 4.33 km inradius (review #557).
+            foreach (var p in placed)
+            {
+                structures++;
+                Assert.AreEqual((hex.Q, hex.R), HexOf(p.C), $"{hex.Id}'s {p.Kind} at ({p.C.x:F0}, {p.C.y:F0}) stands in another hex");
+            }
             foreach (var p in placed.Where(p => p.Kind == "tent" || p.Kind == "hut" || p.Kind == "water_tower"))
             {
                 if (p.Kind == "water_tower") towers++;
@@ -758,7 +770,7 @@ public class KitTests
                 Assert.LessOrEqual(g.Slope(p.C.x, p.C.y, 600f), 0.12f, $"{hex.Id}'s {p.Kind} on steep ground");
             }
         }
-        TestContext.WriteLine($"{c.SettlementHexes.Count} settlement hexes: {kits} camps drawn as kits ({towers} water towers), "
+        TestContext.WriteLine($"{c.SettlementHexes.Count} settlement hexes: {kits} camps drawn as kits ({structures} structures, {towers} water towers), "
             + $"{boxes.Count} as boxes ({string.Join(", ", boxes)})");
         Assert.Greater(kits, 0, "some camp finds ground in its own hex");
     }
