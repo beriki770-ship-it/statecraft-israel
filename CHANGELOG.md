@@ -518,6 +518,11 @@ adds a line under **Unreleased**; CI's `Changelog` job checks this (see `CONTRIB
   message to the player: the note always gives the short reason "the file could not be read or replayed", in English and
   Hebrew, and the full exception goes to the log. A replay that throws keeps that exception, with its stack, as the
   SaveException's inner exception. No save format change.
+- Kit faces in shadow keep their own colour (refs #32): `Kit.shader`'s ambient takes the sun's warmth where the sun does
+  not reach (a bounce term, 0.6 of it in full shade, at the trilight's own brightness), so a shaded wall, roof flank or
+  tree crown reads as a darker version of itself and not blue-grey under the grade's teal shadows (Safed at 6 km, shaded
+  wall hue 100 to 44 degrees, saturation 0.09 to 0.27, same value). Terrain, water and every other shader are unchanged;
+  sunlit kit faces get a little warmer. `KitTests.AKitFaceInShadowKeepsItsOwnHue` pins it. No golden moves.
 - UI text from Jeremy Hoover's review (refs #622): a refused order no longer shows a content id or an exception's
   message after "Not done:" ("Unknown policy", "The turn could not run", in English and Hebrew); both stay in the log.
   The six Title Case labels are in sentence case ("Public support", "International standing", "Foreign currency", "End

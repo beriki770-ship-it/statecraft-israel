@@ -63,6 +63,9 @@ Shader "Statecraft/Kit"
                 return o;
             }
 
+            // How much of the ambient in full shade is the sun's bounce (kit shadow colour, refs #32).
+            static const half KitBounce = 0.6;
+
             // A 1D band [a, b] of a period-1 pattern, box-filtered over the pixel's footprint w (in periods).
             float Band(float x, float a, float b, float w)
             {
@@ -118,7 +121,13 @@ Shader "Statecraft/Kit"
                 }
                 Light sun = GetMainLight(TransformWorldToShadowCoord(i.positionWS));
                 float ndl = saturate(dot(n, sun.direction));
-                half3 lit = albedo * (SampleSH(n) + sun.color * ndl * sun.shadowAttenuation);
+                // The ambient takes the sun's warmth where the sun does not reach (the bounce off the sunlit ground; same
+                // brightness, the trilight's luminance): with the trilight's own colour, near grey at a wall and sky blue on
+                // a roof, a pale face in shade had almost no colour left, and the grade's teal shadows turned it blue-grey.
+                float sunlit = ndl * sun.shadowAttenuation;
+                half3 sh = SampleSH(n);
+                half3 bounce = Luminance(sh) * sun.color / max(Luminance(sun.color), 1e-4);
+                half3 lit = albedo * (lerp(sh, bounce, KitBounce * (1.0 - sunlit)) + sun.color * sunlit);
                 float h = _ScHaze.a * ScHazeAmount(i.positionWS);
                 return half4(lerp(lit, _ScHaze.rgb, h), 1.0);
             }
