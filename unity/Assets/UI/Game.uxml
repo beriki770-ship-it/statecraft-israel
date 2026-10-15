@@ -5,10 +5,26 @@
         <ui:Label name="loading" text="Loading the map of 1948…" class="loading-line" picking-mode="Ignore" />
         <!-- Settlement names, positioned by MapLabelsPresenter under every panel; clicks pass through to the map. -->
         <ui:VisualElement name="map-labels" class="map-labels" picking-mode="Ignore" />
+        <!-- HUD round 2, part 2 (#398): promo 03's left icon column, the four screens (ScreenNav), icon-only; each one's name
+             is its text (the event log records it), hidden, and its tooltip, shown beside it on hover and on focus
+             (HoverTip). Before the top bar in the tree, so Tab still runs Cabinet, Budget, Defence, Why?, New Game, End Turn. -->
+        <!-- The left column's strip of the decision card's backdrop (review of #602): dimmed and taking the pointer while the
+             card is open (event-modal), so the map is blocked between and below the discs as it is everywhere else; before
+             the column in the tree, so the column's buttons stay above it and usable. -->
+        <ui:VisualElement name="event-gutter" class="event-gutter" />
+        <ui:VisualElement name="left-column" class="left-column" picking-mode="Ignore">
+            <ui:Button name="nav-cabinet" text="Cabinet" class="nav-button rail-button"><Statecraft.Game.UI.UiIcon glyph="columns" class="nav-disc" /></ui:Button>
+            <ui:Button name="nav-budget" text="Budget" class="nav-button rail-button"><Statecraft.Game.UI.UiIcon glyph="ledger" class="nav-disc" /></ui:Button>
+            <ui:Button name="nav-defence" text="Defence" class="nav-button rail-button"><Statecraft.Game.UI.UiIcon glyph="helmet" class="nav-disc" /></ui:Button>
+            <ui:Button name="nav-why" text="Why?" class="nav-button rail-button"><Statecraft.Game.UI.UiIcon glyph="question" class="nav-disc" /></ui:Button>
+        </ui:VisualElement>
         <ui:VisualElement name="top-bar" class="panel top-bar">
             <Statecraft.Game.UI.UiFrame corners="false" rule="false" />
             <ui:VisualElement class="date-box">
-                <ui:Label name="year" class="year" />
+                <ui:VisualElement class="year-row">
+                    <ui:Label name="year" class="year" />
+                    <ui:Label name="score" class="muted" />
+                </ui:VisualElement>
                 <ui:VisualElement class="date-row">
                     <ui:Label name="turn" class="muted" />
                     <ui:Label name="date" class="muted" />
@@ -64,10 +80,6 @@
                 </ui:VisualElement>
             </ui:VisualElement>
             <ui:VisualElement name="nav" class="nav">
-                <ui:Button name="nav-cabinet" text="Cabinet" class="nav-button"><Statecraft.Game.UI.UiIcon glyph="columns" class="nav-disc" /></ui:Button>
-                <ui:Button name="nav-budget" text="Budget" class="nav-button"><Statecraft.Game.UI.UiIcon glyph="scales" class="nav-disc" /></ui:Button>
-                <ui:Button name="nav-defence" text="Defence" class="nav-button"><Statecraft.Game.UI.UiIcon glyph="helmet" class="nav-disc" /></ui:Button>
-                <ui:Button name="nav-why" text="Why?" class="nav-button"><Statecraft.Game.UI.UiIcon glyph="question" class="nav-disc" /></ui:Button>
                 <ui:Button name="new-game" text="New Game" class="nav-button"><Statecraft.Game.UI.UiIcon glyph="restart" class="nav-disc" /></ui:Button>
             </ui:VisualElement>
             <ui:VisualElement class="turn-box">
@@ -80,9 +92,19 @@
             <ui:VisualElement class="right-gap" picking-mode="Ignore" />
             <!-- What the map's region borders show while they are drawn (owner ruling 2026-10-11: "Mandate sub-districts, 1947"). -->
             <ui:Label name="map-layer" class="map-layer" picking-mode="Ignore" />
+            <!-- The painted relief picture (a bake: tools/minimap_bake.py) and, beside it, promo 03's three round buttons:
+                 the whole map, the settlement names, the region borders (MinimapPresenter). The picture takes no focus (the
+                 accessibility audit's B1d); the buttons do, after End Turn. -->
             <ui:VisualElement name="minimap" class="panel minimap">
-                <ui:VisualElement name="minimap-image" class="minimap-image">
-                    <ui:VisualElement name="minimap-view" class="minimap-view" picking-mode="Ignore" />
+                <ui:VisualElement name="minimap-map" class="minimap-map" picking-mode="Ignore">
+                    <ui:VisualElement name="minimap-image" class="minimap-image">
+                        <ui:VisualElement name="minimap-view" class="minimap-view" picking-mode="Ignore" />
+                    </ui:VisualElement>
+                </ui:VisualElement>
+                <ui:VisualElement name="minimap-buttons" class="minimap-buttons" picking-mode="Ignore">
+                    <ui:Button name="minimap-overview" class="minimap-button"><Statecraft.Game.UI.UiIcon glyph="peaks" class="minimap-disc" picking-mode="Ignore" /></ui:Button>
+                    <ui:Button name="minimap-labels" class="minimap-button"><Statecraft.Game.UI.UiIcon glyph="skyline" class="minimap-disc" picking-mode="Ignore" /></ui:Button>
+                    <ui:Button name="minimap-borders" class="minimap-button"><Statecraft.Game.UI.UiIcon glyph="region" class="minimap-disc" picking-mode="Ignore" /></ui:Button>
                 </ui:VisualElement>
                 <Statecraft.Game.UI.UiFrame filigree="true" />
             </ui:VisualElement>
@@ -305,5 +327,8 @@
             </ui:VisualElement>
         </ui:VisualElement>
         <ui:Label name="toast" class="panel toast" />
+        <!-- The name of an icon-only button, beside it on hover and on keyboard focus (HoverTip; UI Toolkit draws `tooltip`
+             only in Editor UI). Last, so it draws over the panels; it takes no clicks. -->
+        <ui:Label name="hud-tip" class="hud-tip" picking-mode="Ignore" />
     </ui:VisualElement>
 </ui:UXML>

@@ -1,4 +1,5 @@
 #nullable enable
+using System.Collections.Generic;
 using System.Linq;
 using UnityEngine.UIElements;
 
@@ -62,6 +63,10 @@ namespace Statecraft.Game.UI
             ("nav-why", "hud.nav.why"), ("new-game", "hud.new_game"), ("end-turn", "hud.end_turn"),
         };
 
+        /// <summary>The left icon column (promo 03): the four screens' buttons.</summary>
+        public const string RailName = "left-column";
+        readonly HoverTip? railTips;
+
         public HudPresenter(VisualElement root, SimBridge bridge, UiText text)
         {
             this.root = root; this.bridge = bridge; this.text = text;
@@ -76,6 +81,11 @@ namespace Statecraft.Game.UI
             nav = root.Q<VisualElement>("nav");
             foreach (var m in meters) m.RegisterCallback<GeometryChangedEvent>(OnMeterGeometry);
             foreach (var (name, key) in Texts) root.Q<TextElement>(name).text = text[key];
+            // The left column's buttons are icon-only (HUD round 2, #398): their name, kept as their (clear) text, is also
+            // their tooltip, which HoverTip shows beside the disc on hover and on focus.
+            var rail = root.Q<VisualElement>(RailName)?.Query<Button>().ToList() ?? new List<Button>();
+            foreach (var b in rail) b.tooltip = b.text;
+            if (rail.Count > 0 && root.Q<Label>(HoverTip.TipName) != null) railTips = new HoverTip(root, rail, () => HoverTip.Side.Right);
             foreach (var id in new[] { "treasury", "immigration", "security", "support", "standing", "fx" })
             {
                 var meter = root.Q<VisualElement>("meter-" + id); var caption = text["hud.caption." + id];
@@ -90,6 +100,7 @@ namespace Statecraft.Game.UI
         /// <summary>Unsubscribes from the bridge and the button (the owner calls this when it is disabled).</summary>
         public void Dispose()
         {
+            railTips?.Dispose();
             bridge.Changed -= Render; endTurn.clicked -= onEndTurn; endTurn.generateVisualContent -= PaintHourglass;
             bar.UnregisterCallback<GeometryChangedEvent>(OnBarGeometry);
             foreach (var m in meters) m.UnregisterCallback<GeometryChangedEvent>(OnMeterGeometry);
@@ -168,6 +179,9 @@ namespace Statecraft.Game.UI
             var m = HudModel.From(bridge, text);
             Set("year", m.Year); Set("turn", m.Turn); Set("date", m.Date); Set("attention", m.Attention);
             Set("security-level", m.SecurityLevel);
+            var score = root.Q<Label>("score");   // the GDD loop only (#380): hidden when HudModel gives none
+            score.text = m.Score;
+            score.style.display = m.Score.Length == 0 ? DisplayStyle.None : DisplayStyle.Flex;
             Set("treasury", m.Treasury); Set("immigration", m.Immigration); Set("security", m.Security);
             Set("support", m.Support); Set("standing", m.Standing); Set("fx", m.Fx);
             root.Q<Button>("end-turn").SetEnabled(bridge.State.GameOver == null);

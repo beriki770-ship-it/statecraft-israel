@@ -17,6 +17,20 @@ adds a line under **Unreleased**; CI's `Changelog` job checks this (see `CONTRIB
 - GDD v0.1 Phase 1, the Unity queue takes the GDD orders (refs #380): `AssignWorkers`, `Train` and `CancelTraining`
   now queue in the slice, one per city, per city and track, and per cohort; an unknown city, training track or cohort is
   refused before End Turn. A reflection test fails for any command type that reaches the queue's default branch.
+- GDD v0.1 Phase 1, a dev flag and the score (refs #380): `?mvp=1` in the WebGL page's URL loads the content through
+  `MvpSlice.Overlay` (the GDD slice) for playtests. The golden check and the smoke run ignore it, and a slice game never
+  reads, sets aside or writes the player's autosave (and has no New Game). In the GDD loop the top bar shows the score.
+- The left icon column (HUD round 2, part 2, refs #398): the four screens' buttons (Cabinet, Budget, Defence, Why?) move
+  from the top bar to promo 03's column of round icons at the left edge, icon-only, each named in a tip beside it on hover
+  and on keyboard focus. No new action. Tab still runs Cabinet, Budget, Defence, Why?, New Game, End Turn; the column stays
+  usable under the decision card, as the top bar does, and the card's backdrop, the screens and the toast start right of it.
+  Budget's button draws promo 03's ledger (owner, 2026-10-15), a new `UiIcon` glyph drawn in code.
+- The minimap as promo 03's (HUD round 2, part 1, refs #398): a painted relief of the country, baked once from the map's
+  own heightmap, ground colours, land use and coast (`tools/minimap_bake.py`, `Resources/Map/MinimapRelief.png`, checked
+  fresh in CI) in place of the 128-pixel hex strip painted at boot, and beside it promo 03's three round buttons: zoom all
+  the way out, show or hide the settlement names, show or hide the region borders (and their caption), icon-only, each named in a tip beside it on hover and on keyboard
+  focus (`HoverTip`; UI Toolkit draws `tooltip` only in Editor UI). The picture stays
+  mouse-only (accessibility audit B1d); the buttons take Tab after End Turn. Presentation only: no golden moves.
 - Sourced Hebrew names in content (refs #558, #193), data only (no screen shows them yet): `title_he` for 30 of 31
   offices, plus `title_he_f` where a woman held the office (Labour, Foreign Affairs), `name_he` for 25 of 26 parties,
   the 8 governments and the 25 game settlements, `body_he` for the 4 legislatures, each with its own `*_he_sources`
@@ -338,9 +352,12 @@ adds a line under **Unreleased**; CI's `Changelog` job checks this (see `CONTRIB
 - For a new game, the event photo catalog (`EventImageCatalog`, with its 24 crunched photographs) loads in the background
   a second after the game starts, while the start screen is up, instead of in `GameRoot.Begin` (refs #321). The "screens
   wired" step is about 80 ms shorter at `--cpu 4`. The first event card shows its photograph as before, in a frame no
-  longer than with the old load; a card that comes before the load ends waits for it. A Continue whose turn has a
-  decision waiting still loads the catalog in `Begin`, as before (#592). `?bootlog` logs when the card first gets the
-  catalog. Presentation only.
+  longer than with the old load; a card that comes before the load ends waits for it. `?bootlog` logs when the card
+  first gets the catalog. Presentation only.
+- A Continue whose turn has a decision waiting no longer loads the event photo catalog in `GameRoot.Begin` either
+  (refs #592, #321): the card is built under the start screen and asks for its photograph only when the screen closes,
+  by when the background load has usually finished. "Screens wired" is about 90 ms shorter on such a Continue at
+  `--cpu 4`. The card still opens with its photograph, never the minister's portrait first. Presentation only.
 - The units file (`units_1948.yaml`) is parsed once at boot instead of twice: the map keeps its parse and the units
   layer draws from the same list (refs #321). The units and where they stand are unchanged. The second parse cost about
   25 ms at `--cpu 4` between the map and the start screen; the map build itself is unchanged. `?bootlog` has three more

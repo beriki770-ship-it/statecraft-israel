@@ -33,6 +33,47 @@ public class HudTests
         Assert.AreEqual("", m.Treasury.Delta);                       // no previous turn yet
     }
 
+    // ---- The score (#380): only in the GDD loop, from GameState.Score ----
+
+    static readonly Content Slice = MvpSlice.Load(Paths.Content);
+    static SimBridge SliceBridge() => new SimBridge(GameSession.New(Slice, GoldenRun.Seed, Mode.Historical), Text);
+
+    [Test]
+    public void TheLegacyLoopShowsNoScore()
+    {
+        Assert.AreEqual("", HudModel.From(NewBridge(), Text).Score);
+        using var ui = new UiTestKit();
+        using var hud = new HudPresenter(ui.Root, NewBridge(), Text);
+        Assert.AreEqual(DisplayStyle.None, ui.Q<Label>("score").style.display.value);
+    }
+
+    [Test]
+    public void TheSliceShowsItsScore()
+    {
+        var bridge = SliceBridge();
+        Assert.AreEqual("Score 0", HudModel.From(bridge, Text).Score);
+        bridge.State.Score = 150;
+        Assert.AreEqual("Score 150", HudModel.From(bridge, Text).Score);
+        // The value carries left-to-right marks in a Hebrew line (U+200E, #543), as every Hebrew value does.
+        var he = HudModel.From(bridge, He).Score;
+        Assert.AreEqual("ניקוד \u200E150\u200E", he);
+        Assert.AreEqual("ניקוד 150", he.Replace("\u200E", ""));
+    }
+
+    [Test]
+    public void TheBarShowsTheSlicesScore()
+    {
+        using var ui = new UiTestKit();
+        var bridge = SliceBridge();
+        using var hud = new HudPresenter(ui.Root, bridge, Text);
+        var label = ui.Q<Label>("score");
+        Assert.AreEqual("Score 0", label.text);
+        Assert.AreEqual(DisplayStyle.Flex, label.style.display.value);
+        bridge.State.Score = 150;
+        hud.Render();
+        Assert.AreEqual("Score 150", label.text);
+    }
+
     [Test]
     public void EndTurnAdvancesTheGameAndShowsChanges()
     {

@@ -44,6 +44,7 @@ namespace Statecraft.Game.UI
             ["columns"] = Columns, ["scales"] = Scales, ["helmet"] = Helmet, ["question"] = Question, ["restart"] = Restart,
             ["chevron"] = Chevron, ["chevron-back"] = ChevronBack, ["hourglass"] = Hourglass,
             ["region"] = Region, ["house"] = House, ["village"] = Village, ["flag"] = Flag,
+            ["peaks"] = Peaks, ["skyline"] = Skyline, ["ledger"] = Ledger,
             ["biome-sea"] = Waves, ["biome-lake"] = Waves, ["biome-coastal_plain"] = Plain, ["biome-hills"] = Hills,
             ["biome-mountains"] = Mountains, ["biome-valley"] = Valley, ["biome-lowland"] = Plain, ["biome-desert"] = Dunes,
         };
@@ -277,6 +278,50 @@ namespace Statecraft.Game.UI
             p.lineWidth = 1f * s;
             p.BeginPath(); p.MoveTo(at(9, 3.6f)); p.LineTo(at(9, 18.4f)); p.Stroke();
             p.BeginPath(); p.MoveTo(at(15, 6)); p.LineTo(at(15, 20.8f)); p.Stroke();
+        }
+
+        /// <summary>The minimap's whole-map button (promo 03): two peaks in outline, the far one behind, with a snow line.</summary>
+        static void Peaks(Painter2D p, Func<float, float, Vector2> at, float s, Color gold)
+        {
+            p.strokeColor = gold; p.lineWidth = 1.4f * s;
+            p.BeginPath(); p.MoveTo(at(1.8f, 20)); p.LineTo(at(9, 5.2f)); p.LineTo(at(16.2f, 20)); p.Stroke();
+            p.BeginPath(); p.MoveTo(at(12.6f, 12.6f)); p.LineTo(at(15.4f, 8.2f)); p.LineTo(at(22.2f, 20)); p.Stroke();
+            p.BeginPath(); p.MoveTo(at(1.8f, 20)); p.LineTo(at(22.2f, 20)); p.Stroke();
+            p.lineWidth = 1f * s;
+            p.BeginPath(); p.MoveTo(at(6.6f, 10.2f)); p.LineTo(at(8.2f, 11.4f)); p.LineTo(at(9.6f, 9.8f)); p.LineTo(at(11.4f, 10.2f)); p.Stroke();
+        }
+
+        /// <summary>The minimap's settlement-names button (promo 03): a town's skyline, three towers of different heights.</summary>
+        static void Skyline(Painter2D p, Func<float, float, Vector2> at, float s, Color gold)
+        {
+            p.strokeColor = gold; p.lineWidth = 1.4f * s;
+            p.BeginPath(); p.MoveTo(at(3, 20.6f)); p.LineTo(at(3, 9)); p.LineTo(at(8.4f, 9)); p.LineTo(at(8.4f, 20.6f)); p.Stroke();
+            p.BeginPath(); p.MoveTo(at(8.4f, 20.6f)); p.LineTo(at(8.4f, 4.4f)); p.LineTo(at(14.6f, 4.4f)); p.LineTo(at(14.6f, 20.6f)); p.Stroke();
+            p.BeginPath(); p.MoveTo(at(14.6f, 20.6f)); p.LineTo(at(14.6f, 12)); p.LineTo(at(21, 12)); p.LineTo(at(21, 20.6f)); p.Stroke();
+            p.BeginPath(); p.MoveTo(at(1.6f, 20.6f)); p.LineTo(at(22.4f, 20.6f)); p.Stroke();
+            p.fillColor = gold;
+            foreach (var y in new[] { 7.4f, 11f, 14.6f }) { Rect(p, at, 10.4f, y, 2.2f, 1.8f); p.Fill(); }
+            Rect(p, at, 4.6f, 12f, 2.2f, 1.8f); p.Fill();
+            Rect(p, at, 16.6f, 15f, 2.2f, 1.8f); p.Fill();
+        }
+
+        /// <summary>The Budget screen's button (owner, 2026-10-15, as promo 03's column): a ruled ledger with a curl at the top
+        /// and the bottom, its entries in three panels.</summary>
+        static void Ledger(Painter2D p, Func<float, float, Vector2> at, float s, Color gold)
+        {
+            p.strokeColor = gold; p.lineWidth = 1.4f * s;
+            p.BeginPath(); p.MoveTo(at(6, 4.6f)); p.LineTo(at(6, 19.4f)); p.Stroke();
+            p.BeginPath(); p.MoveTo(at(18, 4.6f)); p.LineTo(at(18, 19.4f)); p.Stroke();
+            foreach (var y in new[] { 3.4f, 20.6f })
+            {
+                p.BeginPath(); p.MoveTo(at(5, y)); p.LineTo(at(19.6f, y)); p.Stroke();
+                p.fillColor = gold; Circle(p, at(4.4f, y), 1.3f * s); p.Fill();
+            }
+            p.lineWidth = 1f * s;
+            foreach (var y in new[] { 8.2f, 16 }) { p.BeginPath(); p.MoveTo(at(6, y)); p.LineTo(at(18, y)); p.Stroke(); }
+            p.fillColor = gold;
+            foreach (var (x, y, w) in new[] { (7.6f, 5.2f, 3.6f), (12.6f, 5.2f, 3.8f), (7.6f, 9.8f, 2.6f), (11.4f, 9.8f, 5f), (7.6f, 12.4f, 4f), (12.8f, 12.4f, 3.6f), (7.6f, 17.6f, 3.4f), (12.4f, 17.6f, 4f) })
+            { Rect(p, at, x, y, w, 1.6f); p.Fill(); }
         }
 
         /// <summary>The settlements row: a house.</summary>

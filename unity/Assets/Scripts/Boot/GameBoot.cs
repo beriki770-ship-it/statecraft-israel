@@ -41,16 +41,30 @@ namespace Statecraft.Game.Boot
         static readonly Regex BarePath = new Regex(@"(?<![\w:/.\\])(?:file://)?(?:/|[A-Za-z]:\\)[^\s'""()]+");
         static string FileName(string path) => path.Substring(path.LastIndexOfAny(new[] { '/', '\\' }) + 1);
 
+        static readonly Regex MvpValue = new Regex(@"[?&]mvp=([^&#]*)", RegexOptions.CultureInvariant);
+
+        /// <summary>The ?mvp=1 dev flag (#380): load the content through MvpSlice.Overlay, the GDD slice, for playtests. Only
+        /// one "mvp" parameter whose value is exactly "1" turns it on (not "01", "1x" or a second value); the golden check and
+        /// the smoke run ignore it and keep the real content, so their pinned hashes hold.</summary>
+        internal static bool SliceRequested(string? url, bool golden, int smoke)
+        {
+            if (golden || smoke != 0) return false;
+            var values = MvpValue.Matches(url ?? "");
+            return values.Count == 1 && values[0].Groups[1].Value == "1";
+        }
+
         async void Start()
         {
             DiagLog.Init();
             DiagLog.BootPhase("player started");
-            await BootAsync(LoadAsync);
+            var slice = SliceRequested(Application.absoluteURL, GoldenCheck.Requested(), Statecraft.Game.UI.GameRoot.SmokeTurns());
+            if (slice) Debug.Log("MVP SLICE: content through MvpSlice.Overlay (?mvp=1); the autosave is not used");
+            await BootAsync(() => LoadAsync(slice));
         }
 
-        static async Awaitable<GameInputs> LoadAsync() => Application.platform == RuntimePlatform.WebGLPlayer
-            ? await GameInputs.FetchAsync(GameInputs.StreamingUrl(), Application.buildGUID)
-            : GameInputs.FromDisk(Paths.Content, Paths.StreamingMap);
+        static async Awaitable<GameInputs> LoadAsync(bool slice) => Application.platform == RuntimePlatform.WebGLPlayer
+            ? await GameInputs.FetchAsync(GameInputs.StreamingUrl(), Application.buildGUID, slice)
+            : GameInputs.FromDisk(Paths.Content, Paths.StreamingMap, slice);
 
         /// <summary>The boot Start runs, with the loader passed in so a test can drive the real failure path.</summary>
         internal async Awaitable BootAsync(Func<Awaitable<GameInputs>> load)

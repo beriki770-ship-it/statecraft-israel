@@ -215,6 +215,121 @@ public class EventPhotosLoadTests
         finally { EditorSceneManager.NewScene(NewSceneSetup.EmptyScene, NewSceneMode.Single); VisualToggles.Clear(); }
     }
 
+    /// <summary>An autosave whose turn has a decision waiting, with a photograph, as End Turn writes it (golden seed;
+    /// about 40% of autosaves, issue #592). Returns that event's id.</summary>
+    string SaveWithAPhotographedDecisionWaiting()
+    {
+        var played = new SimBridge(GameSession.New(C, GoldenRun.Seed, Mode.Historical), Text);
+        for (int turn = 0; turn < 120; turn++)
+        {
+            played.EndTurn();
+            var id = played.State.PendingEvents.FirstOrDefault();
+            if (id != null && Shipped.Find(id) != null)
+            {
+                new SaveStore(saveDir).WriteAutosave(played.Session.Save.Write());
+                return id;
+            }
+        }
+        Assert.Fail("no autosave with a photographed decision waiting in 120 turns");
+        return "";
+    }
+
+    static void AssertShowsPhoto(VisualElement ui, string eventId)
+    {
+        var entry = Shipped.Find(eventId)!.Value;
+        var band = ui.Q<VisualElement>("event-photo");
+        Assert.AreEqual(DisplayStyle.Flex, band.style.display.value, eventId + ": the photograph shows");
+        Assert.AreEqual(entry.image, band.style.backgroundImage.value.texture, eventId + ": its own photograph");
+        Assert.AreEqual(entry.credit, ui.Q<Label>("event-photo-credit").text);
+        Assert.AreEqual(entry.alt, band.tooltip);
+        Assert.AreEqual(DisplayStyle.None, ui.Q<VisualElement>("event-image").style.display.value, "no portrait in its place");
+    }
+
+    /// <summary>Issue #592: Continue with a decision waiting. Begin builds the card under the start screen and loads no
+    /// catalog (before, the card's first Render loaded it synchronously in Begin). The card shows its photograph, and never
+    /// the portrait, when Continue closes the screen: after the prefetch, from it; before it, loaded then.</summary>
+    [Test]
+    public void AContinueWithADecisionWaitingLoadsNoCatalogInBeginAndShowsThePhotographOnContinue([Values(true, false)] bool prefetchFirst)
+    {
+        var eventId = SaveWithAPhotographedDecisionWaiting();
+        var scheduled = new System.Collections.Generic.List<System.Action>();
+        EventPhotos.Schedule = (_, action, _) => scheduled.Add(action);
+        EventPhotos.StartLoad = () => { starts++; return () => Shipped; };
+        var inputs = GameInputs.FromDisk(Paths.Content, Paths.StreamingMap);
+        try
+        {
+            EditorSceneManager.OpenScene("Assets/Map.unity", OpenSceneMode.Single);
+            Object.FindFirstObjectByType<MapScene>().Build(inputs.Map);
+            var root = Object.FindFirstObjectByType<GameRoot>();
+            root.Store = new SaveStore(saveDir);
+            root.Begin(inputs, 0, startScreen: true);
+            Assert.AreEqual(eventId, root.Bridge!.State.PendingEvents.FirstOrDefault(), "resumed with the decision waiting");
+            var ui = Object.FindFirstObjectByType<UIDocument>().rootVisualElement;
+            Assert.IsTrue(ui.Q("root").ClassListContains(StartScreenPresenter.OpenClass), "under the start screen");
+            Assert.AreEqual(0, loadsNow, "no synchronous catalog load in Begin");
+            Assert.AreEqual(0, starts);
+            Assert.IsFalse(EventPhotos.Loaded);
+            Assert.AreEqual(DisplayStyle.None, ui.Q<VisualElement>("event-image").style.display.value, "no portrait under the screen either");
+            Assert.AreEqual(1, scheduled.Count);
+            if (prefetchFirst) scheduled[0]();                             // the idle-time prefetch, a second after Begin
+            UiTestKit.Press(ui.Q<Button>("start-continue"));
+            Assert.IsFalse(ui.Q("root").ClassListContains(StartScreenPresenter.OpenClass));
+            AssertShowsPhoto(ui, eventId);
+            Assert.AreEqual(prefetchFirst ? 0 : 1, loadsNow, prefetchFirst ? "the prefetch's catalog" : "loaded when the screen closed");
+            Assert.AreEqual(prefetchFirst ? 1 : 0, starts);
+            Assert.AreEqual(1, EventPhotos.Loads, "one load for the page");
+            if (!prefetchFirst) { scheduled[0](); Assert.AreEqual(0, starts, "the late prefetch loads nothing more"); }
+        }
+        finally { EditorSceneManager.NewScene(NewSceneSetup.EmptyScene, NewSceneMode.Single); VisualToggles.Clear(); }
+    }
+
+    /// <summary>Issue #592 review: the card waits for its photograph exactly when Begin shows the start screen (one value
+    /// in GameRoot decides both; #598's slice game shows none). A card waiting under no screen would never be uncovered and
+    /// never show its photograph.</summary>
+    [Test]
+    public void TheCardWaitsForThePhotographExactlyWhenTheStartScreenShows([Values(false, true)] bool startScreen, [Values(0, 5)] int smoke,
+        [Values(false, true)] bool slice)
+    {
+        SaveWithAPhotographedDecisionWaiting();
+        EventPhotos.Schedule = (_, _, _) => { };
+        var inputs = GameInputs.FromDisk(Paths.Content, Paths.StreamingMap, slice);
+        try
+        {
+            EditorSceneManager.OpenScene("Assets/Map.unity", OpenSceneMode.Single);
+            Object.FindFirstObjectByType<MapScene>().Build(inputs.Map);
+            var root = Object.FindFirstObjectByType<GameRoot>();
+            root.Store = new SaveStore(saveDir);
+            if (smoke > 0) UnityEngine.TestTools.LogAssert.Expect(LogType.Warning, "SMOKE FAIL the smoke run needs play mode or a player");
+            root.Begin(inputs, smoke, startScreen);
+            var open = Object.FindFirstObjectByType<UIDocument>().rootVisualElement.Q("root").ClassListContains(StartScreenPresenter.OpenClass);
+            Assert.AreEqual(startScreen && smoke == 0 && !slice, open, "the start screen shows only outside a smoke run and the slice");
+            Assert.AreEqual(open, root.Card!.PhotoWaits, "the card waits for the photograph exactly when the screen covers it");
+        }
+        finally { EditorSceneManager.NewScene(NewSceneSetup.EmptyScene, NewSceneMode.Single); VisualToggles.Clear(); }
+    }
+
+    /// <summary>Issue #592 with the real loads: a Continue with a decision waiting adds no Resources load to Begin.</summary>
+    [Test]
+    public void GameRootBeginOnAContinueWithADecisionWaitingLoadsNoPhotoCatalog()
+    {
+        SaveWithAPhotographedDecisionWaiting();
+        EventPhotos.Reset();                                               // the real loads, counted by EventImageCatalog
+        var inputs = GameInputs.FromDisk(Paths.Content, Paths.StreamingMap);
+        try
+        {
+            EditorSceneManager.OpenScene("Assets/Map.unity", OpenSceneMode.Single);
+            Object.FindFirstObjectByType<MapScene>().Build(inputs.Map);
+            var root = Object.FindFirstObjectByType<GameRoot>();
+            root.Store = new SaveStore(saveDir);
+            var before = EventImageCatalog.ResourceLoads;
+            root.Begin(inputs, 0, startScreen: true);
+            Assert.IsNotEmpty(root.Bridge!.State.PendingEvents);
+            Assert.AreEqual(before, EventImageCatalog.ResourceLoads, "no catalog load in Begin");
+            Assert.IsFalse(EventPhotos.Loaded);
+        }
+        finally { EditorSceneManager.NewScene(NewSceneSetup.EmptyScene, NewSceneMode.Single); VisualToggles.Clear(); }
+    }
+
     [Test]
     public void GameRootBeginLoadsNoPhotoCatalog([Values(false, true)] bool startScreen)
     {
