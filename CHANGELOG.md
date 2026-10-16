@@ -40,7 +40,8 @@ adds a line under **Unreleased**; CI's `Changelog` job checks this (see `CONTRIB
   (Q-CUT-8). Every golden moves; the cutover re-pins them once.
 
 ### Added
-- The info panel of Tiberias' hex adds "Tiberias lies in the neighbouring water hex" (Hebrew too), so the hillside hex's
+- The info panel of Tiberias' hex adds "Tiberias is shown here because its own hex is water." (Hebrew too, with the
+  town's Hebrew name), so the hillside hex's
   70 m does not read as the town's (refs #204). It is worked out in Unity from the town's own lon/lat and the hex grid
   (`InfoPanelPresenter.TownHex`), with no new `content/map/` field; an ordinary hex shows no such line.
 - Tal's (@pixelrenderai-hash) 23 single-building Tripo models from #507, imported for the strategic map (refs #659, step

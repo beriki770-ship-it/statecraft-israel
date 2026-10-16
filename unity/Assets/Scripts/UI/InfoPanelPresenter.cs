@@ -31,6 +31,7 @@ namespace Statecraft.Game.UI
         readonly IReadOnlyDictionary<string, string> settlementNames;
         readonly MapRegions? regions;
         readonly System.Func<string, (int q, int r)>? townHex;
+        readonly IReadOnlyDictionary<string, string>? townNamesHe;
 
         /// <param name="localitiesAt">The 1948 localities that lie in a hex (null: the panel lists none); they are listed under the
         /// settlements with today's name where the shared rule (Localities.TodayName) allows (#245).</param>
@@ -42,13 +43,17 @@ namespace Statecraft.Game.UI
         /// agreement (null: no region line).</param>
         /// <param name="townHex">The hex each settlement's own point lies in, by id (<see cref="TownHex"/>; null: no note on
         /// a town drawn from the water hex next door, #204).</param>
+        /// <param name="townNamesHe">Each settlement's Hebrew name (name_he), by id: the Hebrew UI names the town in that
+        /// note with it, or with the English name where it has none (null: English names). The "Settlements" line keeps the
+        /// English names (#558).</param>
         public InfoPanelPresenter(VisualElement root, SimBridge bridge, UiText text, IReadOnlyDictionary<string, string> settlementNames,
             ScreenNav? nav = null, System.Func<PlacedToken?>? selectedUnit = null, MapRegions? regions = null,
             System.Func<int, int, IReadOnlyList<Statecraft.Game.Map.Kits.Localities.Place>>? localitiesAt = null,
-            System.Func<string, (int q, int r)>? townHex = null)
+            System.Func<string, (int q, int r)>? townHex = null, IReadOnlyDictionary<string, string>? townNamesHe = null)
         {
             panel = root.Q<VisualElement>("info-panel"); this.bridge = bridge; this.text = text;
             this.settlementNames = settlementNames; this.regions = regions; this.localitiesAt = localitiesAt; this.townHex = townHex;
+            this.townNamesHe = townNamesHe;
             title = panel.Q<Label>("info-title"); subtitle = panel.Q<Label>("info-subtitle"); region = panel.Q<Label>("info-region"); settlements = panel.Q<Label>("info-settlements");
             localitiesLabel = panel.Q<Label>("info-localities");
             placement = panel.Q<Label>("info-placement"); reason = panel.Q<Label>("info-reason");
@@ -241,7 +246,12 @@ namespace Statecraft.Game.UI
             // so, so this hex's elevation does not read as the town's (#204).
             if (townHex != null)
                 foreach (var town in c.SettlementHexes.Where(x => x.Q == q && x.R == r && townHex(x.Id) != (q, r)))
-                    settlements.text += "\n" + text.Format("info.town_in_water", settlementNames[town.Id]);
+                {
+                    // The Hebrew UI names the town in Hebrew (name_he), and in English where it has no Hebrew name.
+                    var name = text["ui.lang"] == UiLanguage.Hebrew && townNamesHe != null && townNamesHe.TryGetValue(town.Id, out var he)
+                        && !string.IsNullOrWhiteSpace(he) ? he : settlementNames[town.Id];
+                    settlements.text += "\n" + text.Format("info.town_in_water", name);
+                }
             ShowLocalities(localitiesAt == null ? "" : LocalitiesText(text, localitiesAt(q, r)));
             var here = MapActions.At(s, q, r);
             var queued = bridge.QueuedLike(new MapAction(MapActions.Housing, q, r)) as MapAction;

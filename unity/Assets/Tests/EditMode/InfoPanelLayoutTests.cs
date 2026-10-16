@@ -207,24 +207,28 @@ public class InfoPanelLayoutTests
 
     /// <summary>#204: Tiberias lies in the lake hex and is drawn on the land hex next to it (hexgrid.settlement_hex), so that
     /// hex's 70 m is not the town's: its panel says so in one line, in English and in Hebrew. An ordinary hex (Lydda's,
-    /// whose towns lie in it) has no such line.</summary>
+    /// whose towns lie in it) has no such line. The Hebrew line names the town by its name_he (טבריה).</summary>
     [Test]
     public void ATownDrawnFromTheWaterHexNextDoorSaysSo()
     {
-        var townHex = InfoPanelPresenter.TownHex(SettlementPlacer.Parse(MapFile(SettlementPlacer.DefaultFileName)),
-            JsonUtility.FromJson<HexFile>(MapFile("hexes.json")));
+        var settlements = SettlementPlacer.Parse(MapFile(SettlementPlacer.DefaultFileName));
+        var townHex = InfoPanelPresenter.TownHex(settlements, JsonUtility.FromJson<HexFile>(MapFile("hexes.json")));
+        var namesHe = settlements.ToDictionary(t => t.Id, t => t.NameHe);
         var tiberias = C.SettlementHexes.Single(s => s.Id == "tiberias");
         var lod = C.SettlementHexes.Single(s => s.Id == "lod");
         var he = UiText.Parse(AssetDatabase.LoadAssetAtPath<TextAsset>(UiPaths.StringsHebrew).text, "strings.he.yaml");
-        foreach (var (text, words) in new[] { (Text, "neighbouring water hex"), (he, "במשושה המים הסמוך") })
+        foreach (var (text, line, words) in new[]
+        {
+            (Text, "Tiberias is shown here because its own hex is water.", "its own hex is water"),
+            (he, "טבריה מוצגת כאן, כי המשושה שלה מכוסה במים.", "מכוסה במים"),
+        })
         {
             using var ui = new UiTestKit();
             var info = new InfoPanelPresenter(ui.Root, new SimBridge(GameSession.New(C, GoldenRun.Seed, Mode.Historical), text), text, Names(),
-                townHex: townHex);
+                townHex: townHex, townNamesHe: namesHe);
             info.Show(tiberias.Q, tiberias.R);
             var lines = ui.Q<Label>("info-settlements").text.Split('\n');
-            Assert.AreEqual(text.Format("info.town_in_water", "Tiberias"), lines.Last(), $"{text["ui.lang"]}: Tiberias' hex names the water hex");
-            StringAssert.Contains(words, lines.Last());
+            Assert.AreEqual(line, lines.Last(), $"{text["ui.lang"]}: Tiberias' hex names the water hex");
             info.Show(lod.Q, lod.R);
             StringAssert.DoesNotContain(words, ui.Q<Label>("info-settlements").text, $"{text["ui.lang"]}: Lydda's hex has no note");
             info.Dispose();

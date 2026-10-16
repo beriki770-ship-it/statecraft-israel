@@ -203,10 +203,10 @@ date.month_12: "דצמבר"
 info.owned: "יישובים: {0}"
 info.localities: "יישובים ב-1948: {0}"
 info.locality_today: "{0} (היום: {1})"
-# info.town_in_water: a town in a lake or sea hex drawn on the land hex next to it (#204); "מיקום {0}" has no verb or
-# adjective on the town, so the line agrees whatever its gender, and it fits one line of the panel. For the native
-# reviewer (#564).
-info.town_in_water: "מיקום {0}: במשושה המים הסמוך"
+# info.town_in_water: a town in a lake or sea hex drawn on the land hex next to it (#204), named by its name_he. "מוצגת
+# ... שלה" is feminine, as Hebrew city names are; the drift guard (EveryTownDrawnOffItsOwnHexLiesInWater) says only
+# Tiberias gets this line today. For the native reviewer (#564).
+info.town_in_water: "{0} מוצגת כאן, כי המשושה שלה מכוסה במים."
 map.today: "היום: {0}"
 map.mixed: "יישוב מעורב"
 minimap.overview: "התרחקות מרבית"
