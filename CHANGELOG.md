@@ -767,6 +767,10 @@ adds a line under **Unreleased**; CI's `Changelog` job checks this (see `CONTRIB
   Hebrew waits for the native reviewer (#564). The chips also follow a coalition change in the middle of a government
   (`coalition_changes`, such as 25 May 1953), where before they kept their old colours. Presentation only: no golden
   moves.
+- PageUp, PageDown, Home and End scroll the open screen, such as a long Why list or the Defence screen, or the open
+  decision card's text when it runs long; those panels hold only text, so Tab never reached into them and the arrows
+  pan the map (accessibility audit H3, refs #41). With the focus in another list on the screen, such as the Cabinet's
+  candidates, the keys scroll that list. The arrows still pan the map. Presentation only: no golden moves.
 - Wheel zoom in the web build: one small wheel delta, such as a touchpad's half pixel, made every later frame zoom 27%,
   since Unity's player takes the smallest delta it has seen as one notch. The camera now counts the browser's wheel
   events itself (`WheelInput.jslib`): a touchpad's small pixel deltas zoom by how far the fingers move (100 px to a
