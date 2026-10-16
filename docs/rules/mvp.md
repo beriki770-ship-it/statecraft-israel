@@ -93,3 +93,11 @@ R-FOOD-001: Food is a national stock of whole units (`GameState.Food`); one unit
 R-FOOD-002: In step 7 the nation eats the turn's need from the stock as far as it goes: the stock stops at 0, and the rest is the unmet share, kept in the state with the need (Q-POOL-5, decided 15 October 2026). Then a monthly import brings the stock back to `cover_months` of the need, unless foreign currency is exhausted (the `fx_crisis` situation at the turn's start), when nothing is imported (Q-POOL-4, decided 15 October 2026). Imports are already paid for in foreign currency per head (`imports_per_capita_per_year`), so they are not charged again. In the GDD loop the crisis cuts the imports, not `food_supply` directly: `fx_crisis_food_per_year` acts in the legacy loop only.
 
 R-FOOD-003: `food_supply` stays the 0 to 1 level the UI, the situations and the events read (Q-POOL-3, decided 15 October 2026), with a stock term inside its effect sum: `k_food * (stock - full) / full - unmet / need`, where `full` is `cover_months` of the last need. The term is exactly 0 at a full stock, `-k_food` when the stock is empty, and the unmet share lowers it further; rationing, the other effects and event shifts act on top as before, and the level's clamp to 0..1 bounds the result. The GDD loop requires the `food_supply` indicator.
+
+## Government
+
+D-C5 as decided (12 October 2026): the cabinet and Attention stay, the coalition is optional with no collapse. The coalition votes, the budget shares and the policies keep running and visible as before (Q-GOV-1, decided 15 October 2026, "Take all recommendations", #375). The defeat (D-B5) is built in Phase 7 (Q-GOV-2, decided the same day).
+
+R-GOV-001: In the GDD loop the coalition's stability never ends the game: it still moves toward public approval each turn and still weights the coalition votes, but a value below 0.2 (`PoliticsSystem.CollapseBelow`) sets no `coalition_collapse` (D-B5: "Coalition collapse is off in the MVP"). The legacy loop keeps its collapse while the legacy code exists (D-E1).
+
+R-GOV-002: Every GDD order kind has an `attention_cost` in the real rules (a design value, R-LOOP-005), the unit orders `pioneer_work` and `stop_work` cost 0 (D-A6: unit orders are free), and a refused order costs nothing: its Attention is refunded before the next order in the turn is priced.
