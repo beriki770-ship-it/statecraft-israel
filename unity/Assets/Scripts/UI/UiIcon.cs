@@ -41,7 +41,7 @@ namespace Statecraft.Game.UI
         static readonly Dictionary<string, Painter> Painters = new Dictionary<string, Painter>
         {
             ["coin"] = Coin, ["people"] = People, ["crowd"] = Crowd, ["shield"] = Shield, ["globe"] = Globe, ["banknote"] = Banknote,
-            ["columns"] = Columns, ["scales"] = Scales, ["helmet"] = Helmet, ["question"] = Question, ["restart"] = Restart,
+            ["columns"] = Columns, ["scales"] = Scales, ["helmet"] = Helmet, ["question"] = Question, ["restart"] = Restart, ["gear"] = Gear,
             ["chevron"] = Chevron, ["chevron-back"] = ChevronBack, ["hourglass"] = Hourglass,
             ["region"] = Region, ["house"] = House, ["village"] = Village, ["flag"] = Flag,
             ["peaks"] = Peaks, ["skyline"] = Skyline, ["ledger"] = Ledger,
@@ -242,6 +242,25 @@ namespace Statecraft.Game.UI
             p.Arc(at(12, 12.6f), 7.6f * s, Angle.Degrees(303), Angle.Degrees(573)); p.Stroke();
             p.fillColor = gold;
             p.BeginPath(); p.MoveTo(at(13.6f, 2.6f)); p.LineTo(at(20.4f, 5.4f)); p.LineTo(at(15.0f, 10.4f)); p.ClosePath(); p.Fill();
+        }
+
+        /// <summary>A cog (the Settings screen, #40): eight teeth round a ring and a hole, in gold line. Each tooth is
+        /// GearTooth: (degrees from the tooth's middle, radius) pairs, root, tip, tip, root.</summary>
+        static readonly (float deg, float r)[] GearTooth = { (-13f, 7f), (-7f, 9.8f), (7f, 9.8f), (13f, 7f) };
+
+        static void Gear(Painter2D p, Func<float, float, Vector2> at, float s, Color gold)
+        {
+            p.strokeColor = gold; p.lineWidth = 1.8f * s;
+            p.BeginPath();
+            for (int i = 0; i < 8; i++)
+                foreach (var (deg, r) in GearTooth)
+                {
+                    float a = (i * 45f + deg) * Mathf.Deg2Rad;
+                    var v = at(12 + r * Mathf.Cos(a), 12 + r * Mathf.Sin(a));
+                    if (i == 0 && deg == GearTooth[0].deg) p.MoveTo(v); else p.LineTo(v);
+                }
+            p.ClosePath(); p.Stroke();
+            Circle(p, at(12, 12), 3.2f * s); p.Stroke();
         }
 
         static void Chevron(Painter2D p, Func<float, float, Vector2> at, float s, Color gold)

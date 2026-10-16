@@ -431,7 +431,7 @@ public class UiLayoutTests
     }
 
     /// <summary>A button's text fits its content box: on one line, or wrapped (white-space normal) within its height.</summary>
-    static bool TextFits(TextElement b)
+    internal static bool TextFits(TextElement b)
     {
         var box = b.contentRect;
         var natural = b.MeasureTextSize(b.text, 0, VisualElement.MeasureMode.Undefined, 0, VisualElement.MeasureMode.Undefined);

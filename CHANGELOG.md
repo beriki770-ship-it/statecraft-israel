@@ -71,6 +71,10 @@ adds a line under **Unreleased**; CI's `Changelog` job checks this (see `CONTRIB
   (Q-CUT-8). Every golden moves; the cutover re-pins them once.
 
 ### Added
+- A Settings screen, opened from a gear at the foot of the left column (refs #40, first slice). Its first option turns
+  the tilt-shift blur off and on, at once; the choice is kept per browser in `/idbfs/statecraft-settings/settings.txt`
+  (a fixed folder, as the autosave's), never in the sim or the save, so the goldens do not move. `?notiltshift` still
+  boots without the blur.
 - The info panel of Tiberias' hex adds "Tiberias is shown here because its own hex is water." (Hebrew too, with the
   town's Hebrew name), so the hillside hex's
   70 m does not read as the town's (refs #204). It is worked out in Unity from the town's own lon/lat and the hex grid

@@ -33,6 +33,7 @@ public class LeftColumnTests
     {
         ("nav-cabinet", "hud.nav.cabinet", "columns"), ("nav-budget", "hud.nav.budget", "ledger"),
         ("nav-defence", "hud.nav.defence", "helmet"), ("nav-why", "hud.nav.why", "question"),
+        ("nav-settings", "hud.nav.settings", "gear"),
     };
 
     /// <summary>InfoPanelLayoutTests' 19 window sizes.</summary>
@@ -99,7 +100,7 @@ public class LeftColumnTests
     /// <summary>The column holds the four screens, in the top bar's old order, each a round icon whose name is its text and
     /// its tooltip in both languages; the top bar keeps New Game and End Turn only. No new button: the screens are ScreenNav's.</summary>
     [Test]
-    public void TheColumnHoldsTheFourScreensAsRoundIconsNamedInBothLanguages()
+    public void TheColumnHoldsTheScreensAsRoundIconsNamedInBothLanguages()
     {
         foreach (var hebrew in new[] { false, true })
         {
@@ -215,7 +216,7 @@ public class LeftColumnTests
                 var order = root.Query<VisualElement>().Where(e => e.focusable && e.canGrabFocus && e.tabIndex >= 0 && e is Button).ToList()
                     .Select(e => e.name).Where(n => n.StartsWith("nav-") || n == "new-game" || n == "end-turn" || n.StartsWith("minimap-")).ToList();
                 // Under the open card the minimap column is out of reach (the backdrop covers it); the column and the bar are not.
-                CollectionAssert.AreEqual(new[] { "nav-cabinet", "nav-budget", "nav-defence", "nav-why", "new-game", "end-turn" },
+                CollectionAssert.AreEqual(new[] { "nav-cabinet", "nav-budget", "nav-defence", "nav-why", "nav-settings", "new-game", "end-turn" },
                     order, $"{at}: the Tab order under the open card");
                 var r = root.Q("root");
                 Assert.IsTrue(r.ClassListContains(EventCardPresenter.ModalClass), at + ": precondition: the card is open");

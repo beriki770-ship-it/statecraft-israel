@@ -339,6 +339,12 @@ Button:disabled { color: var(--ink-dim); border-color: rgba(120, 120, 120, 0.4);
    lists to it, so a long list scrolls instead of growing out of the screen. */
 .screen .row.grow { align-items: stretch; flex-basis: 0; flex-shrink: 1; min-height: 0; }
 .screen .row.grow > .grow { min-height: 0; flex-shrink: 1; }
+/* Settings (#40): an option's name takes the row's width and wraps; its button keeps room for "On" / "Off". */
+.settings-row { margin-top: 8px; }
+.settings-name { flex-grow: 1; flex-shrink: 1; min-width: 0; white-space: normal; }
+/* The screen is as tall as its options (one row now), not a mostly empty column down to the window's foot. */
+#screen-settings { bottom: auto; }
+.settings-switch { flex-shrink: 0; min-width: 96px; -unity-text-align: middle-center; }
 
 /* The toast sits in the map's free top-left corner, above the info panel: opaque, and never over an open screen's title or
    the minimap column (B7). */
