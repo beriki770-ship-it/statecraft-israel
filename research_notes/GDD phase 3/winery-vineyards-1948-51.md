@@ -14,19 +14,22 @@ What was found:
 
 1. **National, [V]:** the CBS gives Jewish farming's wine-grape crop for 1948/49 to 1950/51, with no breakdown by town.
 2. **Zikhron Ya'akov, strongest lead [Sn]:** a letter of 30 March 1951 to the wine growers' co-operative's council,
-   "signed by sixty members residing in Zichron Yaacov", quoted in a 1966 history (Viteles). It dates growers in the
-   town to 1951, but it was read only as search snippets, and it gives no area or tonnage.
-3. **Rishon LeZion, weak lead [Sn]:** a 1950 book for general readers (Hoffman) says the town's agriculture "is largely
-   viniculture". The book does not date its observation, and Encyclopaedia Judaica says citrus was the town's main
+   "signed by sixty members residing in Zichron Yaacov", quoted in a 1966 history (Viteles). It dates co-operative
+   members (the vintners' society) residing in the town to 1951, but it was read only as search snippets, and it gives
+   no area or tonnage.
+3. **Rishon LeZion, weak lead [Sn]:** a 1950 book for general readers (Hoffman) has the line "In this case it is largely
+   viniculture", then "Rishon le Zion is famous for its wine cellars". The snippet does not show what "this case"
+   refers to, the book does not date its observation, and Encyclopaedia Judaica says citrus was the town's main
    branch. Read as search snippets only.
-4. Rehovot, Petah Tikva, Hadera, Netanya and Rosh Pinna: nothing dated 1948-51 ties them to vineyards.
+4. Rehovot, Petah Tikva, Hadera, Netanya and Rosh Pinna: nothing dated 1948-51 ties them to vineyards. Jerusalem,
+   Tel Aviv, Haifa, Tiberias and Safed were not searched (none is in the plan's list of wine-growing candidates).
 
 ## How to read this note
 
 - **[V]** read on the page named, on the date given. **[Sn]** read as a full-text search hit on archive.org (the
   `service_backend=fts` search, which returns a few lines around each match); the book is lending-only and its page was
-  not opened, so the page number and the wider context are unknown. **[S]** secondary or undated. **[G]** gap: no
-  source reached. **[U]** a lead found but not opened (blocked from this machine).
+  not opened, so the page number and the wider context are unknown. **[C]** two sources disagree. **[S]** secondary or
+  undated. **[G]** gap: no source reached. **[U]** a lead found but not opened (blocked from this machine).
 - Searches used the built-in web search and fetch (no Tavily key on this machine). No request carried an owner email or
   other identifier.
 
@@ -73,10 +76,12 @@ vineyards existed in all three years, but not where.
 
 - **[Sn] Hoffman, Gail, *The Land and People of Israel* (1950),** https://archive.org/details/bwb_P2-AFF-053 (lending
   only). Snippet read 2026-10-16: "...activity of agriculture. In this case it is largely viniculture. Rishon le Zion is
-  famous for its wine cellars." A book for general readers; it does not say when it observed this.
-- **[C]** Encyclopaedia Judaica, 2nd ed., "Rishon Le-Zion", on encyclopedia.com, read 2026-10-16: "Part of the
-  vineyards were therefore replaced by almond plantations" (after 1882-89) and "Citrus groves became the principal
-  farming branch" (undated). It says nothing on the town's farming in 1948-51. It sits against "largely viniculture".
+  famous for its wine cellars." The snippet does not show what "this case" refers to, so it may not be about
+  the town's own farming. A book for general readers; it does not say when it observed this.
+- **[C]** Encyclopaedia Judaica, 2nd ed., "Rishon Le-Zion", on encyclopedia.com, read 2026-10-16: "Part of the vineyards
+  were therefore replaced by almond plantations" (after 1882-89) and "Citrus groves became the principal farming branch"
+  (no year; the article places it before the First World War). It says nothing on the town's farming in 1948-51. It sits
+  against "largely viniculture".
 - **[S]** Halperin, Haim, *Changing Patterns in Israel Agriculture* (1957),
   https://archive.org/details/changingpatterns0000haim: "groves and the vineyards whose produce is processed in the huge
   wine-cellars of Rishon-Lezion" and land set "aside for the cultivation of wine grapes by growers connected with the
@@ -84,7 +89,9 @@ vineyards existed in all three years, but not where.
   own vineyards.
 - **[S]** Viteles (above): the vintners of Rishon and Rehovot "in 1939 delivered only 2,200 kantars to the Rishon wine
   cellars" [Sn]. Pre-1948.
-- The wine cellars in Rishon operated in 1948-51; that is a fact about the winery, not about vineyards in the town.
+- **[Sn]** The Rishon wine cellars are "famous" in 1950 (Hoffman, above), and the co-operative of the Rishon and
+  Zikhron cellars was writing to its council in March 1951 (Viteles, above). That points to the cellars working in
+  1948-51, but no source read says so outright, and it is a fact about the winery, not about vineyards in the town.
 
 ### Rehovot, Petah Tikva, Hadera, Netanya, Rosh Pinna
 
@@ -109,10 +116,10 @@ Rishon Le-Zion, Rehovot, Petah Tikva..." as delivering to the Rishon cellar, wit
 | Town | Best dated item | Grade | Meets Task 6.0? |
 |---|---|---|---|
 | Zikhron Ya'akov | Letter, 30 March 1951, sixty co-operative members residing there (Viteles 1966); vintage film 6 Dec 1952 | [Sn]; [S] | No, not read on the page; members, not vineyards; film after the window |
-| Rishon LeZion | Hoffman 1950, "largely viniculture" (observation undated) | [Sn], [C] with EJ | No |
+| Rishon LeZion | Hoffman 1950, "largely viniculture" (antecedent unclear; undated) | [Sn], [C] with EJ | No |
 | Rehovot, Petah Tikva, Hadera, Netanya, Rosh Pinna | none | [G] | No |
 
 **Recommendation:** pick no city now (Task 6.0's rule) and keep PR 6's code blocked. Zikhron Ya'akov is the closest to
-passing: one borrowed page of Viteles, or a JPress hit on the 1949-51 vintage there, would settle it. If the owner
-wants Rishon LeZion anyway, the winery can rest on its 1948-51 wine cellars rather than its vineyards, but that changes
-the GDD's "a winery requires areas for grapes" and is the owner's call.
+passing: one borrowed page of Viteles, or a JPress hit on the 1949-51 vintage there, would settle it. If the owner wants
+Rishon LeZion anyway, the winery could rest on the town's wine cellars rather than its vineyards (those too are only
+[Sn] for 1948-51), but that changes the GDD's "a winery requires areas for grapes" and is the owner's call.
