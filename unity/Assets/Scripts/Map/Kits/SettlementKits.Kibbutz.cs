@@ -67,7 +67,7 @@ namespace Statecraft.Game.Map.Kits
         {
             float m = KitScale.Houses, w = KitScale.Houses * KibbutzHallW, d = KitScale.Houses * KibbutzHallD, h = KibbutzHallStoreys * 3.3f * m;
             // One ring of the search only (half a lot from the spot): a hall pushed to the edge would no longer be the heart, and
-            // would take the ground of the few houses a small kibbutz has (Yad Mordechai, whose heart a unit's clearing takes).
+            // would take the ground of the few houses a small kibbutz has (Yad Mordechai, with no free ground near its heart).
             var p = Vector2.zero; bool found = false;
             foreach (var at in KibbutzHallAt)
                 if (found = Claim(lots, heart + at * R, 0.5f * Mathf.Sqrt(w * w + d * d), owner, ground, out p, rings: 1)) break;
@@ -92,9 +92,9 @@ namespace Statecraft.Game.Map.Kits
                 case KibbutzPart.Shed:
                 {
                     var wall = Jitter(C(0.80f, 0.76f, 0.68f), ref rnd, 0.04f);
-                    var roof = Jitter(C(0.60f, 0.61f, 0.60f), ref rnd, 0.05f);
+                    var roof = Jitter(C(0.47f, 0.48f, 0.49f), ref rnd, 0.05f);
                     km.Box(p.x, p.y, yaw, b.w, b.d, bottom, top, b.h, wall, roof, Facade.Plain, m, roofed: true);
-                    km.Gable(p.x, p.y, yaw, b.w, b.d, top + b.h, Mathf.Min(b.w, b.d) * 0.25f, roof, wall);
+                    km.Gable(p.x, p.y, yaw, b.w, b.d, top + b.h, Mathf.Min(b.w, b.d) * 0.3f, roof, wall);
                     farmSheds++;
                     return wall;
                 }
