@@ -9,7 +9,7 @@ Q-CARD-1's recommended answer says: "Burma Road: Task 7.0 searches the Meitar Co
 public-domain photograph is found, no photograph." Its reason: "No Burma Road photograph has been searched for."
 
 **Result: found.** The Meitar Collection on Commons has 33 CC BY 4.0 frames that the National Library of Israel (NLI)
-dates to 7 December 1948 and titles as the Road of Valour's opening ceremony, the card's own event. It also has 58
+dates to 7 December 1948 and titles as the Road of Valour's opening ceremony, the card's own event. It also has 60
 frames of the Burma Road track from June and July 1948. The railway and yishuvim photographs are not covered
 here: Q-CARD-1 already names them (objective-cards note).
 
@@ -31,9 +31,9 @@ How it was done:
 
 | Use | Pick | Shows | NLI date | Shape |
 |---|---|---|---|---|
-| The card as decided (G1: the Road of Valour opens, 7 December 1948) | Rothenberg 997008137268105171 | Cars and a bus on the new road beside a stone verge, people walking along it | 7 Dec 1948 | 1370 x 924, crops to 16:9 |
-| Alternate, same day | Rothenberg 997008137267905171 | A bus and a car coming up the road through open country | 7 Dec 1948 | 1370 x 908 |
-| If the owner wants the track the player builds (Q-COR-1 option a) | Rothenberg 997008136513105171 | A truck climbing a steep, rocky track | June 1948 | 1346 x 924 |
+| The card as decided (G1: the Road of Valour opens, 7 December 1948) | Rothenberg 997008137268105171 | Cars and a bus on the new road beside a stone verge, people on foot beside it | 7 Dec 1948 | 1370 x 924, crops to 16:9 |
+| Alternate, same day | Rothenberg 997008137267905171 | A bus and a car queued on the road, people on foot (a rougher, scratched frame) | 7 Dec 1948 | 1370 x 908 |
+| If the owner wants the track the player builds (Q-COR-1 option a) | Rothenberg 997008136513105171 | An improvised armoured truck climbing a steep, rocky track, men behind it | June 1948 | 1346 x 924 |
 | Alternate, track | Rothenberg 997008136513305171 | From a vehicle: a convoy winding down a valley track | June 1948 | 1354 x 900 |
 
 All four are CC BY 4.0, Benno Rothenberg, Meitar Collection, VRTS ticket 2021092910005788. None is a portrait.
@@ -55,7 +55,7 @@ Picks (the road itself, no single person as the subject):
   https://commons.wikimedia.org/wiki/File:Meitar_Collection_(997008137268105171.jpg, original
   https://upload.wikimedia.org/wikipedia/commons/b/bb/Meitar_Collection_%28997008137268105171.jpg (1370 x 924, SHA-1
   55b3ea19042035fbd45812ffc6576029b3d171dc).
-- **Alternate: a bus and a car coming up the road.** Rothenberg, NLI title "הקהל בטקס לזכר הרוגי השיירות ופתיחת כביש
+- **Alternate: a bus and a car queued on the road, people on foot; the negative has heavy dust and scratches.** Rothenberg, NLI title "הקהל בטקס לזכר הרוגי השיירות ופתיחת כביש
   הגבורה." (the crowd at the ceremony), ARC. 4* 2068 / 13180.
   https://commons.wikimedia.org/wiki/File:Meitar_Collection_(997008137267905171.jpg, original
   https://upload.wikimedia.org/wikipedia/commons/3/30/Meitar_Collection_%28997008137267905171.jpg (1370 x 908, SHA-1
@@ -72,23 +72,25 @@ road picks above say "the road opened" more directly.
 Alt text: "The opening of the Road of Valour, December 1948". It names only the month, as docs/event-images.md asks
 when the day rests on a library date.
 
-What the frames add to the date question **[C]**: the corridors note (D3, row 4b) has 7 December 1948 (Hayom, 8
+What the frames add to the date question **[C]**: the corridors note (D3, row 4b) and docs/gdd/corridors.md [S4] have 7 December 1948 (Hayom, 8
 December 1948; HE Wikipedia) against 12 December 1948 (two English books, snippets only). The NLI dates both
 photographers' series to 7 December 1948, which agrees with Hayom. It does not settle the conflict: a library date is
 not a primary source.
 
 The NLI caption on the frames also says "הכביש שחיבר בין רמלה לצומת נחשון (כביש 44)" (the road that linked Ramla
 and Nahshon junction, Route 44). The plan (line 31) describes the Road of Valour as running by Nahshon and Shimshon
-junctions to Sha'ar HaGai **[C]**. The alt text above avoids the route, so the card does not depend on either.
+junctions to Sha'ar HaGai **[C]**. The caption most likely describes the later Route 44: the corridors note (row 4c,
+D4) has the Ramla-Nahshon link opening separately in September 1950. The alt text above avoids the route, so the
+card does not depend on either.
 
 ## The Burma Road track, June and July 1948
 
-- Rothenberg, 53 frames, NLI date June 1948, NLI titles "סלילת דרך בורמה לירושלים" (building the Burma Road to
+- Rothenberg, 55 frames, NLI date June 1948, NLI titles mainly "סלילת דרך בורמה לירושלים" (building the Burma Road to
   Jerusalem) and "סלילת דרך בורמה לירושלים הנצורה בזמן מלחמת העצמאות" (… to besieged Jerusalem during the War of
   Independence). They show jeep and truck convoys on dirt tracks, armoured trucks among boulders, drivers at the
-  wheel, a Jerusalem signpost, and convoys loading under a shed. Category:Burma road
-  (Israel); all carry `{{cc-by-4.0|...}}` and the VRTS ticket.
-  - **Pick: a truck on a steep, rocky track.** ARC. 4* 2068 / 12865.
+  wheel, a Jerusalem signpost, and convoys loading under a shed, soldiers resting and a boy driving; 16 frames carry the title "פריצת
+  דרך בורמה" (breaking through the Burma Road). Category:Burma road (Israel); all carry `{{cc-by-4.0|...}}` and the VRTS ticket.
+  - **Pick: an improvised armoured truck (firing slits, number 834) on a steep, rocky track, men behind it.** ARC. 4* 2068 / 12865.
     https://commons.wikimedia.org/wiki/File:1948_Arab-Israeli_War_(997008136513105171).jpg (1346 x 924, SHA-1
     cef6bf096af3245f57e06a6ad419f69a1e1b880f).
   - **Alternate: a convoy winding down the valley, seen from a vehicle.** ARC. 4* 2068 / 12863.
@@ -122,6 +124,11 @@ each page.
   by the PikiWiki uploader, not by the photographer, so it gives no valid basis.
 - "דרך בורמה.png": a 1949 encyclopaedia picture marked `{{PD-old-70}}`, with a Commons deletion request open since 12
   October 2026 ("Bogus licenses").
+- "Mule section on parade at Burma Road opening ceremony (D401-089).jpg" and "Mule section.jpeg" (Category:Road of
+  Heroism, dated 7 December 1948): GPO / National Photo Collection, public domain under PD-Israel only. They show the
+  card's own day, so they are the likeliest to be proposed again.
+- "PikiWiki Israel 8698 relief of burma road in rabin park.jpg" (2010) and the other PikiWiki files in Category:Burma
+  road (Israel): CC BY 2.5, not CC BY 4.0, and modern.
 - "HaGvura01.jpg": a 2008 photograph of the memorial figures by the road, GFDL / CC BY-SA (share-alike), and not of
   the period.
 - Every other `intitle:"Burma road"` hit is the wartime Burma Road in Burma and China, or places in Britain, Canada
@@ -131,6 +138,7 @@ each page.
 
 1. Q-CARD-1: the 7 December 1948 road frame (pick) or a June 1948 track frame. The first matches the card's event and
    date (G1); the second matches the track the player builds under Q-COR-1's recommended option (a).
-2. Sensitivity: none of the four picks shows the dead, combat or a named depopulated place. The ceremony was also a
+2. Sensitivity: none of the four picks shows the dead, combat or a named depopulated place. The June 1948 track pick
+   shows an improvised armoured truck, military hardware in wartime, which the owner may want to see first. The ceremony was also a
    memorial for the convoys' dead (the NLI title), so the card text should not describe it as a celebration only.
    Whether to set `sensitive: true` in `event-images.yaml` is the owner's call.
