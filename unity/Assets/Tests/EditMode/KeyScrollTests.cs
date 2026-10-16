@@ -65,8 +65,8 @@ public class KeyScrollTests
     static void PagesThrough(VisualElement root, ScrollView view, string? screen, bool cardOpen, string where)
     {
         var focused = root.panel.focusController.focusedElement;
-        float high = view.verticalScroller.highValue, page = view.contentViewport.layout.height - 24f;
-        Assert.Greater(high, 0f, where + ": precondition, the view overflows");
+        float high = view.verticalScroller.highValue, page = Mathf.Max(24f, view.contentViewport.layout.height - 24f);
+        Assert.Greater(high, page, where + ": precondition, the view overflows by more than a page");
         Assert.AreEqual(0f, view.scrollOffset.y, 0.5f, where + ": precondition, at the top");
         Assert.IsTrue(KeyScroll.Press(root, screen, cardOpen, KeyScroll.Key.PageDown), where + ": PageDown scrolls");
         Assert.AreEqual(Mathf.Min(page, high), view.scrollOffset.y, 0.5f, where + ": PageDown moves one view less a line");
@@ -74,8 +74,8 @@ public class KeyScrollTests
         Assert.AreEqual(high, view.scrollOffset.y, 0.5f, where + ": End reaches the bottom");
         Assert.IsFalse(KeyScroll.Press(root, screen, cardOpen, KeyScroll.Key.PageDown), where + ": PageDown at the bottom");
         Assert.IsTrue(KeyScroll.Press(root, screen, cardOpen, KeyScroll.Key.PageUp), where + ": PageUp scrolls");
-        Assert.AreEqual(Mathf.Max(0f, high - page), view.scrollOffset.y, 0.5f, where + ": PageUp moves one view less a line");
-        Assert.IsTrue(KeyScroll.Press(root, screen, cardOpen, KeyScroll.Key.Home) || high <= page, where + ": Home scrolls");
+        Assert.AreEqual(high - page, view.scrollOffset.y, 0.5f, where + ": PageUp moves one view less a line");
+        Assert.IsTrue(KeyScroll.Press(root, screen, cardOpen, KeyScroll.Key.Home), where + ": Home scrolls");
         Assert.AreEqual(0f, view.scrollOffset.y, 0.5f, where + ": Home reaches the top");
         Assert.IsFalse(KeyScroll.Press(root, screen, cardOpen, KeyScroll.Key.PageUp), where + ": PageUp at the top");
         Assert.AreSame(focused, root.panel.focusController.focusedElement, where + ": the keys move no focus");
@@ -138,10 +138,13 @@ public class KeyScrollTests
         var bridge = new SimBridge(g, Text);
         var nav = r.Own(new ScreenNav(r.Root));
         r.Own(new WhyPresenter(r.Root, bridge, Text));
-        r.Own(new EventCardPresenter(r.Root, bridge, Text, null));
+        var card = r.Own(new EventCardPresenter(r.Root, bridge, Text, null));
         var text = r.Root.Q<ScrollView>("event-scroll");
         Shorten(text, 30f);
         yield return Frames(4);
+        Assert.IsNotNull(card.Shown, "precondition: the card is open");
+        Assert.IsFalse(card.Collapsed, "precondition: the card is not hidden");
+        Assert.Greater(text.worldBound.height, 0f, "precondition: the card's text is laid out");
         Assert.IsFalse(KeyScroll.Press(r.Root, null, false, KeyScroll.Key.PageDown), "a hidden card's text does not scroll");
         Assert.AreEqual(0f, text.scrollOffset.y, 0.5f, "hidden card");
         nav.Open("why");
@@ -149,7 +152,7 @@ public class KeyScrollTests
         KeyScroll.Press(r.Root, "why", true, KeyScroll.Key.PageDown);
         Assert.AreEqual(0f, text.scrollOffset.y, 0.5f, "an open screen takes the keys, not the card under it");
         nav.Open(null);
-        yield return Frames(2);
+        yield return Frames(4);
         PagesThrough(r.Root, text, null, true, "event text");
     }
 
