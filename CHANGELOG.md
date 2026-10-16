@@ -755,8 +755,8 @@ adds a line under **Unreleased**; CI's `Changelog` job checks this (see `CONTRIB
   no golden moves.
 - The selected Cabinet seat carries a "Selected" tag across the foot of its card's plate (Hebrew "מסומן"), so it stands
   out without its colour, also once keyboard focus moves to another card; the fill and rim alone differed by 1.2:1 and
-  2.4:1 (accessibility audit M6, refs #41). The tag sits over the plate, so no card moves. Presentation only: no golden
-  moves.
+  2.4:1 (accessibility audit M6, refs #41). The tag sits over the plate, so no card moves. An office the Prime Minister
+  holds himself, a button under his card, doubles its rim when selected instead. Presentation only: no golden moves.
 - Keyboard focus that lands on something scrolled out of view, such as a Cabinet card below the first row or a
   candidate far down the list, now scrolls its list to it (accessibility audit H1, refs #41). Focus that follows a mouse
   press leaves the list where it is. Presentation only: no golden moves.

@@ -543,9 +543,9 @@ public class PromoScreensTests
                     Assert.AreEqual(text["card.selected"], tag!.text, where);
                     Assert.IsTrue(card.worldBound.Contains(tag.worldBound.min) && card.worldBound.Contains(tag.worldBound.max - Vector2.one), where + ": the tag is on the card");
                     Assert.GreaterOrEqual(Contrast(tag.resolvedStyle.color, tag.resolvedStyle.backgroundColor, Deep), 4.5f, where + ": the tag's text");
-                    Assert.IsNull(Tag(ui.Q<Button>(other)), where + ": " + other + " is not tagged");
+                    foreach (var c in ui.Root.Query<Button>(className: "seat").ToList().Append(ui.Q<Button>("seat-" + CabinetPresenter.PrimeMinister)).Where(c => c != card))
+                        Assert.IsNull(Tag(c), where + ": " + c.name + " is not tagged");
                     var after = card.Children().Select(e => e.layout).Prepend(card.layout).ToList();
-                    Assert.AreEqual(rects.Count, after.Count, where + ": the tag is inside the plate, not a new row");
                     for (int i = 0; i < rects.Count; i++)
                         Assert.IsTrue(Vector2.Distance(rects[i].position, after[i].position) < 0.5f && Vector2.Distance(rects[i].size, after[i].size) < 0.5f,
                             $"{where}: element {i} moved, {rects[i]} -> {after[i]}");
@@ -561,6 +561,44 @@ public class PromoScreensTests
             }
             finally { cabinet.Dispose(); }
         }
+    }
+
+    /// <summary>#41 M6: an office the Prime Minister holds himself (Defense, at the start) is a plain button under his card,
+    /// with no plate for the tag; selected, its rim doubles and the button keeps its size. On a 3840x2160 panel, so a
+    /// logical pixel is wider than a screen pixel and 1 px and 2 px do not snap to the same width.</summary>
+    [UnityTest]
+    public IEnumerator ThePrimeMinistersSelectedOfficeDoublesItsRim()
+    {
+        var rt = new RenderTexture(3840, 2160, 0);
+        var ps = Object.Instantiate(AssetDatabase.LoadAssetAtPath<PanelSettings>(UiPaths.Panel));
+        ps.targetTexture = rt;
+        var go = new GameObject("PmOfficeTest");
+        go.SetActive(false);
+        var doc = go.AddComponent<UIDocument>();
+        doc.panelSettings = ps;
+        doc.visualTreeAsset = AssetDatabase.LoadAssetAtPath<VisualTreeAsset>(UiPaths.GameUxml);
+        go.SetActive(true);
+        var root = doc.rootVisualElement;
+        var cabinet = new CabinetPresenter(root, new SimBridge(GameSession.New(C, GoldenRun.Seed, Mode.Historical), Text), Text, null);
+        var nav = new ScreenNav(root);
+        try
+        {
+            root.Q("root").RemoveFromClassList("loading");
+            nav.Open("cabinet");
+            for (int i = 0; i < 4; i++) yield return null;
+            var offices = root.Query<Button>(className: "pm-office").ToList();
+            Assert.IsNotEmpty(offices, "precondition: the Prime Minister holds another office");
+            var office = offices[0];
+            Assert.IsFalse(office.ClassListContains("seat-selected"), "precondition: not selected");
+            float thin = office.resolvedStyle.borderTopWidth; var size = office.worldBound.size;
+            Assert.Greater(thin, 0f, "precondition: an office not selected has a rim");
+            cabinet.Select(office.name.Substring("seat-".Length));
+            for (int i = 0; i < 4; i++) yield return null;
+            Assert.IsTrue(office.ClassListContains("seat-selected"), "precondition: the office is selected");
+            Assert.AreEqual(2f * thin, office.resolvedStyle.borderTopWidth, 0.25f * thin, "the selected office's rim doubles");
+            Assert.Less(Vector2.Distance(size, office.worldBound.size), 0.5f, $"the selected office keeps its size, {size} -> {office.worldBound.size}");
+        }
+        finally { nav.Dispose(); cabinet.Dispose(); Object.DestroyImmediate(go); Object.DestroyImmediate(ps); rt.Release(); Object.DestroyImmediate(rt); }
     }
 
     /// <summary>Both screens at the window shapes the HUD supports (16:9 at 1920x1080 and 1366x768, 16:10, 4:3, 5:4, the

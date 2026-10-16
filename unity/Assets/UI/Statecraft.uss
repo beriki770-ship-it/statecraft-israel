@@ -447,6 +447,9 @@ Button:disabled { color: var(--ink-dim); border-color: rgba(120, 120, 120, 0.4);
 #cabinet-pick-title { white-space: normal; }
 .pm-offices { flex-direction: row; flex-wrap: wrap; margin: -2px 0 8px 0; flex-shrink: 0; }
 .pm-office { font-size: 15px; padding: 3px 10px; margin: 0 6px 4px 0; border-color: rgba(196, 160, 92, 0.6); }
+/* A selected office the Prime Minister holds himself has no plate for the tag (#41 M6): its rim doubles instead, a mark
+   that is not a colour. The padding gives the pixel back, so the button keeps its size. */
+.pm-office.seat-selected { border-width: 2px; padding: 2px 9px; }
 .cabinet-house {
     flex-direction: row; flex-wrap: wrap; align-items: center; flex-shrink: 0; margin: 0 5px 8px 5px; padding: 10px 14px;
     background-color: rgba(5, 9, 18, 0.55); border-width: 1px; border-color: var(--gold-dim); border-radius: 2px;
