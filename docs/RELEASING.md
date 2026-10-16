@@ -137,6 +137,40 @@ give a new image an `ASSETS.yaml` row, change `CONCEPT`, `CLIP` or `GRID` in `te
 and land it as a normal pull request. Whether a real build screenshot later replaces the concept art in "What is
 this?" is not decided.
 
+## Capturing trailer footage (issue #45)
+
+The trailer's map shots come from the real build: the editor renders the map frame by frame, so a capture can be run
+again and gives the same camera, state and water on every frame (pixel-identical on the same machine and driver). Build the sim DLLs first (`python3 tools/build_sim_for_unity.py`), run Unity with
+graphics (not `-nographics`; on Linux under `xvfb-run -a`), then encode the frames with ffmpeg:
+
+```sh
+"$UNITY" -batchmode -CI false -GITHUB_ACTIONS false -TF_BUILD false -quit -projectPath unity \
+  -executeMethod MapCapture.Trailer -captureDir "$PWD/<dir>" [-seed 1948] -logFile "$PWD/unity-trailer.log"
+ffmpeg -framerate 60 -i <dir>/frame-%05d.png -vf scale=out_color_matrix=bt709 -c:v libx264 -preset slow -crf 16 \
+  -pix_fmt yuv420p -colorspace bt709 -color_primaries bt709 -color_trc bt709 -movflags +faststart <dir>/trailer-map.mp4
+```
+
+Give `-captureDir` an absolute path: a relative one resolves against Unity's working directory. The capture deletes any
+`frame-*.png` already in it first, so an older, longer run cannot leak into the encode.
+
+- **What it renders:** the camera moves in `TrailerShot.Default` (`unity/Assets/Scripts/Map/TrailerShot.cs`), built only
+  from the promo poses the art checkpoint already compares (`PromoPose`): the whole country held for 2 s, down to the
+  Jaffa-Tel Aviv-Lydda ground of promo 03 (6 s), and back up to the whole country (6 s). 840 frames, 14 s, each move
+  eased in and out. That order is a placeholder; the shots are the owner's call. Change the list to change it.
+- **Settings:** 1920 x 1080 on the desktop (PC) tier, 60 fps, the water's clock pinned to each frame's time, the 1948
+  sub-districts and the units of turn 1 of a new historical game started with `-seed` (default the golden seed, 1948;
+  turn 1's units do not depend on the seed today, it is recorded so a later moment can be repeated). The
+  frames are `frame-00000.png` onwards, one sequence across the shots. `trailer.txt` beside them records the commit,
+  Unity version, seed, size, fps, tier and each shot's frame range.
+- **Not in it:** the UI (editor renders draw no UI Toolkit, so UI shots still come from the player), sound, and the cut.
+  The .mp4 has no audio track; Steam prefers AAC audio, which the cut adds.
+- **Why PNG frames:** a frame is written only when it is fully rendered, so a slow machine gives the same footage as a
+  fast one, and the Linux editor needs no video codec. On the software-rendered Linux build server (llvmpipe) the
+  default 840 frames took about 15 minutes (907 s including the editor start) and 2.3 GB of PNG; delete the frames after encoding.
+- **Check the encode** before it goes anywhere: `ffprobe -v error -show_entries stream=codec_name,width,height,r_frame_rate,bit_rate <dir>/trailer-map.mp4`
+  must say h264, 1920 x 1080, 60/1, and a bit rate above Steam's 5,000 Kbps. If it is under (long still holds compress
+  well), encode again with `-b:v 8M -maxrate 12M -bufsize 16M` in place of `-crf 16`.
+
 ## Store-page checklist (issue #45; OWNER STEP)
 
 This is preparation, not a published store page or an answered content survey. The checklist does not clear the name,
@@ -163,9 +197,10 @@ assets or content for commercial use. Finish the release gates above first; the 
   08 as gameplay. Review each screenshot's age-suitability flag individually; never mark a sensitive scene suitable for
   all ages just to gain placement. If at least four genuinely qualify, mark them suitable for all ages; with fewer
   flagged, the game may not appear in some placements.
-- [ ] Prepare a trailer from the real build, not the M2 recruiting flythrough or concept-art target. The deterministic
-  1920 x 1080, 60 fps capture and draft cut are the separate trailer part of #45, still pending; this checklist does
-  not provide a capture script or a finished trailer. Record the build/seed and capture settings with the cut.
+- [ ] Prepare a trailer from the real build, not the M2 recruiting flythrough or concept-art target. Capture the map
+  footage with "Capturing trailer footage" above (1920 x 1080, 60 fps, deterministic); the draft cut is still pending
+  (#45), so this checklist does not provide a finished trailer. Keep the capture's `trailer.txt` (build commit, seed and
+  capture settings) with the cut.
   Steam requires a trailer and recommends that the first one be mostly gameplay; this project's rule (real build only)
   is stricter. Upload the highest resolution available, up to 1920 x 1080, at 30/29.97 or 60/59.94 fps and
   5,000+ Kbps, in a .mov, .wmv or .mp4 container; H.264 video with AAC audio is preferred

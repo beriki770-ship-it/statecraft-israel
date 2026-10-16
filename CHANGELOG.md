@@ -100,6 +100,12 @@ adds a line under **Unreleased**; CI's `Changelog` job checks this (see `CONTRIB
   the tilt-shift blur off and on, at once; the choice is kept per browser in `/idbfs/statecraft-settings/settings.txt`
   (a fixed folder, as the autosave's), never in the sim or the save, so the goldens do not move. `?notiltshift` still
   boots without the blur.
+- A scripted trailer capture from the real build (refs #45): `MapCapture.Trailer` renders the camera moves in
+  `TrailerShot.Default` (the whole country, down to the promo 03 ground and back up; 14 s from the existing promo
+  poses) at 1920 x 1080 and 60 fps on the desktop tier, as PNG frames with the water's clock pinned per frame, the units
+  of turn 1 of a game started with `-seed`, and a `trailer.txt` recording the commit, seed and settings.
+  `docs/RELEASING.md` "Capturing trailer footage" gives the command and the ffmpeg line. Map only (no UI, no sound);
+  the draft cut is still to come.
 - The info panel of Tiberias' hex adds "Tiberias is shown here because its own hex is water." (Hebrew too, with the
   town's Hebrew name), so the hillside hex's
   70 m does not read as the town's (refs #204). It is worked out in Unity from the town's own lon/lat and the hex grid
