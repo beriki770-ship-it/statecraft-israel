@@ -14,8 +14,8 @@ for Q-NEW-1, Q-NEW-2 and Q-HFX-4). This note covers the other two:
 1. **Situation-gated candidates.** Q-NAT-3 (decided, Phase 2 plan) made "Low social cohesion" (`morale`) and "Low
    international support" (`intl_standing`) situations, and the Phase 7 plan says "PR 3 may add events gated on them,
    and nothing else". This note lists dated moments from 15 May 1948 to 15 January 1952 where Israel faced a cohesion
-   strain or a drop in international support **and** a recorded Israeli response exists, checked against the 31 events
-   on `main`.
+   strain or a drop in international support **and** a recorded Israeli response exists, checked against the events on
+   `main` (32 files in `content/events/`; the plan counts 31).
 2. **The 15 May to 15 November 1951 stretch.** `EventRetimingTests.TheLimitsAreSixMonthsAndTwoAtWar` pins the
    longest peacetime stretch without a card at exactly 6 months, "15 May to 15 November 1951" (`israel_bonds` to
    `forex_crisis_1951`), so the gap rule (R-TURN-003) holds today with no margin. Section 3 lists the sourced
@@ -159,7 +159,7 @@ window's last day. A card here would be the arc's second step, or folded into `h
 - **Security Council resolution 95, 1 September 1951** (turn 15 August 1951, inside the 1951 stretch). [V] UNSC 95
   (1951) finds Egypt's practice "an abuse of the exercise of the right of visit, search and seizure" and "Calls upon
   Egypt to terminate the restrictions"; adopted by 8 votes to none with 3 abstentions (China, India, the Soviet Union;
-  the meeting number is garbled in the text layer). It answers Israel's own complaint, so it is support **up**; the
+  the text layer reads "Adopted at the 668th meeting"; not checked against the scan). It answers Israel's own complaint, so it is support **up**; the
   date Israel filed the complaint was not found. A fit for a card on its own merits, not for a "low support" gate.
 
 ## 2. Low social cohesion
@@ -185,8 +185,9 @@ Turn: 15 November 1951 (the same turn as `forex_crisis_1951`; just **after** the
 
 Turn: 15 May 1951. No event on `main`.
 
-- [V] JTA 25 May 1951: the charge was a plan to bomb the Knesset over the bill on women's national service; "the Cabinet
-  today appointed a three-man committee" of ministers to look into the conditions of detention.
+- [V] JTA 25 May 1951: a government spokesman on "the underground movement which planned to blow up the Parliament
+  building"; "the Cabinet today appointed a three-man committee" of ministers to look into the conditions of detention.
+  The link to the bill on women's national service is the bulletin's account of the charges, paraphrased here.
 - [V] JTA 1 Jun 1951: six of those arrested "were ordered released".
 - [V] JTA 6 Jun 1951: the Acting Prime Minister announced in the Knesset "the release of the last 16 of 56 persons
   detained"; 13 would face trial. The Knesset set up a committee on "police brutality" charges and passed a motion
@@ -198,8 +199,8 @@ Turn: 15 May 1951. No event on `main`.
 
 ### 2c. The religious bloc's crisis over the immigrant camps, January 1951
 
-Turn: 15 December 1950. **Overlaps** `frumkin_commission` and `education_registration_1951` (window from 29 November
-1950), which already carry the camp-education dispute.
+Turn: 15 December 1950. **Overlaps** `education_registration_1951` (from 29 November 1950), which already carries the
+camp-education dispute; `frumkin_commission` (1950) is the earlier step of the same arc.
 
 - [V] JTA 5 Jan 1951: the Minister of Religious Affairs "submitted his resignation after a stormy Cabinet discussion on
   the situation in the immigrant camps".
@@ -213,8 +214,9 @@ Turn: 15 December 1950. **Overlaps** `frumkin_commission` and `education_registr
 - **The black-market drive, October 1950** (turn 15 September 1950). [V] JTA 9 Oct 1950: the cabinet gave the Prime
   Minister powers for police and troops to carry out "large-scale searches". Overlaps `ministry_supply_crisis`
   (October 1950).
-- **The Second Knesset election, 30 July 1951** (turn 15 July 1951, inside the 1951 stretch). [V] JTA 1 Aug 1951
-  (the vote "yesterday"; the General Zionists had "campaigned on a program of free enterprise") and JTA 10 Aug 1951
+- **The Second Knesset election, end of July 1951** (turn 15 July 1951, inside the 1951 stretch). [V] JTA 1 Aug 1951
+  (the vote "yesterday", counted from the bulletin's dateline; the 30 July date usually given was not read on a primary
+  page here; the General Zionists had "campaigned on a program of free enterprise") and JTA 10 Aug 1951
   (Mapai "45 seats", the General Zionists "20 deputies"). Not a cohesion event, but the one sourced civic anchor in the
   stretch; `elections_1949` is the precedent for an election card.
 - **The winter flood, December 1951** (turn 15 December 1951). [V] JTA 24 Dec 1951: the cabinet approved "temporary
@@ -233,8 +235,9 @@ Sourced candidates inside it, by turn:
 | 15 July 1951 | The Second Knesset election (2d) | Civic anchor, not gated | JTA 1 Aug, 10 Aug 1951 | |
 | 15 August 1951 | Resolution 95 on the Suez Canal (1d) | Support up | UNSC 95 (1951) | Complaint date not found |
 
-All four fall in the stretch's first four months, so any one of them alone splits it into a 4- or 2-month stretch and
-a stretch that is again at or under 6 months, only if it fires in the historical run (see Scope).
+The two 15 May 1951 candidates share the turn on which `israel_bonds` already fires, so they do not shorten the
+stretch. A card on the 15 July 1951 turn splits it into 2 and 4 months; one on the 15 August 1951 turn into 3 and 3. In
+each case only if the card fires in the historical run (see Scope).
 
 ## Not reached, and gaps
 
@@ -262,9 +265,9 @@ a stretch that is again at or under 6 months, only if it fires in the historical
 | Religious underground's plot | May to June 1951 | Low social cohesion | Maybe: sensitive | JTA 25 May, 1, 6 Jun 1951 | `terror` likely |
 | Religious bloc's camp crisis | Jan 1951 | Low social cohesion | No: widen the existing education card | JTA 5 Jan 1951 | None |
 | Black-market drive | Oct 1950 | Low social cohesion | No: overlaps `ministry_supply_crisis` | JTA 9 Oct 1950 | None |
-| Second Knesset election | 30 Jul 1951 | none | Maybe, as an anchor | JTA 1, 10 Aug 1951 | None |
+| Second Knesset election | end of Jul 1951 | none | Maybe, as an anchor | JTA 1, 10 Aug 1951 | None |
 | Winter flood | Dec 1951 | none | No: relief, not strain | JTA 24 Dec 1951 | None |
 
 Recommendation (the owner decides under Q-EVT-5): the US note (1a) and the Jerusalem move (1b) for "Low international
 support", the seamen's strike (2a) for "Low social cohesion". Each has a dated Israeli decision on a primary page and no
-overlap with the 31 events on `main`.
+overlap with the events on `main`.
