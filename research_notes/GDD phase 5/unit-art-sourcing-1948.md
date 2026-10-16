@@ -1,6 +1,7 @@
 # Unit art sourcing, 1948: flags, uniforms, the gun and the armoured car
 
-Researched 2026-10-16. Every URL below was opened on that date unless the entry says otherwise. Research for GDD
+Researched 2026-10-16. Every URL below was opened on that date, except where the entry says it is a search snippet,
+refused or not opened. Research for GDD
 Phase 5 (#385), plan PR 17 ("art for the new units", `docs/superpowers/plans/2026-10-15-gdd-phase-5.md`), its
 sourcing half. The searches used the built-in web search and fetch tools (no Tavily key on the machine this was
 written on).
@@ -101,13 +102,13 @@ note.
 - **[V, transcription]** Constitution of the State of Syria, promulgated by Decree No. 3111 of the French High
   Commissioner, 14 May 1930. The English translation is in the *League of Nations Official Journal*, vol. 11,
   September 1930, pp. 1112-1122, with Art. 4 on p. 1113. Its words, as transcribed on the Wikimedia Commons page
-  for the flag (https://commons.wikimedia.org/wiki/File:Flag_of_Syria_(1930%E2%80%931958,_1961%E2%80%931963).svg):
+  for the flag (<https://commons.wikimedia.org/wiki/File:Flag_of_Syria_(1930%E2%80%931958,_1961%E2%80%931963).svg>):
   "The Syrian flag shall be composed as follows, the length shall be double the height. It shall contain three
   bands of equal dimensions, the upper band being green, the middle band white, and the lower band black. The white
   portion shall bear three red stars in line, having five points each." The *Official Journal* itself was not
   opened. Upgrade: read p. 1113.
-- **[S]** English Wikipedia's "Flag of Syria" (https://en.wikipedia.org/wiki/Flag_of_Syria) has the same design in use
-  from independence in 1946 to 1958. It also cites a first use in 1932 ([C] with 1930); the design is the same either
+- **[S]** English Wikipedia's "Flag of Syria" (https://en.wikipedia.org/wiki/Flag_of_Syria) gives this flag's use as
+  1930-1958 (and 1961-63). It also cites a first use in 1932 ([C] with 1930); the design is the same either
   way.
 
 ### Egypt
@@ -126,7 +127,7 @@ note.
 
 - **ALA, [G]:** no flag or emblem with a source was found. English Wikipedia's "Arab Liberation Army" shows an
   "emblem" from a Commons drawing whose own page
-  (https://commons.wikimedia.org/wiki/File:Arab_Liberation_Army_(bw).svg) says "Historical status as a flag is
+  (<https://commons.wikimedia.org/wiki/File:Arab_Liberation_Army_(bw).svg>) says "Historical status as a flag is
   unknown, possibly dubious" and gives no references; its one source is a dead link. It is not a sourced emblem.
   A 1948-49 photograph of an ALA armoured car with an emblem is on Commons, but its page says the emblem "may have
   been added at some point *after* the photo was taken" (section 2). Neither should be drawn.
@@ -137,7 +138,8 @@ note.
 
 ## 2. Uniforms and headgear, per force
 
-The finding is thin. The free 1948 photographs exist for most forces, but their descriptions say who and where, not
+The finding is thin. The "British kit" and "French kit" lines below come from a comment thread on a wargaming site:
+treat them as unverified. The free 1948 photographs exist for most forces, but their descriptions say who and where, not
 what is worn. The printed reference that would carry the dress, Osprey's *Arab Armies of the Middle East Wars
 1948-73* (Men-at-Arms 128), was not reachable (archive.org lending-locked) [G].
 
@@ -147,8 +149,8 @@ what is worn. The printed reference that would carry the dress, Osprey's *Arab A
   - Egyptian prisoners of war in the courtyard of the Beersheba police station, 22 October 1948. GPO, National Photo
     Collection D283-062. PD-Israel. https://commons.wikimedia.org/wiki/File:D283-062.jpg
   - Egyptian soldiers taken prisoner at 'Auja, "28 December 1948" in the description ([C]: the date field says
-    12 December 1948). Palmach archive. PD-Israel. https://commons.wikimedia.org/wiki/File:'Auja_Palestine.jpg
-  - Egyptian officers at Faluja, 1948, from Dar al-Hilal. PD-Egypt.
+    12 December 1948). Palmach archive. PD-Israel. <https://commons.wikimedia.org/wiki/File:'Auja_Palestine.jpg>
+  - Egyptian soldiers at Faluja, 1948 (the file names Nasser as its subject), from Dar al-Hilal. PD-Egypt.
     https://commons.wikimedia.org/wiki/File:Nasser_at_Faluja_Palestine.png
 - **[S]** Dress: a wargaming site (https://balagan.info/arab-order-of-battle-in-the-1948-arab-israeli-war) says the
   Egyptians, the Transjordanians and the Iraqis "used British kit". This is the author's reply in a comment, not a
@@ -162,15 +164,15 @@ what is worn. The printed reference that would carry the dress, Osprey's *Arab A
     ([C]: the file's category calls the gun a 3.7-inch mountain howitzer).
     https://commons.wikimedia.org/wiki/File:Arab_Legion_1948.jpg
   - "Arab Legion Platoon on the Old City walls, 1948", from Glubb, *A Soldier with the Arabs*. CC BY-SA 2.5 and
-    PD-Israel. https://commons.wikimedia.org/wiki/File:Arab_Legion_Platoon_on_the_walls_of_Old_Jerusalem_(1948).jpg
+    PD-Israel. <https://commons.wikimedia.org/wiki/File:Arab_Legion_Platoon_on_the_walls_of_Old_Jerusalem_(1948).jpg>
   - "Arab Legion gunners and their gun on roof of the Latrun Tegart fort, 1948", same book and licences ([C]: the date
     field says 1957). https://commons.wikimedia.org/wiki/File:Gun_on_roof_of_Latrun_pollice_station.jpg
   - Glubb with soldiers at Ramallah, 20 July 1948. Credited to AP in the description, so its PD-Israel tag is doubtful.
     https://commons.wikimedia.org/wiki/File:John_Bagot_Glubb_and_soldiers_in_Ramallah_July_20_1948.webp
-- **[V]** Headgear: The Markaz Review (https://themarkaz.org/the-story-of-the-keffiyeh/) says that in the 1950s Glubb
+- **[S]** Headgear: The Markaz Review (https://themarkaz.org/the-story-of-the-keffiyeh/) says that in the 1950s Glubb
   gave the Arab Legion's Palestinian soldiers the black-and-white pattern, "distinguishing them from their Trans
   Jordanian counterparts wearing the red and white shemagh". English Wikipedia's "Keffiyeh" (https://en.wikipedia.org/wiki/Keffiyeh) describes the agal,
-  the head cord that holds it. Neither is a dated 1948 statement.
+  the head cord that holds it. Both are secondary, and neither is a dated 1948 statement.
 - **[S]** British battledress: a search snippet of Matthew Hughes's 2019 article in *War in History*
   (https://journals.sagepub.com/doi/10.1177/0968344517725541; the page refused).
 - **[S]** Armoured cars: Marmon-Herrington Mk IVF, per the wargaming site above, which cites Lunt and Collins and
@@ -199,7 +201,7 @@ what is worn. The printed reference that would carry the dress, Osprey's *Arab A
 
 - **[G]** No 1948 photograph with a free licence.
 - **[V]** A 1948 UN photograph of Lebanese officers at al-Malikiyya with a truce observer exists
-  (https://media.un.org/photo/en/asset/oun7/oun7498024), but its licence is "for news purposes only". It can be looked
+  (https://media.un.org/photo/en/asset/oun7/oun7498024; the page's date, 1 January 1948, looks nominal), but its licence is "for news purposes only". It can be looked
   at, not reused.
 - **[S]** "French kit" (as for Syria).
 
@@ -220,8 +222,9 @@ what is worn. The printed reference that would carry the dress, Osprey's *Arab A
 
 ### Local Palestinian Arab forces
 
-- **[V]** "Husseini 1948.jpg": the Holy War army's commander with aides and fighters, February 1948 (per the
-  description), from Walid Khalidi, *Before Their Diaspora*. PD-Israel and CC BY-SA 3.0.
+- **[V]** "Husseini 1948.jpg": Abd al-Qadir al-Husseini with "aides and Palestinian irregulars" in the Jerusalem
+  district, February 1948 (per the description; the description does not name the Holy War army, so the link to
+  that force is [S]), from Walid Khalidi, *Before Their Diaspora*. PD-Israel and CC BY-SA 3.0.
   https://commons.wikimedia.org/wiki/File:Husseini_1948.jpg
 - **[C]** "Arab volunteers.jpg" (1947, Dar al-Hilal): its description says Holy War fighters in Jerusalem; the caption
   on the same page says Saudi forces in 1948. Not usable until that is settled.
@@ -237,7 +240,7 @@ what is worn. The printed reference that would carry the dress, Osprey's *Arab A
   mountain gun. The page: "used by the Israel Defence Forces in the 1948 Arab–Israeli War, and was nicknamed
   Napoleonchik by the Israelis due to its old look", citing Luttwak and Shamir (2023), p. 17. It gives a weight of
   400 kg, calibre 65 mm, elevation −9° to +35°, a 4.4 kg round, 330 m/s and 6.5 km. Tier 3; Luttwak and Shamir not
-  read. https://en.wikipedia.org/wiki/Canon_de_65_M_(montagne)_mod%C3%A8le_1906
+  read. <https://en.wikipedia.org/wiki/Canon_de_65_M_(montagne)_mod%C3%A8le_1906>
 - **[S]** A collectors' site (https://www.armedconflicts.com/-t82778) gives the barrel as 1,313 mm overall and the bore
   as 1,032 mm. It gives the elevation as −10° ([C] with −9°) and shells of 4.5 kg shrapnel and 3.8 kg HE ([C] with
   4.4 kg).
@@ -274,11 +277,11 @@ photographs.
   estimate.
 - **[V]** Photographs:
   - "Sandwich" armoured vehicle at the Armoured Corps museum, Latrun, 27 April 2012, Avishai Teicher (PikiWiki). CC BY
-    2.5. https://commons.wikimedia.org/wiki/File:PikiWiki_Israel_19387_'Sandwich'_armored_vehicle_in_armored_corps_museum,_Latrun.jpg
+    2.5. <https://commons.wikimedia.org/wiki/File:PikiWiki_Israel_19387_'Sandwich'_armored_vehicle_in_armored_corps_museum,_Latrun.jpg>
   - "Sandwich" armoured car at Batey HaOsef, Tel Aviv, October 2005, Bukvoed. GFDL, CC BY-SA 3.0 or CC BY 2.5.
     https://commons.wikimedia.org/wiki/File:Armored-car-batey-haosef-1.jpg
   - The remains at Sha'ar HaGai, 29 April 2009, CC BY-SA 3.0.
-    https://commons.wikimedia.org/wiki/File:Sha'ar_hagai_armored_vehicle1.JPG
+    <https://commons.wikimedia.org/wiki/File:Sha'ar_hagai_armored_vehicle1.JPG>
   - 1948: "The first supply convoy reaches the outskirts of Jerusalem ... April 1948", from Herzog, *The Arab Israeli
     Wars* (1982), credited to the Jerusalem Post. PD-Israel. The caption does not name the vehicles' type.
     https://commons.wikimedia.org/wiki/File:Jerusalem_convoy.jpg
@@ -298,8 +301,8 @@ photographs.
   drawable on a transcription, upgraded when the *Official Journal* page is read. Egypt keeps the neutral pennant
   until its 1923 text is reached. The ALA and the local forces keep the pennant (Q-ART-1); no emblem of theirs was
   found.
-- **Figures.** Only the Arab Legion's red-and-white shemagh with agal has a text source, and it is not dated 1948.
-  Every other force's dress is [S] or [G]. A figure for those forces should wait for the Osprey plates, or for a person
+- **Figures.** No dress detail of any force has a dated, primary text source. The nearest is the Arab Legion's
+  red-and-white shemagh, in a magazine essay about the 1950s [S]. Every force's dress is [S] or [G]. A figure for those forces should wait for the Osprey plates, or for a person
   to look at the photographs listed above and record what they show.
 - **The gun and the car.** The photographs above give the shape. Dimensions beyond the gun's weight and barrel are [G],
   so the models scale from the photographs and say so.
@@ -307,7 +310,8 @@ photographs.
 **Decisions for the owner:**
 1. **Flag on Lebanon's tokens.** Draw the cedar green (today's text) or follow the pre-1990 practice of a brown trunk?
    The 1948 practice was not sourced here.
-2. **Flag on Transjordan's tokens.** Fly the national flag, or wait for a sourced Arab Legion colour?
+2. **Flag on Transjordan's tokens.** Fly the national flag, or wait for a sourced Arab Legion colour? Note that the
+   1928 flag's continuity to 1948 rests on one search snippet [S].
 3. **Syria on a transcription.** Is a Commons transcription of the *Official Journal* enough to draw its flag, or must
    the page be read first?
 
@@ -321,7 +325,7 @@ photographs.
   constituteproject's Syria 1950 page (404), English Wikisource's Lebanese constitution (404), the Digithèque's 1947
   Jordanian page (404), manshurat.org (timed out), the Lebanese Parliament's English constitution PDF (unreadable).
 - Uniforms: Commons searches and categories for the Egyptian, Syrian, Iraqi and Lebanese armies in 1948, the Arab
-  Legion, the ALA, prisoners of war in the 1948 war, Nitzanim; web searches on Egyptian, Arab Legion, Syrian, Lebanese
+  Legion, the ALA, prisoners of war in the 1948 war; web searches on Egyptian, Arab Legion, Syrian, Lebanese
   and Iraqi uniforms and headgear in 1948, Palestinian irregulars' dress; the Imperial War Museum; the Illustrated
   London News (1948 pages with no licence stated); UN Photo; Google Arts and Culture (LIFE photographs, personal use
   only). Refused or locked: archive.org (the Osprey book), vdoc.pub, warrelics.eu, SAGE, ospreypublishing.com, Yad
