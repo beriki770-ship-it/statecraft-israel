@@ -20,7 +20,8 @@ How it was done:
 - Read on 17 October 2026 through the Commons API: full-text searches of file pages and, for every hit, its page
   source (licence template, photographer, `{{taken on}}` date, NLI title, VRTS ticket) and the image info (size, SHA-1).
 - Railway, inside the Meitar Collection: `רכבת`, `"Israel Railways"`, `קטר`, `train`, `"תחנת הרכבת"`, `"ראש העין"`,
-  `מסילה`, `"תל אביב צפון"`, `"חידוש קו רכבת"`, then `"רכבת ישראל"` and `insource:"1950-02" רכבת` to recount the series below (over 181 distinct files). Across Commons: `insource:"1949-09-20"` (135
+  `מסילה`, `"תל אביב צפון"`, `"חידוש קו רכבת"` (181 distinct files), then
+  `"רכבת ישראל"` and `insource:"1950-02" רכבת` to recount the series below. Across Commons: `insource:"1949-09-20"` (135
   files) and every file in Category:History of Israel Railways, Category:Bnei Brak train station (the 1949 Tel Aviv
   North station), Category:Yarkon Railway and Category:East Railway, one level down (809 files).
 - Yishuvim, inside the Meitar Collection: `גילת`, `"בית קמה"`, `רעים`, `Gilat`, `"Beit Kama"`, `"Re'im"`, `מפלסים`
