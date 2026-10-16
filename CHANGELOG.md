@@ -13,6 +13,11 @@ adds a line under **Unreleased**; CI's `Changelog` job checks this (see `CONTRIB
   The checks file is now written in the bundle cache and copied beside the shipped bundles.
 
 ### Changed
+- The Oded (9th) Brigade row in `content/map/units_1948.yaml` records the #197 sourcing pass: Ben-Gurion's diary for
+  31 October 1948 has the 9th Brigade between Tarshiha and Sa'sa' in Operation Hiram, and he.wiki dates its companies at
+  al-Malkiyya (1 June 1948) and Tel Azaziyat (9-10 July 1948), all in the north; en.wiki's "headquartered in Jerusalem"
+  has no footnote. No source names a headquarters or a place held over a window, so the row stays hidden. Map data
+  only: the content hash and the goldens do not move.
 - The first-new-yishuv card's source comment records the #706 gazetteer findings for places under 1,000 near
   Mefalsim (seven depopulated villages in the sweeps, none naming Mefalsim; the Bedouin-locality caveat), instead of
   the stale not-checked note (#654). Comment only; the card's text is unchanged.
