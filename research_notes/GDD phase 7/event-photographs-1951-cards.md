@@ -4,14 +4,23 @@ Status: research only, for the maintainer's choice. Nothing here is in `content/
 Refs #807 (GDD Phase 7 PR 3: "a photograph per card where one is usable").
 
 [docs/event-images.md](../../docs/event-images.md) lists seven events that still show the minister's portrait because
-no free photograph that fits them was found. The four armistice-front cards are covered by #761 (Agam's
-`armistice-card-images-1949.md`, not yet on main). This note covers the other three, all from 1951:
+no free photograph that fits them was found. This note covers the three from 1951. The other four (`rhodes_talks`,
+`armistice_lebanon`, `armistice_syria`, `sinai_withdrawal`) are outside it.
 
-| Event | Window (`from` to `to`) | Card date under monthly turns ([#567 table](../../docs/superpowers/specs/2026-10-14-event-timing-monthly.md), rows 26, 27, 31) |
+It follows
+[portrait-fallback-event-images.md](../GDD%20phase%201/portrait-fallback-event-images.md) (#763, searched 16 October),
+which reached these three cards by keyword searches and category walks. That note found no qualifying photograph from
+any of the three windows: its education frame (the Shobaki ma'abara kindergarten, Herzliya, PikiWiki) is on subject but
+its rights are unconfirmed; its forex frames (the shopkeepers' strike of August 1950, the Purim "white market, black
+market" costume of 24 March 1951, the Allenby Street austerity sign of December 1949) are context from before the
+crisis; and it found nothing for the reparations claim. This note adds a month-by-month sweep of the Meitar
+Collection over each window, which finds in-window CC BY 4.0 frames for two of the three cards.
+
+| Event | Window (spec rows; the YAML `to` is the next day) | Card date under monthly turns ([#567 table](../../docs/superpowers/specs/2026-10-14-event-timing-monthly.md), rows 26, 27, 31) |
 |---|---|---|
-| `education_registration_1951`, Schools in the Transit Camps | 29 November 1950 to 14 February 1951 | 15 December 1950 |
-| `reparations_claim`, A Claim on Germany (tag `holocaust`) | 1 to 13 March 1951 | 15 March 1951 |
-| `forex_crisis_1951`, Foreign Currency Runs Out | 19 October 1951 to 1 January 1952 | 15 November 1951 |
+| `education_registration_1951`, Schools in the Transit Camps | 29 November 1950 to 13 February 1951 | 15 December 1950 |
+| `reparations_claim`, A Claim on Germany (tag `holocaust`) | 1 to 12 March 1951 | 15 March 1951 |
+| `forex_crisis_1951`, Foreign Currency Runs Out | 19 October to 31 December 1951 | 15 November 1951 |
 
 **Result:**
 - **Schools in the Transit Camps: found.** A Benno Rothenberg frame taken on 15 December 1950, the card's own date
@@ -19,7 +28,7 @@ no free photograph that fits them was found. The four armistice-front cards are 
 - **Foreign Currency Runs Out: found, but not of the event.** Nothing shows the crisis itself. Two Meitar series from
   the window can illustrate it: a Tel Aviv commercial bank at work (November 1951) and the Finance Ministry's
   department board (December 1951).
-- **A Claim on Germany: not found.** Nothing from 1 to 13 March 1951 fits. The one fallback is a building, dated January
+- **A Claim on Germany: not found.** Nothing from 1 to 12 March 1951 fits. The one fallback is a building, dated January
   1952. Recommendation: keep the portrait.
 
 ## How it was done
@@ -60,10 +69,14 @@ camps, so the camp and its children are the card's setting, not a record of the 
 Seen from behind and from a distance: no one is the subject, so it is not a portrait.
 - 997008136555005171, 1273 x 1281, SHA-1 63cde352dcff5c18608a715ec32eb10c6e515fb2.
   https://commons.wikimedia.org/wiki/File:Parod_(997008136555005171).jpg
-- Suggested alt text: "Children in a ring among the tents of a transit camp in the Galilee, December 1950."
+- Suggested alt text: "Children in a ring among the tents of a transit camp in northern Israel, December 1950." (The
+  Commons page places it at Farradiyya, by Parod; it does not say "Galilee".)
 - The original is square, so a 16:9 crop keeps a band about 56% of its height. The band should hold both the ring of
   children and the tents (roughly the middle of the frame). The crop is checked on the contact sheet when the picture
   is made.
+- Against the Shobaki kindergarten frame of the earlier note: that one shows camp schooling itself, so it is the
+  closer subject, but it cannot ship until Beit Rishonim confirms the rights. This one can ship under the ruling as it
+  stands. If the Shobaki rights are confirmed, the maintainer can choose between them.
 - Suggested `sensitive: true`: the children can be recognised, and the card is about the immigrant-camp schooling
   dispute. The owner should see the picture before a shareable build carries it.
 
@@ -73,7 +86,7 @@ Not used:
 - "הצבא מגיע לסייע בבניית המעברה בחוליקת" (the army helps build the ma'abara at Huliqat), 21 frames, 24 November 1950:
   five days before the window opens.
 - "הועד למען החייל מחלק נעליים לילדי מעברה" (the Soldiers' Welfare Committee hands out shoes to ma'abara children), 9
-  frames, 25 February 1951: eleven days after the window closes.
+  frames, 25 February 1951: twelve days after the window closes.
 - "חוג תיאטרון של בי"ס תיכון" (a high-school drama club), 9 frames, February 1951: a school, but not a camp school,
   and several frames are close-ups of one girl.
 - Later frames of camp children's education (Nahal soldiers teaching children in a ma'abara near Beersheba, 7 frames,
@@ -82,7 +95,7 @@ Not used:
 ## Foreign Currency Runs Out (`forex_crisis_1951`)
 
 No frame from 19 October to 31 December 1951 shows the crisis, the wheat imports or the request to Washington. Two
-series inside the window can stand for the finance minister's problem, in the way Q-CARD-1 lets an undated "Israel
+series inside the window can stand for the finance minister's problem, in the way Q-CARD-1 ([Phase 4 plan](../../docs/superpowers/plans/2026-10-15-gdd-phase-4.md), line 177) lets an undated "Israel
 Railways" frame stand for the railway card:
 
 1. **A commercial bank at work** ("בנק מסחרי בעת העבודה"), Tel Aviv, NLI date November 1951 (the card's month), 5
@@ -112,7 +125,7 @@ Nothing in the window fits. The Meitar Collection's 170 files of March 1951 are 
 philanthropist, the Soldiers' Welfare Committee, a doctor in the Rehovot ma'abara and a Gadna march. None is about
 Germany, the Foreign Ministry or the note of 12 March. No Meitar page found has "שילומים" or "גרמניה" from 1951. Across
 Commons, the March 1951 files found that are not Meitar files are GPO photographs (photographers Fritz Cohen and Hans
-Pinn, D-numbers), which the ruling refuses. That includes the one of Moshe Sharett, which is also a portrait.
+Pinn, D-numbers), which the owner ruling refuses. That includes the one of Moshe Sharett, which is also a portrait.
 
 The only fallback found is a building, not the event:
 - "מבנה של משרד החוץ בקריה בתל אביב" (the Foreign Ministry's building in the Kirya, Tel Aviv), NLI date January 1952,
