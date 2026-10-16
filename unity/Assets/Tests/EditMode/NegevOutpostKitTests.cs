@@ -20,9 +20,9 @@ public class NegevOutpostKitTests
         KitScale.Reset();
     }
 
-    /// <summary>Revivim has one walled yard and one lookout tower, the tower in a corner of the yard; its buildings (at least
-    /// the three houses main drew, TownCensusTests.MainBuildings) all stand inside the yard, and it has no water tower. No
-    /// other game settlement has a yard or a lookout tower.</summary>
+    /// <summary>Revivim has one walled yard and one lookout tower, the tower in a corner of the yard; its four buildings (main's
+    /// floor is three, TownCensusTests.MainBuildings) stand wholly inside the yard's wall, clear of each other and of the
+    /// tower, and it has no water tower. No other game settlement has a yard or a lookout tower.</summary>
     [Test]
     public void RevivimIsAWalledLookoutWithItsTowerInACorner()
     {
@@ -44,12 +44,25 @@ public class NegevOutpostKitTests
         float cornerGap = new Vector2(yard.W * 0.5f - Mathf.Abs(tu), yard.D * 0.5f - Mathf.Abs(tv)).magnitude;
         if (cornerGap > towers[0].W) bad.Add($"the tower stands {cornerGap:0} m from the yard's nearest corner");
         var houses = mine.Where(p => p.Kind == "building").ToList();
-        if (houses.Count < TownCensusTests.MainBuildings["revivim"]) bad.Add($"{houses.Count} buildings, main drew {TownCensusTests.MainBuildings["revivim"]}");
+        Assert.AreEqual(4, houses.Count, "two living and two service buildings");
+        Assert.GreaterOrEqual(houses.Count, TownCensusTests.MainBuildings["revivim"], "main's floor");
+        // Every building inside the wall's inner face (the wall is 0.7 m thick at the house scale), on the yard's own axes.
+        float inner = 0.5f * yard.W - 0.7f * KitScale.Houses + 1f;
         foreach (var h in houses)
         {
             var (u, v) = Local(yard, h.C);
-            if (Mathf.Abs(u) > yard.W * 0.5f || Mathf.Abs(v) > yard.D * 0.5f) bad.Add($"a building outside the yard at {h.C}");
+            if (Mathf.Abs(h.Yaw - yard.Yaw) > 0.01f) bad.Add($"a building at {h.C} not square to the yard");
+            if (Mathf.Abs(u) + 0.5f * h.W > inner || Mathf.Abs(v) + 0.5f * h.D > inner) bad.Add($"a building through the wall at {h.C}");
         }
+        // No two of the buildings and the tower overlap (boxes on the yard's axes, 1 m tolerance).
+        var boxes = houses.Append(towers[0]).ToList();
+        for (int i = 0; i < boxes.Count; i++)
+            for (int j = i + 1; j < boxes.Count; j++)
+            {
+                var (ui, vi) = Local(yard, boxes[i].C); var (uj, vj) = Local(yard, boxes[j].C);
+                if (Mathf.Abs(ui - uj) < 0.5f * (boxes[i].W + boxes[j].W) - 1f && Mathf.Abs(vi - vj) < 0.5f * (boxes[i].D + boxes[j].D) - 1f)
+                    bad.Add($"{boxes[i].Kind} at {boxes[i].C} overlaps {boxes[j].Kind} at {boxes[j].C}");
+            }
         if (mine.Any(p => p.Kind == "water_tower")) bad.Add("Revivim still has a moshava's water tower");
         CollectionAssert.IsEmpty(bad);
     }

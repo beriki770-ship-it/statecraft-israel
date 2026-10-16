@@ -30,7 +30,7 @@ namespace Statecraft.Game.Map.Kits
             float yaw = GridYaw(s.Id), a = yaw * Mathf.Deg2Rad, ca = Mathf.Cos(a), sa = Mathf.Sin(a);
             Vector2 At(float u, float v) => c + new Vector2(u * ca - v * sa, u * sa + v * ca) * m;
             var stone = C(0.80f, 0.74f, 0.63f); var concrete = C(0.86f, 0.84f, 0.79f); var roof = C(0.72f, 0.70f, 0.66f);
-            // The wall: four sides, the south one (+v) broken by the gate (3 m wide, west of the middle).
+            // The wall: four sides, the +v one broken by the gate (3 m wide, on the -u side of the middle).
             float h = 0.5f * OutpostSide, t = OutpostWallT;
             var pieces = new (float u, float v, float w, float d)[]
             {
@@ -44,7 +44,7 @@ namespace Statecraft.Game.Map.Kits
                 km.Box(p.x, p.y, yaw, w * m, d * m, bottom, top, OutpostWallH * m, stone, stone, Facade.Plain, m);
             }
             Record(s.Id, "outpost_yard", c, yaw, side, side, OutpostWallH * m, stone);
-            // The lookout tower in the yard's south-east corner (+u, +v): three storeys and a parapet round its roof.
+            // The lookout tower in the yard's (+u, +v) corner: three storeys under a slightly wider cap.
             {
                 var p = At(h - 2f, h - 2f); float w = 4f * m, th = 9.5f * m;
                 var (bottom, top) = GroundSpan(p, yaw, w, w, ground, m);
@@ -52,7 +52,7 @@ namespace Statecraft.Game.Map.Kits
                 km.Box(p.x, p.y, yaw, w * 1.08f, w * 1.08f, top + th, top + th, 1f * m, stone, roof, Facade.Plain, m);
                 Record(s.Id, "lookout_tower", p, yaw, w, w, th + 1f * m, stone);
             }
-            // The living quarters along the north side (-v), the service buildings along the west (-u): one storey, flat
+            // The living quarters along the -v side, the service buildings along the -u side: one storey, flat
             // roofs, the living rooms' small windows. Inside the wall, clear of each other and of the tower.
             float inner = h - t;
             var rooms = new (float u, float v, float w, float d, bool living)[]
