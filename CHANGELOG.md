@@ -96,6 +96,10 @@ adds a line under **Unreleased**; CI's `Changelog` job checks this (see `CONTRIB
   (Q-CUT-8). Every golden moves; the cutover re-pins them once.
 
 ### Added
+- Map: Revivim, the one Negev outpost on the map, is drawn as the walled lookout it was in 1943-48 (refs #32), not as a
+  moshava's red-roofed houses round a water tower. The three lookouts were built to one plan (he.wiki "שלושת המצפים"):
+  a square yard closed by a wall, a lookout tower in its corner, the living quarters along one side and the service
+  buildings along another. `SettlementKits.Outpost.cs`; `NegevOutpostKitTests`.
 - A Settings screen, opened from a gear at the foot of the left column (refs #40, first slice). Its first option turns
   the tilt-shift blur off and on, at once; the choice is kept per browser in `/idbfs/statecraft-settings/settings.txt`
   (a fixed folder, as the autosave's), never in the sim or the save, so the goldens do not move. `?notiltshift` still
