@@ -140,7 +140,7 @@ public class KeyScrollTests
         r.Own(new WhyPresenter(r.Root, bridge, Text));
         var card = r.Own(new EventCardPresenter(r.Root, bridge, Text, null));
         var text = r.Root.Q<ScrollView>("event-scroll");
-        Shorten(text, 30f);
+        Shorten(text, 16f);
         yield return Frames(4);
         Assert.IsNotNull(card.Shown, "precondition: the card is open");
         Assert.IsFalse(card.Collapsed, "precondition: the card is not hidden");
