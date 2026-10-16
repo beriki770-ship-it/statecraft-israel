@@ -246,5 +246,12 @@ save.unreadable: "לא ניתן היה לטעון את המשחק השמור ({0
 save.reason_other: "לא ניתן היה לקרוא את הקובץ או לשחזר את המשחק"
 save.refused.older_rules: "המשחק השמור נוצר בגרסה קודמת של חוקי המשחק ואי אפשר להמשיך אותו. משחק חדש התחיל."
 save.refused.newer_version: "המשחק השמור נוצר בגרסה חדשה יותר של המשחק ואי אפשר לפתוח אותו כאן. משחק חדש התחיל."
+# save.warning.*: a save made with other content is continued, and each warning kind the sim returns
+# (GameSession.ContentChanged, ReplayDiffers) is said here, not in the sim's English (#637). For the native reviewer (#564).
+save.warning.content_changed: "המשחק השמור נוצר עם תוכן משחק אחר, ולכן ייתכן שהוא לא ימשיך בדיוק כפי שנשמר."
+save.warning.replay_differs: "המשחק השמור נטען, אבל הוא שונה מהמשחק כפי שנשמר."
 boot.failed: "לא ניתן היה להפעיל את Statecraft: {0}. יש לטעון את הדף מחדש."
+# boot.reason_other fills boot.failed's {0} instead of the exception's English text, which goes to the log (#637).
+# For the native reviewer (#564).
+boot.reason_other: "קובצי המשחק לא נטענו"
 save.write_failed: "לא ניתן היה לשמור את המשחק."

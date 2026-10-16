@@ -188,6 +188,32 @@ public class SaveUiTests
         Assert.AreEqual(1, System.Text.RegularExpressions.Regex.Matches(en, "new game").Count, "said once (N4)");
     }
 
+    /// <summary>#637: a save that loads with warnings (made with other content; and then a replay that ends elsewhere) is
+    /// continued, and each warning kind is said in the player's language, English and Hebrew, never the sim's English. The
+    /// sim returns the kind; the kind goes to the log.</summary>
+    [TestCase("strings.en.yaml", "content_changed")]
+    [TestCase("strings.he.yaml", "content_changed")]
+    [TestCase("strings.en.yaml", "content_changed", "replay_differs")]
+    [TestCase("strings.he.yaml", "content_changed", "replay_differs")]
+    public void ALoadWarningIsSaidInThePlayersLanguage(string file, params string[] kinds)
+    {
+        var text = UiText.Parse(AssetDatabase.LoadAssetAtPath<TextAsset>(UiPaths.Folder + "/" + file).text, file);
+        var played = GameSession.New(C, 9, Mode.Historical);
+        played.Step(new Command[] { new SetMobilization(1.0) });
+        var save = played.Save.Write().Replace("content " + C.Hash, "content " + new string('0', 64));
+        if (kinds.Length > 1) save = save.Replace("seed 9", "seed 10");   // other content, so a replay that ends elsewhere only warns
+        var store = TempStore();
+        store.WriteAutosave(save);
+        var notes = new List<string>();
+        foreach (var kind in kinds) LogAssert.Expect(LogType.Warning, "Autosave loaded with a warning: " + kind);
+        var session = GameStart.Begin(C, store, () => 6UL, notes, text, out var resumed);
+        Assert.IsTrue(resumed);
+        Assert.AreEqual(1, session.State.Turn);
+        var expected = new List<string>();
+        foreach (var kind in kinds) expected.Add(text.Has("save.warning." + kind) ? text["save.warning." + kind] : "<no string save.warning." + kind + ">");
+        Assert.AreEqual(expected.ToArray(), notes.ToArray(), file);
+    }
+
     [Test]
     public void AReadThatFailsAndASetAsideThatFailsNeverStopTheStart()
     {

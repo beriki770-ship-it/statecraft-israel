@@ -656,6 +656,11 @@ adds a line under **Unreleased**; CI's `Changelog` job checks this (see `CONTRIB
   It decodes to the same bytes, so the terrain is unchanged (#44).
 
 ### Fixed
+- A save that loads with warnings (made with other game content; then a replay that differs) says each warning in the
+  player's language (refs #637): `GameSession.Load` returns the kind (`content_changed`, `replay_differs`) instead of
+  English text, the UI shows `save.warning.<kind>` from both strings files, and the kind goes to the log. A boot failure
+  no longer shows the exception's English text either: the loading line gives the short reason `boot.reason_other`, and
+  the full reason stays in the log. The Hebrew waits for the native reviewer (#564). No golden moves.
 - Map labels (refs #599): close over Jaffa's harbour the "Tel Aviv" and "Jaffa" pills no longer read swapped. Every pill
   is now nearer its own settlement's marker than any other visible marker (by more than 4 px), in every placing pass,
   since two sprawling kits' screen rectangles overlap and a spot against one's edge could sit by the other town. A city

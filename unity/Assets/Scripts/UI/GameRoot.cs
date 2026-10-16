@@ -89,13 +89,14 @@ namespace Statecraft.Game.UI
             if ((boot == null || boot.Error == null) && Bridge == null) ShowLoading();
         }
 
-        /// <summary>A boot failure replaces the loading line with the reason; the loading state stays, so no half-built panel
-        /// shows (M3 final review I5).</summary>
+        /// <summary>A boot failure replaces the loading line with a short reason in the player's language; the loading state
+        /// stays, so no half-built panel shows (M3 final review I5). <paramref name="reason"/> is an exception's English text
+        /// (a file path, a content error): it stays in GameBoot.Error and the log, never on screen (#637).</summary>
         internal void OnBootFailed(string reason)
         {
             var text = ShowLoading();
             var line = text == null ? null : document.rootVisualElement.Q<Label>("loading");
-            if (line != null) Say(line, text!.Format("boot.failed", GameBoot.ForPlayer(reason).TrimEnd('.')), text["ui.lang"] == UiLanguage.Hebrew);
+            if (line != null) Say(line, text!.Format("boot.failed", text["boot.reason_other"]), text["ui.lang"] == UiLanguage.Hebrew);
         }
 
         /// <summary>Puts the loading line in the UI's language (boot.loading, #193). In Hebrew the root also gets its mark

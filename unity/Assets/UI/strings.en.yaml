@@ -255,5 +255,8 @@ save.unreadable: "Your saved game could not be loaded ({0}). A new game has star
 save.reason_other: "the file could not be read or replayed"
 save.refused.older_rules: "Your saved game was made with an earlier version of the game's rules and cannot be continued. A new game has started."
 save.refused.newer_version: "Your saved game was made with a newer version of the game and cannot be opened here. A new game has started."
+save.warning.content_changed: "Your saved game was made with different game content, so it may not continue exactly as it was saved."
+save.warning.replay_differs: "Your saved game was loaded, but it differs from the game as it was saved."
 boot.failed: "Statecraft could not start: {0}. Reload the page."
+boot.reason_other: "the game files did not load"
 save.write_failed: "Your game could not be saved."

@@ -343,7 +343,7 @@ public class HebrewUiTests
             _ = boot.BootAsync(() => throw new IOException("Could not find file '/Users/someone/Statecraft Israel.app/Contents/Resources/Data/StreamingAssets/map/heightmap.json'."));
             if (failFirst) game.Started();
             var t = language == UiLanguage.Hebrew ? He : En;
-            Assert.AreEqual(t.Format("boot.failed", "Could not find file 'heightmap.json'"), Ui.Q<Label>("loading").text, $"{language}, {order}");
+            Assert.AreEqual(t.Format("boot.failed", t["boot.reason_other"]), Ui.Q<Label>("loading").text, $"{language}, {order}");   // #637
             Assert.AreEqual(language == UiLanguage.Hebrew, Ui.Q("root").ClassListContains(UiLanguage.HebrewClass), $"{language}, {order}: the face");
         }
     }
