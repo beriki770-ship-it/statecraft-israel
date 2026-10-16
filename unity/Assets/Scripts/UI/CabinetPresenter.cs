@@ -289,7 +289,20 @@ namespace Statecraft.Game.UI
             if (key == chipsFor) return;
             chipsFor = key;
             chips.Clear();
-            foreach (var b in blocks) chips.Add(Chip("party-" + b.Party, b.Colour, text.Format("cabinet.party_seats", c.Parties.First(p => p.Id == b.Party).Name, b.Seats), false));
+            // Two groups, each opened by its side's name: the swatch's blue or grey alone (1.72:1 apart) does not say which
+            // side a party is on (#41 M5, WCAG 1.4.1). Two words in all, not one per chip, so the legend barely grows.
+            foreach (var coalition in new[] { true, false })
+            {
+                if (!blocks.Any(b => b.Coalition == coalition)) continue;
+                var group = new VisualElement { pickingMode = PickingMode.Ignore };
+                group.AddToClassList("party-group");
+                var heading = new Label(text[coalition ? "cabinet.coalition_group" : "cabinet.opposition_group"]) { pickingMode = PickingMode.Ignore };
+                heading.AddToClassList("party-group-heading");
+                group.Add(heading);
+                foreach (var b in blocks.Where(b => b.Coalition == coalition))
+                    group.Add(Chip("party-" + b.Party, b.Colour, text.Format("cabinet.party_seats", c.Parties.First(p => p.Id == b.Party).Name, b.Seats), false));
+                chips.Add(group);
+            }
             var unrecorded = leg.Size - blocks.Sum(b => b.Seats);
             if (unrecorded > 0) chips.Add(Chip("party-unrecorded", Color.clear, text.Format("cabinet.party_seats", text["cabinet.unrecorded"], unrecorded), true));
         }

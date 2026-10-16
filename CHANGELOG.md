@@ -720,6 +720,9 @@ adds a line under **Unreleased**; CI's `Changelog` job checks this (see `CONTRIB
 - Keyboard focus that lands on something scrolled out of view, such as a Cabinet card below the first row or a
   candidate far down the list, now scrolls its list to it (accessibility audit H1, refs #41). Focus that follows a mouse
   press leaves the list where it is. Presentation only: no golden moves.
+- The Cabinet's party chips say which side each party is on, not only by the swatch's blue or grey: they sit in two
+  groups headed "Coalition" and "Opposition", קואליציה and אופוזיציה in Hebrew (accessibility audit M5, refs #41). The
+  Hebrew waits for the native reviewer (#564). Presentation only: no golden moves.
 - Wheel zoom in the web build: one small wheel delta, such as a touchpad's half pixel, made every later frame zoom 27%,
   since Unity's player takes the smallest delta it has seen as one notch. The camera now counts the browser's wheel
   events itself (`WheelInput.jslib`): a touchpad's small pixel deltas zoom by how far the fingers move (100 px to a

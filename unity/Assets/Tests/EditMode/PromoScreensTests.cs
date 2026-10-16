@@ -85,6 +85,35 @@ public class PromoScreensTests
         }
     }
 
+    /// <summary>#41 M5 (WCAG 1.4.1): whether a party is in the coalition is readable without the swatch's colour. Each
+    /// party's chip sits in a group whose first child is a heading naming its side, "Coalition" or "Opposition" (Hebrew
+    /// קואליציה, אופוזיציה), the side the half circle seats it on; in each legislature, English and Hebrew.</summary>
+    [Test]
+    public void EachPartyChipSaysWhetherThePartyIsInTheCoalition()
+    {
+        var he = UiText.Parse(AssetDatabase.LoadAssetAtPath<TextAsset>(UiPaths.StringsHebrew).text, "strings.he.yaml");
+        foreach (var (text, coalition, opposition) in new[] { (Text, "Coalition", "Opposition"), (he, "קואליציה", "אופוזיציה") })
+            foreach (var date in OneDatePerLegislature())
+            {
+                var g = At(date);
+                using var ui = new UiTestKit();
+                var cabinet = new CabinetPresenter(ui.Root, new SimBridge(g, text), text, null);
+                var leg = Offices.Legislature(C, g.State.Date)!;
+                var blocks = CabinetPresenter.Blocks(C, leg, Offices.Government(C, g.State.Date), g.State.Date);
+                Assert.IsTrue(blocks.Any(b => b.Coalition) && blocks.Any(b => !b.Coalition), $"{date:yyyy-MM-dd}: precondition, both sides seated");
+                foreach (var b in blocks)
+                {
+                    var where = $"{text["ui.lang"]} {g.State.Date:yyyy-MM-dd} {b.Party}";
+                    var group = ui.Q<VisualElement>("party-" + b.Party).parent;
+                    Assert.IsTrue(group.ClassListContains("party-group"), where + ": the chip sits in a labelled group");
+                    var heading = group.Children().First() as Label;
+                    Assert.IsNotNull(heading, where + ": the group opens with its heading");
+                    Assert.AreEqual(b.Coalition ? coalition : opposition, heading!.text, where);
+                }
+                cabinet.Dispose();
+            }
+    }
+
     /// <summary>Review I1: the majority line runs, row by row, between the last seat of a majority and the next, clear of
     /// every dot, on the 37-seat Provisional State Council (promo 04) and the 120-seat Knesset; the layout keeps dots apart.</summary>
     [Test]

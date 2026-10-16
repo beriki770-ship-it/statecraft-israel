@@ -139,6 +139,10 @@ cabinet.opposition: "Opposition: {0} {1}"
 cabinet.majority: "Majority: {0} {1}"
 cabinet.largest: "Largest party: {0}, {1} {2}"
 cabinet.party_seats: "{0} {1}"
+# The headings of the two groups of party chips under the half circle (CabinetPresenter.RenderHouse), so a chip's
+# side is read, not only seen in its swatch's colour (#41 M5).
+cabinet.coalition_group: "Coalition"
+cabinet.opposition_group: "Opposition"
 cabinet.unrecorded: "Not recorded"
 cabinet.members_unit: "members"
 # The unit of a seat count above ({3}, {1} or {2}), by the body (CabinetPresenter.SeatUnit): an elected body's
