@@ -36,7 +36,8 @@ namespace Statecraft.Game
         }
 
         /// <summary>Sets <paramref name="key"/>'s line, keeping every other line. Throws on a failed write (the caller logs it:
-        /// the choice still holds for this session).</summary>
+        /// the choice still holds for this session). Not written through a .tmp as the autosave is: a cut-off file only
+        /// costs the options their defaults (Read fails soft), never a game.</summary>
         public void Write(string key, string value)
         {
             var lines = new List<string>();

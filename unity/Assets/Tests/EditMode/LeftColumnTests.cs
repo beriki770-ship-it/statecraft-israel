@@ -16,7 +16,7 @@ using UnityEngine.UIElements;
 /// <summary>HUD round 2, part 2 (#398): promo/final/03's left icon column. It holds the four screens' buttons, moved from
 /// the top bar (no new action): Cabinet, Budget, Defence, Why?. They are round icons with no caption; each one's name is its
 /// text (clear) and its tooltip, which HoverTip shows beside it. The Hebrew UI mirrors rows, not the screen's corners (#550),
-/// so the column stays at the left. Tab still runs Cabinet, Budget, Defence, Why?, New Game, End Turn.</summary>
+/// so the column stays at the left. Tab still runs Cabinet, Budget, Defence, Why?, then Settings (#40), New Game, End Turn.</summary>
 public class LeftColumnTests
 {
     static readonly Content C = ContentLoader.Load(Paths.Content);
@@ -97,7 +97,7 @@ public class LeftColumnTests
         }
     }
 
-    /// <summary>The column holds the four screens, in the top bar's old order, each a round icon whose name is its text and
+    /// <summary>The column holds the four screens, in the top bar's old order, then Settings (#40), each a round icon whose name is its text and
     /// its tooltip in both languages; the top bar keeps New Game and End Turn only. No new button: the screens are ScreenNav's.</summary>
     [Test]
     public void TheColumnHoldsTheScreensAsRoundIconsNamedInBothLanguages()
@@ -202,7 +202,7 @@ public class LeftColumnTests
     static Rect Hull(VisualElement root) => root.Q(Column).Query<Button>().ToList().Select(b => b.worldBound)
         .Aggregate((a, b) => Rect.MinMaxRect(Mathf.Min(a.xMin, b.xMin), Mathf.Min(a.yMin, b.yMin), Mathf.Max(a.xMax, b.xMax), Mathf.Max(a.yMax, b.yMax)));
 
-    /// <summary>The audit's focus order is kept: Cabinet, Budget, Defence, Why?, New Game, End Turn (then the minimap's
+    /// <summary>The audit's focus order is kept: Cabinet, Budget, Defence, Why?, Settings, New Game, End Turn (then the minimap's
     /// buttons, out of reach under the open card). The column is out of Tab's reach under the start screen and an outcome clip, as the top bar is, and usable
     /// under the decision card, as the top bar is.</summary>
     [UnityTest]

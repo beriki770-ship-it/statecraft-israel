@@ -224,7 +224,9 @@ namespace Statecraft.Game.UI
             Own(new DefencePresenter(root, bridge, text, portraits));
             Own(new BudgetPresenter(root, bridge, text));
             Own(new WhyPresenter(root, bridge, text));
-            Own(new SettingsPresenter(root, text, SettingsStore.ForPlatform()));   // presentation only (#40): never the sim or the save
+            // Presentation only (#40): never the sim or the save. Outside Play mode (EditMode tests) no file: the developer's
+            // own settings must not leak into a test. Each Begin (New Game too) reads the file again.
+            Own(new SettingsPresenter(root, text, Application.isPlaying ? SettingsStore.ForPlatform() : null));
             Own(new CabinetPresenter(root, bridge, text, portraits));
             var names = map.SettlementsFor(inputs.Map.SettlementsYaml).ToDictionary(s => s.Id, s => s.Name);   // the map's parse (issue #321)
             // The 1948 sub-districts, outlined on the map, and each front's 1949 armistice line from its agreement's date

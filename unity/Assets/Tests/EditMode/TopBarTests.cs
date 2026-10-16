@@ -417,7 +417,7 @@ public class TopBarTests
         Assert.IsEmpty(problems, string.Join("\n", problems));
     }
 
-    /// <summary>The audit's Tab order is kept: Cabinet, Budget, Defence, Why? (the left column), New Game, End Turn, then the
+    /// <summary>The audit's Tab order is kept: Cabinet, Budget, Defence, Why?, Settings (the left column), New Game, End Turn, then the
     /// minimap's buttons.</summary>
     [UnityTest]
     public IEnumerator TheTabOrderIsKept()

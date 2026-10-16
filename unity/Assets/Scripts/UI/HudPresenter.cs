@@ -95,7 +95,7 @@ namespace Statecraft.Game.UI
         readonly IVisualElementScheduledItem floorCheck;
         float smallTextSize = SmallTextPx;
 
-        /// <summary>The left icon column (promo 03): the four screens' buttons.</summary>
+        /// <summary>The left icon column (promo 03): the screens' buttons (ScreenNav.Screens).</summary>
         public const string RailName = "left-column";
         readonly HoverTip? railTips, barTips;
 
