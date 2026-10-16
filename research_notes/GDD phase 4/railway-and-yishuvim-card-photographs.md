@@ -2,7 +2,7 @@
 
 Status: research only, for the owner's choice (Q-CARD-1). Nothing here is in `content/` or `unity/`. Refs #791 (GDD
 Phase 4 PR 7, Task 7.0) and #782 (the Phase 4 owner answers). Companion to
-[burma-road-photographs.md](burma-road-photographs.md) (#835), which covers the third card.
+`burma-road-photographs.md` (#835, not yet on main), which covers the third card.
 
 Q-CARD-1's recommended answer in the [Phase 4 plan](../../docs/superpowers/plans/2026-10-15-gdd-phase-4.md) (line 177)
 says: "Railway: a Boris Carmi "Israel Railways" frame (Meitar Collection, NLI, 1949, CC BY 4.0), with the alt text
