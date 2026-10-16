@@ -20,14 +20,14 @@ How it was done:
 - Read on 17 October 2026 through the Commons API: full-text searches of file pages and, for every hit, its page
   source (licence template, photographer, `{{taken on}}` date, NLI title, VRTS ticket) and the image info (size, SHA-1).
 - Railway, inside the Meitar Collection: `רכבת`, `"Israel Railways"`, `קטר`, `train`, `"תחנת הרכבת"`, `"ראש העין"`,
-  `מסילה`, `"תל אביב צפון"`, `"חידוש קו רכבת"` (181 distinct files). Across Commons: `insource:"1949-09-20"` (135
+  `מסילה`, `"תל אביב צפון"`, `"חידוש קו רכבת"`, then `"רכבת ישראל"` and `insource:"1950-02" רכבת` to recount the series below (over 181 distinct files). Across Commons: `insource:"1949-09-20"` (135
   files) and every file in Category:History of Israel Railways, Category:Bnei Brak train station (the 1949 Tel Aviv
   North station), Category:Yarkon Railway and Category:East Railway, one level down (809 files).
 - Yishuvim, inside the Meitar Collection: `גילת`, `"בית קמה"`, `רעים`, `Gilat`, `"Beit Kama"`, `"Re'im"`, `מפלסים`
   (62 files).
 - The rule is the event-photograph rule in docs/CONTENT_POLICY.md §4 and docs/event-images.md: public domain or CC0
   with a valid US basis, or CC BY 4.0 with a credit line; GPO, PD-Israel-only and share-alike files are refused.
-- The NLI record pages (nli.org.il) return 403 from the machine I worked on, so NLI titles and dates are as copied onto
+- The NLI record pages (nli.org.il) return 403 from the machine used for the search, so NLI titles and dates are as copied onto
   the Commons pages. A full-text search can miss a frame whose page has none of the words above, so "not found" means
   "not found by these searches".
 
@@ -38,9 +38,9 @@ Tel Aviv North. What the Meitar Collection does have from the MVP years, all CC 
 
 | Series | NLI date | NLI title (as on Commons) | Why it is not the card's event |
 |---|---|---|---|
-| Boris Carmi, 17 frames | 1949 | "רכבת ישראל." (Israel Railways) | The recommended series. No place or day. |
+| Boris Carmi, 20 frames | 1949 | "רכבת ישראל." (Israel Railways) | The recommended series. No place or day. |
 | Benno Rothenberg, 45 frames | "1947 or 1949" (`-\|1947\|1949`) | "חידוש קו רכבת לירושלים לראשונה לאחר מלחמת העצמאות ובפעם הראשונה כרכבת ישראלית" (the Jerusalem line renewed for the first time after the war, the first time as an Israeli railway) | The Jerusalem line, not Haifa to Tel Aviv. The NLI date is open. |
-| Boris Carmi, 9 frames | February 1950 | "שר התחבורה דוד רמז חונך את קו הרכבת הסדיר לירושלים" (the transport minister David Remez opens the regular line to Jerusalem) and the same ceremony | The Jerusalem line, after the card's date. |
+| Boris Carmi, 10 frames | February 1950 | "שר התחבורה דוד רמז חונך את קו הרכבת הסדיר לירושלים" (the transport minister David Remez opens the regular line to Jerusalem; 5 frames), and 5 more of the same ceremony and "the first train to Jerusalem" under shorter titles | The Jerusalem line, after the card's date. |
 | Boris Carmi, 3 frames | 1950 | "פורטרט של יו"ר הכנסת הראשון, יוסף שפרינצק בעת טקס של רכבת ישראל" (a portrait of the first Knesset Speaker, Yosef Sprinzak, at an Israel Railways ceremony) | A portrait of a real person, so PD or CC0 only under the ruling; the ceremony is not named. |
 | Boris Carmi, 5 frames | 1951 | Level crossings in Tel Aviv, a passing train stopping the traffic | After the card's date; a crossing, not the line's opening. |
 
