@@ -1,6 +1,7 @@
 #nullable enable
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using NUnit.Framework;
 using Statecraft.Game;
 using Statecraft.Game.UI;
@@ -147,6 +148,27 @@ public class SaveUiTests
     {
         public UnknownCodeStore(string dir) : base(dir) { }
         public override string? ReadAutosave() => throw new SaveException(0, "made by a future version", "a_code_with_no_string");
+    }
+
+    /// <summary>#637: a load warning kind with no string (a kind added to the sim before its strings) is only logged. It
+    /// must not throw inside Begin, which would set a loadable save aside as unreadable.</summary>
+    [Test]
+    public void ALoadWarningKindWithNoStringIsOnlyLogged()
+    {
+        var yaml = AssetDatabase.LoadAssetAtPath<TextAsset>(UiPaths.Strings).text;
+        var key = "save.warning." + GameSession.ContentChanged + ":";
+        StringAssert.Contains("\n" + key, yaml);
+        var text = UiText.Parse(string.Join("\n", yaml.Split('\n').Where(l => !l.StartsWith(key))));
+        Assert.IsFalse(text.Has("save.warning." + GameSession.ContentChanged));
+        var store = TempStore();
+        store.WriteAutosave(GameSession.New(C, 9, Mode.Historical).Save.Write().Replace("content " + C.Hash, "content " + new string('0', 64)));
+        var notes = new List<string>();
+        LogAssert.Expect(LogType.Warning, "Autosave loaded with a warning: " + GameSession.ContentChanged);
+        GameStart.Begin(C, store, () => 6UL, notes, text, out var resumed);
+        Assert.IsTrue(resumed, "the save is continued, not set aside");
+        Assert.IsEmpty(notes);
+        Assert.IsTrue(File.Exists(store.AutosavePath));
+        Assert.IsFalse(File.Exists(Path.Combine(store.Directory, "autosave.bad.txt")));
     }
 
     /// <summary>The start never blocks: a refusal code with no string falls back to the one short localised reason (#631),
@@ -396,9 +418,9 @@ public class SaveUiTests
         var text = GameSession.New(C, 9, Mode.Historical).Save.Write().Replace("content " + C.Hash, "content " + new string('0', C.Hash.Length));
         store.WriteAutosave(text);
         var notes = new List<string>();
+        LogAssert.Expect(LogType.Warning, "Autosave loaded with a warning: " + GameSession.ContentChanged);
         var session = GameStart.Begin(C, store, () => 1UL, notes, Text);
-        Assert.AreEqual(1, notes.Count);
-        StringAssert.Contains("different game content", notes[0]);
+        Assert.AreEqual(new[] { Text["save.warning." + GameSession.ContentChanged] }, notes.ToArray());   // #637
         Assert.IsTrue(File.Exists(store.AutosavePath), "a warning is not a failure: the file is kept until the next turn's autosave replaces it");
         Assert.AreEqual(0, session.State.Turn);
     }

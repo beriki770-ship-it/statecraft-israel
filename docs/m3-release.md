@@ -326,8 +326,8 @@ Published at: (owner fills in)
   6. Record the result below. This plan is not a completed itch.io test or a Firefox/Safari/Windows runtime check.
 
 **Separate changed-content replay check:** after the unchanged-content control, a build with intentional content changes
-may show "This save was made with different game content; the replayed game may differ." Record that warning and both
-builds' git commits. Matching date/turn in this case is not evidence of exact state preservation, and it does not
+may show "Your saved game was made with different game content, so it may not continue exactly as it was saved."
+Record that warning and both builds' git commits. Matching date/turn in this case is not evidence of exact state preservation, and it does not
 replace the unchanged-content persistence control above. A changed state hash may be a replay effect rather than a storage failure.
 
 Result: not run on itch.io (owner step).
