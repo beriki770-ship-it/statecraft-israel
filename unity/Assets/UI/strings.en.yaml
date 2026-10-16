@@ -1,7 +1,8 @@
 # UI strings (English). Code looks strings up by key (Statecraft.Game.UI.UiText); placeholders are string.Format
 # arguments ({0}, {1}) formatted with the invariant culture. Static labels live in the UXML files.
-# Most dates arrive already formatted by Statecraft.Sim.PlayerText ("15 May 1948"). The map's front-line date is the
-# exception: Control1948.LineDateText builds it from the date.* strings below, so each language orders and names it.
+# Most dates arrive already formatted by Statecraft.Sim.PlayerText ("15 May 1948"). The map's front-line date, the top
+# bar's date, and the Budget, Why? and info panel dates are the exception: Control1948.DateText / LineDateText build
+# them from the date.* strings below, so each language orders and names them (#687, #701).
 # Money arrives formatted by PlayerText.Money / MoneyChange, its currency from content (model.yaml money): "IL 18.6m",
 # "$41.5m", "+IL 1.2m". Shares and 0..1 indicators arrive on the 0-100 scale (PlayerText.Scale / Percent) and show "%".
 hud.turn: "Turn {0}"

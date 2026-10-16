@@ -445,8 +445,12 @@ public class HebrewUiTests
             }
             Assert.LessOrEqual(list.contentContainer.layout.width, room + 0.5f, $"{language} {width}: the rows scroll sideways");
             // The control: without the wrapping class the long Hebrew row is wider than the screen at 1920 (so this test can fail).
+            // Its own text no longer is since its date turned Hebrew (#701, "10 במרץ 1949" is shorter than "10 March 1949"),
+            // so the control triples the longest office name: the class, not one string's width, is what is checked.
             if (language == UiLanguage.Hebrew && width == 1920)
             {
+                var longest = (Label)rows.Select(r => r[0]).OrderByDescending(x => ((Label)x).text.Length).First();
+                longest.text = string.Join(" ", Enumerable.Repeat(longest.text, 3));
                 foreach (var row in rows) row[0].RemoveFromClassList("budget-office");
                 for (int i = 0; i < 4; i++) yield return null;
                 Assert.IsTrue(rows.Any(r => r.layout.width > room + 0.5f || r.Children().Any(x => x.layout.xMin < -0.5f || x.layout.xMax > r.layout.width + 0.5f)),

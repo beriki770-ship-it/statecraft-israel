@@ -1,7 +1,8 @@
 # UI strings (Hebrew, #12). GameRoot loads them in place of strings.en.yaml only when Hebrew is asked for by hand
 # ("?lang=he" on the web, "-lang he" on the desktop; UiLanguage, #193); there is no visible switch yet.
 # Keep logical Hebrew order, never reverse strings. Exact string.Format tokens match strings.en.yaml;
-# dates, money, names and content still arrive from the current English content/PlayerText paths.
+# money, names, content and most dates still arrive from the current English content/PlayerText paths; the map's line
+# date, the top bar's date and the Budget, Why? and info panel dates come from the date.* strings (#687, #701).
 hud.turn: "תור {0}"
 hud.date: "{0}"
 hud.attention: "תשומת לב {0:0.0} מתוך {1:0.0}"
@@ -228,7 +229,8 @@ minimap.overview: "התרחקות מרבית"
 minimap.labels: "הצגה או הסתרה של שמות היישובים"
 minimap.borders: "הצגה או הסתרה של גבולות האזורים"
 ui.lang: "he"
-info.built: "{0} נבנה כאן בשנת {1}"
+# #701: {1} is a month and a year ("אוגוסט 1950"), so "ב{1}" (באוגוסט 1950), not "בשנת {1}". For the native reviewer (#564).
+info.built: "{0} נבנה כאן ב{1}"
 info.queued: "ניתנה פקודה: {0}, בסיום התור"
 info.build_camp: "הקמת מעברה ({0})"
 info.build_housing: "בניית דיור ({0})"

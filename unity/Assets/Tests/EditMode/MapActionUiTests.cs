@@ -84,6 +84,23 @@ public class MapActionUiTests
         Assert.AreEqual("A transit camp built here in August 1950", ui.Q<Label>("info-placement").text);
     }
 
+    /// <summary>#701: in the Hebrew UI the build date names its month in Hebrew (date.month_year), not "August 1950".</summary>
+    [Test]
+    public void InHebrewTheBuildDateIsAHebrewMonth()
+    {
+        var he = UiText.Parse(AssetDatabase.LoadAssetAtPath<TextAsset>(UiPaths.StringsHebrew).text, "strings.he.yaml");
+        using var ui = new UiTestKit();
+        var g = GameSession.New(C, GoldenRun.Seed, Mode.Historical);
+        while (g.State.Date < new DateTime(1950, 8, 1)) g.Step(HistoricalAI.Commands(C, g.State));
+        var bridge = new SimBridge(g, he);
+        var info = new InfoPanelPresenter(ui.Root, bridge, he, Towns.ToDictionary(t => t.Id, t => t.Name));
+        var tlv = C.SettlementHexes.Single(s => s.Id == "tel_aviv");
+        info.Show(tlv.Q, tlv.R);
+        ui.Press("build-camp");
+        bridge.EndTurn();
+        StringAssert.EndsWith("נבנה כאן באוגוסט 1950", ui.Q<Label>("info-placement").text);
+    }
+
     /// <summary>The minimap's painted relief (tools/minimap_bake.py) is north up over the hex grid's bounds: sea off Tel Aviv
     /// and in the Gulf of Aqaba, land in the hills and the Negev. Read from the PNG itself (the imported texture is not
     /// readable on the CPU).</summary>

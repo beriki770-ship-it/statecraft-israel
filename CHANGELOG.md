@@ -8,6 +8,10 @@ adds a line under **Unreleased**; CI's `Changelog` job checks this (see `CONTRIB
 ## [Unreleased]
 
 ### Fixed
+- In the Hebrew UI the Budget's "no ministry until" date, the Why? screen's turn span and the info panel's build date
+  name their months in Hebrew ("מ־15 במאי 1948 עד 15 ביוני 1948", "באוגוסט 1950") through the `date.*` strings, as
+  the top bar does since #696 (refs #701). English is unchanged. `info.built` in Hebrew now says "ב{1}" instead of
+  "בשנת {1}", since its value is a month and a year.
 - Player builds work again (refs #680). Since #680 every `Build.*` failed with "no CRC for the bundle", because Unity
   reads a bundle's CRC from its `.manifest` and the collection's bundles were copied into StreamingAssets without them.
   The checks file is now written in the bundle cache and copied beside the shipped bundles.
