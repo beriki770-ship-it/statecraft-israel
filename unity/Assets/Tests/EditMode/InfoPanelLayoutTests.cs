@@ -231,6 +231,25 @@ public class InfoPanelLayoutTests
         }
     }
 
+    /// <summary>#204 drift guard: the note says "water hex" because a town's own hex (TownHex) differs from its drawn hex
+    /// only where hexgrid.settlement_hex moved it off a water hex. Every such town's own hex is on the map and not land, and
+    /// there is at least one (Tiberias), so the guard cannot pass on an empty list.</summary>
+    [Test]
+    public void EveryTownDrawnOffItsOwnHexLiesInWater()
+    {
+        var townHex = InfoPanelPresenter.TownHex(SettlementPlacer.Parse(MapFile(SettlementPlacer.DefaultFileName)),
+            JsonUtility.FromJson<HexFile>(MapFile("hexes.json")));
+        var moved = C.SettlementHexes.Where(s => townHex(s.Id) != (s.Q, s.R)).ToList();
+        CollectionAssert.Contains(moved.Select(s => s.Id).ToList(), "tiberias", "Tiberias is drawn off its own (lake) hex");
+        foreach (var s in moved)
+        {
+            var (q, r) = townHex(s.Id);
+            var own = C.HexAt(q, r);
+            Assert.IsNotNull(own, $"{s.Id}: its own hex ({q}, {r}) is on the map");
+            Assert.IsFalse(own!.Land, $"{s.Id}: drawn on ({s.Q}, {s.R}) but its own hex ({q}, {r}) is land, so the water-hex note would be wrong");
+        }
+    }
+
     /// <summary>#401's DPR-2 p95 rise was the filigree drawn as Painter2D curves. It is now one small code-made texture per
     /// variant, made once and shared by every frame and every corner: the same instance on every call, with the scroll
     /// and leaf in it (some pixels covered, most clear), and the side scroll only in the tall variant.</summary>
