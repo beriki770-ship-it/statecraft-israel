@@ -719,7 +719,7 @@ public class GameSceneTests
             for (int i = 0; i < 5; i++) yield return null;
             var ui = doc.rootVisualElement;
             // #637: the player reads a short localised reason; the content error stays in Error and the log.
-            Assert.AreEqual("Statecraft could not start: the game files did not load. Reload the page.", ui.Q<Label>("loading").text);
+            Assert.AreEqual("Statecraft could not start: its files failed to load. Reload the page.", ui.Q<Label>("loading").text);
             Assert.AreEqual(DisplayStyle.Flex, ui.Q<Label>("loading").resolvedStyle.display);
             Assert.IsTrue(ui.Q("root").ClassListContains("loading"), "the panels stay hidden");
             Assert.AreEqual(Visibility.Hidden, ui.Q("info-panel").resolvedStyle.visibility);
@@ -759,7 +759,7 @@ public class GameSceneTests
             _ = boot.BootAsync(() => throw new IOException("Could not find file '/Users/someone/Statecraft Israel.app/Contents/Resources/Data/StreamingAssets/map/heightmap.json'."));
             for (int i = 0; i < 3; i++) yield return null;
             var line = doc.rootVisualElement.Q<Label>("loading").text;
-            Assert.AreEqual("Statecraft could not start: the game files did not load. Reload the page.", line);   // #637: no exception text
+            Assert.AreEqual("Statecraft could not start: its files failed to load. Reload the page.", line);   // #637: no exception text
             StringAssert.DoesNotContain("/Users/", line);
         }
         finally
