@@ -71,7 +71,7 @@ public class KibbutzKitTests
         var line = $"KIBBUTZ kibbutzim={kibbutzim} halls={built.KibbutzHalls} sheds={built.FarmSheds}";
         TestContext.WriteLine(line); Debug.Log(line);
         Assert.LessOrEqual(built.KibbutzHalls, kibbutzim, "one dining hall per kibbutz at most");
-        Assert.GreaterOrEqual(built.KibbutzHalls, kibbutzim - 2, "nearly every kibbutz builds its dining hall");
-        Assert.GreaterOrEqual(built.FarmSheds, kibbutzim / 2, "the farm yards hold sheds");
+        Assert.GreaterOrEqual(built.KibbutzHalls, kibbutzim - 2, "nearly every kibbutz builds its dining hall (6 of 8 measured)");
+        Assert.GreaterOrEqual(built.FarmSheds, kibbutzim, "the farm yards hold sheds (9 measured for the 8 kibbutzim)");
     }
 }

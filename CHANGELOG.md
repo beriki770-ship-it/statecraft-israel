@@ -17,8 +17,8 @@ adds a line under **Unreleased**; CI's `Changelog` job checks this (see `CONTRIB
   of the 1948 localities get a dining hall near the heart, opposite the water tower (white, flat roof, a raised
   clerestory), long one-storey members' houses under red tiles, and grey-roofed farm sheds on one side, the farm yard.
   The plan follows Kauffmann's kibbutz layout: the dining hall at the centre, the farm kept apart from the houses
-  (he.wiki "גן הנוף הקיבוצי"). Nahalal's moshav ring and the moshavot are unchanged, and the kibbutz plots are where they
-  were. Yad Mordechai has no hall: no free ground is left near its heart, and a hall pushed to the edge
+  (he.wiki "גן הנוף הקיבוצי"). Nahalal's moshav ring and the moshavot are unchanged (their renders are pixel-identical),
+  and no other place moves; inside a kibbutz the hall's lot can take a plot. Yad Mordechai has no hall: no free ground is left near its heart, and a hall pushed to the edge
   would take its houses.
 - The top bar's Money figure is labelled net: "Money (net)", "כסף (נטו)" in Hebrew, and its tooltip says the same (refs
   #681; owner, 16 October 2026: "keep one top-bar figure and label it as net (cash minus debt)"). The value is unchanged,

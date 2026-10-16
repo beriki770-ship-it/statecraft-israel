@@ -25,7 +25,8 @@ namespace Statecraft.Game.Map.Kits
         static readonly Vector2[] KibbutzHallAt = { new Vector2(-0.35f, 0.25f), new Vector2(-0.38f, -0.05f), new Vector2(0f, 0.45f) };
 
         /// <summary>The farm yard: plots farther than this share of the radius from the heart, within 60 degrees either side of
-        /// the farm's bearing (a third of the directions, as the farm is about a third of the ground).</summary>
+        /// the farm's bearing: a third of the directions, about a quarter of the ring's area (the source gives the farm about a
+        /// third of the ground; a modelling choice that keeps most plots for houses in a kibbutz of a few plots).</summary>
         const float FarmYardFromT = 0.45f;
 
         /// <summary>Running counts for <see cref="Result.KibbutzHalls"/> and <see cref="Result.FarmSheds"/> during a Build.</summary>
