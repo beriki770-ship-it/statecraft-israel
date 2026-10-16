@@ -1254,7 +1254,8 @@ public class KitTests
     /// pixels are those of the plan's windows OW1 and OW2 that the trees change by more than 3/255 in luma with shadows off
     /// (TheHillOlivesCoverPromo03sShareOfTheHills: the crowns, not their cast shadows), less a pixel at every edge (a pixel
     /// counts only if its four neighbours do), so the ground blended into a crown's rim is left out. Their median luma (the
-    /// body) and their 90th percentile less the median (the sunlit top against the body) must fall in promo 03's bands.</summary>
+    /// body), their 90th percentile less the median (the sunlit top against the body) and their median saturation (#772) must
+    /// fall in promo 03's bands.</summary>
     /// <remarks>Promo 03's numbers are from the 53 hand-marked crowns of TheHillOlivesMatchPromo03sCrownSize, each circle's
     /// inner 0.8 of the radius (again leaving out the rim), 22,849 pixels, measured 16 Oct 2026: body (median luma) 0.302,
     /// 90th percentile 0.484, top against body 0.181; hue median 28 degrees, saturation 0.32; lit from the upper left (the

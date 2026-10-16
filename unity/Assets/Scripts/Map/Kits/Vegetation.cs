@@ -41,8 +41,9 @@ namespace Statecraft.Game.Map.Kits
                 {
                     // Visual gap L2 (issue #34; owner, 15 Oct 2026: "Darker, with pale sunlit tops"): dark olive-brown lobes whose
                     // tops pale to OliveTop, to promo 03's crowns (KitTests.TheHillOliveCrownsAreDarkWithPaleSunlitTops). Issue #772: the
-                    // lobes' blue sits near their green and OliveTop is greyer, because the grade warms them: on screen they read grey
-                    // olive (saturation 0.34, hue 27.5) like the promo's (0.32, 28.2), not chocolate brown (0.41).
+                    // lobes' blue sits near their green (just above it on the biggest lobe) and OliveTop is greyer, because the grade
+                    // warms them: in the editor shot at gameplay03 they read grey olive (saturation 0.34, hue 27.5) like the promo's
+                    // (0.32, 28.2), not chocolate brown (0.41).
                     var top = C(OliveTop.r, OliveTop.g, OliveTop.b);
                     km.Shaft(new Vector3(0, -0.6f, 0), new Vector3(0.15f, 1.7f, 0.1f), 0.32f, 0.22f, C(0.36f, 0.31f, 0.25f), 4);
                     km.Crown(new Vector3(0.5f, 2.9f, 0.2f), new Vector3(2.0f, 1.5f, 1.9f), C(0.28f, 0.255f, 0.26f), ref rnd, 0.16f, 7, 4, 0f, default, 0.35f, top, OliveTopFrom);
