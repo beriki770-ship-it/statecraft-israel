@@ -505,6 +505,64 @@ public class PromoScreensTests
         finally { cabinet.Dispose(); blur.Dispose(); }
     }
 
+    /// <summary>#41 M6 (WCAG 1.4.11): the selected Cabinet seat carries a mark that is not a colour change, a tag on its
+    /// plate reading "Selected" (Hebrew מסומן) at 4.5:1, which stays when keyboard focus moves to another card; the other
+    /// cards show none, and selecting moves nothing on the card. For a grid card and the Prime Minister's, English and
+    /// Hebrew.</summary>
+    [UnityTest]
+    public IEnumerator TheSelectedSeatIsTaggedWithoutMovingItsCard()
+    {
+        var he = UiText.Parse(AssetDatabase.LoadAssetAtPath<TextAsset>(UiPaths.StringsHebrew).text, "strings.he.yaml");
+        foreach (var (text, hebrew) in new[] { (Text, false), (he, true) })
+        {
+            using var ui = new UiTestKit();
+            var g = GameSession.New(C, GoldenRun.Seed, Mode.Historical);
+            var cabinet = new CabinetPresenter(ui.Root, new SimBridge(g, text), text, null);
+            ui.Q<VisualElement>("root").RemoveFromClassList("loading");
+            ui.Q<VisualElement>("root").EnableInClassList(UiLanguage.HebrewClass, hebrew);
+            new ScreenNav(ui.Root).Open("cabinet");
+            try
+            {
+                for (int i = 0; i < 4; i++) yield return null;
+                foreach (var (office, other) in new[] { ("finance_minister", "seat-foreign_minister"), ("prime_minister", "seat-finance_minister") })
+                {
+                    var where = $"{text["ui.lang"]} {office}";
+                    var card = ui.Q<Button>("seat-" + office);
+                    // Another seat first, so the candidate list is open in both states: it opening squeezes the Prime
+                    // Minister's portrait (M7), which is not what this measures.
+                    cabinet.Select(other.Substring("seat-".Length));
+                    for (int i = 0; i < 4; i++) yield return null;
+                    var rects = card.Children().Select(e => e.layout).Prepend(card.layout).ToList();
+                    cabinet.Select(office);
+                    for (int i = 0; i < 4; i++) yield return null;
+                    Assert.IsTrue(card.ClassListContains("seat-selected"), where + ": precondition, selected");
+                    Label? Tag(VisualElement c) => c.Query<Label>(className: "card-selected").ToList()
+                        .FirstOrDefault(l => l.resolvedStyle.display == DisplayStyle.Flex && l.worldBound.width > 0);
+                    var tag = Tag(card);
+                    Assert.IsNotNull(tag, where + ": the selected card carries a visible tag");
+                    Assert.AreEqual(text["card.selected"], tag!.text, where);
+                    Assert.IsTrue(card.worldBound.Contains(tag.worldBound.min) && card.worldBound.Contains(tag.worldBound.max - Vector2.one), where + ": the tag is on the card");
+                    Assert.GreaterOrEqual(Contrast(tag.resolvedStyle.color, tag.resolvedStyle.backgroundColor, Deep), 4.5f, where + ": the tag's text");
+                    Assert.IsNull(Tag(ui.Q<Button>(other)), where + ": " + other + " is not tagged");
+                    var after = card.Children().Select(e => e.layout).Prepend(card.layout).ToList();
+                    Assert.AreEqual(rects.Count, after.Count, where + ": the tag is inside the plate, not a new row");
+                    for (int i = 0; i < rects.Count; i++)
+                        Assert.IsTrue(Vector2.Distance(rects[i].position, after[i].position) < 0.5f && Vector2.Distance(rects[i].size, after[i].size) < 0.5f,
+                            $"{where}: element {i} moved, {rects[i]} -> {after[i]}");
+
+                    var next = ui.Q<Button>(other);
+                    next.Focus();
+                    for (int i = 0; i < 10 && next.focusController.focusedElement != next; i++) yield return null;
+                    yield return null; yield return null;
+                    Assert.AreSame(next, next.focusController.focusedElement, where + ": precondition, focus moved on");
+                    Assert.IsNotNull(Tag(card), where + ": the tag stays once focus moves on");
+                    next.Blur();
+                }
+            }
+            finally { cabinet.Dispose(); }
+        }
+    }
+
     /// <summary>Both screens at the window shapes the HUD supports (16:9 at 1920x1080 and 1366x768, 16:10, 4:3, 5:4, the
     /// wide-and-short browser, square and narrower): each opens under the top bar, clear of the minimap column and the
     /// minimap (over the info panel, which it is drawn above), and nothing on it leaves it or its panel sideways; every
