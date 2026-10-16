@@ -8,7 +8,8 @@ Q-SPEC-1). Task 6.0's rule: "If no candidate has a source, stop and report; do n
 
 **No town has a source read on the page that dates its vineyards to 1948-51. Following the plan's rule, this note picks
 no city.** The negative is not conclusive: the most likely primary sources (the Palestine Post on JPress, the
-co-operative's own reports, the 1949/50 agricultural census) were not reachable from this machine (see "Not reached").
+co-operative's own reports, the 1949/50 agricultural census) were not reachable from this machine or not found
+online (see "Not reached").
 
 What was found:
 
@@ -19,8 +20,8 @@ What was found:
    no area or tonnage.
 3. **Rishon LeZion, weak lead [Sn]:** a 1950 book for general readers (Hoffman) has the line "In this case it is largely
    viniculture", then "Rishon le Zion is famous for its wine cellars". The snippet does not show what "this case"
-   refers to, the book does not date its observation, and Encyclopaedia Judaica says citrus was the town's main
-   branch. Read as search snippets only.
+   refers to, the book does not date its observation, and Encyclopaedia Judaica says citrus became the town's main
+   branch (before the First World War). Read as search snippets only.
 4. Rehovot, Petah Tikva, Hadera, Netanya and Rosh Pinna: nothing dated 1948-51 ties them to vineyards. Jerusalem,
    Tel Aviv, Haifa, Tiberias and Safed were not searched (none is in the plan's list of wine-growing candidates).
 
@@ -89,9 +90,10 @@ vineyards existed in all three years, but not where.
   own vineyards.
 - **[S]** Viteles (above): the vintners of Rishon and Rehovot "in 1939 delivered only 2,200 kantars to the Rishon wine
   cellars" [Sn]. Pre-1948.
-- **[Sn]** The Rishon wine cellars are "famous" in 1950 (Hoffman, above), and the co-operative of the Rishon and
-  Zikhron cellars was writing to its council in March 1951 (Viteles, above). That points to the cellars working in
-  1948-51, but no source read says so outright, and it is a fact about the winery, not about vineyards in the town.
+- **[Sn]** The Rishon wine cellars are "famous" in 1950 (Hoffman, above), and sixty Zikhron members of the co-operative
+  of the Rishon and Zikhron cellars wrote to its council in March 1951 (Viteles, above). That points to the cellars
+  working in 1948-51, but no source read says so outright, and it is a fact about the winery, not about vineyards in the
+  town.
 
 ### Rehovot, Petah Tikva, Hadera, Netanya, Rosh Pinna
 
@@ -116,7 +118,7 @@ Rishon Le-Zion, Rehovot, Petah Tikva..." as delivering to the Rishon cellar, wit
 | Town | Best dated item | Grade | Meets Task 6.0? |
 |---|---|---|---|
 | Zikhron Ya'akov | Letter, 30 March 1951, sixty co-operative members residing there (Viteles 1966); vintage film 6 Dec 1952 | [Sn]; [S] | No, not read on the page; members, not vineyards; film after the window |
-| Rishon LeZion | Hoffman 1950, "largely viniculture" (antecedent unclear; undated) | [Sn], [C] with EJ | No |
+| Rishon LeZion | Hoffman 1950, "largely viniculture" (antecedent unclear; undated) | [Sn]; [C] with EJ (weak: EJ is pre-1914) | No |
 | Rehovot, Petah Tikva, Hadera, Netanya, Rosh Pinna | none | [G] | No |
 
 **Recommendation:** pick no city now (Task 6.0's rule) and keep PR 6's code blocked. Zikhron Ya'akov is the closest to
