@@ -1261,6 +1261,9 @@ public class KitTests
     /// crowns' upper halves 0.351 against lower 0.279, left 0.354 against right 0.277). Each band is the promo's value ±15%.
     /// </remarks>
     public static readonly Vector2 PromoCrownBodyLuma = new Vector2(0.257f, 0.347f), PromoCrownTopContrast = new Vector2(0.154f, 0.208f);
+    /// <summary>Issue #772: promo 03's crowns read grey olive, saturation 0.322; ±15% as the bands above. #697's crowns
+    /// measured 0.41 (chocolate brown) in the WebGL shot.</summary>
+    public static readonly Vector2 PromoCrownSaturation = new Vector2(0.274f, 0.370f);
 
     [UnityTest]
     public IEnumerator TheHillOliveCrownsAreDarkWithPaleSunlitTops()
@@ -1292,10 +1295,11 @@ public class KitTests
         float body = Pct(luma, 0.5f), top = Pct(luma, 0.9f), contrast = top - body;
         TestContext.WriteLine($"gameplay03 OW1+OW2 olive crowns: {luma.Count} pixels; body (median luma) {body:0.000} (promo {PromoCrownBodyLuma.x:0.000}-{PromoCrownBodyLuma.y:0.000}), " +
                               $"90th percentile {top:0.000}, top against body {contrast:0.000} (promo {PromoCrownTopContrast.x:0.000}-{PromoCrownTopContrast.y:0.000}); " +
-                              $"hue median {Pct(hue, 0.5f):0.0} (IQR {Pct(hue, 0.25f):0.0}-{Pct(hue, 0.75f):0.0}; promo 28.2), saturation median {Pct(sat, 0.5f):0.000} (promo 0.322)");
+                              $"hue median {Pct(hue, 0.5f):0.0} (IQR {Pct(hue, 0.25f):0.0}-{Pct(hue, 0.75f):0.0}; promo 28.2), saturation median {Pct(sat, 0.5f):0.000} (promo {PromoCrownSaturation.x:0.000}-{PromoCrownSaturation.y:0.000})");
         Assert.Greater(luma.Count, 2000, "enough crown pixels in the windows");
         Assert.That(body, Is.InRange(PromoCrownBodyLuma.x, PromoCrownBodyLuma.y), "olive crown body luma against promo 03");
         Assert.That(contrast, Is.InRange(PromoCrownTopContrast.x, PromoCrownTopContrast.y), "olive crown sunlit top against its body, against promo 03");
+        Assert.That(Pct(sat, 0.5f), Is.InRange(PromoCrownSaturation.x, PromoCrownSaturation.y), "olive crown saturation against promo 03 (grey olive, not brown)");
     }
 
     /// <summary>The WebGL checkpoint drew every palm black: a frond's tip quad collapsed to a point, its edge-based normal was
