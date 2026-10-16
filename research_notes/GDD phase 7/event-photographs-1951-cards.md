@@ -95,7 +95,8 @@ Not used:
 ## Foreign Currency Runs Out (`forex_crisis_1951`)
 
 No frame from 19 October to 31 December 1951 shows the crisis, the wheat imports or the request to Washington. Two
-series inside the window can stand for the finance minister's problem, in the way Q-CARD-1 ([Phase 4 plan](../../docs/superpowers/plans/2026-10-15-gdd-phase-4.md), line 177) lets an undated "Israel
+series inside the window can stand for the finance minister's problem, in the way Q-CARD-1
+([Phase 4 plan](../../docs/superpowers/plans/2026-10-15-gdd-phase-4.md), line 177) lets an undated "Israel
 Railways" frame stand for the railway card:
 
 1. **A commercial bank at work** ("בנק מסחרי בעת העבודה"), Tel Aviv, NLI date November 1951 (the card's month), 5
