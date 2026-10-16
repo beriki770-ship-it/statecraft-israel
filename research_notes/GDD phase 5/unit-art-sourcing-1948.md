@@ -229,7 +229,7 @@ what is worn. The printed reference that would carry the dress, Osprey's *Arab A
 - **[C]** "Arab volunteers.jpg" (1947, Dar al-Hilal): its description says Holy War fighters in Jerusalem; the caption
   on the same page says Saudi forces in 1948. Not usable until that is settled.
   https://commons.wikimedia.org/wiki/File:Arab_volunteers.jpg
-- **[V]** English Wikipedia's "Keffiyeh" dates the keffiyeh with agal as rebel dress to the 1936-39 revolt. Not a 1948
+- **[S]** English Wikipedia's "Keffiyeh" dates the keffiyeh with agal as rebel dress to the 1936-39 revolt. Not a 1948
   statement. **[G]** bandoliers and rifles in 1947-48.
 
 ## 3. The gun: the 65 mm "Napoleonchik"
