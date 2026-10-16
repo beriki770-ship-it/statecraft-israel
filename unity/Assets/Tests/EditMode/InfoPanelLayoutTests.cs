@@ -205,6 +205,32 @@ public class InfoPanelLayoutTests
         info.Dispose();
     }
 
+    /// <summary>#204: Tiberias lies in the lake hex and is drawn on the land hex next to it (hexgrid.settlement_hex), so that
+    /// hex's 70 m is not the town's: its panel says so in one line, in English and in Hebrew. An ordinary hex (Lydda's,
+    /// whose towns lie in it) has no such line.</summary>
+    [Test]
+    public void ATownDrawnFromTheWaterHexNextDoorSaysSo()
+    {
+        var townHex = InfoPanelPresenter.TownHex(SettlementPlacer.Parse(MapFile(SettlementPlacer.DefaultFileName)),
+            JsonUtility.FromJson<HexFile>(MapFile("hexes.json")));
+        var tiberias = C.SettlementHexes.Single(s => s.Id == "tiberias");
+        var lod = C.SettlementHexes.Single(s => s.Id == "lod");
+        var he = UiText.Parse(AssetDatabase.LoadAssetAtPath<TextAsset>(UiPaths.StringsHebrew).text, "strings.he.yaml");
+        foreach (var (text, words) in new[] { (Text, "neighbouring water hex"), (he, "במשושה המים הסמוך") })
+        {
+            using var ui = new UiTestKit();
+            var info = new InfoPanelPresenter(ui.Root, new SimBridge(GameSession.New(C, GoldenRun.Seed, Mode.Historical), text), text, Names(),
+                townHex: townHex);
+            info.Show(tiberias.Q, tiberias.R);
+            var lines = ui.Q<Label>("info-settlements").text.Split('\n');
+            Assert.AreEqual(text.Format("info.town_in_water", "Tiberias"), lines.Last(), $"{text["ui.lang"]}: Tiberias' hex names the water hex");
+            StringAssert.Contains(words, lines.Last());
+            info.Show(lod.Q, lod.R);
+            StringAssert.DoesNotContain(words, ui.Q<Label>("info-settlements").text, $"{text["ui.lang"]}: Lydda's hex has no note");
+            info.Dispose();
+        }
+    }
+
     /// <summary>#401's DPR-2 p95 rise was the filigree drawn as Painter2D curves. It is now one small code-made texture per
     /// variant, made once and shared by every frame and every corner: the same instance on every call, with the scroll
     /// and leaf in it (some pixels covered, most clear), and the side scroll only in the tall variant.</summary>
