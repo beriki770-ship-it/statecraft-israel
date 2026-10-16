@@ -712,7 +712,7 @@ public class UiLayoutTests
                     root.Q("root").EnableInClassList(UiLanguage.HebrewClass, hebrew);
                     var line = root.Q<Label>("loading");
                     line.text = text.Format("boot.failed", text["boot.reason_other"]);
-                    line.languageDirection = hebrew ? LanguageDirection.RTL : LanguageDirection.Inherit;
+                    line.languageDirection = hebrew ? LanguageDirection.RTL : LanguageDirection.Inherit;   // as GameRoot.Say: this Hebrew line starts with Hebrew, so RTL
                     for (int i = 0; i < 20 && !(line.contentRect.width > 0); i++) yield return null;
                     for (int i = 0; i < 4; i++) yield return null;
                     var where = $"{w}x{h} {lang}";
