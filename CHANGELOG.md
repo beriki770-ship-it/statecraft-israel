@@ -8,6 +8,9 @@ adds a line under **Unreleased**; CI's `Changelog` job checks this (see `CONTRIB
 ## [Unreleased]
 
 ### Fixed
+- The loading screen's boot-failure line wraps inside the screen with a side margin (refs #765). In Hebrew at phone width
+  it ran past both edges, so the player could not read "reload the page"; `.loading-line` had no `white-space: normal`.
+  `UiLayoutTests.TheBootFailureLineWrapsInsideTheScreen` checks English and Hebrew at 390x844, 960x600 and 1280x720.
 - Player builds work again (refs #680). Since #680 every `Build.*` failed with "no CRC for the bundle", because Unity
   reads a bundle's CRC from its `.manifest` and the collection's bundles were copied into StreamingAssets without them.
   The checks file is now written in the bundle cache and copied beside the shipped bundles.
