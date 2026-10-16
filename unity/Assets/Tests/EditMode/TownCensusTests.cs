@@ -366,9 +366,9 @@ public class TownCensusTests
         Assert.GreaterOrEqual(ta.r - ta.b, CreamRedOverBlue, "Tel Aviv's plaster is not cream");
         Assert.GreaterOrEqual(Luma(ta) - Luma(jaffa), WhiteOverJaffa, "Tel Aviv's plaster is not clearly lighter than Jaffa's stone");
         Assert.LessOrEqual(ta.r - ta.b, CreamOfJaffasTint * (jaffa.r - jaffa.b), "Tel Aviv's cream reads as Jaffa's sandstone");
-        Assert.AreEqual(HaifaMeanWall.r, haifa.r, 0.002f, "Haifa's walls changed (red)");
-        Assert.AreEqual(HaifaMeanWall.g, haifa.g, 0.002f, "Haifa's walls changed (green)");
-        Assert.AreEqual(HaifaMeanWall.b, haifa.b, 0.002f, "Haifa's walls changed (blue)");
+        Assert.AreEqual(HaifaMeanWall.r, haifa.r, 0.002f, "Haifa's walls changed (red); if deliberate, update HaifaMeanWall");
+        Assert.AreEqual(HaifaMeanWall.g, haifa.g, 0.002f, "Haifa's walls changed (green); if deliberate, update HaifaMeanWall");
+        Assert.AreEqual(HaifaMeanWall.b, haifa.b, 0.002f, "Haifa's walls changed (blue); if deliberate, update HaifaMeanWall");
     }
 
     /// <summary>Bands for TelAvivsPlasterIsWarmCreamAndStillWhiterThanJaffa, in census mean-wall terms. Main: Tel Aviv

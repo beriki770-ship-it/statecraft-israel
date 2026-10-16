@@ -45,7 +45,7 @@ namespace Statecraft.Game.Map.Kits
             return new Spec { w = w * m, d = d * m, h = storeys * 3.3f * m, storeys = storeys, lotR = 0.5f * Mathf.Sqrt(w * w + d * d) * m };
         }
 
-        /// <summary>Draws one Tel Aviv block and records it in the census: warm cream plaster (#658; a few a yellower cream), ribbon windows
+        /// <summary>Draws one Tel Aviv block and records it in the census: warm cream plaster (#658; a few a slightly yellower cream), ribbon windows
         /// along both long sides (Ribbons), a balcony band on every upper storey (WhiteBlockDetail), some on pilotis, some stepped, and a
         /// flat roof terrace behind a parapet with its stair head.</summary>
         static void TelAvivBlock(string id, Vector2 p, float yaw, Spec b, float bottom, float top, KitMesh km, ref KitRandom rnd)
