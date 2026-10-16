@@ -210,11 +210,12 @@ public static class MapCapture
     /// <summary>The scripted trailer capture (issue #45): flies the camera through TrailerShot.Default and renders every frame
     /// at 1920x1080 on the desktop tier (PC) into &lt;-captureDir&gt; (default captures/trailer) as frame-NNNNN.png, one numbered
     /// sequence across the shots, with the water's clock pinned to the frame's time so a re-run gives the same camera, state
-    /// and water on every frame (pixel-identical on the same machine and driver). The map as a new game starts: the 1948
-    /// sub-districts and the units on turn 1 of a historical game started with -seed (default the golden seed; turn 1's
-    /// units do not depend on it today, but the seed is what makes a later game moment repeatable). PNG frames, not video: the Linux editor has no H.264 encoder path to rely on, and the frames go to ffmpeg
-    /// (docs/RELEASING.md "Capturing trailer footage"). trailer.txt beside them records the commit, seed and settings.
-    /// Editor renders draw no UI Toolkit, so this is the map only.</summary>
+    /// and water on every frame (the pixels too, but for the unit badges' glyphs at the whole-country zoom; see
+    /// docs/RELEASING.md "Capturing trailer footage"). The map as a new game starts: the 1948 sub-districts and the units on
+    /// turn 1 of a historical game started with -seed (default the golden seed; turn 1's units do not depend on it today,
+    /// but the seed is what makes a later game moment repeatable). PNG frames, not video: a frame is written only once it is
+    /// rendered, so a slow software renderer gives the same footage, and ffmpeg encodes them. trailer.txt beside them
+    /// records the commit, seed and settings. Editor renders draw no UI Toolkit, so this is the map only.</summary>
     public static void Trailer()
     {
         var args = System.Environment.GetCommandLineArgs();
@@ -275,10 +276,11 @@ public static class MapCapture
         {
             using var git = System.Diagnostics.Process.Start(new System.Diagnostics.ProcessStartInfo("git", arguments)
                 { WorkingDirectory = Paths.RepoRoot, RedirectStandardOutput = true, RedirectStandardError = true, UseShellExecute = false });
+            if (git == null) return null;
             var output = git.StandardOutput.ReadToEnd().Trim(); git.StandardError.ReadToEnd(); git.WaitForExit();
             return git.ExitCode == 0 ? output : null;
         }
-        catch (System.ComponentModel.Win32Exception) { return null; }
+        catch (System.Exception e) when (e is System.ComponentModel.Win32Exception || e is System.InvalidOperationException) { return null; }
     }
 
     /// <summary>The units in play as a new game starts (golden seed unless the trailer passes its -seed, historical mode): what

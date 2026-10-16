@@ -140,18 +140,23 @@ this?" is not decided.
 ## Capturing trailer footage (issue #45)
 
 The trailer's map shots come from the real build: the editor renders the map frame by frame, so a capture can be run
-again and gives the same camera, state and water on every frame (pixel-identical on the same machine and driver). Build the sim DLLs first (`python3 tools/build_sim_for_unity.py`), run Unity with
-graphics (not `-nographics`; on Linux under `xvfb-run -a`), then encode the frames with ffmpeg:
+again and gives the same camera, state and water on every frame. The pixels match too, except the unit badges' glyphs
+at the whole-country zoom: two runs on the build server differed only there (1,288 of 6.2 million bytes per frame;
+the 60 km frames were byte-identical), where a glyph and its plate draw at almost the same depth. Build the sim DLLs
+first (`python3 tools/build_sim_for_unity.py`), run Unity with graphics (not `-nographics`; on Linux under
+`xvfb-run -a`), then encode the frames with ffmpeg:
 
 ```sh
 "$UNITY" -batchmode -CI false -GITHUB_ACTIONS false -TF_BUILD false -quit -projectPath unity \
-  -executeMethod MapCapture.Trailer -captureDir "$PWD/<dir>" [-seed 1948] -logFile "$PWD/unity-trailer.log"
-ffmpeg -framerate 60 -i <dir>/frame-%05d.png -vf scale=out_color_matrix=bt709 -c:v libx264 -preset slow -crf 16 \
-  -pix_fmt yuv420p -colorspace bt709 -color_primaries bt709 -color_trc bt709 -movflags +faststart <dir>/trailer-map.mp4
+  -executeMethod MapCapture.Trailer -captureDir "$PWD/captures/<name>" [-seed 1948] -logFile "$PWD/unity-trailer.log"
+ffmpeg -framerate 60 -i captures/<name>/frame-%05d.png -vf scale=out_color_matrix=bt709 \
+  -c:v libx264 -preset slow -crf 16 -pix_fmt yuv420p -colorspace bt709 -color_primaries bt709 -color_trc bt709 \
+  -movflags +faststart captures/<name>/trailer-map.mp4
 ```
 
-Give `-captureDir` an absolute path: a relative one resolves against Unity's working directory. The capture deletes any
-`frame-*.png` already in it first, so an older, longer run cannot leak into the encode.
+Give `-captureDir` an absolute path (a relative one resolves against Unity's working directory) under the ignored
+`captures/` or outside the repo: frames anywhere else in the tree would mark the recorded commit `-dirty`. The capture
+deletes any `frame-*.png` already in it first, so an older, longer run cannot leak into the encode.
 
 - **What it renders:** the camera moves in `TrailerShot.Default` (`unity/Assets/Scripts/Map/TrailerShot.cs`), built only
   from the promo poses the art checkpoint already compares (`PromoPose`): the whole country held for 2 s, down to the
@@ -159,15 +164,17 @@ Give `-captureDir` an absolute path: a relative one resolves against Unity's wor
   eased in and out. That order is a placeholder; the shots are the owner's call. Change the list to change it.
 - **Settings:** 1920 x 1080 on the desktop (PC) tier, 60 fps, the water's clock pinned to each frame's time, the 1948
   sub-districts and the units of turn 1 of a new historical game started with `-seed` (default the golden seed, 1948;
-  turn 1's units do not depend on the seed today, it is recorded so a later moment can be repeated). The
-  frames are `frame-00000.png` onwards, one sequence across the shots. `trailer.txt` beside them records the commit,
-  Unity version, seed, size, fps, tier and each shot's frame range.
+  turn 1's units do not depend on the seed today, it is recorded so a later moment can be repeated). The frames are
+  `frame-00000.png` onwards, one sequence across the shots. `trailer.txt` beside them records the commit, Unity
+  version, seed, size, fps, tier and each shot's frame range.
 - **Not in it:** the UI (editor renders draw no UI Toolkit, so UI shots still come from the player), sound, and the cut.
   The .mp4 has no audio track; Steam prefers AAC audio, which the cut adds.
 - **Why PNG frames:** a frame is written only when it is fully rendered, so a slow machine gives the same footage as a
   fast one, and the Linux editor needs no video codec. On the software-rendered Linux build server (llvmpipe) the
-  default 840 frames took about 15 minutes (907 s including the editor start) and 2.3 GB of PNG; delete the frames after encoding.
-- **Check the encode** before it goes anywhere: `ffprobe -v error -show_entries stream=codec_name,width,height,r_frame_rate,bit_rate <dir>/trailer-map.mp4`
+  default 840 frames took 15 to 25 minutes (907 s alone, 1,459 s beside another Unity run) and 2.3 GB of PNG; the
+  encode took under a minute. Delete the frames after encoding.
+- **Check the encode** before it goes anywhere:
+  `ffprobe -v error -show_entries stream=codec_name,width,height,r_frame_rate,bit_rate captures/<name>/trailer-map.mp4`
   must say h264, 1920 x 1080, 60/1, and a bit rate above Steam's 5,000 Kbps. If it is under (long still holds compress
   well), encode again with `-b:v 8M -maxrate 12M -bufsize 16M` in place of `-crf 16`.
 
