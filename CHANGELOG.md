@@ -49,6 +49,9 @@ adds a line under **Unreleased**; CI's `Changelog` job checks this (see `CONTRIB
 - The olive crowns are darker, with pale tops (visual gap L2, refs #34; owner, 15 October 2026: "Darker, with pale
   sunlit tops"). At gameplay03 their body is luma 0.29 (main 0.50, promo 03 0.30) and their sunlit top stands 0.18 above
   it (main 0.14, promo 0.18). Vertex colours only: no tree count, size, shader or grade change.
+- The olive crowns read grey olive, not chocolate brown (refs #772): their median saturation at gameplay03 is 0.34
+  (main 0.41, promo 03 0.32) and their hue 27.5 degrees (main 31.7, promo 28.2), with more blue in the lobes and a
+  greyer sunlit top. Body luma 0.29 and top contrast 0.20 stay in promo 03's bands. Vertex colours only.
 - The surf reaches further out to sea (refs #690, #388): the breakers' zone widens from 1.8 to 2.4 km, so south of Jaffa
   the white foam band reads 30.8 px at the gameplay zoom, inside promo 03's 25-55 px band (20.3 before; the promo reads
   44), and the northern frontage reads 25.0 px (18.3 before), inside its 6-30 px band. Presentation only.
