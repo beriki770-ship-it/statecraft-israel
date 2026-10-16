@@ -19,6 +19,12 @@ adds a line under **Unreleased**; CI's `Changelog` job checks this (see `CONTRIB
   near Jerusalem (Malha and Ein Karim, July 1948; "headquartered in Jerusalem" has no footnote). No source names a
   headquarters or a place held over a window, so the row stays hidden. Map data only: the content hash and the goldens
   do not move.
+- Food is a national stock (refs #382, R-FOOD-001 to R-FOOD-003; maintainer, 16 October 2026, option (b)): the nation
+  eats its head count each month, a monthly import keeps three months of cover, and the stock stops at 0. Food supply
+  falls as the cover falls and further by any unmet share; rationing and events still act on top. The 1951 currency
+  crisis now cuts the Food imports instead of Food supply directly. `k_food` (0.1) and `cover_months` (3) are new design
+  values for the owner to set or accept. Every golden moves (a new `food=` line; the end of 1951 also moves Food supply
+  slightly); the content hash moves too, so an older save loads with the "different game content" warning.
 - The first-new-yishuv card's source comment records the #706 gazetteer findings for places under 1,000 near
   Mefalsim (seven depopulated villages in the sweeps, none naming Mefalsim; the Bedouin-locality caveat), instead of
   the stale not-checked note (#654). Comment only; the card's text is unchanged.
@@ -31,6 +37,9 @@ adds a line under **Unreleased**; CI's `Changelog` job checks this (see `CONTRIB
   R-MONEY-001; spec §1.2, owner, 15 October 2026, Q-MONEY-4 and Q-HUD-3). Debt and foreign currency stay in the sim
   (D-C3). No upkeep yet: per Q-MONEY-2 it waits for Phase 3. No golden moves; the content hash does (the name is in
   `content/model.yaml`), so an older save loads with the "different game content" warning.
+- The olive crowns are darker, with pale tops (visual gap L2, refs #34; owner, 15 October 2026: "Darker, with pale
+  sunlit tops"). At gameplay03 their body is luma 0.29 (main 0.50, promo 03 0.30) and their sunlit top stands 0.18 above
+  it (main 0.14, promo 0.18). Vertex colours only: no tree count, size, shader or grade change.
 - The surf reaches further out to sea (refs #690, #388): the breakers' zone widens from 1.8 to 2.4 km, so south of Jaffa
   the white foam band reads 30.8 px at the gameplay zoom, inside promo 03's 25-55 px band (20.3 before; the promo reads
   44), and the northern frontage reads 25.0 px (18.3 before), inside its 6-30 px band. Presentation only.
@@ -759,6 +768,11 @@ adds a line under **Unreleased**; CI's `Changelog` job checks this (see `CONTRIB
 - Keyboard focus that lands on something scrolled out of view, such as a Cabinet card below the first row or a
   candidate far down the list, now scrolls its list to it (accessibility audit H1, refs #41). Focus that follows a mouse
   press leaves the list where it is. Presentation only: no golden moves.
+- The Cabinet's party chips say which side each party is on, not only by the swatch's blue or grey: they sit in two
+  groups headed "Coalition" and "Opposition", קואליציה and אופוזיציה in Hebrew (accessibility audit M5, refs #41). The
+  Hebrew waits for the native reviewer (#564). The chips also follow a coalition change in the middle of a government
+  (`coalition_changes`, such as 25 May 1953), where before they kept their old colours. Presentation only: no golden
+  moves.
 - Wheel zoom in the web build: one small wheel delta, such as a touchpad's half pixel, made every later frame zoom 27%,
   since Unity's player takes the smallest delta it has seen as one notch. The camera now counts the browser's wheel
   events itself (`WheelInput.jslib`): a touchpad's small pixel deltas zoom by how far the fingers move (100 px to a

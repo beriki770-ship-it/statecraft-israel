@@ -142,6 +142,11 @@ cabinet.opposition: "אופוזיציה: {0} {1}"
 cabinet.majority: "רוב: {0} {1}"
 cabinet.largest: "המפלגה הגדולה: {0}, {1} {2}"
 cabinet.party_seats: "{0} {1}"
+# The headings of the two groups of party chips under the half circle (CabinetPresenter.RenderHouse), so a chip's
+# side is read, not only seen in its swatch's colour (#41 M5). The same nouns as cabinet.coalition and
+# cabinet.opposition, with no adjective to agree. For the native reviewer (#564).
+cabinet.coalition_group: "קואליציה"
+cabinet.opposition_group: "אופוזיציה"
 cabinet.unrecorded: "לא תועד"
 cabinet.members_unit: "חברים"
 cabinet.seats: "מנדטים"
