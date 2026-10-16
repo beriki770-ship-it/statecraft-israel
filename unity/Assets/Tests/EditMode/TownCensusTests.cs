@@ -132,7 +132,7 @@ public class TownCensusTests
     }
 
     /// <summary>Each city's landmarks are built (docs/visual-v1.md, "Towns round 2"); every other Arab or old town has its
-    /// mosque, and every moshava, kibbutz and moshav its water tower.</summary>
+    /// mosque, and every moshava, kibbutz and moshav its water tower (Revivim, a Negev lookout, its yard and tower instead).</summary>
     [Test]
     public void EveryTownHasItsLandmarks()
     {
@@ -145,6 +145,7 @@ public class TownCensusTests
             ["haifa"] = new[] { "port", "warehouse", "german_colony" },
             ["jerusalem"] = new[] { "walls", "gate", "citadel", "haram", "dome_of_the_rock", "al_aqsa" },
             ["ramla"] = new[] { "mosque", "white_tower" },
+            ["revivim"] = new[] { "outpost_yard", "lookout_tower" },   // a Negev lookout (#32), not a moshava
         };
         var missing = new List<string>();
         foreach (var s in map.Settlements)
