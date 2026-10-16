@@ -455,7 +455,10 @@ Button:disabled { color: var(--ink-dim); border-color: rgba(120, 120, 120, 0.4);
 /* The chips in two groups, coalition then opposition, each a wrapping row opened by its side's name (#41 M5). */
 .party-chips { flex-direction: column; margin-top: 6px; }
 .party-group { flex-direction: row; flex-wrap: wrap; align-items: center; }
-.party-group-heading { font-size: 14px; color: var(--ink); padding: 0; margin: 0 10px 2px 0; }
+.party-group-heading {
+    -unity-font-definition: url("project://database/Assets/UI/Fonts/EBGaramond-SemiBold.ttf");
+    font-size: 14px; color: var(--ink); padding: 0; margin: 0 10px 2px 0;
+}
 .party-chip { flex-direction: row; align-items: center; margin: 0 12px 2px 0; }
 .party-chip > Label { font-size: 14px; color: var(--ink-dim); padding: 0; margin: 0; }
 .party-swatch { width: 11px; height: 11px; border-radius: 6px; margin-right: 5px; }
@@ -625,7 +628,7 @@ Button:disabled { color: var(--ink-dim); border-color: rgba(120, 120, 120, 0.4);
    in it. Each rule above that names EB Garamond is listed here; HebrewUiTests fails for one that is missed, including the
    classes only presenters add (it gives a label each). */
 .lang-he, .lang-he .title, .lang-he .button, .lang-he Button, .lang-he .year, .lang-he .end-turn, .lang-he .draft,
-.lang-he .why-group, .lang-he .section-title, .lang-he .card-initials, .lang-he .card-name, .lang-he .house-size,
+.lang-he .why-group, .lang-he .party-group-heading, .lang-he .section-title, .lang-he .card-initials, .lang-he .card-name, .lang-he .house-size,
 .lang-he .big-figure, .lang-he .map-label, .lang-he .map-label-tooltip, .lang-he .start-title, .lang-he .start-button {
     -unity-font-definition: url("project://database/Assets/UI/Fonts/FrankRuhlLibre/FrankRuhlLibre-Medium.ttf");
     -unity-text-generator: advanced;

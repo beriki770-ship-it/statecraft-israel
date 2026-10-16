@@ -114,6 +114,46 @@ public class PromoScreensTests
             }
     }
 
+    /// <summary>#41 M5: the groups follow a coalition change inside one government and one legislature (governments.yaml
+    /// coalition_changes, 25 May 1953: the General Zionists, the Sephardim and the Yemenite Association leave) on the same
+    /// screen, as the half circle does. The date is set directly: play stops in January 1952, the content goes on. Seats the
+    /// content does not record are on neither side, and a side without a party gets no heading. No legislature in the
+    /// content has either today, so the second half takes the start's opposition seats away from a copy of the content.</summary>
+    [Test]
+    public void ThePartyGroupsFollowACoalitionChangeAndLeaveUnrecordedSeatsOut()
+    {
+        var g = GameSession.New(C, GoldenRun.Seed, Mode.Historical);
+        var change = new DateTime(1953, 5, 25);
+        g.State.Date = change.AddDays(-1);
+        using (var ui = new UiTestKit())
+        {
+            var cabinet = new CabinetPresenter(ui.Root, new SimBridge(g, Text), Text, null);
+            string Side(string party) => ((Label)ui.Q<VisualElement>("party-" + party).parent.Children().First()).text;
+            var leaving = new[] { "general_zionists", "sephardim", "yemenite_association" };
+            foreach (var p in leaving) Assert.AreEqual("Coalition", Side(p), "24 May 1953: " + p);
+            g.State.Date = change;
+            cabinet.Render();
+            foreach (var p in leaving) Assert.AreEqual("Opposition", Side(p), "25 May 1953, the same screen: " + p);
+            Assert.AreEqual("Coalition", Side("mapai"), "25 May 1953: mapai");
+            cabinet.Dispose();
+        }
+
+        var c = ContentLoader.Load(Paths.Content);   // a copy: the shared content stays as it is
+        var start = GameSession.New(c, GoldenRun.Seed, Mode.Historical);
+        var leg = Offices.Legislature(c, start.State.Date)!;
+        var coalition = Offices.Government(c, start.State.Date)!.CoalitionOn(start.State.Date);
+        foreach (var party in leg.Seats.Keys.Where(k => !coalition.Contains(k)).ToList()) leg.Seats[party] = 0;
+        using (var ui = new UiTestKit())
+        {
+            var cabinet = new CabinetPresenter(ui.Root, new SimBridge(start, Text), Text, null);
+            var parties = ui.Q<VisualElement>("cabinet-parties");
+            Assert.AreSame(parties, ui.Q<VisualElement>("party-unrecorded").parent, "the seats not recorded are on neither side");
+            CollectionAssert.AreEqual(new[] { "Coalition" }, parties.Query<Label>(className: "party-group-heading").ToList().Select(l => l.text),
+                "no heading over an opposition without a party");
+            cabinet.Dispose();
+        }
+    }
+
     /// <summary>Review I1: the majority line runs, row by row, between the last seat of a majority and the next, clear of
     /// every dot, on the 37-seat Provisional State Council (promo 04) and the 120-seat Knesset; the layout keeps dots apart.</summary>
     [Test]

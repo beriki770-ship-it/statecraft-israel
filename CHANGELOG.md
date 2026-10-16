@@ -722,7 +722,9 @@ adds a line under **Unreleased**; CI's `Changelog` job checks this (see `CONTRIB
   press leaves the list where it is. Presentation only: no golden moves.
 - The Cabinet's party chips say which side each party is on, not only by the swatch's blue or grey: they sit in two
   groups headed "Coalition" and "Opposition", קואליציה and אופוזיציה in Hebrew (accessibility audit M5, refs #41). The
-  Hebrew waits for the native reviewer (#564). Presentation only: no golden moves.
+  Hebrew waits for the native reviewer (#564). The chips also follow a coalition change in the middle of a government
+  (`coalition_changes`, such as 25 May 1953), where before they kept their old colours. Presentation only: no golden
+  moves.
 - Wheel zoom in the web build: one small wheel delta, such as a touchpad's half pixel, made every later frame zoom 27%,
   since Unity's player takes the smallest delta it has seen as one notch. The camera now counts the browser's wheel
   events itself (`WheelInput.jslib`): a touchpad's small pixel deltas zoom by how far the fingers move (100 px to a

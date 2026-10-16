@@ -285,7 +285,9 @@ namespace Statecraft.Game.UI
             screen.Q<Label>("cabinet-majority").text = text.Format("cabinet.majority", hemicycle.Majority, unit);
             var largest = blocks.OrderByDescending(b => b.Seats).FirstOrDefault();
             screen.Q<Label>("cabinet-largest").text = largest.Seats > 0 ? text.Format("cabinet.largest", c.Parties.First(p => p.Id == largest.Party).Name, largest.Seats, unit) : "";
-            var key = leg.Id + "/" + (gov?.Id ?? "");
+            // The coalition's parties, not the government's id: a government's coalition_changes move parties between the
+            // sides mid-term (governments.yaml, 25 May 1953), and the chips must follow the half circle (#41 M5).
+            var key = leg.Id + "/" + string.Join(",", blocks.Where(b => b.Coalition).Select(b => b.Party));
             if (key == chipsFor) return;
             chipsFor = key;
             chips.Clear();
