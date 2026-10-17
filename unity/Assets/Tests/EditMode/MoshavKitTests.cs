@@ -50,7 +50,7 @@ public class MoshavKitTests
     }
 
     /// <summary>Every Nahalal house stands with its long side along the ring (its own x axis at right angles to the line from
-    /// the hub, give or take the 4 degree yaw jitter), and there are at least three of them.</summary>
+    /// the hub, give or take the 4 degree yaw jitter: |cos| at most sin 4 degrees, 0.070), and there are at least three of them.</summary>
     [Test]
     public void TheFarmsteadsFaceTheRingStreet()
     {
@@ -66,7 +66,7 @@ public class MoshavKitTests
             float a = h.Yaw * Mathf.Deg2Rad;
             float dot = Mathf.Abs(Vector2.Dot(new Vector2(Mathf.Cos(a), Mathf.Sin(a)), (h.C - centre).normalized));
             TestContext.WriteLine($"{s.Id}: house at {h.C}, |cos| to the radial {dot:0.000}");
-            if (dot > 0.1f) bad.Add($"house at {h.C}: its long side is {Mathf.Acos(dot) * Mathf.Rad2Deg:0} degrees off the radial, not across it");
+            if (dot > 0.08f) bad.Add($"house at {h.C}: its long side is {Mathf.Acos(dot) * Mathf.Rad2Deg:0} degrees off the radial, not across it");
         }
         Assert.GreaterOrEqual(houses.Count, 3, "Nahalal's farmsteads");
         CollectionAssert.IsEmpty(bad);

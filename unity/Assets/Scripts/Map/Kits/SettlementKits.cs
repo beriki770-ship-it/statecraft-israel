@@ -621,7 +621,8 @@ namespace Statecraft.Game.Map.Kits
                         var b = Pick(arch, r / R, ref srnd, m, s.Type == "kibbutz");
                         b.lotR = 0.5f * Mathf.Sqrt(b.w * b.w + b.d * b.d);   // the whole footprint, as a plot's (round 1's lot let a corner reach a road)
                         float yaw = arch == Archetype.Moshava || arch == Archetype.WhiteCity ? GridYaw(s.Id) + srnd.Range(-4f, 4f) : srnd.Range(0f, 90f);
-                        // A moshav (#32): along the ring street, as its lattice's farmsteads.
+                        // A moshav (#32): along the ring street, as its lattice's farmsteads (Nahalal's lattice places fewer than
+                        // SmallTownFloor, so its fallback runs; MoshavKitTests checks every house it places).
                         if (s.Type == "moshav") yaw += RingYaw(new Vector2(Mathf.Cos(ang), Mathf.Sin(ang))) - GridYaw(s.Id);
                         spots.Add((r, i, centre + new Vector2(Mathf.Cos(ang), Mathf.Sin(ang)) * r, yaw, b, srnd.Next()));
                     }

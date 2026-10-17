@@ -8,7 +8,7 @@ namespace Statecraft.Game.Map.Kits
     /// (https://en.wikipedia.org/wiki/Nahalal, checked 2026-10-17): "the public buildings (school, administration offices,
     /// services, and warehouses) in the centre", "then a ring street with the farmers' homesteads bordering on it on the
     /// outside"; the Hebrew article agrees ("ובחלק הפנימי של המעגל נבנו מוסדות הציבור", https://he.wikipedia.org/wiki/נהלל).
-    /// So the hub gets a public building beside the water tower, and each farmstead is turned with its long side along the
+    /// So the hub gets a public building, near the heart across from the water tower, and each farmstead is turned with its long side along the
     /// ring. The building's size and colours are modelling choices.</summary>
     public static partial class SettlementKits
     {
@@ -20,7 +20,7 @@ namespace Statecraft.Game.Map.Kits
         /// <paramref name="offset"/> from the hub: at right angles to the line from the hub.</summary>
         static float RingYaw(Vector2 offset) => Mathf.Atan2(offset.y, offset.x) * Mathf.Rad2Deg + 90f;
 
-        /// <summary>A moshav's public building (a landmark, placed with the water tower before any house): plastered walls under
+        /// <summary>A moshav's public building (a landmark, placed after the water tower and before any house): plastered walls under
         /// a red tiled gable, on a free spot near one of the dining hall's spots round <paramref name="heart"/> (radius
         /// <paramref name="R"/>; they keep clear of the water tower), long side along the ring; or none. Returns how many were
         /// built (0 or 1).</summary>
