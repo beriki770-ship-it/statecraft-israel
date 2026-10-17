@@ -352,6 +352,13 @@ public class MapLabelTests
         Assert.AreEqual(2, MapLabelsPresenter.Tier(1999)); Assert.AreEqual(3, MapLabelsPresenter.Tier(2000));
         Assert.AreEqual(8, MapLabelsPresenter.Tier(127999)); Assert.AreEqual(9, MapLabelsPresenter.Tier(128000));
         Assert.AreEqual(9, MapLabelsPresenter.Tier(248459));
+        // The game's tooltip comes from map.tier (GameRoot); both languages format it with the tier, the count and the people.
+        var en = UiText.Parse(AssetDatabase.LoadAssetAtPath<TextAsset>(UiPaths.Strings).text);
+        var he = UiText.Parse(AssetDatabase.LoadAssetAtPath<TextAsset>(UiPaths.StringsHebrew).text, "strings.he.yaml");
+        Assert.AreEqual(MapLabelsPresenter.DefaultTierTip(8, 98618m), en.Format("map.tier", 8, MapLabelsPresenter.TierCount, "98,618"));
+        var heTip = he.Format("map.tier", 8, MapLabelsPresenter.TierCount, "98,618");
+        StringAssert.Contains("98,618", heTip); StringAssert.Contains("8", heTip); StringAssert.Contains("9", heTip);
+        Assert.IsTrue(UiDirection.RightToLeft(heTip), heTip + " reads right to left");
         var cities = Statecraft.Sim.ContentLoader.Load(Statecraft.Game.Paths.Content).Cities;
         var people = cities.Where(c => c.People != null).ToDictionary(c => c.Id, c => c.People!.Value);
         Assert.AreEqual(12, people.Count, "the twelve city and town rows of cities.yaml");

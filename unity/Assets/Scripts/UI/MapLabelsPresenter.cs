@@ -148,7 +148,7 @@ namespace Statecraft.Game.UI
             return tier;
         }
 
-        /// <summary>The default tier tooltip (tests; GameRoot passes the UI strings).</summary>
+        /// <summary>The default tier tooltip (tests; GameRoot passes the UI strings). Keep it equal to strings.en.yaml's map.tier.</summary>
         public static string DefaultTierTip(int tier, decimal people) =>
             string.Format(CultureInfo.InvariantCulture, "Population tier {0} of {1}: {2:N0} people in 1948", tier, TierCount, people);
 
