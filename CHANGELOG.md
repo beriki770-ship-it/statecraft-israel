@@ -186,7 +186,8 @@ adds a line under **Unreleased**; CI's `Changelog` job checks this (see `CONTRIB
   derives each segment's hexes from the traced route and a CI test keeps them in step. Segment Money and turns are
   labelled design values (road IL 2m and 6 turns, rail IL 4m and 6 turns). The map gains the rail link's route
   (`yarkon_rail_link`, from 20 September 1949). The reference player builds segments once the yishuv sites are taken,
-  so the 1952 and mvp-end goldens move. The Tel Aviv–Netanya road waits for a line (#786).
+  so hash1950, hash1952 and mvp-end move. A veteran builds a segment at 2 turns of progress a turn and a halutz's
+  segment work counts as service, as on a site (R-VET-001, R-VET-002). The Tel Aviv–Netanya road waits for a line (#786).
 - City and town pills start with their population tier, a gold disc with a number from 1 to 9 (refs #710). The tier is
   static: it comes from the city's 1948 people in `content/cities.yaml` (#821), not from the sim's live count (owner,
   15 October 2026). The scale is the design value proposed on #710 and not yet ruled: tiers double from 1,000, so under

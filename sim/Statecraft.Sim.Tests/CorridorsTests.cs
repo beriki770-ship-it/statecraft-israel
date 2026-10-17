@@ -116,6 +116,44 @@ public class CorridorsTests
         Assert.False(Corridors.IsComplete(c, after, "road_a"));
     }
 
+    // R-VET-002 on a segment (#868's rule; the plan's PR 6 names Corridors.cs): a veteran's segment gains veteran_progress
+    // turns of progress a turn, and one with that many or fewer left is built that turn. A veteran gains no more service.
+    [Fact]
+    public void AVeteranBuildsASegmentFaster()
+    {
+        var c = Town();   // road_a: 3 turns a segment; veteran_progress 2
+        var s = Simulation.NewGame(c, 1, Mode.Historical);
+        var id = s.NextId++;
+        s.Units.Add(id, new Unit(id, "veteran_halutz", 1, 0, 4));
+        var r = Step(c, s, Road(id));   // turn T: 2 of 3
+        Assert.Empty(r.Rejected);
+        Assert.Equal(2, r.State.Corridors["road_a"].Segments[0]!.Progress);
+        r = Step(c, r.State);           // T+1: built, at 3 of 3
+        var seg = r.State.Corridors["road_a"].Segments[0]!;
+        Assert.Equal(((int?)null, 3, (DateTime?)r.State.Date), (seg.Unit, seg.Progress, seg.BuiltOn));
+        Assert.Equal(("veteran_halutz", 4), (r.State.Units[id].Type, r.State.Units[id].Service));
+    }
+
+    // R-VET-001 on a segment: a halutz whose segment progressed gains a turn of service, and at veteran_halutz_service it
+    // becomes a veteran at the end of that turn, keeping its segment, which then gains veteran_progress a turn.
+    [Fact]
+    public void WorkOnASegmentCountsAsService()
+    {
+        var c = Town();   // veteran_halutz_service 4
+        var s = WithHalutzim(c, 1, out var id);
+        s.Units[id[0]] = new Unit(id[0], "halutz", 1, 0, 2);
+        var r = Step(c, s, Road(id[0]));   // turn T: 1 of 3, service 3
+        Assert.Equal(("halutz", 3), (r.State.Units[id[0]].Type, r.State.Units[id[0]].Service));
+        r = Step(c, r.State);             // T+1: 2 of 3 (a halutz's progress), service 4: promoted
+        Assert.Equal(("veteran_halutz", 4), (r.State.Units[id[0]].Type, r.State.Units[id[0]].Service));
+        Assert.Equal(2, r.State.Corridors["road_a"].Segments[0]!.Progress);
+        Assert.True(Projects.IsBusy(r.State, id[0]));
+        Assert.Contains(r.Why, x => x.System == "map" && x.Message == "A group of halutzim became veteran pioneers");
+        r = Step(c, r.State);             // T+2: built
+        Assert.NotNull(r.State.Corridors["road_a"].Segments[0]!.BuiltOn);
+        Assert.Equal(4, r.State.Units[id[0]].Service);
+    }
+
     // R-COR-001, R-COR-003 (Q-COR-4: any order, one unit per segment)
     [Fact]
     public void TwoUnitsBuildOneCorridorInParallel()

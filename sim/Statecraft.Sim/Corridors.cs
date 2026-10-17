@@ -80,8 +80,9 @@ namespace Statecraft.Sim
         }
 
         /// <summary>R-COR-002, step 5 of the turn after the sites: in ordinal corridor id order, then segment index, each segment
-        /// being built gains one turn of progress. One whose progress reaches its kind's turns is built on
-        /// <paramref name="next"/>, the turn's end date, and its unit is idle again.</summary>
+        /// being built gains one turn of progress, or veteran_progress with a veteran (R-VET-002). One whose progress reaches its
+        /// kind's turns is built on <paramref name="next"/>, the turn's end date, and its unit is idle again. Then the unit, a
+        /// halutz, gains a turn of service, and at veteran_halutz_service becomes a veteran_halutz (R-VET-001), as on a site.</summary>
         public static void Advance(Content c, GameState s, DateTime next, List<Cause> why)
         {
             var r = c.RulesAt(s.Date).Mvp!;
@@ -93,10 +94,21 @@ namespace Statecraft.Sim
                 for (int i = 0; i < cur.Segments.Count; i++)
                 {
                     if (!(cur.Segments[i] is SegmentWork x) || x.BuiltOn != null) continue;
-                    var progress = x.Progress + 1;
-                    if (progress < turns) { cur = cur.With(i, new SegmentWork(x.Unit, progress, null))!; continue; }
-                    cur = cur.With(i, new SegmentWork(null, progress, next))!;
-                    why.Add(new Cause("map", w.Id, 1, $"{SegmentName(def, i)} built"));
+                    var u = s.Units[x.Unit!.Value];   // a segment being built always names its unit (SegmentWork)
+                    // Capped at the kind's turns, so a built segment's progress reads the same whoever built it.
+                    var progress = Math.Min(turns, x.Progress + (u.Type == Projects.VeteranType ? r.VeteranProgress!.Value : 1));
+                    if (progress < turns) cur = cur.With(i, new SegmentWork(x.Unit, progress, null))!;
+                    else
+                    {
+                        cur = cur.With(i, new SegmentWork(null, progress, next))!;
+                        why.Add(new Cause("map", w.Id, 1, $"{SegmentName(def, i)} built"));
+                    }
+                    // R-VET-001: the segment progressed this turn, so a halutz serves a turn; a veteran counts no further.
+                    if (u.Type != "halutz") continue;
+                    var service = u.Service + 1;
+                    var promoted = service >= r.VeteranHalutzService!.Value;
+                    s.Units[u.Id] = new Unit(u.Id, promoted ? Projects.VeteranType : u.Type, u.Q, u.R, service);
+                    if (promoted) why.Add(new Cause("map", w.Id, 1, "A group of halutzim became veteran pioneers"));
                 }
                 s.Corridors[w.Id] = cur;
             }
