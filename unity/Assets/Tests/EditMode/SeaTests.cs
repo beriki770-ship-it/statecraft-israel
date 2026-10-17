@@ -586,6 +586,8 @@ public class SeaTests
         var cam = Camera.main; var rig = cam.GetComponent<CameraRig>();
         PromoPose.Gameplay03.Apply(rig, map.Frame);
         var reads = new System.Collections.Generic.List<float>();
+        var shores = new System.Collections.Generic.List<int>();
+        var surfs = new System.Collections.Generic.List<int>();
         int previous = QualitySettings.GetQualityLevel();
         QualitySettings.SetQualityLevel(0, true);   // the web tier, as MapCapture.SurfFrames and the WebGL ?shot render it
         try
@@ -593,10 +595,20 @@ public class SeaTests
             for (int k = 0; k < StripeMoments; k++)
             {
                 MapShaderGlobals.PinWaterTime(100f + k * 20f / StripeMoments);   // one breaker cycle is 1 / ScBreakerRate = 20 s
-                reads.Add(StripeRows(RenderSample.Render(cam, 1920, 1080)));
+                var (score, rows, surf) = StripeRows(RenderSample.Render(cam, 1920, 1080));
+                reads.Add(score); shores.Add(rows); surfs.Add(surf);
             }
         }
         finally { QualitySettings.SetQualityLevel(previous, true); }
+        TestContext.WriteLine($"rows with a shore per moment (of 95): {string.Join(" ", shores)}; with a foam line: {string.Join(" ", surfs)}");
+        // Fails closed: a window with no shore (a broken pose, a moved coast) or no foam on it (the water toggle off draws
+        // the sea plain, shore still found) would read 0, the best score. coast_measure finds a shore on all 95 rows of
+        // main's and the chirp's WebGL frames.
+        for (int k = 0; k < StripeMoments; k++)
+        {
+            Assert.GreaterOrEqual(shores[k], StripeShoreRowsMin, "south of Jaffa: the window shows the sea meeting the sand");
+            Assert.GreaterOrEqual(surfs[k], StripeShoreRowsMin, "south of Jaffa: the surf draws foam along the shore");
+        }
         reads.Sort();
         float median = 0.5f * (reads[StripeMoments / 2 - 1] + reads[StripeMoments / 2]);
         TestContext.WriteLine($"stripe_rows per moment: {string.Join(" ", reads.Select(v => v.ToString("0.00")))}; median {median:0.00}");
@@ -606,11 +618,15 @@ public class SeaTests
     /// <summary>TheDuneCoastsSurfIsNotCombedIntoEvenLines' moments and bound (promo 03's stripe_rows, #716).</summary>
     const int StripeMoments = 8;
     const float StripeRowsMax = 0.30f;
+    /// <summary>The fewest of the south window's 95 rows that must find a shore, and a foam line before it, at each
+    /// moment, so a frame with no sea or no surf fails instead of scoring 0 (#854 review).</summary>
+    const int StripeShoreRowsMin = 80;
 
-    /// <summary>coast_measure's stripe_rows over its south window, for a 1920x1080 gameplay03 render (row 0 at the bottom).</summary>
-    static float StripeRows(RenderSample r)
+    /// <summary>coast_measure's stripe_rows over its south window, for a 1920x1080 gameplay03 render (row 0 at the bottom),
+    /// the number of rows that found a shore, and of those the rows with at least one foam line.</summary>
+    static (float score, int rows, int surf) StripeRows(RenderSample r)
     {
-        int rows = 0, striped = 0;
+        int rows = 0, striped = 0, surf = 0;
         for (int y = 690; y < 880; y += 2)
         {
             var c = new char[380];
@@ -636,9 +652,10 @@ public class SeaTests
                 else { if (run >= 2) lines++; run = 0; }
             }
             rows++;
+            if (lines >= 1) surf++;
             if (lines >= 3) striped++;
         }
-        return rows > 0 ? striped / (float)rows : 0f;
+        return (rows > 0 ? striped / (float)rows : 0f, rows, surf);
     }
 
     /// <summary>promo-sea review I2 / M5 / N1: the breakers are box-filtered over the pixel, so they never alias. Around

@@ -102,14 +102,14 @@ static const float ScWaveTilt = 0.6;                             // wave normal 
 // The surf: a swash line along the sand (full to ScSwashM) and breakers rolling shoreward through the surf zone
 // (ScSurfM), broken along the shore by noise. The breakers are a squared triangle wave in the distance from the shore,
 // box-filtered over the pixel's footprint in closed form, so they never alias and tend to their mean (1/3) as the pixel
-// grows; ScBreakerRate cycles per second roll them in at ScBreakerSpacingM x ScBreakerRate = 22.5 m/s (half a pixel per
-// frame at the gameplay pose's ~45 m pixels and 60 fps). coast.png's 94 m levels are interpolated linearly between
+// grows; ScBreakerRate cycles per second roll them in at ScBreakerSpacingM x ScBreakerRate = 22.5 m/s (half a pixel a
+// second at the gameplay pose's ~45 m pixels). coast.png's 94 m levels are interpolated linearly between
 // texels, so a crest can sit up to ~47 m off its true place: about one gameplay pixel, under the phase noise.
 // Sea round 3 (#388): towards promo 03's lace (2-4 broken white lines over the turquoise; SeaTests guarantees the swash
 // and at least one breaker, the rest waits for #519's grade). The surf zone from 900 to 1800 m (the
 // promo's 29-52 px foam band at gameplay03's ~45 m pixels; at 1500 m the second crest faded under the foam's white before
 // it reached the turquoise), the crests from 300 to 450 m apart (about 10 px, so they stand clear of each other;
-// ScBreakerRate kept, so they roll in at 22.5 m/s, about half a pixel a frame), and the foam whiter (ScFoamWhite, 0.85
+// ScBreakerRate kept, so they roll in at 22.5 m/s, about half a pixel a second), and the foam whiter (ScFoamWhite, 0.85
 // before: the crests read turquoise-tinted).
 // The lace (the "foam" toggle, _ScSeaFoam): the constants alone left whole crests out where the 300 m "broken" noise was
 // low, since one blob of it covers two crests 450 m apart (SeaTests.TheSurfShowsABrokenBreakerBeyondTheSwashAtTheGameplayZoom
@@ -241,7 +241,7 @@ static const float ScBreakerFilterPx = 1.25;
 // 34.7 px (35.6 before), 2 lace lines, share 0.55 (promo 03 0.54). Chirp 0.25 read 0.32; 0.5 read 0.21 but pulled
 // SeaTests' southern walks in to 39 px, past the north-to-south ratio and the lace share bounds; a constant 800 m spacing
 // read 0.27 and kept the lines even. The crests still roll in at ScBreakerRate cycles a second, so the outer ones move
-// faster: 75 m/s at the 3 km edge (about 1.7 px a frame at gameplay's 45 m pixels), the 22.5 m/s above being the shore's.
+// faster: 75 m/s at the 3 km edge (about 1.7 px a second at gameplay's 45 m pixels), the 22.5 m/s above being the shore's.
 static const float ScBreakerChirp = 0.35;
 float2 ScBreakers(float coast, float2 mapM)
 {
