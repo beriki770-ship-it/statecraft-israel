@@ -218,7 +218,9 @@ public class ProjectsTests
     // R-SITE-001, R-SITE-003, R-SITE-004
     [Theory]
     [InlineData("beit_kama")]
+    [InlineData("beit_shemesh")]
     [InlineData("gilat")]
+    [InlineData("kiryat_shmona")]
     [InlineData("mefalsim")]
     [InlineData("reim")]
     public void EveryYishuvSiteBuildsAsMefalsimDoes(string site)
