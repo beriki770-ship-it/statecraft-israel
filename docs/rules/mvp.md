@@ -56,9 +56,9 @@ R-CITY-007: A city starts with `civilians` = `people / people_per_unit` to the n
 
 ## Training
 
-Training is step 4 of the turn in the approved order (§2.3, D-A6): it runs before production. One military camp and one Hakhshara exist in Tel Aviv at the start, a labelled design assumption (D-D5); pioneers will build more.
+Training is step 4 of the turn in the approved order (§2.3, D-A6): it runs before production. One military camp and one Hakhshara exist in Tel Aviv at the start, a labelled design assumption (D-D5); pioneers build more at camp sites (R-CAMP-001).
 
-R-TRAIN-001: `Train(city, track, n)` takes `n` of the city's civilians without a job into a cohort that trains as `track` (a unit type with a `facility`: `recruit` in a military camp, `halutz` in a Hakhshara) for the type's `training_turns`, counting the turn it was ordered in. The Treasury pays `n * training_cost` at once. When the Treasury holds less, the shortfall is borrowed, as for map actions: it is added to the debt and the Treasury stops at 0 (owner decision "Allow borrowing", 15 October 2026). The trainees leave the civilians at once; the cohort takes the next id, which units share. It is refused, with the state unchanged and the Attention refunded, when the city or track is unknown, `n` is below 1, the city lacks the facility, or it has fewer civilians without a job. The legacy loop refuses it before charging Attention.
+R-TRAIN-001: `Train(city, track, n)` takes `n` of the city's civilians without a job into a cohort that trains as `track` (a unit type with a `facility`: `recruit` in a military camp, `halutz` in a Hakhshara) for the type's `training_turns`, counting the turn it was ordered in. The Treasury pays `n * training_cost` at once. When the Treasury holds less, the shortfall is borrowed, as for map actions: it is added to the debt and the Treasury stops at 0 (owner decision "Allow borrowing", 15 October 2026). The trainees leave the civilians at once; the cohort takes the next id, which units share. It is refused, with the state unchanged and the Attention refunded, when the city or track is unknown, `n` is below 1, the city lacks the facility, or it has fewer civilians without a job. A city has a facility when `cities.yaml` gives it one at the start or a camp site of that kind built for it is in the state (R-CAMP-001). The legacy loop refuses it before charging Attention.
 
 R-TRAIN-002: `CancelTraining(cohort)` returns the cohort's people to its city as civilians without a job and refunds none of the Money paid (D-A3). A cohort that does not exist, or has finished, is refused with the state unchanged.
 
@@ -83,6 +83,12 @@ R-VET-002: A veteran's site being built has `veteran_progress` turns less to go 
 R-SITE-004: Every designated site has one or more kinds from a fixed list: `yishuv`, `field`, `swamp`, `military_camp` and `hakhshara` (Phase 4, Q-FIELD-1, Q-SWAMP-1, Q-CAMP-3). A pioneer action is accepted only at a site of its kind; any other is refused with the state unchanged and the Attention refunded. A yishuv site has a founding date inside the MVP's years and no other kind has one. A camp site (`military_camp` or `hakhshara`) names a city of `cities.yaml`, the city it trains for (Q-CAMP-1), and no other kind names one. The loader refuses any other row, naming the file and field.
 
 R-SITE-005: At most one `yishuv` site sits in a hex, so a hex shows at most one new yishuv. A site of another kind may share a hex with a yishuv site, as a yishuv's field site does (Q-SITE-3).
+
+## Camps
+
+R-CAMP-001: `PioneerWork(unit, build_camp, site)` builds a training camp at a site whose kinds include `military_camp` or `hakhshara`, by R-SITE-001 to R-SITE-003's rules, with `build_camp_turns` and `build_camp_cost` (labelled design values, required in the GDD loop). One action builds either facility, as the site's kind says (Q-CAMP-3, owner, 17 October 2026, #782). Built, on the turn's end date, the camp gives the site's city (Q-CAMP-1) the site's facility, with no capacity limit, so `Train` accepts that city for the matching track from the next turn (R-TRAIN-001). A camp being built gives nothing. The facility is read from the built site's record, so the state hash gains nothing beyond the site's own record. The MVP's camp sites are Camp 80 (for Hadera) and Tzrifin (for Rishon LeZion), both `military_camp` (Q-CAMP-2, owner, 17 October 2026, #785; "Both military", owner, 17 October 2026, #927).
+
+R-CAMP-002: A camp site's `city` is the MVP city (`cities.yaml`) nearest to the site by hex distance (Q-CAMP-1). When several are equally near, it is the one of them nearest by straight-line km from the point the site's hex comes from to the city's point in `map/settlements_1948.yaml` (owner, 17 October 2026, #927). Tzrifin's hex is one hex from Tel Aviv, Petah Tikva, Rehovot and Rishon LeZion, so it serves Rishon LeZion, about 3.9 km away.
 
 ## Objectives
 
@@ -133,3 +139,17 @@ R-NAT-004: "Low international support" (`low_intl_support`) is a situation on `i
 R-EFX-001: An option's effect may target an indicator id from `model.yaml`, `treasury` or `fx_reserves` (game money), or `food`, the national Food stock: the effect moves the stock by whole units (the delta rounds half away from zero) and the stock never drops below 0, so a cut larger than the stock applies only to what is there. Any other target is a load error naming file and field. The Arms stock becomes a target with its pool (#781).
 
 R-EFX-002: An option of an event tagged `holocaust`, `terror`, `massacre` or `war-casualties` cannot raise `treasury`, `fx_reserves`, `food`, `food_supply`, `morale` or `intl_standing` (Q-EFX-2, decided 15 October 2026: the no-gain rule covers all five resources, with the legacy indicators standing for Food, Social cohesion and International Support; `food` is Food's own target, and Arms joins the rule with its pool, #781). A cost stays allowed. The rule for the Phase 6 `displacement` tag is Q-DEP-6 (open).
+
+## Events
+
+D-H1 in the GDD loop (GDD Phase 7 PR 1, #805). The owner took the plan's recommendations for Q-EVT-1 to Q-EVT-4 on 17 October 2026 (#784). As the plan's Decided rows record them (`docs/superpowers/plans/2026-10-15-gdd-phase-7.md`), that keeps windows, hard anchors and the cap of 3 soft events a turn, keeps delegation, adds no delayed effects in the MVP, and shows every effect of every option from the sim's preview. These rules state what the code already does; no behaviour changed.
+
+R-EVT-001: An event fires on the first turn whose span overlaps its window `[from, to)` (or at the new game, when the start date is in it), once its `requires` is met and its conditions hold; an objective's card also waits for its objective (R-OBJ-003). Every eligible hard anchor fires. At most 3 soft events fire a turn (`EventSystem.MaxSoftEventsPerTurn`); they take the slots the hard anchors leave, `max(0, 3 - hard anchors)`, and the rest wait for a later turn (Q-CUT-6).
+
+R-EVT-002: The soft events take the free slots in order of `from`, then id (ordinal). The decided place of an early armistice ahead of the other soft events (Q-EVT-1, through `front_quiet`, Q-OBJ-1) lands with that key in Phase 5 PR 13 (#752), and this rule is reworded then.
+
+R-EVT-003: An event the player leaves unanswered at End Turn is delegated to its office's holder (Q-EVT-2): with probability competence/10 the holder picks the recommended option (else the first), otherwise a random option. In Historical mode a hard anchor takes its historical option, and an objective's card its one option, with no RNG draw.
+
+R-EVT-004: An option's effects apply when it is chosen or delegated, on that turn, and never later; an option has no delayed form, and the loader refuses an unknown key such as `delay` (Q-EVT-3).
+
+R-EVT-005: One sim helper, `EventSystem.OptionEffects`, lists every effect of an option in the order choosing it applies them: the numeric effects, the policies it sets (by id), then the security level, each with the option's own amount (Q-EVT-4). The event card will show this list (GDD Phase 7 PR 8), so no number will be computed in Unity.
