@@ -165,6 +165,13 @@ adds a line under **Unreleased**; CI's `Changelog` job checks this (see `CONTRIB
   (Q-CUT-8). Every golden moves; the cutover re-pins them once.
 
 ### Added
+- A halutz group becomes a veteran pioneer (`veteran_halutz`) after 6 turns of work, one yishuv's build, and a
+  veteran builds twice as fast: 2 turns of progress a turn (refs #790; GDD Phase 4 PR 6, D-D9, R-VET-001, R-VET-002).
+  Only turns whose project progressed count. Both numbers are labelled design values from the Phase 4 plan, which the
+  owner took on #782. A unit's service is hashed only when it is not 0. hash1950, hash1952 and mvp-end are re-pinned:
+  the reference player's halutz group becomes a veteran after Beit Kama and builds Gilat, Mefalsim and Re'im in 3 turns
+  each, so the first new yishuv completes on 1949-09-15 (was 1950-03-15), and by 1950 the score is 100 and the debt is
+  IL 2m higher. The 1952 score and debt do not change.
 - City and town pills start with their population tier, a gold disc with a number from 1 to 9 (refs #710). The tier is
   static: it comes from the city's 1948 people in `content/cities.yaml` (#821), not from the sim's live count (owner,
   15 October 2026). The scale is the design value proposed on #710 and not yet ruled: tiers double from 1,000, so under

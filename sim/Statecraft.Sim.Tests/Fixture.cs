@@ -227,6 +227,8 @@ mvp:
   objective_bonus_cap: 60
   k_food: 0.1
   cover_months: 3
+  veteran_halutz_service: 4
+  veteran_progress: 2
 ";
 
     public static readonly string GddCities = "\ncities:\n" + City("town_a", 12, 8, 10, 6, "[military_camp, hakhshara]");

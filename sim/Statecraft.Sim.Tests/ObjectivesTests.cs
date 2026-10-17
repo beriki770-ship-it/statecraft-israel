@@ -264,11 +264,12 @@ eras:
     [Fact]
     public void TheGoldenRunCompletesTheFirstNewYishuvOnTheBuildDate()
     {
-        var s = GoldenRun.Play(Real, GoldenRun.Until1952);   // to 1952: Mefalsim is built in 1950 since #785
+        var s = GoldenRun.Play(Real, GoldenRun.Until1952);
         var built = s.Sites["mefalsim"].BuiltOn!.Value;
         // Since Phase 4 PR 1 (#785) the reference player builds the yishuv sites in id order, one after another as its halutzim
-        // come free: Beit Kama and Gilat first, so Mefalsim is built in March 1950, nine months after its founding date (12 June 1949).
-        Assert.Equal(new DateTime(1950, 3, 15), built);
+        // come free: Beit Kama and Gilat first. Since Phase 4 PR 6 (#790) its group is a veteran after Beit Kama and builds in
+        // 3 turns, so Mefalsim is built in September 1949, three months after its founding date (12 June 1949); it was March 1950.
+        Assert.Equal(new DateTime(1949, 9, 15), built);
         Assert.Equal(built, s.Objectives["first_new_yishuv"]);
         Assert.Equal(100, s.Score);   // D-B6; no D-B2 bonus, as it is built after the reference date
         Assert.Equal("continue", s.ChosenOptions["first_new_yishuv"]);
