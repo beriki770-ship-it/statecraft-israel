@@ -13,7 +13,7 @@ As a player of the MVP, I want to send a group of halutzim to plow the fields of
 - When the plowing finishes, the field site is plowed on the turn's end date and the unit is idle again (R-FIELD-001).
 - A plowed field needs no workers (`Q-FIELD-2` [S3]). Each turn, in the turn's sixth step, after the cities' production, it adds 1 unit of Food to the national stock, one population unit's food for a month (R-FIELD-002, `Q-FIELD-3` [S3]).
 - The effect is small on purpose: the nation eats 650 to 1,400 units of Food a turn over the MVP, so one field is about 0.1% of a month's need (`Q-FIELD-3` [S3]). In a turn with imports the import only tops the stock up by less; the field shows in the stock when foreign currency is exhausted and nothing is imported.
-- The reference player of the goldens plows the lowest-id ready field once every yishuv site is taken (D-A7).
+- The reference player of the goldens plows the lowest-id ready field once every yishuv site is taken, before any camp site (D-A7).
 
 ## Data touched
 

@@ -28,9 +28,9 @@ final `GameState.Hash()` is pinned:
 
 | Run | Ends | Hash |
 |---|---|---|
-| to 1950-01-01 (`Hash1950`) | 1950-01-15, turn 20 | `38c8a4844a0d7cb25076c4286e05fea75f0df9294fd29943345bce57a0ddead3` |
-| to 1952-01-01 (`Hash1952`) | 1952-01-15, turn 44 (the game's end) | `1e21fcd3e5d99159b7bf2c803e8c92ca78ec52c36445aa511edbfeac082514f4` |
-| to the game's end (`mvp-end`) | 1952-01-15, turn 44 | `1e21fcd3e5d99159b7bf2c803e8c92ca78ec52c36445aa511edbfeac082514f4` |
+| to 1950-01-01 (`Hash1950`) | 1950-01-15, turn 20 | `e4ebff9b317a02b908434cedb18674608ae820e5e60769ef78272493884590c4` |
+| to 1952-01-01 (`Hash1952`) | 1952-01-15, turn 44 (the game's end) | `e0d8212a1f6ea8af9211166aa52b76c741c739807d4326b6b6664a5c5d26857f` |
+| to the game's end (`mvp-end`) | 1952-01-15, turn 44 | `e0d8212a1f6ea8af9211166aa52b76c741c739807d4326b6b6664a5c5d26857f` |
 
 `hash1952` stops at the first turn on or after 1 January 1952, which is the game's last turn, so it is the same run as
 `mvp-end` (`DeterminismTests.TheWholeGameToItsEndIsFixed`). Both names are kept (spec 2026-10-12 section 3 step 6): a
@@ -45,8 +45,8 @@ Check every build with:
 
 ```
 uv run tools/web_check.py unity/Builds/Web-<compression> --query "golden&smoke=5" \
-  --expect "GOLDEN OK 1950 38c8a4844a0d7cb25076c4286e05fea75f0df9294fd29943345bce57a0ddead3" \
-  --expect "GOLDEN OK 1952 1e21fcd3e5d99159b7bf2c803e8c92ca78ec52c36445aa511edbfeac082514f4" \
+  --expect "GOLDEN OK 1950 e4ebff9b317a02b908434cedb18674608ae820e5e60769ef78272493884590c4" \
+  --expect "GOLDEN OK 1952 e0d8212a1f6ea8af9211166aa52b76c741c739807d4326b6b6664a5c5d26857f" \
   --expect "SMOKE OK 5 turns 1948-10-15 2436927c8b24f28c42be0e7b5a6fe30900f2f6c6a3ba77e4be943c1f50db57cc"
 ```
 
@@ -261,6 +261,6 @@ The hash reads the state keys, so it never sees a record outside its window. An 
 | GDD Phase 4 PR 3 | 1950 | `38c8a484` | build a training camp (R-CAMP-001, #787): once the four yishuv sites are taken, the reference player's veteran group builds the camp sites in ordinal id order. At the end of the 1950 run (1950-01-15) Camp 80 is being built (`camp_80=b,1,4`), and the debt is IL 2m higher (was `ef765972`) |
 | GDD Phase 4 PR 3 | 1952 | `1e21fcd3` | same; at 2 turns of progress a turn (R-VET-002) Camp 80 is built on 1950-03-15 and Tzrifin on 1950-06-15. The debt is IL 4m higher (2 x IL 2m). The reference player trains no group after the first, so the new facilities (a military camp each for Hadera and Rishon LeZion, owner "Both military" on #927) change nothing else (was `7b4bffe0`) |
 | GDD Phase 4 PR 3 | mvp-end | `1e21fcd3` | same; the same run as hash1952 (was `7b4bffe0`) |
-| GDD Phase 4 PR 4 | 1950 | `e4ebff9b` | plow fields (R-FIELD-001, R-FIELD-002, #788): once the four yishuv sites are taken, the reference player's veteran group plows their fields in ordinal id order. At the end of the 1950 run (1950-01-15) Beit Kama's field is still being plowed (`beit_kama_field=b,1,1`), and the debt is IL 0.5m higher (was `ef765972`) |
-| GDD Phase 4 PR 4 | 1952 | `d1b9a487` | same; at 2 turns of progress a turn (R-VET-002) the fields are plowed on 1950-02-15 (Beit Kama), 1950-04-15 (Gilat), 1950-06-15 (Mefalsim) and 1950-08-15 (Re'im). The debt is IL 2m higher (4 x IL 0.5m), and the Food stock ends 4 units higher (2736, was 2732), which lifts food_supply and stability in the fourth decimal (was `7b4bffe0`) |
-| GDD Phase 4 PR 4 | mvp-end | `d1b9a487` | same; the same run as hash1952 (was `7b4bffe0`) |
+| GDD Phase 4 PR 4 | 1950 | `e4ebff9b` | plow fields (R-FIELD-001, R-FIELD-002, #788), rebased on the training camps (#927): once the four yishuv sites are taken, the reference player's veteran group plows their fields in ordinal id order, before any camp. At the end of the 1950 run (1950-01-15) Beit Kama's field is still being plowed (`beit_kama_field=b,1,1`) instead of Camp 80 being built, and the debt is IL 1.5m lower (IL 0.5m for the field instead of IL 2m for the camp) (was `38c8a484`) |
+| GDD Phase 4 PR 4 | 1952 | `e0d8212a` | same; at 2 turns of progress a turn (R-VET-002) the fields are plowed on 1950-02-15 (Beit Kama), 1950-04-15 (Gilat), 1950-06-15 (Mefalsim) and 1950-08-15 (Re'im), so Camp 80 is built on 1950-11-15 (was 1950-03-15) and Tzrifin on 1951-02-15 (was 1950-06-15). The debt is IL 2m higher (4 x IL 0.5m), and the Food stock ends 4 units higher (2736, was 2732), which lifts food_supply and stability in the fourth decimal (was `1e21fcd3`) |
+| GDD Phase 4 PR 4 | mvp-end | `e0d8212a` | same; the same run as hash1952 (was `1e21fcd3`) |
