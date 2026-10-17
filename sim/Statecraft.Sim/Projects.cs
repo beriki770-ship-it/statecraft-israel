@@ -60,7 +60,7 @@ namespace Statecraft.Sim
             if (plow && YishuvToBuildFirst(c, s, place) is Site first) return $"{place.Name} can be plowed once {first.Name} is built";
             var r = c.RulesAt(s.Date).Mvp!;   // the loader requires it in the GDD loop
             // Owner decision "Allow borrowing" (2026-10-15, #378 question 13): a short Treasury borrows, as map actions do.
-            var cost = camp ? r.BuildCampCost!.Value : plow ? r.PlowFieldsCost : r.BuildYishuvCost;   // the loader requires build_camp_cost in the GDD loop
+            var cost = camp ? r.BuildCampCost!.Value : plow ? r.PlowFieldsCost!.Value : r.BuildYishuvCost;   // the loader requires both in the GDD loop
             EconomySystem.PayOrBorrow(c, s, cost, camp ? "to build a training camp" : plow ? "to plow fields" : "to build a yishuv", why);
             // The same reading of D-A6 as training's: the turn of the order is the first build turn, so with
             // build_yishuv_turns 6 an order on turn T is built at the end of T+5
