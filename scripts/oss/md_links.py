@@ -1,8 +1,8 @@
 #!/usr/bin/env python3
 """Markdown link check (#333): every relative link in a tracked *.md file must point at a file that is tracked in git.
 
-`uv run scripts/oss/md_links.py [--root DIR]`. Ignores code (inline spans, and fences of three or more backticks or tildes), absolute URLs (any `scheme:`), `#anchor` and
-`mailto:` links, and targets with brackets (reference-style leftovers). Anchors after `#` are not checked, only the file.
+`uv run scripts/oss/md_links.py [--root DIR]`. Ignores code (inline spans, and fences of three or more backticks or tildes), absolute URLs (any `scheme:`),
+`#anchor` and `mailto:` links, and targets with brackets (reference-style leftovers). Anchors after `#` are not checked, only the file.
 Handles a link title (`[a](b "t")`), `<angle>` targets, `%20` escapes and the outer link of a badge (`[![x](img)](page)`).
 A target must match a tracked file or directory exactly, so a wrong letter case fails on macOS too (CI's Linux would).
 One line per dead link (file: link); exit 1 if any."""

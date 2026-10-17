@@ -49,3 +49,10 @@ def test_links_in_inline_code_and_tilde_or_long_fences_are_not_links(make_repo):
 def test_a_real_dead_link_next_to_an_inline_code_span_is_still_found(make_repo):
     root = make_repo({'README.md': 'Use `[a](shown.md)` then [real](missing.md) and `code` [ok](README.md).\n'})
     assert m.dead_links(root) == [('README.md', 'missing.md')]
+
+
+def test_stray_backtick_and_shorter_fence_run_do_not_hide_real_links(make_repo):
+    root = make_repo({
+        'README.md': 'a ` b\n\n[one](gone1.md)\n\n````\n```\n[in](x.md)\n````\n[two](gone2.md)\n',
+    })
+    assert m.dead_links(root) == [('README.md', 'gone1.md'), ('README.md', 'gone2.md')]
