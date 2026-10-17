@@ -8,11 +8,31 @@ adds a line under **Unreleased**; CI's `Changelog` job checks this (see `CONTRIB
 ## [Unreleased]
 
 ### Fixed
+- The loading screen's boot-failure line wraps inside the screen with a side margin (refs #765). In Hebrew at phone width
+  it ran past both edges, so the player could not read "reload the page"; `.loading-line` had no `white-space: normal`.
+  `UiLayoutTests.TheBootFailureLineWrapsInsideTheScreen` checks English and Hebrew at 390x844, 960x600 and 1280x720.
 - Player builds work again (refs #680). Since #680 every `Build.*` failed with "no CRC for the bundle", because Unity
   reads a bundle's CRC from its `.manifest` and the collection's bundles were copied into StreamingAssets without them.
   The checks file is now written in the bundle cache and copied beside the shipped bundles.
 
 ### Changed
+- A kibbutz no longer looks like a moshav or a moshava (refs #32). The five kibbutz game settlements and the kibbutz rows
+  of the 1948 localities get a dining hall near the heart, opposite the water tower (white, flat roof, a raised
+  clerestory), long one-storey members' houses under red tiles, and grey-roofed farm sheds on one side, the farm yard.
+  The plan follows Kauffmann's kibbutz layout: the dining hall at the centre, the farm kept apart from the houses
+  (he.wiki "גן הנוף הקיבוצי"). Nahalal's moshav ring and the moshavot are unchanged (their renders are pixel-identical),
+  and no other place moves; inside a kibbutz the hall's lot can take a plot. Yad Mordechai has no hall: no free ground is left near its heart, and a hall pushed to the edge
+  would take its houses.
+- The GDD game has its twelve cities (GDD Phase 3 PR 1, refs #732, #383; R-CITY-006, R-CITY-007): `content/cities.yaml`
+  holds the `city` and `town` rows of the 1948 settlements, each starting from its census population of 8 November 1948
+  (CBS Statistical Abstract No. 14, Table 11; Zikhron Ya'akov from No. 3; Rosh Pinna from Hebrew Wikipedia, as the owner
+  accepted on #569), with the CBS working share where one exists and labelled design values for the gaps (Q-START-1).
+  Every value carries a status (sourced, derived, wikipedia-only or design) and the loader refuses a historical value
+  without its sources and date. People become units to the nearest 1,000, at least 1 for a town with people
+  (Q-START-2): 511 units in all. With 211 employed units paying job income, `spending_per_capita_per_year` is re-derived
+  from the same Michaely anchor (IL 98.4m of internal debt over 1950-51) with that income included: 0.0001036, was
+  0.000093 (owner, 16 October 2026, #821, option (a)); the run's 1950-51 debt rise is 98.7m. Every golden moves
+  (docs/determinism.md, rebaseline history).
 - The top bar's Money figure is labelled net: "Money (net)", "כסף (נטו)" in Hebrew, and its tooltip says the same (refs
   #681; owner, 16 October 2026: "keep one top-bar figure and label it as net (cash minus debt)"). The value is unchanged,
   cash minus debt; the Budget screen still shows money and debt separately.
@@ -104,6 +124,12 @@ adds a line under **Unreleased**; CI's `Changelog` job checks this (see `CONTRIB
   the tilt-shift blur off and on, at once; the choice is kept per browser in `/idbfs/statecraft-settings/settings.txt`
   (a fixed folder, as the autosave's), never in the sim or the save, so the goldens do not move. `?notiltshift` still
   boots without the blur.
+- A scripted trailer capture from the real build (refs #45): `MapCapture.Trailer` renders the camera moves in
+  `TrailerShot.Default` (the whole country, down to the promo 03 ground and back up; 14 s from the existing promo
+  poses) at 1920 x 1080 and 60 fps on the desktop tier, as PNG frames with the water's clock pinned per frame, the units
+  of turn 1 of a game started with `-seed`, and a `trailer.txt` recording the commit, seed and settings.
+  `docs/RELEASING.md` "Capturing trailer footage" gives the command and the ffmpeg line. Map only (no UI, no sound);
+  the draft cut is still to come.
 - The info panel of Tiberias' hex adds "Tiberias is shown here because its own hex is water." (Hebrew too, with the
   town's Hebrew name), so the hillside hex's
   70 m does not read as the town's (refs #204). It is worked out in Unity from the town's own lon/lat and the hex grid
