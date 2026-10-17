@@ -53,7 +53,9 @@ public class EventRulesGddTests
         for (int i = 0; i < Run.Count; i++)
         {
             var soft = FiredOn(i).Where(e => e.Anchor != "hard").Select(e => e.Id).ToList();
-            Assert.True(soft.Count <= EventSystem.MaxSoftEventsPerTurn, $"{Run[i].Date:yyyy-MM-dd}: {string.Join(", ", soft)}");
+            var hard = FiredOn(i).Count(e => e.Anchor == "hard");
+            // the soft events take only the slots the hard anchors leave
+            Assert.True(soft.Count <= Math.Max(0, EventSystem.MaxSoftEventsPerTurn - hard), $"{Run[i].Date:yyyy-MM-dd}: {hard} hard, soft {string.Join(", ", soft)}");
         }
     }
 
@@ -138,7 +140,9 @@ options:
         for (int turn = 0; turn < 3; turn++)
         {
             var r = Simulation.Step(c, later, new List<Command>());
-            Assert.DoesNotContain(r.Why, w => w.System == "events");   // nothing of the event comes back on a later turn
+            // Nothing of the event comes back on a later turn. An effect is applied only in Resolve, which writes an
+            // "events" cause for each change, so the causes are the record to check.
+            Assert.DoesNotContain(r.Why, w => w.System == "events");
             later = r.State;
         }
         var delayed = Choice.Replace("{ANCHOR}", "soft").Replace("        delta: -10\n", "        delta: -10\n    delay: 2\n");

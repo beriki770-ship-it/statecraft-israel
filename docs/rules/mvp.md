@@ -146,4 +146,4 @@ R-EVT-003: An event the player leaves unanswered at End Turn is delegated to its
 
 R-EVT-004: An option's effects apply when it is chosen or delegated, on that turn, and never later; an option has no delayed form, and the loader refuses an unknown key such as `delay` (Q-EVT-3).
 
-R-EVT-005: One sim helper, `EventSystem.OptionEffects`, lists every effect of an option in the order choosing it applies them: the numeric effects, the policies it sets (by id), then the security level, each with the option's own amount (Q-EVT-4). The event card shows this list (GDD Phase 7 PR 8), so no number is computed in Unity.
+R-EVT-005: One sim helper, `EventSystem.OptionEffects`, lists every effect of an option in the order choosing it applies them: the numeric effects, the policies it sets (by id), then the security level, each with the option's own amount (Q-EVT-4). The event card will show this list (GDD Phase 7 PR 8), so no number will be computed in Unity.
