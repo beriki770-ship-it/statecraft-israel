@@ -139,7 +139,27 @@ from: 1948-05-15
         var ex = Refused(structured, "war-casualties");
         Assert.Equal("events[arms].options[accept]." + field, ex.Field);
         Assert.Contains("sensitive events cannot reward", ex.Message);
+    }
+
+    // R-EFX-005: a sensitive option may still cut a city's capacity or slots.
+    [Fact]
+    public void ASensitiveOptionMayCut()
+    {
         Assert.Single(Load(Event("    city_effects:\n      - { city: town_a, field: job_slots, delta: -1 }\n", "terror")).Events);
+        Assert.Single(Load(Event("    city_effects:\n      - { city: town_a, field: housing_capacity, delta: -1 }\n", "war-casualties")).Events);
+    }
+
+    // R-EFX-004: housing capacity never drops below 0; the cause carries the cut that applied.
+    [Fact]
+    public void HousingCapacityStopsAtZero()
+    {
+        var c = Load(Event("    city_effects:\n      - { city: town_a, field: housing_capacity, delta: -1000 }\n"));
+        var s = Simulation.NewGame(c, 1, Mode.Historical);
+        var old = s.Cities["town_a"].HousingCapacity;
+        var why = new List<Cause>();
+        Assert.Null(EventSystem.Choose(c, s, "arms", "accept", why));
+        Assert.Equal(0, s.Cities["town_a"].HousingCapacity);
+        Assert.Contains(why, w => w.Target == "town_a.housing_capacity" && w.Delta == -old);
     }
 
     // Structured effects act on GDD records, so the legacy loop (no cities, no units) refuses them at load.
@@ -157,10 +177,13 @@ from: 1948-05-15
     {
         var c = Load(Event(Grants).Replace("from: 1948-05-15", "anchor: hard\nfrom: 1948-05-15"));
         var chosen = Simulation.NewGame(c, 1, Mode.Historical);
+        var baseline = chosen.Clone();
         var delegated = chosen.Clone();
         Assert.Null(EventSystem.Choose(c, chosen, "arms", "accept", new List<Cause>()));
         EventSystem.Delegate(c, delegated, new List<Cause>());   // Historical mode: a hard anchor takes its historical option
         Assert.Equal("accept", delegated.ChosenOptions["arms"]);
+        Assert.Equal(baseline.NextId + 3, delegated.NextId);   // the grants applied, not merely the same nothing
+        Assert.Equal(baseline.Units.Count + 3, delegated.Units.Count);
         Assert.Equal(chosen.Hash(), delegated.Hash());
     }
 
