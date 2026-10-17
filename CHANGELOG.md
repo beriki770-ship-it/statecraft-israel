@@ -10,6 +10,12 @@ adds a line under **Unreleased**; CI's `Changelog` job checks this (see `CONTRIB
 ### Added
 - The 1948 unit roster gives 20 formations a sourced Hebrew name (`name_he`, agent-checked until #564's read); a
   name's source does not count toward `wikipedia_only` (refs #902).
+- Pioneers can build a training camp: `PioneerWork(unit, build_camp, site)` at a camp site takes 6 turns and IL 2m
+  (labelled design values the owner accepted; #813 may tune them), and once built its city can train there from the next
+  turn, with no capacity limit (refs #787; GDD Phase 4 PR 3, D-D5, R-CAMP-001; R-TRAIN-001 reworded). `sites.yaml` gains
+  the two camp sites the owner chose (Q-CAMP-2, #785), both military camps and draft rows: Camp 80 near Pardes Hanna for
+  Hadera, and Tzrifin for Rishon LeZion, the nearest of four cities one hex away by km (R-CAMP-002). The reference player builds them once every yishuv site is taken, so
+  `hash1950`, `hash1952` and `mvp-end` move (docs/determinism.md).
 - Event options can now move the national Food stock: `food` is an effect target in whole units, the loader
   validates it, and the sensitive-event no-gain rule covers it (R-EFX-001 and R-EFX-002; refs #729). The Arms
   target follows with its pool (#781).
@@ -47,6 +53,7 @@ adds a line under **Unreleased**; CI's `Changelog` job checks this (see `CONTRIB
 
 ### Changed
 - Refusing the reparations claim (`reparations_claim.refuse`) now costs $4 million of Foreign currency, so neither answer is free (owner, 17 Oct 2026, "A cost for refusing too", #938). The amount is a labelled design value, not a historical figure, and waits for the owner's sign-off on the PR. The reference runs send the claim, so no golden moves.
+- Refusing Egypt's armistice (`armistice_egypt.hold_out`) now sets the war to rung 4, like refusing Jordan's, Lebanon's or Syria's (owner, 17 Oct 2026, "Yes, match the others", #937). The reference runs sign every armistice, so no golden moves.
 - The desktop players' bundle ID is `io.github.eyalgolan.statecraftisrael` (decision O6, owner, 17 Oct 2026, #879; refs #905). Only the Standalone identifier changes; the WebGL build does not read it.
 - The 50 people names in Hebrew are flagged agent-checked until a native speaker reads them (owner, #882).
 - The 3D-model credits in code comments and one test's failure message now name MATKOT, as the owner asked on 17 October 2026; credit text only, with no behaviour change.
