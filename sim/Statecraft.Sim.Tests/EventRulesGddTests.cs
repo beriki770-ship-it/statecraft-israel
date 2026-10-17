@@ -199,8 +199,10 @@ options:
         // A consequence card never fires in the historical run (R-ALT-012); its state comes from a run on its road.
         foreach (var e in C.Events)
         {
+            // Every historical event fires in the run (EventRetimingTests) but hula_drainage, which waits for works the
+            // reference player never starts (R-SWAMP-002); its options are read on the first turn of its window.
             var s = e.Kind != EventKinds.Consequence
-                ? Run.First(x => x.FiredEvents.Contains(e.Id))   // every historical event fires in the run (EventRetimingTests)
+                ? Run.FirstOrDefault(x => x.FiredEvents.Contains(e.Id)) ?? Run.First(x => e.Site != "" && x.Date >= e.From)
                 : AltRun.Play(C, AltRun.RoadTo(C, e)).First(x => x.FiredEvents.Contains(e.Id));
             foreach (var o in e.Options)
             {

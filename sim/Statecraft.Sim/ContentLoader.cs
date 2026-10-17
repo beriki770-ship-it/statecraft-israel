@@ -338,6 +338,8 @@ namespace Statecraft.Sim
             //   sources: [{ url, checked }], status
             //   objective                  the objective (objectives.yaml) whose completion card this is: it fires only once
             //                              that objective is recorded, and has exactly one option
+            //   site                       a swamp site (sites.yaml) whose works the event is about: in the GDD loop it
+            //                              fires only while that site is being worked; the legacy loop ignores it
             foreach (var rel in eventFiles.OrderBy(p => p, StringComparer.Ordinal))
             {
                 var e = Read<GameEvent>(readFile, rel);
@@ -1065,6 +1067,11 @@ namespace Statecraft.Sim
                 if (m.PlowFieldsTurns < 1) throw new ContentException(file, "mvp.plow_fields_turns", "must be >= 1");
                 if (m.PlowFieldsCost == null) throw new ContentException(file, "mvp.plow_fields_cost", "required when eras.yaml systems.loop is gdd");
                 if (!(m.PlowFieldsCost >= 0 && IsFinite(m.PlowFieldsCost.Value))) throw new ContentException(file, "mvp.plow_fields_cost", "must be a finite number >= 0");
+                // R-SWAMP-001: required, so a missing key is not read as 0 (a swamp drained at once, or for nothing).
+                if (m.DrySwampTurns == null) throw new ContentException(file, "mvp.dry_swamp_turns", "required when eras.yaml systems.loop is gdd");
+                if (m.DrySwampTurns < 1) throw new ContentException(file, "mvp.dry_swamp_turns", "must be >= 1");
+                if (m.DrySwampCost == null) throw new ContentException(file, "mvp.dry_swamp_cost", "required when eras.yaml systems.loop is gdd");
+                if (!(m.DrySwampCost >= 0 && IsFinite(m.DrySwampCost.Value))) throw new ContentException(file, "mvp.dry_swamp_cost", "must be a finite number >= 0");
                 if (m.FieldFoodPerTurn == null) throw new ContentException(file, "mvp.field_food_per_turn", "required when eras.yaml systems.loop is gdd");
                 if (m.FieldFoodPerTurn < 0) throw new ContentException(file, "mvp.field_food_per_turn", "must be >= 0");
                 // R-FOOD-001 to R-FOOD-003: required, so a missing key is never read as 0 (a stock term of 0, or no stock).
@@ -1111,6 +1118,20 @@ namespace Statecraft.Sim
                 throw new ContentException("rules.yaml", "mvp.end", FormattableString.Invariant($"must be after start ({c.Rules.Start:yyyy-MM-dd}) and before the last era's end ({c.Eras[c.Eras.Count - 1].To:yyyy-MM-dd})"));
             ValidateSites(c);
             ValidateObjectiveSites(c);
+            ValidateEventSites(c);
+        }
+
+        /// <summary>An event's site (R-SWAMP-002): a designated swamp site, whose works the event is about. Only the GDD loop
+        /// reads sites.yaml, so only it can check this; the legacy loop ignores the key.</summary>
+        static void ValidateEventSites(Content c)
+        {
+            foreach (var e in c.Events.Where(e => e.Site != ""))
+            {
+                var site = c.Sites.FirstOrDefault(x => x.Id == e.Site)
+                    ?? throw new ContentException(e.File, $"events[{e.Id}].site", $"unknown site '{e.Site}' (sites.yaml)");
+                if (!site.Kinds.Contains(Projects.SwampKind))
+                    throw new ContentException(e.File, $"events[{e.Id}].site", $"site '{e.Site}' is not a swamp site (sites.yaml kinds)");
+            }
         }
 
         /// <summary>An objective's site (R-OBJ-001): a designated site of kind yishuv, whose sourced founding date is the
@@ -1162,9 +1183,12 @@ namespace Statecraft.Sim
                 foreach (var k in x.Kinds)
                     if (!SiteKinds.Contains(k)) throw new ContentException(sf, at + ".kinds", $"unknown kind '{k}' ({string.Join(", ", SiteKinds)})");
                 // R-FIELD-001: a field site's built record is its plowed state, so a built yishuv on it would yield Food. Only that
-                // pair is refused; other kinds may share a field site (a drained swamp is PR 5's question, Q-SWAMP-1).
+                // pair is refused; other kinds may share a field site.
                 if (x.Kinds.Contains(Projects.FieldKind) && x.Kinds.Contains(Projects.YishuvKind))
                     throw new ContentException(sf, at + ".kinds", "a field site cannot also be a yishuv site (its built record is its plowed state)");
+                // R-SWAMP-001 (Q-SWAMP-1): the same for a swamp, which drained gives a field site in its hex, to be plowed.
+                if (x.Kinds.Contains(Projects.FieldKind) && x.Kinds.Contains(Projects.SwampKind))
+                    throw new ContentException(sf, at + ".kinds", "a field site cannot also be a swamp site (its built record is its plowed state)");
                 if (x.Kinds.Contains(Projects.YishuvKind))
                 {
                     // R-SITE-005 (Q-SITE-3): one yishuv per hex, so SettlementPlacer keeps one kit per hex; other kinds may share it.

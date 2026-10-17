@@ -486,6 +486,12 @@ namespace Statecraft.Sim
         /// <summary>IL millions plowing a field costs, paid in full when it starts (R-FIELD-001, as R-SITE-001). Required in the
         /// GDD loop, so a missing key never makes plowing free.</summary>
         public double? PlowFieldsCost { get; set; }
+        /// <summary>Turns draining a swamp takes, counting the turn it was ordered in (R-SWAMP-001, as R-SITE-003; Q-SWAMP-1).
+        /// Required in the GDD loop, at least 1.</summary>
+        public int? DrySwampTurns { get; set; }
+        /// <summary>IL millions draining a swamp costs, paid in full when it starts (R-SWAMP-001, as R-SITE-001; Q-SWAMP-1).
+        /// Required in the GDD loop, so a missing key never makes draining free.</summary>
+        public double? DrySwampCost { get; set; }
         /// <summary>Food units a plowed field adds to the national stock each turn, in step 6 (R-FIELD-002; Q-FIELD-3). Required
         /// in the GDD loop, so a missing key is never read as 0.</summary>
         public int? FieldFoodPerTurn { get; set; }
@@ -808,6 +814,10 @@ namespace Statecraft.Sim
         /// <summary>The objective (objectives.yaml) whose completion card this event is: it fires only once that objective is
         /// recorded (R-OBJ-003). Empty for every other event.</summary>
         public string Objective { get; set; } = "";
+        /// <summary>The designated site (sites.yaml, a swamp site) whose works this event is about: in the GDD loop it fires
+        /// only while that site is being worked (R-SWAMP-002; Q-SWAMP-2). The legacy loop reads no sites and ignores it.
+        /// Empty for every other event.</summary>
+        public string Site { get; set; } = "";
         /// <summary>Path relative to the content root, set by the loader (not read from YAML).</summary>
         [YamlIgnore] public string File { get; set; } = "";
     }

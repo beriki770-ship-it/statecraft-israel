@@ -27,15 +27,17 @@ public class EventRetimingTests
 
     /// <summary>#567 section 4 item 8: all 32 events fire in the historical monthly run (#567's 31 and the first new yishuv
     /// card, R-OBJ-003). Before the re-timing, sinai_withdrawal and rhodes_talks never fired (Horev's card came after both
-    /// windows had closed).</summary>
+    /// windows had closed). Since GDD Phase 4 PR 5 every event but hula_drainage, which needs the player's works (R-SWAMP-002).</summary>
     [Fact]
     public void EveryEventFiresInTheHistoricalMonthlyRun()
     {
         Assert.Equal(GameOverCodes.MvpEnded, Run[Run.Count - 1].GameOver);
         // A consequence card (R-ALT-005) comes only on a road not taken, never in this run (R-ALT-012).
         var record = C.Events.Where(e => e.Kind != EventKinds.Consequence).ToList();
+        // R-SWAMP-002: hula_drainage fires only while the player's works at the Hula are in progress, and the reference
+        // player drains no swamp, so it is the one historical card the run never shows.
         var missing = record.Select(e => e.Id).Where(id => CardDate(id) == null).ToList();
-        Assert.True(missing.Count == 0, "never fired: " + string.Join(", ", missing));
+        Assert.True(missing.SequenceEqual(new[] { "hula_drainage" }), "never fired: " + string.Join(", ", missing));
         Assert.Equal(32, record.Count);
     }
 
@@ -73,7 +75,6 @@ public class EventRetimingTests
     [InlineData("ministry_supply_crisis", "1950-10-15")]
     [InlineData("education_registration_1951", "1950-12-15")]
     [InlineData("reparations_claim", "1951-03-15")]
-    [InlineData("hula_drainage", "1951-03-15")]
     [InlineData("iraqi_exodus", "1951-03-15")]
     [InlineData("israel_bonds", "1951-05-15")]
     [InlineData("forex_crisis_1951", "1951-11-15")]

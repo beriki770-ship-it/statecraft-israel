@@ -41,6 +41,7 @@ schema too, or that test fails. Keep the comment when you copy a file.
 | `requires` | no | Fires only after every listed requirement holds. See below. |
 | `variants` | no | `kind: reconvergence` only. Course-specific title and text, each with `when`, `text`, optional `title` and `sources` (R-ALT-010). See "kind". |
 | `objective` | no | Makes the event the completion card of an objective in `objectives.yaml`, which must name this event as its `card`. It fires only once the objective is completed (GDD loop only), and has exactly one option. See `docs/gdd/objective-card.md`. |
+| `site` | no | A swamp site in `sites.yaml` whose works the event is about. In the GDD loop it fires only while that site is being worked (R-SWAMP-002); the legacy loop ignores it. See `docs/gdd/fields-and-swamps.md`. |
 | `options` | yes | One or more options. See below. |
 | `sources` | no by the loader, yes by the rules | A list of `{ url, checked }`. See below. |
 | `status` | no (default `draft`) | The review status. See below. |
@@ -348,6 +349,8 @@ Errors are printed as `file: field: message`. These are the messages you are mos
 | `unknown objective` | `objective` names an objective that is not in `objectives.yaml`. |
 | `has another card` | `objective` names an objective whose `card` is a different event. |
 | `an objective's card has exactly one option` | An objective's card has more than one option. |
+| `unknown site` | `site` names a site that is not in `sites.yaml` (GDD loop). |
+| `is not a swamp site` | `site` names a site whose kinds do not include `swamp` (GDD loop). |
 | `must be a list` | A list field (such as `tags:`) written with no value. |
 | `an event cannot require itself` | `requires[n].event` is the event's own id. |
 | `requirements form a cycle` | Event A needs B and B needs A, directly or through others. |

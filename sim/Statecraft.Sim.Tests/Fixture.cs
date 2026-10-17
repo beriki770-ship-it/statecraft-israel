@@ -226,6 +226,8 @@ mvp:
   build_camp_cost: 1
   plow_fields_turns: 2
   plow_fields_cost: 0.5
+  dry_swamp_turns: 3
+  dry_swamp_cost: 2
   field_food_per_turn: 7
   objective_points: 100
   objective_bonus_per_month: 5
