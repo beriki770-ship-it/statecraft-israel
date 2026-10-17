@@ -157,23 +157,43 @@ options:
     }
 
     // R-SWAMP-002: in the GDD loop an event's site must be a swamp site of sites.yaml. R-SWAMP-001: a swamp site is not
-    // also a field site (drained, it would yield Food unplowed), and the drain values are required in the GDD loop, so a
-    // missing key is never read as 0.
+    // also a field site (drained, it would yield Food unplowed), nor a yishuv or camp site (its build would drain the swamp),
+    // and the drain values are required in the GDD loop, so a missing key is never read as 0.
     [Theory]
     [InlineData("site nope", "events/works.yaml", "unknown site 'nope'")]
     [InlineData("site site_a", "events/works.yaml", "site 'site_a' is not a swamp site")]
-    [InlineData("kinds", "sites.yaml", "a field site cannot also be a swamp site")]
+    [InlineData("kinds field", "sites.yaml", "a field site cannot also be a swamp site")]
+    [InlineData("kinds yishuv", "sites.yaml", "a swamp site cannot also be a yishuv site")]
+    [InlineData("kinds military_camp", "sites.yaml", "a swamp site cannot also be a military_camp site")]
+    [InlineData("kinds hakhshara", "sites.yaml", "a swamp site cannot also be a hakhshara site")]
     [InlineData("dry_swamp_turns", "rules.yaml", "mvp.dry_swamp_turns: required")]
     [InlineData("dry_swamp_cost", "rules.yaml", "mvp.dry_swamp_cost: required")]
     public void BadSwampContentFailsLoad(string what, string file, string message)
     {
         var files = Files();
         var site = what.StartsWith("site ") ? what.Substring(5) : "marsh";
-        if (what == "kinds") files["sites.yaml"] = files["sites.yaml"].Replace("kinds: [swamp]", "kinds: [swamp, field]");
+        if (what.StartsWith("kinds ")) files["sites.yaml"] = files["sites.yaml"].Replace("kinds: [swamp]", $"kinds: [swamp, {what.Substring(6)}]");
         else if (!what.StartsWith("site ")) files["rules.yaml"] = files["rules.yaml"].Replace(what == "dry_swamp_turns" ? "  dry_swamp_turns: 3\n" : "  dry_swamp_cost: 2\n", "");
         var e = Assert.Throws<ContentException>(() => ContentLoader.Load(Fixture.Write(files, new Dictionary<string, string> { ["works.yaml"] = Works(site) })));
         Assert.Equal(file, e.File);
         Assert.Contains(message, e.Message);
+    }
+
+    // R-SWAMP-002 on the real content (owner review on #968): with the works in progress, the fact-checked card still fires on
+    // its historical turn. The reference player to 1 February 1951, then a halutz ordered to drain the Hula alongside the
+    // reference orders: the order lands on the turn ending 15 March 1951, and so does the card.
+    [Fact]
+    public void TheRealHulaCardFiresOnItsTurnWithWorksInProgress()
+    {
+        var c = ContentLoader.Load(RealContentTests.ContentRoot());
+        var s = GoldenRun.Play(c, new DateTime(1951, 2, 1));
+        Assert.DoesNotContain("hula_drainage", s.FiredEvents);
+        var id = s.NextId++;
+        s.Units.Add(id, new Unit(id, "halutz", 14, 3));
+        var r = Step(c, s, GoldenRun.Orders(c, s).Append(Drain(id, "hula")).ToArray());
+        Assert.Empty(r.Rejected);
+        Assert.Equal(new DateTime(1951, 3, 15), r.State.Date);
+        Assert.Contains("hula_drainage", r.State.FiredEvents);
     }
 
     // The real content: the Hula is the one swamp site, in the swamp hex of the water research (14, 3), with one field site in
