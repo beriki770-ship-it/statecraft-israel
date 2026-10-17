@@ -1025,7 +1025,8 @@ namespace Statecraft.Sim
                 // A trained count lands in City.Recruits (R-TRAIN-003); other trained counts wait for their decisions (D-D4).
                 if (x.Kind == "population" && x.Id != "recruit") throw new ContentException(uf, at + ".kind", "only recruit is a trained count until Phase 5");
             }
-            var cities = new HashSet<string>(c.Cities.Select(x => x.Id));
+            // R-CITY-003: the arrivals are spread over the cities, so there must be one to take them.
+            if (c.Cities.Count == 0) throw new ContentException(cf, "cities", "the GDD loop needs at least one city to take the arrivals");
             foreach (var (file, r) in new[] { ("rules.yaml", c.Rules) }.Concat(c.EraRules.OrderBy(kv => kv.Key, StringComparer.Ordinal).Select(kv => ("rules/" + kv.Key + ".yaml", kv.Value))))
             {
                 var m = r.Mvp ?? throw new ContentException(file, "mvp", "required when eras.yaml systems.loop is gdd");
@@ -1039,7 +1040,9 @@ namespace Statecraft.Sim
                 Unit(file, "mvp.cohesion_jobs_weight", m.CohesionJobsWeight);
                 if (Math.Abs(m.CohesionHousingWeight + m.CohesionJobsWeight - 1) > 1e-9)
                     throw new ContentException(file, "mvp.cohesion_jobs_weight", "the two cohesion weights must sum to 1");
-                if (!cities.Contains(m.ArrivalsCity)) throw new ContentException(file, "mvp.arrivals_city", $"'{m.ArrivalsCity}' is not a city in cities.yaml");
+                // R-CITY-003: the cities count arrivals from one day; another day in a later era would lose or double-count units.
+                if (m.CityArrivalsFrom == default) throw new ContentException(file, "mvp.city_arrivals_from", "required when eras.yaml systems.loop is gdd");
+                if (m.CityArrivalsFrom != c.Rules.Mvp!.CityArrivalsFrom) throw new ContentException(file, "mvp.city_arrivals_from", "must be the same in every era (the cities count arrivals from one day)");
                 if (m.BuildYishuvTurns < 1) throw new ContentException(file, "mvp.build_yishuv_turns", "must be >= 1");
                 if (!(m.BuildYishuvCost >= 0 && IsFinite(m.BuildYishuvCost))) throw new ContentException(file, "mvp.build_yishuv_cost", "must be a finite number >= 0");
                 // R-FOOD-001 to R-FOOD-003: required, so a missing key is never read as 0 (a stock term of 0, or no stock).

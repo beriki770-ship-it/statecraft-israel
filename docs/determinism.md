@@ -28,9 +28,9 @@ final `GameState.Hash()` is pinned:
 
 | Run | Ends | Hash |
 |---|---|---|
-| to 1950-01-01 (`Hash1950`) | 1950-01-15, turn 20 | `ea730229392c12e007cdf30aa8b19e4668bcd1dfdbda0735dd8d7612301d5144` |
-| to 1952-01-01 (`Hash1952`) | 1952-01-15, turn 44 (the game's end) | `ca887e45cd413a41d4368c604caa37c3c0e19022195ac614001f7bfc507489ca` |
-| to the game's end (`mvp-end`) | 1952-01-15, turn 44 | `ca887e45cd413a41d4368c604caa37c3c0e19022195ac614001f7bfc507489ca` |
+| to 1950-01-01 (`Hash1950`) | 1950-01-15, turn 20 | `d22b369fa9d269a2311a51ab26ef8e0069c3e55f8febfa0376340dd03e012b8a` |
+| to 1952-01-01 (`Hash1952`) | 1952-01-15, turn 44 (the game's end) | `21029217387d875c8723f0a99e46f199fa3181ba979352ac8200c6d5045e1322` |
+| to the game's end (`mvp-end`) | 1952-01-15, turn 44 | `21029217387d875c8723f0a99e46f199fa3181ba979352ac8200c6d5045e1322` |
 
 `hash1952` stops at the first turn on or after 1 January 1952, which is the game's last turn, so it is the same run as
 `mvp-end` (`DeterminismTests.TheWholeGameToItsEndIsFixed`). Both names are kept (spec 2026-10-12 section 3 step 6): a
@@ -39,15 +39,15 @@ check `hash1950` and `hash1952`.
 
 A further value is pinned for the browser smoke run (`?smoke=5`: the golden seed, five turns played through the UI's own
 buttons, answering each event with its first option while the turn's Attention pays for it, the rest left to their
-ministers): `SMOKE OK 5 turns 1948-10-15 4104103f4e52fe4159f7b8d6acab9d2b651cd3c124952cfa74ebfd7333718ad5`.
+ministers): `SMOKE OK 5 turns 1948-10-15 3f7a0fe0d5f22e83edd00c8a913a8d216b4420c36907b11e2ec9406baecdad56`.
 It depends on the UI path as well as the sim (which option is first, the turn grid), so re-record it when either changes.
 Check every build with:
 
 ```
 uv run tools/web_check.py unity/Builds/Web-<compression> --query "golden&smoke=5" \
-  --expect "GOLDEN OK 1950 ea730229392c12e007cdf30aa8b19e4668bcd1dfdbda0735dd8d7612301d5144" \
-  --expect "GOLDEN OK 1952 ca887e45cd413a41d4368c604caa37c3c0e19022195ac614001f7bfc507489ca" \
-  --expect "SMOKE OK 5 turns 1948-10-15 4104103f4e52fe4159f7b8d6acab9d2b651cd3c124952cfa74ebfd7333718ad5"
+  --expect "GOLDEN OK 1950 d22b369fa9d269a2311a51ab26ef8e0069c3e55f8febfa0376340dd03e012b8a" \
+  --expect "GOLDEN OK 1952 21029217387d875c8723f0a99e46f199fa3181ba979352ac8200c6d5045e1322" \
+  --expect "SMOKE OK 5 turns 1948-10-15 3f7a0fe0d5f22e83edd00c8a913a8d216b4420c36907b11e2ec9406baecdad56"
 ```
 
 **When a golden moves.** The test fails with the lines that changed, grouped by section (`[ind]`, `[pol]`, `[bud]`,
@@ -238,3 +238,10 @@ The hash reads the state keys, so it never sees a record outside its window. An 
 | GDD Phase 3 PR 1 | scenario-cautious | `5f162f0f` | the twelve cities and the new spending (was `5553c31a`) |
 | GDD Phase 3 PR 1 | scenario-reckless | `a10877e2` | same (was `42041362`) |
 | GDD Phase 3 PR 1 | scenario-mvp-absorb-first | `53852f2c` | same (was `e01bb37a`) |
+| GDD Phase 3 PR 2 | 1950 | `d22b369f` | GDD Phase 3 PR 2's arrivals over the cities (R-CITY-003, Q-ARRV-1, Q-ARRV-3): the cities take arrivals from the census day, 8 November 1948, not 15 May, so 78 fewer units arrive in them (269 refugees waiting on 1 January 1950, was 347), and they are spread over the twelve cities by census people instead of all landing in Tel Aviv (Tel Aviv 131, Haifa 52, Jerusalem 44). Only the `city{}` section and `coh` move (0.5418, was 0.5106); the national head count, the debt and the reference player's orders do not (was `ea730229`) |
+| GDD Phase 3 PR 2 | 1952 | `21029217` | same; 608 refugees waiting at the end (was 686), Tel Aviv 296 of them; `coh` 0.4364 (was 0.4213) (was `ca887e45`) |
+| GDD Phase 3 PR 2 | mvp-end | `21029217` | same; the same run as hash1952 (was `ca887e45`) |
+| GDD Phase 3 PR 2 | smoke5 | `3f7a0fe0` | the first five turns end before the census day, so the cities take no arrivals in them (was `4104103f`) |
+| GDD Phase 3 PR 2 | scenario-cautious | `a9afb0ad` | the arrivals over the cities; `city{}` and `coh` only (was `5f162f0f`) |
+| GDD Phase 3 PR 2 | scenario-reckless | `8f209d56` | same (was `a10877e2`) |
+| GDD Phase 3 PR 2 | scenario-mvp-absorb-first | `8601da93` | same (was `53852f2c`) |

@@ -31,7 +31,10 @@ mvp:
   income_per_job_per_year: 0.06          # DESIGN VALUE: owner-set balance, not a historical figure (D-C6: IL millions per employed unit a year)
   cohesion_housing_weight: 0.5           # DESIGN VALUE: owner-set balance, not a historical figure (D-C1, until Phase 2 PR 4)
   cohesion_jobs_weight: 0.5              # DESIGN VALUE: owner-set balance, not a historical figure (D-C1, until Phase 2 PR 4; the two weights sum to 1)
-  arrivals_city: tel_aviv                # the MVP has one city so far: every arrival lands there (R-CITY-003)
+  # The day the cities start taking arrivals (R-CITY-003; Q-ARRV-3, owner, 15 October 2026, #375): the census day of their
+  # start values, 8 November 1948 (CBS Statistical Abstract of Israel No. 14, Table 11, pp. 30-31). The census already
+  # counts the people who arrived from 15 May, so the cities take none before it; the national head count takes them all.
+  city_arrivals_from: 1948-11-08         # https://www.cbs.gov.il/he/publications/DocLib/shnaton_saruk/shnaton1963_num14.pdf, checked 2026-10-15
   build_yishuv_turns: 6                  # DESIGN VALUE: owner-set balance, not a historical figure (D-D6: turns a pioneer build takes)
   build_yishuv_cost: 2                   # DESIGN VALUE: owner-set balance, not a historical figure (D-D6: IL millions, paid at the start)
   objective_points: 100                  # DESIGN VALUE: owner-set balance, not a historical figure (D-B6: points per objective)

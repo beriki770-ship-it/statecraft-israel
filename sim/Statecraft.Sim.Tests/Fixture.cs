@@ -221,7 +221,7 @@ mvp:
   income_per_job_per_year: 1.2
   cohesion_housing_weight: 0.5
   cohesion_jobs_weight: 0.5
-  arrivals_city: town_a
+  city_arrivals_from: 1948-05-15
   build_yishuv_turns: 3
   build_yishuv_cost: 1.5
   objective_points: 100

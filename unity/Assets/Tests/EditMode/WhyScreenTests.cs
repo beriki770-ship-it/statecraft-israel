@@ -166,12 +166,25 @@ public class WhyScreenTests
         }
     }
 
+    /// <summary>#701: in the Hebrew UI the turn's span names its months in Hebrew (date.*), not "15 May 1948".</summary>
+    [Test]
+    public void InHebrewTheTurnsSpanIsAHebrewDate()
+    {
+        var he = UiText.Parse(AssetDatabase.LoadAssetAtPath<TextAsset>(UiPaths.StringsHebrew).text, "strings.he.yaml");
+        using var ui = new UiTestKit();
+        var bridge = new SimBridge(GameSession.New(C, GoldenRun.Seed, Mode.Historical), he);
+        new WhyPresenter(ui.Root, bridge, he);
+        bridge.EndTurn();
+        Assert.AreEqual("מ־15 במאי 1948 עד 15 ביוני 1948", ui.Q<Label>("why-turn").text);
+    }
+
     /// <summary>Playtest 1, item 4: the effects group covers effects that are not policies too.</summary>
     [Test]
     public void TheEffectsGroupIsCalledOngoingEffects() => Assert.AreEqual("Ongoing effects", Text["why.effects"]);
 
-    /// <summary>Playtest 1, item 5: every date the player sees goes through Statecraft.Sim.PlayerText ("15 May 1948"),
-    /// so no UI string carries a date format of its own.</summary>
+    /// <summary>Playtest 1, item 5: every date the player sees goes through Statecraft.Sim.PlayerText ("15 May 1948") or,
+    /// where the UI's language names the month, through the date.* strings (Control1948.DateText, #687, #701), so no UI
+    /// string carries a date format of its own.</summary>
     [Test]
     public void NoUiStringFormatsADateItself()
     {

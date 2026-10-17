@@ -86,17 +86,17 @@ map[
 mapturn=0001-01-01:0;
 over=
 city{
-  hadera=12,5,12,5,0
-  haifa=99,42,99,42,0
-  jerusalem=84,29,84,29,0
-  netanya=12,5,12,5,0
-  petah_tikva=22,10,22,10,0
-  rehovot=13,5,13,5,0
-  rishon_lezion=10,5,10,5,0
+  hadera=12,5,12,5,1
+  haifa=99,42,99,42,6
+  jerusalem=84,29,84,29,6
+  netanya=12,5,12,5,1
+  petah_tikva=22,10,22,10,1
+  rehovot=13,5,13,5,1
+  rishon_lezion=10,5,10,5,1
   rosh_pinna=1,0,1,0,0
   safed=2,1,2,1,0
-  tel_aviv=248,106,248,106,111
+  tel_aviv=248,106,248,106,16
   tiberias=6,2,6,2,0
   zikhron_yaakov=2,1,2,1,0
-coh=0.6287719752227847 [3FE41EE667C72450]
+coh=0.6912776599813588 [3FE61EF253C26938]
 food=2253,751,0

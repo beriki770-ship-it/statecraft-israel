@@ -139,7 +139,7 @@ namespace Statecraft.Game.UI
                 var o = c.Offices.First(x => x.Id == (Offices.BudgetOwner(c, office, s.Date) ?? office));
                 var share = draft.TryGetValue(office, out var v) ? v : 0;
                 // A budget line can run before its ministry exists (Education from 10 March 1949): say so, not "vacant".
-                var who = o.From.HasValue && s.Date < o.From.Value ? text.Format("budget.not_established", PlayerText.Date(o.From.Value))
+                var who = o.From.HasValue && s.Date < o.From.Value ? text.Format("budget.not_established", Statecraft.Game.Map.Control1948.DateText(o.From.Value, k => text[k]))   // PlayerText.Date is always English (#701)
                     : Cabinet.Holder(c, s, o.Id)?.Name ?? text["budget.vacant"];
                 ((Label)row[0]).text = text.Format("budget.office", o.Title, who);
                 ((Label)row[2]).text = text.Format("budget.share", PlayerText.Percent(share));

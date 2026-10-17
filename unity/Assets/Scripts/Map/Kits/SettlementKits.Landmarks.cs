@@ -15,6 +15,7 @@ namespace Statecraft.Game.Map.Kits
             var arch = ArchetypeOf(s);
             float R = FootprintRadiusM(s, ground.HexSizeM);
             var heart = DryNear(centre, ground, R * 0.3f, ref rnd);
+            if (NegevOutpost(s)) return NegevOutpostKit(s, heart, ground, km, lots);   // a Negev lookout's yard (#32)
             switch (s.Id)
             {
                 case "jaffa": return Jaffa(s, heart, ground, km, lots, ref rnd);

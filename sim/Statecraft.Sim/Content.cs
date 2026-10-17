@@ -464,8 +464,8 @@ namespace Statecraft.Sim
         public double CohesionHousingWeight { get; set; }
         /// <summary>Social cohesion's weight on the employed share (R-CITY-005). A placeholder while D-C1 is open.</summary>
         public double CohesionJobsWeight { get; set; }
-        /// <summary>The city every arrival lands in (Phase 1 has one city; R-CITY-003).</summary>
-        public string ArrivalsCity { get; set; } = "";
+        /// <summary>The day the cities start taking arrivals: the census day their start values count (R-CITY-003, Q-ARRV-3).</summary>
+        public DateTime CityArrivalsFrom { get; set; }
         /// <summary>The day the GDD game ends (R-LOOP-004; D-E5, 15 January 1952 in the real content), or null for the last
         /// era's end. Read from rules.yaml through <see cref="Content.End"/>; the same in every era.</summary>
         public DateTime? End { get; set; }

@@ -198,7 +198,10 @@ namespace Statecraft.Game.Map.Kits
                     continue;
                 }
                 var km = townMeshes[s.Id];
-                int n = landmarks[s.Id] + PlaceHouses(s, centres[s.Id], ground, km, lots, ref rnd, merged, out var scatter, out var palms);   // towns round 2: plot lattices
+                // A Negev lookout's buildings stand in its walled yard, a landmark (SettlementKits.Outpost.cs, #32): no houses round it.
+                System.Func<int>? scatter = null, palms = null;
+                int n = landmarks[s.Id] + (NegevOutpost(s) ? 0
+                    : PlaceHouses(s, centres[s.Id], ground, km, lots, ref rnd, merged, out scatter, out palms));   // towns round 2: plot lattices
                 gameTowns.Add((s, km, n, scatter, palms));
             }
             // The dune coasts' extra sand yields to the places' own ground (BeachBands, option (c)); a camp is not a place, so
@@ -801,8 +804,8 @@ namespace Statecraft.Game.Map.Kits
                 case Style.TownBlock:
                 {
                     bool white = st == Style.WhiteBlock;
-                    // The White City's lime-white plaster (settlements quick wins, #31: promo 03's Tel Aviv reads white, not cream; a
-                    // few blocks keep the cream render). The moshava centres keep their warmer plaster.
+                    // Haifa's Hadar keeps the lime-white plaster (settlements quick wins, #31; a few blocks keep the cream render).
+                    // Tel Aviv has its own cream since #658 (TelAvivBlock). The moshava centres keep their warmer plaster.
                     var wall = white
                         ? (rnd.Chance(0.08f) ? Jitter(C(0.93f, 0.90f, 0.83f), ref rnd, 0.03f) : Jitter(WhitePlaster, ref rnd, 0.025f))
                         : rnd.Chance(0.3f) ? Jitter(C(0.90f, 0.84f, 0.72f), ref rnd, 0.04f) : Jitter(C(0.94f, 0.92f, 0.87f), ref rnd, 0.035f);
@@ -972,7 +975,8 @@ namespace Statecraft.Game.Map.Kits
                 km.Box(uc.x, uc.y, yaw, uw * 0.8f, ud * 0.8f, top + b.h - 0.3f * m, top + b.h, storey * 0.85f, wall, roof, facade, m);
         }
 
-        /// <summary>The White City's wall plaster (sRGB): lime white, a touch cool, so the warm sun leaves it white rather than cream.</summary>
+        /// <summary>Haifa's Hadar wall plaster (sRGB; Tel Aviv's is TelAvivPlaster, #658): lime white, a touch cool, so the warm
+        /// sun leaves it white rather than cream.</summary>
         static readonly Color32 WhitePlaster = C(0.94f, 0.945f, 0.94f);
 
         /// <summary>How far (real m) a White City balcony stands out from its wall.</summary>

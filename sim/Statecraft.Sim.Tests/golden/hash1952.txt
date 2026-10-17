@@ -121,19 +121,19 @@ map[
 mapturn=0001-01-01:0;
 over=mvp_ended
 city{
-  hadera=12,5,12,5,0
-  haifa=99,42,99,42,0
-  jerusalem=84,29,84,29,0
-  netanya=12,5,12,5,0
-  petah_tikva=22,10,22,10,0
-  rehovot=13,5,13,5,0
-  rishon_lezion=10,5,10,5,0
-  rosh_pinna=1,0,1,0,0
-  safed=2,1,2,1,0
-  tel_aviv=248,106,248,106,686
-  tiberias=6,2,6,2,0
-  zikhron_yaakov=2,1,2,1,0
-coh=0.42134438484542747 [3FDAF74E7050EB18]
+  hadera=12,5,12,5,14
+  haifa=99,42,99,42,118
+  jerusalem=84,29,84,29,100
+  netanya=12,5,12,5,14
+  petah_tikva=22,10,22,10,26
+  rehovot=13,5,13,5,15
+  rishon_lezion=10,5,10,5,12
+  rosh_pinna=1,0,1,0,1
+  safed=2,1,2,1,3
+  tel_aviv=248,106,248,106,296
+  tiberias=6,2,6,2,7
+  zikhron_yaakov=2,1,2,1,2
+coh=0.4364309229357378 [3FDBEE7BF73E36BA]
 units[
   1:halutz@-3,19
 site{

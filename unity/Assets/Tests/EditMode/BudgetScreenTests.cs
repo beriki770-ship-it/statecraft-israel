@@ -234,6 +234,16 @@ public class BudgetScreenTests
         Assert.IsFalse(Cabinet.Lineup(C, g.State).Any(x => x.Office.Id == "education_minister"));
     }
 
+    /// <summary>#701: in the Hebrew UI the ministry's start date names its month in Hebrew (date.*).</summary>
+    [Test]
+    public void InHebrewTheMinistrysStartIsAHebrewDate()
+    {
+        var he = UiText.Parse(AssetDatabase.LoadAssetAtPath<TextAsset>(UiPaths.StringsHebrew).text, "strings.he.yaml");
+        using var ui = new UiTestKit();
+        new BudgetPresenter(ui.Root, new SimBridge(GameSession.New(C, GoldenRun.Seed, Mode.Historical), he), he);
+        StringAssert.EndsWith("(אין משרד עד 10 במרץ 1949)", ui.Q<Label>("budget-education_minister-name").text);
+    }
+
     /// <summary>Playtest 1, item 6: a vacant ministry reads "(vacant)", as on the Cabinet screen, never "(-)".</summary>
     [Test]
     public void AVacantMinistryReadsVacant()

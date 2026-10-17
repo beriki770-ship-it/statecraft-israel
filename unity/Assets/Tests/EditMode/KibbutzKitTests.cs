@@ -72,6 +72,9 @@ public class KibbutzKitTests
         TestContext.WriteLine(line); Debug.Log(line);
         Assert.LessOrEqual(built.KibbutzHalls, kibbutzim, "one dining hall per kibbutz at most");
         Assert.GreaterOrEqual(built.KibbutzHalls, kibbutzim - 2, "nearly every kibbutz builds its dining hall (6 of 8 measured)");
-        Assert.GreaterOrEqual(built.FarmSheds, kibbutzim, "the farm yards hold sheds (9 measured for the 8 kibbutzim)");
+        // Revivim (type kibbutz) is drawn as the walled Negev lookout of 1943 (#32, SettlementKits.Outpost.cs): its yard holds
+        // living and service buildings, no farm yard, so it builds no sheds and the floor counts the other kibbutzim.
+        int farms = kibbutzim - map.Settlements.Count(s => s.Id == "revivim" && s.Type == "kibbutz");
+        Assert.GreaterOrEqual(built.FarmSheds, farms, "the farm yards hold sheds (7 measured for the 7 kibbutzim with a farm yard)");
     }
 }
