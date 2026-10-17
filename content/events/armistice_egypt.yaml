@@ -18,6 +18,9 @@ options:
       - { target: intl_standing, delta: 0.05 }
   - id: hold_out
     text: Refuse and keep fighting
+    # Owner decision of 17 October 2026 (#937), "Yes, match the others": refusing keeps the war going at rung 4, as on
+    # the Jordan, Lebanon and Syria fronts.
+    set_rung: 4
     effects:
       - { target: intl_standing, delta: -0.10 }
 sources:

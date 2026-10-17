@@ -10,11 +10,24 @@ adds a line under **Unreleased**; CI's `Changelog` job checks this (see `CONTRIB
 ### Added
 - The 1948 unit roster gives 20 formations a sourced Hebrew name (`name_he`, agent-checked until #564's read); a
   name's source does not count toward `wikipedia_only` (refs #902).
+- Pioneers can build a training camp: `PioneerWork(unit, build_camp, site)` at a camp site takes 6 turns and IL 2m
+  (labelled design values the owner accepted; #813 may tune them), and once built its city can train there from the next
+  turn, with no capacity limit (refs #787; GDD Phase 4 PR 3, D-D5, R-CAMP-001; R-TRAIN-001 reworded). `sites.yaml` gains
+  the two camp sites the owner chose (Q-CAMP-2, #785), both military camps and draft rows: Camp 80 near Pardes Hanna for
+  Hadera, and Tzrifin for Rishon LeZion, the nearest of four cities one hex away by km (R-CAMP-002). The reference player builds them once every yishuv site is taken, so
+  `hash1950`, `hash1952` and `mvp-end` move (docs/determinism.md).
 - Event options can now move the national Food stock: `food` is an effect target in whole units, the loader
   validates it, and the sensitive-event no-gain rule covers it (R-EFX-001 and R-EFX-002; refs #729). The Arms
   target follows with its pool (#781).
 
 ### Fixed
+- Under `?lang=he` the hex info panel names its towns and 1948 localities in Hebrew: the title, the "Settlements"
+  line and the 1948 name in the localities line read the row's `name_he`, and the English name where a row has none
+  (13 of 271 localities). Where the Hebrew 1948 and today names are one word (48 rows that would otherwise show
+  a today name), the "today" part is left out. English is unchanged (refs #899).
+- In the Hebrew UI the info panel's build line is a date label with no verb, "{0} – תאריך הקמה: {1}" (refs #701), since
+  the fixed masculine "נבנה" read wrong for a feminine name ("מעברה נבנה"). Beri approved the wording as a native speaker.
+  English is unchanged.
 - `EventImageMappingTests.EveryPictureHasItsProvenanceRow` no longer lists `first_new_yishuv` as waiting for the owner's sign-off. Its `ASSETS.yaml` row became `verified` in #913 (owner, 17 Oct 2026, "Approve both", #879), so the test failed on main.
 - In the Hebrew UI the map's name pills show each row's `name_he`: the game settlements ("נהלל", "תל אביב") and
   the 1948 localities that have one. The thirteen localities with no `name_he` keep their English name, and the
@@ -48,6 +61,8 @@ adds a line under **Unreleased**; CI's `Changelog` job checks this (see `CONTRIB
 ### Changed
 - In the Hebrew UI the population-tier badge sits on the right of a map pill, at the start of the Hebrew
   name, as the owner decided on #897 ("Yes, mirror it"; refs #880, #710). The English pill keeps it on the left.
+- Refusing the reparations claim (`reparations_claim.refuse`) now costs $4 million of Foreign currency, so neither answer is free (owner, 17 Oct 2026, "A cost for refusing too", #938). The amount is a labelled design value, not a historical figure, and waits for the owner's sign-off on the PR. The reference runs send the claim, so no golden moves.
+- Refusing Egypt's armistice (`armistice_egypt.hold_out`) now sets the war to rung 4, like refusing Jordan's, Lebanon's or Syria's (owner, 17 Oct 2026, "Yes, match the others", #937). The reference runs sign every armistice, so no golden moves.
 - The desktop players' bundle ID is `io.github.eyalgolan.statecraftisrael` (decision O6, owner, 17 Oct 2026, #879; refs #905). Only the Standalone identifier changes; the WebGL build does not read it.
 - The 50 people names in Hebrew are flagged agent-checked until a native speaker reads them (owner, #882).
 - The 3D-model credits in code comments and one test's failure message now name MATKOT, as the owner asked on 17 October 2026; credit text only, with no behaviour change.
@@ -200,6 +215,10 @@ adds a line under **Unreleased**; CI's `Changelog` job checks this (see `CONTRIB
   the reference player's halutz group becomes a veteran after Beit Kama and builds Gilat, Mefalsim and Re'im in 3 turns
   each, so the first new yishuv completes on 1949-09-15 (was 1950-03-15), and by 1950 the score is 100 and the debt is
   IL 2m higher. The 1952 score and debt do not change.
+- The GDD loop's event rules have IDs and tests (D-H1; GDD Phase 7 PR 1, refs #805): R-EVT-001 to R-EVT-005 in
+  `docs/rules/mvp.md`, as the owner decided Q-EVT-1 to Q-EVT-4 on 17 October 2026 (#784). Hard anchors always fire, at
+  most 3 soft events a turn in order of `from` then id, unanswered events are delegated, and no effect is delayed; no
+  behaviour changes and no golden moves. `EventSystem.OptionEffects` lists every effect of an option for the event card.
 - City and town pills start with their population tier, a gold disc with a number from 1 to 9 (refs #710). The tier is
   static: it comes from the city's 1948 people in `content/cities.yaml` (#821), not from the sim's live count (owner,
   15 October 2026). The scale is the design value proposed on #710 and not yet ruled: tiers double from 1,000, so under
