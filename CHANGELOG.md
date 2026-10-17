@@ -20,6 +20,11 @@ adds a line under **Unreleased**; CI's `Changelog` job checks this (see `CONTRIB
   MVP"). Its stability still follows public approval and still weights the coalition votes; the legacy loop keeps its
   collapse. R-GOV-002 pins what the GDD orders cost in Attention: each has a price, the unit orders are free, and a
   refused order is refunded. No golden moves: no reference run's stability falls below 0.2.
+- The Negev's sand is a warmer orange, toward promo 02 (refs #709, #695, #388; the owner chose this step on 16 October
+  2026): the desert ground colour has less blue (`MapPalette`), re-baked into `BiomeColours.bytes` and the minimap relief.
+  The #519 grade is unchanged.
+- The overview's sea is a deeper blue, toward promo 02 (refs #709, #695, #388): the water haze, seen only beyond 120 km,
+  is bluer (`MapShaderGlobals.WaterHazeColour`), so the gameplay zoom's sea does not change. The #519 grade is unchanged.
 - A kibbutz no longer looks like a moshav or a moshava (refs #32). The five kibbutz game settlements and the kibbutz rows
   of the 1948 localities get a dining hall near the heart, opposite the water tower (white, flat roof, a raised
   clerestory), long one-storey members' houses under red tiles, and grey-roofed farm sheds on one side, the farm yard.
@@ -73,6 +78,9 @@ adds a line under **Unreleased**; CI's `Changelog` job checks this (see `CONTRIB
 - The olive crowns are darker, with pale tops (visual gap L2, refs #34; owner, 15 October 2026: "Darker, with pale
   sunlit tops"). At gameplay03 their body is luma 0.29 (main 0.50, promo 03 0.30) and their sunlit top stands 0.18 above
   it (main 0.14, promo 0.18). Vertex colours only: no tree count, size, shader or grade change.
+- The surf is wide on the dune coasts and narrow under the kurkar, as promo 03 draws it (refs #690, #388): 3.0 km from
+  Jaffa south and in Haifa Bay, 1.5 km elsewhere (2.4 km everywhere before). The dune coasts are one definition,
+  `unity/Assets/Resources/Map/DuneCoasts.json`, which the water pass reads through `MapShaderGlobals`. Presentation only.
 - The surf reaches further out to sea (refs #690, #388): the breakers' zone widens from 1.8 to 2.4 km, so south of Jaffa
   the white foam band reads 30.8 px at the gameplay zoom, inside promo 03's 25-55 px band (20.3 before; the promo reads
   44), and the northern frontage reads 25.0 px (18.3 before), inside its 6-30 px band. Presentation only.
@@ -134,6 +142,22 @@ adds a line under **Unreleased**; CI's `Changelog` job checks this (see `CONTRIB
   town's Hebrew name), so the hillside hex's
   70 m does not read as the town's (refs #204). It is worked out in Unity from the town's own lon/lat and the hex grid
   (`InfoPanelPresenter.TownHex`), with no new `content/map/` field; an ordinary hex shows no such line.
+- A steam train runs on the Jaffa–Jerusalem railway in normal play from 2 March 1950, the date regular service resumed
+  (refs #668, #35; maintainer decision on #35, 16 October 2026). It runs from Lod to Jerusalem, sourced in
+  `content/map/routes_1948.yaml` (Israel Railways, 1998), with the date awaiting the human check. Tel Aviv South to Lod
+  is in the content too. It rests on Wikipedia alone, so it runs only once a person signs it off.
+  The model is Tal's (@pixelrenderai-hash) locomotive and tender from The 1948 Collection. It leads three of the
+  showcase's coaches, four articulated cars that ride the track (owner, 16 October 2026: "ride the track, cut walls"):
+  on the Sorek valley's tightest bends their sides pass into the gorge walls. It streams only once the game date reaches
+  the service, never at boot. If it does not stream, the game plays on without it and logs one warning.
+- Social cohesion on the top bar, a resource meter (לכידות חברתית in Hebrew) with its change since last turn, in the GDD
+  loop only; it reads `GameState.Cohesion` (R-CITY-005; the owner's ruling of 15 October 2026, refs #380). The
+  objective card's line under its text, completed early (both dates and the months), on time or later, in English and
+  Hebrew (`Objectives.MonthsFromHistory`; the owner's wording on #379), and its photograph of Mefalsim's first days
+  (Boris Carmi, June 1949, CC BY 4.0, Meitar Collection; `ASSETS.yaml` row `owner-verify`). With seven meters
+  the bar re-tiers (the owner's "tighten and re-tier", 16 October 2026): each meter's sides are 6 px narrower; 16:9 at
+  1920x1080 keeps the one-row bar, while 16:10, 4:3, 1280x720 and 1366x768 take the stacked bar, 5:4 drops the icons, a
+  square window takes two rows, and a phone's meters wrap to two lines. No golden moves.
 - Tal's (@pixelrenderai-hash) 23 single-building Tripo models from #507, imported for the strategic map (refs #659, step
   1): `unity/Assets/Art/Settlements/Prototype/Models/b*`, outside every `Resources/` folder, meshes compressed with no
   animation, rig, tangents or Read/Write, colour maps committed and crunched at 512 px; `BuildingModelImportTests` pins
