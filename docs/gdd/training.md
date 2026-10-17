@@ -7,8 +7,8 @@ As a player of the MVP, I want to send Tel Aviv's civilians without work to basi
 ## Rules
 
 - One military camp and one Hakhshara exist in Tel Aviv at the start. This is a design assumption, not a claim about the city (D-D5 [S2]). The GDD leaves training capacity open, so there is no capacity limit (unitless).
-- Pioneers build more: `PioneerWork(unit, build_camp, site)` at a camp site takes 6 turns and IL 2m, labelled design values an agent proposed (the owner may override), and follows the yishuv build's rules. Built, the site's city has the facility from the next turn, with no capacity limit (`Q-CAMP-1`, `Q-CAMP-3` [S4]) (R-CAMP-001).
-- The camp sites are `Camp 80` near Pardes Hanna, a Hakhshara for Hadera, and Tzrifin, a military camp for Rishon LeZion (`Q-CAMP-2` [S5]). Both rows are drafts: their sources were read by AI agents for the research note, and Tzrifin's exact position and a GIS clearance are still gaps.
+- Pioneers build more: `PioneerWork(unit, build_camp, site)` at a camp site takes 6 turns and IL 2m, labelled design values an agent proposed and the owner accepted (#927; the balance pass, #813, may tune them), and follows the yishuv build's rules. Built, the site's city has the facility from the next turn, with no capacity limit (`Q-CAMP-1`, `Q-CAMP-3` [S4]) (R-CAMP-001).
+- The camp sites are `Camp 80` near Pardes Hanna, for Hadera, and Tzrifin, for Rishon LeZion, both military camps (`Q-CAMP-2` [S5]; owner, "Both military", #927). A camp serves the city nearest by hex, and a tie goes to the nearest by km (R-CAMP-002). Both rows are drafts: their sources were read by AI agents for the research note, and Tzrifin's exact position and a GIS clearance are still gaps.
 - `Train(city, track, n)` takes civilians without a job into training as recruits (military camp) or halutzim (Hakhshara). It costs 1 Attention and IL 0.5m per group, both placeholders, paid at once. A short Treasury borrows the rest, as map actions do (owner decision on #468) (R-TRAIN-001).
 - It is refused, with the state unchanged, for fewer than 1 group (unitless), more than the city's civilians without a job, an unknown city or track, a city without the facility, or the legacy loop (R-TRAIN-001).
 - People in training are neither civilians nor recruits: they hold no job and are not counted by housing or Social cohesion while they train.
@@ -44,8 +44,6 @@ As a player of the MVP, I want to send Tel Aviv's civilians without work to basi
 ## Open questions
 
 - The placeholder values (training turns, cost per group, the two Attention costs) wait for the owner.
-- The camp build's 6 turns and IL 2m are the yishuv build's pair, proposed by an agent; the owner may set others.
-- Camp 80's kind, `hakhshara`, is a design mapping of the Gadna training of settlement nuclei there, as the #785 research proposes, not a claim that it was an agricultural training farm.
 - Whether people in training, and recruits, take up the city's housing. Housing counts civilians only (R-CITY-004), so a group in training frees a place that a waiting refugee then takes.
 - Whether the turn of the order counts as a training turn. This is the plan's reading of D-A6, not part of the owner's ruling. The other reading adds a turn.
 - Social cohesion's employed share rises while civilians without work are in training, because they leave the civilians (R-CITY-005).

@@ -6,10 +6,11 @@
 # 22, 23 and 25. Their sources carry that note's checked date (14 October 2026); no person has re-read them since, so the
 # rows stay draft.
 # Phase 4 PR 3 (#787) adds the two camp sites (Q-CAMP-2, owner, 17 October 2026, #785: "Both"): Camp 80 near Pardes Hanna
-# and Tzrifin. Research: research_notes/gdd-phase-4-sourcing.md, rows C1 and C4, and the research recorded on #785
+# and Tzrifin, both military camps (owner, "Both military", 17 October 2026, #927). Research: research_notes/gdd-phase-4-sourcing.md, rows C1 and C4, and the research recorded on #785
 # (issuecomment-6233553842 and the camp-site gaps, issuecomment-6237625295). Their sources carry the checked date of the
 # note or comment that read them (15 or 17 October 2026). Only AI agents have read them (the note's pass and the #785
-# research); no person has, so the rows stay draft.
+# research); no person has, so the rows stay draft, and a person verifies them before release (owner, "OK for draft rows",
+# 17 October 2026, #927; the #570 "verify later" rule).
 # The yishuv rows are sourced facts. The field rows are design placements, not facts (Q-FIELD-1). The build turns and cost
 # are labelled design values in rules.yaml mvp: (Q-CUT-1, owner, 15 October 2026; R-LOOP-005). The loader reads this file
 # only when eras.yaml systems.loop is gdd. Research: #459, research_notes/GDD objectives/designated-site-1.md.
@@ -162,10 +163,11 @@ sites:
     # at the north-east entrance to Pardes Hanna-Karkur. No 1948 settlement in the hex.
     q: 2
     r: 13
-    # The kind is a design mapping, not a claim that the camp was an agricultural training farm: Gshur describes Gadna
-    # training that included five settlement nuclei, which became part of the Nahal's first intake (research on #785).
-    kinds: [hakhshara]
-    # Q-CAMP-1: the nearest MVP city, Hadera, one hex and about 6.7 km away (Zikhron Ya'akov and Netanya are two hexes).
+    # A military training camp (owner, "Both military", 17 October 2026, #927): Gshur describes Gadna training there, which
+    # included five settlement nuclei that became part of the Nahal's first intake (research on #785).
+    kinds: [military_camp]
+    # Q-CAMP-1, R-CAMP-002: the nearest MVP city, Hadera, one hex and about 6.7 km away (Zikhron Ya'akov and Netanya are two
+    # hexes).
     city: hadera
     # In the window: the Gadna training of the 1931-born intake, settlement nuclei among them, moved here from Kfar Yona on
     # 13 July 1948, after artillery fire hit that camp during the Ten Days (Gshur, pp. 114-115). The first course ended in
@@ -195,8 +197,8 @@ sites:
     q: -3
     r: 20
     kinds: [military_camp]
-    # Q-CAMP-1: Rishon LeZion, about 3.9 km away. Petah Tikva, Rehovot and Tel Aviv are also one hex away; Rishon LeZion is
-    # the nearest by distance (research note row C4).
+    # Q-CAMP-1, R-CAMP-002: Rishon LeZion, about 3.9 km away. Petah Tikva, Rehovot and Tel Aviv are also one hex away; the
+    # tie goes to the nearest by km, Rishon LeZion (owner, 17 October 2026, #927; research note row C4).
     city: rishon_lezion
     # In the window: taken by the Givati Brigade on 18-19 May 1948 and an IDF camp from then; from 1949 Bahad 4, the IDF's
     # recruit training base, until 1967. SENSITIVE, owner review (#785): research note row C4 records a sensitivity

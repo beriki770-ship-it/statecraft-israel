@@ -11,10 +11,10 @@ adds a line under **Unreleased**; CI's `Changelog` job checks this (see `CONTRIB
 - The 1948 unit roster gives 20 formations a sourced Hebrew name (`name_he`, agent-checked until #564's read); a
   name's source does not count toward `wikipedia_only` (refs #902).
 - Pioneers can build a training camp: `PioneerWork(unit, build_camp, site)` at a camp site takes 6 turns and IL 2m
-  (labelled design values; the owner may override), and once built its city can train there from the next turn, with no
-  capacity limit (refs #787; GDD Phase 4 PR 3, D-D5, R-CAMP-001; R-TRAIN-001 reworded). `sites.yaml` gains the two camp
-  sites the owner chose (Q-CAMP-2, #785): Camp 80 near Pardes Hanna, a Hakhshara for Hadera, and Tzrifin, a military
-  camp for Rishon LeZion, both draft rows. The reference player builds them once every yishuv site is taken, so
+  (labelled design values the owner accepted; #813 may tune them), and once built its city can train there from the next
+  turn, with no capacity limit (refs #787; GDD Phase 4 PR 3, D-D5, R-CAMP-001; R-TRAIN-001 reworded). `sites.yaml` gains
+  the two camp sites the owner chose (Q-CAMP-2, #785), both military camps and draft rows: Camp 80 near Pardes Hanna for
+  Hadera, and Tzrifin for Rishon LeZion, the nearest of four cities one hex away by km (R-CAMP-002). The reference player builds them once every yishuv site is taken, so
   `hash1950`, `hash1952` and `mvp-end` move (docs/determinism.md).
 - Event options can now move the national Food stock: `food` is an effect target in whole units, the loader
   validates it, and the sensitive-event no-gain rule covers it (R-EFX-001 and R-EFX-002; refs #729). The Arms
