@@ -241,7 +241,7 @@ static const float ScBreakerFilterPx = 1.25;
 // 34.7 px (35.6 before), 2 lace lines, share 0.55 (promo 03 0.54). Chirp 0.25 read 0.32; 0.5 read 0.21 but pulled
 // SeaTests' southern walks in to 39 px, past the north-to-south ratio and the lace share bounds; a constant 800 m spacing
 // read 0.27 and kept the lines even. The crests still roll in at ScBreakerRate cycles a second, so the outer ones move
-// faster.
+// faster: 75 m/s at the 3 km edge (about 1.7 px a frame at gameplay's 45 m pixels), the 22.5 m/s above being the shore's.
 static const float ScBreakerChirp = 0.35;
 float2 ScBreakers(float coast, float2 mapM)
 {
