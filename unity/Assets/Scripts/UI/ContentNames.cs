@@ -15,25 +15,9 @@ namespace Statecraft.Game.UI
         public static string Of(UiText text, Government g) => Pick(text, g.Name, g.NameHe);
         public static string Of(UiText text, Legislature l) => Pick(text, l.Body, l.BodyHe);
 
-        /// <summary>The office's title for <paramref name="holder"/> (null: the office itself, masculine). A woman is given
-        /// the feminine title_he_f; an office she never held may have none (the loader checks only the offices people.yaml
-        /// gives her), and then a minister's title takes the feminine form of title_he (Feminine) rather than stay masculine.</summary>
-        public static string Of(UiText text, Office o, Person? holder)
-        {
-            var hebrew = o.TitleHeFor(holder);
-            if (hebrew == "") hebrew = holder?.TitleHeForm == TitleHeForms.Feminine ? Feminine(o.TitleHe) : o.TitleHe;
-            return Pick(text, o.Title, hebrew);
-        }
-
-        /// <summary>A minister's title for a woman (Beri, native speaker, 17 October 2026): "שר האוצר" is "שרת האוצר", "השר
-        /// לנפגעי מלחמה" is "השרה לנפגעי מלחמה", and "שר בלי תיק" (no construct) is "שרה בלי תיק". Any other title stays as it is:
-        /// the Prime Minister is "ראש הממשלה" for a woman too, and so are the Chief of Staff's and the President's.</summary>
-        static string Feminine(string title)
-        {
-            if (title.StartsWith("השר ", System.StringComparison.Ordinal)) return "השרה " + title.Substring(4);
-            if (!title.StartsWith("שר ", System.StringComparison.Ordinal)) return title;
-            var rest = title.Substring(3);
-            return (rest.StartsWith("ה", System.StringComparison.Ordinal) ? "שרת " : "שרה ") + rest;
-        }
+        /// <summary>The office's title for <paramref name="holder"/> (null: the office itself, masculine): a woman is given
+        /// the row's feminine title_he_f, which every office with a Hebrew title has (owner on #861: "Move to content"), so
+        /// the UI derives no form; an office with no Hebrew title for her keeps the English.</summary>
+        public static string Of(UiText text, Office o, Person? holder) => Pick(text, o.Title, o.TitleHeFor(holder));
     }
 }

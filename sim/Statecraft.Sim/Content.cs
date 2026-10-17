@@ -61,8 +61,9 @@ namespace Statecraft.Sim
         /// <summary>True when the file has the key at all, even blank: a blank flag is an error, not a review.</summary>
         [YamlIgnore] public bool TitleHeReviewGiven => titleHeReview != null;
         string? titleHeReview;
-        /// <summary>The feminine Hebrew title, only where a woman held the office (the Knesset records write שרת העבודה);
-        /// sourced in <see cref="TitleHeFSources"/>. Needs <see cref="TitleHe"/>.</summary>
+        /// <summary>The feminine Hebrew title, shown for a woman in the office (the Knesset records write שרת העבודה); every
+        /// office with a Hebrew title has one, since the player can order a woman into any office (owner on #861, 17 October
+        /// 2026). Sourced in <see cref="TitleHeFSources"/>. Needs <see cref="TitleHe"/>.</summary>
         public string TitleHeF { get; set; } = "";
         public List<Source> TitleHeFSources { get; set; } = new List<Source>();
         /// <summary>As <see cref="TitleHeReview"/>, for <see cref="TitleHeF"/>.</summary>
