@@ -40,6 +40,7 @@ the JTA bulletin's account onto the Knesset's own record, and it corrects two of
   order of words inside a line is often scrambled (right-to-left text with punctuation moved to the wrong end), and
   some letters are misread (`שביתר` for `שביתה`, `אחר` for `אחד`). Hebrew quoted below is a run of words that reads in
   order on one line or across two adjacent lines of that layer; it has **not** been compared with the page image.
+  Two quotes (K1 s227 PDF p. 19; K2 s25 PDF p. 9) are put back into reading order from lines the layer scrambles.
   Page numbers are PDF pages (1-based), not the printed page numbers of Divrei HaKnesset.
 - Claude (Anthropic) found, opened and read these files on 17 October 2026, as an AI draft for Beri. That date is an
   access date, not a check: no person has read these pages for this note, so no `checked:` date is given anywhere
@@ -87,11 +88,18 @@ Two earlier captures were cut off at 1 MB and would not open (`1_ptm_250127.pdf`
     declaration rather than a law (the Herut faction had tabled a bill). The declaration's text (PDF p. 17) recalls that
     "הכנסת החליטה ביום כ"ב בכסלו תש"י" (the Knesset decided on 22 Kislev 5710), dated 13 December 1949 in brackets, to
     return to Jerusalem, and asks that the government precinct be built in Jerusalem.
-  - **The vote,** PDF p. 20. Law against declaration: 15 for a law, 45 for a declaration. After a dispute over the
-    order of voting, a second vote: a law 15 for and 47 against, not carried; the declaration 45 for and 15 against,
-    carried. The declaration in the committee's wording is printed again on PDF p. 29.
+  - **The form,** PDF p. 20. The first vote chose between a law and a declaration ("עלינו להחליט אם נקבל הצהרה או
+    חוק", we have to decide whether to adopt a declaration or a law): 15 for a law, 45 for a declaration. After a
+    dispute over the order of voting, a second vote: a law 15 for and 47 against, not carried; a declaration 45 for and
+    15 against, carried ("הוחלט איפוא שנקבל הצהרה", so it was decided that we adopt a declaration). These votes settled
+    the form, not the text.
+  - **The declaration itself** was voted on later in the same sitting, which closed at 23.30. PDF p. 27: Bader's
+    wording 12 against the committee's wording 55. PDF p. 29: the whole declaration 48 for and 5 against, a count that
+    was disputed (Sapir: "נגד תוכן ההצהרה הצביעו רק שנים", only two voted against the content); the Speaker then read
+    the text again and put it to a vote, **60 for and 2 against**: "הכנסת אישרה את ההצהרה בדבר ירושלים" (the Knesset
+    approved the declaration on Jerusalem). That last count is the final vote.
   - #829 had the declaration of 23 January 1950 as a **lead** (a search summary). On this reading it took place, and
-    its date, place and vote are on the protocol's pages.
+    its date, place and votes are on the protocol's pages.
 
 ## 2. The government's fall over camp education, 13 and 14 February 1951 (#829 section 2c)
 
@@ -104,11 +112,13 @@ Two earlier captures were cut off at 1 MB and would not open (`1_ptm_250127.pdf`
   the second asks the government to bring, within a month, a bill that ends the party "streams" in education. The
   summary on PDF p. 22 lists motions from Mapam, the United Religious Front, Herut, the General Zionists, WIZO and the
   Progressives, and one from Yohanan Bader (Herut) in his own name.
-- **The Prime Minister's warning.** PDF p. 19, before the votes: in the text layer he announces "in the name of the
-  government" that adopting Bader's motion (that the Knesset "heard with satisfaction" the minister's statement and
-  moves on, which he calls insincere) would be read as no confidence, and rejecting it as confidence. The lines of
-  that sentence are out of order in the text layer, and Bader's motion is not among the three counts below, so how the
-  warning bears on the vote that carried needs the page image.
+- **The Prime Minister's warning.** PDF p. 19, before the votes, just after Bader reads his motion ("הכנסת שמעה מתוך
+  סיפוק את הודעת שר-החינוך, ועוברת לסדר-היום", the Knesset heard the Education Minister's statement with satisfaction
+  and moves on to the agenda): "אני מודיע בשם הממשלה שבקבלת הצעת חבר-הכנסת יוחנן בדר נראה אי-אמון ובדחייתה הבעת
+  אמון" (I announce in the name of the government that we will see adopting Yohanan Bader's motion as no confidence,
+  and rejecting it as confidence). He calls the motion insincere. Bader's motion is not among the three counts below,
+  yet the government resigned "in line with my earlier statement", so how the warning bears on the vote that carried
+  needs the page image.
 - **The votes,** PDF p. 19: Mapam's motion 36 for, 43 against, 17 abstaining, not carried; Herut's motion 22 for,
   61 against, not carried; **the General Zionists' motion 49 for, 42 against, 3 abstaining, carried**. The summary on
   PDF p. 22: "הוחלט: לקבל את הצעת סיעת הציונים הכלליים" (decided: to adopt the General Zionists' motion).
@@ -122,9 +132,9 @@ Two earlier captures were cut off at 1 MB and would not open (`1_ptm_250127.pdf`
   sitting. Which of the General Zionists' two motions the vote of 49 to 42 was on is not clear from the text layer.
   #829's recommendation stands, and on `main` it is mostly done already: `education_registration_1951` has
   `from: 1950-11-29` and `to: 1951-02-14` (exclusive, `docs/WRITING_EVENTS.md`), cites the 227th sitting
-  (`1_ptm_250266.pdf`) and the 224th (`1_ptm_250264.pdf`) in its `sources:`, and its comment records the resignation on
-  14 February 1951. What this note adds is the vote count and the 226th sitting (`1_ptm_250265.pdf`), which the card
-  does not cite.
+  (`1_ptm_250266.pdf`) and `1_ptm_250264.pdf` (the 225th, by the KNS index) in its `sources:`, and its comment
+  records the resignation on 14 February 1951. What this note adds is the vote count and the 226th sitting
+  (`1_ptm_250265.pdf`), which the card does not cite.
 - **An index slip.** The Open Knesset mirror dates the 226th sitting to 12 February 1951 (the same day as the 225th);
   the protocol's title line and the summary on K1 s227 PDF p. 22 date it to 13 February. The protocol is followed here.
 
@@ -143,22 +153,29 @@ Two earlier captures were cut off at 1 MB and would not open (`1_ptm_250127.pdf`
 - **What this adds to #829.** 1c quotes JTA 15 May 1951, under "Before it": the "Acting Prime Minister" told the
   Knesset that Israel "has accepted the cease-fire order". This is the same statement. The protocol dates it to
   **14 May**, labels the speaker Foreign Minister (whether he was also acting Prime Minister that day was not checked
-  here), and shows that the cease-fire it concerns is the Council's call that followed its 8 May discussion. The
-  decision between 18 May and 13 June that #829 did not find is still not found: the sittings of
-  15 May and 6 June 1951 have no Wayback capture (section 6).
+  here; on PDF p. 6 the Foreign Affairs and Defence Committee chair, Meir Argov, calls him "ממלא-מקום שר-הבטחון
+  ושר-החוץ", acting Defence Minister and Foreign Minister, which does not settle JTA's title), and shows that the
+  cease-fire it concerns is the Council's call that followed its 8 May discussion. The decision between 18 May and
+  13 June that #829 did not find is still not found: the sittings of 15 May and 6 June 1951 have no Wayback capture
+  (section 6).
 - **Sensitivity:** as in #829 (the April fighting; the Arab civilians removed from the zone).
 
 ## 4. The seamen's strike, 20 and 28 November 1951 (#829 section 2a)
 
 - **Already under way on 20 November.** K2 s21 (Tuesday, 21 Heshvan 5712, 20 November 1951, Jerusalem), PDF p. 7: a
-  member, in another debate, sets aside "השאלות האקטואליות" (the current questions) about Ashed (?) "או לשביתת הימאים"
-  (or the seamen's strike). This puts the strike before 20 November; #829 placed its start in "about the second week
-  of November".
-- **A count of days (a lead).** K2 s25 (28 November), PDF p. 8: the General Zionists' Y. Rokah, moving his motion,
-  says "היום הוא היום השמונה-עשר" (today is the eighteenth day), and another speaker on PDF p. 9 also counts eighteen
-  days. On PDF p. 8 a third remark has "מחר ימלאו שמונה-עשר ימים" (tomorrow it will be eighteen days), and the same
-  page speaks of the last 17 days. Together that would put the start at about 11 or 12 November 1951. These are members'
-  remarks, not a record of the start, so they stay a lead; the start day is not found on a record.
+  member, in another debate, sets aside "השאלות האקטואליות" (the current questions) about `לאש"ד` "או לשביתת הימאים"
+  (or the seamen's strike). The next line of the text layer reads "יש לי ידידים באגד" (I have friends in Egged), so
+  `לאש"ד` is very likely an OCR misreading of `לאגד` (Egged). This puts the strike before 20 November; #829 placed
+  its start in "about the second week of November".
+- **A count of days (a lead).** K2 s25 (28 November), PDF p. 8: the General Zionists' Israel Rokach ("ישראל רוקח"),
+  moving his motion, says in one speech "היום הוא היום השמונה-עשר" (today is the eighteenth day), "מחר ימלאו
+  שמונה-עשר ימים" (tomorrow it will be eighteen days) and speaks of the last 17 days. Taken together, his remarks
+  would put the start at about 11 or 12 November 1951. On PDF p. 9 Binyamin Avniel (Herut) also counts eighteen days,
+  but from his own speech: "כשדיברתי לפני שבועיים על שאלת התחבורה עברתי בחטף על ענין הימאים ... מאז כבר עברו
+  שמונה-עשר יום" (when I spoke two weeks ago on transport I touched briefly on the seamen ... since then eighteen days
+  have passed). His "since then" may count from that speech, not from the start of the strike, so the estimate rests
+  on Rokach alone. These are members' remarks, not a record of the start, so they stay a lead; the start day is not
+  found on a record.
 - **The Knesset's motions, 28 November.** K2 s25 (Wednesday, 29 Heshvan 5712, 28 November 1951, 11.10, Jerusalem),
   PDF p. 8: "נעבור להצעות לסדר-היום בענין שביתת הימאים" (we move to the motions for the agenda on the seamen's
   strike); one motion's title (PDF p. 11) speaks of the events in Haifa port over the resignation of the Hebrew seamen.
@@ -212,25 +229,33 @@ confirms:
    counts on Sapir's motion (27/59, then 39/60) and that the motion was to hold a debate; the Speaker's closing line on
    returning to Jerusalem after Hanukkah.
 2. **K1 s93 (5 December 1949):** that the "null and void" sentence refers to the 29 November 1947 decision on Jerusalem.
-3. **K1 s108 (23 January 1950):** the place (the Jewish Agency building, Jerusalem); the declaration's wording; both
-   votes (15 to 45; then 15 to 47 on a law and 45 to 15 on the declaration).
+3. **K1 s108 (23 January 1950):** the place (the Jewish Agency building, Jerusalem); the declaration's wording; the
+   two votes on the form on PDF p. 20 (15 to 45; then 15 to 47 on a law and 45 to 15 on a declaration); and the
+   votes on the declaration itself: Bader's wording 12 against the committee's 55 (PDF p. 27), the whole declaration
+   48 to 5 and the final vote 60 to 2 (PDF p. 29).
 4. **K1 s227 (14 February 1951):** which General Zionists motion was put to the vote, the three counts (36/43/17,
-   22/61, 49/42/3), the Prime Minister's sentence on confidence and on resigning, and the name at the end of his
-   warning (Bader or another).
+   22/61, 49/42/3), and the Prime Minister's sentence on confidence and on resigning.
 5. **K1 s226:** the date, 13 February 1951 (the mirror says 12 February).
-6. **K1 s251 (14 May 1951):** the speaker (Foreign Minister M. Sharett), the 8 May reference and which Security
-   Council resolution it is, and the two quoted phrases.
+6. **K1 s251 (14 May 1951):** the speaker (Foreign Minister M. Sharett) and Argov's title for him on PDF p. 6
+   (acting Defence Minister and Foreign Minister), the 8 May reference and which Security Council resolution it is,
+   and the two quoted phrases.
 7. **K2 s25 (28 November 1951):** the Prime Minister's quoted phrases, the call-up sentence, the unanimous vote, the
-   titles of the agenda motions, and the day counts on PDF pp. 8-9 ("the eighteenth day",
-   "tomorrow eighteen days", "the last 17 days") and who made them.
-8. **K2 s21 (20 November 1951):** the passing mention of the seamen's strike, and what "Ashed" stands for.
+   titles of the agenda motions, the day counts on PDF p. 8 ("the eighteenth day", "tomorrow eighteen days", "the
+   last 17 days", all in Rokach's speech) and Avniel's count on PDF p. 9, and what his "since then" counts from.
+8. **K2 s21 (20 November 1951):** the passing mention of the seamen's strike, and that `לאש"ד` reads `לאגד` (Egged)
+   on the image.
 9. The sittings in section 6 that have no capture.
+10. **The quotes:** compare each quoted run with the page image and copy it from the image, with a maqaf (־) where
+    this note has an ASCII hyphen (the text layer has a soft hyphen, U+00AD, there).
+11. **One value per fact** (`docs/CONTENT_POLICY.md` section 1): for 13 December 1949 the record is the recount, 39 to
+    60, not the first count or JTA's 59 to 27; for 23 January 1950 it is 60 to 2. If a card ever uses either vote, the
+    PR records both counts and the maintainer chooses.
 
 ## Summary
 
 | #829 candidate | What the protocols add | Sessions | Effect on #829's recommendation |
 |---|---|---|---|
-| 1b, Jerusalem | Statement and decision on 13 Dec 1949 (not 14); the vote on holding a debate was 39 to 60 after a recount; the 23 Jan 1950 declaration passed 45 to 15 | K1 s93, s96, s108 | None: still recommended |
+| 1b, Jerusalem | Statement and decision on 13 Dec 1949 (not 14); the vote on holding a debate was 39 to 60 after a recount; on 23 Jan 1950 the Knesset chose a declaration over a law 45 to 15, and passed the declaration 60 to 2 | K1 s93, s96, s108 | None: still recommended |
 | 1c, resolution 93 | The 14 May statement was the Foreign Minister's, on the cease-fire call after 8 May; drainage "goes on as planned" | K1 s251 | None: still "maybe", overlaps `hula_drainage` |
 | 2a, seamen's strike | Under way by 20 Nov 1951; on 28 Nov the Prime Minister said there was no strike and the men would be called up; debate agreed unanimously | K2 s21, s25 | None: still recommended |
 | 2c, camp crisis | The government fell on 14 Feb 1951 on a General Zionists motion, 49 to 42 with 3 abstaining | K1 s226, s227 | None: a source for `education_registration_1951`, which already cites the 227th sitting on `main` |
