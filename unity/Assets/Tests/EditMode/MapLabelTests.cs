@@ -402,7 +402,7 @@ public class MapLabelTests
         var people = Statecraft.Sim.ContentLoader.Load(Statecraft.Game.Paths.Content).Cities
             .Where(c => c.People != null).ToDictionary(c => c.Id, c => c.People!.Value);
         var failures = new System.Collections.Generic.List<string>();
-        var anchors = new System.Collections.Generic.HashSet<string>();
+        var anchorsAt = new System.Collections.Generic.List<(string window, System.Collections.Generic.HashSet<string> anchors)>();   // one entry per window and language
         int total = 0;
         foreach (var (w, h) in InfoPanelLayoutTests.Windows)
             foreach (var hebrew in new[] { true, false })
@@ -411,6 +411,8 @@ public class MapLabelTests
                 if (hebrew) (hd.Root.Q("root") ?? hd.Root).AddToClassList(UiLanguage.HebrewClass);
                 var labels = new MapLabelsPresenter(hd.Root, map, cam, population: people, hebrew: hebrew);
                 string lang = hebrew ? "he" : "en"; int seen = 0;
+                var anchors = new System.Collections.Generic.HashSet<string>();
+                anchorsAt.Add(($"{w}x{h} {lang}", anchors));
                 try
                 {
                     foreach (var (lon, lat) in new[] { (34.99, 32.80), (35.50, 32.96), (34.89, 32.09) })   // Haifa, Safed, Petah Tikva
@@ -423,7 +425,7 @@ public class MapLabelTests
                             var b = slot.Q<Label>(className: MapLabelsPresenter.TierClass); if (b == null) continue;
                             var name = slot.Q<Label>("label-" + slot.name.Substring("slot-".Length));
                             Rect pill = name.worldBound, badge = b.worldBound; seen++;
-                            anchors.Add(lang + " " + name.GetClasses().Single(c => c.StartsWith("anchor-")));
+                            anchors.Add(name.GetClasses().Single(c => c.StartsWith("anchor-")));
                             string at = $"{w}x{h} {lang} {slot.name}: pill {pill}, badge {badge}";
                             if (!(pill.Contains(badge.min) && pill.Contains(badge.max - Vector2.one * 0.01f))) failures.Add(at + ": the badge leaves its pill");
                             // worldBound snaps to the screen's pixels, so the inset is 7 px give or take one screen pixel (in panel units).
@@ -439,9 +441,12 @@ public class MapLabelTests
                 }
                 finally { labels.Dispose(); hd.Dispose(); }
             }
-        TestContext.WriteLine($"{total} badges checked; anchors covered: {string.Join(", ", anchors.OrderBy(a => a))}");
+        TestContext.WriteLine($"{total} badges checked; anchors per window: {string.Join("; ", anchorsAt.Select(a => a.window + " = " + string.Join("/", a.anchors.OrderBy(x => x))))}");
         Assert.IsEmpty(failures, string.Join("\n", failures));
-        Assert.AreEqual(6, anchors.Count, "a centre, a right and a left anchored pill in both languages");
+        // Each window and language must show a centre, a right and a left anchored pill (Haifa, Safed, Petah Tikva); a set pooled
+        // across windows would pass with one anchor missing at some window. No window is exempt: at today's window sizes declutter hides none of the three.
+        foreach (var (window, seenAnchors) in anchorsAt)
+            Assert.AreEqual(3, seenAnchors.Count, $"{window}: a centre, a right and a left anchored pill, saw {string.Join(", ", seenAnchors.OrderBy(x => x))}");
     }
 
     /// <summary>Owner rulings 2026-10-11 and 2026-10-12: the 1948 localities are named by their 1948 names only at close zoom,
