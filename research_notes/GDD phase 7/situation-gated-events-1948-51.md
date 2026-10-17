@@ -38,6 +38,8 @@ for R-TURN-003 if the historical run is in that situation on that turn. This not
 - Quotation marks are verbatim from the source named, for the reader to check. None is meant for event text. Real
   people are named in citations; event text would use office placeholders (`docs/WRITING_EVENTS.md`).
 - Turns are monthly, from the 15th. "The 15 May 1949 turn" means the turn that starts on that day.
+  A card itself reaches the player on the first 15th on or after its `from` (section 3): a card whose window opens on
+  28 May 1949 reaches the player on 15 June 1949.
 - Requests used the User-Agent `statecraft-israel-research/1.0 (+https://github.com/eyalgolan/statecraft-israel)`.
   No Tavily key on this machine: searches used the built-in web search; Wikipedia only as a pointer.
 
@@ -226,18 +228,24 @@ camp-education dispute; `frumkin_commission` (1950) is the earlier step of the s
 
 ## 3. The 15 May to 15 November 1951 stretch
 
+The gap test (`EventRetimingTests`) dates a card by the first state it has fired in (`CardDate`). That is the **first
+15th on or after the event's `from`**: `israel_bonds` (from 10 May 1951) reaches the player on 15 May 1951, and
+`forex_crisis_1951` (from 19 October 1951) on 15 November 1951. So a candidate dated after 15 May 1951 reaches the
+player a month after the turn it falls in, and it does split the stretch.
+
 Sourced candidates inside it, by turn:
 
-| Turn | Candidate | Kind | Sources | Note |
-|---|---|---|---|---|
-| 15 May 1951 | Resolution 93 and Israel's response (1c) | Low international support | UNSC 93 (1951); JTA 15 May, 13 Jun 1951 | Overlaps `hula_drainage` (ends 18 May) |
-| 15 May 1951 | The religious underground's plot (2b) | Low cohesion; sensitive | JTA 25 May, 1 Jun, 6 Jun 1951 | `terror` tag likely |
-| 15 July 1951 | The Second Knesset election (2d) | Civic anchor, not gated | JTA 1 Aug, 10 Aug 1951 | |
-| 15 August 1951 | Resolution 95 on the Suez Canal (1d) | Support up | UNSC 95 (1951) | Complaint date not found |
+| Turn | Candidate | Kind | Sources | Card reaches the player | Stretch becomes | Note |
+|---|---|---|---|---|---|---|
+| 15 May 1951 | Resolution 93 and Israel's response (1c) | Low international support | UNSC 93 (1951); JTA 15 May, 13 Jun 1951 | 15 June 1951 (dated 18 May) | 1 + 5 months | Overlaps `hula_drainage` (ends 18 May) |
+| 15 May 1951 | The religious underground's plot (2b) | Low cohesion; sensitive | JTA 25 May, 1 Jun, 6 Jun 1951 | 15 June 1951, if the window opens after 15 May | 1 + 5 months | `terror` tag likely |
+| 15 July 1951 | The Second Knesset election (2d) | Civic anchor, not gated | JTA 1 Aug, 10 Aug 1951 | 15 August 1951 (end of July) | 3 + 3 months | |
+| 15 August 1951 | Resolution 95 on the Suez Canal (1d) | Support up | UNSC 95 (1951) | 15 September 1951 (dated 1 September) | 4 + 2 months | Complaint date not found |
 
-The two 15 May 1951 candidates share the turn on which `israel_bonds` already fires, so they do not shorten the
-stretch. A card on the 15 July 1951 turn splits it into 2 and 4 months; one on the 15 August 1951 turn into 3 and 3. In
-each case only if the card fires in the historical run (see Scope).
+The two May 1951 candidates would shorten the stretch to 5 months if their window opens after 15 May; a window opening
+on 15 May itself would share the turn on which `israel_bonds` already fires. A card at the end of July 1951 splits it
+into 3 and 3 months; one dated 1 September 1951 into 4 and 2. In each case only if the card fires in the historical run
+(see Scope).
 
 ## Not reached, and gaps
 
