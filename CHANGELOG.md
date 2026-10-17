@@ -269,6 +269,10 @@ adds a line under **Unreleased**; CI's `Changelog` job checks this (see `CONTRIB
   after the cities' production, every plowed field adds 1 unit of Food to the national stock, with no workers
   (R-FIELD-002). All three numbers are labelled design values in `rules.yaml`. The reference player plows the four
   fields once the yishuv sites are taken, before the camps, so `hash1950`, `hash1952` and `mvp-end` move (docs/determinism.md).
+- The map zooms from the keyboard (a11y B1a, refs #41): hold = or - (or the numpad's + and -) to zoom in or out at
+  six wheel notches a second, so 6 to 250 km takes about six seconds. Like keyboard pan, the keys work while the
+  pointer rests over a panel, and only without Ctrl, Alt or Cmd, so Ctrl/Cmd with + and - stays the browser's own
+  zoom. A new `ZoomKeys` action in the Camera map; the wheel's `Zoom` keeps its one binding.
 - City and town pills start with their population tier, a gold disc with a number from 1 to 9 (refs #710). The tier is
   static: it comes from the city's 1948 people in `content/cities.yaml` (#821), not from the sim's live count (owner,
   15 October 2026). The scale is the design value proposed on #710 and not yet ruled: tiers double from 1,000, so under
