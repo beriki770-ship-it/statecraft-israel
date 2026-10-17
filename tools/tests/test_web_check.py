@@ -8,6 +8,8 @@ import threading
 import time
 import urllib.request
 
+import pytest
+
 import web_check as wc
 
 
@@ -179,3 +181,72 @@ def test_find_chrome_without_chrome_path_picks_the_newest_revision(tmp_path, mon
         exe.write_bytes(b"")
         found.append(exe)
     assert wc.find_chrome() == found[1]
+
+
+def test_persistence_check_reloads_after_a_settled_and_an_immediate_autosave(capsys):
+    actions, sleeps = [], []
+    check = wc.PersistenceCheck(actions.append, sleeps.append)
+    check.feed("GAME OK 1948-05-15 turn 0 hash aa00")
+    check.feed("TURN 1 1948-06-01 turn 1 hash one")       # unrelated malformed diagnostic is ignored
+    check.feed("TURN 1 1948-06-01 hash aaa1")
+    check.feed("GAME OK 1948-06-01 turn 1 hash aaa1")
+    check.feed("TURN 2 1948-07-01 hash aaa2")
+    check.feed("GAME OK 1948-07-01 turn 2 hash aaa2")
+    new_game, cont, end_turn = (f"click:{x},{y}" for x, y in (wc.NEW_GAME, wc.CONTINUE, wc.END_TURN))
+    assert actions == [new_game, end_turn, "reload", cont, end_turn, "reload"]
+    assert sleeps == [3, 2, 2, 3, 2]     # no wait between the second TURN and its reload
+    assert check.done
+    assert "settled reload OK" in capsys.readouterr().out
+
+
+def test_persistence_check_fails_when_the_immediate_reload_did_not_load_the_saved_turn():
+    check = wc.PersistenceCheck(lambda action: None, lambda seconds: None)
+    for text in ("GAME OK 1948-05-15 turn 0 hash aa", "TURN 1 1948-06-01 hash bb",
+                 "GAME OK 1948-06-01 turn 1 hash bb", "TURN 2 1948-07-01 hash cc"):
+        check.feed(text)
+    try:
+        check.feed("GAME OK 1948-06-01 turn 1 hash bb")
+    except ValueError as e:
+        assert "PERSISTENCE FAIL immediate reload" in str(e) and "file a follow-up" in str(e)
+    else:
+        raise AssertionError("a lost immediate autosave must fail")
+
+
+def _played_to_the_settled_reload(check):
+    for text in ("GAME OK 1948-05-15 turn 0 hash aa", "TURN 1 1948-06-15 hash bb"):
+        check.feed(text)
+
+
+def test_persistence_check_fails_when_the_settled_reload_did_not_load_the_saved_turn():
+    check = wc.PersistenceCheck(lambda action: None, lambda seconds: None)
+    _played_to_the_settled_reload(check)
+    with pytest.raises(ValueError, match="PERSISTENCE FAIL settled reload got 1948-05-15 turn 0"):
+        check.feed("GAME OK 1948-05-15 turn 0 hash aa")      # the reload came up with no save: a fresh game
+    assert not check.done
+
+
+def test_persistence_check_fails_when_continue_started_a_new_game():
+    """A click that misses Continue and starts a new game must not pass: the turn after Continue is the reloaded
+    game's next turn (2), not a new game's turn 1."""
+    check = wc.PersistenceCheck(lambda action: None, lambda seconds: None)
+    _played_to_the_settled_reload(check)
+    check.feed("GAME OK 1948-06-15 turn 1 hash bb")
+    with pytest.raises(ValueError, match="PERSISTENCE FAIL End turn after Continue: turn 1 .*expected turn 2"):
+        check.feed("TURN 1 1948-06-15 hash cc")
+    assert not check.done
+
+
+def test_persistence_check_fails_when_the_first_boot_is_not_a_fresh_game():
+    check = wc.PersistenceCheck(lambda action: None, lambda seconds: None)
+    with pytest.raises(ValueError, match="PERSISTENCE FAIL first boot"):
+        check.feed("GAME OK 1948-06-15 turn 1 hash bb")
+
+
+def test_watch_names_the_unfinished_persistence_run(capsys):
+    inbox = queue.Queue()
+    inbox.put("GAME OK 1948-05-15 turn 0 hash aa")
+    t = [0.0]
+    rc = wc.watch(inbox, lambda: None, lambda: None, [], re.compile("BOOT FAIL"), 5, now=lambda: t[0],
+                  sleep=lambda s: t.__setitem__(0, t[0] + 1), complete=lambda: False)
+    assert rc == 1
+    assert "TIMEOUT: never saw the end of the --persistence run" in capsys.readouterr().out

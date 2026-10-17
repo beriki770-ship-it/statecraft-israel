@@ -50,6 +50,12 @@ adds a line under **Unreleased**; CI's `Changelog` job checks this (see `CONTRIB
 - A WebGL `?firstcard` check now follows the normal first-card path: it closes the start screen through New Game,
   leaves decision video enabled, records the event-photo load, and requires an interactive photo or portrait-fallback
   card within a proposed 10-second budget (refs #909; budget needs maintainer sign-off).
+- The map legend is hidden while the decision card is open, so no card, the photograph's included, covers it at any
+  window, desktop or phone; it comes back when the card is hidden or answered (Fixes #849; the owner's decision of
+  17 October 2026, "Hide legend under card"). The card and its photograph keep their full size.
+- A boot download that receives nothing for 30 seconds is aborted and retried like a dropped connection (up to four
+  attempts), then shows the boot failure, instead of leaving the loading screen up forever. A slow download that keeps
+  receiving data is never cut off (#911).
 - The content loader now checks `name_he_review` on people rows the way it does for parties, governments,
   legislatures, offices and settlements: the flag is `agent-checked` or left out, and only beside a `name_he`
   (CONTENT_POLICY section 2, rule 6; #862). No people row carries the flag yet, so no row changes.
@@ -70,12 +76,22 @@ adds a line under **Unreleased**; CI's `Changelog` job checks this (see `CONTRIB
   The checks file is now written in the bundle cache and copied beside the shipped bundles.
 
 ### Changed
+- The web release build is gzip-compressed instead of Brotli, one zip for GitHub Releases and itch.io (owner decision on
+  #879): itch.io's CDN sends a Brotli build's `.data` uncompressed, an estimated 46 MB to download against about 34 MB
+  with gzip. `docs/RELEASING.md` step 5 and `tools/package_release.py` default to `unity/Builds/Web-gzip`.
 - Hebrew names: a native speaker read the 12 government and legislature names (#874) and 27 office rows, 29 titles (#876), and the start, new-game, save and loading UI strings (#877, no wording changed). The `agent-checked` flags on the names and titles were cleared; the 24 party names (#875) keep theirs (refs #564).
 - In the Hebrew UI the population-tier badge sits on the right of a map pill, at the start of the Hebrew
   name, as the owner decided on #897 ("Yes, mirror it"; refs #880, #710). The English pill keeps it on the left.
 - Refusing the reparations claim (`reparations_claim.refuse`) now costs $4 million of Foreign currency, so neither answer is free (owner, 17 Oct 2026, "A cost for refusing too", #938). The amount is a labelled design value, not a historical figure, and waits for the owner's sign-off on the PR. The reference runs send the claim, so no golden moves.
 - Refusing Egypt's armistice (`armistice_egypt.hold_out`) now sets the war to rung 4, like refusing Jordan's, Lebanon's or Syria's (owner, 17 Oct 2026, "Yes, match the others", #937). The reference runs sign every armistice, so no golden moves.
 - The desktop players' bundle ID is `io.github.eyalgolan.statecraftisrael` (decision O6, owner, 17 Oct 2026, #879; refs #905). Only the Standalone identifier changes; the WebGL build does not read it.
+- The GDD game's cities house every arriving immigrant, with no hard cap, and each city has a housing condition from 0
+  to 1 (GDD Phase 3 PR 3, refs #734, #383; R-CITY-004, R-HOUSE-001 to R-HOUSE-004). People beyond a city's housing are
+  its overflow, still counted in the city; people in training and recruits take housing, halutz units do not. Each turn
+  a city with overflow loses 0.15 times its overflow share of its condition, from a start of 0.35 (design values in
+  `rules.yaml`, `mvp.housing_start_condition` and `mvp.overflow_condition_loss`). The national Housing level's base
+  is now the cities' people-weighted mean condition (R-HOUSE-004), with policy, map actions and events still on top, so
+  a shortage shows on the Housing meter and lowers morale. Every golden is re-pinned.
 - The 50 people names in Hebrew are flagged agent-checked until a native speaker reads them (owner, #882).
 - The 3D-model credits in code comments and one test's failure message now name MATKOT, as the owner asked on 17 October 2026; credit text only, with no behaviour change.
 - People audit batch 1 (#457): shazar's name_he now cites the Knesset's member page instead of en.wiki; the
