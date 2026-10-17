@@ -23,6 +23,11 @@ adds a line under **Unreleased**; CI's `Changelog` job checks this (see `CONTRIB
 - People audit batch 1 (#457): shazar's name_he now cites the Knesset's member page instead of en.wiki; the
   batch's source-coverage findings (some MK pages - Kaplan, Pinkas - carry the birth year only, so those exact
   birth dates keep their citations pending a JPress pass; the Zisling spelling conflict) are recorded in the PR. No values changed.
+- The MVP has four designated yishuv sites, where it had Mefalsim alone (refs #785, #384; Q-SITE-1, owner, #782):
+  Beit Kama (18 April 1949), Re'im (20 October 1949) and Gilat (4 December 1949) join it in `content/sites.yaml`, each
+  with a field site in its hex. A site now has kinds (`yishuv`, `field`, `swamp`, `military_camp`, `hakhshara`); an
+  action is accepted only at a site of its kind (R-SITE-004), and a hex holds at most one yishuv site (R-SITE-005). The
+  reference player builds the four in id order, so `hash1950`, `hash1952` and `mvp-end` move (docs/determinism.md).
 - Tel Aviv's White City is plastered a warm cream, as in promo 03, where it was a cooler lime white (refs #658). Walls,
   parapets and roof terraces change in Tel Aviv only. Haifa's Hadar and every other town keep their colours, and Tel
   Aviv stays clearly lighter than Jaffa's sandstone (`TownCensusTests.TelAvivsPlasterIsWarmCreamAndStillWhiterThanJaffa`).

@@ -74,6 +74,10 @@ R-SITE-002: `StopWork(unit)` ends the unit's build: the site is available again,
 
 R-SITE-003: Each turn, in ordinal site id order, every site being built has one turn less to go. A site that reaches 0 is built, on the turn's end date, and its unit is idle again. The unit stays a halutz unit, and no city, housing, job, population or Social cohesion changes. Sites being built or built are written into the state hash only when there are some.
 
+R-SITE-004: Every designated site has one or more kinds from a fixed list: `yishuv`, `field`, `swamp`, `military_camp` and `hakhshara` (Phase 4, Q-FIELD-1, Q-SWAMP-1, Q-CAMP-3). A pioneer action is accepted only at a site of its kind; any other is refused with the state unchanged and the Attention refunded. A yishuv site has a founding date inside the MVP's years and no other kind has one. A camp site (`military_camp` or `hakhshara`) names a city of `cities.yaml`, the city it trains for (Q-CAMP-1), and no other kind names one. The loader refuses any other row, naming the file and field.
+
+R-SITE-005: At most one `yishuv` site sits in a hex, so a hex shows at most one new yishuv. A site of another kind may share a hex with a yishuv site, as a yishuv's field site does (Q-SITE-3).
+
 ## Objectives
 
 R-OBJ-001: An objective (`objectives.yaml`) names its condition, `completes_when: { site_built: <site> }`, a designated site of kind yishuv whose `founded` date must equal the objective's `reference_date`. In the last step of each GDD turn (spec §2.3, step 11; D-A6), in id order, an objective whose site is built and that is not yet recorded is recorded once, with the turn's end date (the site's `BuiltOn`). Recording it again, or in the legacy loop, changes nothing; a stopped build completes nothing.

@@ -492,10 +492,13 @@ namespace Statecraft.Sim
         public string NameHe { get; set; } = "";
         public int Q { get; set; }
         public int R { get; set; }
-        /// <summary>What pioneers may build here (yishuv).</summary>
+        /// <summary>What pioneers may build here: one or more of yishuv, field, swamp, military_camp, hakhshara (R-SITE-004).</summary>
         public List<string> Kinds { get; set; } = new List<string>();
-        /// <summary>The historical founding date: the objective card's reference date (PR 6).</summary>
+        /// <summary>A yishuv site's historical founding date: the objective card's reference date (PR 6). Unset for other kinds.</summary>
         public DateTime Founded { get; set; }
+        /// <summary>A camp site's city (cities.yaml id), the city a built camp gives the facility to (Q-CAMP-1, Phase 4 PR 3).
+        /// Empty for other kinds.</summary>
+        public string City { get; set; } = "";
         public List<Source> Sources { get; set; } = new List<Source>();
         public string Status { get; set; } = "";
         /// <summary>The person who signed this row off: a GitHub handle, written only by that person (owner, 15 October 2026,

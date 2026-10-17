@@ -43,7 +43,7 @@ pop{
   veterans=667938.2378207468 [4124624479C3A414]
 sit[
 treasury=0 [0000000000000000]
-debt=71.50032828298673 [4051E00560EB2C47]
+debt=75.50032828298673 [4052E00560EB2C47]
 fx=94.52989672613671 [4057A1E9D3F540F0]
 rung=2;cf=0;
 mob=0.05 [3FA999999999999A]
@@ -58,7 +58,6 @@ fired[
   austerity_1949
   bernadotte_assassination
   elections_1949
-  first_new_yishuv
   first_truce
   frumkin_commission
   idf_founding
@@ -83,7 +82,6 @@ chosen{
   austerity_1949=impose
   bernadotte_assassination=outlaw
   elections_1949=hold
-  first_new_yishuv=continue
   first_truce=accept
   idf_founding=one_army
   jerusalem_ceasefire=keep
@@ -117,9 +115,8 @@ city{
 units[
   1:halutz@-3,19
 site{
-  mefalsim=done,1949-03-15
+  beit_kama=done,1949-03-15
+  gilat=done,1949-09-15
+  mefalsim=b,1,2
 next=2
-obj{
-  first_new_yishuv=1949-03-15
-score=115
 food=3003,1001,0

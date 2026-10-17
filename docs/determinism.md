@@ -28,9 +28,9 @@ final `GameState.Hash()` is pinned:
 
 | Run | Ends | Hash |
 |---|---|---|
-| to 1950-01-01 (`Hash1950`) | 1950-01-15, turn 20 | `2766b45b13c63daa7b6a71bfa8b40a8c52f542a6d6ddcf70ac0810fa27d952be` |
-| to 1952-01-01 (`Hash1952`) | 1952-01-15, turn 44 (the game's end) | `f8cd22d7b754d5f7d5cc24b9b4576cedd4940fdb28d987ad86cd7004bead9e59` |
-| to the game's end (`mvp-end`) | 1952-01-15, turn 44 | `f8cd22d7b754d5f7d5cc24b9b4576cedd4940fdb28d987ad86cd7004bead9e59` |
+| to 1950-01-01 (`Hash1950`) | 1950-01-15, turn 20 | `37c510500b6524af0d033bf31824ac33c3b6f14e1afeb68b4a18c7bf774dca2b` |
+| to 1952-01-01 (`Hash1952`) | 1952-01-15, turn 44 (the game's end) | `7745031b2096354784178b4e7c7ea80777afbe8968cb52eeb12122ce5e55cfaa` |
+| to the game's end (`mvp-end`) | 1952-01-15, turn 44 | `7745031b2096354784178b4e7c7ea80777afbe8968cb52eeb12122ce5e55cfaa` |
 
 `hash1952` stops at the first turn on or after 1 January 1952, which is the game's last turn, so it is the same run as
 `mvp-end` (`DeterminismTests.TheWholeGameToItsEndIsFixed`). Both names are kept (spec 2026-10-12 section 3 step 6): a
@@ -45,8 +45,8 @@ Check every build with:
 
 ```
 uv run tools/web_check.py unity/Builds/Web-<compression> --query "golden&smoke=5" \
-  --expect "GOLDEN OK 1950 2766b45b13c63daa7b6a71bfa8b40a8c52f542a6d6ddcf70ac0810fa27d952be" \
-  --expect "GOLDEN OK 1952 f8cd22d7b754d5f7d5cc24b9b4576cedd4940fdb28d987ad86cd7004bead9e59" \
+  --expect "GOLDEN OK 1950 37c510500b6524af0d033bf31824ac33c3b6f14e1afeb68b4a18c7bf774dca2b" \
+  --expect "GOLDEN OK 1952 7745031b2096354784178b4e7c7ea80777afbe8968cb52eeb12122ce5e55cfaa" \
   --expect "SMOKE OK 5 turns 1948-10-15 2436927c8b24f28c42be0e7b5a6fe30900f2f6c6a3ba77e4be943c1f50db57cc"
 ```
 
@@ -252,3 +252,6 @@ The hash reads the state keys, so it never sees a record outside its window. An 
 | GDD Phase 2 PR 4 | scenario-cautious | `28fd1405` | same; `morale` ends at 0.6183 (was 0.5296) (was `a9afb0ad`) |
 | GDD Phase 2 PR 4 | scenario-reckless | `af7b2abd` | same (was `8f209d56`) |
 | GDD Phase 2 PR 4 | scenario-mvp-absorb-first | `b16a8740` | same (was `8601da93`) |
+| GDD Phase 4 PR 1 | 1950 | `37c51050` | the MVP's four yishuv sites (R-SITE-004, Q-SITE-1, #785): the reference player builds them in ordinal id order, so Beit Kama is built on 1949-03-15 and Gilat on 1949-09-15, and Mefalsim is still being built on 1 January 1950. The first-new-yishuv objective and its card leave the run (score 0, was 115), and the debt is IL 4m higher for the extra builds (was `2766b45b`) |
+| GDD Phase 4 PR 1 | 1952 | `7745031b` | same; Mefalsim is built on 1950-03-15 and Re'im on 1950-09-15, so the objective completes nine months after its reference date with no timing bonus (score 100, was 115); the debt is IL 6m higher (was `f8cd22d7`) |
+| GDD Phase 4 PR 1 | mvp-end | `7745031b` | same; the same run as hash1952 (was `f8cd22d7`) |

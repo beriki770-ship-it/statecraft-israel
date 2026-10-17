@@ -8,7 +8,7 @@ fail on a failure line or a timeout. Uses Chrome for Testing from the Playwright
 --enable-logging=stderr --v=1 as INFO:CONSOLE... "text", source: ...
 
 Usage (from the repo root):
-  uv run tools/web_check.py unity/Builds/Web-disabled --query "golden" --expect "GOLDEN OK 1950 2766b45b13c63daa7b6a71bfa8b40a8c52f542a6d6ddcf70ac0810fa27d952be" --expect "GOLDEN OK 1952 f8cd22d7b754d5f7d5cc24b9b4576cedd4940fdb28d987ad86cd7004bead9e59"
+  uv run tools/web_check.py unity/Builds/Web-disabled --query "golden" --expect "GOLDEN OK 1950 37c510500b6524af0d033bf31824ac33c3b6f14e1afeb68b4a18c7bf774dca2b" --expect "GOLDEN OK 1952 7745031b2096354784178b4e7c7ea80777afbe8968cb52eeb12122ce5e55cfaa"
 Options: --query Q (page URL query, without '?'), --expect TEXT (repeatable), --fail REGEX (default: GOLDEN FAIL|SMOKE FAIL|BOOT FAIL),
 --timeout SECONDS (default 300), --stall SECONDS (fail when no console message arrives for that long; 0 = off),
 --swiftshader (software WebGL when there is no GPU), --dpr N (default 1), --shots DIR (reassemble the player's

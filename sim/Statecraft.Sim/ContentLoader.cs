@@ -1098,8 +1098,10 @@ namespace Statecraft.Sim
             }
         }
 
-        /// <summary>What a designated site may be built as (sites.yaml kinds). Phase 1 has "build yishuv" only.</summary>
-        static readonly string[] SiteKinds = { Projects.YishuvKind };
+        /// <summary>What a designated site may be built as (sites.yaml kinds; R-SITE-004, the GDD's pioneer actions and D-D5's two
+        /// facilities). A camp site is a military_camp or a hakhshara (Q-CAMP-3).</summary>
+        static readonly string[] SiteKinds = { Projects.YishuvKind, "field", "swamp", "military_camp", "hakhshara" };
+        static readonly string[] CampKinds = { "military_camp", "hakhshara" };
 
         /// <summary>The designated sites (sites.yaml, Phase 1 PR 5): sourced facts on a land hex that holds no 1948 settlement,
         /// founded inside the MVP's years (D-B1). The armistice line hexes are not checked: that file is display only, and a
@@ -1110,6 +1112,7 @@ namespace Statecraft.Sim
             Unique(sf, "sites", c.Sites.Select(x => x.Id));
             var from = new DateTime(1948, 5, 15);
             var to = new DateTime(1952, 1, 1);
+            var yishuvAt = new Dictionary<(int, int), string>();
             foreach (var x in c.Sites)
             {
                 var at = $"sites[{x.Id}]";
@@ -1121,10 +1124,28 @@ namespace Statecraft.Sim
                 var settled = c.SettlementHexes.FirstOrDefault(h => h.Q == x.Q && h.R == x.R);
                 if (settled != null)
                     throw new ContentException(sf, at + ".q", FormattableString.Invariant($"hex q={x.Q} r={x.R} holds the 1948 settlement {settled.Id} ({SettlementHexesFileName})"));
+                if (x.Kinds.Count == 0) throw new ContentException(sf, at + ".kinds", "required: one or more of " + string.Join(", ", SiteKinds));
                 foreach (var k in x.Kinds)
-                    if (!SiteKinds.Contains(k)) throw new ContentException(sf, at + ".kinds", $"unknown kind '{k}' (yishuv)");
-                if (x.Founded < from || x.Founded >= to)
-                    throw new ContentException(sf, at + ".founded", "required, between 15 May 1948 and 31 December 1951 (the MVP's years, D-B1)");
+                    if (!SiteKinds.Contains(k)) throw new ContentException(sf, at + ".kinds", $"unknown kind '{k}' ({string.Join(", ", SiteKinds)})");
+                if (x.Kinds.Contains(Projects.YishuvKind))
+                {
+                    // R-SITE-005 (Q-SITE-3): one yishuv per hex, so SettlementPlacer keeps one kit per hex; other kinds may share it.
+                    if (yishuvAt.TryGetValue((x.Q, x.R), out var first))
+                        throw new ContentException(sf, at + ".q", FormattableString.Invariant($"hex q={x.Q} r={x.R} already holds the yishuv site {first}"));
+                    yishuvAt[(x.Q, x.R)] = x.Id;
+                    if (x.Founded < from || x.Founded >= to)
+                        throw new ContentException(sf, at + ".founded", "required, between 15 May 1948 and 31 December 1951 (the MVP's years, D-B1)");
+                }
+                else if (x.Founded != default)
+                    throw new ContentException(sf, at + ".founded", "only a yishuv site has a founding date");
+                // Q-CAMP-1: a camp belongs to one city, which a built camp gives the facility to.
+                if (x.Kinds.Any(k => CampKinds.Contains(k)))
+                {
+                    if (string.IsNullOrWhiteSpace(x.City)) throw new ContentException(sf, at + ".city", "required for a camp site (military_camp, hakhshara)");
+                    if (!c.Cities.Any(y => y.Id == x.City)) throw new ContentException(sf, at + ".city", $"unknown city '{x.City}' (cities.yaml)");
+                }
+                else if (x.City != "")
+                    throw new ContentException(sf, at + ".city", "only a camp site has a city");
                 if (x.Sources.Count == 0) throw new ContentException(sf, at + ".sources", "required: a designated site is a historical fact");
                 for (int i = 0; i < x.Sources.Count; i++)
                     if (x.Sources[i] == null || string.IsNullOrWhiteSpace(x.Sources[i].Url) || x.Sources[i].Checked == default)
