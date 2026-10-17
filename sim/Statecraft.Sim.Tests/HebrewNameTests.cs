@@ -96,6 +96,7 @@ public class HebrewNameTests
     // People rows carry the same flag (#862); their name_he sources sit in biography_sources.
     [InlineData("people.yaml", "    name: Pm One\n", "    name: Pm One\n    name_he: ראש א\n    name_he_review: yes\n    biography_sources: { name_he: " + Src + " }\n", "people[pm_one].name_he_review")]
     [InlineData("people.yaml", "    name: Pm One\n", "    name: Pm One\n    name_he: ראש א\n    name_he_review: ''\n    biography_sources: { name_he: " + Src + " }\n", "people[pm_one].name_he_review")]
+    [InlineData("people.yaml", "    name: Pm One\n", "    name: Pm One\n    name_he: ראש א\n    name_he_review: ~\n    biography_sources: { name_he: " + Src + " }\n", "people[pm_one].name_he_review")]
     [InlineData("people.yaml", "    name: Pm One\n", "    name: Pm One\n    name_he_review: agent-checked\n", "people[pm_one].name_he")]
     // The sim reads settlements untyped, so it checks the keys itself: a misspelt flag is an error, not a reviewed name.
     [InlineData("map/settlements_1948.yaml", "name: Town A,", "name: Town A, name_he: עיר א, name_he_sources: " + Src + ", name_he_reveiw: agent-checked,", "settlements[town_a].name_he_reveiw")]
