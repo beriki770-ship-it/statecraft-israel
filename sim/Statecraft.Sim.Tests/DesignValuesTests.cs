@@ -30,6 +30,8 @@ public class DesignValuesTests
         ("rules.yaml", "mvp.build_camp_cost"),
         ("rules.yaml", "mvp.plow_fields_turns"),
         ("rules.yaml", "mvp.plow_fields_cost"),
+        ("rules.yaml", "mvp.dry_swamp_turns"),
+        ("rules.yaml", "mvp.dry_swamp_cost"),
         ("rules.yaml", "mvp.field_food_per_turn"),
         ("rules.yaml", "mvp.objective_points"),
         ("rules.yaml", "mvp.objective_bonus_per_month"),

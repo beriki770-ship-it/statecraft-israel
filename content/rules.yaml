@@ -45,6 +45,11 @@ mvp:
   # month's national need; plowing takes the recruit-training pair, the smallest project-sized values in the code.
   plow_fields_turns: 3                   # DESIGN VALUE: owner-set balance, not a historical figure (D-D10, Q-FIELD-3: turns plowing takes)
   plow_fields_cost: 0.5                  # DESIGN VALUE: owner-set balance, not a historical figure (D-D10, Q-FIELD-3: IL millions, paid at the start)
+  # Dry swamp (R-SWAMP-001; D-D6, Q-SWAMP-1). Proposed by an agent under "Agents propose design values" (owner,
+  # 15 October 2026, #375) and taken by the owner with the plan's other recommendations (17 October 2026, #782): twice
+  # the yishuv build's pair, for the largest land work in the MVP. The owner may override them.
+  dry_swamp_turns: 12                    # DESIGN VALUE: owner-set balance, not a historical figure (D-D6, Q-SWAMP-1: turns draining the Hula takes)
+  dry_swamp_cost: 4                      # DESIGN VALUE: owner-set balance, not a historical figure (D-D6, Q-SWAMP-1: IL millions, paid at the start)
   field_food_per_turn: 1                 # DESIGN VALUE: owner-set balance, not a historical figure (D-D10, Q-FIELD-3: Food units a plowed field adds each turn)
   objective_points: 100                  # DESIGN VALUE: owner-set balance, not a historical figure (D-B6: points per objective)
   objective_bonus_per_month: 5           # DESIGN VALUE: owner-set balance, not a historical figure (D-B2: points per month early)

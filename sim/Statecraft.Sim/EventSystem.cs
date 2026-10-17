@@ -28,6 +28,9 @@ namespace Statecraft.Sim
                 .Where(e => Timeline.AllMet(c, s, e))
                 // R-OBJ-003: an objective's card waits for the objective. Only the GDD loop records one, so in the legacy loop it never fires.
                 .Where(e => e.Objective == "" || s.Objectives.ContainsKey(e.Objective))
+                // R-SWAMP-002: an event about a site's works waits for those works, and stops once the site is built (drained).
+                // The legacy loop reads no sites, so it ignores the key and the legacy goldens hold.
+                .Where(e => e.Site == "" || !c.IsGdd || (s.Sites.TryGetValue(e.Site, out var works) && works.BuiltOn == null))
                 // A late fire can come after a dated indicator's window has ended (chapters design 3.2): a condition on it is not met.
                 .Where(e => e.Conditions.All(k => s.Indicators.TryGetValue(k.Indicator, out var v)
                                                && (!k.Min.HasValue || v >= k.Min.Value) && (!k.Max.HasValue || v <= k.Max.Value)))

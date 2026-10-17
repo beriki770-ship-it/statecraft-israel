@@ -30,6 +30,10 @@ namespace Statecraft.Sim
         public const string PlowFields = "plow_fields";
         /// <summary>The kind of site a field may be plowed at (sites.yaml kinds). Built, a field site is plowed (R-FIELD-001).</summary>
         public const string FieldKind = "field";
+        /// <summary>The pioneer action that drains a swamp (GDD "Pioneer work": "Dry swamp"; Phase 4 PR 5).</summary>
+        public const string DrySwamp = "dry_swamp";
+        /// <summary>The kind of site a swamp may be drained at (sites.yaml kinds). Drained, its hex's field site is ready (R-SWAMP-001).</summary>
+        public const string SwampKind = "swamp";
 
         /// <summary>Whether a yishuv may be built at <paramref name="site"/>: its kinds name one (R-SITE-001, R-SITE-004). A hex may
         /// hold more than one site, as a yishuv hex holds a field one; the panel finds the yishuv by this, not by file order.</summary>
@@ -69,34 +73,38 @@ namespace Statecraft.Sim
         /// action or site, a site that is not for a yishuv, or is being built or is built. Step
         /// has already refused it in the legacy loop. R-CAMP-001: build_camp at a military_camp or hakhshara site follows the same
         /// rules, with build_camp_turns and build_camp_cost. R-FIELD-001: plow_fields at a field site follows the same rules, with
-        /// plow_fields_turns and plow_fields_cost, and is refused while a yishuv site in the field's hex is not built.</summary>
+        /// plow_fields_turns and plow_fields_cost, and is refused while a yishuv site in the field's hex is not built. R-SWAMP-001:
+        /// dry_swamp at a swamp site follows the same rules, with dry_swamp_turns and dry_swamp_cost; a field site in the swamp's
+        /// hex is refused until the swamp is drained.</summary>
         public static string? Start(Content c, GameState s, int unit, string action, string site, List<Cause> why)
         {
             if (!s.Units.TryGetValue(unit, out var u)) return "There is no such unit";
             if (!IsPioneer(u.Type)) return "Only halutzim do pioneer work";
             var busy = s.Sites.Values.FirstOrDefault(w => w.BuiltOn == null && w.Unit == unit);
             if (busy != null) return $"That group of halutzim is already building {PlayerText.Site(c, busy.Site)}";
-            if (action != BuildYishuv && action != BuildCamp && action != PlowFields) return "There is no such pioneer work";
+            if (action != BuildYishuv && action != BuildCamp && action != PlowFields && action != DrySwamp) return "There is no such pioneer work";
             var place = c.Sites.FirstOrDefault(x => x.Id == site);
             if (place == null) return "There is no such site";
             var camp = action == BuildCamp;
             var plow = action == PlowFields;
-            if (camp ? !IsCamp(place) : plow ? !place.Kinds.Contains(FieldKind) : !IsYishuvSite(place))
+            var drain = action == DrySwamp;
+            if (camp ? !IsCamp(place) : plow ? !place.Kinds.Contains(FieldKind) : drain ? !place.Kinds.Contains(SwampKind) : !IsYishuvSite(place))
                 return camp ? $"{place.Name} is not a site for a training camp"
-                    : plow ? $"{place.Name} is not a site for fields" : $"{place.Name} is not a site for a new yishuv";
+                    : plow ? $"{place.Name} is not a site for fields" : drain ? $"{place.Name} is not a swamp" : $"{place.Name} is not a site for a new yishuv";
             if (s.Sites.TryGetValue(site, out var work))
                 return work.BuiltOn == null ? $"{place.Name} is already being built" : $"{place.Name} is already built";
-            if (plow && YishuvToBuildFirst(c, s, place) is Site first) return $"{place.Name} can be plowed once {first.Name} is built";
+            if (plow && YishuvToBuildFirst(c, s, place) is Site first)
+                return $"{place.Name} can be plowed once {first.Name} is {(first.Kinds.Contains(SwampKind) ? "drained" : "built")}";
             var r = c.RulesAt(s.Date).Mvp!;   // the loader requires it in the GDD loop
             // Owner decision "Allow borrowing" (2026-10-15, #378 question 13): a short Treasury borrows, as map actions do.
-            var cost = camp ? r.BuildCampCost!.Value : plow ? r.PlowFieldsCost!.Value : r.BuildYishuvCost;   // the loader requires both in the GDD loop
-            EconomySystem.PayOrBorrow(c, s, cost, camp ? "to build a training camp" : plow ? "to plow fields" : "to build a yishuv", why);
+            var cost = camp ? r.BuildCampCost!.Value : plow ? r.PlowFieldsCost!.Value : drain ? r.DrySwampCost!.Value : r.BuildYishuvCost;   // the loader requires them in the GDD loop
+            EconomySystem.PayOrBorrow(c, s, cost, camp ? "to build a training camp" : plow ? "to plow fields" : drain ? "to drain a swamp" : "to build a yishuv", why);
             // The same reading of D-A6 as training's: the turn of the order is the first build turn, so with
             // build_yishuv_turns 6 an order on turn T is built at the end of T+5
             // (ProjectsTests.AnOrderOnTurnTWithSixTurnsIsBuiltAtTheEndOfTurnTPlusFive).
-            s.Sites[site] = new SiteWork(site, unit, camp ? r.BuildCampTurns!.Value : plow ? r.PlowFieldsTurns : r.BuildYishuvTurns, null);
-            why.Add(plow
-                ? new Cause("map", site, 1, $"{place.Name}: a group of halutzim began plowing, cost {PlayerText.Money(c, "treasury", cost)}")
+            s.Sites[site] = new SiteWork(site, unit, camp ? r.BuildCampTurns!.Value : plow ? r.PlowFieldsTurns : drain ? r.DrySwampTurns!.Value : r.BuildYishuvTurns, null);
+            why.Add(plow || drain
+                ? new Cause("map", site, 1, $"{place.Name}: a group of halutzim began {(plow ? "plowing" : "draining the swamp")}, cost {PlayerText.Money(c, "treasury", cost)}")
                 : new Cause("map", site, 1, $"{place.Name}: a group of halutzim began building {(camp ? "a training camp" : "a yishuv")}, cost {PlayerText.Money(c, "treasury", cost)}"));
             return null;
         }
@@ -106,9 +114,10 @@ namespace Statecraft.Sim
         public static bool IsCamp(Site site) => site.Kinds.Contains("military_camp") || site.Kinds.Contains("hakhshara");
 
         /// <summary>R-FIELD-001 (Q-FIELD-1): the yishuv site in <paramref name="field"/>'s hex while it is not built yet, so the
-        /// field cannot be plowed; null when the field is ready (its yishuv is built, or it has none in its hex).</summary>
+        /// field cannot be plowed; null when the field is ready (its yishuv is built, or it has none in its hex). R-SWAMP-001
+        /// (Q-SWAMP-1): a swamp site in the hex counts the same way, so its field is ready only once it is drained.</summary>
         public static Site? YishuvToBuildFirst(Content c, GameState s, Site field) =>
-            c.Sites.FirstOrDefault(y => y.Kinds.Contains(YishuvKind) && y.Q == field.Q && y.R == field.R
+            c.Sites.FirstOrDefault(y => (y.Kinds.Contains(YishuvKind) || y.Kinds.Contains(SwampKind)) && y.Q == field.Q && y.R == field.R
                 && !(s.Sites.TryGetValue(y.Id, out var w) && w.BuiltOn != null));
 
         /// <summary>R-SITE-002 (D-A3): the unit's site loses its record, so it is available again and the unit is idle. The
@@ -129,7 +138,8 @@ namespace Statecraft.Sim
         /// <paramref name="next"/>, the turn's end date, and its unit is idle again. No city is founded (Phase 1). Then the
         /// unit, a halutz, gains a turn of service, and at veteran_halutz_service becomes a veteran_halutz (R-VET-001). A built
         /// camp site gives its city the facility from the next turn (R-CAMP-001, Training.HasFacility). A built field site is
-        /// plowed (R-FIELD-001), and yields from this turn's step 6 on (R-FIELD-002).</summary>
+        /// plowed (R-FIELD-001), and yields from this turn's step 6 on (R-FIELD-002). A built swamp site is drained, and its
+        /// hex's field site is ready (R-SWAMP-001).</summary>
         public static void Advance(Content c, GameState s, DateTime next, List<Cause> why)
         {
             var r = c.RulesAt(s.Date).Mvp!;   // the loader requires it in the GDD loop, the only loop TurnResolver runs this in
@@ -142,7 +152,7 @@ namespace Statecraft.Sim
                 {
                     s.Sites[w.Site] = SiteWork.Built(w.Site, next);
                     var place = c.Sites.First(x => x.Id == w.Site);   // a site being built is always in sites.yaml (Start)
-                    why.Add(new Cause("map", w.Site, 1, $"{place.Name} {(IsCamp(place) ? "built" : place.Kinds.Contains(FieldKind) ? "plowed" : "founded")}"));
+                    why.Add(new Cause("map", w.Site, 1, $"{place.Name} {(IsCamp(place) ? "built" : place.Kinds.Contains(FieldKind) ? "plowed" : place.Kinds.Contains(SwampKind) ? "drained" : "founded")}"));
                 }
                 // R-VET-001: the project progressed this turn, so a halutz serves a turn; a veteran counts no further.
                 if (u.Type != "halutz") continue;
