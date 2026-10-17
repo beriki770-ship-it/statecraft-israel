@@ -164,6 +164,12 @@ namespace Statecraft.Sim
         public string Id { get; set; } = "";
         public string Name { get; set; } = "";
         public string NameHe { get; set; } = "";
+        /// <summary>"agent-checked" while <see cref="NameHe"/> waits for a native speaker's review (#564, #862); empty once
+        /// reviewed. Its sources are biography_sources.name_he.</summary>
+        public string NameHeReview { get => nameHeReview ?? ""; set => nameHeReview = value ?? ""; }
+        /// <summary>True when the file has the key at all, even blank: a blank flag is an error, not a review.</summary>
+        [YamlIgnore] public bool NameHeReviewGiven => nameHeReview != null;
+        string? nameHeReview;
         /// <summary>"feminine" when the person's Hebrew office titles take the feminine form (<see cref="Office.TitleHeF"/>),
         /// sourced in biography_sources.title_he_form; empty (the key left out) for the masculine <see cref="Office.TitleHe"/>.
         /// Display only: no rule reads it.</summary>

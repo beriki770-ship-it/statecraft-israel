@@ -684,6 +684,13 @@ namespace Statecraft.Sim
             foreach (var p in c.Parties) HebrewName("parties.yaml", $"parties[{p.Id}]", "name_he", p.NameHe, p.NameHeSources, p.NameHeReview, p.NameHeReviewGiven);
             foreach (var l in c.Legislatures) HebrewName("legislatures.yaml", $"legislatures[{l.Id}]", "body_he", l.BodyHe, l.BodyHeSources, l.BodyHeReview, l.BodyHeReviewGiven);
             foreach (var g in c.Governments) HebrewName("governments.yaml", $"governments[{g.Id}]", "name_he", g.NameHe, g.NameHeSources, g.NameHeReview, g.NameHeReviewGiven);
+            // People keep their name_he sources in biography_sources (checked below), so only the review flag is checked here (#862).
+            foreach (var p in c.People)
+            {
+                if (p.NameHeReviewGiven && p.NameHeReview != HebrewReview.AgentChecked)
+                    throw new ContentException("people.yaml", $"people[{p.Id}].name_he_review", $"must be {HebrewReview.AgentChecked} (pending a native speaker's review, #564), or left out once a person has reviewed the name");
+                if (p.NameHeReviewGiven && p.NameHe == "") throw new ContentException("people.yaml", $"people[{p.Id}].name_he", "required: name_he_review is set but the name is empty");
+            }
             foreach (var a in c.Money)
             {
                 if (Array.IndexOf(PlayerText.MoneyIds, a.Id) < 0)
