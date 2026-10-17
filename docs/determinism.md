@@ -28,9 +28,9 @@ final `GameState.Hash()` is pinned:
 
 | Run | Ends | Hash |
 |---|---|---|
-| to 1950-01-01 (`Hash1950`) | 1950-01-15, turn 20 | `7cf678b6b2b3d55dc0fee7b2efdee9ec7688cdf18964dcaa6e5a7c0018e34a51` |
-| to 1952-01-01 (`Hash1952`) | 1952-01-15, turn 44 (the game's end) | `9496947232f0c97ed21c0a0b98e6727e7d59c892f9aff12049b5d7e5ee2230e8` |
-| to the game's end (`mvp-end`) | 1952-01-15, turn 44 | `9496947232f0c97ed21c0a0b98e6727e7d59c892f9aff12049b5d7e5ee2230e8` |
+| to 1950-01-01 (`Hash1950`) | 1950-01-15, turn 20 | `69ac13846f1420619e9578b119f56e8927e64eb472b8c4f14f2a8d0dc4f70eb1` |
+| to 1952-01-01 (`Hash1952`) | 1952-01-15, turn 44 (the game's end) | `186793724316006d576745b01a1df46e69b8cb667e1e7af69f48f69e48675e98` |
+| to the game's end (`mvp-end`) | 1952-01-15, turn 44 | `186793724316006d576745b01a1df46e69b8cb667e1e7af69f48f69e48675e98` |
 
 `hash1952` stops at the first turn on or after 1 January 1952, which is the game's last turn, so it is the same run as
 `mvp-end` (`DeterminismTests.TheWholeGameToItsEndIsFixed`). Both names are kept (spec 2026-10-12 section 3 step 6): a
@@ -45,8 +45,8 @@ Check every build with:
 
 ```
 uv run tools/web_check.py unity/Builds/Web-<compression> --query "golden&smoke=5" \
-  --expect "GOLDEN OK 1950 7cf678b6b2b3d55dc0fee7b2efdee9ec7688cdf18964dcaa6e5a7c0018e34a51" \
-  --expect "GOLDEN OK 1952 9496947232f0c97ed21c0a0b98e6727e7d59c892f9aff12049b5d7e5ee2230e8" \
+  --expect "GOLDEN OK 1950 69ac13846f1420619e9578b119f56e8927e64eb472b8c4f14f2a8d0dc4f70eb1" \
+  --expect "GOLDEN OK 1952 186793724316006d576745b01a1df46e69b8cb667e1e7af69f48f69e48675e98" \
   --expect "SMOKE OK 5 turns 1948-10-15 3005405d64abc6e7418fa1f0d35c36ce5f64ed3af7c5a4c24a73d5dfdb16121f"
 ```
 
@@ -271,3 +271,6 @@ The hash reads the state keys, so it never sees a record outside its window. An 
 | GDD Phase 3 PR 3 | scenario-cautious | `6507ddc3` | the housing rules: `city{}`, `housing`, `morale`, its two links and stability (was `28fd1405`) |
 | GDD Phase 3 PR 3 | scenario-reckless | `8041988a` | same (was `af7b2abd`) |
 | GDD Phase 3 PR 3 | scenario-mvp-absorb-first | `a77a8f20` | same (was `b16a8740`) |
+| GDD Phase 4 PR 1 (Kiryat Shmona, Beit Shemesh) | 1950 | `69ac1384` | Kiryat Shmona and Beit Shemesh join the yishuv sites (Q-SITE-1, owner, #782 and #785), re-pinned on main after #871 and #855. The reference player takes the yishuv sites in ordinal id order before any field or camp, so its veteran builds Beit Shemesh on 1949-06-15, Gilat on 1949-09-15 and Kiryat Shmona on 1949-12-15, and is building Mefalsim at the cut (`mefalsim=b,1,4`; it was plowing Beit Kama's field). The first-new-yishuv objective no longer completes inside the run, so its card does not fire and the score is 0 (was 100); the debt is IL 1.5m higher (IL 2m for the build in progress instead of IL 0.5m for the field) (was `7cf678b6`) |
+| GDD Phase 4 PR 1 (Kiryat Shmona, Beit Shemesh) | 1952 | `18679372` | same; Mefalsim is built on 1950-03-15 (was 1949-09-15) and Re'im on 1950-06-15 (was 1949-12-15). The six fields are plowed after them, in ordinal id order: Beit Kama 1950-08-15, Beit Shemesh 1950-10-15, Gilat 1950-12-15, Kiryat Shmona 1951-02-15, Mefalsim 1951-04-15 and Re'im 1951-06-15, so Camp 80 is built on 1951-09-15 (was 1950-11-15) and Tzrifin on 1951-12-15 (was 1951-02-15). The objective completes on 1950-03-15, after its reference date, so the score (100) does not change. The debt is IL 5m higher (2 x IL 2m for the yishuvim, 2 x IL 0.5m for their fields), and the Food stock ends 2 units higher (2738, was 2736), which lifts food_supply in the fifth decimal and stability in the sixth (was `94969472`) |
+| GDD Phase 4 PR 1 (Kiryat Shmona, Beit Shemesh) | mvp-end | `18679372` | same; the same run as hash1952 (was `94969472`) |
