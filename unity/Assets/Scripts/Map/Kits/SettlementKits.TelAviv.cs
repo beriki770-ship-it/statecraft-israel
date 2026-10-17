@@ -32,7 +32,7 @@ namespace Statecraft.Game.Map.Kits
         const float PilotisShare = 0.25f;
         /// <summary>Tel Aviv's plaster (#658): promo 03's warm cream, red-led, where main used the shared lime white
         /// (WhitePlaster, which Haifa's Hadar keeps). Still well lighter and paler than Jaffa's sandstone (StoneWall).</summary>
-        static readonly Color32 TelAvivPlaster = C(0.97f, 0.90f, 0.84f);
+        static readonly Color32 TelAvivPlaster = C(0.97f, 0.90f, 0.87f);
 
         /// <summary>A Tel Aviv block: four to eight storeys, taller near the heart.</summary>
         static Spec PickTelAviv(float t, ref KitRandom rnd, float m)
