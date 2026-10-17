@@ -123,8 +123,7 @@ namespace Statecraft.Game.Map
                         break;
                 }
             }
-            var keys = Keyboard.current;
-            var modifier = keys != null && (keys.ctrlKey.isPressed || keys.altKey.isPressed || keys.leftMetaKey.isPressed || keys.rightMetaKey.isPressed);
+            var modifier = ModifierHeld(Keyboard.current);
             Step(rig, Gather(pan.ReadValue<Vector2>(), drag, zoomRaw, orbit.ReadValue<float>(), down, pointer, zoomKeys.ReadValue<float>(), modifier),
                 ClampDt(Time.unscaledDeltaTime), Bounds, Ground, GroundTop);
         }
@@ -154,6 +153,11 @@ namespace Statecraft.Game.Map
             var was = Vector2.Distance(now0 - delta0, now1 - delta1);
             return (now - was) / PixelsPerNotch;
         }
+
+        /// <summary>Ctrl, Alt or Cmd (either side) held: the zoom keys then belong to the browser or the system. Shift is not
+        /// a modifier here, since + is Shift and = on a US keyboard.</summary>
+        public static bool ModifierHeld(Keyboard? keys) =>
+            keys != null && (keys.ctrlKey.isPressed || keys.altKey.isPressed || keys.leftMetaKey.isPressed || keys.rightMetaKey.isPressed);
 
         /// <summary>Fits the rig's current pose with no input (review B-m3: a minimap jump goes through the same view fit and
         /// ground clearance as panning, so no frame shows the map's frame or the inside of a hill).</summary>
