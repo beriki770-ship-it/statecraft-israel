@@ -111,7 +111,7 @@ namespace Statecraft.Game.UI
                     return Unknown("unit", w.Unit.ToString(System.Globalization.CultureInfo.InvariantCulture), State.Units.Keys.Select(k => k.ToString(System.Globalization.CultureInfo.InvariantCulture)))
                         ?? Unknown("pioneer_work", w.Action, new[] { Projects.BuildYishuv, Corridors.BuildRoad, Corridors.BuildRail })
                         ?? (Corridors.IsAction(w.Action)
-                            ? Unknown("segment", w.Site, Content.Corridors.SelectMany(x => Enumerable.Range(1, x.Segments.Count).Select(n => x.Id + ":" + n.ToString(System.Globalization.CultureInfo.InvariantCulture))))
+                            ? Unknown("corridor_segment", w.Site, Content.Corridors.SelectMany(x => Enumerable.Range(1, x.Segments.Count).Select(n => x.Id + ":" + n.ToString(System.Globalization.CultureInfo.InvariantCulture))))
                             : Unknown("site", w.Site, Content.Sites.Select(x => x.Id)));
                 case StopWork w: return Unknown("unit", w.Unit.ToString(System.Globalization.CultureInfo.InvariantCulture), State.Units.Keys.Select(k => k.ToString(System.Globalization.CultureInfo.InvariantCulture)));
                 default: return text["order.invalid"];

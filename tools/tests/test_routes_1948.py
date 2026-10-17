@@ -220,9 +220,10 @@ def test_no_sawtooth_on_straight_lines():
     15% of its points (the rest are real bends: the Sorek canyon, the hill roads, the Jericho descent)."""
     for r in PATHS:
         n = sawtooth(r["points"])
-        # A short line gets two (#786: the 6 km Yarkon rail link's 11 points turn off the road onto the track to its
-        # station in one S-bend, which 15% of 11 would count as a fault).
-        assert n <= max(2, 0.15 * len(r["points"])), (r["id"], n, len(r["points"]))
+        # #786: the 6 km Yarkon rail link's 11 points turn off the road onto the track to its station in one S-bend
+        # (two kinks), which 15% of 11 would count as a fault; every other route keeps the 15% bar.
+        limit = 2 if r["id"] == "yarkon_rail_link" else 0.15 * len(r["points"])
+        assert n <= limit, (r["id"], n, len(r["points"]))
         if r["id"] in ("hadera_haifa_railway", "kantara_main_line_south", "eastern_railway", "haifa_beirut_railway"):
             assert n <= 3, (r["id"], n)
 
