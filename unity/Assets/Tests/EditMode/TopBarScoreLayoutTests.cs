@@ -12,8 +12,8 @@ using UnityEngine.TestTools;
 using UnityEngine.UIElements;
 
 /// <summary>The score in the top bar's date box (#380, 7b): a worst-case score stays inside the box's frame, on no other
-/// text, and whole, at every window size the HUD's tests use, in English and Hebrew. At the widest date the turn and date
-/// labels stay inside that frame too (#625).</summary>
+/// text, and whole, at every window size the HUD's tests use, in English and Hebrew. At the widest date the year, turn
+/// and date labels stay inside that frame too (#625).</summary>
 public class TopBarScoreLayoutTests
 {
     static readonly Content Gdd = ContentLoader.Load(Paths.Content);   // the real game: GDD since the cutover
@@ -92,9 +92,8 @@ public class TopBarScoreLayoutTests
                         var o = root.Q<Label>(other);
                         if (!Apart(score.worldBound, o.worldBound)) problems.Add($"{at}: '{score.text}' {score.worldBound} overlaps {other} '{o.text}' {o.worldBound}");
                         if (!Whole(o)) problems.Add($"{at}: {other} '{o.text}' is clipped in {o.contentRect}");
-                        // #625: the turn and date labels lie inside the frame too, at the widest date (the year shares the
-                        // score's line, which the checks above cover).
-                        if (other != "year" && !Inside(o.worldBound, ContentBox(box))) problems.Add($"{at}: {other} '{o.text}' {o.worldBound} leaves the date box's frame {ContentBox(box)}");
+                        // #625: the year, turn and date labels lie inside the frame too, at the widest date.
+                        if (!Inside(o.worldBound, ContentBox(box))) problems.Add($"{at}: {other} '{o.text}' {o.worldBound} leaves the date box's frame {ContentBox(box)}");
                     }
                 }
                 finally
