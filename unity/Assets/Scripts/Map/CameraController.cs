@@ -98,7 +98,12 @@ namespace Statecraft.Game.Map
 
         bool dragFromUi, dragWasDown;
 
-        void Update()
+        void Update() => Tick(Time.unscaledDeltaTime);
+
+        /// <summary>One frame from the live actions, <paramref name="dt"/> seconds long. Test seam (internal; the tests see it
+        /// through InternalsVisibleTo): an EditMode test has no frame clock, so it drives the real key path with a fixed
+        /// frame time (#890).</summary>
+        internal void Tick(float dt)
         {
             if (pan == null || dragPan == null || zoom == null || zoomKeys == null || orbit == null) return;
             Vector2? pointer = Pointer.current != null ? Pointer.current.position.ReadValue() : (Vector2?)null;
@@ -125,7 +130,7 @@ namespace Statecraft.Game.Map
             }
             var modifier = ModifierHeld(Keyboard.current);
             Step(rig, Gather(pan.ReadValue<Vector2>(), drag, zoomRaw, orbit.ReadValue<float>(), down, pointer, zoomKeys.ReadValue<float>(), modifier),
-                ClampDt(Time.unscaledDeltaTime), Bounds, Ground, GroundTop);
+                ClampDt(dt), Bounds, Ground, GroundTop);
         }
 
         /// <summary>The first two touches down (2 stands for two or more), or fewer.</summary>
