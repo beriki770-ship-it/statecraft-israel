@@ -686,6 +686,9 @@ namespace Statecraft.Sim
                 HebrewName("offices.yaml", $"offices[{o.Id}]", "title_he", o.TitleHe, o.TitleHeSources, o.TitleHeReview, o.TitleHeReviewGiven);
                 HebrewName("offices.yaml", $"offices[{o.Id}]", "title_he_f", o.TitleHeF, o.TitleHeFSources, o.TitleHeFReview, o.TitleHeFReviewGiven);
                 if (o.TitleHeF != "" && o.TitleHe == "") throw new ContentException("offices.yaml", $"offices[{o.Id}].title_he", "required: a feminine title_he_f needs the title_he beside it");
+                // The player can order a woman into any office, so a Hebrew title without its feminine form would show her the
+                // masculine one (owner on #861, 17 October 2026).
+                if (o.TitleHe != "" && o.TitleHeF == "") throw new ContentException("offices.yaml", $"offices[{o.Id}].title_he_f", $"required: office {o.Id} has a title_he, so it needs its feminine title_he_f beside it");
             }
             foreach (var p in c.Parties) HebrewName("parties.yaml", $"parties[{p.Id}]", "name_he", p.NameHe, p.NameHeSources, p.NameHeReview, p.NameHeReviewGiven);
             foreach (var l in c.Legislatures) HebrewName("legislatures.yaml", $"legislatures[{l.Id}]", "body_he", l.BodyHe, l.BodyHeSources, l.BodyHeReview, l.BodyHeReviewGiven);

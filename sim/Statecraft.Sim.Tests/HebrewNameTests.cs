@@ -66,13 +66,13 @@ public class HebrewNameTests
     public void AnAgentCheckedFlagLoadsAndClearingItLoadsToo()
     {
         var flagged = Replace("offices.yaml", "    title: Prime Minister\n",
-            $"    title: Prime Minister\n    title_he: ראש הממשלה\n    title_he_sources: {Src}\n    title_he_review: agent-checked\n");
+            $"    title: Prime Minister\n    title_he: ראש הממשלה\n    title_he_sources: {Src}\n    title_he_review: agent-checked\n    title_he_f: ראשת הממשלה\n    title_he_f_sources: {Src}\n");
         flagged["map/settlements_1948.yaml"] = Fixture.Files["map/settlements_1948.yaml"].Replace("name: Town A,", $"name: Town A, name_he: עיר א, name_he_sources: {Src}, name_he_review: agent-checked,");
         flagged["people.yaml"] = Fixture.Files["people.yaml"].Replace("    name: Pm One\n", $"    name: Pm One\n    name_he: ראש א\n    name_he_review: agent-checked\n    biography_sources: {{ name_he: {Src} }}\n");
         Assert.Equal(HebrewReview.AgentChecked, Load(flagged).Offices.Single(o => o.Id == "prime_minister").TitleHeReview);
         Assert.Equal(HebrewReview.AgentChecked, Load(flagged).People.Single(p => p.Id == "pm_one").NameHeReview);
         var cleared = Replace("offices.yaml", "    title: Prime Minister\n",
-            $"    title: Prime Minister\n    title_he: ראש הממשלה\n    title_he_sources: {Src}\n");
+            $"    title: Prime Minister\n    title_he: ראש הממשלה\n    title_he_sources: {Src}\n    title_he_f: ראשת הממשלה\n    title_he_f_sources: {Src}\n");
         Assert.Equal("", Load(cleared).Offices.Single(o => o.Id == "prime_minister").TitleHeReview);
     }
 

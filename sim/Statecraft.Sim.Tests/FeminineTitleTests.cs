@@ -60,6 +60,17 @@ public class FeminineTitleTests
         Assert.Equal(field, ex.Field);
     }
 
+    /// <summary>Every office with a title_he has its title_he_f, whoever holds it: the player can order a woman into any
+    /// office (Content.cs, Office.TitleHeF), so a missing row is a load error, not a silent masculine title.</summary>
+    [Fact]
+    public void AHebrewTitledOfficeWithNoFeminineTitleIsALoadError()
+    {
+        var ex = Assert.Throws<ContentException>(() => Load(Files("", pmFeminine: false)));
+        Assert.Equal("offices.yaml", ex.File);
+        Assert.Equal("offices[prime_minister].title_he_f", ex.Field);
+        Assert.Contains("prime_minister", ex.Message);
+    }
+
     // ---- the real content ------------------------------------------------------------------------------------------
 
     static readonly Content C = ContentLoader.Load(RealContentTests.ContentRoot());
