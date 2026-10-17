@@ -36,6 +36,15 @@ public class FinalWaveTests
         Assert.Contains(o.Effects, f => f.Target == cost && f.Delta < 0);
     }
 
+    /// <summary>Owner decision of 17 October 2026 (#938), "A cost for refusing too": neither answer to the reparations claim is
+    /// free, so the game does not nudge the player toward the one that did not happen. Each option costs a resource.</summary>
+    [Fact]
+    public void NeitherAnswerToTheReparationsClaimIsFree()
+    {
+        foreach (var o in Real.Events.Single(e => e.Id == "reparations_claim").Options)
+            Assert.True(o.Effects.Any(f => Resources.Contains(f.Target) && f.Delta < 0), $"reparations_claim.{o.Id} costs nothing");
+    }
+
     [Fact]
     public void TheSensitiveEventsArePinned()
     {
