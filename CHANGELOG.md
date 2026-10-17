@@ -21,6 +21,10 @@ adds a line under **Unreleased**; CI's `Changelog` job checks this (see `CONTRIB
   The #519 grade is unchanged.
 - The overview's sea is a deeper blue, toward promo 02 (refs #709, #695, #388): the water haze, seen only beyond 120 km,
   is bluer (`MapShaderGlobals.WaterHazeColour`), so the gameplay zoom's sea does not change. The #519 grade is unchanged.
+- Nahalal, the map's moshav, is laid out as Kauffmann's ring (refs #32): a public building at the hub beside the water
+  tower (plastered, a red tiled gable, longer than a farmstead), and its farmsteads turned with the long side along the
+  ring street instead of square to one grid. The basis is en.wiki "Nahalal": "the public buildings ... in the centre",
+  "then a ring street with the farmers' homesteads bordering on it on the outside". No other place moves.
 - A kibbutz no longer looks like a moshav or a moshava (refs #32). The five kibbutz game settlements and the kibbutz rows
   of the 1948 localities get a dining hall near the heart, opposite the water tower (white, flat roof, a raised
   clerestory), long one-storey members' houses under red tiles, and grey-roofed farm sheds on one side, the farm yard.
