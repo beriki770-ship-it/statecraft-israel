@@ -7,6 +7,8 @@ namespace Statecraft.Sim
     public static class EventSystem
     {
         public const int MaxSoftEventsPerTurn = 3;
+        /// <summary>The facility a grant with no `at` stands at (Q-HFX-2) and the city fields an option may change (R-EFX-004).</summary>
+        public const string MilitaryCamp = "military_camp", HousingField = "housing_capacity", JobsField = "job_slots";
 
         static GameEvent Get(Content c, string id) => c.Events.First(e => e.Id == id);
 
@@ -88,6 +90,25 @@ namespace Statecraft.Sim
                 else change = EffectsSystem.Shift(c, s, fx.Target, fx.Delta);
                 why.Add(new Cause("events", fx.Target, change, $"{PlayerText.Change(c, fx.Target, change)} ({title})"));
             }
+            // R-EFX-006: the structured effects after the numeric ones, in list order. The loader has checked every target.
+            foreach (var g in o.GrantUnits)
+            {
+                // R-EFX-003 (Q-HFX-2): free; the deal's cost is the option's numeric effects. The units take the next ids.
+                var (place, q, r) = GrantPlace(c, g);
+                for (int i = 0; i < g.N; i++) { var id = s.NextId++; s.Units.Add(id, new Unit(id, g.Type, q, r)); }
+                why.Add(new Cause("events", g.Type, g.N, $"{Granted(g, place)} ({title})"));
+            }
+            foreach (var x in o.CityEffects)
+            {
+                // R-EFX-004: only the named field changes. Housing capacity stays at 0 or more; job slots never fall below the
+                // city's employed, so a cut takes only free slots. The cause carries the change that applied.
+                var city = s.Cities[x.City];
+                var housing = x.Field == HousingField ? Math.Max(0, city.HousingCapacity + x.Delta) : city.HousingCapacity;
+                var jobs = x.Field == JobsField ? Math.Max(city.Employed, city.JobSlots + x.Delta) : city.JobSlots;
+                s.Cities[x.City] = new City(city.Id, housing, jobs, city.Civilians, city.Employed, city.Refugees, city.Recruits);
+                var applied = housing - city.HousingCapacity + jobs - city.JobSlots;
+                why.Add(new Cause("events", x.City + "." + x.Field, applied, $"{CityChange(c, x.City, x.Field, applied)} ({title})"));
+            }
             foreach (var kv in o.SetPolicy.Where(k => s.Policies.ContainsKey(k.Key)).OrderBy(k => k.Key, StringComparer.Ordinal))
             {
                 s.Policies[kv.Key] = kv.Value;
@@ -100,14 +121,31 @@ namespace Statecraft.Sim
         /// effect on a target that no longer exists reaches nothing.</summary>
         static bool Reaches(GameState s, string target) => EventRules.SpecialTargets.Contains(target) || s.Indicators.ContainsKey(target);
 
+        /// <summary>Where a grant stands (R-EFX-003, Q-HFX-2): the named city's settlement hex, or with no `at` the settlement
+        /// hex of the one city with the military camp (the loader checks each exists).</summary>
+        static (string Name, int Q, int R) GrantPlace(Content c, UnitGrant g)
+        {
+            var city = g.At != "" ? g.At : c.Cities.Single(x => x.Facilities.Contains(MilitaryCamp)).Id;
+            var hex = c.SettlementHexes.First(h => h.Id == city);   // every settlement has one (ValidateMap)
+            return (PlayerText.Settlement(c, city), hex.Q, hex.R);
+        }
+
+        static string Granted(UnitGrant g, string place) =>
+            FormattableString.Invariant($"{g.N} {g.Type} unit{(g.N == 1 ? "" : "s")} at {place}");
+
+        static string CityChange(Content c, string city, string field, int delta) =>
+            FormattableString.Invariant($"{PlayerText.Settlement(c, city)}: {field.Replace('_', ' ')} {(delta > 0 ? "+" : "")}{delta}");
+
         /// <summary>R-EVT-005: every effect of an option, in the order choosing it applies them (Resolve): the numeric
-        /// effects, the policies it sets (by id), then the security level. Each amount is the option's own; Resolve may
-        /// apply less where an indicator meets its bound or the Food stock its floor, and rounds Food to whole units. The
+        /// effects, the unit grants and city effects (R-EFX-006), the policies it sets (by id), then the security level.
+        /// Each amount is the option's own; Resolve may apply less where an indicator meets its bound or the Food stock its floor, and rounds Food to whole units. The
         /// event card will read this list (Q-EVT-4, owner 17 October 2026; Phase 7 PR 8), so no number is computed in Unity.</summary>
         public static List<Cause> OptionEffects(Content c, GameState s, EventOption o)
         {
             var lines = o.Effects.Where(fx => Reaches(s, fx.Target))
                 .Select(fx => new Cause("events", fx.Target, fx.Delta, PlayerText.Change(c, fx.Target, fx.Delta))).ToList();
+            lines.AddRange(o.GrantUnits.Select(g => new Cause("events", g.Type, g.N, Granted(g, GrantPlace(c, g).Name))));
+            lines.AddRange(o.CityEffects.Select(x => new Cause("events", x.City + "." + x.Field, x.Delta, CityChange(c, x.City, x.Field, x.Delta))));
             lines.AddRange(o.SetPolicy.Where(k => s.Policies.ContainsKey(k.Key)).OrderBy(k => k.Key, StringComparer.Ordinal)
                 .Select(k => new Cause("events", k.Key, k.Value, $"{PlayerText.Target(c, k.Key)} set to {PlayerText.Percent(k.Value)}")));
             if (o.SetRung.HasValue) lines.Add(new Cause("events", "rung", o.SetRung.Value, FormattableString.Invariant($"Security level set to {o.SetRung.Value}")));

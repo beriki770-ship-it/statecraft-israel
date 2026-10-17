@@ -134,6 +134,8 @@ Each option has:
 | `effects` | no | A list of `{ target, delta }`. |
 | `set_rung` | no | Sets the security rung, 1 to 5. |
 | `set_policy` | no | A map of policy id to a level from 0 to 1. |
+| `grant_units` | no | GDD loop only. A list of `{ type, n, at }`: see "grant_units and city_effects". |
+| `city_effects` | no | GDD loop only. A list of `{ city, field, delta }`: see "grant_units and city_effects". |
 
 An event needs at least one option. `historical` is a statement of fact and needs a source; `recommended` is a game
 design choice and does not.
@@ -153,6 +155,21 @@ design choice and does not.
 
 `delta` must be a finite number. Any other target is an error. Policy ids (`rationing`, ...) are not effect targets;
 use `set_policy` for those.
+
+### grant_units and city_effects
+
+These act on the GDD records, so only content whose `eras.yaml` sets `systems.loop: gdd` may use them. They apply after
+`effects`, grants first, each list in its own order (R-EFX-006).
+
+- `grant_units: [{ type: halutz, n: 2, at: tel_aviv }]` adds `n` units of a `unit_types.yaml` type of kind `unit`. A
+  grant is free: put what the deal cost in `effects`. Leave out `at` and the units stand at the city with the military
+  camp; set it to a `cities.yaml` id to place them there (R-EFX-003). A `sites.yaml` id is refused until sites carry a
+  date, because a target must exist on the event's date (R-EFX-006).
+- `city_effects: [{ city: haifa, field: housing_capacity, delta: 5 }]` changes one city's `housing_capacity` or
+  `job_slots` by a whole, non-zero number. Capacity never drops below 0 and job slots never below the city's employed
+  (R-EFX-004).
+
+An event with a sensitive tag may carry no grant and no positive `city_effects` delta; a cut is allowed (R-EFX-005).
 
 ### sources
 
@@ -219,6 +236,16 @@ Errors are printed as `file: field: message`. These are the messages you are mos
 | `sensitive events cannot reward` | A sensitive-tagged event with a positive `treasury`, `fx_reserves`, `food`, `food_supply`, `morale` or `intl_standing` delta. |
 | `must be 1-5` | `set_rung` outside 1 to 5. |
 | `unknown policy` | `set_policy` names a policy that does not exist. |
+| `needs the GDD loop` | `grant_units` or `city_effects` in content that runs the legacy loop. |
+| `unknown unit type` | A grant's `type` is not in `unit_types.yaml`. |
+| `is not a unit type` | A grant's `type` is a population type. |
+| `must be at least 1` | A grant's `n` is 0 or negative. |
+| `sites cannot be grant targets` | A grant's `at` names a site. |
+| `no single city has the military camp` | A grant leaves out `at` when no single city has the camp. |
+| `unknown city` | A grant's `at` or a `city_effects` entry names no city. |
+| `unknown field` | A `city_effects` field other than `housing_capacity` or `job_slots`. |
+| `must not be 0` | A `city_effects` delta of 0. |
+| `sensitive events cannot reward units` | A sensitive-tagged event with a grant. A positive `city_effects` delta gives the same message with the field's name. |
 | `unknown objective` | `objective` names an objective that is not in `objectives.yaml`. |
 | `has another card` | `objective` names an objective whose `card` is a different event. |
 | `an objective's card has exactly one option` | An objective's card has more than one option. |

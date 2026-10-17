@@ -332,7 +332,8 @@ namespace Statecraft.Sim
             //   requires: { event, option }   fires only once that other event was resolved (chosen or delegated)
             //                              with that option; both ids must exist, an event cannot require itself and
             //                              requirements cannot form a cycle (EventRules)
-            //   options: [{ id, text, historical, recommended, effects: [{ target, delta }], set_rung, set_policy }]
+            //   options: [{ id, text, historical, recommended, effects: [{ target, delta }], set_rung, set_policy,
+            //              grant_units: [{ type, n, at }], city_effects: [{ city, field, delta }] }]
             //   sources: [{ url, checked }], status
             //   objective                  the objective (objectives.yaml) whose completion card this is: it fires only once
             //                              that objective is recorded, and has exactly one option
@@ -356,6 +357,7 @@ namespace Statecraft.Sim
                 c.Sites = Read<SitesFile>(readFile, "sites.yaml").Sites;   // sourced facts (Phase 1 PR 5)
                 ValidateGdd(c, settlementIds);
             }
+            EventRules.ValidateStructured(c);   // R-EFX-006: after the GDD records it names are read
             c.BuildWindows();
             c.Hash = HashOf(read);
             return c;

@@ -700,6 +700,28 @@ namespace Statecraft.Sim
         public int? SetRung { get; set; }
         /// <summary>Policies this option sets, by id, to a level in [0, 1].</summary>
         public Dictionary<string, double> SetPolicy { get; set; } = new Dictionary<string, double>();
+        /// <summary>R-EFX-003: units this option grants, free, in list order (D-H2, Q-HFX-2).</summary>
+        public List<UnitGrant> GrantUnits { get; set; } = new List<UnitGrant>();
+        /// <summary>R-EFX-004: changes to a city's housing capacity or job slots, in list order (D-H2, Q-HFX-1).</summary>
+        public List<CityEffect> CityEffects { get; set; } = new List<CityEffect>();
+    }
+
+    /// <summary>An option's grant of <see cref="N"/> units of a unit_types.yaml type of kind unit (R-EFX-003). They stand at
+    /// <see cref="At"/>, a cities.yaml id, or, when it is empty, at the city that has the military camp. A site is refused
+    /// until sites carry a date (R-EFX-006).</summary>
+    public sealed class UnitGrant
+    {
+        public string Type { get; set; } = "";
+        public int N { get; set; }
+        public string At { get; set; } = "";
+    }
+
+    /// <summary>An option's change to one field of a city: housing_capacity or job_slots, by whole units (R-EFX-004).</summary>
+    public sealed class CityEffect
+    {
+        public string City { get; set; } = "";
+        public string Field { get; set; } = "";
+        public int Delta { get; set; }
     }
 
     public sealed class GameEvent

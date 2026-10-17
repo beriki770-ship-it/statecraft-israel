@@ -144,6 +144,16 @@ R-EFX-001: An option's effect may target an indicator id from `model.yaml`, `tre
 
 R-EFX-002: An option of an event tagged `holocaust`, `terror`, `massacre` or `war-casualties` cannot raise `treasury`, `fx_reserves`, `food`, `food_supply`, `morale` or `intl_standing` (Q-EFX-2, decided 15 October 2026: the no-gain rule covers all five resources, with the legacy indicators standing for Food, Social cohesion and International Support; `food` is Food's own target, and Arms joins the rule with its pool, #781). A cost stays allowed. The rule for the Phase 6 `displacement` tag is Q-DEP-6 (open).
 
+D-H2 in the GDD loop (GDD Phase 7 PR 2, #806). The owner took the plan's recommendations for Q-HFX-1 to Q-HFX-3 on 17 October 2026 (#784): grants of units, a city's housing capacity, condition and job slots, and project unlock, each validated at load; a grant is free and stands at the military camp or at the site the event names (in this slice, a city the event names: a site waits until sites carry a date, R-EFX-006); the no-reward rule covers them. This first slice builds unit grants and the housing capacity and job slots; condition and project unlock come with the records they act on (#734, #735).
+
+R-EFX-003: An option's `grant_units` entry `{ type, n, at }` adds `n` (at least 1) units of a `unit_types.yaml` type of kind `unit`, free, taking the next ids in turn. They stand at the settlement hex of the city `at` names or, with no `at`, at the settlement hex of the one city whose `facilities` include `military_camp` (Q-HFX-2). With no such single city, `at` is required. A site is not yet a target (R-EFX-006).
+
+R-EFX-004: An option's `city_effects` entry `{ city, field, delta }` changes only that city's `housing_capacity` or `job_slots`, by a whole, non-zero `delta`. Housing capacity never drops below 0, and job slots never drop below the city's employed, so a larger cut applies only to what is free. Capacity may fall below the city's civilians, as overcrowding already can. The cause carries the change that applied.
+
+R-EFX-005: An option of an event tagged `holocaust`, `terror`, `massacre` or `war-casualties` carries no unit grant and no `city_effects` gain (Q-HFX-3; extends R-EFX-002). A cut stays allowed.
+
+R-EFX-006: The structured effects apply after the numeric effects, grants first and then city effects, each in the option's list order. A target that does not exist on the date (an unbuilt site, a city not yet in the game) is refused at load with file and field, never skipped at run time; so is an unknown type, city or field. Every `cities.yaml` city is in the game from the first turn. A site has no window and starts unbuilt, so a site id as `at` is refused until sites carry a date. The legacy loop, which has no cities or units, refuses them. The preview (R-EVT-005) lists them in the same order.
+
 ## Events
 
 D-H1 in the GDD loop (GDD Phase 7 PR 1, #805). The owner took the plan's recommendations for Q-EVT-1 to Q-EVT-4 on 17 October 2026 (#784). As the plan's Decided rows record them (`docs/superpowers/plans/2026-10-15-gdd-phase-7.md`), that keeps windows, hard anchors and the cap of 3 soft events a turn, keeps delegation, adds no delayed effects in the MVP, and shows every effect of every option from the sim's preview. These rules state what the code already does; no behaviour changed.
@@ -156,4 +166,4 @@ R-EVT-003: An event the player leaves unanswered at End Turn is delegated to its
 
 R-EVT-004: An option's effects apply when it is chosen or delegated, on that turn, and never later; an option has no delayed form, and the loader refuses an unknown key such as `delay` (Q-EVT-3).
 
-R-EVT-005: One sim helper, `EventSystem.OptionEffects`, lists every effect of an option in the order choosing it applies them: the numeric effects, the policies it sets (by id), then the security level, each with the option's own amount (Q-EVT-4). The event card will show this list (GDD Phase 7 PR 8), so no number will be computed in Unity.
+R-EVT-005: One sim helper, `EventSystem.OptionEffects`, lists every effect of an option in the order choosing it applies them: the numeric effects, the unit grants and city effects (R-EFX-006), the policies it sets (by id), then the security level, each with the option's own amount (Q-EVT-4). The event card will show this list (GDD Phase 7 PR 8), so no number will be computed in Unity.

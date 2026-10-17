@@ -98,6 +98,52 @@ namespace Statecraft.Sim
             CheckObjectives(c);
         }
 
+        /// <summary>The options' structured effects (D-H2): R-EFX-006 refuses a target that does not exist at load, so Resolve
+        /// never skips one; R-EFX-005 refuses any gain from them on a sensitive event, as R-EFX-002 does for the resources.
+        /// Called once the GDD files (cities, unit types, sites) are read, so after <see cref="Validate"/>.</summary>
+        public static void ValidateStructured(Content c)
+        {
+            foreach (var e in c.Events)
+                foreach (var o in e.Options)
+                    CheckStructured(c, e, o, e.Tags.Any(SensitiveTags.Contains), field => $"events[{e.Id}].{field}");
+        }
+
+        static void CheckStructured(Content c, GameEvent e, EventOption o, bool sensitive, Func<string, string> F)
+        {
+            if (o.GrantUnits.Count + o.CityEffects.Count == 0) return;
+            // They act on the GDD records (cities.yaml, unit_types.yaml, sites.yaml), which the legacy loop does not load.
+            if (!c.IsGdd)
+                throw new ContentException(e.File, F($"options[{o.Id}].{(o.GrantUnits.Count > 0 ? "grant_units" : "city_effects")}"), "needs the GDD loop (eras.yaml systems.loop: gdd)");
+            for (int i = 0; i < o.GrantUnits.Count; i++)
+            {
+                var g = o.GrantUnits[i];
+                string G(string field) => F(FormattableString.Invariant($"options[{o.Id}].grant_units[{i}]{field}"));
+                if (sensitive) throw new ContentException(e.File, G(""), "sensitive events cannot reward units");
+                var type = c.UnitTypes.FirstOrDefault(t => t.Id == g.Type)
+                    ?? throw new ContentException(e.File, G(".type"), $"unknown unit type '{g.Type}'");
+                if (type.Kind != "unit") throw new ContentException(e.File, G(".type"), $"'{g.Type}' is not a unit type (kind {type.Kind})");
+                if (g.N < 1) throw new ContentException(e.File, G(".n"), "must be at least 1");
+                if (g.At == "" && c.Cities.Count(x => x.Facilities.Contains(EventSystem.MilitaryCamp)) != 1)
+                    throw new ContentException(e.File, G(".at"), "required: no single city has the military camp, so name a city");
+                // R-EFX-006: a target must exist on the event's date. Every cities.yaml city is in the game from the first
+                // turn; a site has no window and starts unbuilt, so it cannot be checked against a date yet.
+                if (g.At != "" && c.Cities.All(x => x.Id != g.At))
+                    throw new ContentException(e.File, G(".at"), c.Sites.Any(x => x.Id == g.At)
+                        ? $"'{g.At}' is a site: sites cannot be grant targets until they carry a date (R-EFX-006)"
+                        : $"unknown city '{g.At}'");
+            }
+            for (int i = 0; i < o.CityEffects.Count; i++)
+            {
+                var x = o.CityEffects[i];
+                string X(string field) => F(FormattableString.Invariant($"options[{o.Id}].city_effects[{i}]{field}"));
+                if (c.Cities.All(k => k.Id != x.City)) throw new ContentException(e.File, X(".city"), $"unknown city '{x.City}'");
+                if (x.Field != EventSystem.HousingField && x.Field != EventSystem.JobsField)
+                    throw new ContentException(e.File, X(".field"), $"unknown field '{x.Field}' (housing_capacity or job_slots)");
+                if (x.Delta == 0) throw new ContentException(e.File, X(".delta"), "must not be 0");
+                if (sensitive && x.Delta > 0) throw new ContentException(e.File, X(""), $"sensitive events cannot reward {x.Field}");
+            }
+        }
+
         /// <summary>Objectives and their cards name each other (R-OBJ-003): an event's `objective` names an objective whose
         /// `card` is that event, and an objective's card exists, names it back and has exactly one option (the card reports a
         /// result; there is nothing to choose).</summary>

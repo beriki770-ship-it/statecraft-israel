@@ -66,7 +66,35 @@
             }
           },
           "set_rung": { "type": "integer" },
-          "set_policy": { "type": "object", "additionalProperties": { "type": "number", "minimum": 0, "maximum": 1 }, "description": "Policy id to a level in [0, 1]." }
+          "set_policy": { "type": "object", "additionalProperties": { "type": "number", "minimum": 0, "maximum": 1 }, "description": "Policy id to a level in [0, 1]." },
+          "grant_units": {
+            "type": "array",
+            "description": "R-EFX-003 (GDD loop only): free units of a unit_types.yaml type of kind unit, at a cities.yaml id, or with no at at the city that has the military camp (a site is refused until sites carry a date, R-EFX-006). Not on a sensitive event (R-EFX-005).",
+            "items": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": ["type", "n"],
+              "properties": {
+                "type": { "type": "string", "minLength": 1 },
+                "n": { "type": "integer", "minimum": 1 },
+                "at": { "type": "string" }
+              }
+            }
+          },
+          "city_effects": {
+            "type": "array",
+            "description": "R-EFX-004 (GDD loop only): a whole-unit change to one city's housing_capacity or job_slots. A sensitive event may only cut (R-EFX-005).",
+            "items": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": ["city", "field", "delta"],
+              "properties": {
+                "city": { "type": "string", "minLength": 1 },
+                "field": { "enum": ["housing_capacity", "job_slots"] },
+                "delta": { "type": "integer", "not": { "const": 0 } }
+              }
+            }
+          }
         }
       }
     },
