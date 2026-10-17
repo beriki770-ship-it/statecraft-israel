@@ -111,46 +111,16 @@ public class CitiesTests
     public void ATurnsArrivalsAreHousedOnTheNextTurn()
     {
         // Tel Aviv starts full (Q-START-1: housing equals the start people), so 20 of its people are moved out to free room.
-        var s = With(Simulation.NewGame(Mvp, GoldenRun.Seed, Mode.Historical), "tel_aviv", 228, 106, 0);
+        // The cities take arrivals from the census day, 8 November 1948 (Q-ARRV-3), so the turn from 15 November has some.
+        var s = Simulation.NewGame(Mvp, GoldenRun.Seed, Mode.Historical);
+        while (s.Date < new DateTime(1948, 11, 15)) s = Step(Mvp, s).State;
+        s = With(s, "tel_aviv", 228, 106, 0);
         var one = Step(Mvp, s).State;
         var arrived = one.Cities["tel_aviv"].Refugees;
         Assert.True(arrived > 0);
         Assert.Equal(228, one.Cities["tel_aviv"].Civilians);   // housing for 20 more was free, but it ran before they came
         var two = Step(Mvp, one).State.Cities["tel_aviv"];
         Assert.Equal(228 + Math.Min(arrived, 20), two.Civilians);
-    }
-
-    // R-CITY-003
-    [Fact]
-    public void ArrivalsOverTheWholeRunEqualTheFloorOfTheTotal()
-    {
-        var s = Simulation.NewGame(Mvp, GoldenRun.Seed, Mode.Historical);
-        var start = s.Date;
-        int People(GameState x) => x.Cities["tel_aviv"].Civilians + x.Cities["tel_aviv"].Refugees;
-        var before = People(s);
-        for (int i = 0; i < 20; i++)
-        {
-            var next = Step(Mvp, s).State;
-            Assert.Equal(Cities.ArrivedUnits(Mvp, s.Date, next.Date, 1000), People(next) - People(s));
-            s = next;
-        }
-        var total = PopulationSystem.Arrivals(Mvp, start, s.Date).OrderBy(kv => kv.Key, StringComparer.Ordinal).Sum(kv => kv.Value);
-        Assert.Equal((int)Math.Floor(total / 1000), People(s) - before);
-    }
-
-    /// <summary>Before cutover the same arrivals are in two views: the legacy head count by origin (GameState.Population, which
-    /// the legacy economy reads) and the city's refugees. This pins that overlap so Phase 3, which makes arrivals counts, has
-    /// to change it on purpose.</summary>
-    // R-CITY-003
-    [Fact]
-    public void BeforeCutoverArrivalsAreInTheLegacyHeadCountToo()
-    {
-        var c = Town();
-        var s = Simulation.NewGame(c, 1, Mode.Historical);
-        for (int i = 0; i < 20; i++) s = Step(c, s).State;
-        var people = PopulationSystem.Arrivals(c, c.Eras[0].From, s.Date).Values.Sum();
-        Assert.Equal(Cities.ArrivedUnits(c, c.Eras[0].From, s.Date, 10), s.Cities["town_a"].Refugees + s.Cities["town_a"].Civilians - 10);
-        Assert.True(s.Population["europe"] >= people, "the legacy head count also holds every arrival");
     }
 
     // R-CITY-005

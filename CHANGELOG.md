@@ -23,6 +23,13 @@ adds a line under **Unreleased**; CI's `Changelog` job checks this (see `CONTRIB
   (he.wiki "גן הנוף הקיבוצי"). Nahalal's moshav ring and the moshavot are unchanged (their renders are pixel-identical),
   and no other place moves; inside a kibbutz the hall's lot can take a plot. Yad Mordechai has no hall: no free ground is left near its heart, and a hall pushed to the edge
   would take its houses.
+- The GDD game's immigrants arrive in all twelve cities (GDD Phase 3 PR 2, refs #733, #383; R-CITY-003, R-CITY-008),
+  split in proportion to each city's census population, one unit at a time to the largest remainder, ties to the lower
+  id (Q-ARRV-1). They used to land only in Tel Aviv. The cities take arrivals from the census day, 8 November 1948
+  (`mvp.city_arrivals_from`, CBS Statistical Abstract No. 14, Table 11), because their census start values already count
+  the people who came from 15 May: about 78 units were counted twice (Q-ARRV-3). The national head count still takes
+  every arrival from 15 May, so the CBS anchors are unchanged, and a test checks the cities never hold more people than
+  it (Q-ARRV-2). `mvp.arrivals_city` is gone. Every golden moves (docs/determinism.md, rebaseline history).
 - The GDD game has its twelve cities (GDD Phase 3 PR 1, refs #732, #383; R-CITY-006, R-CITY-007): `content/cities.yaml`
   holds the `city` and `town` rows of the 1948 settlements, each starting from its census population of 8 November 1948
   (CBS Statistical Abstract No. 14, Table 11; Zikhron Ya'akov from No. 3; Rosh Pinna from Hebrew Wikipedia, as the owner

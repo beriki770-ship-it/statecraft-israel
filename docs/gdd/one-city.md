@@ -10,7 +10,7 @@ As a player of the MVP, I want to put Tel Aviv's people to work and house the im
 - `AssignWorkers(city, job, n)` sets how many of the city's civilians work. It is refused, with the state unchanged, for a negative count, more than the city's jobs or civilians, an unknown city or role, or the legacy loop (R-CITY-001). It costs 0.5 Attention (a placeholder) (unitless).
 - Each turn resolves in the order the owner approved for the plan's resolution phase (D-A6, #456 [S2][S3]): production, then housing and Social cohesion, then arrivals. A turn's arrivals are housed on the next turn.
 - Production: each employed unit earns `income_per_job_per_year` IL millions a year, for the turn's share of a year (R-CITY-002).
-- Arrivals: the CBS series in `content/aliyah.yaml` arrives as refugees in `arrivals_city`, in whole units, counted from the game's start so that no unit is lost or counted twice (R-CITY-003, D-A5 [S2]).
+- Arrivals: the CBS series in `content/aliyah.yaml` arrives as refugees, in whole units, counted cumulatively so that no unit is lost or counted twice (R-CITY-003, D-A5 [S2]). With twelve cities they are spread over all of them: see `cities.md`.
 - Housing: refugees become civilians, without a job, up to the city's housing capacity. The cap is a placeholder while D-D1 is open (R-CITY-004).
 - Social cohesion: a share from 0% to 100%, the weighted housed share and employed share over all cities (R-CITY-005). It is a placeholder while D-C1 is open: no other system reads it and nothing shows it.
 
