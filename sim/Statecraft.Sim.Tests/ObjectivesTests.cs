@@ -257,8 +257,8 @@ eras:
         Assert.Empty(card.Tags);
     }
 
-    // R-OBJ-001 to R-OBJ-003 in the golden run: the reference player builds Mefalsim on 15 March 1949, three months before its
-    // 12 June 1949 founding, so the first new yishuv scores 100 and the early bonus (D-B2), and its card fires and is answered.
+    // R-OBJ-001 to R-OBJ-003 in the golden run: the reference player builds Mefalsim on 15 March 1950, after its 12 June 1949
+    // founding, so the first new yishuv scores 100 with no early bonus (D-B2), and its card fires and is answered.
     // Since GDD Phase 3 PR 1 the cities start with every job filled (Q-START-1), so the player trains its halutz group on the
     // first turn instead of on 15 August 1948 (ReferencePlayerTests); before, it built on 15 June 1949 and scored 100.
     [Fact]

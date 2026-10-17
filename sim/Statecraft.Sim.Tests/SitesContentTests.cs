@@ -87,6 +87,15 @@ public class SitesContentTests
         Assert.Equal(new DateTime(1949, 7, 18), founded["kiryat_shmona"]);
         Assert.Equal(new DateTime(1949, 6, 12), founded["mefalsim"]);
         Assert.Equal(new DateTime(1949, 10, 20), founded["reim"]);
+        // Each hex is the one tools/hexgrid.py gives for the row's sourced point (the CBS point for the two that joined, rows 7
+        // and 16 of the settlements note), so moving a row to another hex is a content change a test sees.
+        var hexes = yishuvim.ToDictionary(x => x.Id, x => (x.Q, x.R));
+        Assert.Equal((-8, 28), hexes["beit_kama"]);
+        Assert.Equal((-3, 24), hexes["beit_shemesh"]);
+        Assert.Equal((-10, 30), hexes["gilat"]);
+        Assert.Equal((14, 2), hexes["kiryat_shmona"]);
+        Assert.Equal((-10, 27), hexes["mefalsim"]);
+        Assert.Equal((-12, 29), hexes["reim"]);
         Assert.All(yishuvim, x => Assert.True(x.Sources.Count(s => s.Checked != default) >= 2, x.Id));
     }
 

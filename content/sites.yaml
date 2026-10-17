@@ -16,7 +16,8 @@
 # only when eras.yaml systems.loop is gdd. Research: #459, research_notes/GDD objectives/designated-site-1.md.
 # Kiryat Shmona and Beit Shemesh join them (owner, 17 October 2026, #782: "Sign off now"; settlements note rows 7 and
 # 16). Their founding days are the owner's (#785, issuecomment-6237624501), from the research note posted there. Their
-# sources carry that note's checked date (17 October 2026, when AI agents re-fetched every page); no person has re-read
+# sources carry that note's checked date (17 October 2026, when AI agents re-fetched every page), except the Central Bureau
+# of Statistics file, which keeps the settlements note's 14 October 2026, as do their field rows; no person has re-read
 # them, so the rows stay draft.
 sites:
   - id: mefalsim
