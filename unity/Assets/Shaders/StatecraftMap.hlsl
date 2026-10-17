@@ -233,10 +233,22 @@ float ScDuneWeight(float2 mapM)
 // up to 2x, so the width comes from the phase itself (review N2). Call it in uniform control flow (outside any [branch]);
 // pass the result to ScWaterShade.
 static const float ScBreakerFilterPx = 1.25;
+// #716: on the dune coasts (ScDuneWeight) the crests draw apart offshore, as a shoaling swell's do: the spacing grows
+// linearly from ScBreakerSpacingM at the shore by ScBreakerChirp metres per metre out (800 m 1 km out, 1.5 km at the
+// 3 km zone's edge), so the phase is its integral, log(1 + ScBreakerChirp x) / ScBreakerChirp in shore spacings x. The
+// 3.0 km zone had 3 or more evenly spaced white lines in 47% of the south window's rows (coast_measure's stripe_rows,
+// gameplay03 editor renders, median of 8 moments; promo 03 0.30); at ScBreakerChirp 0.35 it reads 0.25, foam band
+// 34.7 px (35.6 before), 2 lace lines, share 0.55 (promo 03 0.54). Chirp 0.25 read 0.32; 0.5 read 0.21 but pulled
+// SeaTests' southern walks in to 39 px, past the north-to-south ratio and the lace share bounds; a constant 800 m spacing
+// read 0.27 and kept the lines even. The crests still roll in at ScBreakerRate cycles a second, so the outer ones move
+// faster.
+static const float ScBreakerChirp = 0.35;
 float2 ScBreakers(float coast, float2 mapM)
 {
     float offshoreM = saturate(0.5 - coast) * 2.0 * ScCoastRangeM;
-    float phase = offshoreM / ScBreakerSpacingM + ScWaterClock() * ScBreakerRate + ScNoise(mapM / 1200.0) * 2.0;
+    float x = offshoreM / ScBreakerSpacingM;
+    x = lerp(x, log(1.0 + ScBreakerChirp * x) / ScBreakerChirp, ScDuneWeight(mapM));
+    float phase = x + ScWaterClock() * ScBreakerRate + ScNoise(mapM / 1200.0) * 2.0;
     return float2(phase, fwidth(phase) * ScBreakerFilterPx);
 }
 
