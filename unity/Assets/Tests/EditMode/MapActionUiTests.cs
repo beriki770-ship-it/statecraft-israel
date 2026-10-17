@@ -118,6 +118,25 @@ public class MapActionUiTests
         StringAssert.DoesNotContain("נבנה", line, "no gendered verb");
     }
 
+    /// <summary>#929: under Hebrew the queued and built lines name the action from #924's info.map_action strings, not the
+    /// content's English name. English is pinned by ATransitCampIsOrderedAndBuiltAtEndTurn.</summary>
+    [Test]
+    public void InHebrewTheQueuedAndBuiltLinesNameTheActionInHebrew()
+    {
+        var he = UiText.Parse(AssetDatabase.LoadAssetAtPath<TextAsset>(UiPaths.StringsHebrew).text, "strings.he.yaml");
+        using var ui = new UiTestKit();
+        var g = GameSession.New(C, GoldenRun.Seed, Mode.Historical);
+        while (g.State.Date < new DateTime(1950, 8, 1)) g.Step(HistoricalAI.Commands(C, g.State));
+        var bridge = new SimBridge(g, he);
+        var info = new InfoPanelPresenter(ui.Root, bridge, he, Towns.ToDictionary(t => t.Id, t => t.Name));
+        var tlv = C.SettlementHexes.Single(s => s.Id == "tel_aviv");
+        info.Show(tlv.Q, tlv.R);
+        ui.Press("build-camp");
+        Assert.AreEqual("ניתנה פקודה: מעברה, בסיום התור", ui.Q<Label>("info-placement").text);
+        bridge.EndTurn();
+        Assert.AreEqual("מעברה – תאריך הקמה: אוגוסט 1950", ui.Q<Label>("info-placement").text);
+    }
+
     /// <summary>The minimap's painted relief (tools/minimap_bake.py) is north up over the hex grid's bounds: sea off Tel Aviv
     /// and in the Gulf of Aqaba, land in the hills and the Negev. Read from the PNG itself (the imported texture is not
     /// readable on the CPU).</summary>

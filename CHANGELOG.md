@@ -12,6 +12,9 @@ adds a line under **Unreleased**; CI's `Changelog` job checks this (see `CONTRIB
   adds free units at the military camp or a named city, `city_effects` moves one field by whole units, both
   apply after the numeric effects and show in the option's effect list, the loader refuses an unknown target, and a
   sensitive event may carry no grant or gain (R-EFX-003 to R-EFX-006; refs #806). No event uses them yet.
+- Events: `requires` is a list whose entries must all hold, and an entry can say `diverged: true` (any option but
+  the historical one); the five events with a requirement move to the list form with the same meaning (R-ALT-001,
+  R-ALT-002; refs #946, #939).
 - The 1948 unit roster gives 20 formations a sourced Hebrew name (`name_he`, agent-checked until #564's read); a
   name's source does not count toward `wikipedia_only` (refs #902).
 - Pioneers can build a training camp: `PioneerWork(unit, build_camp, site)` at a camp site takes 6 turns and IL 2m
@@ -32,6 +35,10 @@ adds a line under **Unreleased**; CI's `Changelog` job checks this (see `CONTRIB
 - In the Hebrew UI the info panel's build line is a date label with no verb, "{0} – תאריך הקמה: {1}" (refs #701), since
   the fixed masculine "נבנה" read wrong for a feminine name ("מעברה נבנה"). Beri approved the wording as a native speaker.
   English is unchanged.
+- Under `?lang=he` the info panel's queued and built lines name the map action in Hebrew ("ניתנה פקודה: מעברה, בסיום
+  התור", "מעברה – תאריך הקמה: אוגוסט 1950"), from #924's `info.map_action.*` strings, instead of the content's English
+  name. The built line no longer runs left to right or wraps "1950" in the panel. No new strings; English is unchanged
+  (Fixes #929).
 - `EventImageMappingTests.EveryPictureHasItsProvenanceRow` no longer lists `first_new_yishuv` as waiting for the owner's sign-off. Its `ASSETS.yaml` row became `verified` in #913 (owner, 17 Oct 2026, "Approve both", #879), so the test failed on main.
 - In the Hebrew UI the map's name pills show each row's `name_he`: the game settlements ("נהלל", "תל אביב") and
   the 1948 localities that have one. The thirteen localities with no `name_he` keep their English name, and the
@@ -81,6 +88,13 @@ adds a line under **Unreleased**; CI's `Changelog` job checks this (see `CONTRIB
 - Refusing the reparations claim (`reparations_claim.refuse`) now costs $4 million of Foreign currency, so neither answer is free (owner, 17 Oct 2026, "A cost for refusing too", #938). The amount is a labelled design value, not a historical figure, and waits for the owner's sign-off on the PR. The reference runs send the claim, so no golden moves.
 - Refusing Egypt's armistice (`armistice_egypt.hold_out`) now sets the war to rung 4, like refusing Jordan's, Lebanon's or Syria's (owner, 17 Oct 2026, "Yes, match the others", #937). The reference runs sign every armistice, so no golden moves.
 - The desktop players' bundle ID is `io.github.eyalgolan.statecraftisrael` (decision O6, owner, 17 Oct 2026, #879; refs #905). Only the Standalone identifier changes; the WebGL build does not read it.
+- The GDD game's cities house every arriving immigrant, with no hard cap, and each city has a housing condition from 0
+  to 1 (GDD Phase 3 PR 3, refs #734, #383; R-CITY-004, R-HOUSE-001 to R-HOUSE-004). People beyond a city's housing are
+  its overflow, still counted in the city; people in training and recruits take housing, halutz units do not. Each turn
+  a city with overflow loses 0.15 times its overflow share of its condition, from a start of 0.35 (design values in
+  `rules.yaml`, `mvp.housing_start_condition` and `mvp.overflow_condition_loss`). The national Housing level's base
+  is now the cities' people-weighted mean condition (R-HOUSE-004), with policy, map actions and events still on top, so
+  a shortage shows on the Housing meter and lowers morale. Every golden is re-pinned.
 - The 50 people names in Hebrew are flagged agent-checked until a native speaker reads them (owner, #882).
 - The 3D-model credits in code comments and one test's failure message now name MATKOT, as the owner asked on 17 October 2026; credit text only, with no behaviour change.
 - People audit batch 1 (#457): shazar's name_he now cites the Knesset's member page instead of en.wiki; the

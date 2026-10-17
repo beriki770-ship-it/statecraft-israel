@@ -329,9 +329,10 @@ namespace Statecraft.Sim
             //   office                     the minister the event is delegated to
             //   from, to                   the window [from, to); it fires on the first turn that overlaps it
             //   conditions: [{ indicator, min, max }]   indicator bounds that must hold when it fires
-            //   requires: { event, option }   fires only once that other event was resolved (chosen or delegated)
-            //                              with that option; both ids must exist, an event cannot require itself and
-            //                              requirements cannot form a cycle (EventRules)
+            //   requires: [{ event, option } | { event, diverged: true }, ...]   fires only once every entry holds: that
+            //                              event was resolved (chosen or delegated) with that option, or with any option but
+            //                              its historical one (R-ALT-001, R-ALT-002); the ids must exist, an event cannot
+            //                              require itself and requirements cannot form a cycle (EventRules)
             //   options: [{ id, text, historical, recommended, effects: [{ target, delta }], set_rung, set_policy,
             //              grant_units: [{ type, n, at }], city_effects: [{ city, field, delta }] }]
             //   sources: [{ url, checked }], status
@@ -1074,6 +1075,11 @@ namespace Statecraft.Sim
                     if (v == null) throw new ContentException(file, "mvp." + key, "required when eras.yaml systems.loop is gdd");
                     if (v < 1) throw new ContentException(file, "mvp." + key, "must be >= 1");
                 }
+                // R-HOUSE-001, R-HOUSE-002: required, so a missing key is never read as a condition of 0 or no loss.
+                if (m.HousingStartCondition == null) throw new ContentException(file, "mvp.housing_start_condition", "required when eras.yaml systems.loop is gdd");
+                Unit(file, "mvp.housing_start_condition", m.HousingStartCondition.Value);
+                if (m.OverflowConditionLoss == null) throw new ContentException(file, "mvp.overflow_condition_loss", "required when eras.yaml systems.loop is gdd");
+                Unit(file, "mvp.overflow_condition_loss", m.OverflowConditionLoss.Value);
                 if (c.Indicators.All(i => i.Id != Pools.FoodIndicator))
                     throw new ContentException(file, "mvp.k_food", "the Food stock feeds the food_supply indicator, which model.yaml must define");
                 // One game has one last day (R-LOOP-004): an era cannot move it.
