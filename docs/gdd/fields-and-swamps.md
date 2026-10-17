@@ -32,8 +32,8 @@ As a player of the MVP, I want to send a group of halutzim to plow the fields of
 ## Done when
 
 - `dotnet test sim/Statecraft.sln` passes, including `FieldsTests`, `SwampTests`, `ProjectsTests` and `ReferencePlayerTests`.
+- For the fields half, `hash1950`, `hash1952` and `mvp-end` move and are re-pinned with history rows in `docs/determinism.md`; `smoke5` and the three scenarios do not move.
 - For the swamp half, `hash1952` and `mvp-end` move (the Hula card no longer fires) and are re-pinned with history rows; `hash1950`, `smoke5` and the three scenarios do not move.
-- `hash1950`, `hash1952` and `mvp-end` move and are re-pinned with history rows in `docs/determinism.md`; `smoke5` and the three scenarios do not move.
 
 ## Out of scope
 

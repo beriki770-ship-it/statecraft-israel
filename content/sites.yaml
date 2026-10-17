@@ -1,9 +1,9 @@
 # GDD v0.1 designated sites (docs/GDD.md "Pioneer work": building is allowed only at designated spots, and a new yishuv
 # takes its site's name). Phase 1 had one site (owner decision D-A4; the owner chose Mefalsim on #378, 14 October 2026).
 # Phase 4 PR 1 (#785) adds the MVP's other yishuv sites, Beit Kama, Re'im and Gilat (Q-SITE-1, owner, 17 October 2026, #782:
-# "take all of the plan's recommendations"), and a field site in each yishuv's hex (Q-FIELD-1). Research for the three: research_notes/GDD objectives/settlements-1949-51.md, rows
-# 22, 23 and 25. Their sources carry that note's checked date (14 October 2026); no person has re-read them since, so the
-# rows stay draft.
+# "take all of the plan's recommendations"), and a field site in each yishuv's hex (Q-FIELD-1). Research for the three:
+# research_notes/GDD objectives/settlements-1949-51.md, rows 22, 23 and 25. Their sources carry that note's checked date
+# (14 October 2026); no person has re-read them since, so the rows stay draft.
 # Phase 4 PR 3 (#787) adds the two camp sites (Q-CAMP-2, owner, 17 October 2026, #785: "Both"): Camp 80 near Pardes Hanna
 # and Tzrifin, both military camps (owner, "Both military", 17 October 2026, #927). Research: research_notes/gdd-phase-4-sourcing.md, rows C1 and C4, and the research recorded on #785
 # (issuecomment-6233553842 and the camp-site gaps, issuecomment-6237625295). Their sources carry the checked date of the
@@ -218,12 +218,14 @@ sites:
       - { url: "https://soil-remediation.co.il/wp-content/uploads/2019/06/%D7%A1%D7%A7%D7%A8-%D7%96%D7%99%D7%94%D7%95%D7%9D-%D7%A7%D7%A8%D7%A7%D7%A2-2016.pdf", checked: 2026-10-17 }
     status: draft
   - id: hula
-    name: Hula drainage
-    # For the native reviewer (#564): "the draining of the Hula", the name of the works, as the hula_drainage event names them.
-    name_he: ייבוש החולה
+    name: Hula swamp
+    # For the native reviewer (#564): "the Hula swamps", the place the works drain; the site names nothing but the drainage's
+    # target (Q-SWAMP-3).
+    name_he: ביצות החולה
     # The swamp hex: in the 1946 Survey of Palestine 1:250,000 map the marsh fills the valley north of Lake Hula, with "Hula
     # Conces. Area" printed in it, and (14, 3) is the one hex it makes mostly wet; the lake itself is about a fifth of a hex
-    # (research_notes/Map/historical-water-1948.md, findings 6 and 7, and section 2.5). No 1948 settlement in the hex.
+    # (research_notes/Map/historical-water-1948.md, findings 6 and 7, and section 2.5). No 1948 settlement in the hex. No
+    # yishuv site may share it: a yishuv there would also gate hula_field (Projects.YishuvToBuildFirst).
     q: 14
     r: 3
     kinds: [swamp]
