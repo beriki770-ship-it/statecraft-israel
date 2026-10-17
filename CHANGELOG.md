@@ -116,6 +116,13 @@ adds a line under **Unreleased**; CI's `Changelog` job checks this (see `CONTRIB
   (Q-CUT-8). Every golden moves; the cutover re-pins them once.
 
 ### Added
+- City and town pills start with their population tier, a gold disc with a number from 1 to 9 (refs #710). The tier is
+  static: it comes from the city's 1948 people in `content/cities.yaml` (#821), not from the sim's live count (owner,
+  15 October 2026). The scale is the design value proposed on #710 and not yet ruled: tiers double from 1,000, so under
+  1,000 is tier 1 and 128,000 or more is tier 9, which gives eight distinct tiers across the twelve cities. Pills with no
+  1948 figure (Arab towns, kibbutzim, moshavim, the 1948 localities) have no badge. Hovering or tapping a badged pill
+  shows a tooltip such as "Population tier 8 of 9: 98,618 people in 1948", in English and Hebrew.
+  `MapLabelTests.CitiesWearTheirStatic1948PopulationTier` checks the tier edges, the badges and the tooltip.
 - A Settings screen, opened from a gear at the foot of the left column (refs #40, first slice). Its first option turns
   the tilt-shift blur off and on, at once; the choice is kept per browser in `/idbfs/statecraft-settings/settings.txt`
   (a fixed folder, as the autosave's), never in the sim or the save, so the goldens do not move. `?notiltshift` still
