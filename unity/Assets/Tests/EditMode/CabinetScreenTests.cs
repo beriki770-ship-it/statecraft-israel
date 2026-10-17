@@ -81,8 +81,8 @@ public class CabinetScreenTests
         StringAssert.StartsWith("גולדה מאיר · מפא״י · ", ui.Q<Button>("appoint-golda_meir").text);
         StringAssert.StartsWith("אהרון ציזלינג · מפ״ם · ", ui.Q<Button>("appoint-zisling").text);
         UiTestKit.Press(ui.Q<Button>("appoint-golda_meir"));
-        // Finance has no title_he_f (she never held it), so her order takes the feminine form derived from title_he (Beri).
-        Assert.AreEqual("", C.Offices.Single(o => o.Id == "finance_minister").TitleHeF);
+        // She never held Finance; her order reads the office's title_he_f row all the same (owner on #861: "Move to content").
+        Assert.AreEqual("שרת האוצר", C.Offices.Single(o => o.Id == "finance_minister").TitleHeF);
         Assert.AreEqual("ניתנה פקודה: גולדה מאיר לתפקיד שרת האוצר, בסיום התור", ui.Q<Label>("cabinet-status").text);
         // A row with no Hebrew form in the content keeps its English one: the rationing office has no title_he yet.
         var rationing = C.Offices.Single(o => o.Id == "rationing_minister");
@@ -96,16 +96,20 @@ public class CabinetScreenTests
         cabinet.Dispose();
     }
 
-    /// <summary>A woman in an office with no title_he_f (Beri, native speaker, 17 October 2026): a minister's title takes the
-    /// feminine ("שר האוצר" is "שרת האוצר", "השר ל..." is "השרה ל..."), the Prime Minister's stays "ראש הממשלה", and a
-    /// title_he_f in the content still wins. A man's title and the English UI are unchanged.</summary>
+    /// <summary>A woman's title is the office's title_he_f row, also for an office she never held (owner on #861, 17 October
+    /// 2026: "Move to content"; the wording is Beri's, native speaker): a minister's title takes the feminine, the Prime
+    /// Minister's stays "ראש הממשלה". The UI derives no form: an office with no title_he_f keeps its English title for her.
+    /// A man's title and the English UI are unchanged.</summary>
     [Test]
     public void AWomansMinisterTitleIsFeminineAndThePrimeMinistersIsNot()
     {
         var he = UiText.Parse(AssetDatabase.LoadAssetAtPath<TextAsset>(UiPaths.StringsHebrew).text, "strings.he.yaml");
         var golda = C.People.Single(p => p.Id == "golda_meir");
         Office O(string id) => C.Offices.Single(o => o.Id == id);
-        Assert.AreEqual("", O("finance_minister").TitleHeF);
+        foreach (var o in C.Offices.Where(o => o.TitleHeF != ""))
+            Assert.AreEqual(o.TitleHeF, ContentNames.Of(he, o, golda), o.Id);
+        var unsourced = new Office { Title = "Minister of Finance", TitleHe = "שר האוצר" };
+        Assert.AreEqual("Minister of Finance", ContentNames.Of(he, unsourced, golda), "no title_he_f: English, no derived form");
         Assert.AreEqual("שרת האוצר", ContentNames.Of(he, O("finance_minister"), golda));
         Assert.AreEqual("השרה לנפגעי מלחמה", ContentNames.Of(he, O("war_victims_minister"), golda));
         Assert.AreEqual("שרה בלי תיק", ContentNames.Of(he, O("minister_without_portfolio"), golda));

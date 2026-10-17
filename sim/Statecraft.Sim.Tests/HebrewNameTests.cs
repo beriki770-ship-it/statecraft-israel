@@ -181,8 +181,8 @@ public class HebrewNameTests
         Assert.All(C.Governments, g => Assert.NotEqual("", g.NameHe));
         Assert.All(C.Legislatures, l => Assert.NotEqual("", l.BodyHe));
         Assert.All(Rows("map/settlements_1948.yaml", "settlements"), r => Assert.True(r.Children.ContainsKey(new YamlScalarNode("name_he"))));
-        // Feminine titles only where a woman held the office (owner, 2026-10-14): Golda Meir, Labour and Foreign Affairs.
-        Assert.Equal(new[] { "foreign_minister", "labour_minister" }, C.Offices.Where(o => o.TitleHeF != "").Select(o => o.Id).OrderBy(x => x, StringComparer.Ordinal));
+        // A feminine title beside every Hebrew one (owner on #861, 17 October 2026), not only where a woman held the office.
+        Assert.Equal(C.Offices.Where(o => o.TitleHe != "").Select(o => o.Id), C.Offices.Where(o => o.TitleHeF != "").Select(o => o.Id));
     }
 
     /// <summary>The owner's 2026-10-14 answers: places in their 1948 form, parties by their short common names, the First
