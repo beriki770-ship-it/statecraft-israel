@@ -1,0 +1,195 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using Statecraft.Sim;
+
+/// <summary>Event effects on units and cities (D-H2; GDD Phase 7 PR 2, #806). The owner took the plan's recommendations for
+/// Q-HFX-1 to Q-HFX-3 on 17 October 2026 (#784): grants of units, city housing capacity, condition and job slots, and
+/// project unlock, each validated at load; a grant is free and stands at the military camp or at the site the event
+/// names; a sensitive option gains nothing from them (R-EFX-005). This first slice builds the kinds whose records are on
+/// main: unit grants and a city's housing capacity and job slots. Condition (#734) and project unlock (#735) follow.</summary>
+public class StructuredEffectTests
+{
+    const string Arms = @"
+id: arms
+title: Arms arrive
+text: A shipment arrives.
+from: 1948-05-15
+{TAGS}options:
+  - id: accept
+    text: Accept
+    historical: true
+    effects:
+      - target: fx_reserves
+        delta: -10
+{STRUCTURED}  - id: refuse
+    text: Refuse
+";
+
+    const string Grants = @"    grant_units:
+      - { type: halutz, n: 2 }
+      - { type: halutz, n: 1, at: site_a }
+    city_effects:
+      - { city: town_a, field: housing_capacity, delta: 3 }
+      - { city: town_a, field: job_slots, delta: -100 }
+";
+
+    static string Event(string structured, string tags = "") =>
+        Arms.Replace("{STRUCTURED}", structured).Replace("{TAGS}", tags == "" ? "" : "tags: [" + tags + "]\n");
+
+    static Content Load(string ev, string facilities = "[military_camp, hakhshara]") =>
+        ContentLoader.Load(Fixture.Write(Fixture.Gdd(new Dictionary<string, string>
+        {
+            ["cities.yaml"] = "cities:\n" + Fixture.City("town_a", 12, 8, 10, 6, facilities),
+        }), new Dictionary<string, string> { ["arms.yaml"] = ev }));
+
+    static ContentException Refused(string structured, string tags = "") =>
+        Assert.Throws<ContentException>(() => Load(Event(structured, tags)));
+
+    static (int Q, int R) TownHex(Content c) { var h = c.SettlementHexes.First(x => x.Id == "town_a"); return (h.Q, h.R); }
+
+    // R-EFX-003: a grant adds exactly its units, free, taking the next ids in turn: with no `at` they stand at the city with
+    // the military camp, with `at` at the named site. Nothing else of the units changes.
+    [Fact]
+    public void AGrantAddsExactlyItsUnits()
+    {
+        var c = Load(Event(Grants));
+        var s = Simulation.NewGame(c, 1, Mode.Historical);
+        Assert.Equal(new[] { "arms" }, s.PendingEvents);
+        var before = s.Clone();
+        var why = new List<Cause>();
+        Assert.Null(EventSystem.Choose(c, s, "arms", "accept", why));
+
+        var added = s.Units.Values.Where(u => !before.Units.ContainsKey(u.Id)).OrderBy(u => u.Id).ToList();
+        Assert.Equal(new[] { before.NextId, before.NextId + 1, before.NextId + 2 }, added.Select(u => u.Id));
+        Assert.Equal(before.NextId + 3, s.NextId);
+        Assert.All(added, u => { Assert.Equal("halutz", u.Type); Assert.Equal(0, u.Service); });
+        var town = TownHex(c);
+        Assert.Equal(new[] { town, town, (2, 0) }, added.Select(u => (u.Q, u.R)));
+        foreach (var u in before.Units.Values) Assert.Equal(u.Canonical(), s.Units[u.Id].Canonical());
+        // Free (Q-HFX-2): the only Money that moves is the option's own numeric effect.
+        Assert.Equal(before.Treasury, s.Treasury);
+        Assert.Equal(before.FxReserves - 10, s.FxReserves);
+    }
+
+    // R-EFX-004: a city effect changes only the field it names. Housing capacity never drops below 0; job slots never drop
+    // below the city's employed, so a cut larger than that applies only to the free slots, and the cause carries what applied.
+    [Fact]
+    public void ACityEffectChangesOnlyItsField()
+    {
+        var c = Load(Event(Grants));
+        var s = Simulation.NewGame(c, 1, Mode.Historical);
+        var x = s.Cities["town_a"];
+        var why = new List<Cause>();
+        Assert.Null(EventSystem.Choose(c, s, "arms", "accept", why));
+        var y = s.Cities["town_a"];
+        Assert.Equal(x.HousingCapacity + 3, y.HousingCapacity);
+        Assert.Equal(x.Employed, y.JobSlots);
+        Assert.Equal((x.Civilians, x.Employed, x.Refugees, x.Recruits), (y.Civilians, y.Employed, y.Refugees, y.Recruits));
+        Assert.Contains(why, w => w.System == "events" && w.Target == "town_a.housing_capacity" && w.Delta == 3);
+        Assert.Contains(why, w => w.System == "events" && w.Target == "town_a.job_slots" && w.Delta == x.Employed - x.JobSlots);
+    }
+
+    // R-EFX-006: the structured effects apply after the numeric ones, in the option's list order (grants, then city effects).
+    [Fact]
+    public void TheyApplyAfterTheNumericEffectsInListOrder()
+    {
+        var c = Load(Event(Grants));
+        var s = Simulation.NewGame(c, 1, Mode.Historical);
+        var why = new List<Cause>();
+        Assert.Null(EventSystem.Choose(c, s, "arms", "accept", why));
+        Assert.Equal(new[] { "fx_reserves", "halutz", "halutz", "town_a.housing_capacity", "town_a.job_slots" },
+            why.Where(w => w.System == "events" && w.Target != "arms").Select(w => w.Target));
+    }
+
+    // R-EFX-006: a target that does not exist is refused at load, naming file and field, never skipped at run time.
+    [Theory]
+    [InlineData("    grant_units:\n      - { type: tank, n: 1 }\n", "grant_units[0].type", "unknown unit type")]
+    [InlineData("    grant_units:\n      - { type: recruit, n: 1 }\n", "grant_units[0].type", "not a unit")]
+    [InlineData("    grant_units:\n      - { type: halutz, n: 0 }\n", "grant_units[0].n", "at least 1")]
+    [InlineData("    grant_units:\n      - { type: halutz, n: -2 }\n", "grant_units[0].n", "at least 1")]
+    [InlineData("    grant_units:\n      - { type: halutz, n: 1, at: nowhere }\n", "grant_units[0].at", "unknown city or site")]
+    [InlineData("    city_effects:\n      - { city: nowhere, field: job_slots, delta: 1 }\n", "city_effects[0].city", "unknown city")]
+    [InlineData("    city_effects:\n      - { city: town_a, field: condition, delta: 1 }\n", "city_effects[0].field", "housing_capacity or job_slots")]
+    [InlineData("    city_effects:\n      - { city: town_a, field: job_slots, delta: 0 }\n", "city_effects[0].delta", "must not be 0")]
+    public void TheLoaderRefusesAnUnknownTarget(string structured, string field, string message)
+    {
+        var ex = Refused(structured);
+        Assert.Equal("events/arms.yaml", ex.File);
+        Assert.Equal("events[arms].options[accept]." + field, ex.Field);
+        Assert.Contains(message, ex.Message);
+    }
+
+    // R-EFX-003: with no `at`, the grant needs the one city that has the military camp; otherwise the option must name one.
+    [Fact]
+    public void AGrantWithNoPlaceNeedsTheMilitaryCamp()
+    {
+        var ex = Assert.Throws<ContentException>(() => Load(Event(Grants), "[hakhshara]"));
+        Assert.Equal("events[arms].options[accept].grant_units[0].at", ex.Field);
+        Assert.Contains("military camp", ex.Message);
+    }
+
+    // R-EFX-005: an option of a sensitive event carries no grant and no capacity or slot gain; a cut stays allowed.
+    [Theory]
+    [InlineData("    grant_units:\n      - { type: halutz, n: 1 }\n", "grant_units[0]")]
+    [InlineData("    city_effects:\n      - { city: town_a, field: housing_capacity, delta: 1 }\n", "city_effects[0]")]
+    [InlineData("    city_effects:\n      - { city: town_a, field: job_slots, delta: 2 }\n", "city_effects[0]")]
+    public void ASensitiveOptionGrantsNothing(string structured, string field)
+    {
+        var ex = Refused(structured, "war-casualties");
+        Assert.Equal("events[arms].options[accept]." + field, ex.Field);
+        Assert.Contains("sensitive events cannot reward", ex.Message);
+        Assert.Single(Load(Event("    city_effects:\n      - { city: town_a, field: job_slots, delta: -1 }\n", "terror")).Events);
+    }
+
+    // Structured effects act on GDD records, so the legacy loop (no cities, no units) refuses them at load.
+    [Fact]
+    public void TheLegacyLoopRefusesThem()
+    {
+        var ex = Assert.Throws<ContentException>(() => ContentLoader.Load(Fixture.Write(events: new Dictionary<string, string> { ["arms.yaml"] = Event(Grants) })));
+        Assert.Equal("events[arms].options[accept].grant_units", ex.Field);
+        Assert.Contains("GDD loop", ex.Message);
+    }
+
+    // R-EVT-003 with R-EFX-003: a delegated option applies the same structured effects as a chosen one.
+    [Fact]
+    public void DelegationAppliesThemToo()
+    {
+        var c = Load(Event(Grants).Replace("from: 1948-05-15", "anchor: hard\nfrom: 1948-05-15"));
+        var chosen = Simulation.NewGame(c, 1, Mode.Historical);
+        var delegated = chosen.Clone();
+        Assert.Null(EventSystem.Choose(c, chosen, "arms", "accept", new List<Cause>()));
+        EventSystem.Delegate(c, delegated, new List<Cause>());   // Historical mode: a hard anchor takes its historical option
+        Assert.Equal("accept", delegated.ChosenOptions["arms"]);
+        Assert.Equal(chosen.Hash(), delegated.Hash());
+    }
+
+    // R-EVT-005: the preview lists the structured effects after the numeric ones, in words, in the order they apply.
+    [Fact]
+    public void ThePreviewListsThem()
+    {
+        var c = Load(Event(Grants));
+        var s = Simulation.NewGame(c, 1, Mode.Historical);
+        var lines = EventSystem.OptionEffects(c, s, c.Events.Single().Options[0]);
+        Assert.Equal(new[] { "fx_reserves", "halutz", "halutz", "town_a.housing_capacity", "town_a.job_slots" }, lines.Select(l => l.Target));
+        Assert.Equal(new[] { -10.0, 2, 1, 3, -100 }, lines.Select(l => l.Delta));
+        Assert.Equal("2 halutz units at Town A", lines[1].Message);
+        Assert.Equal("1 halutz unit at Site A", lines[2].Message);
+        Assert.Equal("Town A: housing capacity +3", lines[3].Message);
+        Assert.Equal("Town A: job slots -100", lines[4].Message);
+    }
+
+    // A game with a granted unit replays from its save to the same hash.
+    [Fact]
+    public void ASaveWithAGrantedUnitReplays()
+    {
+        var c = Load(Event(Grants));
+        var g = GameSession.New(c, 7, Mode.Historical);
+        g.Step(new Command[] { new ChooseEventOption("arms", "accept") });
+        g.Step(new Command[0]);
+        Assert.Contains(g.State.Units.Values, u => u.Q == 2 && u.R == 0);
+        var loaded = GameSession.Load(c, g.Save.Write(), out var warnings);
+        Assert.Empty(warnings);
+        Assert.Equal(g.State.Hash(), loaded.State.Hash());
+    }
+}

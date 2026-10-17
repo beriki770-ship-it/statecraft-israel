@@ -356,6 +356,7 @@ namespace Statecraft.Sim
                 c.Sites = Read<SitesFile>(readFile, "sites.yaml").Sites;   // sourced facts (Phase 1 PR 5)
                 ValidateGdd(c, settlementIds);
             }
+            EventRules.ValidateStructured(c);   // R-EFX-006: after the GDD records it names are read
             c.BuildWindows();
             c.Hash = HashOf(read);
             return c;
