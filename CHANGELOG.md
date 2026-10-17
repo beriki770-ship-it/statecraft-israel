@@ -8,6 +8,14 @@ adds a line under **Unreleased**; CI's `Changelog` job checks this (see `CONTRIB
 ## [Unreleased]
 
 ### Added
+- The 1948 unit roster gives 20 formations a sourced Hebrew name (`name_he`, agent-checked until #564's read); a
+  name's source does not count toward `wikipedia_only` (refs #902).
+- Pioneers can build a training camp: `PioneerWork(unit, build_camp, site)` at a camp site takes 6 turns and IL 2m
+  (labelled design values the owner accepted; #813 may tune them), and once built its city can train there from the next
+  turn, with no capacity limit (refs #787; GDD Phase 4 PR 3, D-D5, R-CAMP-001; R-TRAIN-001 reworded). `sites.yaml` gains
+  the two camp sites the owner chose (Q-CAMP-2, #785), both military camps and draft rows: Camp 80 near Pardes Hanna for
+  Hadera, and Tzrifin for Rishon LeZion, the nearest of four cities one hex away by km (R-CAMP-002). The reference player builds them once every yishuv site is taken, so
+  `hash1950`, `hash1952` and `mvp-end` move (docs/determinism.md).
 - Event options can now move the national Food stock: `food` is an effect target in whole units, the loader
   validates it, and the sensitive-event no-gain rule covers it (R-EFX-001 and R-EFX-002; refs #729). The Arms
   target follows with its pool (#781).
@@ -16,6 +24,17 @@ adds a line under **Unreleased**; CI's `Changelog` job checks this (see `CONTRIB
 - In the Hebrew UI the info panel's build line is a date label with no verb, "{0} – תאריך הקמה: {1}" (refs #701), since
   the fixed masculine "נבנה" read wrong for a feminine name ("מעברה נבנה"). Beri approved the wording as a native speaker.
   English is unchanged.
+- `EventImageMappingTests.EveryPictureHasItsProvenanceRow` no longer lists `first_new_yishuv` as waiting for the owner's sign-off. Its `ASSETS.yaml` row became `verified` in #913 (owner, 17 Oct 2026, "Approve both", #879), so the test failed on main.
+- In the Hebrew UI the map's name pills show each row's `name_he`: the game settlements ("נהלל", "תל אביב") and
+  the 1948 localities that have one. The thirteen localities with no `name_he` keep their English name, and the
+  English UI is unchanged. The tier badge stays on the left of the pill until the owner rules on mirroring it (#880).
+- End Turn now logs a throwing `Changed` or `TurnEnded` subscriber and continues notifying the remaining presenters,
+  so a successful turn cannot leave later UI or autosave handlers stale (#912).
+- The info panel now translates every map-action refusal from the sim's stable reason kind and invariant values. Under
+  Hebrew, the 1948 availability reason and its date are Hebrew; English, CLI diagnostics and simulation state are unchanged
+  (#881). The new Hebrew strings are flagged for native-speaker review (#564).
+- The 7th Brigade's card dates follow the IDF sources (owner, 17 October 2026): formed 14 May 1948, the day of the
+  founding order (was 16 May), and Operation Bin Nun ends on 31 May 1948 (was 1 June) (refs #902).
 - The content loader now checks `name_he_review` on people rows the way it does for parties, governments,
   legislatures, offices and settlements: the flag is `agent-checked` or left out, and only beside a `name_he`
   (CONTENT_POLICY section 2, rule 6; #862). No people row carries the flag yet, so no row changes.
@@ -23,6 +42,11 @@ adds a line under **Unreleased**; CI's `Changelog` job checks this (see `CONTRIB
   name their months in Hebrew ("מ־15 במאי 1948 עד 15 ביוני 1948", "באוגוסט 1950") through the `date.*` strings, as
   the top bar does since #696 (refs #701). English is unchanged. `info.built` in Hebrew now says "ב{1}" instead of
   "בשנת {1}", since its value is a month and a year.
+- The surf south of Jaffa no longer reads as evenly combed white lines (refs #716, #690). On the dune coasts the
+  breakers draw apart offshore, as a shoaling swell's do: 450 m apart at the shore, 1.5 km at the 3 km zone's edge
+  (`ScBreakerChirp` in `StatecraftMap.hlsl`). `coast_measure`'s stripe_rows for the south window falls from 0.47 to 0.25
+  (promo 03 0.30) on gameplay03 editor renders, with the foam band at 34.7 px (35.6 before) and 2 lace lines. The kurkar
+  coast is unchanged. `SeaTests.TheDuneCoastsSurfIsNotCombedIntoEvenLines` measures it.
 - The loading screen's boot-failure line wraps inside the screen with a side margin (refs #765). In Hebrew at phone width
   it ran past both edges, so the player could not read "reload the page"; `.loading-line` had no `white-space: normal`.
   `UiLayoutTests.TheBootFailureLineWrapsInsideTheScreen` checks English and Hebrew at 390x844, 960x600 and 1280x720.
@@ -31,6 +55,9 @@ adds a line under **Unreleased**; CI's `Changelog` job checks this (see `CONTRIB
   The checks file is now written in the bundle cache and copied beside the shipped bundles.
 
 ### Changed
+- Refusing the reparations claim (`reparations_claim.refuse`) now costs $4 million of Foreign currency, so neither answer is free (owner, 17 Oct 2026, "A cost for refusing too", #938). The amount is a labelled design value, not a historical figure, and waits for the owner's sign-off on the PR. The reference runs send the claim, so no golden moves.
+- Refusing Egypt's armistice (`armistice_egypt.hold_out`) now sets the war to rung 4, like refusing Jordan's, Lebanon's or Syria's (owner, 17 Oct 2026, "Yes, match the others", #937). The reference runs sign every armistice, so no golden moves.
+- The desktop players' bundle ID is `io.github.eyalgolan.statecraftisrael` (decision O6, owner, 17 Oct 2026, #879; refs #905). Only the Standalone identifier changes; the WebGL build does not read it.
 - The 50 people names in Hebrew are flagged agent-checked until a native speaker reads them (owner, #882).
 - The 3D-model credits in code comments and one test's failure message now name MATKOT, as the owner asked on 17 October 2026; credit text only, with no behaviour change.
 - People audit batch 1 (#457): shazar's name_he now cites the Knesset's member page instead of en.wiki; the
@@ -182,6 +209,10 @@ adds a line under **Unreleased**; CI's `Changelog` job checks this (see `CONTRIB
   the reference player's halutz group becomes a veteran after Beit Kama and builds Gilat, Mefalsim and Re'im in 3 turns
   each, so the first new yishuv completes on 1949-09-15 (was 1950-03-15), and by 1950 the score is 100 and the debt is
   IL 2m higher. The 1952 score and debt do not change.
+- The GDD loop's event rules have IDs and tests (D-H1; GDD Phase 7 PR 1, refs #805): R-EVT-001 to R-EVT-005 in
+  `docs/rules/mvp.md`, as the owner decided Q-EVT-1 to Q-EVT-4 on 17 October 2026 (#784). Hard anchors always fire, at
+  most 3 soft events a turn in order of `from` then id, unanswered events are delegated, and no effect is delayed; no
+  behaviour changes and no golden moves. `EventSystem.OptionEffects` lists every effect of an option for the event card.
 - City and town pills start with their population tier, a gold disc with a number from 1 to 9 (refs #710). The tier is
   static: it comes from the city's 1948 people in `content/cities.yaml` (#821), not from the sim's live count (owner,
   15 October 2026). The scale is the design value proposed on #710 and not yet ruled: tiers double from 1,000, so under

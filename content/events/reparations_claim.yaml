@@ -29,6 +29,11 @@ options:
     text: Refuse any dealings with Germany
     effects:
       - { target: intl_standing, delta: 0 }
+      # Owner decision of 17 October 2026 (#938), "A cost for refusing too": the cost is in Foreign currency, for the
+      # German funds a refusal forgoes. A design value, $4 million, half the smallest Foreign-currency effect of any event
+      # (austerity_1949 and clothing_rationing_1950, $8 million), as the claim's IL 1 million is half the smallest Money
+      # effect; awaiting the owner's sign-off (#938). Not a historical figure and not a moral judgement of either answer.
+      - { target: fx_reserves, delta: -4 }
 sources:
   - { url: "https://www.jewishvirtuallibrary.org/german-holocaust-reparations", checked: 2026-10-10 }
   # First Knesset, 237th sitting, 13 March 1951: Foreign Minister Sharett's statement. On 16 January 1951 the government

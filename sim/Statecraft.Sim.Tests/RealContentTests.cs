@@ -276,6 +276,15 @@ public class RealContentTests
             Assert.Equal(new DateTime(1950, 1, 1), C.Events.Single(e => e.Id == id).To);
     }
 
+    // Owner decision of 17 October 2026 (#937), "Yes, match the others": refusing any of the four armistices keeps the war
+    // going at rung 4. Egypt's hold_out had no set_rung, so refusing it left the rung where it was.
+    [Fact]
+    public void RefusingAnyArmisticeKeepsTheWarGoingAtRung4()
+    {
+        foreach (var id in new[] { "armistice_egypt", "armistice_jordan", "armistice_lebanon", "armistice_syria" })
+            Assert.True(C.Events.Single(e => e.Id == id).Options.Single(o => o.Id == "hold_out").SetRung == 4, $"{id}.hold_out must set rung 4");
+    }
+
     [Fact]
     public void CabinetChangesOf1950And1951()
     {
