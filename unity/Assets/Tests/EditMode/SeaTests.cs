@@ -146,8 +146,9 @@ public class SeaTests
     /// 24 km out. The shore is found in coast.png itself. The 1.2 km sample also lies inside the breakers' zone (ScSurfM,
     /// 1.8 km before #690, 2.4 km since), so its colour carries some crest foam, more since #690 (luma 0.70 to 0.78). It is
     /// kept: no point past 2.4 km is sure to be in the shallows, whose edge wanders 1.7-3.5 km (ScShallowM 2.6 km, +-35%).
-    /// The foam can only help "lighter" and works against "greener" (white lowers g/b); "foam at the shore" keeps a 0.13
-    /// luma margin (0.92 against 0.78).</summary>
+    /// The foam helps both "lighter" and "greener" (the deep sea's g/b is about 0.79, so mixing in white raises it); with
+    /// the near-shore gradient it carries both even with the turquoise tint removed (issue #767), so the tint has its own
+    /// check, teal at the sample's least foam. "foam at the shore" keeps a 0.13 luma margin (0.92 against 0.78).</summary>
     [UnityTest]
     public IEnumerator ShallowsAreLighterThanTheOpenSeaAndFoamLinesTheShore()
     {
@@ -177,6 +178,22 @@ public class SeaTests
         Assert.Greater(Luma(f), Luma(s) + 0.02f, "foam at the shore");
         Assert.Greater(Luma(s), Luma(d) + 0.05f, "shallows lighter");
         Assert.Greater(s.g / s.b, d.g / d.b, "shallows greener");
+        // Issue #767: the two checks above pass with the turquoise tint removed (the near-shore gradient and the crest foam
+        // carry both). Only the tint is teal: the mid and deep sea are blue over green, and the foam is near-white. So the
+        // shallow sample is taken again at its least foam (the darkest of 8 moments through one breaker cycle, 20 s), and
+        // its green must stand over its blue.
+        rig.LookAt = shallow; rig.Apply();
+        Color calm = Color.white;
+        for (int k = 0; k < 8; k++)
+        {
+            MapShaderGlobals.PinWaterTime(100f + k * 2.5f);
+            var r = RenderSample.Render(cam, 960, 540, new[] { shallow }, px);
+            var c = r.Mean((int)px[0].x, (int)px[0].y, 1);
+            if (Luma(c) < Luma(calm)) calm = c;
+        }
+        TestContext.WriteLine($"shallow at its least foam {calm}, g - b {calm.g - calm.b:0.000}");
+        // Red with the tint at "shallow * 0.0" (StatecraftMap.hlsl ScWaterShade): g - b -0.042; green with it: +0.026.
+        Assert.Greater(calm.g, calm.b, "the shallows are teal (the turquoise tint)");
         // promo-sea (open item 3, issue #38): the open sea is the promo's muted steel blue, not a saturated navy. HSV
         // saturation before the grade: 0.91 with Task 7's ramp, 0.58 now (the grade lifts it: promo 03's sea measures 0.49).
         Color.RGBToHSV(d, out _, out float deepSat, out _);
