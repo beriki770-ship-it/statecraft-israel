@@ -1189,6 +1189,11 @@ namespace Statecraft.Sim
                 // R-SWAMP-001 (Q-SWAMP-1): the same for a swamp, which drained gives a field site in its hex, to be plowed.
                 if (x.Kinds.Contains(Projects.FieldKind) && x.Kinds.Contains(Projects.SwampKind))
                     throw new ContentException(sf, at + ".kinds", "a field site cannot also be a swamp site (its built record is its plowed state)");
+                // R-SWAMP-001: nor a yishuv or camp site, whose build would write the same record and so drain the swamp.
+                if (x.Kinds.Contains(Projects.SwampKind))
+                    foreach (var k in CampKinds.Prepend(Projects.YishuvKind))
+                        if (x.Kinds.Contains(k))
+                            throw new ContentException(sf, at + ".kinds", $"a swamp site cannot also be a {k} site (its built record is its drained state)");
                 if (x.Kinds.Contains(Projects.YishuvKind))
                 {
                     // R-SITE-005 (Q-SITE-3): one yishuv per hex, so SettlementPlacer keeps one kit per hex; other kinds may share it.

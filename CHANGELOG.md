@@ -51,7 +51,7 @@ adds a line under **Unreleased**; CI's `Changelog` job checks this (see `CONTRIB
   (refs #789; GDD Phase 4 PR 5, R-SWAMP-001). The `hula_drainage` card now has `site: hula`: in the GDD loop it fires only
   while the player's works at the Hula are in progress (R-SWAMP-002, Q-SWAMP-2); its text, options and sources are
   unchanged. The reference player drains no swamp, so the card no longer fires in its run and `hash1952` and `mvp-end`
-  move (docs/determinism.md).
+  move (docs/determinism.md). The loader refuses a swamp site that is also a field, yishuv or camp site.
 - The 1948 unit roster gives 20 formations a sourced Hebrew name (`name_he`, agent-checked until #564's read); a
   name's source does not count toward `wikipedia_only` (refs #902).
 - Pioneers can build a training camp: `PioneerWork(unit, build_camp, site)` at a camp site takes 6 turns and IL 2m

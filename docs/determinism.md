@@ -29,8 +29,8 @@ final `GameState.Hash()` is pinned:
 | Run | Ends | Hash |
 |---|---|---|
 | to 1950-01-01 (`Hash1950`) | 1950-01-15, turn 20 | `7cf678b6b2b3d55dc0fee7b2efdee9ec7688cdf18964dcaa6e5a7c0018e34a51` |
-| to 1952-01-01 (`Hash1952`) | 1952-01-15, turn 44 (the game's end) | `9496947232f0c97ed21c0a0b98e6727e7d59c892f9aff12049b5d7e5ee2230e8` |
-| to the game's end (`mvp-end`) | 1952-01-15, turn 44 | `9496947232f0c97ed21c0a0b98e6727e7d59c892f9aff12049b5d7e5ee2230e8` |
+| to 1952-01-01 (`Hash1952`) | 1952-01-15, turn 44 (the game's end) | `f9f47f5c783b7dc8d6f47e5e3e048de5899d79e6d55614ee8e6f0331d0fb3cd5` |
+| to the game's end (`mvp-end`) | 1952-01-15, turn 44 | `f9f47f5c783b7dc8d6f47e5e3e048de5899d79e6d55614ee8e6f0331d0fb3cd5` |
 
 `hash1952` stops at the first turn on or after 1 January 1952, which is the game's last turn, so it is the same run as
 `mvp-end` (`DeterminismTests.TheWholeGameToItsEndIsFixed`). Both names are kept (spec 2026-10-12 section 3 step 6): a
@@ -284,3 +284,5 @@ The hash reads the state keys, so it never sees a record outside its window. An 
 | GDD Phase 3 PR 3 | scenario-cautious | `6507ddc3` | the housing rules: `city{}`, `housing`, `morale`, its two links and stability (was `28fd1405`) |
 | GDD Phase 3 PR 3 | scenario-reckless | `8041988a` | same (was `af7b2abd`) |
 | GDD Phase 3 PR 3 | scenario-mvp-absorb-first | `a77a8f20` | same (was `b16a8740`) |
+| GDD Phase 4 PR 5 | 1952 | `f9f47f5c` | dry swamp and the Hula event (R-SWAMP-001, R-SWAMP-002, #789), rebased on the housing condition (#855) and the alternate-timeline stack (#960, #966, #972): `hula_drainage` now fires only while the player's works at the Hula swamp site are in progress, and the reference player drains no swamp, so the card leaves `fired[]` and `chosen{}` (it fired on 1951-03-15 with `continue_works`). Without that choice's effects security ends at 0.5061 (was 0.5361) and intl_standing at 0.83 (was 0.78), which moves morale (0.4916, was 0.4946) and stability (0.4432, was 0.4487) through the effects web (was `94969472`) |
+| GDD Phase 4 PR 5 | mvp-end | `f9f47f5c` | same; the same run as hash1952 (was `94969472`) |

@@ -225,7 +225,8 @@ sites:
     # The swamp hex: in the 1946 Survey of Palestine 1:250,000 map the marsh fills the valley north of Lake Hula, with "Hula
     # Conces. Area" printed in it, and (14, 3) is the one hex it makes mostly wet; the lake itself is about a fifth of a hex
     # (research_notes/Map/historical-water-1948.md, findings 6 and 7, and section 2.5). No 1948 settlement in the hex. No
-    # yishuv site may share it: a yishuv there would also gate hula_field (Projects.YishuvToBuildFirst).
+    # yishuv site may share it: a yishuv there would also gate hula_field (Projects.YishuvToBuildFirst). The one site stands
+    # for the concession's works, of which the 1951 DMZ dispute was the Jordan work below the lake.
     q: 14
     r: 3
     kinds: [swamp]

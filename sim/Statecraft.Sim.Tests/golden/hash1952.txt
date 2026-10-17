@@ -2,9 +2,9 @@
 ind{
   food_supply=0.8556115107122045 [3FEB612B6412E1DF]
   housing=0.08504947742483628 [3FB5C5CD7414E141]
-  intl_standing=0.7800000000000002 [3FE8F5C28F5C28F8]
-  morale=0.4945578468038132 [3FDFA6D5F48029E0]
-  security=0.5361322526321604 [3FE127FED36C599C]
+  intl_standing=0.8300000000000003 [3FEA8F5C28F5C292]
+  morale=0.49156077649131324 [3FDF75BB54C1B318]
+  security=0.5061322526321603 [3FE0323C441030A6]
 pol{
   border_settlement=0.2 [3FC999999999999A]
   housing_construction=0.3 [3FD3333333333333]
@@ -17,14 +17,14 @@ eff{
   homes_lift_morale=0.012767196348836194 [3F8A25B0163D2852]
   rationing_feeds=0.3399999999208376 [3FD5C28F5C133334]
   rationing_grates=-0.15 [BFC3333333333333]
-  safety_lifts_morale=0.05354077083901369 [3FAB69B227832BE6]
+  safety_lifts_morale=0.05054370052651369 [3FA9E0DD298F75A0]
   work_lifts_cohesion=0.019249879880694112 [3F93B63D92287534]
 shift{
   food_supply=0.15000000000000002 [3FC3333333333334]
   housing=-1.3877787807814457E-17 [BC70000000000000]
-  intl_standing=0.28000000000000025 [3FD1EB851EB851F0]
+  intl_standing=0.3300000000000003 [3FD51EB851EB8524]
   morale=-0.08000000000000007 [BFB47AE147AE1480]
-  security=0.19500000000000017 [3FC8F5C28F5C28FC]
+  security=0.16500000000000015 [3FC51EB851EB8524]
 bud{
   agriculture_minister=0.07 [3FB1EB851EB851EC]
   defense_minister=0.45 [3FDCCCCCCCCCCCCD]
@@ -49,7 +49,7 @@ debt=182.89012071283815 [4066DC7BDE6EE43A]
 fx=-12.990431328096559 [C029FB19D0A63796]
 rung=2;cf=0;
 mob=0.05 [3FA999999999999A]
-stab=0.448654481936148 [3FDCB6C149C7A72C]
+stab=0.44317459732760256 [3FDC5CF8FC7C2952]
 att=4 [4010000000000000]
 fired[
   altalena
@@ -66,7 +66,6 @@ fired[
   first_truce
   forex_crisis_1951
   frumkin_commission
-  hula_drainage
   idf_founding
   iraqi_exodus
   israel_bonds
@@ -100,7 +99,6 @@ chosen{
   first_truce=accept
   forex_crisis_1951=request_aid
   frumkin_commission=inquiry
-  hula_drainage=continue_works
   idf_founding=one_army
   iraqi_exodus=airlift
   israel_bonds=launch
