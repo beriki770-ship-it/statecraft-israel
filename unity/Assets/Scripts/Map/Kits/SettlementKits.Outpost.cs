@@ -9,7 +9,8 @@ namespace Statecraft.Game.Map.Kits
     /// אחת של הריבוע מבני המגורים, ובצלע השנייה מבני השירות" (a square yard closed by a wall, a lookout tower in its corner,
     /// the living quarters along one side of the square and the service buildings along another). Its "רביבים" article
     /// (https://he.wikipedia.org/wiki/רביבים, same day) gives Revivim's 25 settlers one fortified building, "טירה שכללה חדרים,
-    /// מטבח וחדר אוכל" (rooms, a kitchen and a dining hall). The sizes and colours are modelling choices.</summary>
+    /// מטבח וחדר אוכל" (rooms, a kitchen and a dining hall), so the living side includes the dining room: the larger living
+    /// building is recorded as Revivim's dining hall, the one a kibbutz has (#820). The sizes and colours are modelling choices.</summary>
     public static partial class SettlementKits
     {
         /// <summary>Whether <paramref name="s"/> is drawn as a Negev lookout. Revivim is the only one on the map: Gvulot and Beit
@@ -60,12 +61,15 @@ namespace Statecraft.Game.Map.Kits
                 (-1.1f, -inner + 2.4f, 9f, 4.8f, true), (6.9f, -inner + 2.4f, 6f, 4.8f, true),
                 (-inner + 2.1f, -5.2f, 4.2f, 6f, false), (-inner + 2.1f, 1.6f, 4.2f, 6f, false),
             };
-            foreach (var (u, v, w, d, living) in rooms)
+            for (int i = 0; i < rooms.Length; i++)
             {
+                var (u, v, w, d, living) = rooms[i];
                 var p = At(u, v); float bh = 3.3f * m;
                 var (bottom, top) = GroundSpan(p, yaw, w * m, d * m, ground, m);
                 km.Box(p.x, p.y, yaw, w * m, d * m, bottom, top, bh, concrete, roof, living ? Facade.Village : Facade.Plain, m);
-                Record(s.Id, "building", p, yaw, w * m, d * m, bh, concrete);
+                // The first, larger living building holds the fortress's "חדר אוכל" (the source above): Revivim's one dining hall.
+                Record(s.Id, i == 0 ? "dining_hall" : "building", p, yaw, w * m, d * m, bh, concrete);
+                if (i == 0) kibbutzHalls++;
             }
             return 2 + rooms.Length;
         }

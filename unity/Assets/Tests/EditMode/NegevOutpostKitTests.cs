@@ -43,7 +43,9 @@ public class NegevOutpostKitTests
         var (tu, tv) = Local(yard, towers[0].C);
         float cornerGap = new Vector2(yard.W * 0.5f - Mathf.Abs(tu), yard.D * 0.5f - Mathf.Abs(tv)).magnitude;
         if (cornerGap > towers[0].W) bad.Add($"the tower stands {cornerGap:0} m from the yard's nearest corner");
-        var houses = mine.Where(p => p.Kind == "building").ToList();
+        // The larger living building is recorded as the dining hall (the fortress's "חדר אוכל"; a kibbutz has one, #820).
+        Assert.AreEqual(1, mine.Count(p => p.Kind == "dining_hall"), "Revivim's dining hall, on the living side");
+        var houses = mine.Where(p => p.Kind == "building" || p.Kind == "dining_hall").ToList();
         Assert.AreEqual(4, houses.Count, "two living and two service buildings");
         Assert.GreaterOrEqual(houses.Count, TownCensusTests.MainBuildings["revivim"], "main's floor");
         // Every building inside the wall's inner face (the wall is 0.7 m thick at the house scale), on the yard's own axes.
