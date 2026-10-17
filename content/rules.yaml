@@ -40,6 +40,12 @@ mvp:
   # them ("Accept 6 turns, IL 2m", 17 October 2026, #927); the Phase 7 balance pass (#813) may tune them.
   build_camp_turns: 6                    # DESIGN VALUE: owner-set balance, not a historical figure (D-D5, Q-CAMP-3: turns a camp build takes)
   build_camp_cost: 2                     # DESIGN VALUE: owner-set balance, not a historical figure (D-D5, Q-CAMP-3: IL millions, paid at the start)
+  # Plow fields (R-FIELD-001, R-FIELD-002; D-D10). Proposed by an agent and taken by the owner with the plan's other
+  # recommendations (Q-FIELD-3, owner, 17 October 2026, #782: "1 Food a turn"): the smallest whole yield, about 0.1% of a
+  # month's national need; plowing takes the recruit-training pair, the smallest project-sized values in the code.
+  plow_fields_turns: 3                   # DESIGN VALUE: owner-set balance, not a historical figure (D-D10, Q-FIELD-3: turns plowing takes)
+  plow_fields_cost: 0.5                  # DESIGN VALUE: owner-set balance, not a historical figure (D-D10, Q-FIELD-3: IL millions, paid at the start)
+  field_food_per_turn: 1                 # DESIGN VALUE: owner-set balance, not a historical figure (D-D10, Q-FIELD-3: Food units a plowed field adds each turn)
   objective_points: 100                  # DESIGN VALUE: owner-set balance, not a historical figure (D-B6: points per objective)
   objective_bonus_per_month: 5           # DESIGN VALUE: owner-set balance, not a historical figure (D-B2: points per month early)
   objective_bonus_cap: 60                # DESIGN VALUE: owner-set balance, not a historical figure (D-B2: the most bonus points)

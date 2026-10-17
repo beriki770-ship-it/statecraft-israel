@@ -208,6 +208,11 @@ adds a line under **Unreleased**; CI's `Changelog` job checks this (see `CONTRIB
   `docs/rules/mvp.md`, as the owner decided Q-EVT-1 to Q-EVT-4 on 17 October 2026 (#784). Hard anchors always fire, at
   most 3 soft events a turn in order of `from` then id, unanswered events are delegated, and no effect is delayed; no
   behaviour changes and no golden moves. `EventSystem.OptionEffects` lists every effect of an option for the event card.
+- Halutzim can plow fields (refs #788, #384; D-D10, Q-FIELD-1 to Q-FIELD-3, owner, #782): `PioneerWork(unit, plow_fields,
+  site)` at a yishuv's field site, ready once that yishuv is built, takes 3 turns and IL 0.5m (R-FIELD-001). Each turn
+  after the cities' production, every plowed field adds 1 unit of Food to the national stock, with no workers
+  (R-FIELD-002). All three numbers are labelled design values in `rules.yaml`. The reference player plows the four
+  fields once the yishuv sites are taken, so `hash1952` and `mvp-end` move (docs/determinism.md).
 - City and town pills start with their population tier, a gold disc with a number from 1 to 9 (refs #710). The tier is
   static: it comes from the city's 1948 people in `content/cities.yaml` (#821), not from the sim's live count (owner,
   15 October 2026). The scale is the design value proposed on #710 and not yet ruled: tiers double from 1,000, so under

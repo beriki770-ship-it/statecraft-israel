@@ -107,11 +107,22 @@ public class ReferencePlayerTests
         oneLeft.Sites["beit_kama"] = new SiteWork("beit_kama", 9, 3, null);
         oneLeft.Sites["gilat"] = SiteWork.Built("gilat", new DateTime(1949, 6, 15));
         oneLeft.Sites["mefalsim"] = SiteWork.Built("mefalsim", new DateTime(1949, 6, 15));
-        // One yishuv site left: the first group takes it, and the second builds the first camp site (R-CAMP-001).
-        var lastTwo = ReferencePlayer.Commands(Mvp, oneLeft).OfType<PioneerWork>().Select(b => (b.Unit, b.Action, b.Site));
-        Assert.Equal(new[] { (7, "build_yishuv", "reim"), (8, "build_camp", "camp_80") }, lastTwo);
-        var none = oneLeft.Clone();   // every yishuv and camp site taken: the idle group waits
+        // One yishuv site left: the first group takes it, and the second plows the first ready field (R-FIELD-001).
+        var last = ReferencePlayer.Commands(Mvp, oneLeft).OfType<PioneerWork>().ToList();
+        Assert.Equal(new[] { (7, "build_yishuv", "reim"), (8, "plow_fields", "gilat_field") }, last.Select(b => (b.Unit, b.Action, b.Site)));
+        var none = oneLeft.Clone();
         none.Sites["reim"] = new SiteWork("reim", 7, 3, null);
+        // Every yishuv site taken: the idle group plows the first ready field, gilat_field (beit_kama is still being built,
+        // so its field is not ready).
+        var plow = Assert.Single(ReferencePlayer.Commands(Mvp, none).OfType<PioneerWork>());
+        Assert.Equal((8, "plow_fields", "gilat_field"), (plow.Unit, plow.Action, plow.Site));
+        Assert.Empty(Simulation.Step(Mvp, none, ReferencePlayer.Commands(Mvp, none)).Rejected);
+        // Every ready field taken too: the idle group builds the first camp site (R-CAMP-001).
+        none.Sites["gilat_field"] = SiteWork.Built("gilat_field", new DateTime(1949, 6, 15));
+        none.Sites["mefalsim_field"] = SiteWork.Built("mefalsim_field", new DateTime(1949, 6, 15));
+        var camp = Assert.Single(ReferencePlayer.Commands(Mvp, none).OfType<PioneerWork>());
+        Assert.Equal((8, "build_camp", "camp_80"), (camp.Unit, camp.Action, camp.Site));
+        // Every camp site taken as well: the idle group waits.
         none.Sites["camp_80"] = SiteWork.Built("camp_80", new DateTime(1949, 6, 15));
         none.Sites["tzrifin"] = SiteWork.Built("tzrifin", new DateTime(1949, 6, 15));
         Assert.DoesNotContain(ReferencePlayer.Commands(Mvp, none), x => x is PioneerWork);

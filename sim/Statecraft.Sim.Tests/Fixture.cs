@@ -224,6 +224,9 @@ mvp:
   build_yishuv_cost: 1.5
   build_camp_turns: 2
   build_camp_cost: 1
+  plow_fields_turns: 2
+  plow_fields_cost: 0.5
+  field_food_per_turn: 7
   objective_points: 100
   objective_bonus_per_month: 5
   objective_bonus_cap: 60

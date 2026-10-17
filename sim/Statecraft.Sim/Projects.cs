@@ -26,6 +26,10 @@ namespace Statecraft.Sim
 
         /// <summary>Whether a unit of <paramref name="type"/> does pioneer work: a halutz, or a veteran one (R-SITE-001, R-VET-001).</summary>
         public static bool IsPioneer(string type) => type == "halutz" || type == VeteranType;
+        /// <summary>The pioneer action that plows a field (GDD "Pioneer work": "Prepare agricultural land"; Phase 4 PR 4).</summary>
+        public const string PlowFields = "plow_fields";
+        /// <summary>The kind of site a field may be plowed at (sites.yaml kinds). Built, a field site is plowed (R-FIELD-001).</summary>
+        public const string FieldKind = "field";
 
         /// <summary>Whether a site being built names <paramref name="unit"/>: the unit has a project (D-D6).</summary>
         public static bool IsBusy(GameState s, int unit) => s.Sites.Values.Any(w => w.BuiltOn == null && w.Unit == unit);
@@ -35,36 +39,48 @@ namespace Statecraft.Sim
         /// does not move. Refused, state untouched, for an unknown unit, a unit that is not a halutz or is busy, an unknown
         /// action or site, a site that is not for a yishuv, or is being built or is built. Step
         /// has already refused it in the legacy loop. R-CAMP-001: build_camp at a military_camp or hakhshara site follows the same
-        /// rules, with build_camp_turns and build_camp_cost.</summary>
+        /// rules, with build_camp_turns and build_camp_cost. R-FIELD-001: plow_fields at a field site follows the same rules, with
+        /// plow_fields_turns and plow_fields_cost, and is refused while a yishuv site in the field's hex is not built.</summary>
         public static string? Start(Content c, GameState s, int unit, string action, string site, List<Cause> why)
         {
             if (!s.Units.TryGetValue(unit, out var u)) return "There is no such unit";
             if (!IsPioneer(u.Type)) return "Only halutzim do pioneer work";
             var busy = s.Sites.Values.FirstOrDefault(w => w.BuiltOn == null && w.Unit == unit);
             if (busy != null) return $"That group of halutzim is already building {PlayerText.Site(c, busy.Site)}";
-            if (action != BuildYishuv && action != BuildCamp) return "There is no such pioneer work";
+            if (action != BuildYishuv && action != BuildCamp && action != PlowFields) return "There is no such pioneer work";
             var place = c.Sites.FirstOrDefault(x => x.Id == site);
             if (place == null) return "There is no such site";
             var camp = action == BuildCamp;
-            if (camp ? !IsCamp(place) : !place.Kinds.Contains(YishuvKind))
-                return camp ? $"{place.Name} is not a site for a training camp" : $"{place.Name} is not a site for a new yishuv";
+            var plow = action == PlowFields;
+            if (camp ? !IsCamp(place) : !place.Kinds.Contains(plow ? FieldKind : YishuvKind))
+                return camp ? $"{place.Name} is not a site for a training camp"
+                    : plow ? $"{place.Name} is not a site for fields" : $"{place.Name} is not a site for a new yishuv";
             if (s.Sites.TryGetValue(site, out var work))
                 return work.BuiltOn == null ? $"{place.Name} is already being built" : $"{place.Name} is already built";
+            if (plow && YishuvToBuildFirst(c, s, place) is Site first) return $"{place.Name} can be plowed once {first.Name} is built";
             var r = c.RulesAt(s.Date).Mvp!;   // the loader requires it in the GDD loop
             // Owner decision "Allow borrowing" (2026-10-15, #378 question 13): a short Treasury borrows, as map actions do.
-            var cost = camp ? r.BuildCampCost!.Value : r.BuildYishuvCost;   // the loader requires build_camp_cost in the GDD loop
-            EconomySystem.PayOrBorrow(c, s, cost, camp ? "to build a training camp" : "to build a yishuv", why);
+            var cost = camp ? r.BuildCampCost!.Value : plow ? r.PlowFieldsCost : r.BuildYishuvCost;   // the loader requires build_camp_cost in the GDD loop
+            EconomySystem.PayOrBorrow(c, s, cost, camp ? "to build a training camp" : plow ? "to plow fields" : "to build a yishuv", why);
             // The same reading of D-A6 as training's: the turn of the order is the first build turn, so with
             // build_yishuv_turns 6 an order on turn T is built at the end of T+5
             // (ProjectsTests.AnOrderOnTurnTWithSixTurnsIsBuiltAtTheEndOfTurnTPlusFive).
-            s.Sites[site] = new SiteWork(site, unit, camp ? r.BuildCampTurns!.Value : r.BuildYishuvTurns, null);
-            why.Add(new Cause("map", site, 1, $"{place.Name}: a group of halutzim began building {(camp ? "a training camp" : "a yishuv")}, cost {PlayerText.Money(c, "treasury", cost)}"));
+            s.Sites[site] = new SiteWork(site, unit, camp ? r.BuildCampTurns!.Value : plow ? r.PlowFieldsTurns : r.BuildYishuvTurns, null);
+            why.Add(plow
+                ? new Cause("map", site, 1, $"{place.Name}: a group of halutzim began plowing, cost {PlayerText.Money(c, "treasury", cost)}")
+                : new Cause("map", site, 1, $"{place.Name}: a group of halutzim began building {(camp ? "a training camp" : "a yishuv")}, cost {PlayerText.Money(c, "treasury", cost)}"));
             return null;
         }
 
         /// <summary>Whether a training camp may be built at <paramref name="site"/>: its kinds include military_camp or hakhshara
         /// (R-CAMP-001). Built, its city gains those facilities (Training.HasFacility).</summary>
         public static bool IsCamp(Site site) => site.Kinds.Contains("military_camp") || site.Kinds.Contains("hakhshara");
+
+        /// <summary>R-FIELD-001 (Q-FIELD-1): the yishuv site in <paramref name="field"/>'s hex while it is not built yet, so the
+        /// field cannot be plowed; null when the field is ready (its yishuv is built, or it has none in its hex).</summary>
+        public static Site? YishuvToBuildFirst(Content c, GameState s, Site field) =>
+            c.Sites.FirstOrDefault(y => y.Kinds.Contains(YishuvKind) && y.Q == field.Q && y.R == field.R
+                && !(s.Sites.TryGetValue(y.Id, out var w) && w.BuiltOn != null));
 
         /// <summary>R-SITE-002 (D-A3): the unit's site loses its record, so it is available again and the unit is idle. The
         /// progress and the Money spent are lost. Refused, state untouched, for an unknown unit or one with no work. Step has
@@ -83,7 +99,8 @@ namespace Statecraft.Sim
         /// built has one turn less to go, or veteran_progress less with a veteran (R-VET-002). One that reaches 0 is built on
         /// <paramref name="next"/>, the turn's end date, and its unit is idle again. No city is founded (Phase 1). Then the
         /// unit, a halutz, gains a turn of service, and at veteran_halutz_service becomes a veteran_halutz (R-VET-001). A built
-        /// camp site gives its city the facility from the next turn (R-CAMP-001, Training.HasFacility).</summary>
+        /// camp site gives its city the facility from the next turn (R-CAMP-001, Training.HasFacility). A built field site is
+        /// plowed (R-FIELD-001), and yields from this turn's step 6 on (R-FIELD-002).</summary>
         public static void Advance(Content c, GameState s, DateTime next, List<Cause> why)
         {
             var r = c.RulesAt(s.Date).Mvp!;   // the loader requires it in the GDD loop, the only loop TurnResolver runs this in
@@ -96,7 +113,7 @@ namespace Statecraft.Sim
                 {
                     s.Sites[w.Site] = SiteWork.Built(w.Site, next);
                     var place = c.Sites.First(x => x.Id == w.Site);   // a site being built is always in sites.yaml (Start)
-                    why.Add(new Cause("map", w.Site, 1, $"{place.Name} {(IsCamp(place) ? "built" : "founded")}"));
+                    why.Add(new Cause("map", w.Site, 1, $"{place.Name} {(IsCamp(place) ? "built" : place.Kinds.Contains(FieldKind) ? "plowed" : "founded")}"));
                 }
                 // R-VET-001: the project progressed this turn, so a halutz serves a turn; a veteran counts no further.
                 if (u.Type != "halutz") continue;
