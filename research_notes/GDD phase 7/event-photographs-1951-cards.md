@@ -66,7 +66,7 @@ class, and the NLI title says nothing about schooling. The card's dispute was ab
 camps, so the camp and its children are the card's setting, not a record of the dispute.
 
 **Recommended frame:** children dancing in a ring on open ground, with the rows of tents and the hill behind them.
-Seen from behind and from a distance: no one is the subject, so it is not a portrait.
+Seen from a distance, some children facing the camera: no single child is the subject, so it is not a portrait.
 - 997008136555005171, 1273 x 1281, SHA-1 63cde352dcff5c18608a715ec32eb10c6e515fb2.
   https://commons.wikimedia.org/wiki/File:Parod_(997008136555005171).jpg
 - Suggested alt text: "Children in a ring among the tents of a transit camp in northern Israel, December 1950." (The
