@@ -29,6 +29,7 @@ offices:
   - { id: health_minister, title: Minister of Health, title_he: "שר הבריאות", title_he_sources: [*he_gov1], title_he_f: "שרת הבריאות", title_he_f_review: agent-checked, title_he_f_sources: [{ url: "https://he.wikipedia.org/wiki/יעל_גרמן", checked: 2026-10-17 }], from: 1948-05-14 }
   # No Immigration or War Victims portfolio in the Third Government (8 Oct 1951): research_notes/M3 content 1950-51/facts.md,
   # Addendum (2026-10-10) (a) and (b), after en.wiki, he.wiki and JVL. Re-add a term if a source shows the portfolio.
+  # title_he_f: the source shows the construction for the ministry's later name (Sofa Landver, "שרת העלייה והקליטה"), not "שרת העלייה".
   - { id: immigration_minister, title: Minister of Immigration, title_he: "שר העלייה", title_he_sources: [*he_gov1], title_he_f: "שרת העלייה", title_he_f_review: agent-checked, title_he_f_sources: [{ url: "https://he.wikipedia.org/wiki/סופה_לנדבר", checked: 2026-10-17 }], until: 1951-10-08, from: 1948-05-14 }
   - { id: interior_minister, title: Minister of Internal Affairs, title_he: "שר הפנים", title_he_sources: [*he_gov1], title_he_f: "שרת הפנים", title_he_f_review: agent-checked, title_he_f_sources: [{ url: "https://he.wikipedia.org/wiki/איילת_שקד", checked: 2026-10-17 }], from: 1948-05-14 }
   - { id: justice_minister, title: Minister of Justice, title_he: "שר המשפטים", title_he_sources: [*he_gov1], title_he_f: "שרת המשפטים", title_he_f_review: agent-checked, title_he_f_sources: [{ url: "https://he.wikipedia.org/wiki/ציפי_לבני", checked: 2026-10-17 }], from: 1948-05-14 }
@@ -38,7 +39,9 @@ offices:
   # title_he_f: no woman held this office and no page gives "שרת המיעוטים"; the source shows the same construction (שרת + the
   # ministry: Golda Meir's "שרת העבודה", "שרת החוץ"), not this title. The same holds for development_minister.
   - { id: minority_affairs_minister, title: Minister of Minority Affairs, title_he: "שר המיעוטים", title_he_sources: [&he_gov0 { url: "https://knesset.gov.il/Odata/ParliamentInfo.svc/KNS_PersonToPosition?$filter=GovernmentNum%20eq%200", checked: 2026-10-14 }], title_he_f: "שרת המיעוטים", title_he_f_review: agent-checked, title_he_f_sources: [*he_f_golda], from: 1948-05-14 }
+  # title_he_f: the source gives the exact form only in a cited headline ("שרת הדתות הבאה"); no woman held this office.
   - { id: religions_minister, title: Minister of Religions, title_he: "שר הדתות", title_he_sources: [*he_gov1], title_he_f: "שרת הדתות", title_he_f_review: agent-checked, title_he_f_sources: [{ url: "https://he.wikipedia.org/wiki/בתיה_כהנא_דרור", checked: 2026-10-17 }], from: 1948-05-14 }
+  # title_he_f: construction source ("השרה ל" + another ministry: Yehudit Naot's "השרה לאיכות הסביבה"), not this title.
   - { id: war_victims_minister, title: Minister of War Victims, title_he: "השר לנפגעי מלחמה", title_he_review: agent-checked, title_he_sources: [*he_gov1], title_he_f: "השרה לנפגעי מלחמה", title_he_f_review: agent-checked, title_he_f_sources: [{ url: "https://he.wikipedia.org/wiki/יהודית_נאות", checked: 2026-10-17 }], until: 1951-10-08, from: 1948-05-14 }
   - { id: trade_minister, title: Minister of Trade and Industry, title_he: "שר המסחר והתעשייה", title_he_review: agent-checked, title_he_sources: [*he_gov2], title_he_f: "שרת המסחר והתעשייה", title_he_f_review: agent-checked, title_he_f_sources: [{ url: "https://he.wikipedia.org/wiki/גדעון_שגיא", checked: 2026-10-17 }], from: 1948-05-14 }
   - { id: transportation_minister, title: Minister of Transportation, title_he: "שר התחבורה", title_he_sources: [*he_gov1], title_he_f: "שרת התחבורה", title_he_f_review: agent-checked, title_he_f_sources: [{ url: "https://he.wikipedia.org/wiki/מירי_רגב", checked: 2026-10-17 }], from: 1948-05-14 }
@@ -88,12 +91,15 @@ offices:
   # Historical deputy titles: dated lookup/text only, never playable Cabinet seats or gameplay owners.
   # Sources and the start-date conflict are in research_notes/M3 content 1950-51/deputy-titles.md.
   - { id: deputy_agriculture_minister, title: Deputy Minister of Agriculture, title_he: "סגן שר החקלאות", title_he_sources: [*he_gov2], title_he_f: "סגנית שר החקלאות", title_he_f_review: agent-checked, title_he_f_sources: [&he_f_gamliel { url: "https://he.wikipedia.org/wiki/גילה_גמליאל", checked: 2026-10-17 }], historical_only: true, from: 1948-05-14 }
-  # title_he_f: only deputy_agriculture_minister's source gives the exact feminine title. The other deputies' sources show the
-  # same construction ("סגנית שר" + the ministry), not these titles; no woman held any of these posts in 1948-1956.
+  # title_he_f: construction source ("סגנית שר" + another ministry: Gila Gamliel's "סגנית שר החקלאות"), not this title.
   - { id: deputy_transportation_minister, title: Deputy Minister of Transportation, title_he: "סגן שר התחבורה", title_he_sources: [*he_gov2], title_he_f: "סגנית שר התחבורה", title_he_f_review: agent-checked, title_he_f_sources: [*he_f_gamliel], historical_only: true, from: 1948-05-14 }
+  # title_he_f: construction source ("סגנית שר" + another ministry: Gila Gamliel's "סגנית שר החקלאות"), not this title.
   - { id: deputy_education_minister, title: Deputy Minister of Education and Culture, title_he: "סגן שר החינוך והתרבות", title_he_sources: [*he_gov3], title_he_f: "סגנית שר החינוך והתרבות", title_he_f_review: agent-checked, title_he_f_sources: [*he_f_gamliel], historical_only: true, several_holders: true, from: 1948-05-14 }
   - { id: deputy_prime_minister, title: Deputy Prime Minister, title_he: "סגן ראש הממשלה", title_he_sources: [*he_gov3], title_he_f: "סגנית ראש הממשלה", title_he_f_review: agent-checked, title_he_f_sources: [{ url: "https://he.wikipedia.org/wiki/סופי_וילמס", checked: 2026-10-17 }], historical_only: true, from: 1948-05-14 }
   # Deputy ministers of 1953-1956 (#26): dates from the Knesset records (KNS_PersonToPosition), see people.yaml.
+  # title_he_f: construction source ("סגנית שר" + another ministry: Gila Gamliel's "סגנית שר החקלאות"), not this title.
   - { id: deputy_religions_minister, title: Deputy Minister of Religions, title_he: "סגן שר הדתות", title_he_sources: [*he_gov4], title_he_f: "סגנית שר הדתות", title_he_f_review: agent-checked, title_he_f_sources: [*he_f_gamliel], historical_only: true, from: 1948-05-14 }
+  # title_he_f: construction source ("סגנית שר" + another ministry: Gila Gamliel's "סגנית שר החקלאות"), not this title.
   - { id: deputy_welfare_minister, title: Deputy Minister of Welfare, title_he: "סגן שר הסעד", title_he_sources: [*he_gov4], title_he_f: "סגנית שר הסעד", title_he_f_review: agent-checked, title_he_f_sources: [*he_f_gamliel], historical_only: true, from: 1948-05-14 }
+  # title_he_f: the source spells it "סגנית שר המסחר והתעשייה"; the row keeps the Knesset records' spelling "התעשיה", as title_he does.
   - { id: deputy_trade_minister, title: Deputy Minister of Trade and Industry, title_he: "סגן שר המסחר והתעשיה", title_he_review: agent-checked, title_he_sources: [*he_gov4], title_he_f: "סגנית שר המסחר והתעשיה", title_he_f_review: agent-checked, title_he_f_sources: [{ url: "https://he.wikipedia.org/wiki/מאשה_לובלסקי", checked: 2026-10-17 }], historical_only: true, from: 1948-05-14 }
