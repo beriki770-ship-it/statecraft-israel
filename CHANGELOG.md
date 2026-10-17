@@ -16,6 +16,11 @@ adds a line under **Unreleased**; CI's `Changelog` job checks this (see `CONTRIB
   The checks file is now written in the bundle cache and copied beside the shipped bundles.
 
 ### Changed
+- The Negev's sand is a warmer orange, toward promo 02 (refs #709, #695, #388; the owner chose this step on 16 October
+  2026): the desert ground colour has less blue (`MapPalette`), re-baked into `BiomeColours.bytes` and the minimap relief.
+  The #519 grade is unchanged.
+- The overview's sea is a deeper blue, toward promo 02 (refs #709, #695, #388): the water haze, seen only beyond 120 km,
+  is bluer (`MapShaderGlobals.WaterHazeColour`), so the gameplay zoom's sea does not change. The #519 grade is unchanged.
 - A kibbutz no longer looks like a moshav or a moshava (refs #32). The five kibbutz game settlements and the kibbutz rows
   of the 1948 localities get a dining hall near the heart, opposite the water tower (white, flat roof, a raised
   clerestory), long one-storey members' houses under red tiles, and grey-roofed farm sheds on one side, the farm yard.
