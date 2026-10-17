@@ -37,7 +37,9 @@ namespace Statecraft.Sim
             s.CoalitionStability = old + (EffectsSystem.Approval(c, s) - old) * Math.Min(1.0, yearFraction * 2);
             if (Math.Abs(s.CoalitionStability - old) > 1e-9)
                 why.Add(new Cause("politics", "coalition_stability", s.CoalitionStability - old, $"coalition stability {PlayerText.PercentChange(s.CoalitionStability - old)} (public approval)"));
-            if (s.CoalitionStability < CollapseBelow && s.GameOver == null)
+            // R-GOV-001: in the GDD loop the coalition stays, but it can no longer end the game (D-C5; D-B5, "Coalition
+            // collapse is off in the MVP"). The legacy loop keeps its collapse while the legacy code exists (D-E1).
+            if (!c.IsGdd && s.CoalitionStability < CollapseBelow && s.GameOver == null)
             {
                 s.GameOver = GameOverCodes.CoalitionCollapse;
                 why.Add(new Cause("politics", "game_over", 0, "The coalition collapsed. Your premiership is over."));

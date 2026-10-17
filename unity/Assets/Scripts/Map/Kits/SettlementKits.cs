@@ -198,7 +198,10 @@ namespace Statecraft.Game.Map.Kits
                     continue;
                 }
                 var km = townMeshes[s.Id];
-                int n = landmarks[s.Id] + PlaceHouses(s, centres[s.Id], ground, km, lots, ref rnd, merged, out var scatter, out var palms);   // towns round 2: plot lattices
+                // A Negev lookout's buildings stand in its walled yard, a landmark (SettlementKits.Outpost.cs, #32): no houses round it.
+                System.Func<int>? scatter = null, palms = null;
+                int n = landmarks[s.Id] + (NegevOutpost(s) ? 0
+                    : PlaceHouses(s, centres[s.Id], ground, km, lots, ref rnd, merged, out scatter, out palms));   // towns round 2: plot lattices
                 gameTowns.Add((s, km, n, scatter, palms));
             }
             // The dune coasts' extra sand yields to the places' own ground (BeachBands, option (c)); a camp is not a place, so

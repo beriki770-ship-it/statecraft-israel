@@ -1,16 +1,18 @@
 # Event-card photographs
 
 The event card's header picture, as in the promo (`promo/final/03-gameplay-1936.png`, `05-event-transit-camps.png`), is a
-real archival photograph of the event, never an AI image. 24 of the 32 events in `content/events/` have one. Seven
+real archival photograph of the event, never an AI image. 25 of the 32 events in `content/events/` have one. Seven
 others show the responsible minister's portrait in the card's head, as before: `rhodes_talks`, `armistice_lebanon`,
 `armistice_syria`, `sinai_withdrawal`, `education_registration_1951`, `reparations_claim` and `forex_crisis_1951`. No
-free photograph that fits them was found (for `sinai_withdrawal`, see the decisions below). The eighth, the GDD objective
-card `first_new_yishuv`, has no `office`, so it shows no picture at all until its photograph (Boris Carmi, June 1949, CC BY
-4.0) comes in GDD Phase 1 PR 7 (#380).
+free photograph that fits them was found (for `sinai_withdrawal`, see the decisions below). The GDD objective card
+`first_new_yishuv` shows Mefalsim's first days (Boris Carmi, June 1949, CC BY 4.0; #380).
 
 Owner ruling 2026-10-11 (summarised; recorded in `docs/CONTENT_POLICY.md` section 4):
 - Images of real people stay public domain or CC0, with one narrow exception: archival event photographs (not
-  portraits) under CC BY 4.0, with a credit line.
+  portraits) under CC BY 4.0, with a credit line. *Amended for portraits (owner ruling, 17 October 2026: "Allow CC BY /
+  BY-SA"): a portrait of a real person may also be a CC BY 4.0 or CC BY-SA 4.0 photograph, credited in `NOTICE`, and a
+  portrait cropped from a CC BY-SA 4.0 photograph is itself released under CC BY-SA 4.0 (`docs/CONTENT_POLICY.md`
+  section 1, principle 5). The rules for event photographs below are unchanged.*
 - Photos are shown as authentic black and white, with a subtle warm grade and the gold frame. There is no AI
   colourising and no change beyond grade, crop and resize. The adaptation is recorded as "graded and cropped".
 - GPO photographs are refused, as are files whose only licence is PD-Israel or PD-India, and share-alike files.

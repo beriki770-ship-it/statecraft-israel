@@ -23,7 +23,7 @@ public class CitiesContentTests
         Assert.Equal(("unit", "hakhshara", 3, 0.25), (halutz.Kind, halutz.Facility, halutz.TrainingTurns, halutz.TrainingCost));
         Assert.Equal("", c.UnitTypes.Single(t => t.Id == "civilian").Facility);
         var mvp = c.RulesAt(c.Eras[0].From).Mvp!;
-        Assert.Equal((10, 1.2, 0.5, 0.5, "town_a"), (mvp.PeoplePerUnit, mvp.IncomePerJobPerYear, mvp.CohesionHousingWeight, mvp.CohesionJobsWeight, mvp.ArrivalsCity));
+        Assert.Equal((10, 1.2, 0.5, 0.5, new DateTime(1948, 5, 15)), (mvp.PeoplePerUnit, mvp.IncomePerJobPerYear, mvp.CohesionHousingWeight, mvp.CohesionJobsWeight, mvp.CityArrivalsFrom));
         Assert.Equal("Town A", c.SettlementNames["town_a"]);
     }
 
@@ -42,7 +42,7 @@ public class CitiesContentTests
     public void TheRealGameStartsTheTrainingInTelAviv()
     {
         var c = ContentLoader.Load(RealContentTests.ContentRoot());
-        Assert.Equal("tel_aviv", c.RulesAt(c.Eras[0].From).Mvp!.ArrivalsCity);
+        Assert.Equal(new DateTime(1948, 11, 8), c.RulesAt(c.Eras[0].From).Mvp!.CityArrivalsFrom);   // the census day (Q-ARRV-3)
         Assert.True(c.Rules.AttentionCost.ContainsKey("assign_workers"));
         Assert.Equal(new[] { "tel_aviv" }, c.Cities.Where(x => x.Facilities.Count > 0).Select(x => x.Id));
         Assert.Equal(new[] { "military_camp", "hakhshara" }, c.Cities.Single(x => x.Id == "tel_aviv").Facilities);   // D-D5: one of each at the start
@@ -189,14 +189,14 @@ public class CitiesContentTests
         new object[] { "cities.yaml", Cities(City.Replace("employed_share: { value: 0.6", "employed_share: { value: 1.2")), "cities[town_a].employed_share.value", "must be a number from 0 to 1" },
         new object[] { "cities.yaml", Cities(City.Replace("employed_share: { value: 0.6", "employed_share: { value: 0.9")), "cities[town_a].job_slots.value", "fewer than the 9 employed units" },
         new object[] { "cities.yaml", Cities(City.Replace("facilities: []", "facilities: [winery]")), "cities[town_a].facilities", "unknown facility 'winery'" },
-        new object[] { "cities.yaml", "cities: []\n", "mvp.arrivals_city", "is not a city in cities.yaml" },
+        new object[] { "cities.yaml", "cities: []\n", "cities", "needs at least one city to take the arrivals" },
         new object[] { "unit_types.yaml", "types:\n  - { id: civilian, kind: population }\n  - { id: civilian, kind: population }\n", "types[civilian].id", "duplicate id" },
         new object[] { "unit_types.yaml", "types:\n  - { id: civilian, kind: crowd }\n", "types[civilian].kind", "must be population or unit" },
         new object[] { "rules.yaml", Rules(Fixture.GddRules.Replace("people_per_unit: 10", "people_per_unit: 0")), "mvp.people_per_unit", "must be >= 1" },
         new object[] { "rules.yaml", Rules(Fixture.GddRules.Replace("income_per_job_per_year: 1.2", "income_per_job_per_year: -1")), "mvp.income_per_job_per_year", "must be a finite number >= 0" },
         new object[] { "rules.yaml", Rules(Fixture.GddRules.Replace("cohesion_housing_weight: 0.5", "cohesion_housing_weight: 1.5")), "mvp.cohesion_housing_weight", "must be a number from 0 to 1" },
         new object[] { "rules.yaml", Rules(Fixture.GddRules.Replace("cohesion_jobs_weight: 0.5", "cohesion_jobs_weight: 0.4")), "mvp.cohesion_jobs_weight", "the two cohesion weights must sum to 1" },
-        new object[] { "rules.yaml", Rules(Fixture.GddRules.Replace("arrivals_city: town_a", "arrivals_city: nowhere")), "mvp.arrivals_city", "is not a city in cities.yaml" },
+        new object[] { "rules.yaml", Rules(Fixture.GddRules.Replace("  city_arrivals_from: 1948-05-15\n", "")), "mvp.city_arrivals_from", "required when eras.yaml systems.loop is gdd" },
         new object[] { "rules.yaml", Rules(""), "mvp", "required when eras.yaml systems.loop is gdd" },
         new object[] { "rules.yaml", Fixture.Files["rules.yaml"] + Fixture.GddRules, "attention_cost.assign_workers", "missing cost" },
         new object[] { "rules.yaml", Rules(Fixture.GddRules).Replace(", train: 1", ""), "attention_cost.train", "missing cost" },
@@ -214,7 +214,7 @@ public class CitiesContentTests
     public void ABadValueFailsNamingTheFileAndField(string file, string text, string field, string message)
     {
         var ex = Assert.Throws<ContentException>(() => Load(new Dictionary<string, string> { [file] = text }));
-        Assert.Equal(field == "mvp.arrivals_city" ? "rules.yaml" : file, ex.File);
+        Assert.Equal(file, ex.File);
         Assert.Equal(field, ex.Field);
         Assert.Contains(message, ex.Message);
     }
@@ -231,7 +231,7 @@ public class CitiesContentTests
         Assert.Contains("missing file", ex.Message);
     }
 
-    /// <summary>Arrivals are counted from the game's start in units of one size (R-CITY-003), so an era may not change it.</summary>
+    /// <summary>The cities count arrivals from one day in units of one size (R-CITY-003), so an era may change neither.</summary>
     [Fact]
     public void PeoplePerUnitIsTheSameInEveryEra()
     {
@@ -256,6 +256,10 @@ eras:
         var ex = Assert.Throws<ContentException>(() => ContentLoader.Load(dir));
         Assert.Equal("rules/later.yaml", ex.File);
         Assert.Equal("mvp.people_per_unit", ex.Field);
+        Assert.Contains("must be the same in every era", ex.Message);
+        File.WriteAllText(Path.Combine(dir, "rules", "later.yaml"), "mvp: { city_arrivals_from: 1950-01-01 }\n");
+        ex = Assert.Throws<ContentException>(() => ContentLoader.Load(dir));
+        Assert.Equal(("rules/later.yaml", "mvp.city_arrivals_from"), (ex.File, ex.Field));
         Assert.Contains("must be the same in every era", ex.Message);
     }
 

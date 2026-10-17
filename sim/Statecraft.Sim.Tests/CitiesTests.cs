@@ -111,46 +111,16 @@ public class CitiesTests
     public void ATurnsArrivalsAreHousedOnTheNextTurn()
     {
         // Tel Aviv starts full (Q-START-1: housing equals the start people), so 20 of its people are moved out to free room.
-        var s = With(Simulation.NewGame(Mvp, GoldenRun.Seed, Mode.Historical), "tel_aviv", 228, 106, 0);
+        // The cities take arrivals from the census day, 8 November 1948 (Q-ARRV-3), so the turn from 15 November has some.
+        var s = Simulation.NewGame(Mvp, GoldenRun.Seed, Mode.Historical);
+        while (s.Date < new DateTime(1948, 11, 15)) s = Step(Mvp, s).State;
+        s = With(s, "tel_aviv", 228, 106, 0);
         var one = Step(Mvp, s).State;
         var arrived = one.Cities["tel_aviv"].Refugees;
         Assert.True(arrived > 0);
         Assert.Equal(228, one.Cities["tel_aviv"].Civilians);   // housing for 20 more was free, but it ran before they came
         var two = Step(Mvp, one).State.Cities["tel_aviv"];
         Assert.Equal(228 + Math.Min(arrived, 20), two.Civilians);
-    }
-
-    // R-CITY-003
-    [Fact]
-    public void ArrivalsOverTheWholeRunEqualTheFloorOfTheTotal()
-    {
-        var s = Simulation.NewGame(Mvp, GoldenRun.Seed, Mode.Historical);
-        var start = s.Date;
-        int People(GameState x) => x.Cities["tel_aviv"].Civilians + x.Cities["tel_aviv"].Refugees;
-        var before = People(s);
-        for (int i = 0; i < 20; i++)
-        {
-            var next = Step(Mvp, s).State;
-            Assert.Equal(Cities.ArrivedUnits(Mvp, s.Date, next.Date, 1000), People(next) - People(s));
-            s = next;
-        }
-        var total = PopulationSystem.Arrivals(Mvp, start, s.Date).OrderBy(kv => kv.Key, StringComparer.Ordinal).Sum(kv => kv.Value);
-        Assert.Equal((int)Math.Floor(total / 1000), People(s) - before);
-    }
-
-    /// <summary>Before cutover the same arrivals are in two views: the legacy head count by origin (GameState.Population, which
-    /// the legacy economy reads) and the city's refugees. This pins that overlap so Phase 3, which makes arrivals counts, has
-    /// to change it on purpose.</summary>
-    // R-CITY-003
-    [Fact]
-    public void BeforeCutoverArrivalsAreInTheLegacyHeadCountToo()
-    {
-        var c = Town();
-        var s = Simulation.NewGame(c, 1, Mode.Historical);
-        for (int i = 0; i < 20; i++) s = Step(c, s).State;
-        var people = PopulationSystem.Arrivals(c, c.Eras[0].From, s.Date).Values.Sum();
-        Assert.Equal(Cities.ArrivedUnits(c, c.Eras[0].From, s.Date, 10), s.Cities["town_a"].Refugees + s.Cities["town_a"].Civilians - 10);
-        Assert.True(s.Population["europe"] >= people, "the legacy head count also holds every arrival");
     }
 
     // R-CITY-005
@@ -200,9 +170,9 @@ public class CitiesTests
         Assert.Equal(0.8 * 0.6 + 0.2 * 0.5, after.Cohesion, 12);
     }
 
-    /// <summary>Social cohesion is a labelled placeholder while D-C1 is open (an owner question on #375): no effect, morale,
-    /// threshold or display reads it. Two states that differ only in it step to the same state, and no code outside the
-    /// city rules and the state names it.</summary>
+    /// <summary>Social cohesion is a labelled placeholder while D-C1 is open (an owner question on #375): no effect, morale or
+    /// threshold reads it, and only the top bar displays it (#380). Two states that differ only in it step to the same state,
+    /// and no code outside the city rules, the state and the top bar names it.</summary>
     // R-CITY-005
     [Fact]
     public void CohesionFeedsNothingElse()
@@ -219,7 +189,9 @@ public class CitiesTests
             .SelectMany(d => System.IO.Directory.GetFiles(d, "*.cs", System.IO.SearchOption.AllDirectories))
             .Where(f => System.Text.RegularExpressions.Regex.IsMatch(System.IO.File.ReadAllText(f), @"\bCohesion\b"))
             .Select(f => System.IO.Path.GetFileName(f)).OrderBy(f => f, StringComparer.Ordinal);
-        Assert.Equal(new[] { "Cities.cs", "GameState.cs" }, readers);
+        // The top bar shows it (the owner's ruling of 15 October 2026, #380): the HUD's model, presenter and tests read it to
+        // display it, and nothing else in Unity or the sim does.
+        Assert.Equal(new[] { "Cities.cs", "GameState.cs", "HudModel.cs", "HudPresenter.cs", "HudTests.cs" }, readers);
     }
 
     [Fact]

@@ -256,7 +256,8 @@ namespace Statecraft.Game.UI
             var here = MapActions.At(s, q, r);
             var queued = bridge.QueuedLike(new MapAction(MapActions.Housing, q, r)) as MapAction;
             placement.text = queued != null ? text.Format("info.queued", PlayerText.Capitalised(PlayerText.MapAction(c, queued.Action)))
-                : here != null ? text.Format("info.built", PlayerText.Capitalised(PlayerText.MapAction(c, here.Action)), PlayerText.Month(here.Date)) : "";
+                : here != null ? text.Format("info.built", PlayerText.Capitalised(PlayerText.MapAction(c, here.Action)),
+                    Control1948.LineDateText(here.Date.ToString("yyyy-MM", System.Globalization.CultureInfo.InvariantCulture), k => text[k])) : "";   // PlayerText.Month is always English (#701)
             var campWhy = MapActions.Check(c, s, MapActions.TransitCamp, q, r);
             var housingWhy = MapActions.Check(c, s, MapActions.Housing, q, r);
             // eras.yaml systems.map_actions (#58): an action the era does not allow has no button and no reason

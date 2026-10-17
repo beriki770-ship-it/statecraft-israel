@@ -8,6 +8,10 @@ adds a line under **Unreleased**; CI's `Changelog` job checks this (see `CONTRIB
 ## [Unreleased]
 
 ### Fixed
+- In the Hebrew UI the Budget's "no ministry until" date, the Why? screen's turn span and the info panel's build date
+  name their months in Hebrew ("מ־15 במאי 1948 עד 15 ביוני 1948", "באוגוסט 1950") through the `date.*` strings, as
+  the top bar does since #696 (refs #701). English is unchanged. `info.built` in Hebrew now says "ב{1}" instead of
+  "בשנת {1}", since its value is a month and a year.
 - The loading screen's boot-failure line wraps inside the screen with a side margin (refs #765). In Hebrew at phone width
   it ran past both edges, so the player could not read "reload the page"; `.loading-line` had no `white-space: normal`.
   `UiLayoutTests.TheBootFailureLineWrapsInsideTheScreen` checks English and Hebrew at 390x844, 960x600 and 1280x720.
@@ -19,6 +23,10 @@ adds a line under **Unreleased**; CI's `Changelog` job checks this (see `CONTRIB
 - Tel Aviv's White City is plastered a warm cream, as in promo 03, where it was a cooler lime white (refs #658). Walls,
   parapets and roof terraces change in Tel Aviv only. Haifa's Hadar and every other town keep their colours, and Tel
   Aviv stays clearly lighter than Jaffa's sandstone (`TownCensusTests.TelAvivsPlasterIsWarmCreamAndStillWhiterThanJaffa`).
+- The coalition can no longer end the GDD game (refs #730, R-GOV-001; D-C5, D-B5: "Coalition collapse is off in the
+  MVP"). Its stability still follows public approval and still weights the coalition votes; the legacy loop keeps its
+  collapse. R-GOV-002 pins what the GDD orders cost in Attention: each has a price, the unit orders are free, and a
+  refused order is refunded. No golden moves: no reference run's stability falls below 0.2.
 - The Negev's sand is a warmer orange, toward promo 02 (refs #709, #695, #388; the owner chose this step on 16 October
   2026): the desert ground colour has less blue (`MapPalette`), re-baked into `BiomeColours.bytes` and the minimap relief.
   The #519 grade is unchanged.
@@ -31,6 +39,13 @@ adds a line under **Unreleased**; CI's `Changelog` job checks this (see `CONTRIB
   (he.wiki "גן הנוף הקיבוצי"). Nahalal's moshav ring and the moshavot are unchanged (their renders are pixel-identical),
   and no other place moves; inside a kibbutz the hall's lot can take a plot. Yad Mordechai has no hall: no free ground is left near its heart, and a hall pushed to the edge
   would take its houses.
+- The GDD game's immigrants arrive in all twelve cities (GDD Phase 3 PR 2, refs #733, #383; R-CITY-003, R-CITY-008),
+  split in proportion to each city's census population, one unit at a time to the largest remainder, ties to the lower
+  id (Q-ARRV-1). They used to land only in Tel Aviv. The cities take arrivals from the census day, 8 November 1948
+  (`mvp.city_arrivals_from`, CBS Statistical Abstract No. 14, Table 11), because their census start values already count
+  the people who came from 15 May: about 78 units were counted twice (Q-ARRV-3). The national head count still takes
+  every arrival from 15 May, so the CBS anchors are unchanged, and a test checks the cities never hold more people than
+  it (Q-ARRV-2). `mvp.arrivals_city` is gone. Every golden moves (docs/determinism.md, rebaseline history).
 - The GDD game has its twelve cities (GDD Phase 3 PR 1, refs #732, #383; R-CITY-006, R-CITY-007): `content/cities.yaml`
   holds the `city` and `town` rows of the 1948 settlements, each starting from its census population of 8 November 1948
   (CBS Statistical Abstract No. 14, Table 11; Zikhron Ya'akov from No. 3; Rosh Pinna from Hebrew Wikipedia, as the owner
@@ -77,6 +92,9 @@ adds a line under **Unreleased**; CI's `Changelog` job checks this (see `CONTRIB
 - The olive crowns are darker, with pale tops (visual gap L2, refs #34; owner, 15 October 2026: "Darker, with pale
   sunlit tops"). At gameplay03 their body is luma 0.29 (main 0.50, promo 03 0.30) and their sunlit top stands 0.18 above
   it (main 0.14, promo 0.18). Vertex colours only: no tree count, size, shader or grade change.
+- The olive crowns read grey olive, not chocolate brown (refs #772): their median saturation at gameplay03 (editor shot)
+  is 0.34 (main 0.41, promo 03 0.32) and their hue 27.5 degrees (main 31.7, promo 28.2), with more blue in the lobes
+  and a greyer sunlit top. Body luma 0.29 and top contrast 0.20 stay in promo 03's bands. Vertex colours only.
 - The surf is wide on the dune coasts and narrow under the kurkar, as promo 03 draws it (refs #690, #388): 3.0 km from
   Jaffa south and in Haifa Bay, 1.5 km elsewhere (2.4 km everywhere before). The dune coasts are one definition,
   `unity/Assets/Resources/Map/DuneCoasts.json`, which the water pass reads through `MapShaderGlobals`. Presentation only.
@@ -127,6 +145,11 @@ adds a line under **Unreleased**; CI's `Changelog` job checks this (see `CONTRIB
   (Q-CUT-8). Every golden moves; the cutover re-pins them once.
 
 ### Added
+- Map: Revivim, the one Negev outpost on the map, is drawn as the walled lookout it was in 1943-48 (refs #32), not as a
+  moshava's red-roofed houses round a water tower. The three lookouts were built to one plan (he.wiki "שלושת המצפים"):
+  a square yard closed by a wall, a lookout tower in its corner, the living quarters along one side and the service
+  buildings along another. The larger living building is Revivim's kibbutz dining hall (he.wiki "רביבים": the fortress
+  held "חדר אוכל"). `SettlementKits.Outpost.cs`; `NegevOutpostKitTests`.
 - A Settings screen, opened from a gear at the foot of the left column (refs #40, first slice). Its first option turns
   the tilt-shift blur off and on, at once; the choice is kept per browser in `/idbfs/statecraft-settings/settings.txt`
   (a fixed folder, as the autosave's), never in the sim or the save, so the goldens do not move. `?notiltshift` still
@@ -149,6 +172,14 @@ adds a line under **Unreleased**; CI's `Changelog` job checks this (see `CONTRIB
   showcase's coaches, four articulated cars that ride the track (owner, 16 October 2026: "ride the track, cut walls"):
   on the Sorek valley's tightest bends their sides pass into the gorge walls. It streams only once the game date reaches
   the service, never at boot. If it does not stream, the game plays on without it and logs one warning.
+- Social cohesion on the top bar, a resource meter (לכידות חברתית in Hebrew) with its change since last turn, in the GDD
+  loop only; it reads `GameState.Cohesion` (R-CITY-005; the owner's ruling of 15 October 2026, refs #380). The
+  objective card's line under its text, completed early (both dates and the months), on time or later, in English and
+  Hebrew (`Objectives.MonthsFromHistory`; the owner's wording on #379), and its photograph of Mefalsim's first days
+  (Boris Carmi, June 1949, CC BY 4.0, Meitar Collection; `ASSETS.yaml` row `owner-verify`). With seven meters
+  the bar re-tiers (the owner's "tighten and re-tier", 16 October 2026): each meter's sides are 6 px narrower; 16:9 at
+  1920x1080 keeps the one-row bar, while 16:10, 4:3, 1280x720 and 1366x768 take the stacked bar, 5:4 drops the icons, a
+  square window takes two rows, and a phone's meters wrap to two lines. No golden moves.
 - Tal's (@pixelrenderai-hash) 23 single-building Tripo models from #507, imported for the strategic map (refs #659, step
   1): `unity/Assets/Art/Settlements/Prototype/Models/b*`, outside every `Resources/` folder, meshes compressed with no
   animation, rig, tangents or Read/Write, colour maps committed and crunched at 512 px; `BuildingModelImportTests` pins

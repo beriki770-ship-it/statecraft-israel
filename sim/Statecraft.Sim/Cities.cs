@@ -79,29 +79,65 @@ namespace Statecraft.Sim
             s.Cohesion = Math.Max(0, Math.Min(1, r.CohesionHousingWeight * housed + r.CohesionJobsWeight * working));
         }
 
-        /// <summary>R-CITY-003 (D-A5): the turn's immigrants (the CBS series, aliyah.yaml) arrive as refugees in the mvp
-        /// arrivals_city, in whole units. Before cutover PopulationSystem still adds the same people to GameState.Population,
-        /// the head count the legacy economy reads: two views of one group until Phase 3 makes arrivals counts (spec section 6).</summary>
+        /// <summary>R-CITY-003 (D-A5, Q-ARRV-1): the turn's immigrants (the CBS series, aliyah.yaml) arrive as refugees, in whole
+        /// units, spread over the cities by <see cref="Apportion"/>. The cities count them from mvp.city_arrivals_from, the
+        /// census day their start values already include (Q-ARRV-3); PopulationSystem adds every arrival to the national head
+        /// count from the game's start, and the cities are the part of it placed in towns (R-CITY-008, Q-ARRV-2).</summary>
         public static void Arrive(Content c, GameState s, MvpRules r, DateTime next, List<Cause> why)
         {
             var units = ArrivedUnits(c, s.Date, next, r.PeoplePerUnit);
             if (units == 0) return;
-            var x = s.Cities[r.ArrivalsCity];
-            s.Cities[x.Id] = x.WithCounts(x.Civilians, x.Employed, x.Refugees + units);
-            why.Add(new Cause("city", x.Id, units, FormattableString.Invariant($"{PlayerText.Settlement(c, x.Id)}: {units} groups of immigrants arrived and wait for homes")));
+            var before = UnitsBy(c, s.Date, r.PeoplePerUnit);
+            var had = Apportion(c, before);
+            foreach (var kv in Apportion(c, before + units))
+            {
+                var added = kv.Value - had[kv.Key];
+                if (added == 0) continue;
+                var x = s.Cities[kv.Key];
+                s.Cities[x.Id] = x.WithCounts(x.Civilians, x.Employed, x.Refugees + added);
+                why.Add(new Cause("city", x.Id, added, FormattableString.Invariant($"{PlayerText.Settlement(c, x.Id)}: {added} groups of immigrants arrived and wait for homes")));
+            }
         }
 
-        /// <summary>The whole units of <paramref name="peoplePerUnit"/> people that arrive in [from, to). Counted from the game's
-        /// start, floor(people by to) minus floor(people by from), so over any run of turns no unit is lost or counted twice.</summary>
-        public static int ArrivedUnits(Content c, DateTime from, DateTime to, int peoplePerUnit)
+        /// <summary>R-CITY-003 (Q-ARRV-1): the cities' shares of their first <paramref name="units"/> arrived units, by id. The
+        /// weights are the cities' census people. Units are handed out one at a time, each to the city whose share of the
+        /// units so far most exceeds what it holds (the largest remainder), a tie to the lower id (ordinal). A fresh
+        /// largest-remainder split of each total could take a unit back from a city when the total grows (the Alabama paradox;
+        /// on the real cities at 7 units), so the split is built up from the first unit. Decimal, so exact on every runtime.</summary>
+        public static SortedDictionary<string, int> Apportion(Content c, int units)
         {
-            int UnitsBy(DateTime t)
+            var held = new SortedDictionary<string, int>(StringComparer.Ordinal);
+            foreach (var x in c.Cities) held[x.Id] = 0;
+            var weight = c.Cities.ToDictionary(x => x.Id, x => x.People!.Value);
+            var total = weight.Values.Sum();
+            for (int n = 1; n <= units; n++)
             {
-                var people = 0.0;
-                foreach (var kv in PopulationSystem.Arrivals(c, c.Eras[0].From, t).OrderBy(k => k.Key, StringComparer.Ordinal)) people += kv.Value;
-                return (int)Math.Floor(people / peoplePerUnit);
+                string? best = null;
+                var most = 0m;
+                foreach (var kv in held)   // ordinal order, and only a larger remainder replaces: a tie stays with the lower id
+                {
+                    var remainder = n * weight[kv.Key] - kv.Value * total;   // (the share minus what it holds) times the total
+                    if (best == null || remainder > most) { best = kv.Key; most = remainder; }
+                }
+                held[best!]++;
             }
-            return UnitsBy(to) - UnitsBy(from);
+            return held;
+        }
+
+        /// <summary>The whole units of <paramref name="peoplePerUnit"/> people that arrive in the cities in [from, to). Counted
+        /// from mvp.city_arrivals_from, floor(people by to) minus floor(people by from), so over any run of turns no unit is lost
+        /// or counted twice.</summary>
+        public static int ArrivedUnits(Content c, DateTime from, DateTime to, int peoplePerUnit) =>
+            UnitsBy(c, to, peoplePerUnit) - UnitsBy(c, from, peoplePerUnit);
+
+        /// <summary>The cities' whole units of arrivals from mvp.city_arrivals_from to <paramref name="t"/> (0 before it).</summary>
+        static int UnitsBy(Content c, DateTime t, int peoplePerUnit)
+        {
+            var origin = c.RulesAt(c.Eras[0].From).Mvp!.CityArrivalsFrom;   // the same in every era (the loader checks it)
+            if (t <= origin) return 0;
+            var people = 0.0;
+            foreach (var kv in PopulationSystem.Arrivals(c, origin, t).OrderBy(k => k.Key, StringComparer.Ordinal)) people += kv.Value;
+            return (int)Math.Floor(people / peoplePerUnit);
         }
     }
 }
