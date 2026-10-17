@@ -6,7 +6,7 @@ As a player of the MVP, I want to send a group of halutzim to plow the fields of
 
 ## Rules
 
-- Each of the four yishuv sites has one field site in its hex: Mefalsim, Beit Kama, Re'im and Gilat fields. They are design placements, not historical fields (`Q-FIELD-1`, the owner took the plan's recommendations on #782 [S3]).
+- Each of the six yishuv sites has one field site in its hex: Mefalsim, Beit Kama, Re'im, Gilat, Kiryat Shmona and Beit Shemesh fields. They are design placements, not historical fields (`Q-FIELD-1`, the owner took the plan's recommendations on #782 [S3]).
 - `PioneerWork(unit, plow_fields, site)` sends an idle halutz unit to plow a field site. It follows the build rules: one project per unit, one unit per site, paid in full at once with borrowing, and no Attention (R-FIELD-001, R-SITE-001).
 - A field is ready only once the yishuv in its hex is built. Before that the order is refused with the state unchanged (R-FIELD-001).
 - Plowing takes 3 turns, counting the turn of the order, and costs IL 0.5m. Both are design values the owner may override (`Q-FIELD-3` [S3]).

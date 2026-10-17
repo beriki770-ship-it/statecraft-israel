@@ -81,6 +81,10 @@ adds a line under **Unreleased**; CI's `Changelog` job checks this (see `CONTRIB
 - Events: `requires` is a list whose entries must all hold, and an entry can say `diverged: true` (any option but
   the historical one); the five events with a requirement move to the list form with the same meaning (R-ALT-001,
   R-ALT-002; refs #946, #939).
+- Kiryat Shmona (founded 18 July 1949) and Beit Shemesh (15 December 1950, the National Library's December 1950
+  under the monthly turn) join the yishuv sites in `content/sites.yaml`, each with a field site in its hex; the
+  founding days are the owner's (#785), and the rows stay draft. The reference player builds them in id order, so
+  Mefalsim is built in March 1950 and the goldens move (refs #785, #782).
 - The 1948 unit roster gives 20 formations a sourced Hebrew name (`name_he`, agent-checked until #564's read); a
   name's source does not count toward `wikipedia_only` (refs #902).
 - Pioneers can build a training camp: `PioneerWork(unit, build_camp, site)` at a camp site takes 6 turns and IL 2m
