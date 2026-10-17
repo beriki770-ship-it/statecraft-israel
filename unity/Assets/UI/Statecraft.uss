@@ -193,7 +193,7 @@ Button:disabled { color: var(--ink-dim); border-color: rgba(120, 120, 120, 0.4);
    included. The card starts right of the column (the layer's left padding, from its 16 px: the column's 60 px and a 12 px gap; padding, so
    the backdrop still reaches the column, LeftColumnTests.OnAPhoneThePhotoCardLeavesTheRailClear) and hangs from the layer's
    top, under the bar, rather than sitting in the middle: centred, the card at 375x667 reached the map's border label above
-   the minimap (ArmisticeTests.TheLongestMapLabelFitsBesideTheEventCard). The 88 px at the bottom keep the tallest card off
+   the minimap (since #915 that label is hidden while the card is open, so no test pins this any more). The 88 px at the bottom keep the tallest card off
    the window's foot (padding, so its backdrop still reaches it, DecisionCardTests.TheBackdropReachesTheWindowsEdgesAtEveryTier). */
 .hud-three-row .event-layer { justify-content: flex-start; padding-left: 72px; padding-bottom: 88px; }
 .turn-box { width: 150px; flex-shrink: 1; min-width: 150px; align-items: flex-end; }
