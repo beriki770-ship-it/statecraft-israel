@@ -6,8 +6,9 @@ using Statecraft.Sim;
 /// <summary>Event effects on units and cities (D-H2; GDD Phase 7 PR 2, #806). The owner took the plan's recommendations for
 /// Q-HFX-1 to Q-HFX-3 on 17 October 2026 (#784): grants of units, city housing capacity, condition and job slots, and
 /// project unlock, each validated at load; a grant is free and stands at the military camp or at the site the event
-/// names; a sensitive option gains nothing from them (R-EFX-005). This first slice builds the kinds whose records are on
-/// main: unit grants and a city's housing capacity and job slots. Condition (#734) and project unlock (#735) follow.</summary>
+/// names (here a city it names); a sensitive option gains nothing from them (R-EFX-005). This first slice builds the kinds whose records are on
+/// main: unit grants and a city's housing capacity and job slots. Condition (#734), project unlock (#735) and site targets
+/// (once a site carries a date, R-EFX-006) follow.</summary>
 public class StructuredEffectTests
 {
     const string Arms = @"
@@ -28,7 +29,7 @@ from: 1948-05-15
 
     const string Grants = @"    grant_units:
       - { type: halutz, n: 2 }
-      - { type: halutz, n: 1, at: site_a }
+      - { type: halutz, n: 1, at: town_b }
     city_effects:
       - { city: town_a, field: housing_capacity, delta: 3 }
       - { city: town_a, field: job_slots, delta: -100 }
@@ -37,10 +38,14 @@ from: 1948-05-15
     static string Event(string structured, string tags = "") =>
         Arms.Replace("{STRUCTURED}", structured).Replace("{TAGS}", tags == "" ? "" : "tags: [" + tags + "]\n");
 
+    // A second town on its own hex, so a grant's `at` lands somewhere other than the camp city. Fixture values, not history.
     static Content Load(string ev, string facilities = "[military_camp, hakhshara]") =>
         ContentLoader.Load(Fixture.Write(Fixture.Gdd(new Dictionary<string, string>
         {
-            ["cities.yaml"] = "cities:\n" + Fixture.City("town_a", 12, 8, 10, 6, facilities),
+            ["map/settlement_hexes.yaml"] = "settlements:\n  - { id: town_a, q: 1, r: 0 }\n  - { id: town_b, q: 2, r: 1 }\n",
+            ["map/settlements_1948.yaml"] = Fixture.Files["map/settlements_1948.yaml"]
+                + "  - { id: town_b, name: Town B, lon: 34.42, lat: 33.28, type: town, founded: 1900, pre_modern: false }\n",
+            ["cities.yaml"] = "cities:\n" + Fixture.City("town_a", 12, 8, 10, 6, facilities) + Fixture.City("town_b", 5, 2, 2, 1),
         }), new Dictionary<string, string> { ["arms.yaml"] = ev }));
 
     static ContentException Refused(string structured, string tags = "") =>
@@ -49,7 +54,7 @@ from: 1948-05-15
     static (int Q, int R) TownHex(Content c) { var h = c.SettlementHexes.First(x => x.Id == "town_a"); return (h.Q, h.R); }
 
     // R-EFX-003: a grant adds exactly its units, free, taking the next ids in turn: with no `at` they stand at the city with
-    // the military camp, with `at` at the named site. Nothing else of the units changes.
+    // the military camp, with `at` at the named city. Nothing else of the units changes.
     [Fact]
     public void AGrantAddsExactlyItsUnits()
     {
@@ -65,7 +70,7 @@ from: 1948-05-15
         Assert.Equal(before.NextId + 3, s.NextId);
         Assert.All(added, u => { Assert.Equal("halutz", u.Type); Assert.Equal(0, u.Service); });
         var town = TownHex(c);
-        Assert.Equal(new[] { town, town, (2, 0) }, added.Select(u => (u.Q, u.R)));
+        Assert.Equal(new[] { town, town, (2, 1) }, added.Select(u => (u.Q, u.R)));
         foreach (var u in before.Units.Values) Assert.Equal(u.Canonical(), s.Units[u.Id].Canonical());
         // Free (Q-HFX-2): the only Money that moves is the option's own numeric effect.
         Assert.Equal(before.Treasury, s.Treasury);
@@ -102,13 +107,15 @@ from: 1948-05-15
             why.Where(w => w.System == "events" && w.Target != "arms").Select(w => w.Target));
     }
 
-    // R-EFX-006: a target that does not exist is refused at load, naming file and field, never skipped at run time.
+    // R-EFX-006: a target that does not exist on the event's date is refused at load, naming file and field, never skipped
+    // at run time. A site has no window yet and starts unbuilt, so a site target is refused until sites carry a date.
     [Theory]
     [InlineData("    grant_units:\n      - { type: tank, n: 1 }\n", "grant_units[0].type", "unknown unit type")]
     [InlineData("    grant_units:\n      - { type: recruit, n: 1 }\n", "grant_units[0].type", "not a unit")]
     [InlineData("    grant_units:\n      - { type: halutz, n: 0 }\n", "grant_units[0].n", "at least 1")]
     [InlineData("    grant_units:\n      - { type: halutz, n: -2 }\n", "grant_units[0].n", "at least 1")]
-    [InlineData("    grant_units:\n      - { type: halutz, n: 1, at: nowhere }\n", "grant_units[0].at", "unknown city or site")]
+    [InlineData("    grant_units:\n      - { type: halutz, n: 1, at: nowhere }\n", "grant_units[0].at", "unknown city")]
+    [InlineData("    grant_units:\n      - { type: halutz, n: 1, at: site_a }\n", "grant_units[0].at", "sites cannot be grant targets")]
     [InlineData("    city_effects:\n      - { city: nowhere, field: job_slots, delta: 1 }\n", "city_effects[0].city", "unknown city")]
     [InlineData("    city_effects:\n      - { city: town_a, field: condition, delta: 1 }\n", "city_effects[0].field", "housing_capacity or job_slots")]
     [InlineData("    city_effects:\n      - { city: town_a, field: job_slots, delta: 0 }\n", "city_effects[0].delta", "must not be 0")]
@@ -197,7 +204,7 @@ from: 1948-05-15
         Assert.Equal(new[] { "fx_reserves", "halutz", "halutz", "town_a.housing_capacity", "town_a.job_slots" }, lines.Select(l => l.Target));
         Assert.Equal(new[] { -10.0, 2, 1, 3, -100 }, lines.Select(l => l.Delta));
         Assert.Equal("2 halutz units at Town A", lines[1].Message);
-        Assert.Equal("1 halutz unit at Site A", lines[2].Message);
+        Assert.Equal("1 halutz unit at Town B", lines[2].Message);
         Assert.Equal("Town A: housing capacity +3", lines[3].Message);
         Assert.Equal("Town A: job slots -100", lines[4].Message);
     }
@@ -210,9 +217,15 @@ from: 1948-05-15
         var g = GameSession.New(c, 7, Mode.Historical);
         g.Step(new Command[] { new ChooseEventOption("arms", "accept") });
         g.Step(new Command[0]);
-        Assert.Contains(g.State.Units.Values, u => u.Q == 2 && u.R == 0);
+        Assert.Contains(g.State.Units.Values, u => u.Q == 2 && u.R == 1);
         var loaded = GameSession.Load(c, g.Save.Write(), out var warnings);
         Assert.Empty(warnings);
+        // Field by field first, so a persistence bug says what broke; then the hash.
+        Assert.Equal(g.State.Units.Values.OrderBy(u => u.Id).Select(u => (u.Id, u.Type, u.Q, u.R)),
+            loaded.State.Units.Values.OrderBy(u => u.Id).Select(u => (u.Id, u.Type, u.Q, u.R)));
+        Assert.Equal(g.State.NextId, loaded.State.NextId);
+        Assert.Equal((g.State.Cities["town_a"].HousingCapacity, g.State.Cities["town_a"].JobSlots),
+            (loaded.State.Cities["town_a"].HousingCapacity, loaded.State.Cities["town_a"].JobSlots));
         Assert.Equal(g.State.Hash(), loaded.State.Hash());
     }
 }

@@ -707,7 +707,8 @@ namespace Statecraft.Sim
     }
 
     /// <summary>An option's grant of <see cref="N"/> units of a unit_types.yaml type of kind unit (R-EFX-003). They stand at
-    /// <see cref="At"/>, a cities.yaml or sites.yaml id, or, when it is empty, at the city that has the military camp.</summary>
+    /// <see cref="At"/>, a cities.yaml id, or, when it is empty, at the city that has the military camp. A site is refused
+    /// until sites carry a date (R-EFX-006).</summary>
     public sealed class UnitGrant
     {
         public string Type { get; set; } = "";

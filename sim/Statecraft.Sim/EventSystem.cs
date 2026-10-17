@@ -121,12 +121,10 @@ namespace Statecraft.Sim
         /// effect on a target that no longer exists reaches nothing.</summary>
         static bool Reaches(GameState s, string target) => EventRules.SpecialTargets.Contains(target) || s.Indicators.ContainsKey(target);
 
-        /// <summary>Where a grant stands (R-EFX-003, Q-HFX-2): the named city's settlement hex or the named site's hex, or with
-        /// no `at` the settlement hex of the one city with the military camp (the loader checks each exists).</summary>
+        /// <summary>Where a grant stands (R-EFX-003, Q-HFX-2): the named city's settlement hex, or with no `at` the settlement
+        /// hex of the one city with the military camp (the loader checks each exists).</summary>
         static (string Name, int Q, int R) GrantPlace(Content c, UnitGrant g)
         {
-            var site = g.At == "" ? null : c.Sites.FirstOrDefault(x => x.Id == g.At);
-            if (site != null && c.Cities.All(x => x.Id != g.At)) return (site.Name, site.Q, site.R);
             var city = g.At != "" ? g.At : c.Cities.Single(x => x.Facilities.Contains(MilitaryCamp)).Id;
             var hex = c.SettlementHexes.First(h => h.Id == city);   // every settlement has one (ValidateMap)
             return (PlayerText.Settlement(c, city), hex.Q, hex.R);

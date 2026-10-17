@@ -124,9 +124,13 @@ namespace Statecraft.Sim
                 if (type.Kind != "unit") throw new ContentException(e.File, G(".type"), $"'{g.Type}' is not a unit type (kind {type.Kind})");
                 if (g.N < 1) throw new ContentException(e.File, G(".n"), "must be at least 1");
                 if (g.At == "" && c.Cities.Count(x => x.Facilities.Contains(EventSystem.MilitaryCamp)) != 1)
-                    throw new ContentException(e.File, G(".at"), "required: no single city has the military camp, so name a city or site");
-                if (g.At != "" && c.Cities.All(x => x.Id != g.At) && c.Sites.All(x => x.Id != g.At))
-                    throw new ContentException(e.File, G(".at"), $"unknown city or site '{g.At}'");
+                    throw new ContentException(e.File, G(".at"), "required: no single city has the military camp, so name a city");
+                // R-EFX-006: a target must exist on the event's date. Every cities.yaml city is in the game from the first
+                // turn; a site has no window and starts unbuilt, so it cannot be checked against a date yet.
+                if (g.At != "" && c.Cities.All(x => x.Id != g.At))
+                    throw new ContentException(e.File, G(".at"), c.Sites.Any(x => x.Id == g.At)
+                        ? $"'{g.At}' is a site: sites cannot be grant targets until they carry a date (R-EFX-006)"
+                        : $"unknown city '{g.At}'");
             }
             for (int i = 0; i < o.CityEffects.Count; i++)
             {

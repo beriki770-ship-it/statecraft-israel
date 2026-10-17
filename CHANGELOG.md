@@ -9,7 +9,7 @@ adds a line under **Unreleased**; CI's `Changelog` job checks this (see `CONTRIB
 
 ### Added
 - Event options in the GDD loop can grant units and change a city's housing capacity or job slots: `grant_units`
-  adds free units at the military camp or a named city or site, `city_effects` moves one field by whole units, both
+  adds free units at the military camp or a named city, `city_effects` moves one field by whole units, both
   apply after the numeric effects and show in the option's effect list, the loader refuses an unknown target, and a
   sensitive event may carry no grant or gain (R-EFX-003 to R-EFX-006; refs #806). No event uses them yet.
 - The 1948 unit roster gives 20 formations a sourced Hebrew name (`name_he`, agent-checked until #564's read); a

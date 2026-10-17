@@ -69,7 +69,7 @@
           "set_policy": { "type": "object", "additionalProperties": { "type": "number", "minimum": 0, "maximum": 1 }, "description": "Policy id to a level in [0, 1]." },
           "grant_units": {
             "type": "array",
-            "description": "R-EFX-003 (GDD loop only): free units of a unit_types.yaml type of kind unit, at a cities.yaml or sites.yaml id, or with no at at the city that has the military camp. Not on a sensitive event (R-EFX-005).",
+            "description": "R-EFX-003 (GDD loop only): free units of a unit_types.yaml type of kind unit, at a cities.yaml id, or with no at at the city that has the military camp (a site is refused until sites carry a date, R-EFX-006). Not on a sensitive event (R-EFX-005).",
             "items": {
               "type": "object",
               "additionalProperties": false,

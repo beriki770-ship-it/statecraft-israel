@@ -163,7 +163,8 @@ These act on the GDD records, so only content whose `eras.yaml` sets `systems.lo
 
 - `grant_units: [{ type: halutz, n: 2, at: tel_aviv }]` adds `n` units of a `unit_types.yaml` type of kind `unit`. A
   grant is free: put what the deal cost in `effects`. Leave out `at` and the units stand at the city with the military
-  camp; set it to a `cities.yaml` or `sites.yaml` id to place them there (R-EFX-003).
+  camp; set it to a `cities.yaml` id to place them there (R-EFX-003). A `sites.yaml` id is refused until sites carry a
+  date, because a target must exist on the event's date (R-EFX-006).
 - `city_effects: [{ city: haifa, field: housing_capacity, delta: 5 }]` changes one city's `housing_capacity` or
   `job_slots` by a whole, non-zero number. Capacity never drops below 0 and job slots never below the city's employed
   (R-EFX-004).
@@ -239,9 +240,9 @@ Errors are printed as `file: field: message`. These are the messages you are mos
 | `unknown unit type` | A grant's `type` is not in `unit_types.yaml`. |
 | `is not a unit type` | A grant's `type` is a population type. |
 | `must be at least 1` | A grant's `n` is 0 or negative. |
-| `unknown city or site` | A grant's `at` names no city or site. |
+| `sites cannot be grant targets` | A grant's `at` names a site. |
 | `no single city has the military camp` | A grant leaves out `at` when no single city has the camp. |
-| `unknown city` | A `city_effects` entry names no city. |
+| `unknown city` | A grant's `at` or a `city_effects` entry names no city. |
 | `unknown field` | A `city_effects` field other than `housing_capacity` or `job_slots`. |
 | `must not be 0` | A `city_effects` delta of 0. |
 | `sensitive events cannot reward units` | A sensitive-tagged event with a grant. A positive `city_effects` delta gives the same message with the field's name. |
