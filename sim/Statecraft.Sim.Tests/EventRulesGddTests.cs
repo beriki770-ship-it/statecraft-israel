@@ -62,6 +62,22 @@ public class EventRulesGddTests
     static string Soft(string id, string from) =>
         $"id: {id}\ntitle: '{id}'\ntext: Something happens.\nfrom: {from}\noptions:\n  - id: ok\n    text: Accept\n    historical: true\n";
 
+    // R-EVT-001: the soft events take only the slots the hard anchors leave. With 1 hard anchor and 3 soft events
+    // eligible on one turn, exactly 2 soft events fire (the mvp-end run has no such turn, so a fixture pins it).
+    [Fact]
+    public void HardAnchorsUseUpSoftSlots()
+    {
+        var c = ContentLoader.Load(Fixture.Write(events: new Dictionary<string, string>
+        {
+            ["a.yaml"] = Soft("a", "1948-05-15"),
+            ["b.yaml"] = Soft("b", "1948-05-15"),
+            ["c.yaml"] = Soft("c", "1948-05-15"),
+            ["h.yaml"] = Soft("h", "1948-05-15").Replace("from:", "anchor: hard\nfrom:"),
+        }));
+        var s = Simulation.NewGame(c, 1, Mode.Historical);
+        Assert.Equal(new[] { "a", "b", "h" }, s.PendingEvents);   // h takes one of the 3 slots; c waits
+    }
+
     // R-EVT-002: the soft events take the free slots in order of From, then id; the one left over waits for the next turn.
     [Fact]
     public void SoftEventsTakeTheSlotsInOrderOfFromThenId()

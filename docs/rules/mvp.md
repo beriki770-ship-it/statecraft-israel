@@ -136,7 +136,7 @@ R-EFX-002: An option of an event tagged `holocaust`, `terror`, `massacre` or `wa
 
 ## Events
 
-D-H1 in the GDD loop (GDD Phase 7 PR 1, #805). The owner took the plan's recommendations for Q-EVT-1 to Q-EVT-4 on 17 October 2026 (#784: "keep windows, hard anchors and the cap of 3 soft events a turn"; "keep delegation"; "none in the MVP" for delayed effects; "every effect of every option ... from the sim's preview"). These rules state what the code already does; no behaviour changed.
+D-H1 in the GDD loop (GDD Phase 7 PR 1, #805). The owner took the plan's recommendations for Q-EVT-1 to Q-EVT-4 on 17 October 2026 (#784). As the plan's Decided rows record them (`docs/superpowers/plans/2026-10-15-gdd-phase-7.md`), that keeps windows, hard anchors and the cap of 3 soft events a turn, keeps delegation, adds no delayed effects in the MVP, and shows every effect of every option from the sim's preview. These rules state what the code already does; no behaviour changed.
 
 R-EVT-001: An event fires on the first turn whose span overlaps its window `[from, to)` (or at the new game, when the start date is in it), once its `requires` is met and its conditions hold; an objective's card also waits for its objective (R-OBJ-003). Every eligible hard anchor fires. At most 3 soft events fire a turn (`EventSystem.MaxSoftEventsPerTurn`); they take the slots the hard anchors leave, `max(0, 3 - hard anchors)`, and the rest wait for a later turn (Q-CUT-6).
 
