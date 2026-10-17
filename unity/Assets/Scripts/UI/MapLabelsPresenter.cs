@@ -80,8 +80,9 @@ namespace Statecraft.Game.UI
         /// <summary>DESIGN VALUES (proposed on #710, not yet owner-ruled): tiers 1 to 9, doubling from 1,000 people (under
         /// 1,000 is tier 1, 1,000-1,999 tier 2, ..., 128,000 and over tier 9), eight distinct tiers across the twelve cities.</summary>
         public const int TierBase = 1000, TierCount = 9;
-        /// <summary>The badge's left edge inside its pill (Statecraft.uss ".map-label-with-tier" leaves the room).</summary>
-        const float TierInsetPx = 7f;
+        /// <summary>The badge's inset from its pill's edge (Statecraft.uss ".map-label-with-tier" leaves the room), and its width
+        /// (".map-label-tier"); in the Hebrew UI the badge is inset from the right edge (owner, on #897).</summary>
+        const float TierInsetPx = 7f, TierWidthPx = 23f;
         /// <summary>The panels a pill never sits under (Game.uxml names).</summary>
         public static readonly string[] OccluderNames = { "top-bar", "date-plate", "left-column", "info-panel", "minimap", "map-layer", "event-card" };
 
@@ -169,7 +170,7 @@ namespace Statecraft.Game.UI
 
         public MapLabelsPresenter(VisualElement root, MapScene map, Camera camera, Func<float>? zoomDistance = null, Func<Statecraft.Game.Map.Kits.Localities.Place, string?>? tipText = null,
             Func<IReadOnlyList<Bounds[]>?>? keepClear = null, IReadOnlyDictionary<string, decimal>? population = null,
-            Func<int, decimal, string>? tierTip = null)
+            Func<int, decimal, string>? tierTip = null, bool hebrew = false)
         {
             var tip = tipText ?? DefaultTip;
             this.keepClear = keepClear;
@@ -185,13 +186,14 @@ namespace Statecraft.Game.UI
                 var slot = new VisualElement { name = "slot-" + s.Id, pickingMode = PickingMode.Ignore };
                 slot.AddToClassList(SlotClass);
                 var anchorClass = AnchorClass.TryGetValue(s.Id, out var a) ? a : Centre;
-                var label = new Label(s.Name) { name = "label-" + s.Id, pickingMode = PickingMode.Ignore };
+                // #880: the Hebrew UI shows the row's name_he, and the English name where the row has none.
+                var label = new Label(hebrew && !string.IsNullOrWhiteSpace(s.NameHe) ? s.NameHe : s.Name) { name = "label-" + s.Id, pickingMode = PickingMode.Ignore };
                 label.AddToClassList(LabelClass);
                 label.AddToClassList("map-label-" + s.Type);
                 label.AddToClassList(anchorClass);
                 slot.Add(label);
                 // Issue #710: a pill with a 1948 figure (cities.yaml's people) starts with its tier; the rest have no badge.
-                // The badge is the pill's sibling, drawn over its left padding: a child would stop the Label sizing to its text.
+                // The badge is the pill's sibling, drawn over its start padding (left, or right in Hebrew): a child would stop the Label sizing to its text.
                 string? tierText = null;
                 if (population != null && population.TryGetValue(s.Id, out var people))
                 {
@@ -204,7 +206,8 @@ namespace Statecraft.Game.UI
                     float anchorShare = anchorClass == Left ? 0f : anchorClass == Right ? 1f : 0.5f;
                     label.RegisterCallback<GeometryChangedEvent>(e =>
                     {
-                        badge.style.left = -anchorShare * e.newRect.width + TierInsetPx;
+                        // Hebrew reads from the right, so the badge starts the name there (owner, 17 Oct 2026, on #897).
+                        badge.style.left = -anchorShare * e.newRect.width + (hebrew ? e.newRect.width - TierInsetPx - TierWidthPx : TierInsetPx);
                         badge.style.top = -0.5f * e.newRect.height;
                     });
                     tierText = (tierTip ?? DefaultTierTip)(tier, people);
@@ -229,7 +232,7 @@ namespace Statecraft.Game.UI
                 var s = place.Settlement;
                 var slot = new VisualElement { name = "slot-" + s.Id, pickingMode = PickingMode.Ignore };
                 slot.AddToClassList(SlotClass);
-                var label = new Label(s.Name) { name = "label-" + s.Id, pickingMode = PickingMode.Ignore };
+                var label = new Label(hebrew && !string.IsNullOrWhiteSpace(place.NameHe) ? place.NameHe : s.Name) { name = "label-" + s.Id, pickingMode = PickingMode.Ignore };
                 label.AddToClassList(LabelClass); label.AddToClassList(LocalityClass); label.AddToClassList(Centre);
                 slot.Add(label);
                 container.Add(slot);

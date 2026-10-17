@@ -67,6 +67,20 @@ public class MapActionUiTests
         Assert.AreEqual("Transit camps and housing projects can be placed from 1 January 1950", ui.Q<Label>("info-reason").text);
     }
 
+    /// <summary>#881: the sim supplies a refusal kind and ISO date; the Hebrew UI supplies both the words and Hebrew date.</summary>
+    [Test]
+    public void BeforeTheMaabarotTheHebrewPanelSaysWhyInHebrew()
+    {
+        var he = UiText.Parse(AssetDatabase.LoadAssetAtPath<TextAsset>(UiPaths.StringsHebrew).text, "strings.he.yaml");
+        using var ui = new UiTestKit();
+        var g = GameSession.New(C, GoldenRun.Seed, Mode.Historical);
+        var bridge = new SimBridge(g, he);
+        var info = new InfoPanelPresenter(ui.Root, bridge, he, Towns.ToDictionary(t => t.Id, t => t.Name));
+        var tlv = C.SettlementHexes.Single(s => s.Id == "tel_aviv");
+        info.Show(tlv.Q, tlv.R);
+        Assert.AreEqual("אפשר להקים מעברות ומיזמי דיור החל מ־1 בינואר 1950", ui.Q<Label>("info-reason").text);
+    }
+
     [Test]
     public void ATransitCampIsOrderedAndBuiltAtEndTurn()
     {
@@ -84,7 +98,8 @@ public class MapActionUiTests
         Assert.AreEqual("A transit camp built here in August 1950", ui.Q<Label>("info-placement").text);
     }
 
-    /// <summary>#701: in the Hebrew UI the build date names its month in Hebrew (date.month_year), not "August 1950".</summary>
+    /// <summary>#701: in the Hebrew UI the build date names its month in Hebrew (date.month_year), not "August 1950". The line
+    /// is a date label with no verb (Beri, 17 October 2026), since a fixed "נבנה" is wrong for a feminine name ("מעברה").</summary>
     [Test]
     public void InHebrewTheBuildDateIsAHebrewMonth()
     {
@@ -98,7 +113,9 @@ public class MapActionUiTests
         info.Show(tlv.Q, tlv.R);
         ui.Press("build-camp");
         bridge.EndTurn();
-        StringAssert.EndsWith("נבנה כאן באוגוסט 1950", ui.Q<Label>("info-placement").text);
+        var line = ui.Q<Label>("info-placement").text;
+        StringAssert.EndsWith(" – תאריך הקמה: אוגוסט 1950", line);
+        StringAssert.DoesNotContain("נבנה", line, "no gendered verb");
     }
 
     /// <summary>The minimap's painted relief (tools/minimap_bake.py) is north up over the hex grid's bounds: sea off Tel Aviv

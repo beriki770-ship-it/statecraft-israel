@@ -580,9 +580,12 @@ Button:disabled { color: var(--ink-dim); border-color: rgba(120, 120, 120, 0.4);
 }
 .map-label-city { font-size: 23px; color: rgb(250, 242, 224); }
 .map-label-town, .map-label-arab_town { font-size: 19px; }
-/* The population tier (#710): the city's static 1948 tier as a gold disc at the start of its name, over the pill's left
-   padding. The disc is the pill's sibling in its slot; MapLabelsPresenter sets its left and top from the pill's size. */
+/* The population tier (#710): the city's static 1948 tier as a gold disc at the start of its name, over the pill's start
+   padding (left, or right in Hebrew). The disc is the pill's sibling in its slot; MapLabelsPresenter sets its left and
+   top from the pill's size. */
 .map-label-with-tier { padding-left: 36px; }
+/* The Hebrew UI mirrors it: the disc starts a Hebrew name on the right (owner, on #897); 12px is .map-label's own padding. */
+.lang-he .map-label-with-tier { padding-left: 12px; padding-right: 36px; }
 .map-label-tier {
     position: absolute;
     translate: 0 -50%;

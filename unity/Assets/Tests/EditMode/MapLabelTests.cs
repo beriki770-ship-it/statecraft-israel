@@ -391,6 +391,43 @@ public class MapLabelTests
         finally { labels.Dispose(); hd.Dispose(); }
     }
 
+    /// <summary>Owner decision on #897 (17 October 2026, "Yes, mirror it"): in the Hebrew UI the tier badge sits at the start of
+    /// the Hebrew name, which is the pill's right; inside the pill and clear of the name. The English pill keeps it on the left.</summary>
+    [UnityTest]
+    public IEnumerator InHebrewTheTierBadgeSitsOnTheRightOfThePill()
+    {
+        var people = Statecraft.Sim.ContentLoader.Load(Statecraft.Game.Paths.Content).Cities
+            .Where(c => c.People != null).ToDictionary(c => c.Id, c => c.People!.Value);
+        foreach (var hebrew in new[] { true, false })
+        {
+            var hd = new HdPanel(cam);
+            if (hebrew) (hd.Root.Q("root") ?? hd.Root).AddToClassList(UiLanguage.HebrewClass);
+            var labels = new MapLabelsPresenter(hd.Root, map, cam, population: people, hebrew: hebrew);
+            try
+            {
+                Pose(34.99, 32.80, 40000f);
+                yield return Settle(labels);
+                var haifa = labels.Labels.Single(l => l.name == "label-haifa");
+                Assert.IsTrue(Shown(labels.Slots.Single(x => x.name == "slot-haifa")), "Haifa is named at 40 km");
+                var pill = haifa.worldBound;
+                var badge = labels.Slots.Single(x => x.name == "slot-haifa").Q<Label>(className: MapLabelsPresenter.TierClass).worldBound;
+                TestContext.WriteLine($"{(hebrew ? "he" : "en")} '{haifa.text}': pill {pill}, badge {badge}");
+                Assert.IsTrue(pill.Contains(badge.min) && pill.Contains(badge.max - Vector2.one * 0.01f), $"the badge {badge} lies inside its pill {pill}");
+                if (hebrew)
+                {
+                    Assert.Greater(badge.center.x, pill.center.x, "Hebrew: at the start of the name, on the right");
+                    Assert.GreaterOrEqual(badge.xMin, pill.xMax - haifa.resolvedStyle.paddingRight, "Hebrew: clear of the name's text");
+                }
+                else
+                {
+                    Assert.Less(badge.center.x, pill.center.x, "English: on the left, unchanged");
+                    Assert.LessOrEqual(badge.xMax, pill.xMin + haifa.resolvedStyle.paddingLeft, "English: clear of the name's text");
+                }
+            }
+            finally { labels.Dispose(); hd.Dispose(); }
+        }
+    }
+
     /// <summary>Owner rulings 2026-10-11 and 2026-10-12: the 1948 localities are named by their 1948 names only at close zoom,
     /// with today's name in a tooltip only where a living place carries on. At 30 km over Beisan its pill reads "Beisan"
     /// and, with the pointer over it (the hit test Hover runs, in the layer's coordinates), the tooltip "Today: Beit She'an"
