@@ -48,7 +48,7 @@ R-CITY-008: `GameState.Population` is the one record of the nation's people: it 
 
 R-CITY-004: Each turn, `min(refugees, max(0, housing_capacity - civilians))` of a city's refugees become civilians without a job. The cap is a placeholder while overflow (D-D1) is open.
 
-R-CITY-005: Social cohesion is `clamp(0, 1, cohesion_housing_weight * housed + cohesion_jobs_weight * employed)`, where `housed` is civilians over civilians and refugees (1 with nobody) and `employed` is employed over civilians (1 with none), over all cities. It is a placeholder while D-C1 is open: no other system reads it.
+R-CITY-005: The cities' employed share (employed over civilians, summed over all cities; 1 with no civilians) is an effect-web source of `morale`, Social cohesion (`work_lifts_cohesion`, source id `employed_share`), read after the turn's housing. The legacy loop has no cities, so there it reads 0 and adds nothing. Housing reaches Social cohesion through the existing `housing` link (`homes_lift_morale`) until Phase 3 makes it the cities' aggregate (Q-NAT-2, decided 15 October 2026). Phase 1's separate cohesion value and its two weights are gone (D-C1, Reading 2).
 
 R-CITY-006: The cities are the `city` and `town` rows of `map/settlements_1948.yaml`, in that file's order, and their start values are `cities.yaml`'s. Each of a city's values (`people`, `employed_share`, `housing_capacity`, `job_slots`) is required and has a status: `sourced` (read from the source named), `derived` (computed from sourced values), `wikipedia-only` (an owner-accepted Wikipedia figure) or `design` (a labelled design value, R-LOOP-005). A `sourced`, `derived` or `wikipedia-only` value has at least one source, each with a url and a checked date, and the day (YYYY-MM-DD) or month (YYYY-MM) it describes; the loader refuses a value without them, naming the file and field (GDD Phase 3 plan, review focus 3).
 
@@ -107,3 +107,15 @@ D-C5 as decided (12 October 2026): the cabinet and Attention stay, the coalition
 R-GOV-001: In the GDD loop the coalition's stability never ends the game: it still moves toward public approval each turn and still weights the coalition votes, but a value below 0.2 (`PoliticsSystem.CollapseBelow`) sets no `coalition_collapse` (D-B5: "Coalition collapse is off in the MVP"). The legacy loop keeps its collapse while the legacy code exists (D-E1).
 
 R-GOV-002: Every GDD order kind has an `attention_cost` in the real rules (a design value, R-LOOP-005), the unit orders `pioneer_work` and `stop_work` cost 0 (D-A6: unit orders are free), and a refused order costs nothing: its Attention is refunded before the next order in the turn is priced.
+
+## National parameters
+
+The GDD's Social cohesion and International Support (D-C1, decided 15 October 2026: "0–1 indicators through the effects web. Cohesion replaces `morale` on screen. Thresholds as situations"). Their numbers are labelled design values in `model.yaml` (Reading 1).
+
+R-NAT-001: Social cohesion is the 0 to 1 `morale` indicator, shown to the player as Social cohesion; its id stays, so no event changes (Reading 2). Its sources are the existing homes, rationing and security links, the cities' employed share (R-CITY-005) and `food_supply`, so a Food shortage lowers it (`food_lifts_cohesion`; Q-NAT-2). Approval keeps its weights, which now read Social cohesion through `morale` (Q-NAT-5).
+
+R-NAT-002: "Low social cohesion" (`low_cohesion`) is a situation on `morale`: on below 0.30, off above 0.45, as `food_crisis`. It has no mechanical effect of its own; events can read it through their indicator conditions (Q-NAT-3).
+
+R-NAT-003: International Support is the 0 to 1 `intl_standing` indicator, shown as International support; event effects on `intl_standing` move it (Q-NAT-4).
+
+R-NAT-004: "Low international support" (`low_intl_support`) is a situation on `intl_standing` with the same bands and, likewise, no effect of its own (Q-NAT-3).

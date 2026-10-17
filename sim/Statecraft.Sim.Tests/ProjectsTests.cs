@@ -268,7 +268,7 @@ public class ProjectsTests
         Assert.NotNull(built.Sites["site_a"].BuiltOn);
         Assert.Equal(idle.Cities.Values.Select(x => x.Canonical()), built.Cities.Values.Select(x => x.Canonical()));
         Assert.Equal(idle.Units.Values.Select(x => x.Canonical()), built.Units.Values.Select(x => x.Canonical()));
-        Assert.Equal(idle.Cohesion, built.Cohesion);
+        Assert.Equal(idle.Indicators["morale"], built.Indicators["morale"]);   // Social cohesion
         Assert.Equal(idle.Treasury - 1.5, built.Treasury, 9);   // only the cost paid at the start: founding adds no Money
         Assert.Equal(idle.Debt, built.Debt);
     }

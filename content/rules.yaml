@@ -29,8 +29,6 @@ mvp:
   end: 1952-01-15
   people_per_unit: 1000                  # DESIGN VALUE: owner-set balance, not a historical figure (D-A1: people in one population unit)
   income_per_job_per_year: 0.06          # DESIGN VALUE: owner-set balance, not a historical figure (D-C6: IL millions per employed unit a year)
-  cohesion_housing_weight: 0.5           # DESIGN VALUE: owner-set balance, not a historical figure (D-C1, until Phase 2 PR 4)
-  cohesion_jobs_weight: 0.5              # DESIGN VALUE: owner-set balance, not a historical figure (D-C1, until Phase 2 PR 4; the two weights sum to 1)
   # The day the cities start taking arrivals (R-CITY-003; Q-ARRV-3, owner, 15 October 2026, #375): the census day of their
   # start values, 8 November 1948 (CBS Statistical Abstract of Israel No. 14, Table 11, pp. 30-31). The census already
   # counts the people who arrived from 15 May, so the cities take none before it; the national head count takes them all.

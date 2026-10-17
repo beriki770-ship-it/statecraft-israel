@@ -653,6 +653,9 @@ namespace Statecraft.Sim
             var parties = new HashSet<string>(c.Parties.Select(p => p.Id));
             var indicators = new HashSet<string>(c.Indicators.Select(i => i.Id));
             var sources = new HashSet<string>(c.Policies.Select(p => p.Id).Concat(indicators));
+            // The cities' employed share (R-CITY-005). Accepted in both loops, so the real content still loads with the loop
+            // switch taken out (Unity's SimBridgeGddTests.Legacy); with no cities it reads 0 (EffectsSystem.Source).
+            sources.Add(Cities.EmployedShareSource);
             Unique("offices.yaml", "offices", c.Offices.Select(o => o.Id));
             Unique("parties.yaml", "parties", c.Parties.Select(p => p.Id));
             Unique("people.yaml", "people", c.People.Select(p => p.Id));
@@ -1036,10 +1039,6 @@ namespace Statecraft.Sim
                 if (m.PeoplePerUnit != c.Rules.Mvp!.PeoplePerUnit)
                     throw new ContentException(file, "mvp.people_per_unit", "must be the same in every era (arrivals are counted in one unit size)");
                 if (!(m.IncomePerJobPerYear >= 0 && IsFinite(m.IncomePerJobPerYear))) throw new ContentException(file, "mvp.income_per_job_per_year", "must be a finite number >= 0");
-                Unit(file, "mvp.cohesion_housing_weight", m.CohesionHousingWeight);
-                Unit(file, "mvp.cohesion_jobs_weight", m.CohesionJobsWeight);
-                if (Math.Abs(m.CohesionHousingWeight + m.CohesionJobsWeight - 1) > 1e-9)
-                    throw new ContentException(file, "mvp.cohesion_jobs_weight", "the two cohesion weights must sum to 1");
                 // R-CITY-003: the cities count arrivals from one day; another day in a later era would lose or double-count units.
                 if (m.CityArrivalsFrom == default) throw new ContentException(file, "mvp.city_arrivals_from", "required when eras.yaml systems.loop is gdd");
                 if (m.CityArrivalsFrom != c.Rules.Mvp!.CityArrivalsFrom) throw new ContentException(file, "mvp.city_arrivals_from", "must be the same in every era (the cities count arrivals from one day)");

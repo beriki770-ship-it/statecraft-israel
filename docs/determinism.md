@@ -28,9 +28,9 @@ final `GameState.Hash()` is pinned:
 
 | Run | Ends | Hash |
 |---|---|---|
-| to 1950-01-01 (`Hash1950`) | 1950-01-15, turn 20 | `d22b369fa9d269a2311a51ab26ef8e0069c3e55f8febfa0376340dd03e012b8a` |
-| to 1952-01-01 (`Hash1952`) | 1952-01-15, turn 44 (the game's end) | `21029217387d875c8723f0a99e46f199fa3181ba979352ac8200c6d5045e1322` |
-| to the game's end (`mvp-end`) | 1952-01-15, turn 44 | `21029217387d875c8723f0a99e46f199fa3181ba979352ac8200c6d5045e1322` |
+| to 1950-01-01 (`Hash1950`) | 1950-01-15, turn 20 | `2766b45b13c63daa7b6a71bfa8b40a8c52f542a6d6ddcf70ac0810fa27d952be` |
+| to 1952-01-01 (`Hash1952`) | 1952-01-15, turn 44 (the game's end) | `f8cd22d7b754d5f7d5cc24b9b4576cedd4940fdb28d987ad86cd7004bead9e59` |
+| to the game's end (`mvp-end`) | 1952-01-15, turn 44 | `f8cd22d7b754d5f7d5cc24b9b4576cedd4940fdb28d987ad86cd7004bead9e59` |
 
 `hash1952` stops at the first turn on or after 1 January 1952, which is the game's last turn, so it is the same run as
 `mvp-end` (`DeterminismTests.TheWholeGameToItsEndIsFixed`). Both names are kept (spec 2026-10-12 section 3 step 6): a
@@ -39,15 +39,15 @@ check `hash1950` and `hash1952`.
 
 A further value is pinned for the browser smoke run (`?smoke=5`: the golden seed, five turns played through the UI's own
 buttons, answering each event with its first option while the turn's Attention pays for it, the rest left to their
-ministers): `SMOKE OK 5 turns 1948-10-15 3f7a0fe0d5f22e83edd00c8a913a8d216b4420c36907b11e2ec9406baecdad56`.
+ministers): `SMOKE OK 5 turns 1948-10-15 2436927c8b24f28c42be0e7b5a6fe30900f2f6c6a3ba77e4be943c1f50db57cc`.
 It depends on the UI path as well as the sim (which option is first, the turn grid), so re-record it when either changes.
 Check every build with:
 
 ```
 uv run tools/web_check.py unity/Builds/Web-<compression> --query "golden&smoke=5" \
-  --expect "GOLDEN OK 1950 d22b369fa9d269a2311a51ab26ef8e0069c3e55f8febfa0376340dd03e012b8a" \
-  --expect "GOLDEN OK 1952 21029217387d875c8723f0a99e46f199fa3181ba979352ac8200c6d5045e1322" \
-  --expect "SMOKE OK 5 turns 1948-10-15 3f7a0fe0d5f22e83edd00c8a913a8d216b4420c36907b11e2ec9406baecdad56"
+  --expect "GOLDEN OK 1950 2766b45b13c63daa7b6a71bfa8b40a8c52f542a6d6ddcf70ac0810fa27d952be" \
+  --expect "GOLDEN OK 1952 f8cd22d7b754d5f7d5cc24b9b4576cedd4940fdb28d987ad86cd7004bead9e59" \
+  --expect "SMOKE OK 5 turns 1948-10-15 2436927c8b24f28c42be0e7b5a6fe30900f2f6c6a3ba77e4be943c1f50db57cc"
 ```
 
 **When a golden moves.** The test fails with the lines that changed, grouped by section (`[ind]`, `[pol]`, `[bud]`,
@@ -245,3 +245,10 @@ The hash reads the state keys, so it never sees a record outside its window. An 
 | GDD Phase 3 PR 2 | scenario-cautious | `a9afb0ad` | the arrivals over the cities; `city{}` and `coh` only (was `5f162f0f`) |
 | GDD Phase 3 PR 2 | scenario-reckless | `8f209d56` | same (was `a10877e2`) |
 | GDD Phase 3 PR 2 | scenario-mvp-absorb-first | `8601da93` | same (was `53852f2c`) |
+| GDD Phase 2 PR 4 | 1950 | `2766b45b` | Social cohesion is `morale` (D-C1, Reading 2; R-CITY-005, R-NAT-001): the `coh=` line goes (a hash format change), and two new effect-web sources of `morale`, `work_lifts_cohesion` (the cities' employed share) and `food_lifts_cohesion` (`food_supply`), k 0.10 and inertia 2 each, act every turn (Q-NAT-2). `morale` ends at 0.5545 (was 0.4255); approval reads it (Q-NAT-5), so `stab` ends at 0.5612 (was 0.5123). Two new situations, `low_cohesion` and `low_intl_support`, do not fire in the run (was `d22b369f`) |
+| GDD Phase 2 PR 4 | 1952 | `f8cd22d7` | same; `morale` ends at 0.5691 (was 0.4388), `stab` at 0.5683 (was 0.5098) (was `21029217`) |
+| GDD Phase 2 PR 4 | mvp-end | `f8cd22d7` | same; the same run as hash1952 (was `21029217`) |
+| GDD Phase 2 PR 4 | smoke5 | `2436927c` | the `coh=` line goes and the two new sources of `morale` (was `3f7a0fe0`) |
+| GDD Phase 2 PR 4 | scenario-cautious | `28fd1405` | same; `morale` ends at 0.6183 (was 0.5296) (was `a9afb0ad`) |
+| GDD Phase 2 PR 4 | scenario-reckless | `af7b2abd` | same (was `8f209d56`) |
+| GDD Phase 2 PR 4 | scenario-mvp-absorb-first | `b16a8740` | same (was `8601da93`) |

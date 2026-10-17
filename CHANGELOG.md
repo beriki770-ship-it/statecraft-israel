@@ -24,6 +24,11 @@ adds a line under **Unreleased**; CI's `Changelog` job checks this (see `CONTRIB
   MVP"). Its stability still follows public approval and still weights the coalition votes; the legacy loop keeps its
   collapse. R-GOV-002 pins what the GDD orders cost in Attention: each has a price, the unit orders are free, and a
   refused order is refunded. No golden moves: no reference run's stability falls below 0.2.
+- Social cohesion is now the `morale` indicator, shown as "Social cohesion" (refs #728; GDD Phase 2 PR 4, D-C1).
+  The cities' employed share and `food_supply` feed it through the effects web beside homes and safety, so idle workers
+  and a Food shortage lower it (Q-NAT-2). "Low social cohesion" and "Low international support" are new situations,
+  on below 30% and off above 45%. Phase 1's separate cohesion value, its `coh=` hash line and its two weights are gone;
+  the top bar's meter reads `morale`. The new numbers are labelled design values. Every golden is re-pinned.
 - The Negev's sand is a warmer orange, toward promo 02 (refs #709, #695, #388; the owner chose this step on 16 October
   2026): the desert ground colour has less blue (`MapPalette`), re-baked into `BiomeColours.bytes` and the minimap relief.
   The #519 grade is unchanged.
