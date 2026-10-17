@@ -32,6 +32,10 @@ adds a line under **Unreleased**; CI's `Changelog` job checks this (see `CONTRIB
 - In the Hebrew UI the info panel's build line is a date label with no verb, "{0} – תאריך הקמה: {1}" (refs #701), since
   the fixed masculine "נבנה" read wrong for a feminine name ("מעברה נבנה"). Beri approved the wording as a native speaker.
   English is unchanged.
+- Under `?lang=he` the info panel's queued and built lines name the map action in Hebrew ("ניתנה פקודה: מעברה, בסיום
+  התור", "מעברה – תאריך הקמה: אוגוסט 1950"), from #924's `info.map_action.*` strings, instead of the content's English
+  name. The built line no longer runs left to right or wraps "1950" in the panel. No new strings; English is unchanged
+  (Fixes #929).
 - `EventImageMappingTests.EveryPictureHasItsProvenanceRow` no longer lists `first_new_yishuv` as waiting for the owner's sign-off. Its `ASSETS.yaml` row became `verified` in #913 (owner, 17 Oct 2026, "Approve both", #879), so the test failed on main.
 - In the Hebrew UI the map's name pills show each row's `name_he`: the game settlements ("נהלל", "תל אביב") and
   the 1948 localities that have one. The thirteen localities with no `name_he` keep their English name, and the

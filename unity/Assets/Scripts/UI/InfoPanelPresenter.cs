@@ -262,8 +262,10 @@ namespace Statecraft.Game.UI
             ShowLocalities(localitiesAt == null ? "" : LocalitiesText(text, localitiesAt(q, r)));
             var here = MapActions.At(s, q, r);
             var queued = bridge.QueuedLike(new MapAction(MapActions.Housing, q, r)) as MapAction;
-            placement.text = queued != null ? text.Format("info.queued", PlayerText.Capitalised(PlayerText.MapAction(c, queued.Action)))
-                : here != null ? text.Format("info.built", PlayerText.Capitalised(PlayerText.MapAction(c, here.Action)),
+            // The action's name from the UI strings (#929): PlayerText.MapAction is the content's English name (#924's tools
+            // test keeps the English string equal to it).
+            placement.text = queued != null ? text.Format("info.queued", PlayerText.Capitalised(text["info.map_action." + queued.Action]))
+                : here != null ? text.Format("info.built", PlayerText.Capitalised(text["info.map_action." + here.Action]),
                     Control1948.LineDateText(here.Date.ToString("yyyy-MM", System.Globalization.CultureInfo.InvariantCulture), k => text[k])) : "";   // PlayerText.Month is always English (#701)
             var campReason = MapActions.CheckReason(c, s, MapActions.TransitCamp, q, r);
             var housingReason = MapActions.CheckReason(c, s, MapActions.Housing, q, r);
