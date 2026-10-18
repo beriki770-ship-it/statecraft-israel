@@ -217,11 +217,13 @@ public class HebrewUiTests
         ("meter-security/meter-name", "hud.caption.security"), ("meter-support/meter-name", "hud.caption.support"),
         ("meter-cohesion/meter-name", "hud.caption.cohesion"), ("meter-standing/meter-name", "hud.caption.standing"), ("meter-fx/meter-name", "hud.caption.fx"),
         ("nav-cabinet", "hud.nav.cabinet"), ("nav-budget", "hud.nav.budget"), ("nav-defence", "hud.nav.defence"),
-        ("nav-why", "hud.nav.why"), ("new-game", "hud.new_game"), ("end-turn", "hud.end_turn"),
+        ("nav-why", "hud.nav.why"), ("nav-how-to-play", "hud.nav.how_to_play"),
+        ("new-game", "hud.new_game"), ("end-turn", "hud.end_turn"),
         ("event-draft", "event.draft"),
         ("budget-screen-title", "budget.title"), ("budget-reset", "budget.reset"), ("budget-submit", "budget.submit"),
         ("defence-screen-title", "defence.title"), ("de-escalate", "defence.lower"), ("escalate", "defence.raise"),
         ("why-screen-title", "why.title"),
+        ("how-to-play-title", "how_to_play.title"),
         ("nav-settings", "hud.nav.settings"), ("settings-screen-title", "settings.title"), ("settings-tiltshift-label", "settings.tiltshift"),
         ("settings-quality-label", "settings.quality"), ("settings-quality-auto", "settings.quality.auto"),
         ("settings-quality-high", "settings.quality.high"), ("settings-quality-low", "settings.quality.low"),
@@ -300,7 +302,9 @@ public class HebrewUiTests
     }
 
     /// <summary>#880: in Hebrew every map name pill shows its row's name_he, and its English name where the row has none (a
-    /// 1948 locality such as Na'ana); an English restart puts the English names back.</summary>
+    /// 1948 locality such as Na'ana); an English restart puts the English names back. #1008: a GDD v0.2 map location
+    /// (content/map/locations_1948.yaml) is named in both languages too, and the one with a settlement's id (jerusalem)
+    /// names that settlement's pill: "מערב ירושלים", "West Jerusalem".</summary>
     [Test]
     public void InHebrewEachMapPillShowsItsHebrewNameWhereTheRowHasOne()
     {
@@ -315,15 +319,20 @@ public class HebrewUiTests
         Assert.AreEqual("תל אביב", Ui.Q<Label>("label-tel_aviv").text);
         Assert.AreEqual("נשר", Ui.Q<Label>("label-nesher").text, "a 1948 locality with a name_he");
         Assert.AreEqual("Na'ana", Ui.Q<Label>("label-naana").text, "no name_he: the English name stays");
+        var locations = Inputs.Content.MapLocations.ToDictionary(l => l.Id);
+        Assert.AreEqual("מערב ירושלים", Ui.Q<Label>("label-jerusalem").text, "#1008: Jerusalem's pill is West Jerusalem's");
         foreach (var s in map.Settlements)
-            Assert.AreEqual(string.IsNullOrWhiteSpace(s.NameHe) ? s.Name : s.NameHe, Ui.Q<Label>("label-" + s.Id).text, s.Id);
+            Assert.AreEqual(locations.TryGetValue(s.Id, out var named) ? named.NameHe : string.IsNullOrWhiteSpace(s.NameHe) ? s.Name : s.NameHe, Ui.Q<Label>("label-" + s.Id).text, s.Id);
+        foreach (var l in locations.Values) Assert.AreEqual(l.NameHe, Ui.Q<Label>("label-" + l.Id).text, l.Id);
         foreach (var p in map.Localities)
             Assert.AreEqual(string.IsNullOrWhiteSpace(p.NameHe) ? p.Settlement.Name : p.NameHe, Ui.Q<Label>("label-" + p.Settlement.Id).text, p.Settlement.Id);
 
         game.Language = UiLanguage.English;
         game.Begin(Inputs, 0);
         Assert.AreEqual("Nahalal", Ui.Q<Label>("label-nahalal").text);
-        foreach (var s in map.Settlements) Assert.AreEqual(s.Name, Ui.Q<Label>("label-" + s.Id).text, $"after an English restart: {s.Id}");
+        foreach (var s in map.Settlements)
+            Assert.AreEqual(locations.TryGetValue(s.Id, out var named) ? named.Name : s.Name, Ui.Q<Label>("label-" + s.Id).text, $"after an English restart: {s.Id}");
+        foreach (var l in locations.Values) Assert.AreEqual(l.Name, Ui.Q<Label>("label-" + l.Id).text, $"after an English restart: {l.Id}");
         foreach (var p in map.Localities) Assert.AreEqual(p.Settlement.Name, Ui.Q<Label>("label-" + p.Settlement.Id).text, $"after an English restart: {p.Settlement.Id}");
     }
 
