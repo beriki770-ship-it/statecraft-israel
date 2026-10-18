@@ -76,7 +76,7 @@ namespace Statecraft.Game.UI
             scales = Array.ConvertAll(UiScales, percent =>
             {
                 var b = screen.Q<Button>("settings-uiscale-" + percent);
-                b.text = PlayerText.Percent(percent / 100.0);
+                b.text = PlayerText.Percent(Level(percent));
                 Action pick = () => PickScale(percent);
                 b.clicked += pick;
                 return (b, percent, pick);
@@ -144,11 +144,15 @@ namespace Statecraft.Game.UI
             }
         }
 
+        /// <summary>A UI scale's level (1.25 for 125%): the stored values and the buttons' names are whole percents.</summary>
+        static double Level(int percent) => percent / 100.0;
+
         void ApplyScale(int percent)
         {
             uiScale = percent;
+            var level = Level(percent);
             if (panel != null)
-                panel.referenceResolution = new Vector2Int(Mathf.RoundToInt(reference.x * 100f / percent), Mathf.RoundToInt(reference.y * 100f / percent));
+                panel.referenceResolution = new Vector2Int(Mathf.RoundToInt((float)(reference.x / level)), Mathf.RoundToInt((float)(reference.y / level)));
         }
 
         void Show()
