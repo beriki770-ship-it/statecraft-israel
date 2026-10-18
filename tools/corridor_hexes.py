@@ -10,8 +10,9 @@ content/map/routes_1948.yaml (the waypoints) and content/map/route_paths_1948.ya
 `hexes: [...]` of every segment line in corridors.yaml in place, so its comments survive. A segment runs along the
 traced line from the point nearest the previous waypoint (the route's first waypoint for the first segment) to the
 point nearest its own `to` waypoint; its hexes are the hexes that stretch crosses, in order (tools/hexgrid.py's grid),
-sampled every SAMPLE_KM. Consecutive segments share the waypoint's hex. --check writes nothing and exits 1 when the
-committed hexes differ from a fresh derivation (tools/tests/test_corridor_hexes.py runs the same check in CI).
+sampled every SAMPLE_KM; a point in a sea hex counts in its nearest land neighbour, as a shore town does. Consecutive
+segments share the waypoint's hex. --check writes nothing and exits 1 when the committed hexes differ from a fresh
+derivation (tools/tests/test_corridor_hexes.py runs the same check in CI).
 """
 from __future__ import annotations
 
@@ -94,12 +95,16 @@ def derive(corridors: list[dict], routes: list[dict], paths: list[dict], grid: d
             pts = [_point_at(line, at + (end - at) * i / (n - 1)) for i in range(n)]
             qs, rs = hg.point_to_hex(np.array([p[0] for p in pts]), np.array([p[1] for p in pts]), size)
             hexes: list[list[int]] = []
-            for q, r in zip(qs, rs):
+            for p, q, r in zip(pts, qs, rs):
+                if (q, r) not in land:
+                    # A shore point in a hex the grid counts as sea (the Tel Aviv-Netanya road along the coast) belongs to
+                    # the land neighbour with the nearest centre: hexgrid.settlement_hex's rule for shore towns.
+                    options = [(q + dq, r + dr) for dq, dr in hg.NEIGHBOURS if (q + dq, r + dr) in land]
+                    if not options:
+                        raise ValueError(f"{cid}: the segment to {e!r} crosses hex q={q} r={r}, with no land hex next to it")
+                    q, r = min(options, key=lambda h: math.dist(hg.hex_center_km(*h, size), p))
                 if not hexes or hexes[-1] != [q, r]:
                     hexes.append([q, r])
-            for q, r in hexes:
-                if (q, r) not in land:
-                    raise ValueError(f"{cid}: the segment to {e!r} crosses hex q={q} r={r}, which is not land")
             segments.append(hexes)
             at = end
         out[cid] = segments

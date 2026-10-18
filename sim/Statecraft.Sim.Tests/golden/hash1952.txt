@@ -45,7 +45,7 @@ sit[
   fx_crisis
   housing_crisis
 treasury=0 [0000000000000000]
-debt=223.89012071283815 [406BFC7BDE6EE43A]
+debt=225.89012071283815 [406C3C7BDE6EE43A]
 fx=-12.990431328096559 [C029FB19D0A63796]
 rung=2;cf=0;
 mob=0.05 [3FA999999999999A]
@@ -158,6 +158,8 @@ cproj[
   5:housing@tel_aviv,-2,18/done,1951-02-15
   6:housing@tel_aviv,-2,19/done,1951-08-15
   7:housing@haifa,4,9/1
+corr{
+  burma_road=b,1,2;-;-;-
 next=8
 obj{
   first_new_yishuv=1950-03-15

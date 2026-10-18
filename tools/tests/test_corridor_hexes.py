@@ -51,3 +51,12 @@ def test_a_segment_must_end_at_a_waypoint_of_its_route():
     bad = [dict(CORRIDORS[0], segments=[{"to": "Nowhere", "hexes": []}])]
     with pytest.raises(ValueError, match="ends at a waypoint"):
         ch.derive(bad, ROUTES, PATHS, GRID)
+
+
+def test_the_tel_aviv_netanya_road_has_one_segment_between_each_pair_of_its_places():
+    """Q-COR-2 and Q-COR-3 (b) (owner, 18 October 2026, #786): four road segments on the straight draft line, one between
+    each pair of the five sourced places, the last ending at Netanya."""
+    road = next(c for c in CORRIDORS if c["id"] == "tlv_netanya_road")
+    via = [w["name"] for w in next(r for r in ROUTES if r["id"] == "tlv_netanya_road")["via"]]
+    assert (road["kind"], road["route"], road["status"]) == ("road", "tlv_netanya_road", "draft")
+    assert [s["to"] for s in road["segments"]] == via[1:]

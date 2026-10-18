@@ -32,12 +32,14 @@ public class CorridorsContentTests
     }
 
     /// <summary>The owner's answers of 17 October 2026 (#782): the Burma Road on its traced line, one segment between each pair
-    /// of its five waypoints (Q-COR-1, Q-COR-2), and the 1949 rail link as the Yarkon link alone (Q-RAIL-1).</summary>
+    /// of its five waypoints (Q-COR-1, Q-COR-2), and the 1949 rail link as the Yarkon link alone (Q-RAIL-1); and of 18 October
+    /// 2026 (#786, Q-COR-3 (b)): the Tel Aviv–Netanya road as straight draft lines between its five sourced places, four
+    /// segments.</summary>
     [Fact]
-    public void TheMvpHasTheBurmaRoadAndTheRailLink()
+    public void TheMvpHasTheBurmaRoadTheRailLinkAndTheNetanyaRoad()
     {
         var c = ContentLoader.Load(RealContentTests.ContentRoot());
-        Assert.Equal(new[] { ("burma_road", "road", 4), ("tlv_haifa_rail", "rail", 1) },
+        Assert.Equal(new[] { ("burma_road", "road", 4), ("tlv_haifa_rail", "rail", 1), ("tlv_netanya_road", "road", 4) },
                      c.Corridors.Select(x => (x.Id, x.Kind, x.Segments.Count)));
         var m = c.Rules.Mvp!;
         Assert.Equal((6, 2.0, 6, 4.0), (m.RoadSegmentTurns, m.RoadSegmentCost, m.RailSegmentTurns, m.RailSegmentCost));   // Q-COR-6

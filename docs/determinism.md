@@ -29,8 +29,8 @@ final `GameState.Hash()` is pinned:
 | Run | Ends | Hash |
 |---|---|---|
 | to 1950-01-01 (`Hash1950`) | 1950-01-15, turn 20 | `9922495a92307f87d7b5338cd8501fb60ad0424ea6b19ef2d1ec55c44a8bdfb8` |
-| to 1952-01-01 (`Hash1952`) | 1952-01-15, turn 44 (the game's end) | `722d90a214d8f328fa9e534ab19a8e973de21cdee645aaa6983fe88b3cc55c08` |
-| to the game's end (`mvp-end`) | 1952-01-15, turn 44 | `722d90a214d8f328fa9e534ab19a8e973de21cdee645aaa6983fe88b3cc55c08` |
+| to 1952-01-01 (`Hash1952`) | 1952-01-15, turn 44 (the game's end) | `7a2c4e3423239a6f34646521926d291777945fecb9148c6391338cffdc855442` |
+| to the game's end (`mvp-end`) | 1952-01-15, turn 44 | `7a2c4e3423239a6f34646521926d291777945fecb9148c6391338cffdc855442` |
 
 `hash1952` stops at the first turn on or after 1 January 1952, which is the game's last turn, so it is the same run as
 `mvp-end` (`DeterminismTests.TheWholeGameToItsEndIsFixed`). Both names are kept (spec 2026-10-12 section 3 step 6): a
@@ -298,6 +298,5 @@ The hash reads the state keys, so it never sees a record outside its window. An 
 | #457 item 9 (official records) | 1952 | `722d90a2` | owner ruling "Follow the official records" (18 October 2026, #457): `education_registration_1951` opens on 12 February 1951, its first cited plenum record (was 29 November 1950), so the card fires on 15 February 1951 instead of 15 December 1950 and its morale cost lands two turns later. At the end only coalition stability moves (0.443222 to 0.443592). The same PR's Education vacancy from 19 May to 8 October 1951 (item 8) and the 14 May 1948 start (item 2, unchanged) move no golden: measured with the event date as before (was `548a6acc`) |
 | #457 item 9 (official records) | mvp-end | `722d90a2` | same; the same run as hash1952 (was `548a6acc`) |
 | #457 item 9 (official records) | scenario-mvp-defeat | `19143463` | same card date; at the end only coalition stability moves (0.457037 to 0.457407), and the scenario still ends in `defeat_economy` on 15 January 1952 (was `d1e0dcf6`) |
-| GDD Phase 4 PR 2 | 1950 | `f5dc2971` | GDD Phase 4 PR 2's corridors (R-COR-001 to R-COR-003, #786), with the veteran rule on segments (R-VET-001, R-VET-002): once the four yishuv sites are taken (Re'im on 1949-12-15), the reference player's veteran group starts the Burma Road's first segment. At the end of the 1950 run (1950-01-15) it is 2 turns in (`burma_road=b,1,2;-;-;-`), and the debt is IL 2m higher (was `ef765972`) |
-| GDD Phase 4 PR 2 | 1952 | `92405d82` | same; at 2 turns of progress a turn the Burma Road's segments are built on 1950-03-15, 06-15, 09-15 and 12-15, and the rail link's one segment on 1951-03-15. The debt is IL 12m higher (4 road segments at IL 2m and 1 rail segment at IL 4m, borrowed) (was `7b4bffe0`) |
-| GDD Phase 4 PR 2 | mvp-end | `92405d82` | same; the same run as hash1952 (was `7b4bffe0`) |
+| GDD Phase 4 PR 2 | 1952 | `7a2c4e34` | GDD Phase 4 PR 2's corridors (R-COR-001 to R-COR-003, #786), rebased on main after the fields, camps, swamp and city projects: the reference player's stated policy sends an idle halutz group to the lowest free corridor segment only once every yishuv, ready field and camp site has a record. Its veteran group finishes Tzrifin on 1951-12-15 and starts the Burma Road's first segment on the last turn, 2 turns in at the end (`corr{burma_road=b,1,2;-;-;-}`), and the debt is IL 2m higher (one road segment, borrowed). `hash1950`, `smoke5` and the scenarios do not move: the reference player reaches no segment before 1951-12-15, and no other run orders one (was `722d90a2`; the same corridor change measured on the earlier main gave `f70e3eb3`) |
+| GDD Phase 4 PR 2 | mvp-end | `7a2c4e34` | same; the same run as hash1952 (was `722d90a2`; the same corridor change measured on the earlier main gave `f70e3eb3`) |

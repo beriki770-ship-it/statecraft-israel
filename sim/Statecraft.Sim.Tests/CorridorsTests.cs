@@ -245,8 +245,8 @@ public class CorridorsTests
         Assert.Single(loaded.Corridors);
     }
 
-    // R-COR-001: the reference player's stated policy (D-A7): yishuv sites first, then the lowest unbuilt, unclaimed segment
-    // of the lowest-id corridor, with the action its kind takes.
+    // R-COR-001: the reference player's stated policy (D-A7): yishuv sites first (then ready fields and camp sites, none in
+    // this fixture), then the lowest unbuilt, unclaimed segment of the lowest-id corridor, with the action its kind takes.
     [Fact]
     public void TheReferencePlayerTakesTheLowestFreeSegmentOnceTheSitesAreTaken()
     {
