@@ -29,6 +29,12 @@ adds a line under **Unreleased**; CI's `Changelog` job checks this (see `CONTRIB
   `content/projects.yaml` (Q-PROJ-1 to Q-PROJ-5, Q-HOUSE-3; R-PROJ-001 to R-PROJ-003; refs #735). The reference player
   starts a housing project, one at a time, where the overflow is largest, so `hash1950`, `hash1952` and `mvp-end` move.
 
+### Changed
+- The population-tier badge on the twelve city and town pills keeps the values it shipped with, now owner-approved: tiers 1
+  to 9 doubling from 1,000 people, at every zoom, at the start of the name and mirrored in Hebrew (owner, 18 October 2026,
+  "Accept as shipped"). Rosh Pinna keeps tier 1 from its May 1948 figure of 350, which the data marks `wikipedia-only`
+  ("Keep tier 1 from 350"). Nothing changes in the game; EditMode tests pin both rulings (#710).
+
 ### Fixed
 - Event city effects preserve the city's housing condition when changing its housing capacity or job slots (#1000).
 - The Cabinet's Hebrew "already holds" refusal uses the holder's office title, including the feminine form for a woman;
