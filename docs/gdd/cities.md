@@ -57,7 +57,7 @@ As a player of the MVP, I want the twelve Jewish cities and towns to start at th
 - [S12] GDD v0.1 Phase 2 plan, docs/superpowers/plans/2026-10-14-gdd-phase-2.md, the Q-MONEY-2 row; and docs/gdd/cutover-resource-layer.md (merged by #580), "Out of scope": "Upkeep: none until the third phase", checked 2026-10-15
 - [S13] MVP location scope, map priorities and separate location identities, docs/locations.md
 - [S14] The winery's city: a dated 1948-51 source for its vineyards, research note merged by #823, research_notes/GDD phase 3/winery-vineyards-1948-51.md
-- [S15] The owner's ruling on #737, 18 October 2026, https://github.com/eyalgolan/statecraft-israel/issues/737#issuecomment-6249501060
+- [S15] The owner's ruling on #737, 18 October 2026, https://github.com/eyalgolan/statecraft-israel/issues/737#issuecomment-6249501060, checked 2026-10-18
 
 ## Open questions
 
