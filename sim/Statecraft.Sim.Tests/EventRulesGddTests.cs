@@ -162,6 +162,33 @@ options:
         Assert.Equal(want, Assert.Single(why, w => w.Target == "fx_reserves").Delta);
     }
 
+    // R-EVT-003 (#107): the share reaches the Treasury and Food paths too; a hard anchor's historical option, and the
+    // option's structured effects (here its policy and security level), stay whole.
+    [Fact]
+    public void TheShareReachesEveryNumericEffectAndNothingElse()
+    {
+        var files = Fixture.Gdd();
+        files["people.yaml"] = Fixture.Files["people.yaml"].Replace("competence: 4", "competence: 10").Replace("loyalty: 5", "loyalty: 4");
+        var money = Choice.Replace("{ANCHOR}", "soft").Replace("        delta: -10\n",
+            "        delta: -10\n      - target: treasury\n        delta: 4\n      - target: food\n        delta: 7\n");
+        var c = ContentLoader.Load(Fixture.Write(files, new Dictionary<string, string> { ["choice.yaml"] = money }));
+        var s = Simulation.NewGame(c, 1, Mode.Historical);
+        var (treasury, food) = (s.Treasury, s.Food);
+        var why = new List<Cause>();
+        EventSystem.Delegate(c, s, why);
+        Assert.Equal(treasury + 2, s.Treasury, 12);
+        Assert.Equal(food + 4, s.Food);   // 3.5 rounds half away from zero
+
+        var hard = ContentLoader.Load(Fixture.Write(files, new Dictionary<string, string> { ["choice.yaml"] = Choice.Replace("{ANCHOR}", "hard") }));
+        var h = Simulation.NewGame(hard, 1, Mode.Historical);
+        var whyHard = new List<Cause>();
+        EventSystem.Delegate(hard, h, whyHard);
+        Assert.Equal("history", h.ChosenOptions["choice"]);
+        Assert.Equal(0.1, Assert.Single(whyHard, w => w.Target == "food_supply").Delta, 12);   // whole, not 0.05
+        Assert.Equal(0.4, h.Policies["rationing"]);
+        Assert.Equal(3, h.Rung);
+    }
+
     // R-EVT-003 (#107): both values are required in the GDD loop, so a missing key is never read as 0.
     [Theory]
     [InlineData("  delegation_loyalty_floor: 5\n", "", "mvp.delegation_loyalty_floor", "required")]
