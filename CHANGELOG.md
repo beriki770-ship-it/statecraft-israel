@@ -16,6 +16,19 @@ adds a line under **Unreleased**; CI's `Changelog` job checks this (see `CONTRIB
   population has reached a stated number and then the cities' overflow and employed shares are inside stated bounds
   (R-OBJ-004; owner's option (a) on #738). The real objective and its card come with a person's source check, so no
   content uses it yet and no golden moves (refs #738, #383).
+- Farm and village life from MATKOT's 1948 Collection: three tractors by kibbutz fields, three horse wagons and three
+  draught horses by moshav and moshava fields, three flocks of five sheep and three donkeys by villages, and three camels
+  by Bedouin camp areas, each anchor chosen by a fixed hash and kept clear of the kits, routes, unit tokens, water,
+  civilians (#666) and wildlife (#670), with the kit trees over them left out.
+  They stand at the #700 buildings' one world scale (24x real: a tractor about a third of the steam train's locomotive,
+  a sheep about a seventh), stream after the first frame, and play their idle clip only at close zoom (40 km) (#667).
+- MATKOT's Tegart fort, military barracks and factory models stand at their sourced places from their sourced days,
+  close up only (#700's switch): the Latrun police fort from 15 May 1948, the Tzrifin camp from 19 May 1948, Camp 80
+  from 13 July 1948 and Netanya's industrial zone from 28 July 1950, clear of the towns, routes, unit tokens, civilians
+  (#666) and wildlife (#670), with the kit trees on them left out. They are sized at the #700 buildings' one world
+  scale (24x real, an 8.5 m house as long as the steam train's locomotive), and stream after the first frame in a new
+  `collection-special-buildings` bundle with the shikun and the workshop, which stay unplaced until a place and date are
+  sourced (refs #707).
 - Kiryat Shmona (founded 18 July 1949) and Beit Shemesh (15 December 1950, the National Library's December 1950
   under the monthly turn) join the yishuv sites in `content/sites.yaml`, each with a field site in its hex; the
   founding days are the owner's (#785), and the rows stay draft. The reference player builds them in id order, so
@@ -53,8 +66,27 @@ adds a line under **Unreleased**; CI's `Changelog` job checks this (see `CONTRIB
   kibbutzim and the moshav (a townsman, a smith and a nurse), and an arriving man and woman beside each transit camp from
   the day it is placed. They are scenery, never units; the static figures stream after the first frame and the animated
   ones only at close zoom (refs #666, #663).
+- City projects can need a local resource: a `projects.yaml` kind's `requires:` names one, a `cities.yaml` city lists
+  its `resources:` with sources, and `StartProject` refuses the kind in a city without it (R-PROJ-005, D-D8; refs #737).
+  The loader refuses a resource without sources and a kind whose resource no city has. The winery (vineyards, Zikhron
+  Ya'akov, flagged `to_verify` by the owner on 18 Oct 2026) is not in `content/` yet: its rows wait for a person to
+  check the vineyards' source, so the goldens do not move.
+- Delegation reads a minister's loyalty (R-EVT-003): when an unanswered event goes to a minister rated below
+  `delegation_loyalty_floor` (5), only `disloyal_effect_share` (0.5) of each numeric effect of the option lands. Both
+  are labelled design values in `rules.yaml` `mvp:`. No minister in `people.yaml` is rated below 5 today, so the
+  goldens do not move (refs #107).
 
 ### Changed
+- MATKOT's whole-town models now stand on their towns far off, and the towns draw no procedural houses at any zoom
+  (refs #663, #917, #659; owner, 18 October 2026: "Whole model far, buildings near"). Each mapped town's model stands
+  on the town's core (where most of its building models stand, inside its kit footprint, clear of the next town and of
+  the sea, so Tel Aviv's no longer covers Jaffa and Haifa's stays out of the bay), as wide as that core, upright,
+  tilted to its ground (at most 10 degrees) and seated at its lowest point, so it never floats and a hillside no longer
+  cuts through it. Below about 40 km it gives way to
+  the single building models (#700), with the same hysteresis band. Mosques, churches, walls and ports keep the kit.
+  The 110 km view-distance switch and the "beside the town" spot are gone; a ma'abara or shikun still stands beside its
+  camp or housing project.
+- Money keeps both the calibrated per-head tax and city job income. Resolution step 7 now supports civilian-place upkeep (R-MONEY-002), with the owner-approved MVP rate of IL 0m a year for cities, permanent housing, industry, transit camps, military camps and Hakhsharot; military-unit upkeep remains Phase 5 (refs #884).
 - The population-tier badge on the twelve city and town pills keeps the values it shipped with, now owner-approved: tiers 1
   to 9 doubling from 1,000 people, at every zoom, at the start of the name and mirrored in Hebrew (owner, 18 October 2026,
   "Accept as shipped"). Rosh Pinna keeps tier 1 from its May 1948 figure of 350, which the data marks `wikipedia-only`
@@ -63,8 +95,19 @@ adds a line under **Unreleased**; CI's `Changelog` job checks this (see `CONTRIB
   checked every row against the Village Statistics 1945 scan and #490 applied the corrections. No other field changes.
   Open from #488, not touched here: the six split-or-merge rows, Dayr al-Qassi's landmark, 'Ilut. The localities are
   outside the content hash, so no golden moves (#200).
+- MATKOT's road vehicles from The 1948 Collection stand on the 1948 roads up close: the intercity bus and the citrus
+  truck on the Tel Aviv–Haifa road, the sandwich-armoured convoy truck and the canvas-tilt lorry on the Burma Road from
+  14 June 1948. They stand only on ground Israel held on the game date, half as long as the steam train's locomotive,
+  and stream after the first frame (#725).
 
 ### Fixed
+- MATKOT's building models up close (#700) stand at one world scale, set by the steam train the map runs: a typical
+  8.5 m house is as long as the locomotive's car (about 204 m), so every model is 24x its building's real size
+  (`SettlementKits.ModelScale`), keeps its own proportions and no longer fills the kit's plot; a plot holds a small
+  grid of them instead (up to four a side), so the towns stay dense. In v0.1.1 they filled the
+  kits' symbolic 60x and 100x plots, so a house was about 800 m, a Tel Aviv block up to 1.6 km, both bigger than the
+  816 m train, and Jaffa's 100x houses rose to about 490 m in front of Tel Aviv's blocks (owner, 18 October 2026). The
+  kits far off keep their scale.
 - The sim tests no longer leave a temp folder behind for every `Fixture.Write` call (about 1,150 per run): the
   folders share one root per run, deleted when the run ends (#1017).
 - Event city effects preserve the city's housing condition when changing its housing capacity or job slots (#1000).

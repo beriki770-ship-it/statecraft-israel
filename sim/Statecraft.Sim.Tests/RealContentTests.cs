@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using Statecraft.Sim;
+using YamlDotNet.RepresentationModel;
 
 /// <summary>Checks the real content/ folder at the repository root.</summary>
 public class RealContentTests
@@ -60,6 +61,19 @@ public class RealContentTests
                 Assert.True(source.Checked >= new DateTime(2026, 10, 11), $"{key}: {source.Url} checked before the 11 October review");
             });
         }
+    }
+
+    /// <summary>Person.Loyalty is a plain int, so a row without loyalty: would load as 0 and that minister would half-deliver
+    /// every delegated decision (R-EVT-003, #107). Every row sets it.</summary>
+    [Fact]
+    public void EveryPersonSetsLoyalty()
+    {
+        var yaml = new YamlStream();
+        using (var r = new StringReader(File.ReadAllText(Path.Combine(ContentRoot(), "people.yaml")))) yaml.Load(r);
+        var rows = (YamlSequenceNode)((YamlMappingNode)yaml.Documents[0].RootNode)[new YamlScalarNode("people")];
+        Assert.Equal(C.People.Count, rows.Children.Count);
+        foreach (YamlMappingNode m in rows)
+            Assert.True(m.Children.ContainsKey(new YamlScalarNode("loyalty")), $"people[{m[new YamlScalarNode("id")]}] has no loyalty");
     }
 
     [Fact]

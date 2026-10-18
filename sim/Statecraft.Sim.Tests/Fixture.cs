@@ -224,6 +224,12 @@ series:
 mvp:
   people_per_unit: 10
   income_per_job_per_year: 1.2
+  city_upkeep_per_year: 0
+  housing_upkeep_per_year: 0
+  industry_upkeep_per_year: 0
+  transit_camp_upkeep_per_year: 0
+  military_camp_upkeep_per_year: 0
+  hakhshara_upkeep_per_year: 0
   city_arrivals_from: 1948-05-15
   build_yishuv_turns: 3
   build_yishuv_cost: 1.5
@@ -245,6 +251,8 @@ mvp:
   overflow_condition_loss: 0.2
   defeat_turns: 3
   debt_ceiling: 10
+  delegation_loyalty_floor: 5
+  disloyal_effect_share: 0.5
 ";
 
     public static readonly string GddCities = "\ncities:\n" + City("town_a", 12, 8, 10, 6, "[military_camp, hakhshara]");
@@ -269,6 +277,12 @@ projects:
   - { id: transit_camp, name: a transit camp, cost: 1, turns: 1, capacity: 3, condition: -0.1, job_slots: 0 }
   - { id: industry, name: an industry project, cost: 2, turns: 2, capacity: 0, condition: 0, job_slots: 3 }
 ";
+
+    /// <summary>A city's resources key with vineyards and a fixture source (R-PROJ-005), to add to a <see cref="City"/> row.</summary>
+    public const string Vineyards = @"resources: [{ id: vineyards, sources: [{ url: ""https://example.org/vineyards"", checked: 2026-10-18 }], to_verify: a fixture note }]";
+
+    /// <summary>A projects.yaml kind that requires vineyards (R-PROJ-005), to add to <see cref="GddProjects"/>. Fixture values.</summary>
+    public const string Winery = "  - { id: winery, name: a winery, cost: 2, turns: 2, capacity: 0, condition: 0, job_slots: 6, requires: vineyards }\n";
 
     /// <summary>One designated site on a land hex next to town_a, with no settlement on it. Fixture values, not history.</summary>
     public const string GddSites = @"

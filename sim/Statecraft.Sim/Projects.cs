@@ -170,11 +170,11 @@ namespace Statecraft.Sim
         public static CityProject? CityProjectAt(GameState s, int q, int r) => s.CityProjects.Values.FirstOrDefault(p => p.Q == q && p.R == r);
 
         /// <summary>R-PROJ-001: null when city project <paramref name="kind"/> may be started for <paramref name="city"/> on hex
-        /// (q, r) now, else the reason. Refused for an unknown kind or city; a transit camp without the ma'abarot policy
-        /// (Q-HOUSE-3, D-D3: the policy carries its sourced date); a hex that is not land, is further than
-        /// map_action_max_distance from the city's settlement hex, or holds a placement or another city project (Q-PROJ-2); and
-        /// once map_actions_per_turn map actions and city projects together were started this turn (Q-PROJ-4). A short
-        /// Treasury is not a reason: it borrows (Q-MONEY-3). The reference player asks this before it orders.</summary>
+        /// (q, r) now, else the reason. Refused for an unknown kind or city; a kind whose resource the city lacks (R-PROJ-005); a
+        /// transit camp without the ma'abarot policy (Q-HOUSE-3, D-D3: the policy carries its sourced date); a hex that is not
+        /// land, is further than map_action_max_distance from the city's settlement hex, or holds a placement or another city
+        /// project (Q-PROJ-2); and once map_actions_per_turn map actions and city projects together were started this turn
+        /// (Q-PROJ-4). A short Treasury is not a reason: it borrows (Q-MONEY-3). The reference player asks this before it orders.</summary>
         public static string? CheckCity(Content c, GameState s, string kind, string city, int q, int r)
         {
             var k = c.ProjectKinds.FirstOrDefault(x => x.Id == kind);
@@ -182,6 +182,9 @@ namespace Statecraft.Sim
             if (!s.Cities.ContainsKey(city)) return "There is no such city";
             if (kind == MapActions.TransitCamp && !(s.Policies.TryGetValue(MapActions.MaabarotPolicy, out var m) && m >= 0.5))
                 return "Transit camps need the ma'abarot policy";
+            // R-PROJ-005. A city founded in play is not in cities.yaml, so it has no resources.
+            if (!string.IsNullOrEmpty(k.Requires) && c.Cities.FirstOrDefault(x => x.Id == city)?.Resources.Any(x => x.Id == k.Requires) != true)
+                return $"{PlayerText.Settlement(c, city)} has no {k.Requires} for {k.Name}";
             var hex = c.HexAt(q, r);
             if (hex == null || !hex.Land) return "This hex is not land";
             var rules = c.RulesAt(s.Date);   // the era the turn starts in

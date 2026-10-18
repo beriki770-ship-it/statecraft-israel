@@ -24,6 +24,14 @@ public class DesignValuesTests
         ("rules.yaml", "attention_cost.stop_work"),
         ("rules.yaml", "mvp.people_per_unit"),
         ("rules.yaml", "mvp.income_per_job_per_year"),
+        ("rules.yaml", "mvp.city_upkeep_per_year"),
+        ("rules.yaml", "mvp.housing_upkeep_per_year"),
+        ("rules.yaml", "mvp.industry_upkeep_per_year"),
+        ("rules.yaml", "mvp.transit_camp_upkeep_per_year"),
+        ("rules.yaml", "mvp.military_camp_upkeep_per_year"),
+        ("rules.yaml", "mvp.hakhshara_upkeep_per_year"),
+        ("rules.yaml", "tax_per_capita_per_year"),
+        ("rules.yaml", "spending_per_capita_per_year"),
         ("rules.yaml", "mvp.build_yishuv_turns"),
         ("rules.yaml", "mvp.build_yishuv_cost"),
         ("rules.yaml", "mvp.build_camp_turns"),
@@ -44,6 +52,8 @@ public class DesignValuesTests
         ("rules.yaml", "mvp.overflow_condition_loss"),
         ("rules.yaml", "mvp.defeat_turns"),
         ("rules.yaml", "mvp.debt_ceiling"),
+        ("rules.yaml", "mvp.delegation_loyalty_floor"),   // R-EVT-003, #107
+        ("rules.yaml", "mvp.disloyal_effect_share"),
         // Q-START-1 (owner, 15 October 2026, #375): no city has a sourced housing stock or job count, so every city's
         // housing is its start people and its job slots its start employed; seven towns with no CBS working share take
         // the national one. The census people and the five CBS shares are sourced, not design values (R-CITY-006).
@@ -139,7 +149,9 @@ public class DesignValuesTests
                         {
                             var k = ((YamlScalarNode)kv.Key).Value!;
                             var child = key == "" ? k : key + "." + k;
-                            var scope = inScope || (file != "rules.yaml" && file != "model.yaml") || (file == "rules.yaml" && k == "mvp") || (key == "attention_cost" && AttentionSystem.IsGddKind(k));
+                            var scope = inScope || (file != "rules.yaml" && file != "model.yaml") || (file == "rules.yaml" && k == "mvp")
+                                || (file == "rules.yaml" && (k == "tax_per_capita_per_year" || k == "spending_per_capita_per_year"))
+                                || (key == "attention_cost" && AttentionSystem.IsGddKind(k));
                             Walk(kv.Value, child, scope);
                         }
                         break;
@@ -186,11 +198,15 @@ public class DesignValuesTests
         var c = ContentLoader.Load(RealContentTests.ContentRoot());
         var m = c.Rules.Mvp!;
         Assert.Equal((1000, 0.06), (m.PeoplePerUnit, m.IncomePerJobPerYear));
+        Assert.Equal((0.0000545, 0.0001036), (c.Rules.TaxPerCapitaPerYear, c.Rules.SpendingPerCapitaPerYear));
+        Assert.Equal((0.0, 0.0, 0.0, 0.0, 0.0, 0.0), (m.CityUpkeepPerYear!.Value, m.HousingUpkeepPerYear!.Value,
+            m.IndustryUpkeepPerYear!.Value, m.TransitCampUpkeepPerYear!.Value, m.MilitaryCampUpkeepPerYear!.Value, m.HakhsharaUpkeepPerYear!.Value));
         Assert.Equal((0.5, 1.0, 0.5), (c.Rules.AttentionCost["assign_workers"], c.Rules.AttentionCost["train"], c.Rules.AttentionCost["cancel_training"]));
         Assert.Equal((0.0, 0.0), (c.Rules.AttentionCost["pioneer_work"], c.Rules.AttentionCost["stop_work"]));   // D-A6: unit orders are free
         Assert.Equal((6, 2.0), (m.BuildYishuvTurns, m.BuildYishuvCost));
         Assert.Equal((100, 5, 60), (m.ObjectivePoints, m.ObjectiveBonusPerMonth, m.ObjectiveBonusCap));   // D-B6, D-B2
         Assert.Equal((0.35, 0.15), (m.HousingStartCondition, m.OverflowConditionLoss));   // Q-START-3, Q-HOUSE-1 (D-D1)
+        Assert.Equal((5, 0.5), (m.DelegationLoyaltyFloor, m.DisloyalEffectShare));   // R-EVT-003, #107 (D-H1)
         Assert.Equal(12, c.Cities.Count);
         foreach (var x in c.Cities)   // the listed housing and job values are the ones Cities.Init starts from
             Assert.Equal(((int)x.Housing!.Value, (int)x.Jobs!.Value), (x.HousingCapacity, x.JobSlots));
@@ -218,5 +234,7 @@ public class DesignValuesTests
         Assert.Contains("attention_cost.train", rules);
         Assert.DoesNotContain("attention_cost.set_policy", rules);
         Assert.DoesNotContain("treasury_start", rules);
+        Assert.Contains("tax_per_capita_per_year", rules);
+        Assert.Contains("spending_per_capita_per_year", rules);
     }
 }
