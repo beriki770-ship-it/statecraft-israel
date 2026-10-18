@@ -2,7 +2,6 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using Statecraft.Game.Map.Routes;
 using UnityEngine;
 using UnityEngine.Rendering;
 
@@ -32,8 +31,6 @@ namespace Statecraft.Game.Map.Collection
 
         // Design values (#667): sparse scenery, not a population statement or simulation rule.
         public const int MaxAnchorsPerModel = 3;
-        /// <summary>The house the world scale is set by (m, real): the middle of the kit's default house, 7.5 to 10 m long.</summary>
-        public const float ReferenceHouseM = 8.5f;
         /// <summary>The one world scale of the map's Tal Heuberger models up close (the owner on v0.1.1, 18 October 2026: the
         /// buildings were "way bigger then the train"): the reference house is as long as the locomotive's car of the steam
         /// train the map runs (ServiceTrain: Tal Heuberger's locomotive and tender at RouteTrain.Scale x ServiceTrain.ModelSize,
@@ -41,7 +38,7 @@ namespace Statecraft.Game.Map.Collection
         /// buildings' scale fix (branch map/town-models-world-scale, SettlementKits.ModelScale), so a tractor stands beside
         /// a kibbutz house at their real proportion. (Tripo's meshes are all about one unit across, so one shared scale
         /// would make a sheep as long as a tractor.)</summary>
-        public const float WorldScale = RouteTrain.ModelRealLengthM * RouteTrain.Scale * ServiceTrain.ModelSize / ServiceTrain.Cars / ReferenceHouseM;
+        public const float WorldScale = Kits.SettlementKits.ModelScale;   // #1032: one shared constant
         /// <summary>Design values (#667), typical of each kind, not sourced measurements: the real long side (m), seen from
         /// above, each model stands for.</summary>
         public static float RealLengthM(string model) => model switch
