@@ -265,6 +265,42 @@ public class CameraInputTests
         finally { Object.DestroyImmediate(rig.gameObject); }
     }
 
+    /// <summary>Issue #1062 (player report): at the distance the game opens at (Map.unity's camera rig; MapScene.Build keeps
+    /// it), a 16:9 view (1280x720, 1920x1080) is narrower than the map, so the arrow keys and a right-drag pan it east and
+    /// west from the first frame, with or without the top bar's inset; panning on still stops where #174 stops it.</summary>
+    [Test]
+    public void AtTheOpeningZoomTheMapPansLeftAndRight()
+    {
+        UnityEditor.SceneManagement.EditorSceneManager.OpenScene("Assets/Map.unity", UnityEditor.SceneManagement.OpenSceneMode.Single);
+        float opening = Camera.main.GetComponent<CameraRig>().Distance;
+        UnityEditor.SceneManagement.EditorSceneManager.NewScene(UnityEditor.SceneManagement.NewSceneSetup.EmptyScene,
+            UnityEditor.SceneManagement.NewSceneMode.Single);
+        var rig = new GameObject("RigTest", typeof(Camera)).AddComponent<CameraRig>();
+        try
+        {
+            // A rig MapScene adds itself (a camera without one) opens there too.
+            Assert.AreEqual(opening, rig.Distance, "the rig's default is the scene's opening distance");
+            var cam = rig.GetComponent<Camera>(); cam.aspect = 16f / 9f; cam.fieldOfView = CameraRig.Fov;   // the game's view (Init is not run here)
+            foreach (var inset in new[] { 0f, 0.1f })
+                foreach (var (input, east) in new[]
+                {
+                    (new CameraInput { Pan = Vector2.right }, 0.08f), (new CameraInput { Pan = Vector2.left }, -0.08f),   // 0.8 distances a second for 0.1 s
+                    (new CameraInput { DragPan = new Vector2(-50f, 0f) }, 0.06f), (new CameraInput { DragPan = new Vector2(50f, 0f) }, -0.06f),
+                })
+                {
+                    var what = $"inset {inset}, pan {input.Pan}, drag {input.DragPan}";
+                    rig.LookAt = new Vector3(RealMap.center.x, 0, RealMap.center.y); rig.Distance = opening; rig.Yaw = 0; rig.TopInset = inset;
+                    CameraController.Step(rig, default, 0f, RealMap);
+                    float x = rig.LookAt.x;
+                    CameraController.Step(rig, input, 0.1f, RealMap);
+                    Assert.AreEqual(x + east * opening, rig.LookAt.x, 1f, what + ": the view moves sideways");
+                    for (int i = 0; i < 40; i++) CameraController.Step(rig, input, 0.1f, RealMap);
+                    AssertViewOnMap(rig, RealMap, what + ", panned on");
+                }
+        }
+        finally { Object.DestroyImmediate(rig.gameObject); }
+    }
+
     /// <summary>Issue #174: over low ground the look-at point stays on y = 0 (the approved framing); over ground high enough
     /// to come within MinClearanceShare of the camera, it is lifted just enough, and dropped again on the way back down.</summary>
     [Test]

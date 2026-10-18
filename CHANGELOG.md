@@ -10,6 +10,11 @@ adds a line under **Unreleased**; CI's `Changelog` job checks this (see `CONTRIB
 ### Added
 - Unit cards show the sourced Hebrew unit name in the Hebrew UI, with an English fallback. INS Haganah gains its
   sourced Hebrew name, still flagged for a native speaker's review (#902).
+### Changed
+- The map pans left and right from the first frame (#1062, player report): the game opens at 90 km, not 120 km, under
+  the ~106 km where a 16:9 view is wider than the map and held centred (#174). A 21:9 window still opens centred
+  until zoomed in a little.
+
 ### Fixed
 - The Cabinet, Budget, Defence, Why, How to play and Settings screens each gain an X in the header that closes
   them (the same close as Escape): a phone has no Escape key, and re-tapping the lit rail button was the only way
