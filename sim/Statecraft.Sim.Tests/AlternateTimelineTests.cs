@@ -635,4 +635,31 @@ variants:
         Assert.True(Timeline.Diverged(Real, end, "first_truce"));
         Assert.Equal(new[] { "first_truce" }, end.ChosenOptions.Keys.Where(k => Timeline.Diverged(Real, end, k)).ToArray());
     }
+
+    // ---- Task 8 (#953): the timeline helper ----------------------------------------------------------------------
+
+    [Fact]
+    // R-ALT-011
+    public void TheTimelineListsEachResolvedEventInWindowOrder()
+    {
+        var c = Load(("parent.yaml", Parent), ("after_road.yaml", WithRejoin), ("outside.yaml", Outside));
+        var s = NewState(c);
+        s.ChosenOptions["outside"] = "record"; s.ChosenOptions["parent"] = "road"; s.ChosenOptions["after_road"] = "hold";
+        var rows = Timeline.Entries(c, s);
+        Assert.Equal(new[] { "parent", "after_road", "outside" }, rows.Select(r => r.Event));
+        var p = rows[0];
+        Assert.Equal(("road", "record", true, "after_road"), (p.Chosen, p.Historical, p.Diverged, p.RejoinedBy));
+        Assert.Equal(("hold", "", false), (rows[1].Chosen, rows[1].Historical, rows[1].Diverged));
+    }
+
+    [Fact]
+    // R-ALT-011
+    public void TheOriginNamesTheRoadTheCardFollows()
+    {
+        var c = Load(("parent.yaml", Parent), ("after_road.yaml", Consequence));
+        var s = NewState(c);
+        s.ChosenOptions["parent"] = "road";
+        Assert.Equal(("parent", "road"), Timeline.Origin(c, s, c.Events.Single(x => x.Id == "after_road"))!.Value);
+        Assert.Null(Timeline.Origin(c, s, c.Events.Single(x => x.Id == "parent")));
+    }
 }

@@ -412,6 +412,14 @@ gate by hand:
 dotnet run --project sim/Statecraft.Cli -- --release-gate
 ```
 
+To see every road not taken (each non-historical option of an event that has a historical one), with who proposed it
+(`basis`, `-` when the option has no `alternative` record), the consequence cards that follow it, the events whose
+variants name it, and the record's cards it suppresses (`breaks`, the events that require the historical option):
+
+```
+dotnet run --project sim/Statecraft.Cli -- --timeline-report
+```
+
 The Python checks (`uv run --with pytest==9.1.1 --with pyyaml==6.0.3 pytest scripts/oss/tests -q`, and
 `uv run scripts/oss/check_repo.py`) cover repository policy. They include a test that keeps this guide's field table
 in line with the loader.

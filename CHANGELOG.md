@@ -34,6 +34,9 @@ adds a line under **Unreleased**; CI's `Changelog` job checks this (see `CONTRIB
   #784). The state counts the turns (`ExhaustedTurns`, hashed only when above 0, so no existing golden moves), and the
   new `scenario-mvp-defeat` golden plays a run to the defeat. The war loss waits for Phase 5 (#749), and the defeat
   texts for the owner (Q-DEF-4).
+- Release gate: consequence cards and variants need a person's sign-off (`reviewed_by`) before a build is shared;
+  `Statecraft.Cli --timeline-report` lists each road not taken and what follows it, and `Timeline.Entries` /
+  `Timeline.Origin` give the timeline screen its rows (R-ALT-011; refs #939, #953).
 
 ### Changed
 - The population-tier badge on the twelve city and town pills keeps the values it shipped with, now owner-approved: tiers 1
