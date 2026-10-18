@@ -42,6 +42,8 @@ public class DesignValuesTests
         ("rules.yaml", "mvp.veteran_progress"),
         ("rules.yaml", "mvp.housing_start_condition"),
         ("rules.yaml", "mvp.overflow_condition_loss"),
+        ("rules.yaml", "mvp.defeat_turns"),
+        ("rules.yaml", "mvp.debt_ceiling"),
         // Q-START-1 (owner, 15 October 2026, #375): no city has a sourced housing stock or job count, so every city's
         // housing is its start people and its job slots its start employed; seven towns with no CBS working share take
         // the national one. The census people and the five CBS shares are sourced, not design values (R-CITY-006).

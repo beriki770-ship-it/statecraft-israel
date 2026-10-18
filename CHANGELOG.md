@@ -28,6 +28,12 @@ adds a line under **Unreleased**; CI's `Changelog` job checks this (see `CONTRIB
   short, at most 2 starts a turn; `CancelProject(id)` returns no Money. The kinds are labelled design values in the new
   `content/projects.yaml` (Q-PROJ-1 to Q-PROJ-5, Q-HOUSE-3; R-PROJ-001 to R-PROJ-003; refs #735). The reference player
   starts a housing project, one at a time, where the overflow is largest, so `hash1950`, `hash1952` and `mvp-end` move.
+- The game can be lost to the economy (GDD Phase 7 PR 5, D-B5; refs #8): Money is exhausted when the debt is at or above
+  `mvp.debt_ceiling` (IL 250m) and Food when the national stock is 0 (R-END-001); three turn ends in a row with both
+  (`mvp.defeat_turns`) end the game with `defeat_economy` (R-END-002). Both are labelled design values (Q-DEF-1, Q-DEF-2,
+  #784). The state counts the turns (`ExhaustedTurns`, hashed only when above 0, so no existing golden moves), and the
+  new `scenario-mvp-defeat` golden plays a run to the defeat. The war loss waits for Phase 5 (#749), and the defeat
+  texts for the owner (Q-DEF-4).
 
 ### Changed
 - The population-tier badge on the twelve city and town pills keeps the values it shipped with, now owner-approved: tiers 1

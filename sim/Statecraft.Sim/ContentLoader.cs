@@ -1092,6 +1092,11 @@ namespace Statecraft.Sim
                 Unit(file, "mvp.housing_start_condition", m.HousingStartCondition.Value);
                 if (m.OverflowConditionLoss == null) throw new ContentException(file, "mvp.overflow_condition_loss", "required when eras.yaml systems.loop is gdd");
                 Unit(file, "mvp.overflow_condition_loss", m.OverflowConditionLoss.Value);
+                // R-END-001, R-END-002: required, so a missing key is never read as 0 (a defeat with no debt, or on the first turn).
+                if (m.DefeatTurns == null) throw new ContentException(file, "mvp.defeat_turns", "required when eras.yaml systems.loop is gdd");
+                if (m.DefeatTurns < 1) throw new ContentException(file, "mvp.defeat_turns", "must be >= 1");
+                if (m.DebtCeiling == null) throw new ContentException(file, "mvp.debt_ceiling", "required when eras.yaml systems.loop is gdd");
+                if (!(m.DebtCeiling >= 0 && IsFinite(m.DebtCeiling.Value))) throw new ContentException(file, "mvp.debt_ceiling", "must be a finite number >= 0");
                 if (c.Indicators.All(i => i.Id != Pools.FoodIndicator))
                     throw new ContentException(file, "mvp.k_food", "the Food stock feeds the food_supply indicator, which model.yaml must define");
                 // One game has one last day (R-LOOP-004): an era cannot move it.

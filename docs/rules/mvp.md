@@ -142,6 +142,14 @@ R-FOOD-002: In step 7 the nation eats the turn's need from the stock as far as i
 
 R-FOOD-003: `food_supply` stays the 0 to 1 level the UI, the situations and the events read (Q-POOL-3, decided 15 October 2026), with a stock term inside its effect sum: `k_food * (stock - full) / full - unmet / need`, where `full` is `cover_months` of the last need. The term is exactly 0 at a full stock, `-k_food` when the stock is empty, and the unmet share lowers it further; rationing, the other effects and event shifts act on top as before, and the level's clamp to 0..1 bounds the result. The GDD loop requires the `food_supply` indicator.
 
+## Defeat
+
+The game can be lost (D-B5, decided: "Money and Food exhausted for N turns, or a war loss. Values for the owner. Coalition collapse is off in the MVP"; Phase 7 PR 5, #8). This part covers the economic defeat; the war loss waits for Phase 5's enemy units (#749). The defeat texts are the owner's pick (Q-DEF-4, #784, open): until then the game ends with the code `defeat_economy`, and its reason reads "Money and Food ran out", the plan's short option (a).
+
+R-END-001: Money is exhausted when the debt is at or above `debt_ceiling` (Q-DEF-1, owner, 17 October 2026, #784: a debt ceiling; below it borrowing goes on as R-MONEY-003 allows). Food is exhausted when the national stock is 0 (R-FOOD-002; Q-POOL-5, "The stock stops at 0"). One of them alone ends nothing. `debt_ceiling` is IL 250m, a labelled design value (the recommended first value; the Phase 7 balance pass, PR 12, sets the final number), required in the GDD loop, a finite number >= 0.
+
+R-END-002: In the resolver's last step, after the objectives and the score (spec §2.3, step 11), a turn end with Money and Food both exhausted adds 1 to `ExhaustedTurns`, and any other turn end sets it back to 0. When it reaches `defeat_turns`, the game ends with `defeat_economy` and a cause in the turn's causes, under the game's end (`era`) like the MVP end. `defeat_turns` is 3, a labelled design value (Q-DEF-2, owner, 18 October 2026, #784: "3 turns"), required in the GDD loop, at least 1. The step reads the debt as it finds it: the turn's deficit is borrowed after the resolution, so it counts from the next turn's end. A defeat on the game's last turn ends it as a defeat. `ExhaustedTurns` is in the state hash only when above 0, so a run that never has both exhausted hashes as before; the legacy loop never counts.
+
 ## Government
 
 D-C5 as decided (12 October 2026): the cabinet and Attention stay, the coalition is optional with no collapse. The coalition votes, the budget shares and the policies keep running and visible as before (Q-GOV-1, decided 15 October 2026, "Take all recommendations", #375). The defeat (D-B5) is built in Phase 7 (Q-GOV-2, decided the same day).

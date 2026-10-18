@@ -77,6 +77,12 @@ mvp:
   # design values", owner, 15 October 2026, #375); the owner may override them. Neither is a historical figure.
   housing_start_condition: 0.35          # DESIGN VALUE: owner-set balance, not a historical figure (D-D2, Q-START-3: every city's start condition)
   overflow_condition_loss: 0.15          # DESIGN VALUE: owner-set balance, not a historical figure (D-D1, Q-HOUSE-1: condition lost a turn at a full overflow share)
+  # The economic defeat (R-END-001, R-END-002; D-B5). Money is exhausted when the debt is at or above debt_ceiling (Q-DEF-1,
+  # owner, 17 October 2026, #784: "a debt ceiling", first value IL 250m, as recommended), Food when the national stock is
+  # 0; defeat_turns turn ends in a row with both end the game (Q-DEF-2, owner, 18 October 2026, #784: "3 turns"). Neither
+  # is a historical figure; the Phase 7 balance pass (PR 12) sets the final ceiling.
+  defeat_turns: 3                        # DESIGN VALUE: owner-set balance, not a historical figure (D-B5, Q-DEF-2: turn ends in a row with Money and Food exhausted)
+  debt_ceiling: 250                      # DESIGN VALUE: owner-set balance, not a historical figure (D-B5, Q-DEF-1: IL millions of debt at which Money is exhausted)
 # Coalition stability lost by replacing a minister (Cabinet.Appoint): a seat taken from the minister's party, or a
 # reshuffle within it.
 appoint_stability_cost_other_party: 0.06
