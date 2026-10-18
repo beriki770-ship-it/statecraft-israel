@@ -1184,7 +1184,7 @@ namespace Statecraft.Sim
                 if (x.JobSlots < 0) throw new ContentException(pf, at + ".job_slots", "must not be negative");
                 if (!(x.Condition >= -1 && x.Condition <= 1)) throw new ContentException(pf, at + ".condition", "must be a number from -1 to 1");
                 // R-PROJ-005: a kind whose resource no city has could never be built.
-                if (x.Requires != "" && !c.Cities.Any(k => k.Resources.Any(r => r.Id == x.Requires)))
+                if (!string.IsNullOrEmpty(x.Requires) && !c.Cities.Any(k => k.Resources.Any(r => r.Id == x.Requires)))
                     throw new ContentException(pf, at + ".requires", $"no city in cities.yaml has the resource '{x.Requires}'");
             }
         }

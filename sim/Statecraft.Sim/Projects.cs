@@ -183,7 +183,7 @@ namespace Statecraft.Sim
             if (kind == MapActions.TransitCamp && !(s.Policies.TryGetValue(MapActions.MaabarotPolicy, out var m) && m >= 0.5))
                 return "Transit camps need the ma'abarot policy";
             // R-PROJ-005. A city founded in play is not in cities.yaml, so it has no resources.
-            if (k.Requires != "" && c.Cities.FirstOrDefault(x => x.Id == city)?.Resources.Any(x => x.Id == k.Requires) != true)
+            if (!string.IsNullOrEmpty(k.Requires) && c.Cities.FirstOrDefault(x => x.Id == city)?.Resources.Any(x => x.Id == k.Requires) != true)
                 return $"{PlayerText.Settlement(c, city)} has no {k.Requires} for {k.Name}";
             var hex = c.HexAt(q, r);
             if (hex == null || !hex.Land) return "This hex is not land";
