@@ -115,6 +115,10 @@ namespace Statecraft.Game.Map.Kits
             /// mesh without the buildings and with the models' plinths (KitMesh.ToCloseMesh), by the kit mesh's name; none
             /// where nothing would be left.</summary>
             public Dictionary<string, Mesh> Close = new Dictionary<string, Mesh>();
+            /// <summary>Issue #1032: every kit landmark as the close mesh draws it, at the models' world scale
+            /// (SettlementKits.AtWorldScale): its kind, its anchor, and its copy's box (width along x, depth along z, height
+            /// over its ground), in placement order.</summary>
+            public List<Placed> CloseLandmarks = new List<Placed>();
         }
 
         /// <summary>Side of the square tiles the localities' and camps' buildings are merged into (the trees' tile size).</summary>
@@ -128,11 +132,11 @@ namespace Statecraft.Game.Map.Kits
         {
             kibbutzHalls = farmSheds = 0;
             var result = new Result();
-            models = result.Models; places = new Dictionary<string, Settlement>(); onceGiven = new HashSet<string>();
+            models = result.Models; closeLandmarks = result.CloseLandmarks; places = new Dictionary<string, Settlement>(); onceGiven = new HashSet<string>();
             foreach (var s in towns) places[s.Id] = s;
             foreach (var s in localities) places[s.Id] = s;
             try { return Build(towns, localities, camps, ground, columns, result); }
-            finally { models = null; places = null; onceGiven = null; }
+            finally { models = null; closeLandmarks = null; places = null; onceGiven = null; }
         }
 
         static Result Build(IReadOnlyList<Settlement> towns, IReadOnlyList<Settlement> localities, IReadOnlyList<Localities.Area> camps,

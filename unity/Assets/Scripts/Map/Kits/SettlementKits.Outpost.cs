@@ -31,6 +31,7 @@ namespace Statecraft.Game.Map.Kits
             float yaw = GridYaw(s.Id), a = yaw * Mathf.Deg2Rad, ca = Mathf.Cos(a), sa = Mathf.Sin(a);
             Vector2 At(float u, float v) => c + new Vector2(u * ca - v * sa, u * sa + v * ca) * m;
             var stone = C(0.80f, 0.74f, 0.63f); var concrete = C(0.86f, 0.84f, 0.79f); var roof = C(0.72f, 0.70f, 0.66f);
+            var start = km.CutStart();
             // The wall: four sides, the +v one broken by the gate (3 m wide, on the -u side of the middle).
             float h = 0.5f * OutpostSide, t = OutpostWallT;
             var pieces = new (float u, float v, float w, float d)[]
@@ -71,6 +72,7 @@ namespace Statecraft.Game.Map.Kits
                 Record(s.Id, i == 0 ? "dining_hall" : "building", p, yaw, w * m, d * m, bh, concrete);
                 if (i == 0) kibbutzHalls++;
             }
+            AtWorldScale(s.Id, "outpost_yard", km, start, c, ground.Y(c.x, c.y), m);   // #1032: the whole yard, as one landmark
             return 2 + rooms.Length;
         }
     }
