@@ -62,6 +62,12 @@ mvp:
   dry_swamp_turns: 12                    # DESIGN VALUE: owner-set balance, not a historical figure (D-D6, Q-SWAMP-1: turns draining the Hula takes)
   dry_swamp_cost: 4                      # DESIGN VALUE: owner-set balance, not a historical figure (D-D6, Q-SWAMP-1: IL millions, paid at the start)
   field_food_per_turn: 1                 # DESIGN VALUE: owner-set balance, not a historical figure (D-D10, Q-FIELD-3: Food units a plowed field adds each turn)
+  # Q-COR-6 (agents propose design values, owner, 15 October 2026, #375; taken with the plan on 17 October 2026, #782): a
+  # road segment as the Mefalsim build, a rail segment twice its Money at the same pace. Not historical figures.
+  road_segment_turns: 6                  # DESIGN VALUE: owner-set balance, not a historical figure (D-D7, Q-COR-6: turns a road segment takes)
+  road_segment_cost: 2                   # DESIGN VALUE: owner-set balance, not a historical figure (D-D7, Q-COR-6: IL millions, paid at the start)
+  rail_segment_turns: 6                  # DESIGN VALUE: owner-set balance, not a historical figure (D-D7, Q-COR-6: turns a rail segment takes)
+  rail_segment_cost: 4                   # DESIGN VALUE: owner-set balance, not a historical figure (D-D7, Q-COR-6: IL millions, paid at the start)
   objective_points: 100                  # DESIGN VALUE: owner-set balance, not a historical figure (D-B6: points per objective)
   objective_bonus_per_month: 5           # DESIGN VALUE: owner-set balance, not a historical figure (D-B2: points per month early)
   objective_bonus_cap: 60                # DESIGN VALUE: owner-set balance, not a historical figure (D-B2: the most bonus points)
