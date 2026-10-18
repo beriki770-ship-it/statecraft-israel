@@ -15,6 +15,8 @@ namespace Statecraft.Sim
         /// <summary>The GDD game's last day was reached (rules.yaml mvp.end, R-LOOP-004).</summary>
         public const string MvpEnded = "mvp_ended";
         public const string CoalitionCollapse = "coalition_collapse";
+        /// <summary>Money and Food were both exhausted for mvp.defeat_turns turn ends in a row (R-END-002; D-B5).</summary>
+        public const string DefeatEconomy = "defeat_economy";
     }
 
     public enum Mode { Historical, Open }
@@ -81,6 +83,8 @@ namespace Statecraft.Sim
         public int FoodNeed;
         /// <summary>The part of <see cref="FoodNeed"/> the stock could not cover in the last turn (R-FOOD-002, Q-POOL-5).</summary>
         public int FoodUnmet;
+        /// <summary>Consecutive turn ends with Money and Food both exhausted (R-END-001, R-END-002); 0 when either was not.</summary>
+        public int ExhaustedTurns;
 
         public double TotalPopulation => Population.Values.Sum();
 
@@ -202,6 +206,7 @@ namespace Statecraft.Sim
                 sb.Append("food=").Append(Food.ToString(CultureInfo.InvariantCulture)).Append(',').Append(FoodNeed.ToString(CultureInfo.InvariantCulture))
                   .Append(',').Append(FoodUnmet.ToString(CultureInfo.InvariantCulture));
             }
+            if (ExhaustedTurns != 0) { Sep(); Nl(); sb.Append("exhausted=").Append(ExhaustedTurns.ToString(CultureInfo.InvariantCulture)); }
             return sb.ToString();
         }
     }

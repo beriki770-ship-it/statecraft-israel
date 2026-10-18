@@ -21,6 +21,8 @@ namespace Statecraft.Sim
             GameOverCodes.EraEnded => "The chapter has ended",
             GameOverCodes.MvpEnded => "The game has reached its last turn",
             GameOverCodes.CoalitionCollapse => "The coalition collapsed",
+            // Interim: the plan's short option (a) wording. The defeat texts are the owner's pick (Q-DEF-4, #784, open).
+            GameOverCodes.DefeatEconomy => "Money and Food ran out",
             _ => throw Unknown("game over reason", code),
         };
 

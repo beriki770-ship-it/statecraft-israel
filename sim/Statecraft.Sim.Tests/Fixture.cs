@@ -1,6 +1,10 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
+using Xunit.Abstractions;
+using Xunit.Sdk;
+
+[assembly: TestFramework("FixtureCleanupFramework", "Statecraft.Sim.Tests")]
 
 /// <summary>Writes a small, valid content set to a temp dir. Tests override single files to test errors.</summary>
 public static class Fixture
@@ -239,6 +243,8 @@ mvp:
   veteran_progress: 2
   housing_start_condition: 0.5
   overflow_condition_loss: 0.2
+  defeat_turns: 3
+  debt_ceiling: 10
 ";
 
     public static readonly string GddCities = "\ncities:\n" + City("town_a", 12, 8, 10, 6, "[military_camp, hakhshara]");
@@ -279,9 +285,18 @@ sites:
     status: fact-checked
 ";
 
+    // Every Write goes under one root per test run, which FixtureCleanupFramework deletes when the run ends.
+    // One folder per call (~1,150 per `dotnet test` run) used to stay behind (#1017).
+    static readonly string Root = Path.Combine(Path.GetTempPath(), "statecraft-fixture-" + Guid.NewGuid().ToString("N"));
+
+    public static void DeleteAll()
+    {
+        if (Directory.Exists(Root)) Directory.Delete(Root, recursive: true);
+    }
+
     public static string Write(Dictionary<string, string>? overrides = null, Dictionary<string, string>? events = null)
     {
-        var dir = Path.Combine(Path.GetTempPath(), "statecraft-fixture-" + Guid.NewGuid().ToString("N"));
+        var dir = Path.Combine(Root, Guid.NewGuid().ToString("N"));
         Directory.CreateDirectory(Path.Combine(dir, "events"));
         Directory.CreateDirectory(Path.Combine(dir, "map"));
         foreach (var kv in Files)
@@ -292,5 +307,20 @@ sites:
         if (events != null)
             foreach (var kv in events) File.WriteAllText(Path.Combine(dir, "events", kv.Key), kv.Value);
         return dir;
+    }
+}
+
+// xunit 2 has no assembly teardown; the test framework is disposed once the run is over, while the
+// test host still waits for it. ProcessExit is too late: the host is killed mid-delete (measured: 845 of
+// 1,156 folders were still there). TestFramework.Dispose is not virtual, so IDisposable is re-implemented.
+public sealed class FixtureCleanupFramework : XunitTestFramework, IDisposable
+{
+    public FixtureCleanupFramework(IMessageSink sink) : base(sink) { }
+
+    void IDisposable.Dispose()
+    {
+        try { Fixture.DeleteAll(); }
+        catch (Exception e) when (e is IOException || e is UnauthorizedAccessException) { }   // a file held open (antivirus on Windows) must not fail a green run
+        base.Dispose();
     }
 }

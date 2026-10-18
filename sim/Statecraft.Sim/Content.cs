@@ -519,6 +519,12 @@ namespace Statecraft.Sim
         /// <summary>How far a city's housing condition falls in a turn when all its people are beyond its housing; a turn takes
         /// this times the city's overflow share (R-HOUSE-002; D-D1, Q-HOUSE-1). Required in the GDD loop, 0 to 1.</summary>
         public double? OverflowConditionLoss { get; set; }
+        /// <summary>Consecutive turn ends with Money and Food both exhausted that end the game (R-END-002; D-B5, Q-DEF-2).
+        /// Required in the GDD loop, at least 1.</summary>
+        public int? DefeatTurns { get; set; }
+        /// <summary>The debt, in IL millions, at or above which Money is exhausted (R-END-001; D-B5, Q-DEF-1). Required in the
+        /// GDD loop, a finite number >= 0.</summary>
+        public double? DebtCeiling { get; set; }
     }
 
     /// <summary>A kind of city project (projects.yaml; GDD "Cities and construction"; R-PROJ-001 to R-PROJ-003): permanent
