@@ -427,4 +427,22 @@ public class EventCardTests
         Assert.IsTrue(turn.Why.Any(w => w.Message.StartsWith("Delegated to David Ben-Gurion:")), "EventSystem.Delegate names the same minister");
         Assert.IsFalse(endTurn.ClassListContains(EventCardPresenter.EndTurnWaitingClass), "no card waits after End Turn");
     }
+
+    /// <summary>A card with no office goes to the cabinet at End Turn (EventSystem.Delegate's "the cabinet"): the line says so.</summary>
+    [TestCase("en", "You don't have enough Attention left to answer this turn. End the turn and the decision goes to the cabinet.")]
+    [TestCase("he", "לא נשארה לך מספיק תשומת לב לענות בתור הזה. אפשר לסיים את התור, וההחלטה תעבור לידי הממשלה.")]
+    public void WithTooLittleAttentionACardWithNoOfficeGoesToTheCabinet(string lang, string line)
+    {
+        var text = lang == "he" ? He : Text;
+        var c = ContentLoader.Load(Paths.Content);
+        var e = c.Events.First(x => x.Id == "second_truce");
+        e.Office = ""; e.Text = "No office.";
+        var g = GameSession.New(c, GoldenRun.Seed, Mode.Historical);
+        g.State.Date = e.From;
+        g.State.PendingEvents.Clear(); g.State.PendingEvents.Add(e.Id);
+        g.State.Attention = 0;
+        using var ui = new UiTestKit();
+        new EventCardPresenter(ui.Root, new SimBridge(g, text), text, null);
+        Assert.AreEqual(line, ui.Q<Label>("event-delegate").text);
+    }
 }
