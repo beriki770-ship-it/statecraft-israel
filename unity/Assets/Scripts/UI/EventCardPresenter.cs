@@ -203,11 +203,12 @@ namespace Statecraft.Game.UI
             reopen.style.display = !hiddenInCapture && Collapsed ? DisplayStyle.Flex : DisplayStyle.None;
             hudRoot.EnableInClassList(OpenClass, shown);
             ScreenNav.DisableCovered(hudRoot);
-            // An answer is an order and costs Attention (choose_event_option, priced as SimBridge.Queue prices it). When the
-            // turn's Attention left cannot pay, every option would be refused (#1034, #1043): the options are greyed out
-            // with their price, the card says End Turn hands it to its minister, and End Turn is highlighted.
-            var price = Shown == null ? 0 : AttentionSystem.Cost(c, s, new ChooseEventOption(Shown.Id, "").Kind);
-            var unpaid = Shown != null && price > bridge.AttentionLeft + 1e-9;
+            // An answer is an order and costs Attention (choose_event_option): the bridge prices it and checks it as Queue
+            // does. When the turn's Attention left cannot pay, every option would be refused (#1034, #1043): the options are
+            // greyed out with their price, the card says End Turn hands it to its minister, and End Turn is highlighted.
+            var answer = Shown == null ? null : new ChooseEventOption(Shown.Id, "");
+            var price = answer == null ? 0 : bridge.Price(answer);
+            var unpaid = answer != null && !bridge.CanPay(answer);
             endTurn?.EnableInClassList(EndTurnWaitingClass, !hiddenInCapture && unpaid);
             if (Shown == null || Collapsed) video?.Stop();
             if (Shown == null) { clip = null; clipAlt = null; ShowPhoto(null); return; }
@@ -236,8 +237,8 @@ namespace Statecraft.Game.UI
             var objective = card.Q<Label>("event-objective");   // an objective card's line (#380); none on any other card
             objective.text = ObjectiveLine(c, s, e, text);
             objective.style.display = objective.text.Length == 0 ? DisplayStyle.None : DisplayStyle.Flex;
-            // The minister End Turn hands the card to: the same holder EventSystem.Delegate looks up (today's, not the card's date).
-            var minister = e.Office == "" ? null : Cabinet.Holder(c, s, e.Office);
+            // The minister End Turn hands the card to, after this turn's queued orders (an appointment included): the sim's answer.
+            var minister = unpaid ? bridge.DelegatedTo(e) : null;
             delegateLine.text = unpaid ? text.Format("event.no_attention", minister == null ? text["event.cabinet"] : ContentNames.Of(text, minister)) : "";
             delegateLine.style.display = unpaid ? DisplayStyle.Flex : DisplayStyle.None;
             var options = card.Q<VisualElement>("event-options");
