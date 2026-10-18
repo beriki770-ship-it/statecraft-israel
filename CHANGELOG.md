@@ -12,6 +12,13 @@ adds a line under **Unreleased**; CI's `Changelog` job checks this (see `CONTRIB
   under the monthly turn) join the yishuv sites in `content/sites.yaml`, each with a field site in its hex; the
   founding days are the owner's (#785), and the rows stay draft. The reference player builds them in id order, so
   Mefalsim is built in March 1950 and the goldens move (refs #785, #782).
+- Settings: a graphics quality choice, Automatic, High or Low (refs #40, second slice; owner decision of 18 Oct 2026).
+  Automatic is what the game did before: the tier the device gets, and on the web the frame-time fallback steps down
+  when frames are slow. High is the PC tier at render scale 1.0 and Low the Mobile tier at 0.8, both fixed, so the
+  fallback holds while one is set. It applies at once and is kept in `settings.txt` beside the blur option, never in the
+  sim or the save, so the goldens do not move. `?nofallback`, `?shot`, `?profile` and `?vprofile` (on the desktop
+  `-shot`, `-profile` and `-vprofile`) still get the tier's own look whatever is stored. The Mobile tier now ships in
+  desktop builds too (`QualitySettings`), so Low works there.
 
 ### Fixed
 - Event city effects preserve the city's housing condition when changing its housing capacity or job slots (#1000).
