@@ -1184,7 +1184,8 @@ namespace Statecraft.Sim
             foreach (var o in c.Objectives)
             {
                 var at = $"objectives[{o.Id}]";
-                var id = o.CompletesWhen!.SiteBuilt;   // EventRules requires it
+                if (o.CompletesWhen!.Absorbed != null) continue;   // R-OBJ-004 has no site; the GDD loop always has cities
+                var id = o.CompletesWhen.SiteBuilt;   // EventRules requires one kind
                 var site = c.Sites.FirstOrDefault(x => x.Id == id)
                     ?? throw new ContentException(ObjectivesFileName, at + ".completes_when.site_built", $"unknown site '{id}' (sites.yaml)");
                 if (!site.Kinds.Contains(Projects.YishuvKind))

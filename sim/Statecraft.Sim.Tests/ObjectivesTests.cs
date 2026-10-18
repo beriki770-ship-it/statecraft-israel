@@ -308,6 +308,101 @@ eras:
     [Fact]
     public void ContentWithoutObjectivesHasNone() => Assert.Empty(ContentLoader.Load(Fixture.Write()).Objectives);
 
+    // ---- R-OBJ-004, the "absorb immigrants" objective (D-B4; owner, 18 October 2026, #738: option (a)) ----
+
+    /// <summary>The fixture's absorb objective: the fixture starts with 1000 people, so its gate is 1500.</summary>
+    const string AbsorbYaml = "objectives:\n  - { id: first_goal, name: First goal, completes_when: { absorbed: { population_at_least: 1500, overflow_at_most: 0.10, employed_at_least: 0.40 } }, reference_date: 1949-06-12, card: first_card }\n";
+
+    static Content LoadAbsorb(string objectives = AbsorbYaml) => Load(gdd: true, new Dictionary<string, string> { ["objectives.yaml"] = objectives });
+
+    /// <summary>The real content with the absorb objective as #738 decides it (Jewish population 1,000,000, overflow at most
+    /// 10%, employed at least 40%), built in memory: its card is a person's to add (#738, card option (i)), and nothing here
+    /// reads the card.</summary>
+    static Content RealWithAbsorb()
+    {
+        var c = ContentLoader.Load(RealContentTests.ContentRoot());
+        c.Objectives = c.Objectives.Append(new Objective
+        {
+            Id = "absorb_immigrants",
+            Name = "Absorb the immigrants",
+            CompletesWhen = new ObjectiveCondition { Absorbed = new AbsorbCondition { PopulationAtLeast = 1_000_000, OverflowAtMost = 0.10m, EmployedAtLeast = 0.40m } },
+            ReferenceDate = D("1949-12-20"),
+            Card = "absorb_immigrants",
+        }).OrderBy(o => o.Id, StringComparer.Ordinal).ToList();
+        return c;
+    }
+
+    // R-OBJ-004: town_a houses 10 units and its people are civilians only, so overflow = civilians - 10. Each row is just
+    // inside or just outside one bound; the shares are "at or below" and "at or above".
+    [Theory]
+    [InlineData(1500, 11, 5, 0, true)]     // overflow 1 <= 1.1, employed 5 >= 4.4
+    [InlineData(1499, 11, 5, 0, false)]    // below the population gate
+    [InlineData(1500, 10, 4, 0, true)]     // no overflow, employed 4 = 40% of 10: on the bound
+    [InlineData(1500, 10, 3, 0, false)]    // employed 30%
+    [InlineData(1500, 12, 5, 0, false)]    // overflow 2 > 1.2
+    [InlineData(1500, 11, 5, 7, true)]     // refugees waiting do not block it (the owner dropped that clause, #738)
+    public void AbsorptionCompletesWhenTheShareIsHousedAndEmployed(int population, int civilians, int employed, int refugees, bool done)
+    {
+        var c = LoadAbsorb();
+        var s = Simulation.NewGame(c, 1, Mode.Historical);
+        s.Population = new Dictionary<string, double> { ["veterans"] = population };
+        s.Cities["town_a"] = new City("town_a", 10, 8, civilians, employed, refugees);
+        Objectives.Complete(c, s, c.Rules.Mvp!, D("1949-04-15"), new List<Cause>());
+        Assert.Equal(done, s.Objectives.ContainsKey("first_goal"));
+        Assert.Equal(done ? 110 : 0, s.Score);
+    }
+
+    // R-OBJ-004 (#738): Q-ABS-2 as first recorded (no refugees waiting, overflow <= 10%, employed >= 40%) already
+    // holds at the end of the real game's first turn, with nobody absorbed: the census start values are 41% employed with no
+    // overflow (#738, issuecomment-6242964308). The population gate keeps the objective open.
+    [Fact]
+    public void TheStartValuesDoNotCompleteItOnTheFirstTurn()
+    {
+        var c = RealWithAbsorb();
+        var s = Step(c, Simulation.NewGame(c, GoldenRun.Seed, Mode.Historical)).State;
+        Assert.Equal(0, s.Cities.Values.Sum(x => x.Refugees));
+        Assert.Equal(0, s.Cities.Values.Sum(x => Cities.Overflow(s, x)));
+        Assert.True(Cities.EmployedShare(s) >= 0.40, "precondition: the old condition holds on turn 1");
+        Assert.DoesNotContain("absorb_immigrants", s.Objectives.Keys);
+    }
+
+    // R-OBJ-004 (#738): arrivals with no housing or jobs built never complete it. The historical run with no orders
+    // passes 1,000,000 people, but its cities are then far below 40% employed.
+    [Fact]
+    public void ArrivalAloneDoesNotComplete()
+    {
+        var c = RealWithAbsorb();
+        var s = Simulation.NewGame(c, GoldenRun.Seed, Mode.Historical);
+        var passed = false;
+        while (s.GameOver == null)
+        {
+            s = Step(c, s).State;
+            passed |= s.TotalPopulation >= 1_000_000;
+            Assert.DoesNotContain("absorb_immigrants", s.Objectives.Keys);
+        }
+        Assert.True(passed, "precondition: the run passes 1,000,000 people");
+    }
+
+    // R-OBJ-004 with R-OBJ-003: once the condition holds, the objective is recorded at the end of that turn and its card is
+    // pending for the next; it neither records nor fires again.
+    [Fact]
+    public void TheAbsorbCardFiresOnceTheTurnAfter()
+    {
+        var c = LoadAbsorb(AbsorbYaml.Replace("population_at_least: 1500", "population_at_least: 1000"));   // the start: 60% employed, no overflow
+        var r = Step(c, Simulation.NewGame(c, 1, Mode.Historical));
+        Assert.Equal(r.State.Date, Assert.Single(r.State.Objectives).Value);
+        Assert.Contains("first_card", r.State.PendingEvents);
+        var score = r.State.Score;
+        var s = Step(c, r.State, new ChooseEventOption("first_card", "continue")).State;
+        for (int i = 0; i < 3; i++)
+        {
+            s = Step(c, s).State;
+            Assert.DoesNotContain("first_card", s.PendingEvents);
+        }
+        Assert.Single(s.Objectives);
+        Assert.Equal(score, s.Score);
+    }
+
     static string GddRules(string from, string to) => Fixture.Gdd()["rules.yaml"].Replace(from, to);
 
     static string TwoOptions => Card + "  - id: refuse\n    text: Refuse\n";
@@ -320,6 +415,10 @@ eras:
         new object[] { "objectives.yaml", ObjectivesYaml + ObjectivesYaml.Replace("objectives:\n", ""), Card, "objectives.yaml", "objectives[first_goal].id", "duplicate id" },
         new object[] { "objectives.yaml", Objective("name: First goal, ", ""), Card, "objectives.yaml", "objectives[first_goal].name", "required" },
         new object[] { "objectives.yaml", Objective("completes_when: { site_built: site_a }, ", ""), Card, "objectives.yaml", "objectives[first_goal].completes_when", "required" },
+        new object[] { "objectives.yaml", Objective("site_built: site_a", "site_built: site_a, absorbed: { population_at_least: 1, overflow_at_most: 0.1, employed_at_least: 0.4 }"), Card, "objectives.yaml", "objectives[first_goal].completes_when", "exactly one of" },
+        new object[] { "objectives.yaml", AbsorbYaml.Replace("population_at_least: 1500", "population_at_least: 0"), Card, "objectives.yaml", "objectives[first_goal].completes_when.absorbed.population_at_least", "above 0" },
+        new object[] { "objectives.yaml", AbsorbYaml.Replace("overflow_at_most: 0.10", "overflow_at_most: 1.5"), Card, "objectives.yaml", "objectives[first_goal].completes_when.absorbed.overflow_at_most", "share from 0 to 1" },
+        new object[] { "objectives.yaml", AbsorbYaml.Replace("employed_at_least: 0.40", "employed_at_least: 0"), Card, "objectives.yaml", "objectives[first_goal].completes_when.absorbed.employed_at_least", "share above 0" },
         new object[] { "objectives.yaml", Objective("reference_date: 1949-06-12, ", ""), Card, "objectives.yaml", "objectives[first_goal].reference_date", "required" },
         new object[] { "objectives.yaml", Objective("card: first_card", "card: no_card"), Card, "objectives.yaml", "objectives[first_goal].card", "unknown event 'no_card'" },
         new object[] { "objectives.yaml", ObjectivesYaml, Card.Replace("objective: first_goal\n", ""), "events/first_card.yaml", "events[first_card].objective", "must be 'first_goal'" },

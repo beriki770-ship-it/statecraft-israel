@@ -166,8 +166,14 @@ namespace Statecraft.Sim
                 if (!Offices.OfficeId.IsMatch(o.Id)) throw new ContentException(file, F("id"), ContentLoader.IdRule);
                 if (!seen.Add(o.Id)) throw new ContentException(file, F("id"), "duplicate id");
                 ContentLoader.Named(file, F("name"), o.Name);
-                if (o.CompletesWhen == null || o.CompletesWhen.SiteBuilt == "")
-                    throw new ContentException(file, F("completes_when"), "required: { site_built: <site id> }");
+                if (o.CompletesWhen == null || (o.CompletesWhen.SiteBuilt == "") == (o.CompletesWhen.Absorbed == null))
+                    throw new ContentException(file, F("completes_when"), "required, exactly one of: { site_built: <site id> }, { absorbed: { ... } }");
+                if (o.CompletesWhen.Absorbed is AbsorbCondition a)
+                {
+                    if (a.PopulationAtLeast <= 0) throw new ContentException(file, F("completes_when.absorbed.population_at_least"), "must be above 0");
+                    if (!(a.OverflowAtMost >= 0 && a.OverflowAtMost <= 1)) throw new ContentException(file, F("completes_when.absorbed.overflow_at_most"), "must be a share from 0 to 1");
+                    if (!(a.EmployedAtLeast > 0 && a.EmployedAtLeast <= 1)) throw new ContentException(file, F("completes_when.absorbed.employed_at_least"), "must be a share above 0, at most 1");
+                }
                 if (o.ReferenceDate == default) throw new ContentException(file, F("reference_date"), "required (the sourced date of the real event)");
                 var card = c.Events.FirstOrDefault(e => e.Id == o.Card)
                     ?? throw new ContentException(file, F("card"), $"unknown event '{o.Card}'");

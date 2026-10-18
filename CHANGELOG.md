@@ -12,6 +12,10 @@ adds a line under **Unreleased**; CI's `Changelog` job checks this (see `CONTRIB
   each written into the state hash only when set, so a halutz hashes as before and no golden moves. `unit_types.yaml`
   gains Israel's `veteran_soldier` (infantry), `artillery` and `armoured_car` (armour) with a `side` and a `class`; the
   loader refuses a military type without both (R-UNIT-001, R-UNIT-002; refs #741, #385). Nothing uses them yet.
+- Objectives can complete on absorbing the immigrants: `completes_when: { absorbed: ... }` holds once the Jewish
+  population has reached a stated number and then the cities' overflow and employed shares are inside stated bounds
+  (R-OBJ-004; owner's option (a) on #738). The real objective and its card come with a person's source check, so no
+  content uses it yet and no golden moves (refs #738, #383).
 - Kiryat Shmona (founded 18 July 1949) and Beit Shemesh (15 December 1950, the National Library's December 1950
   under the monthly turn) join the yishuv sites in `content/sites.yaml`, each with a field site in its hex; the
   founding days are the owner's (#785), and the rows stay draft. The reference player builds them in id order, so

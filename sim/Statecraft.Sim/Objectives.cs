@@ -39,9 +39,30 @@ namespace Statecraft.Sim
                 if (Holds(s, o)) Record(c, s, r, o.Id, next, why);
         }
 
-        /// <summary>Whether the objective's condition holds: its site is built (R-SITE-003).</summary>
+        /// <summary>Whether the objective's condition holds: the immigrants are absorbed (R-OBJ-004), or its site is built
+        /// (R-SITE-003).</summary>
         static bool Holds(GameState s, Objective o) =>
-            s.Sites.TryGetValue(o.CompletesWhen!.SiteBuilt, out var w) && w.BuiltOn != null;
+            o.CompletesWhen!.Absorbed is AbsorbCondition a ? Absorbed(s, a)
+            : s.Sites.TryGetValue(o.CompletesWhen.SiteBuilt, out var w) && w.BuiltOn != null;
+
+        /// <summary>R-OBJ-004 (D-B4; owner, 18 October 2026, #738, option (a)): once the Jewish population (the national count,
+        /// as it stands when step 11 runs, before the turn's population step) has reached the gate, the cities' overflow is at
+        /// most its share of the people they house and their employed at least its share of their civilians. Refugees waiting
+        /// do not count: the turn's arrivals (step 9) always wait at step 11, after housing (step 8). The city counts are
+        /// integer sums times a decimal share, so city order and the runtime cannot change them.</summary>
+        static bool Absorbed(GameState s, AbsorbCondition a)
+        {
+            if (s.TotalPopulation < a.PopulationAtLeast) return false;
+            long housed = 0, over = 0, civilians = 0, employed = 0;
+            foreach (var x in s.Cities.Values)
+            {
+                housed += Cities.Housed(s, x);
+                over += Cities.Overflow(s, x);
+                civilians += x.Civilians;
+                employed += x.Employed;
+            }
+            return over <= a.OverflowAtMost * housed && employed >= a.EmployedAtLeast * civilians;
+        }
 
         /// <summary>Records objective <paramref name="id"/> as completed on <paramref name="date"/> and adds its points to the
         /// score (R-OBJ-001, R-OBJ-002). Returns false, and changes nothing, when it is already recorded or the loop is not

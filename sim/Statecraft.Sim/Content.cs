@@ -868,11 +868,27 @@ namespace Statecraft.Sim
         public string Card { get; set; } = "";
     }
 
-    /// <summary>What completes an objective (objectives.yaml completes_when). Phase 1 has one kind.</summary>
+    /// <summary>What completes an objective (objectives.yaml completes_when): exactly one kind.</summary>
     public sealed class ObjectiveCondition
     {
         /// <summary>A designated site (sites.yaml) of kind yishuv: complete once it is built (R-SITE-003).</summary>
         public string SiteBuilt { get; set; } = "";
+        /// <summary>The cities have absorbed the immigrants (R-OBJ-004, D-B4).</summary>
+        public AbsorbCondition? Absorbed { get; set; }
+    }
+
+    /// <summary>R-OBJ-004 (D-B4; owner, 18 October 2026, #738, option (a)): once the Jewish population has reached
+    /// <see cref="PopulationAtLeast"/>, the cities' overflow is at most <see cref="OverflowAtMost"/> of the people they house
+    /// and their employed civilians at least <see cref="EmployedAtLeast"/> of their civilians. The population gate keeps the
+    /// start values (already 41% employed, no overflow) from completing it on the first turn.</summary>
+    public sealed class AbsorbCondition
+    {
+        /// <summary>GameState.TotalPopulation, the national Jewish count, at or above this.</summary>
+        public long PopulationAtLeast { get; set; }
+        /// <summary>Overflow (R-HOUSE-002) over the housed people (R-HOUSE-003), at or below this share.</summary>
+        public decimal OverflowAtMost { get; set; }
+        /// <summary>Employed over civilians (as R-CITY-005 counts them), at or above this share.</summary>
+        public decimal EmployedAtLeast { get; set; }
     }
 
     /// <summary>One hex of content/map/hexes.json (written by tools/hexgrid.py; axial q, r, pointy-top).</summary>
