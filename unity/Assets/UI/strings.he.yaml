@@ -84,6 +84,11 @@ event.reopen: "החלטה ממתינה"
 event.illustration: "איור"
 event.photo: "תצלום"
 event.ai_label: "איור שנוצר בבינה מלאכותית"
+# Too little Attention left to answer the card (#1034, #1043). "אפשר לסיים" and "לידי" keep the line free of the
+# player's and the minister's gender. For the native reviewer (#564).
+event.no_attention: "לא נשארה לך מספיק תשומת לב לענות בתור הזה. אפשר לסיים את התור, וההחלטה תעבור לידי {0}."
+event.cabinet: "הממשלה"
+event.option_cost: "{0} (עולה {1:0.0} תשומת לב)"
 # The objective card's line (#380; the owner's wording, #379): early, on time, later.
 event.objective_early: "הושלם ב־{0}; בהיסטוריה ב־{1}; מוקדם ב־{2} חודשים."
 event.objective_early_one: "הושלם ב־{0}; בהיסטוריה ב־{1}; מוקדם בחודש אחד."

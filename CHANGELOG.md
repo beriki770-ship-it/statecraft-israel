@@ -140,6 +140,9 @@ adds a line under **Unreleased**; CI's `Changelog` job checks this (see `CONTRIB
   follows Remez's, row 3860), and `education_registration_1951` opens on 12 February 1951, its first cited plenum record
   (was 29 November 1950). The card now fires on 15 February 1951, so `hash1952`, `mvp-end` and `scenario-mvp-defeat`
   move (coalition stability only) and are re-pinned (`docs/determinism.md`).
+- A decision card the turn's Attention can't pay for no longer looks frozen (#1034, #1043): each option shows its
+  Attention cost and is greyed out, the card says that ending the turn hands the decision to the minister
+  (the one `EventSystem.Delegate` names), in English and Hebrew, and End turn is highlighted while such a card waits.
 - MATKOT's building models up close (#700) stand at one world scale, set by the steam train the map runs: a typical
   8.5 m house is as long as the locomotive's car (about 204 m), so every model is 24x its building's real size
   (`SettlementKits.ModelScale`), keeps its own proportions and no longer fills the kit's plot; a plot holds a small
