@@ -14,6 +14,9 @@ namespace Statecraft.Sim
     {
         public const string PioneerKind = "pioneer_work";
         public const string StopKind = "stop_work";
+        /// <summary>The command kinds of the city projects (R-PROJ-001, R-PROJ-002).</summary>
+        public const string StartProjectKind = "start_project";
+        public const string CancelProjectKind = "cancel_project";
         /// <summary>The one pioneer action Phase 1 has (GDD "Pioneer work": "Build yishuv").</summary>
         public const string BuildYishuv = "build_yishuv";
         /// <summary>The pioneer action that builds a military camp or a Hakhshara, as the site's kind says (GDD "Pioneer work":
@@ -150,6 +153,89 @@ namespace Statecraft.Sim
                 var promoted = service >= r.VeteranHalutzService!.Value;
                 s.Units[u.Id] = new Unit(u.Id, promoted ? VeteranType : u.Type, u.Q, u.R, service);
                 if (promoted) why.Add(new Cause("map", w.Site, 1, "A group of halutzim became veteran pioneers"));
+            }
+        }
+
+        /// <summary>The city project at hex (q, r), being built or built, or null (Q-PROJ-2: one project or placement a hex).</summary>
+        public static CityProject? CityProjectAt(GameState s, int q, int r) => s.CityProjects.Values.FirstOrDefault(p => p.Q == q && p.R == r);
+
+        /// <summary>R-PROJ-001: null when city project <paramref name="kind"/> may be started for <paramref name="city"/> on hex
+        /// (q, r) now, else the reason. Refused for an unknown kind or city; a transit camp without the ma'abarot policy
+        /// (Q-HOUSE-3, D-D3: the policy carries its sourced date); a hex that is not land, is further than
+        /// map_action_max_distance from the city's settlement hex, or holds a placement or another city project (Q-PROJ-2); and
+        /// once map_actions_per_turn projects were started this turn (Q-PROJ-4). A short Treasury is not a reason: it borrows
+        /// (Q-MONEY-3). The reference player asks this before it orders.</summary>
+        public static string? CheckCity(Content c, GameState s, string kind, string city, int q, int r)
+        {
+            var k = c.ProjectKinds.FirstOrDefault(x => x.Id == kind);
+            if (k == null) return "There is no such city project";
+            if (!s.Cities.ContainsKey(city)) return "There is no such city";
+            if (kind == MapActions.TransitCamp && !(s.Policies.TryGetValue(MapActions.MaabarotPolicy, out var m) && m >= 0.5))
+                return "Transit camps need the ma'abarot policy";
+            var hex = c.HexAt(q, r);
+            if (hex == null || !hex.Land) return "This hex is not land";
+            var rules = c.RulesAt(s.Date);   // the era the turn starts in
+            var home = c.SettlementHexes.First(h => h.Id == city);   // every city has one (ValidateGdd)
+            var max = rules.MapActionMaxDistance;
+            var name = PlayerText.Settlement(c, city);
+            if (MapActions.Distance(q, r, home.Q, home.R) > max)
+                return FormattableString.Invariant($"This hex is more than {max} {(max == 1 ? "hex" : "hexes")} from {name}");
+            if (MapActions.At(s, q, r) is Placement placed) return $"This hex already has {PlayerText.MapAction(c, placed.Action)}";
+            if (CityProjectAt(s, q, r) is CityProject other) return $"This hex already has {c.ProjectKinds.First(x => x.Id == other.Kind).Name}";
+            // Last, as for map actions, so a player over the cap still sees the specific reason an order is illegal. The count
+            // is the map actions' own (one national limit, Q-PROJ-4).
+            if ((s.MapActionsTurnDate == s.Date ? s.MapActionsThisTurn : 0) >= rules.MapActionsPerTurn)
+                return FormattableString.Invariant($"No more than {rules.MapActionsPerTurn} city projects in one turn");
+            return null;
+        }
+
+        /// <summary>R-PROJ-001: starts city project <paramref name="kind"/> for <paramref name="city"/> on hex (q, r), or returns
+        /// the reason (<see cref="CheckCity"/>; state untouched). The Treasury pays the kind's cost now and borrows what it lacks
+        /// (Q-PROJ-1, Q-MONEY-3); the project takes the next id and the kind's turns, the turn of the order the first (D-A3). It
+        /// needs no workers (Q-PROJ-3). Step has already refused it in the legacy loop.</summary>
+        public static string? StartCity(Content c, GameState s, string kind, string city, int q, int r, List<Cause> why)
+        {
+            var reason = CheckCity(c, s, kind, city, q, r);
+            if (reason != null) return reason;
+            var k = c.ProjectKinds.First(x => x.Id == kind);
+            if (s.MapActionsTurnDate != s.Date) { s.MapActionsTurnDate = s.Date; s.MapActionsThisTurn = 0; }
+            s.MapActionsThisTurn++;
+            var name = PlayerText.Settlement(c, city);
+            EconomySystem.PayOrBorrow(c, s, k.Cost, "to build " + k.Name, why);
+            var id = s.NextId++;
+            s.CityProjects.Add(id, new CityProject(id, kind, city, q, r, k.Turns));
+            why.Add(new Cause("city", city, 1, $"{name}: {k.Name} began, cost {PlayerText.Money(c, "treasury", k.Cost)}"));
+            return null;
+        }
+
+        /// <summary>R-PROJ-002 (D-A3): city project <paramref name="project"/> leaves the state; the Money spent is not returned,
+        /// and with no workers (Q-PROJ-3) there are no people to return. Refused, state untouched, for a project that does not
+        /// exist or is built. Step has already refused it in the legacy loop.</summary>
+        public static string? CancelCity(Content c, GameState s, int project, List<Cause> why)
+        {
+            if (!s.CityProjects.TryGetValue(project, out var p)) return "There is no such city project";
+            var k = c.ProjectKinds.First(x => x.Id == p.Kind);
+            if (p.BuiltOn != null) return $"{PlayerText.Capitalised(k.Name)} is already built";
+            s.CityProjects.Remove(project);
+            why.Add(new Cause("city", p.City, -1, $"{PlayerText.Settlement(c, p.City)}: {k.Name} was cancelled; the Money spent is not returned"));
+            return null;
+        }
+
+        /// <summary>R-PROJ-003, step 5 of the turn (D-A6), after the pioneer work: in ascending id, each city project being built
+        /// has one turn less to go. One that reaches 0 is built on <paramref name="next"/>, the turn's end date, and adds its
+        /// kind's housing capacity, condition (kept from 0 to 1) and job slots to its city, once: a built project is never
+        /// advanced again.</summary>
+        public static void AdvanceCity(Content c, GameState s, DateTime next, List<Cause> why)
+        {
+            foreach (var p in s.CityProjects.Values.Where(x => x.BuiltOn == null).ToList())
+            {
+                if (p.TurnsLeft > 1) { s.CityProjects[p.Id] = p.WithTurnsLeft(p.TurnsLeft - 1); continue; }
+                s.CityProjects[p.Id] = p.Built(next);
+                var k = c.ProjectKinds.First(x => x.Id == p.Kind);
+                var x = s.Cities[p.City];
+                var condition = x.Condition is double now ? Math.Min(1.0, Math.Max(0.0, now + k.Condition)) : (double?)null;
+                s.Cities[p.City] = new City(x.Id, x.HousingCapacity + k.Capacity, x.JobSlots + k.JobSlots, x.Civilians, x.Employed, x.Refugees, x.Recruits, condition);
+                why.Add(new Cause("city", p.City, 1, $"{PlayerText.Settlement(c, p.City)}: {k.Name} was finished"));
             }
         }
     }

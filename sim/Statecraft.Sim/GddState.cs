@@ -127,4 +127,36 @@ namespace Statecraft.Sim
             ? Site + "=done," + on.ToString("yyyy-MM-dd", CultureInfo.InvariantCulture)
             : string.Format(CultureInfo.InvariantCulture, "{0}=b,{1},{2}", Site, Unit, TurnsLeft);
     }
+
+    /// <summary>A city project (projects.yaml; R-PROJ-001 to R-PROJ-003): <see cref="Kind"/> built for <see cref="City"/> on hex
+    /// (<see cref="Q"/>, <see cref="R"/>) with <see cref="TurnsLeft"/> more turns to go, or, once <see cref="BuiltOn"/> is set,
+    /// built on that date (its capacity, condition and slots added then, once). A built project keeps its record, so its hex
+    /// stays taken (Q-PROJ-2) and the map can draw it (Phase 3 PR 8). No workers (Q-PROJ-3). Immutable; a change replaces the
+    /// record.</summary>
+    public sealed class CityProject
+    {
+        public int Id { get; }
+        public string Kind { get; }
+        public string City { get; }
+        public int Q { get; }
+        public int R { get; }
+        public int TurnsLeft { get; }
+        /// <summary>The end date of the turn the project was built on; null while it is being built.</summary>
+        public DateTime? BuiltOn { get; }
+
+        public CityProject(int id, string kind, string city, int q, int r, int turnsLeft, DateTime? builtOn = null)
+        {
+            Id = id; Kind = kind; City = city; Q = q; R = r; TurnsLeft = turnsLeft; BuiltOn = builtOn;
+        }
+
+        /// <summary>The same project with <paramref name="turnsLeft"/> turns to go.</summary>
+        public CityProject WithTurnsLeft(int turnsLeft) => new CityProject(Id, Kind, City, Q, R, turnsLeft);
+
+        /// <summary>The same project, built on <paramref name="on"/>.</summary>
+        public CityProject Built(DateTime on) => new CityProject(Id, Kind, City, Q, R, 0, on);
+
+        /// <summary>The record as the state hash writes it: "id:KIND@CITY,Q,R/TURNSLEFT" while building, "/done,yyyy-MM-dd" once built.</summary>
+        public string Canonical() => string.Format(CultureInfo.InvariantCulture, "{0}:{1}@{2},{3},{4}/", Id, Kind, City, Q, R)
+            + (BuiltOn is DateTime on ? "done," + on.ToString("yyyy-MM-dd", CultureInfo.InvariantCulture) : TurnsLeft.ToString(CultureInfo.InvariantCulture));
+    }
 }

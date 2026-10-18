@@ -65,6 +65,7 @@ namespace Statecraft.Sim
             ["map_action"] = new[] { "action", "q", "r" }, ["assign_workers"] = new[] { "city", "role", "count" },
             ["train"] = new[] { "city", "track", "count" }, ["cancel_training"] = new[] { "cohort" },
             ["pioneer_work"] = new[] { "unit", "action", "site" }, ["stop_work"] = new[] { "unit" },
+            ["start_project"] = new[] { "project", "city", "q", "r" }, ["cancel_project"] = new[] { "project" },
         };
 
         public static IReadOnlyCollection<string> Kinds => Allowed.Keys;
@@ -94,6 +95,8 @@ namespace Statecraft.Sim
                 case "cancel_training": return new CancelTraining(Whole(c, "cohort"));
                 case "pioneer_work": return new PioneerWork(Whole(c, "unit"), Str(c, "action"), Str(c, "site"));
                 case "stop_work": return new StopWork(Whole(c, "unit"));
+                case "start_project": return new StartProject(Str(c, "project"), Str(c, "city"), Whole(c, "q"), Whole(c, "r"));
+                case "cancel_project": return new CancelProject(Whole(c, "project"));
                 default: throw new InvalidDataException($"command kind '{kind}' has no builder");
             }
         }
@@ -133,6 +136,7 @@ namespace Statecraft.Sim
             SecurityOrder o => o.Delta.ToString(CultureInfo.InvariantCulture), Appoint a => $"{a.Office} {a.Person}", MapAction m => $"{m.Action} {m.Q},{m.R}",
             AssignWorkers w => $"{w.City} {w.Role} {w.Count}", Train t => $"{t.City} {t.Track} {t.Count}", CancelTraining t => t.Cohort.ToString(CultureInfo.InvariantCulture),
             PioneerWork p => FormattableString.Invariant($"{p.Unit} {p.Action} {p.Site}"), StopWork w => w.Unit.ToString(CultureInfo.InvariantCulture),
+            StartProject p => FormattableString.Invariant($"{p.ProjectKind} {p.City} {p.Q},{p.R}"), CancelProject p => p.Project.ToString(CultureInfo.InvariantCulture),
             _ => c.Kind,
         };
     }

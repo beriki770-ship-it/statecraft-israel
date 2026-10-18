@@ -8,6 +8,12 @@ adds a line under **Unreleased**; CI's `Changelog` job checks this (see `CONTRIB
 ## [Unreleased]
 
 ### Added
+- City projects in the GDD loop: `StartProject(kind, city, q, r)` builds permanent housing (IL 6m, 6 turns, +5
+  capacity, +0.03 condition), a transit camp (IL 1.5m, 1 turn, +5 capacity, -0.02 condition; needs the ma'abarot
+  policy) or industry (IL 2m, 6 turns, +5 job slots) on a land hex next to the city, paid at the start and borrowed if
+  short, at most 2 starts a turn; `CancelProject(id)` returns no Money. The kinds are labelled design values in the new
+  `content/projects.yaml` (Q-PROJ-1 to Q-PROJ-5, Q-HOUSE-3; R-PROJ-001 to R-PROJ-003; refs #735). The reference player
+  starts a housing project, one at a time, where the overflow is largest, so `hash1950`, `hash1952` and `mvp-end` move.
 - Events: consequence cards (`kind: consequence`) for the roads not taken. They are soft, follow only a road
   contemporaries proposed or debated (the Ferguson test), lie at most 2 cards deep, carry the sensitive tags of the road
   they follow and take the first soft slots of a turn (R-ALT-005 to R-ALT-008, R-ALT-012; refs #950, #939). No content

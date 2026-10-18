@@ -48,6 +48,7 @@ namespace Statecraft.Sim
         sealed class CitiesFile { public List<CityStart> Cities { get; set; } = new List<CityStart>(); }
         sealed class UnitTypesFile { public List<UnitType> Types { get; set; } = new List<UnitType>(); }
         sealed class SitesFile { public List<Site> Sites { get; set; } = new List<Site>(); }
+        sealed class ProjectsFile { public List<ProjectKind> Projects { get; set; } = new List<ProjectKind>(); }
         sealed class ObjectivesFile { public List<Objective> Objectives { get; set; } = new List<Objective>(); }
 
         public const string HexesFile = "map/hexes.json";
@@ -356,6 +357,7 @@ namespace Statecraft.Sim
                 c.Cities = Read<CitiesFile>(readFile, "cities.yaml").Cities;
                 c.UnitTypes = Read<UnitTypesFile>(readFile, "unit_types.yaml").Types;
                 c.Sites = Read<SitesFile>(readFile, "sites.yaml").Sites;   // sourced facts (Phase 1 PR 5)
+                c.ProjectKinds = Read<ProjectsFile>(readFile, "projects.yaml").Projects;   // design values (Phase 3 PR 4)
                 ValidateGdd(c, settlementIds);
             }
             EventRules.ValidateStructured(c);   // R-EFX-006: after the GDD records it names are read
@@ -1108,6 +1110,26 @@ namespace Statecraft.Sim
                 throw new ContentException("rules.yaml", "mvp.end", FormattableString.Invariant($"must be after start ({c.Rules.Start:yyyy-MM-dd}) and before the last era's end ({c.Eras[c.Eras.Count - 1].To:yyyy-MM-dd})"));
             ValidateSites(c);
             ValidateObjectiveSites(c);
+            ValidateProjects(c);
+        }
+
+        /// <summary>The city project kinds (projects.yaml, R-PROJ-001): unique ids, a name, a cost and turns, and what each adds.
+        /// The values are design values (Q-PROJ-1); the checks keep a typo from building a project that never finishes, costs
+        /// less than nothing or moves a condition out of its 0 to 1 scale in one step.</summary>
+        static void ValidateProjects(Content c)
+        {
+            const string pf = "projects.yaml";
+            Unique(pf, "projects", c.ProjectKinds.Select(x => x.Id));
+            foreach (var x in c.ProjectKinds)
+            {
+                var at = $"projects[{x.Id}]";
+                if (string.IsNullOrWhiteSpace(x.Name)) throw new ContentException(pf, at + ".name", "is required");
+                if (!(x.Cost >= 0 && !double.IsInfinity(x.Cost))) throw new ContentException(pf, at + ".cost", "must be a finite non-negative number");
+                if (x.Turns < 1) throw new ContentException(pf, at + ".turns", "must be at least 1");
+                if (x.Capacity < 0) throw new ContentException(pf, at + ".capacity", "must not be negative");
+                if (x.JobSlots < 0) throw new ContentException(pf, at + ".job_slots", "must not be negative");
+                if (!(x.Condition >= -1 && x.Condition <= 1)) throw new ContentException(pf, at + ".condition", "must be a number from -1 to 1");
+            }
         }
 
         /// <summary>An objective's site (R-OBJ-001): a designated site of kind yishuv, whose sourced founding date is the

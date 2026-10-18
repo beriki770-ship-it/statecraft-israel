@@ -31,6 +31,8 @@ public class SimBridgeGuardTests
         [typeof(CancelTraining)] = new CancelTraining(1),
         [typeof(PioneerWork)] = new PioneerWork(1, "build_yishuv", "mefalsim"),
         [typeof(StopWork)] = new StopWork(1),
+        [typeof(StartProject)] = new StartProject("housing", "tel_aviv", 1, 0),
+        [typeof(CancelProject)] = new CancelProject(1),
     };
 
     static IEnumerable<Type> CommandTypes() =>
