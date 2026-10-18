@@ -415,7 +415,9 @@ public class TownCensusTests
     /// <summary>#588 (owner, 18 October 2026, "Beri's defaults"): Haifa and Tel Aviv each have a budget of one unit's
     /// clearing (a token standing in the town, MapScene.UnitClearings), and their floors in <see cref="Floors"/> are
     /// measured with it: Carmeli in Haifa, Kiryati in Tel Aviv. A second clearing in either town would thin it under its
-    /// measure; none would leave its floor loose.</summary>
+    /// measure; none would leave its floor loose. The placer does not count the budget: this test is the guard. Tel Aviv's
+    /// floor (<see cref="TelAvivFloor"/>, #652) was measured with Kiryati's clearing already in place, so its one clearing
+    /// takes nothing more and the floor stays.</summary>
     internal static readonly Dictionary<string, int> UnitClearingBudget = new Dictionary<string, int> { ["haifa"] = 1, ["tel_aviv"] = 1 };
 
     [Test]
@@ -428,6 +430,8 @@ public class TownCensusTests
             var inTown = map.UnitClearings.Where(c => (c.centre - fc).magnitude < fr * Statecraft.Game.Map.Units.UnitGround.FootprintMargin).ToList();
             TestContext.WriteLine($"{kv.Key}: {inTown.Count} unit clearings {string.Join(" ", inTown.Select(c => c.centre))}");
             Assert.AreEqual(kv.Value, inTown.Count, kv.Key + ": unit clearings in the town");
+            var own = map.UnitSpots.Where(s => s.Value.InTown && inTown.Any(c => c.centre == new Vector2((float)s.Value.X, (float)s.Value.Z))).Select(s => s.Key.Place);
+            CollectionAssert.AreEquivalent(new[] { kv.Key == "haifa" ? "Haifa" : "Tel Aviv" }, own, kv.Key + ": the clearing its floors were measured with");
         }
     }
 

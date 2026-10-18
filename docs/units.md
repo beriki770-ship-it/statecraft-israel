@@ -348,7 +348,7 @@ headless `?vprofile` on the WebGL build of 943184c, 1920x1080 at DPR 1, 2026-10-
   archives.
 - No dated front line: tokens keep within one hex of their sourced place, and three anchors carry a sourced `toward`
   point to stay on their own side (review MF1).
-- **Kit baseline break:** from 943184c the kits keep the unit clearings in Tel Aviv and West Jerusalem, in plain
+- **Kit baseline break:** from 943184c the kits keep the unit clearings in Tel Aviv and West Jerusalem (and in Haifa since #588), in plain
   checkpoints too. So kit metrics before and after that commit are not comparable; this is marked in the art log.
 - Merges still to come (review I7). With promo-borderdata, the info panel's region label must be cleared when a unit
   card shows. With promo-screens, the wide-screen click guard must cover `ShowUnit` and `UnitLayer.Select` as well as
