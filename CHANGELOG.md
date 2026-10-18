@@ -14,6 +14,11 @@ adds a line under **Unreleased**; CI's `Changelog` job checks this (see `CONTRIB
 - The Cabinet, Budget, Defence, Why, How to play and Settings screens each gain an X in the header that closes
   them (the same close as Escape): a phone has no Escape key, and re-tapping the lit rail button was the only way
   out (v0.1.1 playtest feedback).
+- The Carmeli Brigade stands at Haifa, its sector's seat, from 15 May to 9 July 1948, in the town on a kit clearing,
+  before its Operation Brosh window. Haifa and Tel Aviv each get a budget of one unit clearing, and Haifa's census floors
+  drop by what Carmeli's clearing takes: 11 houses and 6.8 / 3.9 points of cover (owner, #588). The 8th Brigade stays
+  hidden: Tel Aviv's clearing is Kiryati's, and every spot within 7 km of
+  Tel Litvinsky also cuts into another town or village (refs #588).
 
 ## [0.1.2] - 2026-10-19
 
