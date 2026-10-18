@@ -19,8 +19,8 @@ GitHub Releases page (and, from M4, on itch.io). Steps 1–3 are a normal pull r
    "$UNITY" -batchmode -CI false -GITHUB_ACTIONS false -TF_BUILD false -quit -projectPath unity -buildTarget WebGL -executeMethod Statecraft.Game.EditorTools.Build.Web -compression gzip -shareable -logFile "$PWD/unity-build-web-gz.log"
    git checkout -- unity/Assets/Settings unity/ProjectSettings/ProjectSettings.asset
    uv run tools/web_check.py unity/Builds/Web-gzip --query "golden&smoke=5" \
-     --expect "GOLDEN OK 1950 7cf678b6b2b3d55dc0fee7b2efdee9ec7688cdf18964dcaa6e5a7c0018e34a51" \
-     --expect "GOLDEN OK 1952 9496947232f0c97ed21c0a0b98e6727e7d59c892f9aff12049b5d7e5ee2230e8" \
+     --expect "GOLDEN OK 1950 6ec57bfb4ed376493b1c3c2837a82a4c77bd6bde16e2e50a3abfd8d28345ce7b" \
+     --expect "GOLDEN OK 1952 d18d9420383f79f2e7ec4cf0f804d6646b2fe0689b0fc7ada6fbcff083f63f29" \
      --expect "SMOKE OK 5 turns 1948-10-15 3005405d64abc6e7418fa1f0d35c36ce5f64ed3af7c5a4c24a73d5dfdb16121f"
    uv run tools/web_check.py unity/Builds/Web-gzip --startscreen new --timeout 300 --stall 90
    uv run tools/web_check.py unity/Builds/Web-gzip --startscreen recording --timeout 300 --stall 90

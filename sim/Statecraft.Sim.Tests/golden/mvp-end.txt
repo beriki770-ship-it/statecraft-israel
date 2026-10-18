@@ -3,7 +3,7 @@ ind{
   food_supply=0.8556115107122045 [3FEB612B6412E1DF]
   housing=0.08504947742483628 [3FB5C5CD7414E141]
   intl_standing=0.7800000000000002 [3FE8F5C28F5C28F8]
-  morale=0.4945578468038132 [3FDFA6D5F48029E0]
+  morale=0.49455784704198025 [3FDFA6D5F4C1A164]
   security=0.5361322526321604 [3FE127FED36C599C]
 pol{
   border_settlement=0.2 [3FC999999999999A]
@@ -14,7 +14,7 @@ eff{
   border_villages_secure=0.04113225263216018 [3FA50F495FBB5C36]
   building_houses=0.08504947742483629 [3FB5C5CD7414E142]
   food_lifts_cohesion=0.08899999973526929 [3FB6C8B43834FD50]
-  homes_lift_morale=0.012767196348836194 [3F8A25B0163D2852]
+  homes_lift_morale=0.01276719658700311 [3F8A25B01E6C188A]
   rationing_feeds=0.3399999999208376 [3FD5C28F5C133334]
   rationing_grates=-0.15 [BFC3333333333333]
   safety_lifts_morale=0.05354077083901369 [3FAB69B227832BE6]
@@ -45,11 +45,11 @@ sit[
   fx_crisis
   housing_crisis
 treasury=0 [0000000000000000]
-debt=182.89012071283815 [4066DC7BDE6EE43A]
+debt=218.89012071283815 [406B5C7BDE6EE43A]
 fx=-12.990431328096559 [C029FB19D0A63796]
 rung=2;cf=0;
 mob=0.05 [3FA999999999999A]
-stab=0.448654481936148 [3FDCB6C149C7A72C]
+stab=0.4487006294102618 [3FDCB782D840BF88]
 att=4 [4010000000000000]
 fired[
   altalena
@@ -121,7 +121,7 @@ chosen{
 appt{
 under=;
 map[
-mapturn=0001-01-01:0;
+mapturn=1951-08-15:1;
 over=mvp_ended
 city{
   hadera=12,5,26,5,0,c0 [0000000000000000]
@@ -133,7 +133,7 @@ city{
   rishon_lezion=10,5,22,5,0,c0 [0000000000000000]
   rosh_pinna=1,0,2,0,0,c0 [0000000000000000]
   safed=2,1,5,1,0,c0 [0000000000000000]
-  tel_aviv=248,106,540,106,4,c0 [0000000000000000]
+  tel_aviv=273,106,540,106,4,c0 [0000000000000000]
   tiberias=6,2,13,2,0,c0 [0000000000000000]
   zikhron_yaakov=2,1,4,1,0,c0 [0000000000000000]
 units[
@@ -149,7 +149,14 @@ site{
   reim=done,1949-12-15
   reim_field=done,1950-08-15
   tzrifin=done,1951-02-15
-next=2
+cproj[
+  2:housing@tel_aviv,-4,20/done,1949-08-15
+  3:housing@tel_aviv,-3,19/done,1950-02-15
+  4:housing@tel_aviv,-3,20/done,1950-08-15
+  5:housing@tel_aviv,-2,18/done,1951-02-15
+  6:housing@tel_aviv,-2,19/done,1951-08-15
+  7:housing@haifa,4,9/1
+next=8
 obj{
   first_new_yishuv=1949-09-15
 score=100

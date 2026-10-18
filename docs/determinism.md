@@ -28,9 +28,9 @@ final `GameState.Hash()` is pinned:
 
 | Run | Ends | Hash |
 |---|---|---|
-| to 1950-01-01 (`Hash1950`) | 1950-01-15, turn 20 | `7cf678b6b2b3d55dc0fee7b2efdee9ec7688cdf18964dcaa6e5a7c0018e34a51` |
-| to 1952-01-01 (`Hash1952`) | 1952-01-15, turn 44 (the game's end) | `9496947232f0c97ed21c0a0b98e6727e7d59c892f9aff12049b5d7e5ee2230e8` |
-| to the game's end (`mvp-end`) | 1952-01-15, turn 44 | `9496947232f0c97ed21c0a0b98e6727e7d59c892f9aff12049b5d7e5ee2230e8` |
+| to 1950-01-01 (`Hash1950`) | 1950-01-15, turn 20 | `6ec57bfb4ed376493b1c3c2837a82a4c77bd6bde16e2e50a3abfd8d28345ce7b` |
+| to 1952-01-01 (`Hash1952`) | 1952-01-15, turn 44 (the game's end) | `d18d9420383f79f2e7ec4cf0f804d6646b2fe0689b0fc7ada6fbcff083f63f29` |
+| to the game's end (`mvp-end`) | 1952-01-15, turn 44 | `d18d9420383f79f2e7ec4cf0f804d6646b2fe0689b0fc7ada6fbcff083f63f29` |
 
 `hash1952` stops at the first turn on or after 1 January 1952, which is the game's last turn, so it is the same run as
 `mvp-end` (`DeterminismTests.TheWholeGameToItsEndIsFixed`). Both names are kept (spec 2026-10-12 section 3 step 6): a
@@ -45,8 +45,8 @@ Check every build with:
 
 ```
 uv run tools/web_check.py unity/Builds/Web-<compression> --query "golden&smoke=5" \
-  --expect "GOLDEN OK 1950 7cf678b6b2b3d55dc0fee7b2efdee9ec7688cdf18964dcaa6e5a7c0018e34a51" \
-  --expect "GOLDEN OK 1952 9496947232f0c97ed21c0a0b98e6727e7d59c892f9aff12049b5d7e5ee2230e8" \
+  --expect "GOLDEN OK 1950 6ec57bfb4ed376493b1c3c2837a82a4c77bd6bde16e2e50a3abfd8d28345ce7b" \
+  --expect "GOLDEN OK 1952 d18d9420383f79f2e7ec4cf0f804d6646b2fe0689b0fc7ada6fbcff083f63f29" \
   --expect "SMOKE OK 5 turns 1948-10-15 3005405d64abc6e7418fa1f0d35c36ce5f64ed3af7c5a4c24a73d5dfdb16121f"
 ```
 
@@ -271,3 +271,6 @@ The hash reads the state keys, so it never sees a record outside its window. An 
 | GDD Phase 3 PR 3 | scenario-cautious | `6507ddc3` | the housing rules: `city{}`, `housing`, `morale`, its two links and stability (was `28fd1405`) |
 | GDD Phase 3 PR 3 | scenario-reckless | `8041988a` | same (was `af7b2abd`) |
 | GDD Phase 3 PR 3 | scenario-mvp-absorb-first | `a77a8f20` | same (was `b16a8740`) |
+| GDD Phase 3 PR 4 | 1950 | `6ec57bfb` | city projects (R-PROJ-001 to R-PROJ-003, #735; Q-PROJ-1 to Q-PROJ-5, Q-HOUSE-3, owner, 15 October 2026, #375): the reference player's stated policy (D-A7) now starts a housing project, one at a time, in the city with the most overflow, on the first free hex next to it, borrowing as its other orders do. Its first start is on 1949-03-15 in Tel Aviv, built on 1949-08-15 (+5 capacity, +0.03 condition); the second is being built. `cproj[...]` joins the state; `mapturn` now counts the turn's project starts. Tel Aviv's capacity 253 (was 248) and condition 0.0168 (was 0), so `housing` 0.0932 (was 0.0850), `morale` 0.5018 (was 0.4990), stability 0.5002 (was 0.4970); debt IL 90.0m (was 78.0m, 2 x IL 6m) (was `7cf678b6`) |
+| GDD Phase 3 PR 4 | 1952 | `d18d9420` | same; five Tel Aviv projects built (1949-08-15 to 1951-08-15; capacity 273, was 248) and a sixth, in Haifa, being built. Every city is back at condition 0 by the end, so `housing` is unchanged and `morale` moves only in the 9th digit; debt IL 218.9m (was 182.9m, 6 x IL 6m), inside invariants.yaml's 100 to 300 band; stability 0.4487 (unchanged to 4 places) (was `94969472`) |
+| GDD Phase 3 PR 4 | mvp-end | `d18d9420` | same; the same run as hash1952 (was `94969472`) |
