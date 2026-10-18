@@ -58,6 +58,9 @@ namespace Statecraft.Game.Map
             if (TiltShift.OffRequested()) TiltShift.Enabled = false;
             // The runtime quality fallback (WebGL only); its undo removes the driver and restores the tier's render scale.
             TeardownActions.Add(QualityFallbackDriver.Attach(gameObject, FallbackWanted()));
+            // A quality switch in Settings (#40) changes the URP asset: refit its shadow distance now, not at the next move.
+            GraphicsQuality.Changed += Apply;
+            TeardownActions.Add(() => GraphicsQuality.Changed -= Apply);
             initialised = true;
             Apply();
         }

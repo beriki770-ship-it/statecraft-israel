@@ -302,6 +302,15 @@
                 <ui:Label name="settings-tiltshift-label" text="Blur at the top and bottom of the map" class="settings-name" />
                 <ui:Button name="settings-tiltshift" class="settings-switch" />
             </ui:VisualElement>
+            <!-- Graphics quality (GraphicsQuality): three buttons, the one that is set carries .settings-choice-selected. -->
+            <ui:VisualElement class="row settings-row">
+                <ui:Label name="settings-quality-label" text="Quality" class="settings-name" />
+                <ui:VisualElement class="row settings-choices">
+                    <ui:Button name="settings-quality-auto" text="Automatic" class="settings-switch" />
+                    <ui:Button name="settings-quality-high" text="High" class="settings-switch" />
+                    <ui:Button name="settings-quality-low" text="Low" class="settings-switch" />
+                </ui:VisualElement>
+            </ui:VisualElement>
             <Statecraft.Game.UI.UiFrame />
         </ui:VisualElement>
         <!-- The End Turn outcome clip (OutcomePresenter): the historical order the player gave, as a 3.5 s silent clip in the
