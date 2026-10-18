@@ -141,6 +141,10 @@ adds a line under **Unreleased**; CI's `Changelog` job checks this (see `CONTRIB
   `delegation_loyalty_floor` (5), only `disloyal_effect_share` (0.5) of each numeric effect of the option lands. Both
   are labelled design values in `rules.yaml` `mvp:`. No minister in `people.yaml` is rated below 5 today, so the
   goldens do not move (refs #107).
+- An event option can unlock a city project (GDD Phase 7 PR 2, D-H2): a `projects.yaml` kind marked `locked: true` is
+  refused by StartProject until an option with `unlock_projects` naming it has applied. The loader refuses an unknown
+  kind or one that is not locked, and a sensitive option may not unlock (R-EFX-007, R-EFX-005; refs #806). No real
+  project is locked yet, so no golden moves.
 
 ### Changed
 - Hebrew vote text (`budget.no_vote`, `budget.vote_advisory`, `cabinet.legislature_advisory`) is reworded so it needs

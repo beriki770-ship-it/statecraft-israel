@@ -344,7 +344,8 @@ namespace Statecraft.Sim
             //                              its historical one (R-ALT-001, R-ALT-002); the ids must exist, an event cannot
             //                              require itself and requirements cannot form a cycle (EventRules)
             //   options: [{ id, text, historical, recommended, effects: [{ target, delta }], set_rung, set_policy,
-            //              grant_units: [{ type, n, at }], city_effects: [{ city, field, delta }] }]
+            //              grant_units: [{ type, n, at }], city_effects: [{ city, field, delta }],
+            //              unlock_projects: [<projects.yaml id of a locked kind>] }]
             //   sources: [{ url, checked }], status
             //   objective                  the objective (objectives.yaml) whose completion card this is: it fires only once
             //                              that objective is recorded, and has exactly one option

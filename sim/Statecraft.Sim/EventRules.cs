@@ -111,10 +111,10 @@ namespace Statecraft.Sim
 
         static void CheckStructured(Content c, GameEvent e, EventOption o, bool sensitive, Func<string, string> F)
         {
-            if (o.GrantUnits.Count + o.CityEffects.Count == 0) return;
-            // They act on the GDD records (cities.yaml, unit_types.yaml, sites.yaml), which the legacy loop does not load.
+            if (o.GrantUnits.Count + o.CityEffects.Count + o.UnlockProjects.Count == 0) return;
+            // They act on the GDD records (cities.yaml, unit_types.yaml, sites.yaml, projects.yaml), which the legacy loop does not load.
             if (!c.IsGdd)
-                throw new ContentException(e.File, F($"options[{o.Id}].{(o.GrantUnits.Count > 0 ? "grant_units" : "city_effects")}"), "needs the GDD loop (eras.yaml systems.loop: gdd)");
+                throw new ContentException(e.File, F($"options[{o.Id}].{(o.GrantUnits.Count > 0 ? "grant_units" : o.CityEffects.Count > 0 ? "city_effects" : "unlock_projects")}"), "needs the GDD loop (eras.yaml systems.loop: gdd)");
             for (int i = 0; i < o.GrantUnits.Count; i++)
             {
                 var g = o.GrantUnits[i];
@@ -150,6 +150,16 @@ namespace Statecraft.Sim
                 else if (!(Math.Abs(x.Delta) <= int.MaxValue) || x.Delta != Math.Floor(x.Delta))
                     throw new ContentException(e.File, X(".delta"), "must be a whole number in the int range");
                 if (sensitive && x.Delta > 0) throw new ContentException(e.File, X(""), $"sensitive events cannot reward {x.Field}");
+            }
+            for (int i = 0; i < o.UnlockProjects.Count; i++)
+            {
+                // R-EFX-007. Unlocking a kind that starts unlocked would do nothing, so it is a mistake, as an unknown kind is.
+                var kind = o.UnlockProjects[i];
+                var field = F(FormattableString.Invariant($"options[{o.Id}].unlock_projects[{i}]"));
+                if (sensitive) throw new ContentException(e.File, field, "sensitive events cannot reward a project unlock");
+                var k = c.ProjectKinds.FirstOrDefault(x => x.Id == kind)
+                    ?? throw new ContentException(e.File, field, $"unknown city project '{kind}'");
+                if (!k.Locked) throw new ContentException(e.File, field, $"'{kind}' is not locked in projects.yaml");
             }
         }
 

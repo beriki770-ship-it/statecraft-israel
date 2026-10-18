@@ -602,6 +602,8 @@ namespace Statecraft.Sim
         /// <summary>A city resource the city must have (cities.yaml `resources:`), or "" for none: a specialised industry such as
         /// the winery, which needs vineyards (R-PROJ-005, D-D8).</summary>
         public string Requires { get; set; } = "";
+        /// <summary>Whether StartProject refuses this kind until an event option unlocks it (R-EFX-007). Default false.</summary>
+        public bool Locked { get; set; }
     }
 
     /// <summary>A designated site (sites.yaml; docs/GDD.md "Pioneer work": building is allowed only at designated spots, and a
@@ -833,6 +835,8 @@ namespace Statecraft.Sim
         public List<UnitGrant> GrantUnits { get; set; } = new List<UnitGrant>();
         /// <summary>R-EFX-004: changes to a city's housing capacity, job slots or housing condition, in list order (D-H2, Q-HFX-1).</summary>
         public List<CityEffect> CityEffects { get; set; } = new List<CityEffect>();
+        /// <summary>R-EFX-007: locked projects.yaml kinds this option makes available, in list order (D-H2, Q-HFX-1).</summary>
+        public List<string> UnlockProjects { get; set; } = new List<string>();
         /// <summary>Who put this non-historical option forward, and on what record (R-ALT-003). Null when absent.</summary>
         public OptionAlternative? Alternative { get; set; }
         /// <summary>The event whose historical course this consequence option rejoins (R-ALT-009), or empty.</summary>

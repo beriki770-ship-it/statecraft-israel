@@ -218,6 +218,7 @@ Each option has:
 | `set_policy` | no | A map of policy id to a level from 0 to 1. |
 | `grant_units` | no | GDD loop only. A list of `{ type, n, at }`: see "grant_units and city_effects". |
 | `city_effects` | no | GDD loop only. A list of `{ city, field, delta }`: see "grant_units and city_effects". |
+| `unlock_projects` | no | GDD loop only. A list of `projects.yaml` ids: see "grant_units and city_effects". |
 | `alternative` | no (required later, #949) | On an option that did not happen: who put it forward, on what record. See below. |
 | `rejoin` | no | Consequence cards only. The id of the event whose road the card follows; choosing this option returns later cards to the recorded course (R-ALT-009). See "kind". |
 
@@ -264,7 +265,7 @@ use `set_policy` for those.
 ### grant_units and city_effects
 
 These act on the GDD records, so only content whose `eras.yaml` sets `systems.loop: gdd` may use them. They apply after
-`effects`, grants first, each list in its own order (R-EFX-006).
+`effects`: grants, then city effects, then project unlocks, each list in its own order (R-EFX-006).
 
 - `grant_units: [{ type: halutz, n: 2, at: tel_aviv }]` adds `n` units of a `unit_types.yaml` type of kind `unit`. A
   grant is free: put what the deal cost in `effects`. Leave out `at` and the units stand at the city with the military
@@ -276,7 +277,10 @@ These act on the GDD records, so only content whose `eras.yaml` sets `systems.lo
 - `city_effects: [{ city: haifa, field: condition, delta: -0.1 }]` moves the city's housing condition (0 to 1,
   R-HOUSE-001) by a non-zero number from -1 to 1. It stays from 0 to 1, so a cut larger than the condition stops at 0.
 
-An event with a sensitive tag may carry no grant and no positive `city_effects` delta; a cut is allowed (R-EFX-005).
+- `unlock_projects: [industry]` makes a `projects.yaml` kind marked `locked: true` available to StartProject for the rest
+  of the game (R-EFX-007). Naming a kind that is not locked is an error, since it would do nothing.
+
+An event with a sensitive tag may carry no grant, no positive `city_effects` delta and no unlock; a cut is allowed (R-EFX-005).
 
 ### sources
 
@@ -343,7 +347,7 @@ Errors are printed as `file: field: message`. These are the messages you are mos
 | `sensitive events cannot reward` | A sensitive-tagged event with a positive `treasury`, `fx_reserves`, `food`, `food_supply`, `morale` or `intl_standing` delta. |
 | `must be 1-5` | `set_rung` outside 1 to 5. |
 | `unknown policy` | `set_policy` names a policy that does not exist. |
-| `needs the GDD loop` | `grant_units` or `city_effects` in content that runs the legacy loop. |
+| `needs the GDD loop` | `grant_units`, `city_effects` or `unlock_projects` in content that runs the legacy loop. |
 | `unknown unit type` | A grant's `type` is not in `unit_types.yaml`. |
 | `is not a unit type` | A grant's `type` is a population type. |
 | `must be at least 1` | A grant's `n` is 0 or negative. |
@@ -354,7 +358,9 @@ Errors are printed as `file: field: message`. These are the messages you are mos
 | `must not be 0` | A `city_effects` delta of 0. |
 | `must be a whole number` | A `housing_capacity` or `job_slots` delta with a fraction, or beyond the int range. |
 | `must be a number from -1 to 1` | A `condition` delta outside -1 to 1. |
-| `sensitive events cannot reward units` | A sensitive-tagged event with a grant. A positive `city_effects` delta gives the same message with the field's name. |
+| `unknown city project` | An `unlock_projects` entry is not in `projects.yaml`. |
+| `is not locked` | An `unlock_projects` entry names a kind without `locked: true`. |
+| `sensitive events cannot reward units` | A sensitive-tagged event with a grant. A positive `city_effects` delta gives the same message with the field's name, and an unlock says `a project unlock`. |
 | `unknown objective` | `objective` names an objective that is not in `objectives.yaml`. |
 | `has another card` | `objective` names an objective whose `card` is a different event. |
 | `an objective's card has exactly one option` | An objective's card has more than one option. |
