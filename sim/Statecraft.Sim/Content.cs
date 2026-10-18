@@ -823,6 +823,8 @@ namespace Statecraft.Sim
     {
         public string Id { get; set; } = "";
         public string Text { get; set; } = "";
+        /// <summary>The option's text in Hebrew (#1064), under the event's text_he_review; empty when the event has none.</summary>
+        public string TextHe { get; set; } = "";
         public bool Historical { get; set; }
         public bool Recommended { get; set; }
         public List<OptionEffect> Effects { get; set; } = new List<OptionEffect>();
@@ -886,6 +888,16 @@ namespace Statecraft.Sim
         public string Kind { get; set; } = EventKinds.Historical;
         public string Title { get; set; } = "";
         public string Text { get; set; } = "";
+        /// <summary>The title and text in Hebrew (#1064, owner on #55: all content text in Hebrew now). Both empty when the event
+        /// has no Hebrew; otherwise every option has its <see cref="EventOption.TextHe"/> too (the loader checks). The UI shows
+        /// the English wherever one is empty.</summary>
+        public string TitleHe { get; set; } = "";
+        public string TextHe { get; set; } = "";
+        /// <summary>"agent-checked" while the Hebrew text waits for a native speaker's review (#564); empty once reviewed.</summary>
+        public string TextHeReview { get => textHeReview ?? ""; set => textHeReview = value ?? ""; }
+        /// <summary>True when the file has the key at all, even blank: a blank flag is an error, not a review.</summary>
+        [YamlIgnore] public bool TextHeReviewGiven => textHeReview != null;
+        string? textHeReview;
         public List<string> Tags { get; set; } = new List<string>();
         public string Anchor { get; set; } = "soft";
         public string Office { get; set; } = "";

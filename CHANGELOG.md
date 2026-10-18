@@ -14,6 +14,11 @@ adds a line under **Unreleased**; CI's `Changelog` job checks this (see `CONTRIB
 - The Cabinet, Budget, Defence, Why, How to play and Settings screens each gain an X in the header that closes
   them (the same close as Escape): a phone has no Escape key, and re-tapping the lit rail button was the only way
   out (v0.1.1 playtest feedback).
+- Event cards in Hebrew (#1064, owner decision on #55): an event can carry `title_he`, `text_he` and each option's
+  `text_he`, all or none, in Hebrew letters, with `text_he_review: agent-checked` until a native speaker has read them
+  (#564). In the Hebrew UI the card shows them, with the minister's Hebrew name in the placeholder, and keeps the English
+  for any field that has no Hebrew. The Altalena card is the first, an AI translation for the native reviewer; the other
+  cards follow in #1065 and #1066. The content hash moves (an older save warns once); no golden does.
 
 ## [0.1.2] - 2026-10-19
 

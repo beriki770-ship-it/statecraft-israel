@@ -334,6 +334,7 @@ namespace Statecraft.Sim
             // Event files (content/events/*.yaml), one GameEvent each. Keys, for content authors:
             //   id, title, text            text may name office holders only through {office_id} placeholders, which
             //                              must have a holder on every day of the window
+            //   title_he, text_he, text_he_review   the Hebrew title and text (#1064); with them every option has a text_he
             //   anchor: hard | soft        hard needs a historical option; in Historical mode it resolves to it
             //   tags: [...]                holocaust, terror, massacre, war-casualties, displacement are sensitive (no gain)
             //   office                     the minister the event is delegated to
