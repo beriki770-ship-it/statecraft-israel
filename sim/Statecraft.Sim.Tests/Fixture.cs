@@ -239,6 +239,8 @@ mvp:
   veteran_progress: 2
   housing_start_condition: 0.5
   overflow_condition_loss: 0.2
+  defeat_turns: 3
+  debt_ceiling: 10
 ";
 
     public static readonly string GddCities = "\ncities:\n" + City("town_a", 12, 8, 10, 6, "[military_camp, hakhshara]");
