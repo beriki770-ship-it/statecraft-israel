@@ -61,7 +61,7 @@ namespace Statecraft.Sim
                 civilians += x.Civilians;
                 employed += x.Employed;
             }
-            return over <= a.OverflowAtMost * housed && employed >= a.EmployedAtLeast * civilians;
+            return over <= a.OverflowAtMost!.Value * housed && employed >= a.EmployedAtLeast * civilians;
         }
 
         /// <summary>Records objective <paramref name="id"/> as completed on <paramref name="date"/> and adds its points to the

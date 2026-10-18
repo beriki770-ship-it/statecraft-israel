@@ -352,6 +352,19 @@ eras:
         Assert.Equal(done ? 110 : 0, s.Score);
     }
 
+    // R-OBJ-004: overflow exactly on the bound completes it. With capacity 10 no integer overflow equals 10% of the people
+    // housed, so town_a here houses 9: 10 civilians, overflow 1 = 10% of 10 (review on #1019).
+    [Fact]
+    public void OverflowOnTheBoundCompletes()
+    {
+        var c = LoadAbsorb();
+        var s = Simulation.NewGame(c, 1, Mode.Historical);
+        s.Population = new Dictionary<string, double> { ["veterans"] = 1500 };
+        s.Cities["town_a"] = new City("town_a", 9, 8, 10, 4, 0);
+        Objectives.Complete(c, s, c.Rules.Mvp!, D("1949-04-15"), new List<Cause>());
+        Assert.True(s.Objectives.ContainsKey("first_goal"));
+    }
+
     // R-OBJ-004 (#738): Q-ABS-2 as first recorded (no refugees waiting, overflow <= 10%, employed >= 40%) already
     // holds at the end of the real game's first turn, with nobody absorbed: the census start values are 41% employed with no
     // overflow (#738, issuecomment-6242964308). The population gate keeps the objective open.
@@ -417,6 +430,7 @@ eras:
         new object[] { "objectives.yaml", Objective("completes_when: { site_built: site_a }, ", ""), Card, "objectives.yaml", "objectives[first_goal].completes_when", "required" },
         new object[] { "objectives.yaml", Objective("site_built: site_a", "site_built: site_a, absorbed: { population_at_least: 1, overflow_at_most: 0.1, employed_at_least: 0.4 }"), Card, "objectives.yaml", "objectives[first_goal].completes_when", "exactly one of" },
         new object[] { "objectives.yaml", AbsorbYaml.Replace("population_at_least: 1500", "population_at_least: 0"), Card, "objectives.yaml", "objectives[first_goal].completes_when.absorbed.population_at_least", "above 0" },
+        new object[] { "objectives.yaml", AbsorbYaml.Replace("overflow_at_most: 0.10, ", ""), Card, "objectives.yaml", "objectives[first_goal].completes_when.absorbed.overflow_at_most", "required" },
         new object[] { "objectives.yaml", AbsorbYaml.Replace("overflow_at_most: 0.10", "overflow_at_most: 1.5"), Card, "objectives.yaml", "objectives[first_goal].completes_when.absorbed.overflow_at_most", "share from 0 to 1" },
         new object[] { "objectives.yaml", AbsorbYaml.Replace("employed_at_least: 0.40", "employed_at_least: 0"), Card, "objectives.yaml", "objectives[first_goal].completes_when.absorbed.employed_at_least", "share above 0" },
         new object[] { "objectives.yaml", Objective("reference_date: 1949-06-12, ", ""), Card, "objectives.yaml", "objectives[first_goal].reference_date", "required" },

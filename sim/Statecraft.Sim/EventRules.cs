@@ -171,6 +171,7 @@ namespace Statecraft.Sim
                 if (o.CompletesWhen.Absorbed is AbsorbCondition a)
                 {
                     if (a.PopulationAtLeast <= 0) throw new ContentException(file, F("completes_when.absorbed.population_at_least"), "must be above 0");
+                    if (a.OverflowAtMost == null) throw new ContentException(file, F("completes_when.absorbed.overflow_at_most"), "required");
                     if (!(a.OverflowAtMost >= 0 && a.OverflowAtMost <= 1)) throw new ContentException(file, F("completes_when.absorbed.overflow_at_most"), "must be a share from 0 to 1");
                     if (!(a.EmployedAtLeast > 0 && a.EmployedAtLeast <= 1)) throw new ContentException(file, F("completes_when.absorbed.employed_at_least"), "must be a share above 0, at most 1");
                 }

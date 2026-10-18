@@ -885,8 +885,9 @@ namespace Statecraft.Sim
     {
         /// <summary>GameState.TotalPopulation, the national Jewish count, at or above this.</summary>
         public long PopulationAtLeast { get; set; }
-        /// <summary>Overflow (R-HOUSE-002) over the housed people (R-HOUSE-003), at or below this share.</summary>
-        public decimal OverflowAtMost { get; set; }
+        /// <summary>Overflow (R-HOUSE-002) over the housed people (R-HOUSE-003), at or below this share. Required: 0 is a
+        /// real value here, so a missing key must not read as 0.</summary>
+        public decimal? OverflowAtMost { get; set; }
         /// <summary>Employed over civilians (as R-CITY-005 counts them), at or above this share.</summary>
         public decimal EmployedAtLeast { get; set; }
     }
