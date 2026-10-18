@@ -156,6 +156,29 @@ public sealed class CivilianPeopleTests
         }
     }
 
+    /// <summary>Issue #1033 (the owner, 18 October 2026: "Train scale for all ambient life"): a townsperson is drawn at
+    /// the building models' world scale (SettlementKits.ModelScale), a 1.78 m man about 43 m tall, so he is smaller than
+    /// the reference house and a fifth of the steam train's locomotive car (RoadVehicles.LocomotiveCarM, about 204 m),
+    /// where before he was about 2.5 km tall, twelve locomotive cars.</summary>
+    [Test]
+    public void EveryFigureIsSmallerThanAHouseAndMuchSmallerThanTheLocomotiveCar()
+    {
+        var map = OpenMap();
+        var content = ContentLoader.Load(Statecraft.Game.Paths.Content);
+        var layer = CivilianPeople.ShowAt(map, new DateTime(1949, 1, 1), Array.Empty<Placement>(), content)!;
+        Answer(CollectionDetail.Far);
+        Assert.Greater(layer.Placed.Count, 0);
+        float house = Statecraft.Game.Map.Kits.SettlementKits.ReferenceHouseM * Statecraft.Game.Map.Kits.SettlementKits.ModelScale;
+        float car = Statecraft.Game.Map.Routes.RoadVehicles.LocomotiveCarM;
+        foreach (var p in layer.Placed)
+        {
+            var size = WorldBounds(layer.transform.Find(p.Key + "/Far").gameObject).size;
+            float tallest = Mathf.Max(size.x, size.y, size.z);
+            Assert.Less(tallest, house, $"{p.Key}: {tallest:0} m against the {house:0} m reference house");
+            Assert.That(tallest / car, Is.InRange(0.1f, 0.25f), $"{p.Key}: {tallest:0} m against the {car:0} m locomotive car");
+        }
+    }
+
     [Test]
     public void CloseZoomStreamsTheNearIdleFiguresAndKeepsFarFiguresUntilTheyArrive()
     {
