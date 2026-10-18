@@ -25,9 +25,9 @@ public class EventRetimingTests
     /// (a card raised at the new game comes on 15 May 1948), or null.</summary>
     static DateTime? CardDate(string id) => Run.FirstOrDefault(s => s.FiredEvents.Contains(id))?.Date;
 
-    /// <summary>#567 section 4 item 8: all 32 events fire in the historical monthly run (#567's 31 and the first new yishuv
-    /// card, R-OBJ-003). Before the re-timing, sinai_withdrawal and rhodes_talks never fired (Horev's card came after both
-    /// windows had closed). Since GDD Phase 4 PR 5 every event but hula_drainage, which needs the player's works (R-SWAMP-002).</summary>
+    /// <summary>#567 section 4 item 8: all but two of the 33 events fire in the historical monthly run (#567's 31, the first new yishuv
+    /// card, R-OBJ-003, and absorb_immigrants, #1039). Before the re-timing, sinai_withdrawal and rhodes_talks never fired (Horev's card came after both
+    /// windows had closed). Since GDD Phase 4 PR 5 every event but absorb_immigrants and hula_drainage, which needs the player's works (R-SWAMP-002).</summary>
     [Fact]
     public void EveryEventFiresInTheHistoricalMonthlyRun()
     {
