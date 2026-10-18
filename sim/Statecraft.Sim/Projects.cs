@@ -173,8 +173,8 @@ namespace Statecraft.Sim
         /// (q, r) now, else the reason. Refused for an unknown kind or city; a transit camp without the ma'abarot policy
         /// (Q-HOUSE-3, D-D3: the policy carries its sourced date); a hex that is not land, is further than
         /// map_action_max_distance from the city's settlement hex, or holds a placement or another city project (Q-PROJ-2); and
-        /// once map_actions_per_turn projects were started this turn (Q-PROJ-4). A short Treasury is not a reason: it borrows
-        /// (Q-MONEY-3). The reference player asks this before it orders.</summary>
+        /// once map_actions_per_turn map actions and city projects together were started this turn (Q-PROJ-4). A short
+        /// Treasury is not a reason: it borrows (Q-MONEY-3). The reference player asks this before it orders.</summary>
         public static string? CheckCity(Content c, GameState s, string kind, string city, int q, int r)
         {
             var k = c.ProjectKinds.FirstOrDefault(x => x.Id == kind);
@@ -195,7 +195,7 @@ namespace Statecraft.Sim
             // Last, as for map actions, so a player over the cap still sees the specific reason an order is illegal. The count
             // is the map actions' own (one national limit, Q-PROJ-4).
             if ((s.MapActionsTurnDate == s.Date ? s.MapActionsThisTurn : 0) >= rules.MapActionsPerTurn)
-                return FormattableString.Invariant($"No more than {rules.MapActionsPerTurn} city projects in one turn");
+                return FormattableString.Invariant($"No more than {rules.MapActionsPerTurn} map actions and city projects in one turn");
             return null;
         }
 
