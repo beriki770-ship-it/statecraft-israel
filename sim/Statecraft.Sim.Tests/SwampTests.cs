@@ -188,9 +188,11 @@ options:
         var c = ContentLoader.Load(RealContentTests.ContentRoot());
         var s = GoldenRun.Play(c, new DateTime(1951, 2, 1));
         Assert.DoesNotContain("hula_drainage", s.FiredEvents);
+        // The reference player's orders come first, so it does not hand the new group one of its own builds.
+        var orders = GoldenRun.Orders(c, s);
         var id = s.NextId++;
         s.Units.Add(id, new Unit(id, "halutz", 14, 3));
-        var r = Step(c, s, GoldenRun.Orders(c, s).Append(Drain(id, "hula")).ToArray());
+        var r = Step(c, s, orders.Append(Drain(id, "hula")).ToArray());
         Assert.Empty(r.Rejected);
         Assert.Equal(new DateTime(1951, 3, 15), r.State.Date);
         Assert.Contains("hula_drainage", r.State.FiredEvents);
