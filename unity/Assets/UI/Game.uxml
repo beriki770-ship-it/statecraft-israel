@@ -311,6 +311,15 @@
                     <ui:Button name="settings-quality-low" text="Low" class="settings-switch" />
                 </ui:VisualElement>
             </ui:VisualElement>
+            <!-- The UI's language (#1036): SettingsPresenter names each language in itself; the one in use carries .settings-choice-selected. -->
+            <ui:VisualElement class="row settings-row">
+                <ui:Label name="settings-language-label" text="Language" class="settings-name" />
+                <ui:VisualElement class="row settings-choices">
+                    <ui:Button name="settings-language-en" class="settings-switch" />
+                    <ui:Button name="settings-language-he" class="settings-switch" />
+                </ui:VisualElement>
+            </ui:VisualElement>
+            <ui:Label name="settings-language-note" text="Event cards are English only for now." class="settings-note muted" />
             <Statecraft.Game.UI.UiFrame />
         </ui:VisualElement>
         <!-- The End Turn outcome clip (OutcomePresenter): the historical order the player gave, as a 3.5 s silent clip in the

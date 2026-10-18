@@ -41,6 +41,11 @@ adds a line under **Unreleased**; CI's `Changelog` job checks this (see `CONTRIB
 - Event options in the GDD loop can move a city's housing condition: `city_effects` takes `field: condition` with a
   change from -1 to 1, the condition stays from 0 to 1, and a sensitive event may only lower it (R-EFX-004, R-EFX-005;
   refs #806). No event uses them yet.
+- Settings: a language choice, English or עברית, under the quality choice (#1036). The Hebrew UI (#193) no longer needs
+  `?lang=he` in the address: a press puts every screen in the other language at once, with no reload, over the same
+  game and this turn's orders, and the choice is kept in `settings.txt` for the next visit. `?lang=` in the address
+  (or `-lang` on the desktop) still decides for that visit. A line under the choice says the event cards are still in
+  English only (#55).
 - Settings: a graphics quality choice, Automatic, High or Low (refs #40, second slice; owner decision of 18 Oct 2026).
   Automatic is what the game did before: the tier the device gets, and on the web the frame-time fallback steps down
   when frames are slow. High is the PC tier at render scale 1.0 and Low the Mobile tier at 0.8, both fixed, so the

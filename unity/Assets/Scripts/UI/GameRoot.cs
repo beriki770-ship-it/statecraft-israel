@@ -61,12 +61,21 @@ namespace Statecraft.Game.UI
         List<(string, int, int, DateTime)>? drawn;
         /// <summary>The designated sites on the map (#381), made on first use beside the placements; and their states as drawn.</summary>
         SiteLayer? siteLayer; List<string>? drawnSites;
+        /// <summary>Whether the last Begin was a smoke run: the language switch then leaves the UI as it is, so the golden-seed
+        /// game never gets the autosave and New Game a normal Begin gives (SwitchLanguage).</summary>
+        bool smokeRun;
 
         public SimBridge? Bridge { get; private set; }
         /// <summary>Where the autosave lives; null (the default) = SaveStore.ForPlatform(). Tests set a temporary folder.</summary>
         internal SaveStore? Store { get; set; }
-        /// <summary>The UI's language; null (the default) = UiLanguage.Requested(). Tests set it.</summary>
+        /// <summary>The UI's language; null (the default) = UiLanguage.AtStart (a flag, else the choice kept in Settings).
+        /// Tests set it, and so does Settings' language switch.</summary>
         internal string? Language { get; set; }
+        /// <summary>Where the Settings options are kept; null (the default) = SettingsStore.ForPlatform() in Play mode and
+        /// players, none outside Play mode (EditMode tests: the developer's own settings must not leak into a test). Tests set
+        /// a temporary folder.</summary>
+        internal SettingsStore? Settings { get; set; }
+        SettingsStore? SettingsFile() => Settings ?? (Application.isPlaying ? SettingsStore.ForPlatform() : null);
 
         public void Configure(GameBoot boot, UIDocument document, TextAsset strings, TextAsset stringsHe, PortraitCatalog portraits,
             MapScene map, PlacementLayer placements, MapPointer pointer, CameraController cameraController)
@@ -126,8 +135,8 @@ namespace Statecraft.Game.UI
             line.languageDirection = !hebrew ? LanguageDirection.Inherit : UiDirection.RightToLeft(words) ? LanguageDirection.RTL : LanguageDirection.LTR;
         }
 
-        /// <summary>The strings of the UI's language (UiLanguage): strings.he.yaml when Hebrew is asked for, else English.</summary>
-        UiText Strings() => (Language ?? UiLanguage.Requested()) == UiLanguage.Hebrew
+        /// <summary>The strings of the UI's language (UiLanguage): strings.he.yaml when Hebrew is asked for or chosen, else English.</summary>
+        UiText Strings() => (Language ?? UiLanguage.AtStart(SettingsFile()?.Read(SettingsPresenter.LanguageKey))) == UiLanguage.Hebrew
             ? UiText.Parse(stringsHe.text, "strings.he.yaml") : UiText.Parse(strings.text);
 
         void OnDisable()
@@ -168,8 +177,10 @@ namespace Statecraft.Game.UI
         public void Begin(GameInputs inputs) => Begin(inputs, SmokeTurns(), Application.isPlaying && !StartScreenPresenter.Skipped());
 
         /// <summary>Starts (or restarts) the game over the built map. <paramref name="smoke"/> &gt; 0 plays that many turns;
-        /// <paramref name="startScreen"/> shows the start screen first (never in a smoke run, which has no New Game).</summary>
-        internal void Begin(GameInputs inputs, int smoke, bool startScreen = false)
+        /// <paramref name="startScreen"/> shows the start screen first (never in a smoke run, which has no New Game).
+        /// <paramref name="keep"/> (Settings' language switch) goes on with that bridge's game and its queued orders instead
+        /// of loading the autosave.</summary>
+        internal void Begin(GameInputs inputs, int smoke, bool startScreen = false, SimBridge? keep = null)
         {
             if (inputs == null) throw new ArgumentNullException(nameof(inputs));
             foreach (var (value, field) in new (UnityEngine.Object?, string)[] { (document, nameof(document)), (strings, nameof(strings)), (stringsHe, nameof(stringsHe)),
@@ -177,17 +188,19 @@ namespace Statecraft.Game.UI
                 if (value == null) throw new InvalidOperationException($"GameRoot: {field} is not assigned (run MapCapture.MakeScene)");
             if (map.Terrain == null) throw new InvalidOperationException("GameRoot: the map is not built (GameBoot builds it before Ready)");
             Shutdown();
+            smokeRun = smoke > 0;
 
             var text = Strings();
             var store = Store ?? SaveStore.ForPlatform();
             var notes = new List<string>();
             // A smoke run is reproducible: a fresh game with the golden seed, never the player's autosave.
-            bool resumed;
-            var session = smoke > 0
+            bool resumed = true;
+            var session = keep?.Session ?? (smoke > 0
                 ? GameStart.Begin(inputs.Content, store, () => GoldenRun.Seed, notes, text, out resumed, fresh: true)
-                : GameStart.Begin(inputs.Content, store, GameStart.NewSeed, notes, text, out resumed);
+                : GameStart.Begin(inputs.Content, store, GameStart.NewSeed, notes, text, out resumed));
             DiagLog.BootPhase($"session started (turn {session.State.Turn}, replayed)");
             var bridge = Bridge = new SimBridge(session, text);
+            if (keep != null) foreach (var order in keep.Queued) bridge.Queue(order);   // in their order: each was within the attention left
             var root = document.rootVisualElement;
             bool hebrew = text["ui.lang"] == UiLanguage.Hebrew;
             // Hebrew: the Hebrew face, the advanced text generator and the mirrored rows (.lang-he); each text's paragraph
@@ -231,7 +244,8 @@ namespace Statecraft.Game.UI
             Own(new WhyPresenter(root, bridge, text));
             // Presentation only (#40): never the sim or the save. Outside Play mode (EditMode tests) no file: the developer's
             // own settings must not leak into a test. Each Begin (New Game too) reads the file again.
-            Own(new SettingsPresenter(root, text, Application.isPlaying ? SettingsStore.ForPlatform() : null));
+            // The language switch (#1036) builds every screen again in the new language over this game (SwitchLanguage).
+            Own(new SettingsPresenter(root, text, SettingsFile(), language => SwitchLanguage(inputs, language)));
             Own(new CabinetPresenter(root, bridge, text, portraits));
             var names = map.SettlementsFor(inputs.Map.SettlementsYaml).ToDictionary(s => s.Id, s => s.Name);   // the map's parse (issue #321)
             // The 1948 sub-districts, outlined on the map, and each front's 1949 armistice line from its agreement's date
@@ -392,6 +406,18 @@ namespace Statecraft.Game.UI
             if (Application.isPlaying && FrameProfile.Requested())
                 StartCoroutine(FrameProfile.Run(camRig, map.Frame, Debug.Log, Application.platform != RuntimePlatform.WebGLPlayer));
             else if (Application.isPlaying && VisualShots.Requested()) StartCoroutine(VisualShots.Run(camRig, map.Frame, Debug.Log));
+        }
+
+        /// <summary>Settings' language switch (#1036): every screen again in <paramref name="language"/> at once, no reload,
+        /// over the same game with this turn's orders (Begin's keep), and Settings open again with the focus on the choice
+        /// just made (for a mouse press too: the rebuilt UI has no focus to keep). Not in a smoke run (smokeRun).</summary>
+        void SwitchLanguage(GameInputs inputs, string language)
+        {
+            if (Bridge == null || smokeRun) return;
+            Language = language;
+            Begin(inputs, 0, keep: Bridge);
+            nav?.Open("settings");
+            document.rootVisualElement.Q<Button>("settings-language-" + language)?.Focus();
         }
 
         /// <summary>The 1948 localities in a hex (by the hex their point lies in, as the map picks hexes), for the info panel.</summary>

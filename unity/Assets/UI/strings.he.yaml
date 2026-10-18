@@ -51,6 +51,10 @@ settings.quality: "איכות גרפית"
 settings.quality.auto: "אוטומטית"
 settings.quality.high: "גבוהה"
 settings.quality.low: "נמוכה"
+# The language choice (#1036); the languages' names are on their buttons, in themselves (SettingsPresenter). The note
+# says that the event cards are not translated yet (#55). For the native reviewer (#564).
+settings.language: "שפה"
+settings.language.note: "כרטיסי האירועים באנגלית בלבד בינתיים."
 event.draft: "טיוטה"
 start.source: "מתוך ההכרזה על הקמת מדינת ישראל (עיתון רשמי מס׳ 1, 14 במאי 1948) ותרגומה הרשמי לאנגלית. הציור נוצר בבינה מלאכותית."
 # The recordist's name as the Israel State Archives spells it in its own description of item
