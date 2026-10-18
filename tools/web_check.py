@@ -8,13 +8,16 @@ fail on a failure line or a timeout. Uses Chrome for Testing from the Playwright
 --enable-logging=stderr --v=1 as INFO:CONSOLE... "text", source: ...
 
 Usage (from the repo root):
-  uv run tools/web_check.py unity/Builds/Web-disabled --query "golden" --expect "GOLDEN OK 1950 e4ebff9b317a02b908434cedb18674608ae820e5e60769ef78272493884590c4" --expect "GOLDEN OK 1952 e0d8212a1f6ea8af9211166aa52b76c741c739807d4326b6b6664a5c5d26857f"
+  uv run tools/web_check.py unity/Builds/Web-disabled --query "golden" --expect "GOLDEN OK hash1950 9922495a92307f87d7b5338cd8501fb60ad0424ea6b19ef2d1ec55c44a8bdfb8" --expect "GOLDEN OK hash1952 548a6acce93c677f566e7d6febdeb50ed6aeba0e4f61a884708ef0fc38774d87"
 Options: --query Q (page URL query, without '?'), --expect TEXT (repeatable), --fail REGEX (default: GOLDEN FAIL|SMOKE FAIL|BOOT FAIL),
 --timeout SECONDS (default 300), --stall SECONDS (fail when no console message arrives for that long; 0 = off),
 --swiftshader (software WebGL when there is no GPU), --dpr N (default 1), --shots DIR (reassemble the player's
 "SHOT" console lines, from ?shot, into DIR/<pose>.png; a "SHOT done" with an unfinished shot fails the run),
 --persistence (play one normal turn, reload and Continue after a settling delay, then play another turn and reload
-immediately; both reloads must report the saved date, turn and hash).
+immediately; both reloads must report the saved date, turn and hash), --startscreen new|recording (#908: on a fresh
+profile, the real start screen every player sees first: "new" presses New game, "recording" first presses Play the
+recording and waits for RECORDING playing; then End turn must log TURN 1; any console Exception, RECORDING failed or
+BOOT FAIL fails the run; add --query lang=he for the Hebrew layout).
 The page is opened over the DevTools protocol with its viewport fixed to 1920x1080 at the DPR before it loads
 (Emulation.setDeviceMetricsOverride: --window-size alone gives a 1920x937 viewport in --headless=new), and the run
 fails on any "res=" line, or any screenshot, of another size. Headed runs go through tools/headed.py.
@@ -36,6 +39,7 @@ import shutil
 import tempfile
 import threading
 import time
+import urllib.parse
 from pathlib import Path
 
 # A console message's first line; warnings and errors carry a stack trace on later lines (ProjectSetup sets none for
@@ -363,6 +367,9 @@ def drain(inbox: queue.Queue) -> list:
 # bar's End turn (clickable while the first event card is open). Keys do not work here: Enter sent over CDP before any
 # click reaches no Unity button, and after New game the first event card, not End turn, takes the focus.
 NEW_GAME, CONTINUE, END_TURN = (960, 1002), (840, 1002), (1840, 45)
+# The same buttons in the Hebrew layout (?lang=he), measured the same way: the top bar is mirrored, so End turn is at the
+# left, and Play the recording sits left of its credit line. Play the recording in the English layout too.
+PLAY_RECORDING, PLAY_RECORDING_HE, END_TURN_HE = (812, 940), (851, 940), (80, 45)
 GAME_STATE = re.compile(r"^GAME OK (\d{4}-\d{2}-\d{2}) turn (\d+) hash ([0-9a-f]+)$")
 TURN_STATE = re.compile(r"^TURN (\d+) (\d{4}-\d{2}-\d{2}) hash ([0-9a-f]+)$")
 
@@ -431,21 +438,70 @@ class PersistenceCheck:
                              f"saved {date} turn {turn} hash {digest}; file a follow-up save-persistence bug")
 
 
+def query_value(query: str, key: str) -> str | None:
+    """The value of `key` in a page query without its '?' ("lang=he&smoke" -> "he"); None when absent."""
+    values = urllib.parse.parse_qs(query, keep_blank_values=True).get(key)
+    return values[0] if values else None
+
+
+class StartScreenCheck:
+    """Issue #908: the start screen of a fresh profile, as a player meets it (no automation flag skips it). New game
+    (after Play the recording when `recording`) and End turn must reach the map's first turn. `action` is Page.command."""
+
+    def __init__(self, action, recording: bool, hebrew: bool, settle=time.sleep):
+        self.action, self.recording, self.settle = action, recording, settle
+        self.play, self.end_turn = (PLAY_RECORDING_HE, END_TURN_HE) if hebrew else (PLAY_RECORDING, END_TURN)
+        self.stage, self.done = "boot", False
+
+    def feed(self, text: str) -> None:
+        game, turn = GAME_STATE.match(text), TURN_STATE.match(text)
+        if self.stage == "boot" and game:
+            if int(game.group(2)) != 0:
+                raise ValueError(f"START SCREEN FAIL the first boot is turn {game.group(2)}, not a fresh game")
+            self.settle(3)                       # the start screen lays out and takes input
+            if self.recording:
+                self.click(self.play)
+                self.stage = "recording"
+            else:
+                self.new_game()
+        elif self.stage == "recording" and text.startswith("RECORDING playing "):
+            print("START SCREEN recording OK")
+            self.settle(2)
+            self.new_game()
+        elif self.stage == "turn" and turn:
+            if int(turn.group(1)) != 1:
+                raise ValueError(f"START SCREEN FAIL End turn after New game logged turn {turn.group(1)}, not turn 1")
+            print(f"START SCREEN OK New game reached the map: TURN 1 {turn.group(2)} hash {turn.group(3)}")
+            self.done = True
+
+    def new_game(self) -> None:
+        self.click(NEW_GAME)
+        self.settle(2)
+        self.click(self.end_turn)
+        self.stage = "turn"
+
+    def click(self, point: tuple[int, int]) -> None:
+        self.action(f"click:{point[0]},{point[1]}")
+
+
 def watch(inbox, poll, join_reader, expect, fail, timeout, now=time.time, sleep=time.sleep, on_text=None, stall=0,
-          complete=None) -> int:
+          complete=None, complete_what="the end of the --persistence run", grace=0.0) -> int:
     """The check loop: 0 on PASS, 1 on a failure line, on BROWSER EXITED, on TIMEOUT, or (stall > 0) when no console
     message arrives for stall seconds (STALLED). poll() is the browser's returncode (None while running); join_reader()
     waits briefly for the stderr reader thread to hit EOF, so output written just before the exit is still scanned.
-    on_text(text) -> True consumes a message (it is not printed)."""
+    on_text(text) -> True consumes a message (it is not printed). With grace > 0, PASS waits that many seconds after
+    the run is complete, still reading, so a failure line that follows the last expected one (an exception logged
+    after TURN 1) fails the run instead of being lost when the browser closes."""
     pending, deadline = list(expect), now() + timeout
     last = now()
-    end = ["the end of the --persistence run"] if complete is not None else []
+    passes_at = None
+    end = [complete_what] if complete is not None else []
 
     def missing() -> str:
         return ", ".join(pending + [e for e in end if not complete()]) or "nothing"
 
     def look():
-        nonlocal pending, last
+        nonlocal pending, last, passes_at
         status, pending, texts = scan(drain(inbox), pending, fail)
         if texts:
             last = now()
@@ -457,8 +513,11 @@ def watch(inbox, poll, join_reader, expect, fail, timeout, now=time.time, sleep=
             print(f"FAIL: {texts[-1]}")
             return 1
         if status == "pass" and (complete is None or complete()):
-            print("PASS: saw " + ", ".join(list(expect) + end))
-            return 0
+            if passes_at is None:
+                passes_at = now() + grace
+            if now() >= passes_at:
+                print("PASS: saw " + ", ".join(list(expect) + end))
+                return 0
         return None
 
     while now() < deadline:
@@ -481,7 +540,28 @@ def watch(inbox, poll, join_reader, expect, fail, timeout, now=time.time, sleep=
     return 1
 
 
-def main() -> int:
+# Failure lines every --startscreen run adds to --fail, whatever --fail says (#908).
+START_SCREEN_FAILS = r"BOOT FAIL|Exception|RECORDING failed"
+# Seconds a scripted run keeps reading after it is complete, before PASS (watch's grace).
+DRIVER_GRACE = 3.0
+
+
+def run_plan(a, command):
+    """What a run drives and fails on: (driver or None, the failure regex, watch's keyword arguments). `command` is
+    Page.command."""
+    if a.persistence and a.startscreen:
+        raise ValueError("--persistence and --startscreen are separate runs")
+    if a.startscreen:
+        driver = StartScreenCheck(command, a.startscreen == "recording", query_value(a.query, "lang") == "he")
+        fail, what = f"(?:{a.fail})|{START_SCREEN_FAILS}", f"the end of the --startscreen {a.startscreen} run"
+    elif a.persistence:
+        driver, fail, what = PersistenceCheck(command), a.fail, "the end of the --persistence run"
+    else:
+        return None, re.compile(a.fail), {}
+    return driver, re.compile(fail), {"complete": lambda: driver.done, "complete_what": what, "grace": DRIVER_GRACE}
+
+
+def parser() -> argparse.ArgumentParser:
     ap = argparse.ArgumentParser()
     ap.add_argument("build", type=Path)
     ap.add_argument("--query", default="")
@@ -493,7 +573,12 @@ def main() -> int:
     ap.add_argument("--dpr", type=float, default=1.0)
     ap.add_argument("--stall", type=float, default=0)
     ap.add_argument("--persistence", action="store_true")
-    a = ap.parse_args()
+    ap.add_argument("--startscreen", choices=["new", "recording"])
+    return ap
+
+
+def main() -> int:
+    a = parser().parse_args()
     if not (a.build / "index.html").exists():
         sys.exit(f"{a.build}/index.html not found")
     server, proc, page, profile = None, None, None, tempfile.mkdtemp(prefix="web-check-")
@@ -527,16 +612,15 @@ def main() -> int:
             page = Page(profile, url, w, h, a.dpr)
             page.open()
             print(f"viewport {w}x{h} at DPR {a.dpr:g} (expect res={res})")
-            persistence = PersistenceCheck(page.command) if a.persistence else None
+            driver, fail, plan = run_plan(a, page.command)
 
             def handle_text(text: str) -> bool:
                 consumed = on_text(text)
-                if persistence is not None:
-                    persistence.feed(text)
+                if driver is not None:
+                    driver.feed(text)
                 return consumed
-            return watch(inbox, proc.poll, lambda: reader.join(2), list(a.expect), re.compile(a.fail), a.timeout,
-                         on_text=handle_text, stall=a.stall,
-                         complete=(lambda: persistence.done) if persistence is not None else None)
+            return watch(inbox, proc.poll, lambda: reader.join(2), list(a.expect), fail, a.timeout,
+                         on_text=handle_text, stall=a.stall, **plan)
         except ValueError as e:
             print(f"FAIL: {e}")
             return 1

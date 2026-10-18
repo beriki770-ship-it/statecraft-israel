@@ -35,7 +35,7 @@ public class EventRulesGddTests
     public void HardAnchorsAlwaysFire()
     {
         Assert.Equal(GameOverCodes.MvpEnded, Run[Run.Count - 1].GameOver);
-        var plain = C.Events.Where(e => e.Anchor == "hard" && e.Requires == null && e.Conditions.Count == 0 && e.Objective == "").ToList();
+        var plain = C.Events.Where(e => e.Anchor == "hard" && e.Requires.Count == 0 && e.Conditions.Count == 0 && e.Objective == "").ToList();
         Assert.NotEmpty(plain);
         foreach (var e in plain)
         {
@@ -196,14 +196,20 @@ options:
     public void ThePreviewListsEveryEffectOnTheRealContent()
     {
         var checkedOptions = 0;
+        // A consequence card never fires in the historical run (R-ALT-012); its state comes from a run on its road.
         foreach (var e in C.Events)
         {
-            var s = Run.First(x => x.FiredEvents.Contains(e.Id));   // every event fires in the run (EventRetimingTests)
+            // Every historical event fires in the run (EventRetimingTests) but hula_drainage, which waits for works the
+            // reference player never starts (R-SWAMP-002); its options are read on the first turn of its window.
+            var s = e.Kind != EventKinds.Consequence
+                ? Run.FirstOrDefault(x => x.FiredEvents.Contains(e.Id)) ?? Run.First(x => e.Site != "" && x.Date >= e.From)
+                : AltRun.Play(C, AltRun.RoadTo(C, e)).First(x => x.FiredEvents.Contains(e.Id));
             foreach (var o in e.Options)
             {
                 var expected = o.Effects.Select(fx => (fx.Target, fx.Delta))
                     .Concat(o.SetPolicy.OrderBy(k => k.Key, StringComparer.Ordinal).Select(k => (k.Key, k.Value)))
-                    .Concat(o.SetRung.HasValue ? new[] { ("rung", (double)o.SetRung.Value) } : new (string, double)[0]);
+                    .Concat(o.SetRung.HasValue ? new[] { ("rung", (double)o.SetRung.Value) } : new (string, double)[0])
+                    .Concat(o.Rejoin != "" ? new[] { ("rejoin", 0.0) } : new (string, double)[0]);
                 Assert.Equal(expected, EventSystem.OptionEffects(C, s, o).Select(l => (l.Target, l.Delta)));
                 checkedOptions++;
             }

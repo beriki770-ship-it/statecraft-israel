@@ -10,6 +10,9 @@ office: prime_minister
 # 5 March 1951; the notes give 7 March for Riley's request, and both dates are recorded here.
 from: 1951-03-07
 to: 1951-05-18
+# R-SWAMP-002 (Q-SWAMP-2, owner, 17 October 2026, #782): the card is about works in progress, so in the GDD loop it fires
+# only while the player's works at the Hula swamp site are in progress. Text, options and sources are unchanged.
+site: hula
 options:
   - id: continue_works
     text: Continue the works and assert Israel's rights in the zone

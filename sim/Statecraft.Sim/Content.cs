@@ -61,8 +61,9 @@ namespace Statecraft.Sim
         /// <summary>True when the file has the key at all, even blank: a blank flag is an error, not a review.</summary>
         [YamlIgnore] public bool TitleHeReviewGiven => titleHeReview != null;
         string? titleHeReview;
-        /// <summary>The feminine Hebrew title, only where a woman held the office (the Knesset records write שרת העבודה);
-        /// sourced in <see cref="TitleHeFSources"/>. Needs <see cref="TitleHe"/>.</summary>
+        /// <summary>The feminine Hebrew title, shown for a woman in the office (the Knesset records write שרת העבודה); every
+        /// office with a Hebrew title has one, since the player can order a woman into any office (owner on #861, 17 October
+        /// 2026). Sourced in <see cref="TitleHeFSources"/>. Needs <see cref="TitleHe"/>.</summary>
         public string TitleHeF { get; set; } = "";
         public List<Source> TitleHeFSources { get; set; } = new List<Source>();
         /// <summary>As <see cref="TitleHeReview"/>, for <see cref="TitleHeF"/>.</summary>
@@ -485,6 +486,12 @@ namespace Statecraft.Sim
         /// <summary>IL millions plowing a field costs, paid in full when it starts (R-FIELD-001, as R-SITE-001). Required in the
         /// GDD loop, so a missing key never makes plowing free.</summary>
         public double? PlowFieldsCost { get; set; }
+        /// <summary>Turns draining a swamp takes, counting the turn it was ordered in (R-SWAMP-001, as R-SITE-003; Q-SWAMP-1).
+        /// Required in the GDD loop, at least 1.</summary>
+        public int? DrySwampTurns { get; set; }
+        /// <summary>IL millions draining a swamp costs, paid in full when it starts (R-SWAMP-001, as R-SITE-001; Q-SWAMP-1).
+        /// Required in the GDD loop, so a missing key never makes draining free.</summary>
+        public double? DrySwampCost { get; set; }
         /// <summary>Food units a plowed field adds to the national stock each turn, in step 6 (R-FIELD-002; Q-FIELD-3). Required
         /// in the GDD loop, so a missing key is never read as 0.</summary>
         public int? FieldFoodPerTurn { get; set; }
@@ -506,6 +513,37 @@ namespace Statecraft.Sim
         /// <summary>Turns of progress a veteran's project gains each turn, against a halutz's 1 (R-VET-002; D-D9, Q-VET-2).
         /// Required in the GDD loop, at least 1.</summary>
         public int? VeteranProgress { get; set; }
+        /// <summary>Every city's housing condition on the first day (R-HOUSE-001; D-D2, Q-START-3: one value for all the
+        /// cities). Required in the GDD loop, 0 to 1.</summary>
+        public double? HousingStartCondition { get; set; }
+        /// <summary>How far a city's housing condition falls in a turn when all its people are beyond its housing; a turn takes
+        /// this times the city's overflow share (R-HOUSE-002; D-D1, Q-HOUSE-1). Required in the GDD loop, 0 to 1.</summary>
+        public double? OverflowConditionLoss { get; set; }
+        /// <summary>Consecutive turn ends with Money and Food both exhausted that end the game (R-END-002; D-B5, Q-DEF-2).
+        /// Required in the GDD loop, at least 1.</summary>
+        public int? DefeatTurns { get; set; }
+        /// <summary>The debt, in IL millions, at or above which Money is exhausted (R-END-001; D-B5, Q-DEF-1). Required in the
+        /// GDD loop, a finite number >= 0.</summary>
+        public double? DebtCeiling { get; set; }
+    }
+
+    /// <summary>A kind of city project (projects.yaml; GDD "Cities and construction"; R-PROJ-001 to R-PROJ-003): permanent
+    /// housing, the transit camp (D-D3, Q-HOUSE-3) or industry. Every number is a design value (Q-PROJ-1).</summary>
+    public sealed class ProjectKind
+    {
+        public string Id { get; set; } = "";
+        /// <summary>The phrase the player reads in a sentence ("a transit camp").</summary>
+        public string Name { get; set; } = "";
+        /// <summary>IL millions, paid in full at the start (Q-PROJ-1).</summary>
+        public double Cost { get; set; }
+        /// <summary>Turns to build, the turn of the order the first (D-A3).</summary>
+        public int Turns { get; set; }
+        /// <summary>Housing capacity added to the city when done, in population units.</summary>
+        public int Capacity { get; set; }
+        /// <summary>The change to the city's housing condition when done (R-HOUSE-001; kept from 0 to 1).</summary>
+        public double Condition { get; set; }
+        /// <summary>Job slots added to the city when done, in population units.</summary>
+        public int JobSlots { get; set; }
     }
 
     /// <summary>A designated site (sites.yaml; docs/GDD.md "Pioneer work": building is allowed only at designated spots, and a
@@ -593,6 +631,10 @@ namespace Statecraft.Sim
         public int TrainingTurns { get; set; }
         /// <summary>IL millions per population unit trained, paid when training starts (R-TRAIN-001). Only with a facility.</summary>
         public double TrainingCost { get; set; }
+        /// <summary>A military type's side (units_1948.yaml's side ids), or "" for a type that is not military (R-UNIT-001).</summary>
+        public string Side { get; set; } = "";
+        /// <summary>A military type's class: infantry, artillery or armour, or "" for a type that is not military (R-UNIT-001).</summary>
+        public string Class { get; set; } = "";
     }
 
     /// <summary>One stretch of a budget line's ownership (rules.yaml budget_owners): from this day (inclusive) the office owns the line.</summary>
@@ -685,8 +727,25 @@ namespace Statecraft.Sim
 
     public sealed class EventCondition { public string Indicator { get; set; } = ""; public double? Min { get; set; } public double? Max { get; set; } }
 
-    /// <summary>An event's precondition: <see cref="Event"/> must have been resolved with <see cref="Option"/>.</summary>
-    public sealed class EventRequirement { public string Event { get; set; } = ""; public string Option { get; set; } = ""; }
+    /// <summary>One precondition of an event: <see cref="Event"/> was resolved with <see cref="Option"/>, or, with
+    /// <see cref="Diverged"/>, with any option but its historical one (R-ALT-001, R-ALT-002).</summary>
+    public sealed class EventRequirement
+    {
+        public string Event { get; set; } = "";
+        public string Option { get; set; } = "";
+        public bool Diverged { get; set; }
+    }
+
+    /// <summary>R-ALT-010: alternative wording of a reconvergence event for a course that left the record. Options and
+    /// effects never vary.</summary>
+    public sealed class EventVariant
+    {
+        public List<EventRequirement> When { get; set; } = new List<EventRequirement>();
+        /// <summary>Empty: the event's own title.</summary>
+        public string Title { get; set; } = "";
+        public string Text { get; set; } = "";
+        public List<Source> Sources { get; set; } = new List<Source>();
+    }
 
     public sealed class OptionEffect { public string Target { get; set; } = ""; public double Delta { get; set; } }
 
@@ -702,8 +761,12 @@ namespace Statecraft.Sim
         public Dictionary<string, double> SetPolicy { get; set; } = new Dictionary<string, double>();
         /// <summary>R-EFX-003: units this option grants, free, in list order (D-H2, Q-HFX-2).</summary>
         public List<UnitGrant> GrantUnits { get; set; } = new List<UnitGrant>();
-        /// <summary>R-EFX-004: changes to a city's housing capacity or job slots, in list order (D-H2, Q-HFX-1).</summary>
+        /// <summary>R-EFX-004: changes to a city's housing capacity, job slots or housing condition, in list order (D-H2, Q-HFX-1).</summary>
         public List<CityEffect> CityEffects { get; set; } = new List<CityEffect>();
+        /// <summary>Who put this non-historical option forward, and on what record (R-ALT-003). Null when absent.</summary>
+        public OptionAlternative? Alternative { get; set; }
+        /// <summary>The event whose historical course this consequence option rejoins (R-ALT-009), or empty.</summary>
+        public string Rejoin { get; set; } = "";
     }
 
     /// <summary>An option's grant of <see cref="N"/> units of a unit_types.yaml type of kind unit (R-EFX-003). They stand at
@@ -716,17 +779,41 @@ namespace Statecraft.Sim
         public string At { get; set; } = "";
     }
 
-    /// <summary>An option's change to one field of a city: housing_capacity or job_slots, by whole units (R-EFX-004).</summary>
+    /// <summary>An option's change to one field of a city (R-EFX-004): housing_capacity or job_slots by whole units, or the
+    /// housing condition by a number from -1 to 1. A double, so one key carries both; the loader checks each field's kind.</summary>
     public sealed class CityEffect
     {
         public string City { get; set; } = "";
         public string Field { get; set; } = "";
-        public int Delta { get; set; }
+        public double Delta { get; set; }
+    }
+
+    /// <summary>Who put forward a non-historical option, and on what record (R-ALT-003). `proposed` and `debated` name a
+    /// body or office in words (never a person), the date and sources; `design` is the GDD's "design assumption": nobody is
+    /// recorded proposing it, so it names nobody and no date.</summary>
+    public sealed class OptionAlternative
+    {
+        public const string Proposed = "proposed", Debated = "debated", Design = "design";
+        public string Basis { get; set; } = "";
+        public string By { get; set; } = "";
+        public DateTime? Date { get; set; }
+        public List<Source> Sources { get; set; } = new List<Source>();
+        /// <summary>True for an alternative contemporaries are recorded proposing or debating (the Ferguson test).</summary>
+        [YamlIgnore] public bool IsConsidered => Basis == Proposed || Basis == Debated;
+    }
+
+    /// <summary>The kinds of event (R-ALT-005): the record, a card only on a road not taken, and a real outside
+    /// event that happened regardless.</summary>
+    public static class EventKinds
+    {
+        public const string Historical = "historical", Consequence = "consequence", Reconvergence = "reconvergence";
     }
 
     public sealed class GameEvent
     {
         public string Id { get; set; } = "";
+        /// <summary>historical (the default), consequence (R-ALT-005) or reconvergence (R-ALT-010).</summary>
+        public string Kind { get; set; } = EventKinds.Historical;
         public string Title { get; set; } = "";
         public string Text { get; set; } = "";
         public List<string> Tags { get; set; } = new List<string>();
@@ -735,8 +822,9 @@ namespace Statecraft.Sim
         public DateTime From { get; set; }
         public DateTime? To { get; set; }
         public List<EventCondition> Conditions { get; set; } = new List<EventCondition>();
-        /// <summary>Eligible only once this other event was resolved with this option (null: no requirement).</summary>
-        public EventRequirement? Requires { get; set; }
+        /// <summary>Eligible only once every one of these holds (R-ALT-001). Empty: no requirement.</summary>
+        public List<EventRequirement> Requires { get; set; } = new List<EventRequirement>();
+        public List<EventVariant> Variants { get; set; } = new List<EventVariant>();
         public List<EventOption> Options { get; set; } = new List<EventOption>();
         public List<Source> Sources { get; set; } = new List<Source>();
         public string Status { get; set; } = "draft";
@@ -756,6 +844,10 @@ namespace Statecraft.Sim
         /// <summary>The objective (objectives.yaml) whose completion card this event is: it fires only once that objective is
         /// recorded (R-OBJ-003). Empty for every other event.</summary>
         public string Objective { get; set; } = "";
+        /// <summary>The designated site (sites.yaml, a swamp site) whose works this event is about: in the GDD loop it fires
+        /// only while that site is being worked (R-SWAMP-002; Q-SWAMP-2). The legacy loop reads no sites and ignores it.
+        /// Empty for every other event.</summary>
+        public string Site { get; set; } = "";
         /// <summary>Path relative to the content root, set by the loader (not read from YAML).</summary>
         [YamlIgnore] public string File { get; set; } = "";
     }
@@ -909,6 +1001,8 @@ namespace Statecraft.Sim
         public List<UnitType> UnitTypes = new List<UnitType>();
         /// <summary>The GDD designated sites (sites.yaml), in file order. Empty in the legacy loop.</summary>
         public List<Site> Sites = new List<Site>();
+        /// <summary>The GDD city project kinds (projects.yaml), in file order. Empty in the legacy loop.</summary>
+        public List<ProjectKind> ProjectKinds = new List<ProjectKind>();
         /// <summary>The objectives (objectives.yaml), ordered by id. Read in both loops, since their cards are events; only the
         /// GDD loop completes them. Empty when the content has no objectives.yaml.</summary>
         public List<Objective> Objectives = new List<Objective>();

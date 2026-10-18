@@ -46,13 +46,31 @@ R-CITY-003: Arrivals from the CBS series (`aliyah.yaml`) become refugees in the 
 
 R-CITY-008: `GameState.Population` is the one record of the nation's people: it takes every arrival from 15 May 1948 and is the count the CBS anchors check. The cities are the part of it placed in towns, so their people (civilians, refugees, recruits and the groups in training, times `people_per_unit`) never exceed it (Q-ARRV-2, owner, 15 October 2026). No person is counted twice.
 
-R-CITY-004: Each turn, `min(refugees, max(0, housing_capacity - civilians))` of a city's refugees become civilians without a job. The cap is a placeholder while overflow (D-D1) is open.
+R-CITY-004: Each turn, on the housing step, all of a city's refugees become civilians without a job. There is no hard cap (D-D1, Q-HOUSE-1, owner, 15 October 2026): the people beyond the city's housing stay in the city as its overflow (R-HOUSE-002), and residents are housed automatically (Q-HOUSE-4).
 
 R-CITY-005: The cities' employed share (employed over civilians, summed over all cities; 1 with no civilians) is an effect-web source of `morale`, Social cohesion (`work_lifts_cohesion`, source id `employed_share`), read after the turn's housing. The legacy loop has no cities, so there it reads 0 and adds nothing. Housing reaches Social cohesion through the existing `housing` link (`homes_lift_morale`) until Phase 3 makes it the cities' aggregate (Q-NAT-2, decided 15 October 2026). Phase 1's separate cohesion value and its two weights are gone (D-C1, Reading 2).
 
 R-CITY-006: The cities are the `city` and `town` rows of `map/settlements_1948.yaml`, in that file's order, and their start values are `cities.yaml`'s. Each of a city's values (`people`, `employed_share`, `housing_capacity`, `job_slots`) is required and has a status: `sourced` (read from the source named), `derived` (computed from sourced values), `wikipedia-only` (an owner-accepted Wikipedia figure) or `design` (a labelled design value, R-LOOP-005). A `sourced`, `derived` or `wikipedia-only` value has at least one source, each with a url and a checked date, and the day (YYYY-MM-DD) or month (YYYY-MM) it describes; the loader refuses a value without them, naming the file and field (GDD Phase 3 plan, review focus 3).
 
 R-CITY-007: A city starts with `civilians` = `people / people_per_unit` to the nearest unit (a half rounds up), and at least 1 when `people` is above 0 (Q-START-2, owner, 15 October 2026); `employed` = `people * employed_share / people_per_unit` to the nearest unit; `housing_capacity` and `job_slots` as written, in units. The loader refuses a city whose start employed is above its job slots. The arithmetic is decimal, so it is exact on every runtime.
+
+R-HOUSE-001: Each city has a housing condition from 0 to 1, an average over the city (D-D2, Q-HOUSE-2, owner, 15 October 2026). Every city starts at `mvp.housing_start_condition` (Q-START-3: one design value for all the cities, 0.35, `model.yaml`'s `housing` base). The condition is per city: one city's counts never change another's. It is in the state hash (R-LOOP-002).
+
+R-HOUSE-002: A city's overflow is `max(0, housed - housing_capacity)`, one capacity point housing one population unit (D-D1, Q-HOUSE-1, owner, 15 October 2026). On the housing step, after R-CITY-004 and before Social cohesion (D-A6), a city with overflow loses `overflow_condition_loss * overflow / housed` of its condition, never below 0; a city without overflow keeps its condition. `overflow_condition_loss` is 0.15, a design value. The loader requires both values, from 0 to 1. Overflow reaches Social cohesion through R-HOUSE-004 (a lower condition lowers the base of the national `housing` indicator) and the existing `homes_lift_morale` link (k 0.15) from `housing` into `morale`, which is Social cohesion (R-NAT-001); there is no direct overflow term (Q-HOUSE-1, decided by the owner 15 October 2026, plan:165 of `docs/superpowers/plans/2026-10-15-gdd-phase-3.md`: cohesion follows through the existing `housing` to `morale` link, "so it needs no number of its own"; the cohesion half was built after #728, merged as #857, owner 17 October 2026).
+
+R-HOUSE-003: The people who take a city's housing (`housed`) are its civilians, its recruits and its groups in training, a halutz group included until it becomes a movable unit. Halutz units do not (Q-HOUSE-5, owner, 15 October 2026). Refugees wait for housing and are not in it.
+
+R-HOUSE-004: In the GDD loop the base of the national `housing` indicator is the people-weighted mean of the cities' housing condition, each city weighed by its housed people (R-HOUSE-003): `sum(condition * housed) / sum(housed)`. Policy effects, map actions and events still act on top, as on any indicator. Decided (owner, 17 Oct 2026, option (a) of Q-PR3-A, relayed on [#855 at 06:33Z](https://github.com/eyalgolan/statecraft-israel/pull/855#issuecomment-6230731177)): the national housing base is the people-weighted mean of city condition, with policy, map actions and events still applied on top. When no city houses anybody the mean is undefined, and the base is `model.yaml`'s. Capacity reaches the level through overflow and condition (R-HOUSE-002).
+
+## City projects
+
+A city project is built in a city (GDD "Cities and construction"; Phase 3 PR 4, #735). The kinds are in `content/projects.yaml`, every number a design value (Q-PROJ-1, Q-PROJ-5, owner, 15 October 2026, #375: "Take all recommendations", with agent-proposed values the owner may override): permanent housing (`housing`), the transit camp (`transit_camp`, D-D3, Q-HOUSE-3) and `industry`. The legacy map actions still run beside them; refusing them in the GDD loop (R-PROJ-004) is a separate PR. Until then a map action does not check the city projects, so one can still be placed on a project's hex; R-PROJ-004 removes that path.
+
+R-PROJ-001: `StartProject(kind, city, q, r)` starts a city project of a `projects.yaml` kind for a city on hex (q, r). The Treasury pays the kind's cost at once and borrows what it lacks (Q-PROJ-1, Q-MONEY-3, "Allow borrowing"); the project takes the next id and the kind's turns, the turn of the order the first (D-A3). It needs no workers (Q-PROJ-3). It is refused, state and Attention unchanged, for an unknown kind or city; a transit camp without the `maabarot` policy at 0.5 or more (Q-HOUSE-3: the policy carries the camp's sourced date, and the map actions' 1 January 1950 window does not apply); a hex that is not land, is more than `map_action_max_distance` from the city's settlement hex, or holds a map-action placement or another city project, built or not (Q-PROJ-2); and once `map_actions_per_turn` projects were started this turn, counted nationally with the map actions (Q-PROJ-4). The legacy loop refuses it before charging Attention. Its Attention cost is `attention_cost.start_project` (1, Q-PROJ-5).
+
+R-PROJ-002: `CancelProject(id)` removes a city project that is being built. The Money paid is not returned, and there are no people to return (D-A3, Q-PROJ-3). An unknown or built project is refused with the state unchanged. Its Attention cost is `attention_cost.cancel_project` (0.5, Q-PROJ-5).
+
+R-PROJ-003: On step 5 of the turn (D-A6), after the pioneer work, every city project being built has one turn less to go, in ascending id. One that reaches 0 is built on the turn's end date and adds its kind's `capacity` to the city's housing capacity, its `condition` to the city's housing condition (kept from 0 to 1, R-HOUSE-001) and its `job_slots` to the city's job slots, once: a built project keeps its record, with its hex, and is never advanced again. `GameState.CityProjects` is hashed as `cproj[...]` only when it has a project (R-LOOP-002).
 
 ## Training
 
@@ -88,11 +106,23 @@ R-FIELD-001: `PioneerWork(unit, plow_fields, site)` plows a field at a site whos
 
 R-FIELD-002: Each turn in step 6, after the cities' production and in ordinal site id order, every plowed field adds `field_food_per_turn` Food units to the national stock (R-FOOD-001), with no workers (Q-FIELD-2, decided 17 October 2026). A field being plowed adds nothing. The Food arrives before the nation eats in step 7, so in a turn with imports (R-FOOD-002) the import tops the stock up by that much less. `field_food_per_turn` is 1, a labelled design value (Q-FIELD-3: "1 Food a turn"), and required in the GDD loop.
 
+R-SWAMP-001: `PioneerWork(unit, dry_swamp, site)` drains a swamp at a site whose kinds include `swamp`, by R-SITE-001 to R-SITE-003's rules, with `dry_swamp_turns` and `dry_swamp_cost` (12 turns and IL 4m, labelled design values, required in the GDD loop; Q-SWAMP-1, decided 17 October 2026). Built, the swamp site is drained, and the field site in its hex becomes ready: before that a `plow_fields` order there is refused with the state unchanged and the Attention refunded, as at an unbuilt yishuv (R-FIELD-001). Drained, the swamp does nothing else. A field site is not also a swamp site, since draining would plow it; the loader refuses a row that gives it both kinds. The MVP's one swamp site is the Hula (Q-SWAMP-1; Q-SWAMP-3, "Allow as planned", owner, 17 October 2026, #789).
+
+R-SWAMP-002: An event with `site: <id>` names a swamp site (the loader checks it in the GDD loop) and, in the GDD loop, can fire only while that site is being worked: it has a record that is not built. With no works, or once the swamp is drained, it waits, and it can still fire later in its window (Q-SWAMP-2, decided 17 October 2026). The legacy loop reads no sites and ignores the key, so the legacy goldens hold. `hula_drainage` carries `site: hula`.
+
 ## Camps
 
 R-CAMP-001: `PioneerWork(unit, build_camp, site)` builds a training camp at a site whose kinds include `military_camp` or `hakhshara`, by R-SITE-001 to R-SITE-003's rules, with `build_camp_turns` and `build_camp_cost` (labelled design values, required in the GDD loop). One action builds either facility, as the site's kind says (Q-CAMP-3, owner, 17 October 2026, #782). Built, on the turn's end date, the camp gives the site's city (Q-CAMP-1) the site's facility, with no capacity limit, so `Train` accepts that city for the matching track from the next turn (R-TRAIN-001). A camp being built gives nothing. The facility is read from the built site's record, so the state hash gains nothing beyond the site's own record. The MVP's camp sites are Camp 80 (for Hadera) and Tzrifin (for Rishon LeZion), both `military_camp` (Q-CAMP-2, owner, 17 October 2026, #785; "Both military", owner, 17 October 2026, #927).
 
 R-CAMP-002: A camp site's `city` is the MVP city (`cities.yaml`) nearest to the site by hex distance (Q-CAMP-1). When several are equally near, it is the one of them nearest by straight-line km from the point the site's hex comes from to the city's point in `map/settlements_1948.yaml` (owner, 17 October 2026, #927). Tzrifin's hex is one hex from Tel Aviv, Petah Tikva, Rehovot and Rishon LeZion, so it serves Rishon LeZion, about 3.9 km away.
+
+## Military units
+
+Phase 5 PR 2 (#741) adds the record and the types only; nothing moves, fights or trains into them yet (owner, 18 October 2026, #741: movement points in Phase 5 PR 5, upkeep in PR 3, enemy types in PR 4).
+
+R-UNIT-001: A military unit is a group at formation scale, one token per formation (D-A1; Q-UNIT-1). It has a side, a type, a hex, a strength (an integer, in population units) and a standing order with its target. A military type in `unit_types.yaml` is a `unit` with a `side` (one of `units_1948.yaml`'s sides) and a `class` (infantry, artillery or armour); the loader refuses a type with only one of them, an unknown side or class, or a population type with either, naming the file and field. The MVP's military types are Israel's `veteran_soldier`, `artillery` and `armoured_car`; `recruit` stays a count per city (R-TRAIN-003).
+
+R-UNIT-002: A unit's side, strength, order and order target are written into the state hash only when they are not at their default ("" or 0), after its service (R-LOOP-002's rule), so a halutz unit's hash text, and every golden, is unchanged.
 
 ## Objectives
 
@@ -120,6 +150,14 @@ R-FOOD-002: In step 7 the nation eats the turn's need from the stock as far as i
 
 R-FOOD-003: `food_supply` stays the 0 to 1 level the UI, the situations and the events read (Q-POOL-3, decided 15 October 2026), with a stock term inside its effect sum: `k_food * (stock - full) / full - unmet / need`, where `full` is `cover_months` of the last need. The term is exactly 0 at a full stock, `-k_food` when the stock is empty, and the unmet share lowers it further; rationing, the other effects and event shifts act on top as before, and the level's clamp to 0..1 bounds the result. The GDD loop requires the `food_supply` indicator.
 
+## Defeat
+
+The game can be lost (D-B5, decided: "Money and Food exhausted for N turns, or a war loss. Values for the owner. Coalition collapse is off in the MVP"; Phase 7 PR 5, #8). This part covers the economic defeat; the war loss waits for Phase 5's enemy units (#749). The defeat texts are the owner's pick (Q-DEF-4, #784, open): until then the game ends with the code `defeat_economy`, and its reason reads "Money and Food ran out", the plan's short option (a).
+
+R-END-001: Money is exhausted when the debt is at or above `debt_ceiling` (Q-DEF-1, owner, 17 October 2026, #784: a debt ceiling; below it borrowing goes on as R-MONEY-003 allows). Food is exhausted when the national stock is 0 (R-FOOD-002; Q-POOL-5, "The stock stops at 0"). One of them alone ends nothing. `debt_ceiling` is IL 250m, a labelled design value (the recommended first value; the Phase 7 balance pass, PR 12, sets the final number), required in the GDD loop, a finite number >= 0.
+
+R-END-002: In the resolver's last step, after the objectives and the score (spec §2.3, step 11), a turn end with Money and Food both exhausted adds 1 to `ExhaustedTurns`, and any other turn end sets it back to 0. When it reaches `defeat_turns`, the game ends with `defeat_economy` and a cause in the turn's causes, under the game's end (`era`) like the MVP end. `defeat_turns` is 3, a labelled design value (Q-DEF-2, owner, 18 October 2026, #784: "3 turns"), required in the GDD loop, at least 1. The step reads the debt as it finds it: the turn's deficit is borrowed after the resolution, so it counts from the next turn's end. A defeat on the game's last turn ends it as a defeat. `ExhaustedTurns` is in the state hash only when above 0, so a run that never has both exhausted hashes as before; the legacy loop never counts.
+
 ## Government
 
 D-C5 as decided (12 October 2026): the cabinet and Attention stay, the coalition is optional with no collapse. The coalition votes, the budget shares and the policies keep running and visible as before (Q-GOV-1, decided 15 October 2026, "Take all recommendations", #375). The defeat (D-B5) is built in Phase 7 (Q-GOV-2, decided the same day).
@@ -144,13 +182,13 @@ R-EFX-001: An option's effect may target an indicator id from `model.yaml`, `tre
 
 R-EFX-002: An option of an event tagged `holocaust`, `terror`, `massacre` or `war-casualties` cannot raise `treasury`, `fx_reserves`, `food`, `food_supply`, `morale` or `intl_standing` (Q-EFX-2, decided 15 October 2026: the no-gain rule covers all five resources, with the legacy indicators standing for Food, Social cohesion and International Support; `food` is Food's own target, and Arms joins the rule with its pool, #781). A cost stays allowed. The rule for the Phase 6 `displacement` tag is Q-DEP-6 (open).
 
-D-H2 in the GDD loop (GDD Phase 7 PR 2, #806). The owner took the plan's recommendations for Q-HFX-1 to Q-HFX-3 on 17 October 2026 (#784): grants of units, a city's housing capacity, condition and job slots, and project unlock, each validated at load; a grant is free and stands at the military camp or at the site the event names (in this slice, a city the event names: a site waits until sites carry a date, R-EFX-006); the no-reward rule covers them. This first slice builds unit grants and the housing capacity and job slots; condition and project unlock come with the records they act on (#734, #735).
+D-H2 in the GDD loop (GDD Phase 7 PR 2, #806). The owner took the plan's recommendations for Q-HFX-1 to Q-HFX-3 on 17 October 2026 (#784): grants of units, a city's housing capacity, condition and job slots, and project unlock, each validated at load; a grant is free and stands at the military camp or at the site the event names (in this slice, a city the event names: a site waits until sites carry a date, R-EFX-006); the no-reward rule covers them. The first slice built unit grants and the housing capacity and job slots; the second adds the housing condition (#855); project unlock comes with the records it acts on (#735).
 
 R-EFX-003: An option's `grant_units` entry `{ type, n, at }` adds `n` (at least 1) units of a `unit_types.yaml` type of kind `unit`, free, taking the next ids in turn. They stand at the settlement hex of the city `at` names or, with no `at`, at the settlement hex of the one city whose `facilities` include `military_camp` (Q-HFX-2). With no such single city, `at` is required. A site is not yet a target (R-EFX-006).
 
-R-EFX-004: An option's `city_effects` entry `{ city, field, delta }` changes only that city's `housing_capacity` or `job_slots`, by a whole, non-zero `delta`. Housing capacity never drops below 0, and job slots never drop below the city's employed, so a larger cut applies only to what is free. Capacity may fall below the city's civilians, as overcrowding already can. The cause carries the change that applied.
+R-EFX-004: An option's `city_effects` entry `{ city, field, delta }` changes only that city's `housing_capacity` or `job_slots`, by a whole, non-zero `delta`, or its housing `condition` by a non-zero `delta` from -1 to 1. Housing capacity never drops below 0, and job slots never drop below the city's employed, so a larger cut applies only to what is free. Capacity may fall below the city's civilians, as overcrowding already can. The condition stays from 0 to 1 (R-HOUSE-001). The other fields of the city, its condition included, do not change. The cause carries the change that applied.
 
-R-EFX-005: An option of an event tagged `holocaust`, `terror`, `massacre` or `war-casualties` carries no unit grant and no `city_effects` gain (Q-HFX-3; extends R-EFX-002). A cut stays allowed.
+R-EFX-005: An option of an event tagged `holocaust`, `terror`, `massacre` or `war-casualties` carries no unit grant and no `city_effects` gain, whether capacity, slots or condition (Q-HFX-3; extends R-EFX-002). A cut stays allowed.
 
 R-EFX-006: The structured effects apply after the numeric effects, grants first and then city effects, each in the option's list order. A target that does not exist on the date (an unbuilt site, a city not yet in the game) is refused at load with file and field, never skipped at run time; so is an unknown type, city or field. Every `cities.yaml` city is in the game from the first turn. A site has no window and starts unbuilt, so a site id as `at` is refused until sites carry a date. The legacy loop, which has no cities or units, refuses them. The preview (R-EVT-005) lists them in the same order.
 
@@ -160,10 +198,36 @@ D-H1 in the GDD loop (GDD Phase 7 PR 1, #805). The owner took the plan's recomme
 
 R-EVT-001: An event fires on the first turn whose span overlaps its window `[from, to)` (or at the new game, when the start date is in it), once its `requires` is met and its conditions hold; an objective's card also waits for its objective (R-OBJ-003). Every eligible hard anchor fires. At most 3 soft events fire a turn (`EventSystem.MaxSoftEventsPerTurn`); they take the slots the hard anchors leave, `max(0, 3 - hard anchors)`, and the rest wait for a later turn (Q-CUT-6).
 
-R-EVT-002: The soft events take the free slots in order of `from`, then id (ordinal). The decided place of an early armistice ahead of the other soft events (Q-EVT-1, through `front_quiet`, Q-OBJ-1) lands with that key in Phase 5 PR 13 (#752), and this rule is reworded then.
+R-EVT-002: The soft events take the free slots in order: consequence cards first (R-ALT-008), then the rest by `from`, then id (ordinal). The decided place of an early armistice ahead of the other soft events (Q-EVT-1, through `front_quiet`, Q-OBJ-1) lands with that key in Phase 5 PR 13 (#752), and this rule is reworded then.
 
 R-EVT-003: An event the player leaves unanswered at End Turn is delegated to its office's holder (Q-EVT-2): with probability competence/10 the holder picks the recommended option (else the first), otherwise a random option. In Historical mode a hard anchor takes its historical option, and an objective's card its one option, with no RNG draw.
 
 R-EVT-004: An option's effects apply when it is chosen or delegated, on that turn, and never later; an option has no delayed form, and the loader refuses an unknown key such as `delay` (Q-EVT-3).
 
-R-EVT-005: One sim helper, `EventSystem.OptionEffects`, lists every effect of an option in the order choosing it applies them: the numeric effects, the unit grants and city effects (R-EFX-006), the policies it sets (by id), then the security level, each with the option's own amount (Q-EVT-4). The event card will show this list (GDD Phase 7 PR 8), so no number will be computed in Unity.
+R-EVT-005: One sim helper, `EventSystem.OptionEffects`, lists every effect of an option in the order choosing it applies them: the numeric effects, the unit grants and city effects (R-EFX-006), the policies it sets (by id), then the security level, then the way back to the record (`rejoin`, R-ALT-009), each with the option's own amount (Q-EVT-4). The event card will show this list (GDD Phase 7 PR 8), so no number will be computed in Unity.
+
+## Alternate timelines
+
+The alternate-timeline mechanism ([the plan](../superpowers/plans/2026-10-17-alternate-timelines.md); the owner's answers, 17 October 2026, #945).
+
+R-ALT-001: An event's `requires` is a list, and the event is eligible only when every entry holds. An entry `{ event, option }` holds when that event was resolved (chosen or delegated) with that option. A list names each event at most once.
+
+R-ALT-002: An entry `{ event, diverged: true }` holds when that event was resolved with any option except its historical one. An event with no historical option cannot diverge, and the loader refuses `diverged` on it.
+
+R-ALT-003: A non-historical option may carry `alternative: { basis, by, date, sources }`. `basis` is `proposed` or `debated` (a body or office, in words, is recorded putting it forward on that date; at least one https source with a checked date) or `design` (nobody is recorded proposing it: a design assumption, which names nobody and no date; sources optional). The historical option carries none.
+
+R-ALT-005: An event of `kind: consequence` is soft, has no historical option, has at least one requirement naming a road not taken (`diverged: true`, a non-historical option, or an option of another consequence card), carries an `alternative` record on every option, and lies at most 2 cards deep from the record (`EventRules.MaxConsequenceDepth`, a labelled design value, Q-ALT-5). It is never an objective's card, and only a consequence card may require one.
+
+R-ALT-006: A consequence card may follow only an option whose `alternative.basis` is `proposed` or `debated`; with `diverged: true`, every non-historical option of that event must be (the Ferguson test, Q-ALT-3).
+
+R-ALT-007: A consequence card carries every sensitive tag (case aside) of each event it requires, so the no-gain rule (R-EFX-002, R-EFX-005) covers it.
+
+R-ALT-008: Consequence cards take a turn's soft slots before the other soft events, then by `from` and id (Q-ALT-14). A `front_quiet` armistice (Q-EVT-1, Phase 5 PR 13) will come before them. With no consequence card eligible the order is unchanged.
+
+R-ALT-009: An option of a consequence card may `rejoin` an event whose road the card follows (and which has a historical option). Once it is chosen, a requirement on that event's historical option holds, so the record's later cards fire again if their windows are still open. The event's own chosen option is not rewritten, and `diverged: true` on it still holds.
+
+R-ALT-010: An event of `kind: reconvergence` has a historical option and may carry `variants`. The first variant whose every `when` entry holds supplies the card's title (if it gives one) and text; options and effects never vary. Each variant follows a road not taken, carries sources, has its placeholders checked over the event's window, and names only roads whose windows close on or before the event's `from` (for a road's historical option, also every consequence card that can `rejoin` it, R-ALT-009). Only a reconvergence event carries variants.
+
+R-ALT-011: A shareable build refuses while any consequence card, or any event with variants, has no `reviewed_by` (a person's sign-off), alongside the sensitivity gate (Q-ALT-9). `Timeline.Entries` lists each resolved event, in window order, with the player's option beside the record's, and `Timeline.Origin` names the road a consequence card follows.
+
+R-ALT-012: The historical run (the reference player's orders from 15 May 1948 to 15 January 1952) raises no consequence card and diverges nowhere.

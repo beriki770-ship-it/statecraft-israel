@@ -1,6 +1,10 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
+using Xunit.Abstractions;
+using Xunit.Sdk;
+
+[assembly: TestFramework("FixtureCleanupFramework", "Statecraft.Sim.Tests")]
 
 /// <summary>Writes a small, valid content set to a temp dir. Tests override single files to test errors.</summary>
 public static class Fixture
@@ -207,13 +211,14 @@ series:
             ["cities.yaml"] = GddCities,
             ["unit_types.yaml"] = GddUnitTypes,
             ["sites.yaml"] = GddSites,
+            ["projects.yaml"] = GddProjects,
         };
         if (extra != null) foreach (var kv in extra) o[kv.Key] = kv.Value;
         return o;
     }
 
     /// <summary>The fixture's attention_cost line with the GDD command kinds added (replaces "map_action: 1 }").</summary>
-    public const string GddCosts = "map_action: 1, assign_workers: 1, train: 1, cancel_training: 1, pioneer_work: 0, stop_work: 0 }";
+    public const string GddCosts = "map_action: 1, assign_workers: 1, train: 1, cancel_training: 1, pioneer_work: 0, stop_work: 0, start_project: 1, cancel_project: 0.5 }";
 
     public const string GddRules = @"
 mvp:
@@ -226,6 +231,8 @@ mvp:
   build_camp_cost: 1
   plow_fields_turns: 2
   plow_fields_cost: 0.5
+  dry_swamp_turns: 3
+  dry_swamp_cost: 2
   field_food_per_turn: 7
   objective_points: 100
   objective_bonus_per_month: 5
@@ -234,6 +241,10 @@ mvp:
   cover_months: 3
   veteran_halutz_service: 4
   veteran_progress: 2
+  housing_start_condition: 0.5
+  overflow_condition_loss: 0.2
+  defeat_turns: 3
+  debt_ceiling: 10
 ";
 
     public static readonly string GddCities = "\ncities:\n" + City("town_a", 12, 8, 10, 6, "[military_camp, hakhshara]");
@@ -251,6 +262,14 @@ types:
   - { id: halutz, kind: unit, facility: hakhshara, training_turns: 3, training_cost: 0.25 }
 ";
 
+    /// <summary>The three city project kinds (R-PROJ-001). Fixture values, not the game's.</summary>
+    public const string GddProjects = @"
+projects:
+  - { id: housing, name: a housing project, cost: 3, turns: 2, capacity: 4, condition: 0.1, job_slots: 0 }
+  - { id: transit_camp, name: a transit camp, cost: 1, turns: 1, capacity: 3, condition: -0.1, job_slots: 0 }
+  - { id: industry, name: an industry project, cost: 2, turns: 2, capacity: 0, condition: 0, job_slots: 3 }
+";
+
     /// <summary>One designated site on a land hex next to town_a, with no settlement on it. Fixture values, not history.</summary>
     public const string GddSites = @"
 sites:
@@ -266,9 +285,18 @@ sites:
     status: fact-checked
 ";
 
+    // Every Write goes under one root per test run, which FixtureCleanupFramework deletes when the run ends.
+    // One folder per call (~1,150 per `dotnet test` run) used to stay behind (#1017).
+    static readonly string Root = Path.Combine(Path.GetTempPath(), "statecraft-fixture-" + Guid.NewGuid().ToString("N"));
+
+    public static void DeleteAll()
+    {
+        if (Directory.Exists(Root)) Directory.Delete(Root, recursive: true);
+    }
+
     public static string Write(Dictionary<string, string>? overrides = null, Dictionary<string, string>? events = null)
     {
-        var dir = Path.Combine(Path.GetTempPath(), "statecraft-fixture-" + Guid.NewGuid().ToString("N"));
+        var dir = Path.Combine(Root, Guid.NewGuid().ToString("N"));
         Directory.CreateDirectory(Path.Combine(dir, "events"));
         Directory.CreateDirectory(Path.Combine(dir, "map"));
         foreach (var kv in Files)
@@ -279,5 +307,20 @@ sites:
         if (events != null)
             foreach (var kv in events) File.WriteAllText(Path.Combine(dir, "events", kv.Key), kv.Value);
         return dir;
+    }
+}
+
+// xunit 2 has no assembly teardown; the test framework is disposed once the run is over, while the
+// test host still waits for it. ProcessExit is too late: the host is killed mid-delete (measured: 845 of
+// 1,156 folders were still there). TestFramework.Dispose is not virtual, so IDisposable is re-implemented.
+public sealed class FixtureCleanupFramework : XunitTestFramework, IDisposable
+{
+    public FixtureCleanupFramework(IMessageSink sink) : base(sink) { }
+
+    void IDisposable.Dispose()
+    {
+        try { Fixture.DeleteAll(); }
+        catch (Exception e) when (e is IOException || e is UnauthorizedAccessException) { }   // a file held open (antivirus on Windows) must not fail a green run
+        base.Dispose();
     }
 }

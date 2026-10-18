@@ -651,4 +651,16 @@ options:
         Assert.Equal(new DateTime(1949, 2, 15), s.Date);
         Assert.Contains(r.Why, w => w.Message == "New: late for Pm One");
     }
+
+    // R-SWAMP-002, Phase 2 Q-CUT-4's rule: hula_drainage gained only a condition (site: hula), not new text or options, so
+    // its review status and the release gate's verdict on it are unchanged.
+    [Fact]
+    public void TheHulaConditionLeavesItsReleaseStatus()
+    {
+        var c = ContentLoader.Load(RealContentTests.ContentRoot());
+        var e = c.Events.Single(x => x.Id == "hula_drainage");
+        Assert.Equal(("hula", "fact-checked"), (e.Site, e.Status));
+        Assert.DoesNotContain("hula_drainage", ReleaseGate.SensitiveEvents(c));
+        Assert.DoesNotContain("hula_drainage", ReleaseGate.SensitiveUnreviewed(c));
+    }
 }

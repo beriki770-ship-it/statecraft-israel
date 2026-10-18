@@ -381,9 +381,10 @@ public class RealContentTests
         var s = GoldenRun.Play(C, new DateTime(1952, 1, 1));
         Assert.Equal(GameOverCodes.MvpEnded, s.GameOver);   // the run reaches the game's end, 15 January 1952 (R-LOOP-004)
         var expected = new[] { "clothing_rationing_1950", "education_registration_1951", "forex_crisis_1951", "frumkin_commission",
-            "hula_drainage", "iraqi_exodus", "israel_bonds", "law_of_return", "maabarot_policy", "ministry_supply_crisis", "reparations_claim" };
+            "iraqi_exodus", "israel_bonds", "law_of_return", "maabarot_policy", "ministry_supply_crisis", "reparations_claim" };
         var missing = expected.Where(id => !s.FiredEvents.Contains(id)).ToList();
         Assert.True(missing.Count == 0, "Never fired: " + string.Join(", ", missing));
+        Assert.DoesNotContain("hula_drainage", s.FiredEvents);   // R-SWAMP-002: it waits for works at the Hula, and this run starts none
         Assert.Equal(1.0, s.Policies["maabarot"]);   // the historical choice opens transit camps
     }
 }

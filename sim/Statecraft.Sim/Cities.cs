@@ -10,6 +10,19 @@ namespace Statecraft.Sim
     {
         public const string Kind = "assign_workers";
 
+        /// <summary>R-CITY-001: the most of the city's civilians AssignWorkers accepts in jobs: its job slots, and no more than
+        /// its civilians.</summary>
+        public static int MaxWorkers(City city) => Math.Min(city.JobSlots, city.Civilians);
+
+        /// <summary>R-CITY-001 with R-TRAIN-001: <see cref="MaxWorkers(City)"/> once the city's Train orders in
+        /// <paramref name="pending"/> (this turn's queue) have taken their civilians, so a count up to it keeps every one of
+        /// them accepted, whatever order they run in. Other orders do not count.</summary>
+        public static int MaxWorkers(GameState s, string city, IEnumerable<Command> pending)
+        {
+            var x = s.Cities[city];
+            return Math.Max(0, Math.Min(x.JobSlots, x.Civilians - Training.Ordered(city, pending)));
+        }
+
         /// <summary>R-CITY-007: a city's start people in units: the nearest unit (a half rounds up), and at least 1 for a city
         /// with people (Q-START-2, owner, 15 October 2026), so a small town is not left empty.</summary>
         public static int StartUnits(decimal people, int peoplePerUnit) => people > 0 ? Math.Max(1, NearestUnit(people, peoplePerUnit)) : 0;
@@ -18,11 +31,14 @@ namespace Statecraft.Sim
         public static int NearestUnit(decimal people, int peoplePerUnit) =>
             (int)Math.Round(people / peoplePerUnit, MidpointRounding.AwayFromZero);
 
-        /// <summary>Fills the state's cities from cities.yaml, with no refugees yet. Does nothing in the legacy loop.</summary>
+        /// <summary>Fills the state's cities from cities.yaml, with no refugees yet and the start housing condition (R-HOUSE-001). Does nothing in the legacy loop.</summary>
         public static void Init(Content c, GameState s)
         {
             if (!c.IsGdd) return;
-            foreach (var x in c.Cities) s.Cities[x.Id] = new City(x.Id, x.HousingCapacity, x.JobSlots, x.Civilians, x.Employed, 0);
+            var r = c.RulesAt(s.Date).Mvp!;
+            foreach (var x in c.Cities) s.Cities[x.Id] = new City(x.Id, x.HousingCapacity, x.JobSlots, x.Civilians, x.Employed, 0, 0, r.HousingStartCondition!.Value);
+            var housing = c.At(s.Date).Indicators.FirstOrDefault(i => i.Id == HousingIndicator);
+            if (housing != null) s.Indicators[housing.Id] = EffectsSystem.Level(c, s, housing);   // R-HOUSE-004 from the first day
         }
 
         /// <summary>R-CITY-001: sets the number of the city's civilians in jobs (a standing order). Refused, state untouched,
@@ -33,8 +49,10 @@ namespace Statecraft.Sim
             if (!s.Cities.TryGetValue(city, out var x)) return "There is no such city";
             if (role != "job") return "There is no such role";   // craftsman: Phase 3 (D-D4)
             if (count < 0) return "The number of workers cannot be negative";
-            if (count > x.JobSlots) return FormattableString.Invariant($"{PlayerText.Settlement(c, city)} has {x.JobSlots} jobs");
-            if (count > x.Civilians) return FormattableString.Invariant($"{PlayerText.Settlement(c, city)} has {x.Civilians} civilians");
+            if (count > MaxWorkers(x))
+                return count > x.JobSlots
+                    ? FormattableString.Invariant($"{PlayerText.Settlement(c, city)} has {x.JobSlots} jobs")
+                    : FormattableString.Invariant($"{PlayerText.Settlement(c, city)} has {x.Civilians} civilians");
             s.Cities[city] = x.WithCounts(x.Civilians, count, x.Refugees);
             why.Add(new Cause("city", city, count - x.Employed, FormattableString.Invariant($"{PlayerText.Settlement(c, city)}: {count} groups in work")));
             return null;
@@ -52,17 +70,68 @@ namespace Statecraft.Sim
             }
         }
 
-        /// <summary>R-CITY-004 (D-A5): refugees become civilians, without a job, as far as the city's free housing goes. The cap is
-        /// a placeholder: what happens to people beyond it is D-D1, still open.</summary>
+        /// <summary>R-CITY-004 (D-A5; D-D1, Q-HOUSE-1): no hard cap. Every refugee becomes a civilian, without a job, on the
+        /// housing step; the people beyond the city's housing are its overflow (<see cref="Overflow"/>), still counted in it.
+        /// Residents are housed automatically (Q-HOUSE-4).</summary>
         public static void House(Content c, GameState s, List<Cause> why)
         {
-            // PLACEHOLDER (owner question, #377): only civilians take housing; people in training and recruits do not.
             foreach (var x in s.Cities.Values.ToList())
             {
-                var moved = Math.Min(x.Refugees, Math.Max(0, x.HousingCapacity - x.Civilians));
-                if (moved == 0) continue;
-                s.Cities[x.Id] = x.WithCounts(x.Civilians + moved, x.Employed, x.Refugees - moved);
-                why.Add(new Cause("city", x.Id, moved, FormattableString.Invariant($"{PlayerText.Settlement(c, x.Id)}: {moved} groups of immigrants housed")));
+                if (x.Refugees == 0) continue;
+                s.Cities[x.Id] = x.WithCounts(x.Civilians + x.Refugees, x.Employed, 0);
+                why.Add(new Cause("city", x.Id, x.Refugees, FormattableString.Invariant($"{PlayerText.Settlement(c, x.Id)}: {x.Refugees} groups of immigrants housed")));
+            }
+        }
+
+        /// <summary>R-HOUSE-003 (Q-HOUSE-5): the people who take the city's housing: its civilians, its recruits and its groups
+        /// in training (a halutz group too, until it becomes a movable unit and leaves). Refugees wait for housing and are not
+        /// in it. Summed as integers, so the order of the training groups cannot change it.</summary>
+        public static int Housed(GameState s, City x)
+        {
+            var n = x.Civilians + x.Recruits;
+            foreach (var k in s.Cohorts.Values) if (k.City == x.Id) n += k.Count;
+            return n;
+        }
+
+        /// <summary>R-HOUSE-002 (D-D1): the people beyond the city's housing, one capacity point a unit (Q-HOUSE-1); 0 when
+        /// they fit.</summary>
+        public static int Overflow(GameState s, City x) => Math.Max(0, Housed(s, x) - x.HousingCapacity);
+
+        /// <summary>The national indicator whose base the cities set (R-HOUSE-004).</summary>
+        public const string HousingIndicator = "housing";
+
+        /// <summary>R-HOUSE-004 (owner, 17 October 2026, Q-PR3-A option (a)): the people-weighted mean of the cities' housing
+        /// condition, each city weighed by its <see cref="Housed"/> people. It replaces the base of the national `housing`
+        /// indicator in the GDD loop; policy, map actions and events still act on top (EffectsSystem.Inner). Null when no city
+        /// with a condition houses anybody, and the indicator then reads model.yaml's base. The sum runs in ordinal city order
+        /// with integer weights, then one division.</summary>
+        public static double? HousingLevel(GameState s)
+        {
+            long people = 0;
+            var sum = 0.0;
+            foreach (var x in s.Cities.Values)   // SortedDictionary, ordinal
+            {
+                if (x.Condition is not double condition) continue;
+                var n = Housed(s, x);
+                people += n;
+                sum += condition * n;
+            }
+            return people == 0 ? (double?)null : sum / people;
+        }
+
+        /// <summary>R-HOUSE-002 (D-D1, Q-HOUSE-1): after the housing step, each city with overflow loses
+        /// <c>overflow_condition_loss * overflow / housed</c> of its housing condition, never below 0. A city with none keeps
+        /// its condition; nothing in this rule raises it (housing projects do, Phase 3 PR 4). Each city reads only its own
+        /// counts (R-HOUSE-001: the condition is per city).</summary>
+        public static void UpdateCondition(Content c, GameState s, MvpRules r, List<Cause> why)
+        {
+            foreach (var x in s.Cities.Values.ToList())
+            {
+                var over = Overflow(s, x);
+                if (over == 0) continue;
+                if (x.Condition is double now)
+                    s.Cities[x.Id] = x.WithCondition(Math.Max(0.0, now - r.OverflowConditionLoss!.Value * over / Housed(s, x)));
+                why.Add(new Cause("city", x.Id, over, FormattableString.Invariant($"{PlayerText.Settlement(c, x.Id)}: {over} groups more than its homes hold")));
             }
         }
 

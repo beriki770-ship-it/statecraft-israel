@@ -223,6 +223,8 @@ public class HebrewUiTests
         ("defence-screen-title", "defence.title"), ("de-escalate", "defence.lower"), ("escalate", "defence.raise"),
         ("why-screen-title", "why.title"),
         ("nav-settings", "hud.nav.settings"), ("settings-screen-title", "settings.title"), ("settings-tiltshift-label", "settings.tiltshift"),
+        ("settings-quality-label", "settings.quality"), ("settings-quality-auto", "settings.quality.auto"),
+        ("settings-quality-high", "settings.quality.high"), ("settings-quality-low", "settings.quality.low"),
         ("start-source", "start.source"), ("start-recording-credit", "start.recording_credit"),
         ("start-continue", "start.continue"), ("start-new-game", "start.new_game"),
     };

@@ -103,6 +103,24 @@ namespace Statecraft.Sim
         public StopWork(int unit) { Unit = unit; }
     }
 
+    /// <summary>Starts city project <see cref="ProjectKind"/> (a projects.yaml id) for <see cref="City"/> on hex (<see cref="Q"/>,
+    /// <see cref="R"/>) (Projects.StartCity, R-PROJ-001). GDD v0.1 loop only.</summary>
+    public sealed class StartProject : Command
+    {
+        public override string Kind => Projects.StartProjectKind;
+        public string ProjectKind { get; } public string City { get; } public int Q { get; } public int R { get; }
+        public StartProject(string projectKind, string city, int q, int r) { ProjectKind = projectKind; City = city; Q = q; R = r; }
+    }
+
+    /// <summary>Cancels city project <see cref="Project"/> while it is being built: the Money spent is not returned
+    /// (Projects.CancelCity, R-PROJ-002, D-A3). GDD v0.1 loop only.</summary>
+    public sealed class CancelProject : Command
+    {
+        public override string Kind => Projects.CancelProjectKind;
+        public int Project { get; }
+        public CancelProject(int project) { Project = project; }
+    }
+
     public sealed class Rejection
     {
         public Command Command { get; } public string Reason { get; }
@@ -136,6 +154,8 @@ namespace Statecraft.Sim
                     case CancelTraining _: break;
                     case PioneerWork p: Text(p.Action, "Action"); Text(p.Site, "Site"); break;
                     case StopWork _: break;
+                    case StartProject p: Text(p.ProjectKind, "ProjectKind"); Text(p.City, "City"); break;
+                    case CancelProject _: break;
                     case SetMobilization _: case SecurityOrder _: break;
                     default: throw new ArgumentException("unknown command type " + cmd.GetType().Name, "commands");
                 }

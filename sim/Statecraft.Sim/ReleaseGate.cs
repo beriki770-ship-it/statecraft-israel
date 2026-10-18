@@ -20,5 +20,11 @@ namespace Statecraft.Sim
         public static IReadOnlyList<string> SensitiveUnreviewed(Content c) =>
             c.Events.Where(e => e.Tags.Any(EventRules.SensitiveTags.Contains) && e.Status != ReviewedStatus)
                 .Select(e => e.Id).OrderBy(x => x, StringComparer.Ordinal).ToList();
+
+        /// <summary>R-ALT-011 (Q-ALT-9): every consequence card and every event with variants that no person has signed off
+        /// (no reviewed_by), in id order. A shareable build refuses while it is not empty.</summary>
+        public static IReadOnlyList<string> AlternateUnsigned(Content c) =>
+            c.Events.Where(e => (e.Kind == EventKinds.Consequence || e.Variants.Count > 0) && e.ReviewedBy == "")
+                .Select(e => e.Id).OrderBy(x => x, StringComparer.Ordinal).ToList();
     }
 }

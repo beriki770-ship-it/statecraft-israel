@@ -77,8 +77,9 @@ namespace Statecraft.Game.UI
         public const float MaxKitCover = 0.1f;
         /// <summary>The population-tier badge (issue #710) inside a city's or town's pill, and the class that makes room for it.</summary>
         public const string TierClass = "map-label-tier", WithTierClass = "map-label-with-tier";
-        /// <summary>DESIGN VALUES (proposed on #710, not yet owner-ruled): tiers 1 to 9, doubling from 1,000 people (under
-        /// 1,000 is tier 1, 1,000-1,999 tier 2, ..., 128,000 and over tier 9), eight distinct tiers across the twelve cities.</summary>
+        /// <summary>OWNER-APPROVED DESIGN VALUES (#710, 18 October 2026, "Accept as shipped"): tiers 1 to 9, doubling
+        /// from 1,000 people (under 1,000 is tier 1, 1,000-1,999 tier 2, ..., 128,000 and over tier 9). The badge is at
+        /// the start of the name, mirrored in Hebrew, and remains part of the pill at every zoom where the pill is shown.</summary>
         public const int TierBase = 1000, TierCount = 9;
         /// <summary>The badge's inset from its pill's edge (Statecraft.uss ".map-label-with-tier" leaves the room), and its width
         /// (".map-label-tier"); in the Hebrew UI the badge is inset from the right edge (owner, on #897).</summary>
@@ -279,6 +280,35 @@ namespace Statecraft.Game.UI
         /// without a kit its marker box.</summary>
         public static Bounds[] KitBounds(MapScene map, Settlement s, Vector3 markerTop) =>
             map.TryKitColumns(s.Id, out var columns) ? columns : MarkerBox(s, markerTop);
+
+        readonly List<Item> siteItems = new List<Item>();
+
+        /// <summary>GDD Phase 1 PR 8 (#381): the built sites' pills (SiteLayer.Places), replacing the last ones given. Each is
+        /// placed like a kibbutz's: after the game settlements and before the 1948 localities, against its kit's columns
+        /// (SiteLayer.Columns) or, with none, its marker box, under the same declutter and clearance rules as every pill.</summary>
+        public void SetSites(IReadOnlyList<(Settlement place, Bounds[]? columns)> sites)
+        {
+            foreach (var it in siteItems) { it.Slot.RemoveFromHierarchy(); items.Remove(it); settlementOrder.Remove(it); }
+            siteItems.Clear();
+            var at = items.FindIndex(x => x.IsLocality);   // the sites go before the localities
+            if (at < 0) at = items.Count;
+            foreach (var (s, columns) in sites)
+            {
+                var slot = new VisualElement { name = "slot-" + s.Id, pickingMode = PickingMode.Ignore };
+                slot.AddToClassList(SlotClass);
+                var label = new Label(s.Name) { name = "label-" + s.Id, pickingMode = PickingMode.Ignore };
+                label.AddToClassList(LabelClass); label.AddToClassList("map-label-" + s.Type); label.AddToClassList(Centre);
+                slot.Add(label);
+                container.Insert(System.Math.Max(0, container.IndexOf(Tooltip)), slot);   // under the tooltip, as the others
+                var top = MarkerTop(map, s);
+                var it = new Item { Settlement = s, MarkerTop = top, Kit = columns ?? MarkerBox(s, top), Marker = MarkerBox(s, top), Slot = slot, Label = label, First = Spot.AboveCentre };
+                items.Insert(at++, it); settlementOrder.Add(it); siteItems.Add(it);
+            }
+            geometryDirty = true;
+        }
+
+        /// <summary>The built sites' pills (SetSites), in the order given.</summary>
+        public IReadOnlyList<Label> SiteLabels { get { var l = new List<Label>(); foreach (var x in siteItems) l.Add(x.Label); return l; } }
 
         /// <summary>A settlement's marker box (what is drawn while the "kits" toggle is off).</summary>
         public static Bounds[] MarkerBox(Settlement s, Vector3 markerTop)
@@ -607,6 +637,8 @@ namespace Statecraft.Game.UI
             occluders.Clear();
             foreach (var slot in Slots) slot.RemoveFromHierarchy();
             foreach (var slot in LocalitySlots) slot.RemoveFromHierarchy();
+            foreach (var it in siteItems) it.Slot.RemoveFromHierarchy();
+            siteItems.Clear();
             Tooltip.RemoveFromHierarchy();
             items.Clear(); settlementOrder.Clear();
         }

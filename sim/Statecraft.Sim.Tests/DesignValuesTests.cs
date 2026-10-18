@@ -30,6 +30,8 @@ public class DesignValuesTests
         ("rules.yaml", "mvp.build_camp_cost"),
         ("rules.yaml", "mvp.plow_fields_turns"),
         ("rules.yaml", "mvp.plow_fields_cost"),
+        ("rules.yaml", "mvp.dry_swamp_turns"),
+        ("rules.yaml", "mvp.dry_swamp_cost"),
         ("rules.yaml", "mvp.field_food_per_turn"),
         ("rules.yaml", "mvp.objective_points"),
         ("rules.yaml", "mvp.objective_bonus_per_month"),
@@ -38,6 +40,10 @@ public class DesignValuesTests
         ("rules.yaml", "mvp.cover_months"),
         ("rules.yaml", "mvp.veteran_halutz_service"),
         ("rules.yaml", "mvp.veteran_progress"),
+        ("rules.yaml", "mvp.housing_start_condition"),
+        ("rules.yaml", "mvp.overflow_condition_loss"),
+        ("rules.yaml", "mvp.defeat_turns"),
+        ("rules.yaml", "mvp.debt_ceiling"),
         // Q-START-1 (owner, 15 October 2026, #375): no city has a sourced housing stock or job count, so every city's
         // housing is its start people and its job slots its start employed; seven towns with no CBS working share take
         // the national one. The census people and the five CBS shares are sourced, not design values (R-CITY-006).
@@ -85,18 +91,36 @@ public class DesignValuesTests
         ("model.yaml", "situations[low_cohesion].off_above"),
         ("model.yaml", "situations[low_intl_support].on_below"),
         ("model.yaml", "situations[low_intl_support].off_above"),
+        // City projects (Phase 3 PR 4; Q-PROJ-1, Q-PROJ-5): agent-proposed under "Agents propose design values" (#375).
+        ("rules.yaml", "attention_cost.start_project"),
+        ("rules.yaml", "attention_cost.cancel_project"),
+        ("projects.yaml", "projects[housing].cost"),
+        ("projects.yaml", "projects[housing].turns"),
+        ("projects.yaml", "projects[housing].capacity"),
+        ("projects.yaml", "projects[housing].condition"),
+        ("projects.yaml", "projects[housing].job_slots"),
+        ("projects.yaml", "projects[transit_camp].cost"),
+        ("projects.yaml", "projects[transit_camp].turns"),
+        ("projects.yaml", "projects[transit_camp].capacity"),
+        ("projects.yaml", "projects[transit_camp].condition"),
+        ("projects.yaml", "projects[transit_camp].job_slots"),
+        ("projects.yaml", "projects[industry].cost"),
+        ("projects.yaml", "projects[industry].turns"),
+        ("projects.yaml", "projects[industry].capacity"),
+        ("projects.yaml", "projects[industry].condition"),
+        ("projects.yaml", "projects[industry].job_slots"),
     };
 
 
-    /// <summary>Every number in the GDD files and blocks, as (file, key path, the line it is on). Scope: all of cities.yaml and
-    /// unit_types.yaml, rules.yaml mvp:, and the GDD kinds under rules.yaml attention_cost. A value whose own mapping says
+    /// <summary>Every number in the GDD files and blocks, as (file, key path, the line it is on). Scope: all of cities.yaml,
+    /// unit_types.yaml and projects.yaml, rules.yaml mvp:, and the GDD kinds under rules.yaml attention_cost. A value whose own mapping says
     /// `status: sourced`, `derived` or `wikipedia-only` is a historical figure, not balance: the loader holds it to its
     /// sources and date instead (cities.yaml, R-CITY-006), so it is left out. model.yaml predates the rule (its header calls
     /// every number there a design value), so only its tagged lines are in scope: the numbers Phase 2 PR 4 added.</summary>
     public static List<(string File, string Key, string Line)> Numbers(string root)
     {
         var found = new List<(string, string, string)>();
-        foreach (var file in new[] { "rules.yaml", "cities.yaml", "unit_types.yaml", "model.yaml" })
+        foreach (var file in new[] { "rules.yaml", "cities.yaml", "unit_types.yaml", "model.yaml", "projects.yaml" })
         {
             var path = Path.Combine(root, file);
             if (!File.Exists(path)) continue;
@@ -166,6 +190,7 @@ public class DesignValuesTests
         Assert.Equal((0.0, 0.0), (c.Rules.AttentionCost["pioneer_work"], c.Rules.AttentionCost["stop_work"]));   // D-A6: unit orders are free
         Assert.Equal((6, 2.0), (m.BuildYishuvTurns, m.BuildYishuvCost));
         Assert.Equal((100, 5, 60), (m.ObjectivePoints, m.ObjectiveBonusPerMonth, m.ObjectiveBonusCap));   // D-B6, D-B2
+        Assert.Equal((0.35, 0.15), (m.HousingStartCondition, m.OverflowConditionLoss));   // Q-START-3, Q-HOUSE-1 (D-D1)
         Assert.Equal(12, c.Cities.Count);
         foreach (var x in c.Cities)   // the listed housing and job values are the ones Cities.Init starts from
             Assert.Equal(((int)x.Housing!.Value, (int)x.Jobs!.Value), (x.HousingCapacity, x.JobSlots));

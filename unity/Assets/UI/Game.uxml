@@ -138,6 +138,9 @@
                 </ui:VisualElement>
                 <ui:Label name="info-reason" class="reason" />
             </ui:VisualElement>
+            <!-- The GDD loop's city counts and orders, or the designated site's state and Build/Stop (GddHexPanel, #381): a
+                 second column beside the hex's facts, under them on the two- and three-row HUD (Statecraft.uss .info-gdd). -->
+            <ui:VisualElement name="info-gdd" class="info-gdd" />
             <Statecraft.Game.UI.UiFrame filigree="true" />
         </ui:VisualElement>
         <!-- The decision layer under the top bar (decision cards, 2026-10-13): while an event is open a dim backdrop blocks the
@@ -298,6 +301,15 @@
             <ui:VisualElement class="row settings-row">
                 <ui:Label name="settings-tiltshift-label" text="Blur at the top and bottom of the map" class="settings-name" />
                 <ui:Button name="settings-tiltshift" class="settings-switch" />
+            </ui:VisualElement>
+            <!-- Graphics quality (GraphicsQuality): three buttons, the one that is set carries .settings-choice-selected. -->
+            <ui:VisualElement class="row settings-row">
+                <ui:Label name="settings-quality-label" text="Quality" class="settings-name" />
+                <ui:VisualElement class="row settings-choices">
+                    <ui:Button name="settings-quality-auto" text="Automatic" class="settings-switch" />
+                    <ui:Button name="settings-quality-high" text="High" class="settings-switch" />
+                    <ui:Button name="settings-quality-low" text="Low" class="settings-switch" />
+                </ui:VisualElement>
             </ui:VisualElement>
             <Statecraft.Game.UI.UiFrame />
         </ui:VisualElement>

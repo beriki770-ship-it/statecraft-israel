@@ -17,6 +17,8 @@ attention_cost:
   cancel_training: 0.5                   # DESIGN VALUE: owner-set balance, not a historical figure (D-A6)
   pioneer_work: 0                        # DESIGN VALUE: owner-set balance, not a historical figure (D-A6: unit orders are free)
   stop_work: 0                           # DESIGN VALUE: owner-set balance, not a historical figure (D-A6: unit orders are free)
+  start_project: 1                       # DESIGN VALUE: owner-set balance, not a historical figure (D-A6, D-C5, Q-PROJ-5: the map action's cost)
+  cancel_project: 0.5                    # DESIGN VALUE: owner-set balance, not a historical figure (D-A6, D-C5, Q-PROJ-5: cancel_training's cost)
 # Turn length on each security rung, rungs 1 to 5 (R-TURN-001). The GDD MVP plays monthly turns on every rung (D-B1), so
 # turns from 15 May 1948 end on the 15th of each month.
 turn_lengths: [month, month, month, month, month]
@@ -45,6 +47,11 @@ mvp:
   # month's national need; plowing takes the recruit-training pair, the smallest project-sized values in the code.
   plow_fields_turns: 3                   # DESIGN VALUE: owner-set balance, not a historical figure (D-D10, Q-FIELD-3: turns plowing takes)
   plow_fields_cost: 0.5                  # DESIGN VALUE: owner-set balance, not a historical figure (D-D10, Q-FIELD-3: IL millions, paid at the start)
+  # Dry swamp (R-SWAMP-001; D-D6, Q-SWAMP-1). Proposed by an agent under "Agents propose design values" (owner,
+  # 15 October 2026, #375) and taken by the owner with the plan's other recommendations (17 October 2026, #782): twice
+  # the yishuv build's pair, for the largest land work in the MVP. The owner may override them.
+  dry_swamp_turns: 12                    # DESIGN VALUE: owner-set balance, not a historical figure (D-D6, Q-SWAMP-1: turns draining the Hula takes)
+  dry_swamp_cost: 4                      # DESIGN VALUE: owner-set balance, not a historical figure (D-D6, Q-SWAMP-1: IL millions, paid at the start)
   field_food_per_turn: 1                 # DESIGN VALUE: owner-set balance, not a historical figure (D-D10, Q-FIELD-3: Food units a plowed field adds each turn)
   objective_points: 100                  # DESIGN VALUE: owner-set balance, not a historical figure (D-B6: points per objective)
   objective_bonus_per_month: 5           # DESIGN VALUE: owner-set balance, not a historical figure (D-B2: points per month early)
@@ -63,6 +70,19 @@ mvp:
   # completed yishuv makes a veteran pioneer.
   veteran_halutz_service: 6              # DESIGN VALUE: owner-set balance, not a historical figure (D-D9, Q-VET-1: turns of work to become a veteran)
   veteran_progress: 2                    # DESIGN VALUE: owner-set balance, not a historical figure (D-D9, Q-VET-2: a veteran's turns of progress a turn)
+  # Housing condition (R-HOUSE-001, R-HOUSE-002; D-D1, D-D2): each city's average condition, 0 to 1. Every city starts at
+  # model.yaml's housing base, so the cities start where the national level does (Q-START-3), and each turn a city loses
+  # overflow_condition_loss times its overflow share (people beyond its housing over its people). 0.15 is model.yaml's
+  # homes_lift_morale k, borrowed: no closer comparable exists (Q-HOUSE-1). Agents proposed both numbers ("Agents propose
+  # design values", owner, 15 October 2026, #375); the owner may override them. Neither is a historical figure.
+  housing_start_condition: 0.35          # DESIGN VALUE: owner-set balance, not a historical figure (D-D2, Q-START-3: every city's start condition)
+  overflow_condition_loss: 0.15          # DESIGN VALUE: owner-set balance, not a historical figure (D-D1, Q-HOUSE-1: condition lost a turn at a full overflow share)
+  # The economic defeat (R-END-001, R-END-002; D-B5). Money is exhausted when the debt is at or above debt_ceiling (Q-DEF-1,
+  # owner, 17 October 2026, #784: "a debt ceiling", first value IL 250m, as recommended), Food when the national stock is
+  # 0; defeat_turns turn ends in a row with both end the game (Q-DEF-2, owner, 18 October 2026, #784: "3 turns"). Neither
+  # is a historical figure; the Phase 7 balance pass (PR 12) sets the final ceiling.
+  defeat_turns: 3                        # DESIGN VALUE: owner-set balance, not a historical figure (D-B5, Q-DEF-2: turn ends in a row with Money and Food exhausted)
+  debt_ceiling: 250                      # DESIGN VALUE: owner-set balance, not a historical figure (D-B5, Q-DEF-1: IL millions of debt at which Money is exhausted)
 # Coalition stability lost by replacing a minister (Cabinet.Appoint): a seat taken from the minister's party, or a
 # reshuffle within it.
 appoint_stability_cost_other_party: 0.06

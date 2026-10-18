@@ -55,6 +55,40 @@ public class CitiesTests
         Assert.Equal(Step(c, s).State.Hash(), r.State.Hash());   // as if the order had not been given: Attention refunded too
     }
 
+    // R-CITY-001: MaxWorkers is the limit Assign applies, so the panel can ask it instead of repeating the rule (#869). Town A
+    // has 20 jobs and 10 civilians; with 30 civilians the jobs are the limit.
+    [Theory]
+    [InlineData(10, 10)]
+    [InlineData(30, 20)]
+    public void MaxWorkersIsTheCountAssignAccepts(int civilians, int max)
+    {
+        var c = Town(Fixture.City("town_a", 40, 20, civilians, 6));
+        var s = Simulation.NewGame(c, 1, Mode.Historical);
+        Assert.Equal(max, Cities.MaxWorkers(s.Cities["town_a"]));
+        Assert.Empty(Step(c, s, new AssignWorkers("town_a", "job", max)).Rejected);
+        Assert.Single(Step(c, s, new AssignWorkers("town_a", "job", max + 1)).Rejected);
+    }
+
+    // R-CITY-001 with R-TRAIN-001: the queue's Train orders take their civilians first, so an Assign up to MaxWorkers(s, city,
+    // pending) and those orders are all accepted, in either order, and one more group is refused.
+    [Theory]
+    [InlineData(false)]
+    [InlineData(true)]
+    public void MaxWorkersWithTheQueueCountsItsTrainOrders(bool assignFirst)
+    {
+        var c = Town(Fixture.City("town_a", 12, 20, 10, 6, "[military_camp, hakhshara]"));
+        var s = Simulation.NewGame(c, 1, Mode.Historical);
+        s.Attention = 100;   // enough for three orders: Attention is not what this test is about
+        var trains = new Command[] { new Train("town_a", "recruit", 2), new Train("town_a", "halutz", 1), new Train("elsewhere", "recruit", 5) };
+        var max = Cities.MaxWorkers(s, "town_a", trains);
+        Assert.Equal(7, max);   // 10 civilians, 3 of them ordered to train; the other city's order does not count
+        Command[] Orders(int n) => assignFirst
+            ? new Command[] { new AssignWorkers("town_a", "job", n), trains[0], trains[1] }
+            : new Command[] { trains[0], trains[1], new AssignWorkers("town_a", "job", n) };
+        Assert.Empty(Step(c, s, Orders(max)).Rejected);
+        Assert.Single(Step(c, s, Orders(max + 1)).Rejected);
+    }
+
     // R-CITY-001
     [Fact]
     public void TheLegacyLoopRefusesTheOrderAndRefundsAttention()
@@ -96,31 +130,31 @@ public class CitiesTests
         Assert.Equal(6 * 1.2 * SimTime.YearFraction(TurnLength.Week), paid, 9);   // the fixture's first turn is a week
     }
 
-    // R-CITY-004
+    // R-CITY-004 (Q-HOUSE-1: no hard cap; the 3 beyond the housing for 12 are the city's overflow, HousingTests)
     [Fact]
-    public void RefugeesAreHousedOnlyUpToCapacity()
+    public void EveryRefugeeIsHousedWithNoHardCap()
     {
         var c = Town();
         var s = With(Simulation.NewGame(c, 1, Mode.Historical), "town_a", 10, 6, 5);
         var city = Step(c, s).State.Cities["town_a"];   // the first week brings under one unit of arrivals
-        Assert.Equal((12, 6, 3), (city.Civilians, city.Employed, city.Refugees));
+        Assert.Equal((15, 6, 0), (city.Civilians, city.Employed, city.Refugees));
     }
 
     // R-CITY-003, R-CITY-004 (D-A6: arrivals come after housing, so they are housed on the next turn)
     [Fact]
     public void ATurnsArrivalsAreHousedOnTheNextTurn()
     {
-        // Tel Aviv starts full (Q-START-1: housing equals the start people), so 20 of its people are moved out to free room.
         // The cities take arrivals from the census day, 8 November 1948 (Q-ARRV-3), so the turn from 15 November has some.
+        // Tel Aviv's civilians are set to 228 so the test reads them apart from the start count.
         var s = Simulation.NewGame(Mvp, GoldenRun.Seed, Mode.Historical);
         while (s.Date < new DateTime(1948, 11, 15)) s = Step(Mvp, s).State;
         s = With(s, "tel_aviv", 228, 106, 0);
         var one = Step(Mvp, s).State;
         var arrived = one.Cities["tel_aviv"].Refugees;
         Assert.True(arrived > 0);
-        Assert.Equal(228, one.Cities["tel_aviv"].Civilians);   // housing for 20 more was free, but it ran before they came
+        Assert.Equal(228, one.Cities["tel_aviv"].Civilians);   // the housing step ran before they came
         var two = Step(Mvp, one).State.Cities["tel_aviv"];
-        Assert.Equal(228 + Math.Min(arrived, 20), two.Civilians);
+        Assert.Equal(228 + arrived, two.Civilians);           // no hard cap (Q-HOUSE-1): all of them, on the next turn
     }
 
     /// <summary>D-A6: housing comes before Social cohesion in the turn. The effects web reads the cities' employed share after
@@ -136,10 +170,10 @@ public class CitiesTests
             ["model.yaml"] = Fixture.Files["model.yaml"].Replace("effects:\n", "effects:\n  - { id: work, source: employed_share, target: morale, k: 1, inertia: 1, name: Work }\n"),
         })));
         var s = With(Simulation.NewGame(c, 1, Mode.Historical), "town_a", 10, 6, 10);
-        var after = Step(c, s).State;                                             // 2 housed: 6 of 12 employed
-        Assert.Equal((12, 8), (after.Cities["town_a"].Civilians, after.Cities["town_a"].Refugees));
-        Assert.Equal(6.0 / 12, Cities.EmployedShare(after), 12);
-        Assert.Equal(6.0 / 12, after.EffectContributions["work"], 12);
+        var after = Step(c, s).State;                                             // all 10 housed (no hard cap): 6 of 20 employed
+        Assert.Equal((20, 0), (after.Cities["town_a"].Civilians, after.Cities["town_a"].Refugees));
+        Assert.Equal(6.0 / 20, Cities.EmployedShare(after), 12);
+        Assert.Equal(6.0 / 20, after.EffectContributions["work"], 12);
     }
 
     [Fact]
