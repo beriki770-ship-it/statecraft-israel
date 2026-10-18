@@ -160,6 +160,7 @@ options:
         EventSystem.Delegate(c, s, why);
         Assert.Equal("first", s.ChosenOptions["choice"]);
         Assert.Equal(want, Assert.Single(why, w => w.Target == "fx_reserves").Delta);
+        Assert.Equal(loyalty < 5, Assert.Single(why, w => w.Target == "choice").Message.Contains("carried out half-heartedly"));   // the Why says why the numbers are cut
     }
 
     // R-EVT-003 (#107): the share reaches the Treasury and Food paths too; a hard anchor's historical option, and the

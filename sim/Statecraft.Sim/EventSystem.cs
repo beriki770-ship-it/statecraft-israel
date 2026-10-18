@@ -202,7 +202,8 @@ namespace Statecraft.Sim
                     : e.Options[(int)(rng.NextDouble() * e.Options.Count)]);
                 var share = anchored == null && mvp != null && minister != null && minister.Loyalty < mvp.DelegationLoyaltyFloor
                     ? mvp.DisloyalEffectShare!.Value : 1.0;
-                Resolve(c, s, id, option, $"delegated to {minister?.Name ?? "the cabinet"}", why, share);
+                var how = $"delegated to {minister?.Name ?? "the cabinet"}" + (share < 1 ? ", carried out half-heartedly" : "");
+                Resolve(c, s, id, option, how, why, share);
             }
             s.RngState = rng.State;
         }
