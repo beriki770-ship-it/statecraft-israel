@@ -74,6 +74,10 @@ namespace Statecraft.Sim
             if (!HasFacility(c, s, city, type.Facility)) return $"{name} has no {Place(type.Facility)}";
             var idle = Idle(x);
             if (count > idle) return FormattableString.Invariant($"{name} has {idle} civilians without work");
+            // R-ARMS-003 (D-G6, Q-UNIT-3): a recruit group takes arms_per_recruit_group Arms when its training starts; a short
+            // stock refuses the order. Pioneer training takes none. Cancelling (R-TRAIN-002) does not return them.
+            var arms = type.Id == "recruit" ? (long)count * c.RulesAt(s.Date).Mvp!.ArmsPerRecruitGroup!.Value : 0;
+            if (arms > s.Arms) return FormattableString.Invariant($"{name}: not enough Arms for {Course(type.Facility)} (need {arms}, have {s.Arms})");
             var cost = count * type.TrainingCost;
             // Owner decision "Allow borrowing" (2026-10-15, #468 question 1): a short Treasury borrows, as map actions do.
             EconomySystem.PayOrBorrow(c, s, cost, "for training", why);
@@ -87,6 +91,11 @@ namespace Statecraft.Sim
             // T+3", open the cohort with type.TrainingTurns + 1 here; nothing else changes.
             s.Cohorts.Add(id, new Cohort(id, type.Id, city, count, type.TrainingTurns));
             why.Add(new Cause("city", city, -count, $"{name}: {Groups(count)} began {Course(type.Facility)}, cost {PlayerText.Money(c, "treasury", cost)}"));
+            if (arms > 0)
+            {
+                s.Arms -= (int)arms;
+                why.Add(new Cause("city", "arms", -arms, FormattableString.Invariant($"{name}: {Course(type.Facility)} took {arms} Arms")));
+            }
             return null;
         }
 

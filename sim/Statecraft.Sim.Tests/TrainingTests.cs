@@ -326,4 +326,42 @@ public class TrainingTests
         Assert.Empty(s.Cohorts);
         Assert.DoesNotContain("train[", s.Describe());
     }
+
+    // R-ARMS-003: a recruit cohort takes arms_per_recruit_group Arms per group when its training starts (the fixture: 2 a
+    // group from a stock of 20); pioneer training takes none, and cancelling returns none.
+    [Fact]
+    public void ARecruitCohortUsesArms()
+    {
+        var c = Town();
+        var s = Simulation.NewGame(c, 1, Mode.Historical);
+        var r = Step(c, s, new Train("town_a", "recruit", 3));
+        Assert.Empty(r.Rejected);
+        Assert.Equal(20 - 3 * 2, r.State.Arms);
+        Assert.Contains(r.Why, x => x.System == "city" && x.Target == "arms" && x.Delta == -6 && x.Message == "Town A: basic training took 6 Arms");
+        Assert.Equal(20, Step(c, s, new Train("town_a", "halutz", 3)).State.Arms);
+        var cohort = r.State.Cohorts.Keys.Single();
+        Assert.Equal(14, Step(c, r.State, new CancelTraining(cohort)).State.Arms);
+    }
+
+    // R-ARMS-003: too few Arms refuses the training with a reason, the state as if the order had not been given (Attention
+    // refunded too); a stock of exactly the need trains.
+    [Fact]
+    public void TooFewArmsRefusesTheTraining()
+    {
+        var c = Town();
+        var s = Simulation.NewGame(c, 1, Mode.Historical);
+        s.Arms = 5;
+        var r = Step(c, s, new Train("town_a", "recruit", 3));
+        Assert.Equal("Town A: not enough Arms for basic training (need 6, have 5)", Assert.Single(r.Rejected).Reason);
+        Assert.Equal(Step(c, s).State.Hash(), r.State.Hash());
+        s.Arms = 6;
+        var exact = Step(c, s, new Train("town_a", "recruit", 3));
+        Assert.Empty(exact.Rejected);
+        Assert.Equal(0, exact.State.Arms);
+        // Orders in one turn draw on the stock in turn: the second finds it short.
+        s.Arms = 7;
+        s.Attention = 10;   // both orders affordable, so only the Arms can refuse the second
+        var two = Step(c, s, new Train("town_a", "recruit", 3), new Train("town_a", "recruit", 1));
+        Assert.Equal("Town A: not enough Arms for basic training (need 2, have 1)", Assert.Single(two.Rejected).Reason);
+    }
 }

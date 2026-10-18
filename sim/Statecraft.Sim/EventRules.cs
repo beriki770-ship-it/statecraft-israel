@@ -14,7 +14,7 @@ namespace Statecraft.Sim
         /// civilians). Owner decision of 15 October 2026 on Q-EFX-2, "Extend it": every resource, not money alone. Until the
         /// GDD resources exist as targets the legacy indicators stand for them: Money (treasury, fx_reserves), Food
         /// (food_supply), Social cohesion (morale) and International Support (intl_standing). Food also has its own target
-        /// (`food`, R-EFX-001); Arms has no target yet and joins the rule with its pool (#781).</summary>
+        /// (`food`, R-EFX-001); Arms has no target yet and joins the rule when it gets one (a follow-up to #781).</summary>
         public static readonly HashSet<string> NoGainTargets = new HashSet<string> { "treasury", "fx_reserves", Pools.FoodTarget, "food_supply", "morale", "intl_standing" };
 
         public static void Validate(Content c, HashSet<string> offices, HashSet<string> indicators)

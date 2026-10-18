@@ -172,6 +172,16 @@ R-FOOD-002: In step 7 the nation eats the turn's need from the stock as far as i
 
 R-FOOD-003: `food_supply` stays the 0 to 1 level the UI, the situations and the events read (Q-POOL-3, decided 15 October 2026), with a stock term inside its effect sum: `k_food * (stock - full) / full - unmet / need`, where `full` is `cover_months` of the last need. The term is exactly 0 at a full stock, `-k_food` when the stock is empty, and the unmet share lowers it further; rationing, the other effects and event shifts act on top as before, and the level's clamp to 0..1 bounds the result. The GDD loop requires the `food_supply` indicator.
 
+## Arms
+
+The national Arms pool (D-G6, decided 15 October 2026: "From events (sourced arms deals) and Money. Training and attacks consume it"). The four numbers are the owner's (18 October 2026, #781: "Approve as drafted"); each is a labelled design value in `rules.yaml`, and the balance pass (#813) may tune them. The Arms stock is not yet an event-effect target (R-EFX-001: a follow-up to #781), and the Arms an attack spends is Phase 5 (Q-COMBAT-4).
+
+R-ARMS-001: Arms is a national stock of whole units (`GameState.Arms`, hashed as `arms=` only when not 0); one Arms is the equipment package for one recruit group of `people_per_unit` (1,000) people. A new game starts the stock at `arms_start` (12). It never goes below 0. `arms_start`, `arms_price` and `arms_per_recruit_group` are required in the GDD loop (`rules.yaml` `mvp:`); a missing or negative value is a load error.
+
+R-ARMS-002: `BuyArms(count)` adds `count` units to the stock at once, with no delivery delay, and the Treasury pays `count * arms_price` (IL 1m an Arms), borrowing what it lacks (R-MONEY-003). It is refused, state and Attention unchanged, for fewer than one unit or a stock that would pass a whole number's range; the legacy loop refuses it before charging Attention. Its Attention cost is `attention_cost.buy_arms` (1), whatever the count.
+
+R-ARMS-003: Recruit training (R-TRAIN-001) takes `arms_per_recruit_group` (1) Arms for each group when it starts, after its other checks and before it pays. A stock short of that refuses the order with a reason naming the need and the stock, state and Attention unchanged (Q-UNIT-3). Pioneer training takes no Arms, and cancelling a cohort (R-TRAIN-002) returns none, as it returns no Money.
+
 ## Defeat
 
 The game can be lost (D-B5, decided: "Money and Food exhausted for N turns, or a war loss. Values for the owner. Coalition collapse is off in the MVP"; Phase 7 PR 5, #8). This part covers the economic defeat; the war loss waits for Phase 5's enemy units (#749). The defeat texts are the owner's pick (Q-DEF-4, #784, open): until then the game ends with the code `defeat_economy`, and its reason reads "Money and Food ran out", the plan's short option (a).
@@ -200,7 +210,7 @@ R-NAT-003: International Support is the 0 to 1 `intl_standing` indicator, shown 
 
 R-NAT-004: "Low international support" (`low_intl_support`) is a situation on `intl_standing` with the same bands and, likewise, no effect of its own (Q-NAT-3).
 
-R-EFX-001: An option's effect may target an indicator id from `model.yaml`, `treasury` or `fx_reserves` (game money), or `food`, the national Food stock: the effect moves the stock by whole units (the delta rounds half away from zero) and the stock never drops below 0, so a cut larger than the stock applies only to what is there. Any other target is a load error naming file and field. The Arms stock becomes a target with its pool (#781).
+R-EFX-001: An option's effect may target an indicator id from `model.yaml`, `treasury` or `fx_reserves` (game money), or `food`, the national Food stock: the effect moves the stock by whole units (the delta rounds half away from zero) and the stock never drops below 0, so a cut larger than the stock applies only to what is there. Any other target is a load error naming file and field. The Arms stock becomes a target in a follow-up to its pool (#781).
 
 R-EFX-002: An option of an event tagged `holocaust`, `terror`, `massacre` or `war-casualties` cannot raise `treasury`, `fx_reserves`, `food`, `food_supply`, `morale` or `intl_standing` (Q-EFX-2, decided 15 October 2026: the no-gain rule covers all five resources, with the legacy indicators standing for Food, Social cohesion and International Support; `food` is Food's own target, and Arms joins the rule with its pool, #781). A cost stays allowed.
 
