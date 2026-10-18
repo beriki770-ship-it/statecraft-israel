@@ -35,10 +35,11 @@ public class EventRetimingTests
         // A consequence card (R-ALT-005) comes only on a road not taken, never in this run (R-ALT-012).
         var record = C.Events.Where(e => e.Kind != EventKinds.Consequence).ToList();
         // R-SWAMP-002: hula_drainage fires only while the player's works at the Hula are in progress, and the reference
-        // player drains no swamp, so it is the one historical card the run never shows.
+        // player drains no swamp, so the run never shows it. absorb_immigrants (#1039) is raised only when its objective
+        // completes (R-OBJ-004), and the reference player never completes it in this run.
         var missing = record.Select(e => e.Id).Where(id => CardDate(id) == null).ToList();
-        Assert.True(missing.SequenceEqual(new[] { "hula_drainage" }), "never fired: " + string.Join(", ", missing));
-        Assert.Equal(32, record.Count);
+        Assert.True(missing.SequenceEqual(new[] { "absorb_immigrants", "hula_drainage" }), "never fired: " + string.Join(", ", missing));
+        Assert.Equal(33, record.Count);
     }
 
     /// <summary>The card date of every event, from #567's tables (the "Proposed" column in the war period, "Monthly" after

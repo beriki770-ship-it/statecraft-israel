@@ -247,7 +247,7 @@ eras:
     [Fact]
     public void TheObjectiveIsTheFirstNewYishuvAtMefalsim()
     {
-        var o = Assert.Single(Real.Objectives);
+        var o = Real.Objectives.Single(x => x.Id == "first_new_yishuv");   // absorb_immigrants is the other (#1039)
         Assert.Equal(("first_new_yishuv", "mefalsim", "first_new_yishuv"), (o.Id, o.CompletesWhen!.SiteBuilt, o.Card));
         Assert.Equal(Real.Sites.Single(x => x.Id == "mefalsim").Founded, o.ReferenceDate);
         Assert.Equal(new DateTime(1949, 6, 12), o.ReferenceDate);
@@ -284,14 +284,19 @@ eras:
         var root = RealContentTests.ContentRoot();
         var legacy = ContentLoader.Load(Fixture.Write(
             new Dictionary<string, string> { ["objectives.yaml"] = System.IO.File.ReadAllText(System.IO.Path.Combine(root, "objectives.yaml")) },
-            new Dictionary<string, string> { ["first_new_yishuv.yaml"] = System.IO.File.ReadAllText(System.IO.Path.Combine(root, "events", "first_new_yishuv.yaml")) }));
+            new Dictionary<string, string>
+            {
+                ["first_new_yishuv.yaml"] = System.IO.File.ReadAllText(System.IO.Path.Combine(root, "events", "first_new_yishuv.yaml")),
+                ["absorb_immigrants.yaml"] = System.IO.File.ReadAllText(System.IO.Path.Combine(root, "events", "absorb_immigrants.yaml")),   // objectives.yaml's second card (#1039)
+            }));
         Assert.False(legacy.IsGdd);
-        Assert.Single(legacy.Objectives);
+        Assert.Equal(2, legacy.Objectives.Count);
         var s = Simulation.NewGame(legacy, GoldenRun.Seed, Mode.Historical);
         for (int i = 0; i < 40 && s.GameOver == null; i++)
         {
             s = Step(legacy, s).State;
             Assert.DoesNotContain("first_new_yishuv", s.FiredEvents);
+            Assert.DoesNotContain("absorb_immigrants", s.FiredEvents);
         }
         Assert.Empty(s.Objectives);
         Assert.Equal(0, s.Score);
