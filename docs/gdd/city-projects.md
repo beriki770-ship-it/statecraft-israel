@@ -14,6 +14,7 @@ As a player of the MVP, I want to build housing and industry in a city over seve
 - A project needs no workers (R-PROJ-001).
 - `CancelProject(id)` stops a project being built; the Money is not returned. It costs 0.5 Attention (R-PROJ-002).
 - Construction resolves on the turn's construction step, after the pioneer work; the turn of the order counts. A finished project adds its capacity, condition and job slots once (R-PROJ-003).
+- A specialised project, such as the winery, needs a local resource: it starts only in a city whose `cities.yaml` row lists that resource with its sources, and otherwise it is an ordinary project. The winery needs vineyards, adds 10 units of job slots for IL 2m over 6 turns (design values, `Q-SPEC-2`) and goes in Zikhron Ya'akov, its vineyards flagged `to_verify` (owner, 18 October 2026, on #737). Its two content rows wait for a person to check the vineyards' source (R-PROJ-005).
 
 ## Data touched
 
@@ -31,7 +32,7 @@ As a player of the MVP, I want to build housing and industry in a city over seve
 
 - Refusing the legacy map actions in the GDD loop (R-PROJ-004), a separate PR.
 - The buttons and the drawing of projects on the map (Phase 3 PR 8).
-- The craftsman (PR 5) and the winery (PR 6).
+- The craftsman (PR 5).
 
 ## Sources
 

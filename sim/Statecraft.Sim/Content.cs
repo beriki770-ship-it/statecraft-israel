@@ -544,6 +544,9 @@ namespace Statecraft.Sim
         public double Condition { get; set; }
         /// <summary>Job slots added to the city when done, in population units.</summary>
         public int JobSlots { get; set; }
+        /// <summary>A city resource the city must have (cities.yaml `resources:`), or "" for none: a specialised industry such as
+        /// the winery, which needs vineyards (R-PROJ-005, D-D8).</summary>
+        public string Requires { get; set; } = "";
     }
 
     /// <summary>A designated site (sites.yaml; docs/GDD.md "Pioneer work": building is allowed only at designated spots, and a
@@ -593,6 +596,16 @@ namespace Statecraft.Sim
         public List<Source> Sources { get; set; } = new List<Source>();
     }
 
+    /// <summary>A city's local resource (cities.yaml `resources:`; R-PROJ-005, D-D8: "A winery requires areas for grapes"): an
+    /// id a project kind's `requires` names, its sources (each with a url and a checked date), and what the sources leave
+    /// open (`to_verify`, as in map/routes_1948.yaml).</summary>
+    public sealed class CityResource
+    {
+        public string Id { get; set; } = "";
+        public List<Source> Sources { get; set; } = new List<Source>();
+        [YamlMember(Alias = "to_verify")] public string ToVerify { get; set; } = "";
+    }
+
     /// <summary>A city's start values (cities.yaml, GDD "Cities and construction"). The file gives people and shares, each
     /// with its status (R-CITY-006); the loader turns them into the population units the sim counts (D-A1, R-CITY-007).</summary>
     public sealed class CityStart
@@ -609,6 +622,8 @@ namespace Statecraft.Sim
         [YamlMember(Alias = "job_slots")] public CityValue? Jobs { get; set; }
         /// <summary>Training facilities in the city (military_camp, hakhshara). PR 4 uses them (D-D5).</summary>
         public List<string> Facilities { get; set; } = new List<string>();
+        /// <summary>The city's local resources (R-PROJ-005, D-D8), each sourced, which a specialised project may require.</summary>
+        public List<CityResource> Resources { get; set; } = new List<CityResource>();
 
         // The units the sim starts from, set by the loader (R-CITY-007).
         [YamlIgnore] public int HousingCapacity { get; internal set; }

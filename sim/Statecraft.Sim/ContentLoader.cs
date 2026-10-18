@@ -1032,6 +1032,16 @@ namespace Statecraft.Sim
                 Whole(cf, at + ".job_slots", CityValueOf(cf, at + ".job_slots", x.Jobs));
                 foreach (var f in x.Facilities)
                     if (!Facilities.Contains(f)) throw new ContentException(cf, at + ".facilities", $"unknown facility '{f}' (military_camp or hakhshara)");
+                // R-PROJ-005: a resource is a fact about the city, so it is sourced like a sourced city value.
+                foreach (var r in x.Resources)
+                {
+                    var rat = $"{at}.resources[{r.Id}]";
+                    if (string.IsNullOrWhiteSpace(r.Id)) throw new ContentException(cf, rat + ".id", "is required");
+                    if (r.Sources.Count == 0) throw new ContentException(cf, rat + ".sources", "required: a resource needs a source");
+                    for (int i = 0; i < r.Sources.Count; i++)
+                        if (r.Sources[i] == null || string.IsNullOrWhiteSpace(r.Sources[i].Url) || r.Sources[i].Checked == default)
+                            throw new ContentException(cf, FormattableString.Invariant($"{rat}.sources[{i}]"), "needs a url and checked date");
+                }
             }
             Unique(uf, "types", c.UnitTypes.Select(x => x.Id));
             foreach (var x in c.UnitTypes)
@@ -1173,6 +1183,9 @@ namespace Statecraft.Sim
                 if (x.Capacity < 0) throw new ContentException(pf, at + ".capacity", "must not be negative");
                 if (x.JobSlots < 0) throw new ContentException(pf, at + ".job_slots", "must not be negative");
                 if (!(x.Condition >= -1 && x.Condition <= 1)) throw new ContentException(pf, at + ".condition", "must be a number from -1 to 1");
+                // R-PROJ-005: a kind whose resource no city has could never be built.
+                if (x.Requires != "" && !c.Cities.Any(k => k.Resources.Any(r => r.Id == x.Requires)))
+                    throw new ContentException(pf, at + ".requires", $"no city in cities.yaml has the resource '{x.Requires}'");
             }
         }
 

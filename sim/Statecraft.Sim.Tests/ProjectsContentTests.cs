@@ -31,4 +31,31 @@ public class ProjectsContentTests
         var e = Assert.Throws<ContentException>(() => ContentLoader.Load(dir));
         Assert.Contains(where, e.Message);
     }
+
+    /// <summary>The fixture's cities.yaml with <paramref name="row"/> (a `resources:` key) added to town_a.</summary>
+    static string WithVineyards(string row) => "\ncities:\n" + Fixture.City("town_a", 12, 8, 10, 6, "[military_camp, hakhshara]").Replace("hakhshara] }", "hakhshara], " + row + " }");
+
+    // R-PROJ-005: a resource is a fact about the city, so it names its sources, each with a url and a checked date.
+    [Theory]
+    [InlineData("resources: [{ id: vineyards }]", "cities[town_a].resources[vineyards].sources")]
+    [InlineData("resources: [{ id: vineyards, sources: [{ url: \"https://example.org/v\" }] }]", "cities[town_a].resources[vineyards].sources[0]")]
+    [InlineData("resources: [{ id: '', sources: [{ url: \"https://example.org/v\", checked: 2026-10-18 }] }]", "cities[town_a].resources[].id")]
+    public void AResourceNeedsASource(string row, string where)
+    {
+        var dir = Fixture.Write(Fixture.Gdd(new Dictionary<string, string> { ["cities.yaml"] = WithVineyards(row) }));
+        var e = Assert.Throws<ContentException>(() => ContentLoader.Load(dir));
+        Assert.Contains(where, e.Message);
+    }
+
+    // R-PROJ-005: a kind that requires a resource no city has could never be built, so the loader refuses it; with the
+    // resource on a city it loads.
+    [Fact]
+    public void AKindNeedsACityWithItsResource()
+    {
+        var projects = new Dictionary<string, string> { ["projects.yaml"] = Fixture.GddProjects + Fixture.Winery };
+        var e = Assert.Throws<ContentException>(() => ContentLoader.Load(Fixture.Write(Fixture.Gdd(projects))));
+        Assert.Contains("projects[winery].requires", e.Message);
+        projects["cities.yaml"] = WithVineyards(Fixture.Vineyards);
+        Assert.Equal("vineyards", ContentLoader.Load(Fixture.Write(Fixture.Gdd(projects))).ProjectKinds.Single(k => k.Id == "winery").Requires);
+    }
 }

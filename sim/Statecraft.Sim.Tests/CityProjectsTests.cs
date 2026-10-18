@@ -163,6 +163,33 @@ public class CityProjectsTests
         Assert.Equal(s.Cities["town_a"].HousingCapacity + 3, r.State.Cities["town_a"].HousingCapacity);
     }
 
+    /// <summary>town_a and town_b (on (2, 1)); only town_b has vineyards, with a fixture source, and the fixture's kinds plus a
+    /// winery (IL 2m, 2 turns, +6 job slots) that requires them. Fixture values, not the game's.</summary>
+    static Content WineCountry() => ContentLoader.Load(Fixture.Write(Fixture.Gdd(new Dictionary<string, string>
+    {
+        ["map/settlement_hexes.yaml"] = "settlements:\n  - { id: town_a, q: 1, r: 0 }\n  - { id: town_b, q: 2, r: 1 }\n",
+        ["map/settlements_1948.yaml"] = Fixture.Files["map/settlements_1948.yaml"]
+            + "  - { id: town_b, name: Town B, lon: 34.42, lat: 33.28, type: town, founded: 1900, pre_modern: false }\n",
+        ["cities.yaml"] = "cities:\n" + Fixture.City("town_a", 12, 8, 10, 6)
+            + Fixture.City("town_b", 5, 2, 2, 1).Replace("facilities: [] }", Fixture.Vineyards + " }"),
+        ["projects.yaml"] = Fixture.GddProjects + Fixture.Winery,
+    })));
+
+    // R-PROJ-005: a specialised project is allowed only in a city that has its resource, and is then an industry project.
+    [Fact]
+    public void AWineryNeedsVineyards()
+    {
+        var c = WineCountry();
+        var s = New(c);
+        var refused = Step(c, s, new StartProject("winery", "town_a", 1, 1));
+        Assert.Equal("Town A has no vineyards for a winery", Assert.Single(refused.Rejected).Reason);
+        Assert.Equal(Step(c, s).State.Hash(), refused.State.Hash());
+
+        var built = Step(c, Step(c, s, new StartProject("winery", "town_b", 3, 1)).State);
+        Assert.Empty(built.Rejected);
+        Assert.Equal(s.Cities["town_b"].JobSlots + 6, built.State.Cities["town_b"].JobSlots);
+    }
+
     // R-PROJ-002 (D-A3): cancelling returns no Money (and, with no workers, no people) and the project adds nothing.
     [Fact]
     public void CancellingReturnsPeopleNotMoney()

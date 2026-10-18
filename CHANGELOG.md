@@ -49,6 +49,11 @@ adds a line under **Unreleased**; CI's `Changelog` job checks this (see `CONTRIB
   kibbutzim and the moshav (a townsman, a smith and a nurse), and an arriving man and woman beside each transit camp from
   the day it is placed. They are scenery, never units; the static figures stream after the first frame and the animated
   ones only at close zoom (refs #666, #663).
+- City projects can need a local resource: a `projects.yaml` kind's `requires:` names one, a `cities.yaml` city lists
+  its `resources:` with sources, and `StartProject` refuses the kind in a city without it (R-PROJ-005, D-D8; refs #737).
+  The loader refuses a resource without sources and a kind whose resource no city has. The winery (vineyards, Zikhron
+  Ya'akov, flagged `to_verify` by the owner on 18 Oct 2026) is not in `content/` yet: its rows wait for a person to
+  check the vineyards' source, so the goldens do not move.
 
 ### Changed
 - The population-tier badge on the twelve city and town pills keeps the values it shipped with, now owner-approved: tiers 1

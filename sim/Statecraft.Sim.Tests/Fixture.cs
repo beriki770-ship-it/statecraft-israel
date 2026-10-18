@@ -270,6 +270,12 @@ projects:
   - { id: industry, name: an industry project, cost: 2, turns: 2, capacity: 0, condition: 0, job_slots: 3 }
 ";
 
+    /// <summary>A city's resources key with vineyards and a fixture source (R-PROJ-005), to add to a <see cref="City"/> row.</summary>
+    public const string Vineyards = @"resources: [{ id: vineyards, sources: [{ url: ""https://example.org/vineyards"", checked: 2026-10-18 }], to_verify: a fixture note }]";
+
+    /// <summary>A projects.yaml kind that requires vineyards (R-PROJ-005), to add to <see cref="GddProjects"/>. Fixture values.</summary>
+    public const string Winery = "  - { id: winery, name: a winery, cost: 2, turns: 2, capacity: 0, condition: 0, job_slots: 6, requires: vineyards }\n";
+
     /// <summary>One designated site on a land hex next to town_a, with no settlement on it. Fixture values, not history.</summary>
     public const string GddSites = @"
 sites:
