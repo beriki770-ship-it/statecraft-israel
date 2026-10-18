@@ -28,6 +28,9 @@ adds a line under **Unreleased**; CI's `Changelog` job checks this (see `CONTRIB
   short, at most 2 starts a turn; `CancelProject(id)` returns no Money. The kinds are labelled design values in the new
   `content/projects.yaml` (Q-PROJ-1 to Q-PROJ-5, Q-HOUSE-3; R-PROJ-001 to R-PROJ-003; refs #735). The reference player
   starts a housing project, one at a time, where the overflow is largest, so `hash1950`, `hash1952` and `mvp-end` move.
+- Release gate: consequence cards and variants need a person's sign-off (`reviewed_by`) before a build is shared;
+  `Statecraft.Cli --timeline-report` lists each road not taken and what follows it, and `Timeline.Entries` /
+  `Timeline.Origin` give the timeline screen its rows (R-ALT-011; refs #939, #953).
 
 ### Changed
 - The population-tier badge on the twelve city and town pills keeps the values it shipped with, now owner-approved: tiers 1

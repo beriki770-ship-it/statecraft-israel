@@ -212,4 +212,6 @@ R-ALT-009: An option of a consequence card may `rejoin` an event whose road the 
 
 R-ALT-010: An event of `kind: reconvergence` has a historical option and may carry `variants`. The first variant whose every `when` entry holds supplies the card's title (if it gives one) and text; options and effects never vary. Each variant follows a road not taken, carries sources, has its placeholders checked over the event's window, and names only roads whose windows close on or before the event's `from` (for a road's historical option, also every consequence card that can `rejoin` it, R-ALT-009). Only a reconvergence event carries variants.
 
+R-ALT-011: A shareable build refuses while any consequence card, or any event with variants, has no `reviewed_by` (a person's sign-off), alongside the sensitivity gate (Q-ALT-9). `Timeline.Entries` lists each resolved event, in window order, with the player's option beside the record's, and `Timeline.Origin` names the road a consequence card follows.
+
 R-ALT-012: The historical run (the reference player's orders from 15 May 1948 to 15 January 1952) raises no consequence card and diverges nowhere.
