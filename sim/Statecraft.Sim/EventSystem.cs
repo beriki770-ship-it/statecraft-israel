@@ -8,7 +8,7 @@ namespace Statecraft.Sim
     {
         public const int MaxSoftEventsPerTurn = 3;
         /// <summary>The facility a grant with no `at` stands at (Q-HFX-2) and the city fields an option may change (R-EFX-004).</summary>
-        public const string MilitaryCamp = "military_camp", HousingField = "housing_capacity", JobsField = "job_slots";
+        public const string MilitaryCamp = "military_camp", HousingField = "housing_capacity", JobsField = "job_slots", ConditionField = "condition";
 
         static GameEvent Get(Content c, string id) => c.Events.First(e => e.Id == id);
 
@@ -106,10 +106,21 @@ namespace Statecraft.Sim
             foreach (var x in o.CityEffects)
             {
                 // R-EFX-004: only the named field changes. Housing capacity stays at 0 or more; job slots never fall below the
-                // city's employed, so a cut takes only free slots. The cause carries the change that applied.
+                // city's employed, so a cut takes only free slots; the condition stays from 0 to 1 (R-HOUSE-001). The loader
+                // has checked the capacity and slot deltas are whole. The cause carries the change that applied.
                 var city = s.Cities[x.City];
-                var housing = x.Field == HousingField ? Math.Max(0, city.HousingCapacity + x.Delta) : city.HousingCapacity;
-                var jobs = x.Field == JobsField ? Math.Max(city.Employed, city.JobSlots + x.Delta) : city.JobSlots;
+                if (x.Field == ConditionField)
+                {
+                    // A hand-built test city may have no condition; every GDD game's cities have one (R-HOUSE-001).
+                    if (city.Condition is not double now) continue;
+                    var condition = Math.Min(1.0, Math.Max(0.0, now + x.Delta));
+                    s.Cities[x.City] = city.WithCondition(condition);
+                    why.Add(new Cause("events", x.City + "." + x.Field, condition - now, $"{CityChange(c, x.City, x.Field, condition - now)} ({title})"));
+                    continue;
+                }
+                var delta = (int)x.Delta;
+                var housing = x.Field == HousingField ? Math.Max(0, city.HousingCapacity + delta) : city.HousingCapacity;
+                var jobs = x.Field == JobsField ? Math.Max(city.Employed, city.JobSlots + delta) : city.JobSlots;
                 s.Cities[x.City] = new City(city.Id, housing, jobs, city.Civilians, city.Employed, city.Refugees, city.Recruits, city.Condition);
                 var applied = housing - city.HousingCapacity + jobs - city.JobSlots;
                 why.Add(new Cause("events", x.City + "." + x.Field, applied, $"{CityChange(c, x.City, x.Field, applied)} ({title})"));
@@ -138,8 +149,10 @@ namespace Statecraft.Sim
         static string Granted(UnitGrant g, string place) =>
             FormattableString.Invariant($"{g.N} {g.Type} unit{(g.N == 1 ? "" : "s")} at {place}");
 
-        static string CityChange(Content c, string city, string field, int delta) =>
-            FormattableString.Invariant($"{PlayerText.Settlement(c, city)}: {field.Replace('_', ' ')} {(delta > 0 ? "+" : "")}{delta}");
+        static string CityChange(Content c, string city, string field, double delta) =>
+            field == ConditionField
+                ? $"{PlayerText.Settlement(c, city)}: housing condition {PlayerText.PercentChange(delta)}"
+                : FormattableString.Invariant($"{PlayerText.Settlement(c, city)}: {field.Replace('_', ' ')} {(delta > 0 ? "+" : "")}{delta}");
 
         /// <summary>R-EVT-005: every effect of an option, in the order choosing it applies them (Resolve): the numeric
         /// effects, the unit grants and city effects (R-EFX-006), the policies it sets (by id), the security level, then rejoin.

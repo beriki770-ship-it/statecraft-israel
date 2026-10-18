@@ -268,6 +268,8 @@ These act on the GDD records, so only content whose `eras.yaml` sets `systems.lo
 - `city_effects: [{ city: haifa, field: housing_capacity, delta: 5 }]` changes one city's `housing_capacity` or
   `job_slots` by a whole, non-zero number. Capacity never drops below 0 and job slots never below the city's employed
   (R-EFX-004).
+- `city_effects: [{ city: haifa, field: condition, delta: -0.1 }]` moves the city's housing condition (0 to 1,
+  R-HOUSE-001) by a non-zero number from -1 to 1. It stays from 0 to 1, so a cut larger than the condition stops at 0.
 
 An event with a sensitive tag may carry no grant and no positive `city_effects` delta; a cut is allowed (R-EFX-005).
 
@@ -343,8 +345,10 @@ Errors are printed as `file: field: message`. These are the messages you are mos
 | `sites cannot be grant targets` | A grant's `at` names a site. |
 | `no single city has the military camp` | A grant leaves out `at` when no single city has the camp. |
 | `unknown city` | A grant's `at` or a `city_effects` entry names no city. |
-| `unknown field` | A `city_effects` field other than `housing_capacity` or `job_slots`. |
+| `unknown field` | A `city_effects` field other than `housing_capacity`, `job_slots` or `condition`. |
 | `must not be 0` | A `city_effects` delta of 0. |
+| `must be a whole number` | A `housing_capacity` or `job_slots` delta with a fraction, or beyond the int range. |
+| `must be a number from -1 to 1` | A `condition` delta outside -1 to 1. |
 | `sensitive events cannot reward units` | A sensitive-tagged event with a grant. A positive `city_effects` delta gives the same message with the field's name. |
 | `unknown objective` | `objective` names an objective that is not in `objectives.yaml`. |
 | `has another card` | `objective` names an objective whose `card` is a different event. |

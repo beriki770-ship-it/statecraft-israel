@@ -137,16 +137,19 @@
           },
           "city_effects": {
             "type": "array",
-            "description": "R-EFX-004 (GDD loop only): a whole-unit change to one city's housing_capacity or job_slots. A sensitive event may only cut (R-EFX-005).",
+            "description": "R-EFX-004 (GDD loop only): a whole-unit change to one city's housing_capacity or job_slots, or a change from -1 to 1 to its housing condition. A sensitive event may only cut (R-EFX-005).",
             "items": {
               "type": "object",
               "additionalProperties": false,
               "required": ["city", "field", "delta"],
               "properties": {
                 "city": { "type": "string", "minLength": 1 },
-                "field": { "enum": ["housing_capacity", "job_slots"] },
-                "delta": { "type": "integer", "not": { "const": 0 } }
-              }
+                "field": { "enum": ["housing_capacity", "job_slots", "condition"] },
+                "delta": { "type": "number", "not": { "const": 0 } }
+              },
+              "if": { "properties": { "field": { "const": "condition" } } },
+              "then": { "properties": { "delta": { "minimum": -1, "maximum": 1 } } },
+              "else": { "properties": { "delta": { "type": "integer", "minimum": -2147483647, "maximum": 2147483647 } } }
             }
           },
           "alternative": { "$ref": "#/definitions/alternative" }

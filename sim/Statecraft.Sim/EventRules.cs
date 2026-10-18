@@ -138,9 +138,17 @@ namespace Statecraft.Sim
                 var x = o.CityEffects[i];
                 string X(string field) => F(FormattableString.Invariant($"options[{o.Id}].city_effects[{i}]{field}"));
                 if (c.Cities.All(k => k.Id != x.City)) throw new ContentException(e.File, X(".city"), $"unknown city '{x.City}'");
-                if (x.Field != EventSystem.HousingField && x.Field != EventSystem.JobsField)
-                    throw new ContentException(e.File, X(".field"), $"unknown field '{x.Field}' (housing_capacity or job_slots)");
+                if (x.Field != EventSystem.HousingField && x.Field != EventSystem.JobsField && x.Field != EventSystem.ConditionField)
+                    throw new ContentException(e.File, X(".field"), $"unknown field '{x.Field}' (housing_capacity, job_slots or condition)");
                 if (x.Delta == 0) throw new ContentException(e.File, X(".delta"), "must not be 0");
+                // The condition is from 0 to 1 (R-HOUSE-001), so no change can exceed 1 either way; capacity and slots are whole
+                // units that Resolve adds as an int. The negated range test also refuses NaN.
+                if (x.Field == EventSystem.ConditionField)
+                {
+                    if (!(x.Delta >= -1 && x.Delta <= 1)) throw new ContentException(e.File, X(".delta"), "must be a number from -1 to 1");
+                }
+                else if (!(Math.Abs(x.Delta) <= int.MaxValue) || x.Delta != Math.Floor(x.Delta))
+                    throw new ContentException(e.File, X(".delta"), "must be a whole number in the int range");
                 if (sensitive && x.Delta > 0) throw new ContentException(e.File, X(""), $"sensitive events cannot reward {x.Field}");
             }
         }

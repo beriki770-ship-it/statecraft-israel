@@ -12,6 +12,9 @@ adds a line under **Unreleased**; CI's `Changelog` job checks this (see `CONTRIB
   under the monthly turn) join the yishuv sites in `content/sites.yaml`, each with a field site in its hex; the
   founding days are the owner's (#785), and the rows stay draft. The reference player builds them in id order, so
   Mefalsim is built in March 1950 and the goldens move (refs #785, #782).
+- Event options in the GDD loop can move a city's housing condition: `city_effects` takes `field: condition` with a
+  change from -1 to 1, the condition stays from 0 to 1, and a sensitive event may only lower it (R-EFX-004, R-EFX-005;
+  refs #806). No event uses them yet.
 
 ### Fixed
 - Event city effects preserve the city's housing condition when changing its housing capacity or job slots (#1000).

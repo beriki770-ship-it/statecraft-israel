@@ -732,7 +732,7 @@ namespace Statecraft.Sim
         public Dictionary<string, double> SetPolicy { get; set; } = new Dictionary<string, double>();
         /// <summary>R-EFX-003: units this option grants, free, in list order (D-H2, Q-HFX-2).</summary>
         public List<UnitGrant> GrantUnits { get; set; } = new List<UnitGrant>();
-        /// <summary>R-EFX-004: changes to a city's housing capacity or job slots, in list order (D-H2, Q-HFX-1).</summary>
+        /// <summary>R-EFX-004: changes to a city's housing capacity, job slots or housing condition, in list order (D-H2, Q-HFX-1).</summary>
         public List<CityEffect> CityEffects { get; set; } = new List<CityEffect>();
         /// <summary>Who put this non-historical option forward, and on what record (R-ALT-003). Null when absent.</summary>
         public OptionAlternative? Alternative { get; set; }
@@ -750,12 +750,13 @@ namespace Statecraft.Sim
         public string At { get; set; } = "";
     }
 
-    /// <summary>An option's change to one field of a city: housing_capacity or job_slots, by whole units (R-EFX-004).</summary>
+    /// <summary>An option's change to one field of a city (R-EFX-004): housing_capacity or job_slots by whole units, or the
+    /// housing condition by a number from -1 to 1. A double, so one key carries both; the loader checks each field's kind.</summary>
     public sealed class CityEffect
     {
         public string City { get; set; } = "";
         public string Field { get; set; } = "";
-        public int Delta { get; set; }
+        public double Delta { get; set; }
     }
 
     /// <summary>Who put forward a non-historical option, and on what record (R-ALT-003). `proposed` and `debated` name a
