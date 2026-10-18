@@ -410,40 +410,61 @@ public class MapLabelTests
     }
 
     /// <summary>Owner decision on #897 (17 October 2026, "Yes, mirror it"): in the Hebrew UI the tier badge sits at the start of
-    /// the Hebrew name, which is the pill's right; inside the pill and clear of the name. The English pill keeps it on the left.</summary>
+    /// the Hebrew name, which is the pill's right; inside the pill and clear of the name. The English pill keeps it on the left.
+    /// Pinned at every window size of InfoPanelLayoutTests and on one pill per anchor (Haifa centre, Safed right, Petah Tikva
+    /// left; owner review on #940): the badge's start edge sits 7 px (to within one screen pixel) inside the pill's start edge in both languages.</summary>
     [UnityTest]
     public IEnumerator InHebrewTheTierBadgeSitsOnTheRightOfThePill()
     {
+        const float Inset = 7f;   // MapLabelsPresenter.TierInsetPx, the room Statecraft.uss ".map-label-with-tier" leaves
         var people = Statecraft.Sim.ContentLoader.Load(Statecraft.Game.Paths.Content).Cities
             .Where(c => c.People != null).ToDictionary(c => c.Id, c => c.People!.Value);
-        foreach (var hebrew in new[] { true, false })
-        {
-            var hd = new HdPanel(cam);
-            if (hebrew) (hd.Root.Q("root") ?? hd.Root).AddToClassList(UiLanguage.HebrewClass);
-            var labels = new MapLabelsPresenter(hd.Root, map, cam, population: people, hebrew: hebrew);
-            try
+        var failures = new System.Collections.Generic.List<string>();
+        var anchorsAt = new System.Collections.Generic.List<(string window, System.Collections.Generic.HashSet<string> anchors)>();   // one entry per window and language
+        int total = 0;
+        foreach (var (w, h) in InfoPanelLayoutTests.Windows)
+            foreach (var hebrew in new[] { true, false })
             {
-                Pose(34.99, 32.80, 40000f);
-                yield return Settle(labels);
-                var haifa = labels.Labels.Single(l => l.name == "label-haifa");
-                Assert.IsTrue(Shown(labels.Slots.Single(x => x.name == "slot-haifa")), "Haifa is named at 40 km");
-                var pill = haifa.worldBound;
-                var badge = labels.Slots.Single(x => x.name == "slot-haifa").Q<Label>(className: MapLabelsPresenter.TierClass).worldBound;
-                TestContext.WriteLine($"{(hebrew ? "he" : "en")} '{haifa.text}': pill {pill}, badge {badge}");
-                Assert.IsTrue(pill.Contains(badge.min) && pill.Contains(badge.max - Vector2.one * 0.01f), $"the badge {badge} lies inside its pill {pill}");
-                if (hebrew)
+                var hd = new HdPanel(cam, w, h);
+                if (hebrew) (hd.Root.Q("root") ?? hd.Root).AddToClassList(UiLanguage.HebrewClass);
+                var labels = new MapLabelsPresenter(hd.Root, map, cam, population: people, hebrew: hebrew);
+                string lang = hebrew ? "he" : "en"; int seen = 0;
+                var anchors = new System.Collections.Generic.HashSet<string>();
+                anchorsAt.Add(($"{w}x{h} {lang}", anchors));
+                try
                 {
-                    Assert.Greater(badge.center.x, pill.center.x, "Hebrew: at the start of the name, on the right");
-                    Assert.GreaterOrEqual(badge.xMin, pill.xMax - haifa.resolvedStyle.paddingRight, "Hebrew: clear of the name's text");
+                    foreach (var (lon, lat) in new[] { (34.99, 32.80), (35.50, 32.96), (34.89, 32.09) })   // Haifa, Safed, Petah Tikva
+                    {
+                        Pose(lon, lat, 40000f);
+                        yield return Settle(labels);
+                        float screenPx = hd.Root.worldBound.width / w;   // one screen pixel in panel units
+                        foreach (var slot in labels.Slots.Where(Shown))
+                        {
+                            var b = slot.Q<Label>(className: MapLabelsPresenter.TierClass); if (b == null) continue;
+                            var name = slot.Q<Label>("label-" + slot.name.Substring("slot-".Length));
+                            Rect pill = name.worldBound, badge = b.worldBound; seen++;
+                            anchors.Add(name.GetClasses().Single(c => c.StartsWith("anchor-")));
+                            string at = $"{w}x{h} {lang} {slot.name}: pill {pill}, badge {badge}";
+                            if (!(pill.Contains(badge.min) && pill.Contains(badge.max - Vector2.one * 0.01f))) failures.Add(at + ": the badge leaves its pill");
+                            // worldBound snaps to the screen's pixels, so the inset is 7 px give or take one screen pixel (in panel units).
+                            float inset = hebrew ? pill.xMax - badge.xMax : badge.xMin - pill.xMin;
+                            if (Mathf.Abs(inset - Inset) > screenPx)
+                                failures.Add(at + $": the badge's {(hebrew ? "right" : "left")} edge is {inset:0.##} px inside the pill's, not {Inset} (+-{screenPx:0.##})");
+                            if (hebrew ? badge.xMin < pill.xMax - name.resolvedStyle.paddingRight : badge.xMax > pill.xMin + name.resolvedStyle.paddingLeft)
+                                failures.Add(at + ": the badge overlaps the name's text");
+                        }
+                    }
+                    total += seen;
+                    if (seen == 0) failures.Add($"{w}x{h} {lang}: no tier badge shown at all");
                 }
-                else
-                {
-                    Assert.Less(badge.center.x, pill.center.x, "English: on the left, unchanged");
-                    Assert.LessOrEqual(badge.xMax, pill.xMin + haifa.resolvedStyle.paddingLeft, "English: clear of the name's text");
-                }
+                finally { labels.Dispose(); hd.Dispose(); }
             }
-            finally { labels.Dispose(); hd.Dispose(); }
-        }
+        TestContext.WriteLine($"{total} badges checked; anchors per window: {string.Join("; ", anchorsAt.Select(a => a.window + " = " + string.Join("/", a.anchors.OrderBy(x => x))))}");
+        Assert.IsEmpty(failures, string.Join("\n", failures));
+        // Each window and language must show a centre, a right and a left anchored pill (Haifa, Safed, Petah Tikva); a set pooled
+        // across windows would pass with one anchor missing at some window. No window is exempt: at today's window sizes declutter hides none of the three.
+        foreach (var (window, seenAnchors) in anchorsAt)
+            Assert.AreEqual(3, seenAnchors.Count, $"{window}: a centre, a right and a left anchored pill, saw {string.Join(", ", seenAnchors.OrderBy(x => x))}");
     }
 
     /// <summary>Owner rulings 2026-10-11 and 2026-10-12: the 1948 localities are named by their 1948 names only at close zoom,

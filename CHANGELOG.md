@@ -12,6 +12,19 @@ adds a line under **Unreleased**; CI's `Changelog` job checks this (see `CONTRIB
   each written into the state hash only when set, so a halutz hashes as before and no golden moves. `unit_types.yaml`
   gains Israel's `veteran_soldier` (infantry), `artillery` and `armoured_car` (armour) with a `side` and a `class`; the
   loader refuses a military type without both (R-UNIT-001, R-UNIT-002; refs #741, #385). Nothing uses them yet.
+- Farm and village life from MATKOT's 1948 Collection: three tractors by kibbutz fields, three horse wagons and three
+  draught horses by moshav and moshava fields, three flocks of five sheep and three donkeys by villages, and three camels
+  by Bedouin camp areas, each anchor chosen by a fixed hash and kept clear of the kits, routes, unit tokens, water,
+  civilians (#666) and wildlife (#670), with the kit trees over them left out.
+  They stand at the #700 buildings' one world scale (24x real: a tractor about a third of the steam train's locomotive,
+  a sheep about a seventh), stream after the first frame, and play their idle clip only at close zoom (40 km) (#667).
+- MATKOT's Tegart fort, military barracks and factory models stand at their sourced places from their sourced days,
+  close up only (#700's switch): the Latrun police fort from 15 May 1948, the Tzrifin camp from 19 May 1948, Camp 80
+  from 13 July 1948 and Netanya's industrial zone from 28 July 1950, clear of the towns, routes, unit tokens, civilians
+  (#666) and wildlife (#670), with the kit trees on them left out. They are sized at the #700 buildings' one world
+  scale (24x real, an 8.5 m house as long as the steam train's locomotive), and stream after the first frame in a new
+  `collection-special-buildings` bundle with the shikun and the workshop, which stay unplaced until a place and date are
+  sourced (refs #707).
 - Kiryat Shmona (founded 18 July 1949) and Beit Shemesh (15 December 1950, the National Library's December 1950
   under the monthly turn) join the yishuv sites in `content/sites.yaml`, each with a field site in its hex; the
   founding days are the owner's (#785), and the rows stay draft. The reference player builds them in id order, so
@@ -63,8 +76,19 @@ adds a line under **Unreleased**; CI's `Changelog` job checks this (see `CONTRIB
   checked every row against the Village Statistics 1945 scan and #490 applied the corrections. No other field changes.
   Open from #488, not touched here: the six split-or-merge rows, Dayr al-Qassi's landmark, 'Ilut. The localities are
   outside the content hash, so no golden moves (#200).
+- MATKOT's road vehicles from The 1948 Collection stand on the 1948 roads up close: the intercity bus and the citrus
+  truck on the Tel Aviv–Haifa road, the sandwich-armoured convoy truck and the canvas-tilt lorry on the Burma Road from
+  14 June 1948. They stand only on ground Israel held on the game date, half as long as the steam train's locomotive,
+  and stream after the first frame (#725).
 
 ### Fixed
+- MATKOT's building models up close (#700) stand at one world scale, set by the steam train the map runs: a typical
+  8.5 m house is as long as the locomotive's car (about 204 m), so every model is 24x its building's real size
+  (`SettlementKits.ModelScale`), keeps its own proportions and no longer fills the kit's plot; a plot holds a small
+  grid of them instead (up to four a side), so the towns stay dense. In v0.1.1 they filled the
+  kits' symbolic 60x and 100x plots, so a house was about 800 m, a Tel Aviv block up to 1.6 km, both bigger than the
+  816 m train, and Jaffa's 100x houses rose to about 490 m in front of Tel Aviv's blocks (owner, 18 October 2026). The
+  kits far off keep their scale.
 - The sim tests no longer leave a temp folder behind for every `Fixture.Write` call (about 1,150 per run): the
   folders share one root per run, deleted when the run ends (#1017).
 - Event city effects preserve the city's housing condition when changing its housing capacity or job slots (#1000).
