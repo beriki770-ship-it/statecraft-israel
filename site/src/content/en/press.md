@@ -22,7 +22,7 @@ The game deals with war, terror and the Holocaust as historical events. Its fram
 - The concept art is AI-generated and does not show the current build. If you use it, label it as AI-generated concept art.
 - The cinematic trailer was made with AI video tools and is not gameplay. Describe it that way.
 
-The screenshots and the concept art are in two zips under Downloads, at the end of this page. There is no logo yet.
+The screenshots, the concept art and the logo are under Downloads, at the end of this page.
 
 ## Not affiliated
 
