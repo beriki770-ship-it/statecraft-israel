@@ -19,7 +19,7 @@ adds a line under **Unreleased**; CI's `Changelog` job checks this (see `CONTRIB
 - The real "absorb the immigrants" objective and its card "One million": it completes once the Jewish population has
   reached 1,000,000 with the cities' overflow at most 10% and their employed at least 40% (design values), with 20 December
   1949, Ingathering of the Exiles Day, as its reference date. Both JTA sources were checked by Beri on 18 October 2026.
-  No photograph (Fixes #1039; refs #738, #383).
+  No photograph (refs #1039, #738, #383).
 - Farm and village life from MATKOT's 1948 Collection: three tractors by kibbutz fields, three horse wagons and three
   draught horses by moshav and moshava fields, three flocks of five sheep and three donkeys by villages, and three camels
   by Bedouin camp areas, each anchor chosen by a fixed hash and kept clear of the kits, routes, unit tokens, water,
