@@ -286,6 +286,7 @@ public class HebrewUiTests
         ("settings-quality-label", "settings.quality"), ("settings-quality-auto", "settings.quality.auto"),
         ("settings-quality-high", "settings.quality.high"), ("settings-quality-low", "settings.quality.low"),
         ("settings-language-label", "settings.language"), ("settings-language-note", "settings.language.note"),
+        ("settings-uiscale-label", "settings.uiscale"),
         ("start-source", "start.source"), ("start-recording-credit", "start.recording_credit"),
         ("start-continue", "start.continue"), ("start-new-game", "start.new_game"),
     };

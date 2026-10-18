@@ -25,6 +25,9 @@ adds a line under **Unreleased**; CI's `Changelog` job checks this (see `CONTRIB
   approved all four values (#781); they are labelled design values. An event option can also move the stock with an
   `arms` effect, in whole units and never below 0, and the no-gain rule for sensitive events covers it (R-EFX-001,
   R-EFX-002); no event uses it yet. The goldens move only by the new `arms=12` line.
+- Settings: a UI scale choice, 100%, 125% or 150%, default 100% (refs #40, third slice; owner decision of 18 Oct 2026).
+  It scales the whole UI at once (the one panel's reference resolution divided by the scale) and is kept in
+  `settings.txt` (key `uiscale`), never in the sim or the save.
 
 ## [0.1.2] - 2026-10-19
 
