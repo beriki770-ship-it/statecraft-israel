@@ -44,6 +44,8 @@ public class DesignValuesTests
         ("rules.yaml", "mvp.overflow_condition_loss"),
         ("rules.yaml", "mvp.defeat_turns"),
         ("rules.yaml", "mvp.debt_ceiling"),
+        ("rules.yaml", "mvp.delegation_loyalty_floor"),   // R-EVT-003, #107
+        ("rules.yaml", "mvp.disloyal_effect_share"),
         // Q-START-1 (owner, 15 October 2026, #375): no city has a sourced housing stock or job count, so every city's
         // housing is its start people and its job slots its start employed; seven towns with no CBS working share take
         // the national one. The census people and the five CBS shares are sourced, not design values (R-CITY-006).
@@ -191,6 +193,7 @@ public class DesignValuesTests
         Assert.Equal((6, 2.0), (m.BuildYishuvTurns, m.BuildYishuvCost));
         Assert.Equal((100, 5, 60), (m.ObjectivePoints, m.ObjectiveBonusPerMonth, m.ObjectiveBonusCap));   // D-B6, D-B2
         Assert.Equal((0.35, 0.15), (m.HousingStartCondition, m.OverflowConditionLoss));   // Q-START-3, Q-HOUSE-1 (D-D1)
+        Assert.Equal((5, 0.5), (m.DelegationLoyaltyFloor, m.DisloyalEffectShare));   // R-EVT-003, #107 (D-H1)
         Assert.Equal(12, c.Cities.Count);
         foreach (var x in c.Cities)   // the listed housing and job values are the ones Cities.Init starts from
             Assert.Equal(((int)x.Housing!.Value, (int)x.Jobs!.Value), (x.HousingCapacity, x.JobSlots));

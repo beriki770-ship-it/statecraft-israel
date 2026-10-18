@@ -244,6 +244,7 @@ namespace Statecraft.Game.UI
                 string.IsNullOrWhiteSpace(inputs.Map.ArmisticeYaml) ? null : Armistice1949.ReadRuntimeOrYaml(inputs.Map.ArmisticeTsv, inputs.Map.ArmisticeYaml, Debug.LogWarning),
                 string.IsNullOrWhiteSpace(inputs.Map.ControlYaml) ? null : Control1948.ReadRuntimeOrYaml(inputs.Map.ControlTsv, inputs.Map.ControlYaml, Debug.LogWarning));
             Regions = regions;
+            map.Control = regions.Control;   // the road vehicles stand only where Israel held the ground (#725)
             var layerLabel = root.Q<Label>("map-layer");
             Action onDate = () =>
             {
@@ -443,12 +444,16 @@ namespace Statecraft.Game.UI
         {
             if (Bridge == null) return;
             Statecraft.Game.Map.Routes.RouteLayer.ShowAt(map, Bridge.State.Date);   // dated routes (the Burma Road from June 1948)
-            // MATKOT's whole-town models as overview landmarks, streamed after the first frame (#663); the ma'abara from its date.
+            // MATKOT's whole-town models on their towns far off (#663, "Whole model far, buildings near"), streamed after the first frame; the ma'abara from its date.
             Statecraft.Game.Map.Collection.TownLandmarks.ShowAt(map, Bridge.State.Date, Bridge.State.Placements, Bridge.Content);
             // MATKOT's ibex and striped hyena, sparse in their sourced terrain zones and visible only at close zoom (#670).
             Statecraft.Game.Map.Collection.WildlifeLayer.Show(map);
             // MATKOT's civilian figures at towns and transit camps, ambience only and streamed after the first frame (#666).
             Statecraft.Game.Map.Collection.CivilianPeople.ShowAt(map, Bridge.State.Date, Bridge.State.Placements, Bridge.Content);
+            // MATKOT's period-generic farm and village scenery, streamed after the first frame (#667); never game units.
+            Statecraft.Game.Map.Collection.RuralLife.Show(map);
+            // MATKOT's Tegart fort, barracks and factory at their sourced places and dates, close up only, streamed (#707).
+            Statecraft.Game.Map.Collection.SpecialBuildingModels.ShowAt(map, Bridge.State.Date);
             RenderSitesIfChanged();
             var now = Bridge.State.Placements.Select(p => (p.Action, p.Q, p.R, p.Date)).ToList();
             if (drawn != null && drawn.SequenceEqual(now)) return;

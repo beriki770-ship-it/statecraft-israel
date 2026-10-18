@@ -63,7 +63,8 @@ namespace Statecraft.Sim
             return null;
         }
 
-        static void Resolve(Content c, GameState s, string eventId, EventOption o, string how, List<Cause> why)
+        /// <param name="share">The share of each numeric effect that applies: 1, except for a disloyal minister's delegation (R-EVT-003).</param>
+        static void Resolve(Content c, GameState s, string eventId, EventOption o, string how, List<Cause> why, double share = 1.0)
         {
             s.PendingEvents.Remove(eventId);
             s.ChosenOptions[eventId] = o.Id;
@@ -72,13 +73,14 @@ namespace Statecraft.Sim
             why.Add(new Cause("events", eventId, 0, $"{how}: {Cabinet.Fill(c, s, o.Text, fillDate)}"));
             foreach (var fx in o.Effects.Where(fx => Reaches(s, fx.Target)))
             {
-                var change = fx.Delta;
+                var delta = fx.Delta * share;
+                var change = delta;
                 if (fx.Target == "treasury")
                 {
                     // R-MONEY-003: the cost first, then what was borrowed for it, as every other payment borrows.
                     why.Add(new Cause("events", fx.Target, change, $"{PlayerText.Change(c, fx.Target, change)} ({title})"));
-                    if (fx.Delta < 0) EconomySystem.PayOrBorrow(c, s, -fx.Delta, $"for {title}", why);
-                    else s.Treasury += fx.Delta;
+                    if (delta < 0) EconomySystem.PayOrBorrow(c, s, -delta, $"for {title}", why);
+                    else s.Treasury += delta;
                     continue;
                 }
                 if (fx.Target == Pools.FoodTarget)
@@ -86,13 +88,13 @@ namespace Statecraft.Sim
                     // R-EFX-001: an event moves the national Food stock by whole units (the delta rounds half away
                     // from zero, and the loader bounds it to the int range). The stock stays in 0..int.MaxValue,
                     // computed in long so nothing wraps, and the cause carries the change that applied.
-                    var want = (long)Math.Round(fx.Delta, MidpointRounding.AwayFromZero);
+                    var want = (long)Math.Round(delta, MidpointRounding.AwayFromZero);
                     var applied = Math.Max(-(long)s.Food, Math.Min(want, (long)int.MaxValue - s.Food));
                     s.Food = (int)(s.Food + applied);
                     change = applied;
                 }
-                else if (fx.Target == "fx_reserves") s.FxReserves += fx.Delta;
-                else change = EffectsSystem.Shift(c, s, fx.Target, fx.Delta);
+                else if (fx.Target == "fx_reserves") s.FxReserves += delta;
+                else change = EffectsSystem.Shift(c, s, fx.Target, delta);
                 why.Add(new Cause("events", fx.Target, change, $"{PlayerText.Change(c, fx.Target, change)} ({title})"));
             }
             // R-EFX-006: the structured effects after the numeric ones, in list order. The loader has checked every target.
@@ -176,10 +178,14 @@ namespace Statecraft.Sim
         /// <summary>Unanswered events go to the responsible minister: with probability competence/10 they pick the
         /// recommended option (else the first), otherwise a random option. In Historical mode a hard-anchor event
         /// resolves to its historical option without drawing from the RNG (major anchors happen). An objective's card has one
-        /// option and resolves to it without a draw (R-OBJ-003: GDD Phase 1 adds no RNG draw).</summary>
+        /// option and resolves to it without a draw (R-OBJ-003: GDD Phase 1 adds no RNG draw).
+        /// In the GDD loop a drawn option of a minister whose loyalty is below the floor applies only disloyal_effect_share of
+        /// each numeric effect (R-EVT-003; #107, owner, 18 October 2026). Why: loyalty decides how hard a minister works for a
+        /// decision he was left to make, competence which decision he makes; anchors and objective cards stay whole.</summary>
         public static void Delegate(Content c, GameState s, List<Cause> why)
         {
             var rng = new Rng(s.RngState);
+            var mvp = c.IsGdd ? c.RulesAt(s.Date).Mvp : null;   // the legacy loop has no floor, so its goldens hold
             foreach (var id in s.PendingEvents.ToList())
             {
                 var e = Get(c, id);
@@ -194,7 +200,10 @@ namespace Statecraft.Sim
                 var option = anchored ?? (rng.NextDouble() < competence
                     ? e.Options.FirstOrDefault(o => o.Recommended) ?? e.Options[0]
                     : e.Options[(int)(rng.NextDouble() * e.Options.Count)]);
-                Resolve(c, s, id, option, $"delegated to {minister?.Name ?? "the cabinet"}", why);
+                var share = anchored == null && mvp != null && minister != null && minister.Loyalty < mvp.DelegationLoyaltyFloor
+                    ? mvp.DisloyalEffectShare!.Value : 1.0;
+                var how = $"delegated to {minister?.Name ?? "the cabinet"}" + (share < 1 ? ", carried out half-heartedly" : "");
+                Resolve(c, s, id, option, how, why, share);
             }
             s.RngState = rng.State;
         }
