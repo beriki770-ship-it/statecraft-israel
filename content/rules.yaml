@@ -83,6 +83,12 @@ mvp:
   # is a historical figure; the Phase 7 balance pass (PR 12) sets the final ceiling.
   defeat_turns: 3                        # DESIGN VALUE: owner-set balance, not a historical figure (D-B5, Q-DEF-2: turn ends in a row with Money and Food exhausted)
   debt_ceiling: 250                      # DESIGN VALUE: owner-set balance, not a historical figure (D-B5, Q-DEF-1: IL millions of debt at which Money is exhausted)
+  # Delegation and loyalty (R-EVT-003; #107, owner, 18 October 2026: "Yes: minister loyalty changes a delegated event's
+  # outcome, with labelled values in the PR"). A minister below the floor still picks as competence says, but carries the
+  # decision out half-heartedly: only the share of each numeric effect lands. The floor is 5 because people.yaml rates
+  # the deputies 5 as a neutral rating, so neutral is not disloyal. Agent-proposed; the owner may override them.
+  delegation_loyalty_floor: 5            # DESIGN VALUE: owner-set balance, not a historical figure (D-H1, #107: loyalty below which a delegated decision is half-done)
+  disloyal_effect_share: 0.5             # DESIGN VALUE: owner-set balance, not a historical figure (D-H1, #107: share of each numeric effect a disloyal minister delivers)
 # Coalition stability lost by replacing a minister (Cabinet.Appoint): a seat taken from the minister's party, or a
 # reshuffle within it.
 appoint_stability_cost_other_party: 0.06

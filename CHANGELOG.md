@@ -49,6 +49,10 @@ adds a line under **Unreleased**; CI's `Changelog` job checks this (see `CONTRIB
   kibbutzim and the moshav (a townsman, a smith and a nurse), and an arriving man and woman beside each transit camp from
   the day it is placed. They are scenery, never units; the static figures stream after the first frame and the animated
   ones only at close zoom (refs #666, #663).
+- Delegation reads a minister's loyalty (R-EVT-003): when an unanswered event goes to a minister rated below
+  `delegation_loyalty_floor` (5), only `disloyal_effect_share` (0.5) of each numeric effect of the option lands. Both
+  are labelled design values in `rules.yaml` `mvp:`. No minister in `people.yaml` is rated below 5 today, so the
+  goldens do not move (refs #107).
 
 ### Changed
 - The population-tier badge on the twelve city and town pills keeps the values it shipped with, now owner-approved: tiers 1
