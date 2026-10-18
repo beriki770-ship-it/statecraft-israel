@@ -979,6 +979,12 @@ namespace Statecraft.Sim
         /// <summary>Facilities a city may have (cities.yaml facilities): the GDD's training places (D-D5).</summary>
         static readonly string[] Facilities = { "military_camp", "hakhshara" };
 
+        /// <summary>A military type's sides (unit_types.yaml side): units_1948.yaml's side ids (Q-START-4, owner, 15 October 2026).</summary>
+        static readonly string[] Sides = { "israel", "egypt", "jordan", "syria", "iraq", "lebanon", "ala", "local_arab_forces" };
+
+        /// <summary>A military type's classes (unit_types.yaml class; GDD Phase 5 plan, PR 2).</summary>
+        static readonly string[] Classes = { "infantry", "artillery", "armour" };
+
         static readonly string[] CityStatuses = { "sourced", "derived", "wikipedia-only", "design" };
         static readonly System.Text.RegularExpressions.Regex Month = new System.Text.RegularExpressions.Regex(@"^\d{4}-\d{2}\z");
 
@@ -1032,6 +1038,15 @@ namespace Statecraft.Sim
             {
                 var at = $"types[{x.Id}]";
                 if (x.Kind != "population" && x.Kind != "unit") throw new ContentException(uf, at + ".kind", "must be population or unit");
+                // R-UNIT-001: a type with a side or a class is military, and needs both; the sides are units_1948.yaml's.
+                if (x.Side != "" || x.Class != "")
+                {
+                    if (x.Kind != "unit") throw new ContentException(uf, at + ".kind", "a military type is a unit");
+                    if (x.Side == "") throw new ContentException(uf, at + ".side", "required for a military type");
+                    if (x.Class == "") throw new ContentException(uf, at + ".class", "required for a military type");
+                    if (!Sides.Contains(x.Side)) throw new ContentException(uf, at + ".side", $"unknown side '{x.Side}' ({string.Join(", ", Sides)})");
+                    if (!Classes.Contains(x.Class)) throw new ContentException(uf, at + ".class", $"unknown class '{x.Class}' (infantry, artillery or armour)");
+                }
                 if (x.Facility == "")
                 {
                     // Training (R-TRAIN-001) needs a place to train; values without one would be read by nothing.

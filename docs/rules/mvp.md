@@ -116,6 +116,14 @@ R-CAMP-001: `PioneerWork(unit, build_camp, site)` builds a training camp at a si
 
 R-CAMP-002: A camp site's `city` is the MVP city (`cities.yaml`) nearest to the site by hex distance (Q-CAMP-1). When several are equally near, it is the one of them nearest by straight-line km from the point the site's hex comes from to the city's point in `map/settlements_1948.yaml` (owner, 17 October 2026, #927). Tzrifin's hex is one hex from Tel Aviv, Petah Tikva, Rehovot and Rishon LeZion, so it serves Rishon LeZion, about 3.9 km away.
 
+## Military units
+
+Phase 5 PR 2 (#741) adds the record and the types only; nothing moves, fights or trains into them yet (owner, 18 October 2026, #741: movement points in Phase 5 PR 5, upkeep in PR 3, enemy types in PR 4).
+
+R-UNIT-001: A military unit is a group at formation scale, one token per formation (D-A1; Q-UNIT-1). It has a side, a type, a hex, a strength (an integer, in population units) and a standing order with its target. A military type in `unit_types.yaml` is a `unit` with a `side` (one of `units_1948.yaml`'s sides) and a `class` (infantry, artillery or armour); the loader refuses a type with only one of them, an unknown side or class, or a population type with either, naming the file and field. The MVP's military types are Israel's `veteran_soldier`, `artillery` and `armoured_car`; `recruit` stays a count per city (R-TRAIN-003).
+
+R-UNIT-002: A unit's side, strength, order and order target are written into the state hash only when they are not at their default ("" or 0), after its service (R-LOOP-002's rule), so a halutz unit's hash text, and every golden, is unchanged.
+
 ## Objectives
 
 R-OBJ-001: An objective (`objectives.yaml`) names its condition, `completes_when: { site_built: <site> }`, a designated site of kind yishuv whose `founded` date must equal the objective's `reference_date`. In the last step of each GDD turn (spec §2.3, step 11; D-A6), in id order, an objective whose site is built and that is not yet recorded is recorded once, with the turn's end date (the site's `BuiltOn`). Recording it again, or in the legacy loop, changes nothing; a stopped build completes nothing.

@@ -62,7 +62,7 @@ namespace Statecraft.Sim
                 if (u.Type == "halutz")
                 {
                     var service = u.Service + 1;
-                    u = new Unit(u.Id, service >= r.VeteranHalutzService!.Value ? VeteranType : u.Type, u.Q, u.R, service);
+                    u = new Unit(u.Id, service >= r.VeteranHalutzService!.Value ? VeteranType : u.Type, u.Q, u.R, service, u.Side, u.Strength, u.Order, u.OrderTarget);
                 }
             }
         }
@@ -161,7 +161,7 @@ namespace Statecraft.Sim
                 if (u.Type != "halutz") continue;
                 var service = u.Service + 1;
                 var promoted = service >= r.VeteranHalutzService!.Value;
-                s.Units[u.Id] = new Unit(u.Id, promoted ? VeteranType : u.Type, u.Q, u.R, service);
+                s.Units[u.Id] = new Unit(u.Id, promoted ? VeteranType : u.Type, u.Q, u.R, service, u.Side, u.Strength, u.Order, u.OrderTarget);
                 if (promoted) why.Add(new Cause("map", w.Site, 1, "A group of halutzim became veteran pioneers"));
             }
         }

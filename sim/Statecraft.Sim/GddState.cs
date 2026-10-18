@@ -67,13 +67,28 @@ namespace Statecraft.Sim
         public int R { get; }
         /// <summary>Turns of work done as a halutz (R-VET-001). Phase 5 Q-UNIT-2 counts soldiers' service in the same field.</summary>
         public int Service { get; }
+        /// <summary>A military unit's side (a unit_types.yaml `side`), or "" for a halutz (R-UNIT-001).</summary>
+        public string Side { get; }
+        /// <summary>A military unit's strength in population units (Q-UNIT-1, Q-UNIT-4), or 0 (R-UNIT-001).</summary>
+        public int Strength { get; }
+        /// <summary>The unit's standing order and what it names, or "" for none (R-UNIT-001). Later Phase 5 PRs set them.</summary>
+        public string Order { get; }
+        public string OrderTarget { get; }
 
-        public Unit(int id, string type, int q, int r, int service = 0) { Id = id; Type = type; Q = q; R = r; Service = service; }
+        public Unit(int id, string type, int q, int r, int service = 0, string side = "", int strength = 0, string order = "", string orderTarget = "")
+        {
+            Id = id; Type = type; Q = q; R = r; Service = service; Side = side; Strength = strength; Order = order; OrderTarget = orderTarget;
+        }
 
-        /// <summary>The record as the state hash writes it. The service is written only when there is some, so a unit with none
-        /// hashes as it did before Phase 4 PR 6 (R-LOOP-002's rule).</summary>
+        /// <summary>The record as the state hash writes it. Each field after the hex is written only when it is not at its
+        /// default, so a halutz with no service hashes as it did before Phase 4 PR 6, and with service as before Phase 5
+        /// (R-LOOP-002's rule; R-UNIT-002).</summary>
         public string Canonical() => string.Format(CultureInfo.InvariantCulture, "{0}:{1}@{2},{3}", Id, Type, Q, R)
-            + (Service == 0 ? "" : "/" + Service.ToString(CultureInfo.InvariantCulture));
+            + (Service == 0 ? "" : "/" + Service.ToString(CultureInfo.InvariantCulture))
+            + (Side == "" ? "" : "|side=" + Side)
+            + (Strength == 0 ? "" : "|strength=" + Strength.ToString(CultureInfo.InvariantCulture))
+            + (Order == "" ? "" : "|order=" + Order)
+            + (OrderTarget == "" ? "" : "|target=" + OrderTarget);
     }
 
     /// <summary>A group of a city's people in training (GDD "Progression"; R-TRAIN-001): <see cref="Count"/> population units

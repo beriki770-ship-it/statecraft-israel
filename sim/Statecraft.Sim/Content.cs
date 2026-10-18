@@ -625,6 +625,10 @@ namespace Statecraft.Sim
         public int TrainingTurns { get; set; }
         /// <summary>IL millions per population unit trained, paid when training starts (R-TRAIN-001). Only with a facility.</summary>
         public double TrainingCost { get; set; }
+        /// <summary>A military type's side (units_1948.yaml's side ids), or "" for a type that is not military (R-UNIT-001).</summary>
+        public string Side { get; set; } = "";
+        /// <summary>A military type's class: infantry, artillery or armour, or "" for a type that is not military (R-UNIT-001).</summary>
+        public string Class { get; set; } = "";
     }
 
     /// <summary>One stretch of a budget line's ownership (rules.yaml budget_owners): from this day (inclusive) the office owns the line.</summary>
