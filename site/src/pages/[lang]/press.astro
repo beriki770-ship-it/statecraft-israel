@@ -35,7 +35,7 @@ const mb = (z: ReturnType<typeof plan>[number]) =>
       <li>
         <a href={asset(`downloads/${LOGO.name}`)} download>{he ? 'לוגו' : 'Logo'}</a>{' '}
         <span dir="ltr">(PNG, 1280 px wide)</span>{he
-          ? ': הכיתוב Statecraft: Israel בצבע שמנת על רקע שקוף, לכן כדאי להניח אותו על רקע כהה. ברישיון CC BY 4.0.'
+          ? <>: הכיתוב <span lang="en" dir="ltr">Statecraft: Israel</span> בצבע שמנת על רקע שקוף, לכן כדאי להניח אותו על רקע כהה. ברישיון CC BY 4.0.</>
           : ': the wordmark “Statecraft: Israel” in cream on a transparent background, so place it on a dark one. CC BY 4.0.'}
       </li>
     </ul>
