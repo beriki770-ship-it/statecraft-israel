@@ -17,6 +17,7 @@ namespace Statecraft.Sim
             // 1-3. Enemy orders, combat, capture: Phase 5.
             Training.Progress(c, s, why);                 // 4. training
             Projects.Advance(c, s, next, why);            // 5. construction
+            Projects.AdvanceCity(c, s, next, why);        //    and the city projects (R-PROJ-003)
             Cities.Produce(c, s, r, yearFraction, why);   // 6. production
             Pools.Harvest(c, s, r, why);                  //    and the plowed fields' Food (R-FIELD-002)
             Pools.Consume(c, s, r, why);                  // 7. consumption: the nation eats, then imports (R-FOOD-002)

@@ -207,13 +207,14 @@ series:
             ["cities.yaml"] = GddCities,
             ["unit_types.yaml"] = GddUnitTypes,
             ["sites.yaml"] = GddSites,
+            ["projects.yaml"] = GddProjects,
         };
         if (extra != null) foreach (var kv in extra) o[kv.Key] = kv.Value;
         return o;
     }
 
     /// <summary>The fixture's attention_cost line with the GDD command kinds added (replaces "map_action: 1 }").</summary>
-    public const string GddCosts = "map_action: 1, assign_workers: 1, train: 1, cancel_training: 1, pioneer_work: 0, stop_work: 0 }";
+    public const string GddCosts = "map_action: 1, assign_workers: 1, train: 1, cancel_training: 1, pioneer_work: 0, stop_work: 0, start_project: 1, cancel_project: 0.5 }";
 
     public const string GddRules = @"
 mvp:
@@ -253,6 +254,14 @@ types:
   - { id: refugee, kind: population }
   - { id: recruit, kind: population, facility: military_camp, training_turns: 2, training_cost: 0.5 }
   - { id: halutz, kind: unit, facility: hakhshara, training_turns: 3, training_cost: 0.25 }
+";
+
+    /// <summary>The three city project kinds (R-PROJ-001). Fixture values, not the game's.</summary>
+    public const string GddProjects = @"
+projects:
+  - { id: housing, name: a housing project, cost: 3, turns: 2, capacity: 4, condition: 0.1, job_slots: 0 }
+  - { id: transit_camp, name: a transit camp, cost: 1, turns: 1, capacity: 3, condition: -0.1, job_slots: 0 }
+  - { id: industry, name: an industry project, cost: 2, turns: 2, capacity: 0, condition: 0, job_slots: 3 }
 ";
 
     /// <summary>One designated site on a land hex next to town_a, with no settlement on it. Fixture values, not history.</summary>

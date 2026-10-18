@@ -22,6 +22,12 @@ adds a line under **Unreleased**; CI's `Changelog` job checks this (see `CONTRIB
   sim or the save, so the goldens do not move. `?nofallback`, `?shot`, `?profile` and `?vprofile` (on the desktop
   `-shot`, `-profile` and `-vprofile`) still get the tier's own look whatever is stored. The Mobile tier now ships in
   desktop builds too (`QualitySettings`), so Low works there.
+- City projects in the GDD loop: `StartProject(kind, city, q, r)` builds permanent housing (IL 6m, 6 turns, +5
+  capacity, +0.03 condition), a transit camp (IL 1.5m, 1 turn, +5 capacity, -0.02 condition; needs the ma'abarot
+  policy) or industry (IL 2m, 6 turns, +5 job slots) on a land hex next to the city, paid at the start and borrowed if
+  short, at most 2 starts a turn; `CancelProject(id)` returns no Money. The kinds are labelled design values in the new
+  `content/projects.yaml` (Q-PROJ-1 to Q-PROJ-5, Q-HOUSE-3; R-PROJ-001 to R-PROJ-003; refs #735). The reference player
+  starts a housing project, one at a time, where the overflow is largest, so `hash1950`, `hash1952` and `mvp-end` move.
 
 ### Fixed
 - Event city effects preserve the city's housing condition when changing its housing capacity or job slots (#1000).

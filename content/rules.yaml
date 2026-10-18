@@ -17,6 +17,8 @@ attention_cost:
   cancel_training: 0.5                   # DESIGN VALUE: owner-set balance, not a historical figure (D-A6)
   pioneer_work: 0                        # DESIGN VALUE: owner-set balance, not a historical figure (D-A6: unit orders are free)
   stop_work: 0                           # DESIGN VALUE: owner-set balance, not a historical figure (D-A6: unit orders are free)
+  start_project: 1                       # DESIGN VALUE: owner-set balance, not a historical figure (D-A6, D-C5, Q-PROJ-5: the map action's cost)
+  cancel_project: 0.5                    # DESIGN VALUE: owner-set balance, not a historical figure (D-A6, D-C5, Q-PROJ-5: cancel_training's cost)
 # Turn length on each security rung, rungs 1 to 5 (R-TURN-001). The GDD MVP plays monthly turns on every rung (D-B1), so
 # turns from 15 May 1948 end on the 15th of each month.
 turn_lengths: [month, month, month, month, month]

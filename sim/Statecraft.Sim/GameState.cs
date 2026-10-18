@@ -66,7 +66,9 @@ namespace Statecraft.Sim
         public SortedList<int, Cohort> Cohorts = new SortedList<int, Cohort>();
         /// <summary>The designated sites being built or built, by site id (ordinal; R-SITE-001). An available site has no record.</summary>
         public SortedDictionary<string, SiteWork> Sites = new SortedDictionary<string, SiteWork>(StringComparer.Ordinal);
-        /// <summary>The next id a new unit or training cohort takes (they share it). Ids are never reused.</summary>
+        /// <summary>The city projects being built or built, by id (R-PROJ-001). A cancelled project leaves.</summary>
+        public SortedList<int, CityProject> CityProjects = new SortedList<int, CityProject>();
+        /// <summary>The next id a new unit, training cohort or city project takes (they share it). Ids are never reused.</summary>
         public int NextId;
         /// <summary>The date each completed objective was completed, by objective id (ordinal).</summary>
         public SortedDictionary<string, DateTime> Objectives = new SortedDictionary<string, DateTime>(StringComparer.Ordinal);
@@ -101,6 +103,7 @@ namespace Statecraft.Sim
             c.Units = new SortedList<int, Unit>(Units);
             c.Cohorts = new SortedList<int, Cohort>(Cohorts);
             c.Sites = new SortedDictionary<string, SiteWork>(Sites, StringComparer.Ordinal);
+            c.CityProjects = new SortedList<int, CityProject>(CityProjects);
             c.Objectives = new SortedDictionary<string, DateTime>(Objectives, StringComparer.Ordinal);
             return c;
         }
@@ -188,6 +191,7 @@ namespace Statecraft.Sim
             if (Units.Count > 0) Section("units", '[', ']', Units.Values.Select(x => x.Canonical()));
             if (Cohorts.Count > 0) Section("train", '[', ']', Cohorts.Values.Select(x => x.Canonical()));
             if (Sites.Count > 0) Section("site", '{', '}', Sites.Values.Select(x => x.Canonical()));
+            if (CityProjects.Count > 0) Section("cproj", '[', ']', CityProjects.Values.Select(x => x.Canonical()));
             if (NextId != 0) { Sep(); Nl(); sb.Append("next=").Append(NextId.ToString(CultureInfo.InvariantCulture)); }
             if (Objectives.Count > 0)
                 Section("obj", '{', '}', Objectives.Select(kv => kv.Key + "=" + kv.Value.ToString("yyyy-MM-dd", CultureInfo.InvariantCulture)));

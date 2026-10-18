@@ -98,6 +98,8 @@ order.kind.cohort: "מחזור הכשרה"
 order.kind.unit: "יחידה"
 order.kind.pioneer_work: "עבודה חלוצית"
 order.kind.site: "אתר"
+# A city project (#735; Q-UI-2's approved "מיזם דיור" for housing, with עירוני for any kind). For the native reviewer (#564).
+order.kind.city_project: "מיזם עירוני"
 order.invalid: "הפקודה אינה תקפה"
 # order.failed: the turn failed and SimBridge.EndTurn cleared the queue, so the player gives the orders again (#622;
 # maintainer, 15 October 2026). For the native reviewer (#564).

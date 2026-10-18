@@ -89,18 +89,36 @@ public class DesignValuesTests
         ("model.yaml", "situations[low_cohesion].off_above"),
         ("model.yaml", "situations[low_intl_support].on_below"),
         ("model.yaml", "situations[low_intl_support].off_above"),
+        // City projects (Phase 3 PR 4; Q-PROJ-1, Q-PROJ-5): agent-proposed under "Agents propose design values" (#375).
+        ("rules.yaml", "attention_cost.start_project"),
+        ("rules.yaml", "attention_cost.cancel_project"),
+        ("projects.yaml", "projects[housing].cost"),
+        ("projects.yaml", "projects[housing].turns"),
+        ("projects.yaml", "projects[housing].capacity"),
+        ("projects.yaml", "projects[housing].condition"),
+        ("projects.yaml", "projects[housing].job_slots"),
+        ("projects.yaml", "projects[transit_camp].cost"),
+        ("projects.yaml", "projects[transit_camp].turns"),
+        ("projects.yaml", "projects[transit_camp].capacity"),
+        ("projects.yaml", "projects[transit_camp].condition"),
+        ("projects.yaml", "projects[transit_camp].job_slots"),
+        ("projects.yaml", "projects[industry].cost"),
+        ("projects.yaml", "projects[industry].turns"),
+        ("projects.yaml", "projects[industry].capacity"),
+        ("projects.yaml", "projects[industry].condition"),
+        ("projects.yaml", "projects[industry].job_slots"),
     };
 
 
-    /// <summary>Every number in the GDD files and blocks, as (file, key path, the line it is on). Scope: all of cities.yaml and
-    /// unit_types.yaml, rules.yaml mvp:, and the GDD kinds under rules.yaml attention_cost. A value whose own mapping says
+    /// <summary>Every number in the GDD files and blocks, as (file, key path, the line it is on). Scope: all of cities.yaml,
+    /// unit_types.yaml and projects.yaml, rules.yaml mvp:, and the GDD kinds under rules.yaml attention_cost. A value whose own mapping says
     /// `status: sourced`, `derived` or `wikipedia-only` is a historical figure, not balance: the loader holds it to its
     /// sources and date instead (cities.yaml, R-CITY-006), so it is left out. model.yaml predates the rule (its header calls
     /// every number there a design value), so only its tagged lines are in scope: the numbers Phase 2 PR 4 added.</summary>
     public static List<(string File, string Key, string Line)> Numbers(string root)
     {
         var found = new List<(string, string, string)>();
-        foreach (var file in new[] { "rules.yaml", "cities.yaml", "unit_types.yaml", "model.yaml" })
+        foreach (var file in new[] { "rules.yaml", "cities.yaml", "unit_types.yaml", "model.yaml", "projects.yaml" })
         {
             var path = Path.Combine(root, file);
             if (!File.Exists(path)) continue;

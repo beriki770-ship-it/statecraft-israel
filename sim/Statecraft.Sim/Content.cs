@@ -521,6 +521,25 @@ namespace Statecraft.Sim
         public double? OverflowConditionLoss { get; set; }
     }
 
+    /// <summary>A kind of city project (projects.yaml; GDD "Cities and construction"; R-PROJ-001 to R-PROJ-003): permanent
+    /// housing, the transit camp (D-D3, Q-HOUSE-3) or industry. Every number is a design value (Q-PROJ-1).</summary>
+    public sealed class ProjectKind
+    {
+        public string Id { get; set; } = "";
+        /// <summary>The phrase the player reads in a sentence ("a transit camp").</summary>
+        public string Name { get; set; } = "";
+        /// <summary>IL millions, paid in full at the start (Q-PROJ-1).</summary>
+        public double Cost { get; set; }
+        /// <summary>Turns to build, the turn of the order the first (D-A3).</summary>
+        public int Turns { get; set; }
+        /// <summary>Housing capacity added to the city when done, in population units.</summary>
+        public int Capacity { get; set; }
+        /// <summary>The change to the city's housing condition when done (R-HOUSE-001; kept from 0 to 1).</summary>
+        public double Condition { get; set; }
+        /// <summary>Job slots added to the city when done, in population units.</summary>
+        public int JobSlots { get; set; }
+    }
+
     /// <summary>A designated site (sites.yaml; docs/GDD.md "Pioneer work": building is allowed only at designated spots, and a
     /// new yishuv takes its site's name). Sourced facts only: the balance values of building are rules (MvpRules).</summary>
     public sealed class Site
@@ -972,6 +991,8 @@ namespace Statecraft.Sim
         public List<UnitType> UnitTypes = new List<UnitType>();
         /// <summary>The GDD designated sites (sites.yaml), in file order. Empty in the legacy loop.</summary>
         public List<Site> Sites = new List<Site>();
+        /// <summary>The GDD city project kinds (projects.yaml), in file order. Empty in the legacy loop.</summary>
+        public List<ProjectKind> ProjectKinds = new List<ProjectKind>();
         /// <summary>The objectives (objectives.yaml), ordered by id. Read in both loops, since their cards are events; only the
         /// GDD loop completes them. Empty when the content has no objectives.yaml.</summary>
         public List<Objective> Objectives = new List<Objective>();
