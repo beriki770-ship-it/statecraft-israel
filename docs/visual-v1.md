@@ -789,6 +789,9 @@ The Deferred row "Runtime quality fallback" (review I1), sized by the DPR-2 stre
   change the URP asset. Even on WebGL it stays off under `?vprofile`, `?profile` and `?shot` (instruments that must see the
   tier as configured) and with `?nofallback`; every change logs `QUALITY level=<n> scale=<s> tiltshift=<on|off>
   p95_ms=<ms>`.
+- **The player's quality choice (#40).** Automatic in Settings is this behaviour. High (the PC tier at render scale 1.0)
+  and Low (the Mobile tier at 0.8) fix the quality: the fallback holds while one is set (`QualityFallbackDriver.Feed`),
+  and every switch starts it again from the top (`GraphicsQuality.Changed`).
 - **Presentation only:** it reads no sim state and writes only the render scale and the tilt-shift flag, so turns, hashes
   and saves cannot change. The goldens and the 5-turn smoke match with it in the build: `uv run tools/web_check.py
   unity/Builds/Web-disabled --query "golden&smoke=5"` with the three `--expect` values from `docs/determinism.md`: PASS.

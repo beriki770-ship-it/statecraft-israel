@@ -400,6 +400,13 @@ Button:disabled { color: var(--ink-dim); border-color: rgba(120, 120, 120, 0.4);
 .settings-row { margin-top: 8px; }
 .settings-name { flex-grow: 1; flex-shrink: 1; min-width: 0; white-space: normal; }
 .settings-switch { flex-shrink: 0; min-width: 96px; -unity-text-align: middle-center; }
+/* The quality choice's buttons sit side by side; the one that is set is marked by a gold fill and dark text, not only a
+   border colour, and keeps it while hovered or focused (Button:hover and :focus would otherwise win). */
+.settings-choices { flex-shrink: 0; }
+.settings-choice-selected, .settings-choice-selected:hover, .settings-choice-selected:focus { background-color: var(--gold); color: var(--navy-solid); }
+/* The regular cut's thin strokes fade on the gold. Only as specific as ".lang-he Button", which comes later and keeps
+   the Hebrew face in Hebrew. */
+Button.settings-choice-selected { -unity-font-definition: url("project://database/Assets/UI/Fonts/EBGaramond-SemiBold.ttf"); }
 
 /* The toast sits in the map's free top-left corner, above the info panel: opaque, and never over an open screen's title or
    the minimap column (B7). */
