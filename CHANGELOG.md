@@ -7,7 +7,16 @@ adds a line under **Unreleased**; CI's `Changelog` job checks this (see `CONTRIB
 
 ## [Unreleased]
 
+### Added
+- Kiryat Shmona (founded 18 July 1949) and Beit Shemesh (15 December 1950, the National Library's December 1950
+  under the monthly turn) join the yishuv sites in `content/sites.yaml`, each with a field site in its hex; the
+  founding days are the owner's (#785), and the rows stay draft. The reference player builds them in id order, so
+  Mefalsim is built in March 1950 and the goldens move (refs #785, #782).
+
 ### Fixed
+- Event city effects preserve the city's housing condition when changing its housing capacity or job slots (#1000).
+- The Cabinet's Hebrew "already holds" refusal uses the holder's office title, including the feminine form for a woman;
+  English is unchanged (#990).
 - On a phone held upright (390x844) the top bar's small text keeps the owner's 12 px floor too: the seven captions,
   Security's level, the attention line and the plate's turn and date are 25 px in the panel, 12.3 px on screen (they
   were 15 px, 7.4 px). The phone's bar is 32 px taller to hold them, a caption wraps between words, and Security's level

@@ -28,9 +28,9 @@ final `GameState.Hash()` is pinned:
 
 | Run | Ends | Hash |
 |---|---|---|
-| to 1950-01-01 (`Hash1950`) | 1950-01-15, turn 20 | `7cf678b6b2b3d55dc0fee7b2efdee9ec7688cdf18964dcaa6e5a7c0018e34a51` |
-| to 1952-01-01 (`Hash1952`) | 1952-01-15, turn 44 (the game's end) | `f9f47f5c783b7dc8d6f47e5e3e048de5899d79e6d55614ee8e6f0331d0fb3cd5` |
-| to the game's end (`mvp-end`) | 1952-01-15, turn 44 | `f9f47f5c783b7dc8d6f47e5e3e048de5899d79e6d55614ee8e6f0331d0fb3cd5` |
+| to 1950-01-01 (`Hash1950`) | 1950-01-15, turn 20 | `69ac13846f1420619e9578b119f56e8927e64eb472b8c4f14f2a8d0dc4f70eb1` |
+| to 1952-01-01 (`Hash1952`) | 1952-01-15, turn 44 (the game's end) | `b34faec68a0a76fc046c6015fbfbfe70a2c56258a71b021214522d0a30379d04` |
+| to the game's end (`mvp-end`) | 1952-01-15, turn 44 | `b34faec68a0a76fc046c6015fbfbfe70a2c56258a71b021214522d0a30379d04` |
 
 `hash1952` stops at the first turn on or after 1 January 1952, which is the game's last turn, so it is the same run as
 `mvp-end` (`DeterminismTests.TheWholeGameToItsEndIsFixed`). Both names are kept (spec 2026-10-12 section 3 step 6): a
@@ -286,3 +286,6 @@ The hash reads the state keys, so it never sees a record outside its window. An 
 | GDD Phase 3 PR 3 | scenario-mvp-absorb-first | `a77a8f20` | same (was `b16a8740`) |
 | GDD Phase 4 PR 5 | 1952 | `f9f47f5c` | dry swamp and the Hula event (R-SWAMP-001, R-SWAMP-002, #789), rebased on the housing condition (#855) and the alternate-timeline stack (#960, #966, #972): `hula_drainage` now fires only while the player's works at the Hula swamp site are in progress, and the reference player drains no swamp, so the card leaves `fired[]` and `chosen{}` (it fired on 1951-03-15 with `continue_works`). Without that choice's effects security ends at 0.5061 (was 0.5361) and intl_standing at 0.83 (was 0.78), which moves morale (0.4916, was 0.4946) and stability (0.4432, was 0.4487) through the effects web (was `94969472`) |
 | GDD Phase 4 PR 5 | mvp-end | `f9f47f5c` | same; the same run as hash1952 (was `94969472`) |
+| GDD Phase 4 PR 1 (Kiryat Shmona, Beit Shemesh) | 1950 | `69ac1384` | Kiryat Shmona and Beit Shemesh join the yishuv sites (Q-SITE-1, owner, #782 and #785), re-pinned on main after #871, #855 and #968. The reference player takes the yishuv sites in ordinal id order before any field or camp, so its veteran builds Beit Shemesh on 1949-06-15, Gilat on 1949-09-15 and Kiryat Shmona on 1949-12-15, and is building Mefalsim at the cut (`mefalsim=b,1,4`; it was plowing Beit Kama's field). The first-new-yishuv objective no longer completes inside the run, so its card does not fire and the score is 0 (was 100); the debt is IL 1.5m higher (IL 2m for the build in progress instead of IL 0.5m for the field) (was `7cf678b6`) |
+| GDD Phase 4 PR 1 (Kiryat Shmona, Beit Shemesh) | 1952 | `b34faec6` | same; Mefalsim is built on 1950-03-15 (was 1949-09-15) and Re'im on 1950-06-15 (was 1949-12-15). The six fields are plowed after them, in ordinal id order: Beit Kama 1950-08-15, Beit Shemesh 1950-10-15, Gilat 1950-12-15, Kiryat Shmona 1951-02-15, Mefalsim 1951-04-15 and Re'im 1951-06-15, so Camp 80 is built on 1951-09-15 (was 1950-11-15) and Tzrifin on 1951-12-15 (was 1951-02-15). The objective completes on 1950-03-15, after its reference date, so the score (100) does not change. The debt is IL 5m higher (2 x IL 2m for the yishuvim, 2 x IL 0.5m for their fields), and the Food stock ends 2 units higher (2738, was 2736), which lifts food_supply in the fifth decimal and stability in the sixth (was `f9f47f5c`) |
+| GDD Phase 4 PR 1 (Kiryat Shmona, Beit Shemesh) | mvp-end | `b34faec6` | same; the same run as hash1952 (was `f9f47f5c`) |

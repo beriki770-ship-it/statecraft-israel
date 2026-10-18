@@ -257,8 +257,8 @@ eras:
         Assert.Empty(card.Tags);
     }
 
-    // R-OBJ-001 to R-OBJ-003 in the golden run: the reference player builds Mefalsim on 15 March 1949, three months before its
-    // 12 June 1949 founding, so the first new yishuv scores 100 and the early bonus (D-B2), and its card fires and is answered.
+    // R-OBJ-001 to R-OBJ-003 in the golden run: the reference player builds Mefalsim on 15 March 1950, after its 12 June 1949
+    // founding, so the first new yishuv scores 100 with no early bonus (D-B2), and its card fires and is answered.
     // Since GDD Phase 3 PR 1 the cities start with every job filled (Q-START-1), so the player trains its halutz group on the
     // first turn instead of on 15 August 1948 (ReferencePlayerTests); before, it built on 15 June 1949 and scored 100.
     [Fact]
@@ -268,8 +268,9 @@ eras:
         var built = s.Sites["mefalsim"].BuiltOn!.Value;
         // Since Phase 4 PR 1 (#785) the reference player builds the yishuv sites in id order, one after another as its halutzim
         // come free: Beit Kama and Gilat first. Since Phase 4 PR 6 (#790) its group is a veteran after Beit Kama and builds in
-        // 3 turns, so Mefalsim is built in September 1949, three months after its founding date (12 June 1949); it was March 1950.
-        Assert.Equal(new DateTime(1949, 9, 15), built);
+        // 3 turns, so Mefalsim was built in September 1949 (March 1950 before that). Since Beit Shemesh and Kiryat Shmona joined
+        // the sites (#785), they come before Mefalsim in id order, so it is built in March 1950, after its 12 June 1949 founding.
+        Assert.Equal(new DateTime(1950, 3, 15), built);
         Assert.Equal(built, s.Objectives["first_new_yishuv"]);
         Assert.Equal(100, s.Score);   // D-B6; no D-B2 bonus, as it is built after the reference date
         Assert.Equal("continue", s.ChosenOptions["first_new_yishuv"]);
