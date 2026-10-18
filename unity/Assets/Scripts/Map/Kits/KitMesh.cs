@@ -66,7 +66,8 @@ namespace Statecraft.Game.Map.Kits
         /// <summary>Buildings marked (a test aid).</summary>
         internal int Cuts => cuts.Count;
 
-        /// <summary>This mesh without its marked buildings, plus its plinths, or null when that is empty. A building's
+        /// <summary>This mesh without its marked buildings, plus its plinths (and the landmarks' close copies, CloseCopy), or null
+        /// when that is empty. A building's
         /// triangles only use its own vertices (every part appends its vertices and indexes only those), so the kept
         /// triangles are re-indexed and nothing else changes.</summary>
         internal Mesh? ToCloseMesh(string name)

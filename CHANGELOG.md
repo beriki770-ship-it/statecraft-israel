@@ -204,7 +204,7 @@ adds a line under **Unreleased**; CI's `Changelog` job checks this (see `CONTRIB
   over the houses; never bigger than far off, and Jerusalem's walls keep their circuit and shrink only in height and
   thickness. A plot's models no longer sit in a regular grid: seeded by the place and the plot, each is turned up to
   10 degrees and moved within its cell, some cells stay empty and a long plot may get a street through it. Far off
-  nothing changes (#1032).
+  nothing changes. The rural life and special buildings take their 24x from the same constant (#1032).
 - The sim tests no longer leave a temp folder behind for every `Fixture.Write` call (about 1,150 per run): the
   folders share one root per run, deleted when the run ends (#1017).
 - Event city effects preserve the city's housing condition when changing its housing capacity or job slots (#1000).

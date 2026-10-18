@@ -10,7 +10,8 @@ namespace Statecraft.Game.Map.Kits
     /// <see cref="ModelScale"/>),
     /// standing on the plot's ground level with a stone plinth below it where the ground falls away. Far off the kit's
     /// own buildings draw, exactly as before; up close (TownModelLayer.CloseEnterM) the models draw instead, with each
-    /// town's close mesh (KitMesh.ToCloseMesh: its landmarks and palms without the kit buildings, plus the plinths). The
+    /// town's close mesh (KitMesh.ToCloseMesh: its palms without the kit buildings, plus the plinths and, issue #1032, its
+    /// landmarks at the world scale, KitMesh.CloseCopy). The
     /// layout, the lots and the census do not change.</summary>
     public static partial class SettlementKits
     {
@@ -167,7 +168,8 @@ namespace Statecraft.Game.Map.Kits
                     models.Add(Fit(id, model, q, yaw + turn, w, d, h, top, exactHeight, flip, m).OnPlot(p));
                 }
             if (top - bottom > PlinthRiseM * m)
-                km.Plinths.Box(p.x, p.y, yaw, nu * pu - gap, nv * pv - gap, bottom, top, 0f, TerraceStone, TerraceStone, Facade.Plain, m, roofed: true);
+                km.Plinths.Box(p.x, p.y, yaw, Mathf.Max(w, nu * pu - gap), Mathf.Max(d, nv * pv - gap), bottom, top,   // #1032: models may stand out to the plot edge
+                    0f, TerraceStone, TerraceStone, Facade.Plain, m, roofed: true);
         }
 
         static void AddModel(string id, TownModel model, Vector2 p, float yaw, float w, float d, float h, float bottom, float top, KitMesh km,
