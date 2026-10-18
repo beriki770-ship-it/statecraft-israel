@@ -151,7 +151,7 @@ public sealed class CivilianPeopleTests
             var prefab = Prefab(p.Model, CollectionDetail.Far);
             var expected = layer.transform.rotation * Quaternion.Euler(0f, p.Yaw, 0f) * prefab.transform.localRotation;
             Assert.Less(Quaternion.Angle(expected, child!.rotation), 0.01f, p.Key + " upright");
-            Assert.AreEqual(CivilianPeople.FigureHeightM, WorldBounds(child.gameObject).size.y, CivilianPeople.FigureHeightM * 0.02f, p.Key + " symbolic height");
+            Assert.AreEqual(CivilianPeople.FigureHeightM, WorldBounds(child.gameObject).size.y, CivilianPeople.FigureHeightM * 0.02f, p.Key + " height at the world scale");
             Assert.IsTrue(child.GetComponentsInChildren<Renderer>(true).All(r => r.sharedMaterial.enableInstancing), p.Key + " is GPU-instanced");
         }
     }

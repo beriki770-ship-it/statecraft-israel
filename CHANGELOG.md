@@ -106,6 +106,10 @@ adds a line under **Unreleased**; CI's `Changelog` job checks this (see `CONTRIB
   and stream after the first frame (#725).
 
 ### Fixed
+- MATKOT's townspeople (#666) and wildlife (#670) stand at the same 24x train scale as the building models
+  (`SettlementKits.ModelScale`, #1030): a man is about 43 m tall, an ibex about 31 m and a striped hyena about 26 m
+  long, all smaller than a house and about a fifth of the locomotive's car or less. Before, a man was about 2.5 km and
+  an animal about 1.9 km, sized like the unit pieces, which keep their symbolic size (#1033).
 - MATKOT's building models up close (#700) stand at one world scale, set by the steam train the map runs: a typical
   8.5 m house is as long as the locomotive's car (about 204 m), so every model is 24x its building's real size
   (`SettlementKits.ModelScale`), keeps its own proportions and no longer fills the kit's plot; a plot holds a small
