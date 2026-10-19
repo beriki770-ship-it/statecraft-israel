@@ -121,6 +121,7 @@ public class HebrewUiTests
         Assert.AreEqual("עברית", Ui.Q<Button>("settings-language-he").text, "each language is named in itself");
         var session = game.Bridge!.Session;
         Assert.IsNull(game.Bridge.Queue(new Statecraft.Sim.SetMobilization(1.0)));
+        UiTestKit.Press(Ui.Q<Button>("settings-uiscale-150"));        // the UI scale (#40) must survive the rebuild below
 
         UiTestKit.Press(Ui.Q<Button>("settings-language-he"));
         Assert.IsTrue(Ui.Q("root").ClassListContains(UiLanguage.HebrewClass), "Hebrew at once, no reload");
@@ -131,6 +132,8 @@ public class HebrewUiTests
         Assert.IsTrue(Ui.Q<Button>("settings-language-he").ClassListContains(SettingsPresenter.SelectedClass), "Hebrew is marked");
         Assert.IsFalse(Ui.Q<Button>("settings-language-en").ClassListContains(SettingsPresenter.SelectedClass));
         Assert.AreEqual(UiLanguage.Hebrew, settings.Read(SettingsPresenter.LanguageKey), "kept in settings.txt");
+        Assert.AreEqual(new Vector2Int(1280, 720), Object.FindFirstObjectByType<UIDocument>().panelSettings.referenceResolution, "150% survives the switch");
+        Assert.IsTrue(Ui.Q<Button>("settings-uiscale-150").ClassListContains(SettingsPresenter.SelectedClass), "and 150% is marked");
 
         game.Language = null;                                          // a reload: only the file remains
         game.Begin(Inputs, 0);
