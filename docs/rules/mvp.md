@@ -108,7 +108,7 @@ R-SITE-001: `PioneerWork(unit, build_yishuv, site)` starts building a yishuv at 
 
 R-SITE-002: `StopWork(unit)` ends the unit's build: the site is available again, the unit is idle, and the progress and the Money paid are lost (D-A3). A unit that does not exist or is not building is refused with the state unchanged. Its Attention cost is 0.
 
-R-SITE-003: Each turn, in ordinal site id order, every site being built has one turn of work less to go - `progress x m` of one, the system's office multiplier m since the ministers (R-MIN-002): the integer part at once, the fraction carried on the record and written after it (`,0.652...`) only while non-zero. A site that reaches 0 is built, on the turn's end date, and its unit is idle again. A veteran's site has `veteran_progress` times as much work a turn (R-VET-002), and the unit's type changes only by R-VET-001. No city, housing, job, population or Social cohesion changes. Sites being built or built are written into the state hash only when there are some.
+R-SITE-003: Each turn, in ordinal site id order, every site being built has one turn of work less to go - `progress x m` of one, the system's office multiplier m since the ministers (R-MIN-002): the integer part at once, the fraction carried on the record and written after it (as 16 hexadecimal digits of its IEEE bit pattern) only while non-zero. A site that reaches 0 is built, on the turn's end date, and its unit is idle again. A veteran's site has `veteran_progress` times as much work a turn (R-VET-002), and the unit's type changes only by R-VET-001. No city, housing, job, population or Social cohesion changes. Sites being built or built are written into the state hash only when there are some.
 
 ## Veteran pioneers
 

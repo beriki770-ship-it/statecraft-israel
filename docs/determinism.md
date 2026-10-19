@@ -13,7 +13,7 @@ The simulation must produce the same state, bit for bit, on .NET, Unity Mono and
   cos/sin (which hex owns a settlement) is precomputed by `tools/settlement_hexes.py` and read as content.
 - **Canonical hash:** `GameState.Hash()` is SHA-256 over a canonical text. Keys are sorted ordinally. Doubles are
   written as IEEE bit patterns, with -0.0 written as 0.0. Culture is invariant. Fractional site and city-project
-  carry follows the same rule: nonzero carry is written as 16 hexadecimal IEEE bits, and zero carry is omitted.
+  carry follows the same rule: nonzero carry is written as 16 hexadecimal digits of its IEEE bit pattern, and zero carry is omitted.
   Round-trip decimal formatting is only a display concern: .NET and Unity Mono can spell the same carry bits
   differently. The Phase 7 minister carry correction re-pins hash1950, hash1952 and mvp-end for this representation
   only; stored values, gameplay and completion dates are unchanged.
