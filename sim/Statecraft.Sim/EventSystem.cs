@@ -127,7 +127,7 @@ namespace Statecraft.Sim
                 var applied = housing - city.HousingCapacity + jobs - city.JobSlots;
                 why.Add(new Cause("events", x.City + "." + x.Field, applied, $"{CityChange(c, x.City, x.Field, applied)} ({title})"));
             }
-            // R-EFX-007: after the city effects. A kind already unlocked stays so, with no second cause.
+            // R-EFX-008: after the city effects. A kind already unlocked stays so, with no second cause.
             foreach (var kind in o.UnlockProjects)
                 if (s.UnlockedProjects.Add(kind)) why.Add(new Cause("events", kind, 1, $"{Unlocked(c, kind)} ({title})"));
             foreach (var kv in o.SetPolicy.Where(k => s.Policies.ContainsKey(k.Key)).OrderBy(k => k.Key, StringComparer.Ordinal))

@@ -70,7 +70,7 @@ namespace Statecraft.Sim
         public SortedDictionary<string, SiteWork> Sites = new SortedDictionary<string, SiteWork>(StringComparer.Ordinal);
         /// <summary>The city projects being built or built, by id (R-PROJ-001). A cancelled project leaves.</summary>
         public SortedList<int, CityProject> CityProjects = new SortedList<int, CityProject>();
-        /// <summary>The locked projects.yaml kinds an event option has unlocked (R-EFX-007), by id (ordinal).</summary>
+        /// <summary>The locked projects.yaml kinds an event option has unlocked (R-EFX-008), by id (ordinal).</summary>
         public SortedSet<string> UnlockedProjects = new SortedSet<string>(StringComparer.Ordinal);
         /// <summary>The next id a new unit, training cohort or city project takes (they share it). Ids are never reused.</summary>
         public int NextId;

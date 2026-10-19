@@ -180,7 +180,7 @@ namespace Statecraft.Sim
             var k = c.ProjectKinds.FirstOrDefault(x => x.Id == kind);
             if (k == null) return "There is no such city project";
             if (!s.Cities.ContainsKey(city)) return "There is no such city";
-            if (k.Locked && !s.UnlockedProjects.Contains(kind)) return $"{PlayerText.Capitalised(k.Name)} is not available yet";   // R-EFX-007
+            if (k.Locked && !s.UnlockedProjects.Contains(kind)) return $"{PlayerText.Capitalised(k.Name)} is not available yet";   // R-EFX-008
             if (kind == MapActions.TransitCamp && !(s.Policies.TryGetValue(MapActions.MaabarotPolicy, out var m) && m >= 0.5))
                 return "Transit camps need the ma'abarot policy";
             // R-PROJ-005. A city founded in play is not in cities.yaml, so it has no resources.

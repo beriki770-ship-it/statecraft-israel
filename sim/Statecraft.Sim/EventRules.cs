@@ -153,7 +153,7 @@ namespace Statecraft.Sim
             }
             for (int i = 0; i < o.UnlockProjects.Count; i++)
             {
-                // R-EFX-007. Unlocking a kind that starts unlocked would do nothing, so it is a mistake, as an unknown kind is.
+                // R-EFX-008. Unlocking a kind that starts unlocked would do nothing, so it is a mistake, as an unknown kind is.
                 var kind = o.UnlockProjects[i];
                 var field = F(FormattableString.Invariant($"options[{o.Id}].unlock_projects[{i}]"));
                 if (sensitive) throw new ContentException(e.File, field, "sensitive events cannot reward a project unlock");

@@ -8,7 +8,7 @@ using Statecraft.Sim;
 /// project unlock, each validated at load; a grant is free and stands at the military camp or at the site the event
 /// names (here a city it names); a sensitive option gains nothing from them (R-EFX-005). This first slice builds the kinds whose records are on
 /// main: unit grants and a city's housing capacity and job slots; the second adds its housing condition (#855); the third
-/// project unlock (R-EFX-007). Site targets (once a site carries a date, R-EFX-006) follow.</summary>
+/// project unlock (R-EFX-008). Site targets (once a site carries a date, R-EFX-006) follow.</summary>
 public class StructuredEffectTests
 {
     const string Arms = @"
@@ -292,7 +292,7 @@ from: 1948-05-15
 
     const string UnlockIndustry = "    unlock_projects: [industry]\n";
 
-    // R-EFX-006 and R-EFX-007: the unlock applies after the city effects, and naming a kind twice unlocks it once, with one cause.
+    // R-EFX-006 and R-EFX-008: the unlock applies after the city effects, and naming a kind twice unlocks it once, with one cause.
     [Fact]
     public void AnUnlockAppliesAfterTheCityEffectsAndOnce()
     {
@@ -307,7 +307,7 @@ from: 1948-05-15
         Assert.Equal(s.UnlockedProjects, s.Clone().UnlockedProjects);
     }
 
-    // R-EFX-007 with R-PROJ-001: a locked kind is refused by StartProject until an option that unlocks it is applied, and
+    // R-EFX-008 with R-PROJ-001: a locked kind is refused by StartProject until an option that unlocks it is applied, and
     // then allowed. The unlock applies after the grants and city effects (R-EFX-006), and the preview lists it (R-EVT-005).
     [Fact]
     public void ALockedProjectWaitsForItsUnlock()
@@ -329,7 +329,7 @@ from: 1948-05-15
         Assert.Null(Projects.CheckCity(c, s, "industry", "town_a", 1, 1));
     }
 
-    // R-EFX-007: the unlock is game state, so a save replays it to the same hash, and the refused order before it stays refused.
+    // R-EFX-008: the unlock is game state, so a save replays it to the same hash, and the refused order before it stays refused.
     [Fact]
     public void ASaveWithAnUnlockReplays()
     {

@@ -278,7 +278,7 @@ These act on the GDD records, so only content whose `eras.yaml` sets `systems.lo
   R-HOUSE-001) by a non-zero number from -1 to 1. It stays from 0 to 1, so a cut larger than the condition stops at 0.
 
 - `unlock_projects: [industry]` makes a `projects.yaml` kind marked `locked: true` available to StartProject for the rest
-  of the game (R-EFX-007). Naming a kind that is not locked is an error, since it would do nothing.
+  of the game (R-EFX-008). Naming a kind that is not locked is an error, since it would do nothing.
 
 An event with a sensitive tag may carry no grant, no positive `city_effects` delta and no unlock; a cut is allowed (R-EFX-005).
 
