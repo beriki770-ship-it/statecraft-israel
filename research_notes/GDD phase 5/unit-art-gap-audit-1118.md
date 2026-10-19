@@ -149,3 +149,6 @@ armored vehicles of Israel" (about 140 files, none opened one by one [carried]).
 3. Whether the line numbers still hold on `main` when you read this.
 4. That "MATKOT" and "Tal Heuberger" are the same author for the owner's ruling (the issues and the docs use different names).
 5. The two descriptions of the sandwich type in section 4: which one the Tank Archives page supports.
+6. A lead not followed in this note: `research_notes/GDD phase 4/burma-road-photographs.md` (lines 36, 90, 93) describes
+   NLI/Rothenberg photographs of June 1948 showing improvised armoured trucks on the Burma Road, one with firing slits.
+   It bears on whether the sandwich truck fits a Burma Road convoy; open those photographs before deciding.
