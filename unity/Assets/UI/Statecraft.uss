@@ -347,7 +347,12 @@ Button:disabled { color: var(--ink-dim); border-color: rgba(120, 120, 120, 0.4);
 .info-gdd { flex-direction: column; width: 380px; flex-shrink: 0; margin-left: 14px; padding-left: 14px; border-left-width: 1px; border-color: var(--gold-dim); }
 .info-gdd-line { font-size: 17px; flex-shrink: 1; }
 .info-gdd-row { flex-wrap: wrap; align-items: center; }
-.info-gdd Button { margin: 2px 6px 2px 0; font-size: 17px; white-space: normal; flex-shrink: 1; }
+.info-projects { flex-direction: column; }
+.info-gdd Button, .info-projects Button { margin: 2px 6px 2px 0; font-size: 17px; white-space: normal; flex-shrink: 1; }
+/* Shorter buttons and lines than the GDD column's: the project part sits under a city's facts and must keep the panel clear of the
+   left column on a phone (InfoPanelLayoutTests, #1122). */
+.info-projects Button { padding-top: 2px; padding-bottom: 2px; margin-top: 0; margin-bottom: 1px; }
+.info-projects Label { margin-top: 0; margin-bottom: 0; padding-top: 1px; padding-bottom: 1px; }
 /* Before a hex is chosen only the hint shows (InfoPanelPresenter sets info-empty): a one-line chip that hugs its text, as
    the promo shows no panel until a tile is chosen (HUD round 1, #398). */
 .info-panel.info-empty { min-height: 0; width: auto; padding: 8px 16px; }
@@ -849,6 +854,6 @@ Button.settings-choice-selected { -unity-font-definition: url("project://databas
    panel keeps its 520 px and the GDD part stacks under the hex's facts, clear of the minimap. Last, so they win over the
    rules above at equal specificity. */
 .lang-he .info-gdd { margin-left: 0; padding-left: 0; border-left-width: 0; margin-right: 14px; padding-right: 14px; border-right-width: 1px; }
-.lang-he .info-gdd Button { margin: 2px 0 2px 6px; }
+.lang-he .info-gdd Button, .lang-he .info-projects Button { margin: 2px 0 2px 6px; }
 .hud-two-row .info-panel.info-gdd-shown { width: 520px; flex-wrap: wrap; }
 .hud-two-row .info-gdd { width: 100%; margin: 8px 0 0 0; padding: 8px 0 0 0; border-left-width: 0; border-right-width: 0; border-top-width: 1px; }

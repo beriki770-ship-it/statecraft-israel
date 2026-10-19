@@ -596,6 +596,14 @@ namespace Statecraft.Sim
         public string Id { get; set; } = "";
         /// <summary>The phrase the player reads in a sentence ("a transit camp").</summary>
         public string Name { get; set; } = "";
+        /// <summary>The Hebrew UI's name for the kind, a noun ("מעברה"), or "" for none: the UI then shows <see cref="Name"/>
+        /// (#1122, owner ruling 3). A draft until a native speaker reviews it (#564).</summary>
+        public string NameHe { get; set; } = "";
+        /// <summary>"agent-checked" while <see cref="NameHe"/> waits for a native speaker's review (#564); "" once reviewed.</summary>
+        public string NameHeReview { get => nameHeReview ?? ""; set => nameHeReview = value ?? ""; }
+        /// <summary>Whether the row sets name_he_review at all, so a blank flag is refused rather than read as "reviewed".</summary>
+        [YamlIgnore] public bool NameHeReviewGiven => nameHeReview != null;
+        string? nameHeReview;
         /// <summary>IL millions, paid in full at the start (Q-PROJ-1).</summary>
         public double Cost { get; set; }
         /// <summary>Turns to build, the turn of the order the first (D-A3).</summary>

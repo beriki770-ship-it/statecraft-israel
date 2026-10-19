@@ -1241,6 +1241,10 @@ namespace Statecraft.Sim
                 if (x.Capacity < 0) throw new ContentException(pf, at + ".capacity", "must not be negative");
                 if (x.JobSlots < 0) throw new ContentException(pf, at + ".job_slots", "must not be negative");
                 if (!(x.Condition >= -1 && x.Condition <= 1)) throw new ContentException(pf, at + ".condition", "must be a number from -1 to 1");
+                // #1122 (owner ruling 3): a draft Hebrew name is marked pending a native speaker's review (#564).
+                if (x.NameHeReviewGiven && x.NameHeReview != HebrewReview.AgentChecked)
+                    throw new ContentException(pf, at + ".name_he_review", $"must be {HebrewReview.AgentChecked} (pending a native speaker's review, #564), or left out once a person has reviewed the name");
+                if (x.NameHeReviewGiven && string.IsNullOrWhiteSpace(x.NameHe)) throw new ContentException(pf, at + ".name_he", "required: name_he_review is set but the name is empty");
                 // R-PROJ-005: a kind whose resource no city has could never be built.
                 if (!string.IsNullOrEmpty(x.Requires) && !c.Cities.Any(k => k.Resources.Any(r => r.Id == x.Requires)))
                     throw new ContentException(pf, at + ".requires", $"no city in cities.yaml has the resource '{x.Requires}'");

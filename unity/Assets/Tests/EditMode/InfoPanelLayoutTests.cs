@@ -133,7 +133,8 @@ public class InfoPanelLayoutTests
     }
 
     /// <summary>GDD Phase 1 PR 8 (#381): the city panel with two training cohorts (a Cancel each) and the
-    /// designated site's panel (two idle halutz groups, so two Build buttons), at every window size in English and Hebrew:
+    /// designated site's panel (two idle halutz groups, so two Build buttons), and a hex one city can build a city project on
+    /// (#1122; the city also with the ma'abarot policy, so every project kind is a button), at every window size in English and Hebrew:
     /// the panel lies in the window, clear of the minimap, the left column and the top bar, and every shown label and
     /// button lies inside the panel with its text fitting its box.</summary>
     [UnityTest]
@@ -142,20 +143,25 @@ public class InfoPanelLayoutTests
         var he = UiText.Parse(AssetDatabase.LoadAssetAtPath<TextAsset>(UiPaths.StringsHebrew).text, "strings.he.yaml");
         var city = C.SettlementHexes.Single(s => s.Id == "tel_aviv");
         var site = C.Sites.Single(s => s.Id == "mefalsim");
+        var start = GameSession.New(C, GoldenRun.Seed, Mode.Historical).State;
+        var lone = C.Hexes.Where(x => x.Land && Projects.CitiesFor(C, start, x.Q, x.R).Count == 1).OrderBy(x => x.Q).ThenBy(x => x.R).First();
         var problems = new List<string>();
         foreach (var hebrew in new[] { false, true })
             foreach (var (w, h) in Windows)
-                foreach (var (what, q, r) in new[] { ("city", city.Q, city.R), ("site", site.Q, site.R) })
+                foreach (var (what, q, r) in new[] { ("city", city.Q, city.R), ("site", site.Q, site.R), ("projects", lone.Q, lone.R), ("city with the policy", city.Q, city.R) })
                 {
                     var g = GameSession.New(C, GoldenRun.Seed, Mode.Historical);
                     var s = g.State;
                     for (int k = 0; k < 2; k++) { var id = s.NextId++; s.Cohorts.Add(id, new Cohort(id, k == 0 ? "recruit" : "halutz", "tel_aviv", 12, 4)); }
                     for (int k = 0; k < 2; k++) { var id = s.NextId++; s.Units.Add(id, new Unit(id, "halutz", city.Q, city.R)); }
+                    // With the ma'abarot policy every project kind is a Build button: the city's tallest project part (#1122).
+                    if (what == "city with the policy") s.Policies[MapActions.MaabarotPolicy] = 1;
                     var at = $"{(hebrew ? "he" : "en")} {w}x{h} {what}";
                     yield return Rendered(w, h, g, (root, info) => info.Show(q, r), root =>
                     {
                         var panel = root.Q("info-panel"); var window = root.worldBound;
-                        if (root.Q(GddHexPanel.HostName).resolvedStyle.display != DisplayStyle.Flex) { problems.Add($"{at}: precondition: the GDD part shows"); return; }
+                        var host = what == "projects" ? GddHexPanel.ProjectsHostName : GddHexPanel.HostName;
+                        if (root.Q(host).resolvedStyle.display != DisplayStyle.Flex) { problems.Add($"{at}: precondition: {host} shows"); return; }
                         if (!Inside(panel.worldBound, window)) problems.Add($"{at}: the panel {panel.worldBound} leaves the window {window}");
                         foreach (var other in new[] { "minimap", "left-column", "top-bar" })
                             if (panel.worldBound.Overlaps(root.Q(other).worldBound)) problems.Add($"{at}: the panel {panel.worldBound} overlaps the {other} {root.Q(other).worldBound}");

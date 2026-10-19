@@ -33,6 +33,11 @@ adds a line under **Unreleased**; CI's `Changelog` job checks this (see `CONTRIB
   info panel's actions. Covering screens and the start screen take the stop out of reach, and mouse and touch clicks pass
   through it as before. The empty info panel's hint says so in English and Hebrew, and keeps the right-drag (Hebrew
   flagged for a native speaker's review; Fixes #1116, refs #41).
+- City projects in the info panel: on a hex a city can build on, the panel names the city that builds (the player picks
+  when several are in reach) and offers Build for each `projects.yaml` kind with its cost and turns, or shows the sim's
+  own refusal in English or Hebrew; a project there shows its turns left and Cancel, or its finishing day. The sim adds
+  `Projects.CitiesFor` (cities in reach, by the one range check) and `Projects.CheckCityReason` (structured refusals;
+  `CheckCity`'s English and order unchanged), and the kinds gain draft Hebrew names for native review (#564; refs #1122).
 ### Fixed
 - Hebrew budget vote labels use the legislature as their subject, following the native review, so names beginning with ה no longer follow an uninflected ב־ prefix (refs #564).
 - Keep the opt-in hex terrain overlay out of automatic neighboring with the real map terrain.

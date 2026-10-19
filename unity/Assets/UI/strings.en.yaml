@@ -370,6 +370,16 @@ city.groups: "{0} groups"
 city.turns_one: "1 turn"
 city.turns: "{0} turns"
 city.cancel_ordered: "Cancel ordered"
+# City projects on the chosen hex (#1122): the city that builds it, Build for each content kind (its name, then cost and
+# turns from content), the order, and a project under way or finished. Refusals the map actions share use their
+# info.map_action_reason.* strings; these are the city projects' own.
+city.project_for: "Project for {0}"
+city.project_start: "Build {0}: {1}, {2}"
+city.project_ordered: "Ordered: {0}"
+city.project_building: "{0} for {1}: {2} left"
+city.project_built: "{0} for {1}, finished on {2}"
+city.project_reason.no_resource: "{0} has no {1} for {2}"
+city.project_reason.turn_cap: "No more than {0} map actions and city projects in one turn"
 site.available: "A designated site for a new yishuv"
 site.group: "halutz group {0}"
 site.build: "Build a yishuv with {0}: {1}, {2}"
