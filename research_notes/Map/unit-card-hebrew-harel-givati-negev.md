@@ -44,14 +44,14 @@ Status of every row: `agent-checked`.
 |---|---|---|---|---|
 | anchor `place` | Sha'ar HaGai | שער הגיא | Ministry of Defence, Izkor, Harel memorial rock: "בין שער הגיא לסריס" [3] | |
 | `first_commander` | Yitzhak Rabin | יצחק רבין | Ministry of Education, "Yitzhak Rabin": "הוא היה מפקד חטיבת הראל בחזית ירושלים" [4]; he.wiki "חטיבת הראל" (pointer only): "ולמפקדה הראשון מונה יצחק רבין" [5] | The Education page says he commanded Harel; that he was its *first* commander comes from he.wiki only (as the English row's own sources do). |
-| `sector` | All units in the Jerusalem corridor and hills; in the first half of May 1948 it took the corridor and opened the road to Sha'ar HaGai. Later it fought in Operation Horev. | כל היחידות בפרוזדור ירושלים ובהרי ירושלים; במחצית הראשונה של מאי 1948 כבשה את הפרוזדור ופתחה את הדרך עד שער הגיא. בהמשך לחמה במבצע חורב. | פרוזדור ירושלים, הרי ירושלים, שער הגיא: Izkor [3]. מבצע חורב: he.wiki "מבצע חורב" (pointer only), which also has Harel's raids in it [6] | "the Jerusalem corridor and hills" is spelled out as "בפרוזדור ירושלים ובהרי ירושלים" (Izkor's two terms) rather than a shorter "ובהריו", for clarity. "to Sha'ar HaGai" as "עד שער הגיא", as he.wiki "חטיבת הראל" phrases it [5]. |
+| `sector` | All units in the Jerusalem corridor and hills; in the first half of May 1948 it took the corridor and opened the road to Sha'ar HaGai. Later it fought in Operation Horev. | כל היחידות בפרוזדור ירושלים ובהרי ירושלים; במחצית הראשונה של מאי 1948 כבשה את הפרוזדור ופתחה את הדרך עד שער הגיא. בהמשך לחמה במבצע חורב. | פרוזדור ירושלים, הרי ירושלים, שער הגיא: Izkor [3]. מבצע חורב: he.wiki "מבצע חורב" (pointer only), which names the Harel Brigade among Horev's forces [6] | "the Jerusalem corridor and hills" is spelled out as "בפרוזדור ירושלים ובהרי ירושלים" (Izkor's two terms) rather than a shorter "ובהריו", for clarity. "to Sha'ar HaGai" as "עד שער הגיא", as he.wiki "חטיבת הראל" phrases it [5]. |
 
 ### Negev (`negev`)
 
 | Field | Current English | Proposed Hebrew | Source for each proper name | Notes |
 |---|---|---|---|---|
 | anchor `place` | Nir Am (Mekorot camp) | ניר עם (מחנה מקורות) | ניר עם: CBS 348 [1] (also `content/map/locations_1948.yaml`). מחנה מקורות: he.wiki "חטיבת הנגב" (pointer only): "מטה החטיבה במחנה מקורות שליד ניר עם" [7] | מחנה מקורות is unresolved, see section 3. |
-| `first_commander` | Nahum Sarig | נחום שריג | Haganah lexicon, "Givati": "מפקד חטיבת הנגב נחום שריג" [2] | |
+| `first_commander` | Nahum Sarig | נחום שריג | Haganah lexicon, "Givati": "מפקד חטיבת הנגב נחום שריג" [2]; he.wiki "חטיבת הנגב" (pointer only): "למפקד החטיבה התמנה נחום שריג" [7] | The lexicon names him as the brigade's commander, not as its *first*; that rests on he.wiki [7] (and the English row's own sources). |
 | `sector` | The Negev, in two sectors divided by the Beersheba-Gaza road; brigade headquarters at the Mekorot camp near Nir Am. | הנגב, בשתי גזרות שכביש באר שבע–עזה מפריד ביניהן; מטה החטיבה במחנה מקורות שליד ניר עם. | הנגב: Haganah lexicon ("חטיבת הנגב") [2]. באר שבע: CBS 9000 [1]. עזה: he.wiki pointer; `content/map/settlements_1948.yaml` already writes עזה. ניר עם: CBS 348 [1]. מחנה מקורות: he.wiki only [7] | "גזרות" is the military word for sectors; he.wiki "חטיבת הנגב" uses "גזרה" in the same sense. The en dash in "באר שבע–עזה" follows the English hyphen; a reviewer may prefer a plain hyphen. |
 
 ## 2. The other English values in the same lines (for the schema PR)
@@ -78,8 +78,8 @@ Status: `agent-checked`. No proper names here, only dates and numbers.
 2. **מבצע חורב**: the spelling is certain enough to use, but the only page read for it is he.wiki [6]. A heritage-site
    page would be a better source.
 3. **עזה**: he.wiki only; the CBS list holds Israeli localities only.
-4. **Rabin as Harel's *first* commander**: the primary page read [4] says he commanded the brigade, not that he was the
-   first; that rests on he.wiki [5] (and the English row's own sources).
+4. **"First" commander, Harel and Negev**: the non-wiki pages read say Rabin [4] and Sarig [2] commanded their
+   brigades, not that each was the first; that rests on he.wiki [5] [7] (and the English rows' own sources).
 5. **Givati's founding month**: the Haganah lexicon says November 1947 [2]; the row says December 1947. Not changed here.
 6. **Negev's number "חטיבה 12"**: no Hebrew page read for it.
 7. For every row: a native reader confirms the wording reads naturally inside the card templates, and the #564 review
