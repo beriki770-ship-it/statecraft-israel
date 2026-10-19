@@ -36,6 +36,7 @@ public class HebrewUiTests
     {
         EditorSceneManager.NewScene(NewSceneSetup.EmptyScene, NewSceneMode.Single);
         if (Directory.Exists(saveDir)) Directory.Delete(saveDir, true);
+        SettingsPresenter.VerifiedShapes.Remove(150);                  // the language switch's stand-in (the game ships none)
     }
 
     // --- The flag ---------------------------------------------------------------------------------------------------
@@ -114,6 +115,7 @@ public class HebrewUiTests
         game.Store = new SaveStore(saveDir);
         var settings = new SettingsStore(Path.Combine(saveDir, "settings"));
         game.Settings = settings;
+        SettingsScreenTests.VerifyOnEveryShape(150);                   // the game verifies no scale above 100% yet (#1011)
         game.Begin(Inputs, 0);                                         // no file and no flag: English
         Assert.IsFalse(Ui.Q("root").ClassListContains(UiLanguage.HebrewClass));
         Assert.IsTrue(Ui.Q<Button>("settings-language-en").ClassListContains(SettingsPresenter.SelectedClass), "English is marked");

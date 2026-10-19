@@ -14,6 +14,11 @@ adds a line under **Unreleased**; CI's `Changelog` job checks this (see `CONTRIB
   priced by the sim's new `AttentionSystem.Price`/`Left`, which `SimBridge` now uses too); the UI only reads it (refs #1109).
 - Unit cards show the sourced Hebrew unit name in the Hebrew UI, with an English fallback. INS Haganah gains its
   sourced Hebrew name, still flagged for a native speaker's review (#902).
+- Settings: a UI scale choice, 100%, 125% or 150%, default 100% (refs #40, third slice; owner decision of 18 Oct 2026).
+  It scales the whole UI at once (the one panel's reference resolution divided by the scale) and is kept in
+  `settings.txt` (key `uiscale`), never in the sim or the save. Only the scales verified to fit the window are
+  offered, 100% always (owner ruling of 19 Oct 2026 on #1011): the layout suites do not pass at 125% or 150% yet, so
+  for now the row offers 100% alone, and a saved 125% or 150% starts at 100% (the file keeps the choice).
 ### Fixed
 - The Cabinet, Budget, Defence, Why, How to play and Settings screens each gain an X in the header that closes
   them (the same close as Escape): a phone has no Escape key, and re-tapping the lit rail button was the only way
@@ -25,9 +30,6 @@ adds a line under **Unreleased**; CI's `Changelog` job checks this (see `CONTRIB
   approved all four values (#781); they are labelled design values. An event option can also move the stock with an
   `arms` effect, in whole units and never below 0, and the no-gain rule for sensitive events covers it (R-EFX-001,
   R-EFX-002); no event uses it yet. The goldens move only by the new `arms=12` line.
-- Settings: a UI scale choice, 100%, 125% or 150%, default 100% (refs #40, third slice; owner decision of 18 Oct 2026).
-  It scales the whole UI at once (the one panel's reference resolution divided by the scale) and is kept in
-  `settings.txt` (key `uiscale`), never in the sim or the save.
 
 ## [0.1.2] - 2026-10-19
 

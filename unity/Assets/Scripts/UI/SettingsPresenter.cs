@@ -1,5 +1,6 @@
 #nullable enable
 using System;
+using System.Collections.Generic;
 using System.IO;
 using Statecraft.Game.Map;
 using Statecraft.Sim;
@@ -19,11 +20,19 @@ namespace Statecraft.Game.UI
         public const string TiltShiftKey = "tiltshift", QualityKey = "quality", LanguageKey = "lang", UiScaleKey = "uiscale", SelectedClass = "settings-choice-selected";
         /// <summary>The owner's UI scales (#40, 18 Oct 2026), in percent; the first is the default.</summary>
         public static readonly int[] UiScales = { 100, 125, 150 };
-        readonly SettingsStore? store; readonly UiText text; readonly VisualElement screen; readonly Button tiltShift;
+        /// <summary>The owner's ruling on #1011 (19 Oct 2026): Settings offers only the UI scales verified to fit, and 100% always,
+        /// as the fallback. A scale above 100% is verified on the window shapes (width / height, narrowest to widest) where
+        /// the layout suites pass with the panel at that scale: UiLayoutTests, InfoPanelLayoutTests, TopBarScoreLayoutTests,
+        /// HebrewUiTests, LeftColumnTests, PromoScreensTests and TopBarTests, whose windows run from 360x800 to 2560x1080.
+        /// None is yet: at 125% and 150% those suites fail on every window shape (PR #1011, 18 Oct 2026), so the game offers
+        /// 100% only. To offer a scale, run the suites at it and enter the narrowest and widest shapes where they all pass.
+        /// Tests enter shapes here to drive the rule and put the table back.</summary>
+        public static readonly Dictionary<int, (float narrowest, float widest)> VerifiedShapes = new Dictionary<int, (float, float)>();
+        readonly SettingsStore? store; readonly UiText text; readonly VisualElement root, screen; readonly Button tiltShift;
         readonly (Button button, GraphicsQuality.Choice choice, Action pick)[] quality;
         readonly (Button button, string language, Action pick)[] languages;
         readonly Action<string>? switchLanguage;
-        readonly PanelSettings? panel; readonly Vector2Int reference; int uiScale = UiScales[0];
+        readonly PanelSettings? panel; readonly Vector2Int reference; int uiScale = UiScales[0], chosen = UiScales[0];
         readonly (Button button, int percent, Action pick)[] scales;
 
         /// <param name="store">Where the choice is kept; null keeps nothing (the option still works until the page closes).</param>
@@ -32,7 +41,7 @@ namespace Statecraft.Game.UI
         /// <param name="panel">The UI's panel, which the UI scale scales; null leaves the scale alone.</param>
         public SettingsPresenter(VisualElement root, UiText text, SettingsStore? store, Action<string>? switchLanguage = null, PanelSettings? panel = null)
         {
-            this.store = store; this.text = text; this.switchLanguage = switchLanguage;
+            this.store = store; this.text = text; this.switchLanguage = switchLanguage; this.root = root;
             screen = root.Q<VisualElement>("screen-settings");
             screen.Q<Label>("settings-screen-title").text = text["settings.title"];
             screen.Q<Label>("settings-tiltshift-label").text = text["settings.tiltshift"];
@@ -83,7 +92,11 @@ namespace Statecraft.Game.UI
             });
             var storedScale = store?.Read(UiScaleKey);
             int startScale = Array.Find(UiScales, p => p.ToString() == storedScale);   // 0 when the file names none of them
-            ApplyScale(startScale > 0 ? startScale : UiScales[0]);
+            chosen = startScale > 0 ? startScale : UiScales[0];
+            ApplyScale(Fits(chosen) ? chosen : UiScales[0]);
+            // The fit depends on the window's shape, which a resize changes: the offer and the applied scale follow the
+            // root's geometry (as TopBarInset does). The file keeps the choice, so a shape that holds it again gets it back.
+            root.RegisterCallback<GeometryChangedEvent>(OnGeometry);
             ScreenNav.OnOpened(screen, Show);   // a dev toggle may have changed it while the screen was shut
             Show();
         }
@@ -94,6 +107,7 @@ namespace Statecraft.Game.UI
             foreach (var (b, _, pick) in quality) b.clicked -= pick;
             foreach (var (b, _, pick) in languages) b.clicked -= pick;
             foreach (var (b, _, pick) in scales) b.clicked -= pick;
+            root.UnregisterCallback<GeometryChangedEvent>(OnGeometry);
             if (panel != null) panel.referenceResolution = reference;
             if (screen.userData is Action) screen.userData = null;
         }
@@ -135,6 +149,7 @@ namespace Statecraft.Game.UI
 
         void PickScale(int percent)
         {
+            chosen = percent;
             ApplyScale(percent);
             Show();
             try { store?.Write(UiScaleKey, percent.ToString()); }
@@ -146,6 +161,23 @@ namespace Statecraft.Game.UI
 
         /// <summary>A UI scale's level (1.25 for 125%): the stored values and the buttons' names are whole percents.</summary>
         static double Level(int percent) => percent / 100.0;
+
+        /// <summary>Whether the scale is verified to fit this window (VerifiedShapes); 100% always is. Before the first
+        /// layout the shape is unknown and a verified scale counts: nothing is drawn yet, and OnGeometry checks again.</summary>
+        bool Fits(int percent)
+        {
+            if (percent == UiScales[0]) return true;
+            if (!VerifiedShapes.TryGetValue(percent, out var shapes)) return false;
+            float shape = root.layout.width / root.layout.height;
+            return !(shape > 0) || (shape >= shapes.narrowest && shape <= shapes.widest);
+        }
+
+        void OnGeometry(GeometryChangedEvent e)
+        {
+            var fit = Fits(chosen) ? chosen : UiScales[0];
+            if (fit != uiScale) ApplyScale(fit);
+            Show();
+        }
 
         void ApplyScale(int percent)
         {
@@ -160,7 +192,11 @@ namespace Statecraft.Game.UI
             tiltShift.text = text[TiltShift.Enabled ? "settings.on" : "settings.off"];
             foreach (var (b, c, _) in quality) b.EnableInClassList(SelectedClass, c == GraphicsQuality.Current);
             foreach (var (b, l, _) in languages) b.EnableInClassList(SelectedClass, l == text["ui.lang"]);
-            foreach (var (b, p, _) in scales) b.EnableInClassList(SelectedClass, p == uiScale);
+            foreach (var (b, p, _) in scales)
+            {
+                b.EnableInClassList(SelectedClass, p == uiScale);
+                b.style.display = Fits(p) ? DisplayStyle.Flex : DisplayStyle.None;
+            }
         }
     }
 }
