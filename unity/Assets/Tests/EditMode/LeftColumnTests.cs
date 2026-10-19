@@ -308,6 +308,7 @@ public class LeftColumnTests
                 });
         Assert.IsEmpty(problems, string.Join("\n", problems));
     }
+
     /// <summary>#1109: the Cabinet disc wears a small gold badge, and its tip says why, while the sim has a vacant seat the
     /// player can fill this turn (SimBridge.Vacancies, Cabinet.Vacancies); queuing an appointment to every such seat takes
     /// it off. No other disc has a badge. Education is vacant from 19 May 1951 (as Minority Affairs, which has no holder

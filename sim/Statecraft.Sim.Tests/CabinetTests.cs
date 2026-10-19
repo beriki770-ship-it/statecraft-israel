@@ -347,6 +347,7 @@ public class CabinetTests
         s.Date = new DateTime(1951, 6, 1);
         Assert.Equal("David Remez died on 19 May 1951", Cabinet.Check(c, s, "transportation_minister", "remez"));
     }
+
     /// <summary>#1109: the side menu's Cabinet badge reads Cabinet.Vacancies, the playable seats with no holder that someone
     /// may be appointed to now and that no order in this turn's queue fills. Education is vacant from Remez's death (19 May
     /// 1951) to Dinur (8 October 1951); the presidency, vacant in December 1952, is the Knesset's to fill, not the player's.</summary>
