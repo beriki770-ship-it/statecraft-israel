@@ -19,7 +19,9 @@ adds a line under **Unreleased**; CI's `Changelog` job checks this (see `CONTRIB
   (R-ALT-004; refs #949, #939). The 30 records are copied from the owner-checked
   `research_notes/Alternate timelines/roads-checked.md` with the owner's road rulings of 18 October 2026: roads 1, 22
   and 29 take the first day of their source's range, road 8 keeps 8 August 1950, road 25 (`push_to_hebron`) becomes
-  `design`, and the Latrun option now reads "Attack Latrun before the cabinet votes", `debated`.
+  `design`, and the Latrun option now reads "Attack Latrun before the cabinet votes", `debated`. Road 12
+  (`frumkin_commission/dismiss`) is `design` too, by the owner's ruling of 19 October 2026, with no proposer and no
+  date; the conflicting committee dates stay a research gap in the note.
 ### Fixed
 - The Cabinet, Budget, Defence, Why, How to play and Settings screens each gain an X in the header that closes
   them (the same close as Escape): a phone has no Escape key, and re-tapping the lit rail button was the only way

@@ -49,7 +49,7 @@ appear). The owner's 18 October 2026 rulings on roads 1, 8, 19, 22 and 25 are re
 
 ## Summary
 
-Basis count: **proposed 1, debated 9, design 20** (30 roads: every non-historical option on `main` at the
+Basis count: **proposed 1, debated 8, design 21** (30 roads: every non-historical option on `main` at the
 branch point).
 
 | # | Road | Basis | Qualifying expected consequences | Note |
@@ -65,7 +65,7 @@ branch point).
 | 9 | `education_registration_1951/concede` | debated | none |  |
 | 10 | `first_truce/refuse` | design | 4 | Consequences are on record but no Israeli advocate: no follow-up card under Q-ALT-3 (a) |
 | 11 | `forex_crisis_1951/cut_imports` | design | 3 | The government did cut imports, but alongside the aid request; nobody is recorded proposing the cuts instead of it |
-| 12 | `frumkin_commission/dismiss` | debated | 2 | Borderline; the owner may prefer `design` |
+| 12 | `frumkin_commission/dismiss` | design | 2 | Owner ruling, 19 Oct 2026 (#949): `design`, no proposer and no date; the committee's date stays a research gap (see road 12) |
 | 13 | `hula_drainage/halt` | debated | none | Borderline: the reply on record asks for delay; the owner may prefer `design` |
 | 14 | `idf_founding/separate_units` | design | 1 |  |
 | 15 | `iraqi_exodus/pace` | design | 2 |  |
@@ -255,10 +255,11 @@ None found that qualifies. The one recorded fear in the opened sources runs the 
 ### 12. `frumkin_commission/dismiss`
 
 - Event: `content/events/frumkin_commission.yaml`, window 1950-01-01 to 1950-05-09, soft anchor; historical option `inquiry`.
-- Basis: **debated**. By: the Ministry of Education and Culture (its own inquiry, published in Davar), and the Ministers of Police and the Interior (in the Knesset). When: 17 January 1950 (Davar); February 1950 (Knesset, after the arrests of 14 February).
+- Basis: **design** (owner ruling, 19 October 2026, #949; the AI pass had proposed `debated`). By: none recorded, by the owner's ruling. When: n/a, by the owner's ruling. What the sources do show, kept as evidence: the Ministry of Education and Culture's own inquiry (Davar, 17 January 1950) and the Ministers of Police and the Interior (in the Knesset, February 1950, after the arrests of 14 February) rejected the charges.
+  - **Research gap (open):** the sources conflict on the date the cabinet decided on the committee (17 January 1950 in the event file and in one passage of Levitan; "a week later", about 24 January, elsewhere in Levitan; 19 January in JTA), and no source for a proposer was opened. The owner's decision accepts no specific committee date or historical attribution; a person must settle the date before this road can be recorded as `debated`.
   - Evidence: "חקירת משרד החינוך מפריכה את התלונות על רדיפות דת במחנות" (Claude's translation: *The Education Ministry's inquiry refutes the complaints of religious persecution in the camps*; the Davar headline of 17.1.50 as quoted in Levitan, "The First State Commission of Inquiry", Niv HaMidrasha 20-21, https://www.daat.ac.il/daat/kitveyet/niv/levitan-1.htm, opened 2026-10-17)
   - Evidence: "לא מצאו כל הצדקה לטענות נגד מנהלי ועובדי המחנות" (Claude's translation: *found no justification for the charges against the camps' managers and staff*; the Police Minister reporting his and the Interior Minister's camp visits, same Levitan article)
-  - Note: both are offices on the government side rejecting the charges, which is the option's first half. Nobody is recorded proposing that the cabinet refuse an inquiry; the cabinet discussed the camps on 17.1.50 and, per Levitan, decided on a committee "a week later", though elsewhere the same article puts the decision on 17.1.50 (JTA in the event file puts the appointment on 19 January; the event file says 17 January; the sources conflict and a person must settle it). The source is historiography quoting contemporary press and Knesset remarks; the Knesset minutes themselves could not be opened. A borderline case: the owner may prefer `design`.
+  - Note: both are offices on the government side rejecting the charges, which is the option's first half. Nobody is recorded proposing that the cabinet refuse an inquiry; the cabinet discussed the camps on 17.1.50 and, per Levitan, decided on a committee "a week later", though elsewhere the same article puts the decision on 17.1.50 (JTA in the event file puts the appointment on 19 January; the event file says 17 January; the sources conflict and a person must settle it). The source is historiography quoting contemporary press and Knesset remarks; the Knesset minutes themselves could not be opened. The owner chose `design` for this road (19 October 2026).
 - Expected consequences:
 
 | View-holder | Date | Excerpt (verbatim) | Source, opened | Strength |
@@ -627,7 +628,7 @@ Before anyone writes "checked by" at the top (plan Task 3, Step 3):
 3. **The bases at the edge.** Road 23 (Hiram: `proposed` rests only on Kurzman 1970, p. 684, through Wikipedia; read
    the book or a diary entry). Road 25 (Yoav: the owner ruled `design` on 18 October 2026 because the source gives no
    date (#949); also the day of the war diary entry, vol. III, p. 819, the study's footnote 171, which the consequence
-   row needs). Roads 12, 13 and 22 (`debated` or `design`?). Road 30 (one diary entry). Road 8 (only a modified ration is on record). Road 1 rows 1 and 3 (do they attach to `compromise`, or to the arms import under both options?). Road 12 (the date of the cabinet's committee decision: 17, 19 or about 24 January 1950). Road 1 (the request came
+   row needs). Roads 13 and 22 (`debated` or `design`?). Road 30 (one diary entry). Road 8 (only a modified ration is on record). Road 1 rows 1 and 3 (do they attach to `compromise`, or to the arms import under both options?). Road 12 (the date of the cabinet's committee decision: 17, 19 or about 24 January 1950). Road 1 (the request came
    from the Irgun, the deciding side only answered it). Road 11 (`design`: a measure taken alongside the aid request;
    confirm no body proposed it instead of the aid request). Road 9 (a cabinet dispute, not the religious parties' own demand).
 4. **The Knesset sittings that could not be opened** (list above; the PDFs are reachable again as of 18 October 2026),

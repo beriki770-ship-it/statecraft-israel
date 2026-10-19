@@ -20,12 +20,11 @@ options:
       - { target: morale, delta: 0.02 }
   - id: dismiss
     text: Dismiss the charges and keep the uniform system
-    # Who proposed it: research_notes/Alternate timelines/roads-checked.md (checked by the owner, 19 October 2026).
+    # Basis and sources: research_notes/Alternate timelines/roads-checked.md (checked by the owner, 19 October 2026).
     alternative:
-      basis: debated
-      by: the Ministry of Education and Culture, and the Ministers of Police and the Interior
-      # The Davar date of the ministry's own inquiry; the ministers' Knesset remarks follow in February 1950.
-      date: 1950-01-17
+      basis: design
+      # Owner ruling, 19 October 2026 (#949): design, no proposer and no date; the sources conflict on the
+      # committee's date (17 or 19 January 1950), and the note keeps that as a research gap.
       sources:
         - { url: "https://www.daat.ac.il/daat/kitveyet/niv/levitan-1.htm", checked: 2026-10-17 }
     effects:
