@@ -27,6 +27,9 @@ adds a line under **Unreleased**; CI's `Changelog` job checks this (see `CONTRIB
   priced by the sim's new `AttentionSystem.Price`/`Left`, which `SimBridge` now uses too); the UI only reads it (refs #1109).
 - Unit cards show the sourced Hebrew unit name in the Hebrew UI, with an English fallback. INS Haganah gains its
   sourced Hebrew name, still flagged for a native speaker's review (#902).
+- A finished city project shows on the map: a built housing project or transit camp is drawn on its hex the way the
+  map action of the same kind is (the box, or the ma'abara kit for a camp), and a project still being built is not.
+  `State.Placements` is unchanged; an industry project has no approved art yet and is not drawn (#1123, refs #739).
 ### Fixed
 - Keep the opt-in hex terrain overlay out of automatic neighboring with the real map terrain.
 - Keep the capsule-collider dependency used while creating hex unit stand-ins in stripped player builds; the temporary collider is still removed.
