@@ -23,6 +23,13 @@ adds a line under **Unreleased**; CI's `Changelog` job checks this (see `CONTRIB
   (#564). In the Hebrew UI the card shows them, with the minister's Hebrew name in the placeholder, and keeps the English
   for any field that has no Hebrew. The Altalena card is the first, an AI translation for the native reviewer; the other
   cards follow in #1065 and #1066. The content hash moves (an older save warns once); no golden does.
+- The national Arms pool in the GDD loop (R-ARMS-001 to R-ARMS-003; fixes #781): one Arms is the equipment package for a
+  1,000-person recruit group, and the state holds 12 on 15 May 1948. A `BuyArms(count)` order pays IL 1m an Arms,
+  borrows a short Treasury and costs 1 Attention whatever the count; recruit training takes 1 Arms a group when it
+  starts and is refused with a reason without one; cancelling the group gives those Arms back (#1047). The owner
+  approved all four values (#781); they are labelled design values. An event option can also move the stock with an
+  `arms` effect, in whole units and never below 0, and the no-gain rule for sensitive events covers it (R-EFX-001,
+  R-EFX-002); no event uses it yet. The goldens move only by the new `arms=12` line.
 
 ## [0.1.2] - 2026-10-19
 
