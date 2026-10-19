@@ -17,6 +17,7 @@ adds a line under **Unreleased**; CI's `Changelog` job checks this (see `CONTRIB
   golden is re-pinned.
 
 ### Fixed
+- Fractional site and city-project carry is hashed as IEEE bits on every runtime, avoiding different decimal spellings on .NET and Unity Mono; gameplay progress is unchanged.
 - Site construction forecasts use the current minister rate and saved fractional work, including pioneer promotion.
 - On a notched phone the HUD and the panels keep clear of the notch and the home indicator: the root is padded by
   the browser's `env(safe-area-inset-*)` values (the camera's top inset and the map labels follow as before), and it

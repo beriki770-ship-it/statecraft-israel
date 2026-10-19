@@ -197,11 +197,11 @@ namespace Statecraft.Sim
         public SiteWork WithProgress(int turnsLeft, double progress) => new SiteWork(Site, Unit, turnsLeft, BuiltOn, progress);
 
         /// <summary>The record as the state hash writes it: "id=b,UNIT,TURNSLEFT" while building, ",PROGRESS" appended when
-        /// it is not 0 (R-MIN-002), "id=done,yyyy-MM-dd" once built.</summary>
+        /// it is not 0, as IEEE bits like the other hashed doubles (R-MIN-002), "id=done,yyyy-MM-dd" once built.</summary>
         public string Canonical() => BuiltOn is DateTime on
             ? Site + "=done," + on.ToString("yyyy-MM-dd", CultureInfo.InvariantCulture)
             : string.Format(CultureInfo.InvariantCulture, "{0}=b,{1},{2}", Site, Unit, TurnsLeft)
-                + (Progress == 0 ? "" : "," + Progress.ToString("R", CultureInfo.InvariantCulture));
+                + (Progress == 0 ? "" : "," + BitConverter.DoubleToInt64Bits(Progress).ToString("X16", CultureInfo.InvariantCulture));
     }
 
     /// <summary>A city project (projects.yaml; R-PROJ-001 to R-PROJ-003): <see cref="Kind"/> built for <see cref="City"/> on hex
@@ -239,9 +239,9 @@ namespace Statecraft.Sim
         public CityProject Built(DateTime on) => new CityProject(Id, Kind, City, Q, R, 0, on);
 
         /// <summary>The record as the state hash writes it: "id:KIND@CITY,Q,R/TURNSLEFT" while building, ",PROGRESS"
-        /// appended when it is not 0 (R-MIN-002), "/done,yyyy-MM-dd" once built.</summary>
+        /// appended as IEEE bits when it is not 0 (R-MIN-002), "/done,yyyy-MM-dd" once built.</summary>
         public string Canonical() => string.Format(CultureInfo.InvariantCulture, "{0}:{1}@{2},{3},{4}/", Id, Kind, City, Q, R)
             + (BuiltOn is DateTime on ? "done," + on.ToString("yyyy-MM-dd", CultureInfo.InvariantCulture)
-                : TurnsLeft.ToString(CultureInfo.InvariantCulture) + (Progress == 0 ? "" : "," + Progress.ToString("R", CultureInfo.InvariantCulture)));
+                : TurnsLeft.ToString(CultureInfo.InvariantCulture) + (Progress == 0 ? "" : "," + BitConverter.DoubleToInt64Bits(Progress).ToString("X16", CultureInfo.InvariantCulture)));
     }
 }

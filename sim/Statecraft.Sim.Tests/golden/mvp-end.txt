@@ -150,7 +150,7 @@ cproj[
   3:housing@tel_aviv,-3,19/done,1950-06-15
   4:housing@tel_aviv,-3,20/done,1951-02-15
   5:housing@tel_aviv,-2,18/done,1951-10-15
-  6:housing@tel_aviv,-2,19/4,0.43000000000000016
+  6:housing@tel_aviv,-2,19/4,3FDB851EB851EB88
 next=7
 obj{
   first_new_yishuv=1951-02-15

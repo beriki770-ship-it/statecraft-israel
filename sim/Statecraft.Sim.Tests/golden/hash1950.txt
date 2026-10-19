@@ -118,10 +118,10 @@ units[
 site{
   beit_kama=done,1949-06-15
   beit_shemesh=done,1949-11-15
-  gilat=b,1,4,0.6520000000000001
+  gilat=b,1,4,3FE4DD2F1A9FBE78
 cproj[
   2:housing@tel_aviv,-4,20/done,1949-10-15
-  3:housing@tel_aviv,-3,19/4,0.43000000000000016
+  3:housing@tel_aviv,-3,19/4,3FDB851EB851EB88
 next=4
 food=3003,1001,0
 arms=12

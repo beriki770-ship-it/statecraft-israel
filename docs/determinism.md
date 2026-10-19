@@ -12,7 +12,11 @@ The simulation must produce the same state, bit for bit, on .NET, Unity Mono and
 - **No trigonometry in the sim:** the sim calls only `Math.Abs`, `Math.Min` and `Math.Max`. Geometry that needs
   cos/sin (which hex owns a settlement) is precomputed by `tools/settlement_hexes.py` and read as content.
 - **Canonical hash:** `GameState.Hash()` is SHA-256 over a canonical text. Keys are sorted ordinally. Doubles are
-  written as IEEE bit patterns, with -0.0 written as 0.0. Culture is invariant.
+  written as IEEE bit patterns, with -0.0 written as 0.0. Culture is invariant. Fractional site and city-project
+  carry follows the same rule: nonzero carry is written as 16 hexadecimal IEEE bits, and zero carry is omitted.
+  Round-trip decimal formatting is only a display concern: .NET and Unity Mono can spell the same carry bits
+  differently. The Phase 7 minister carry correction re-pins hash1950, hash1952 and mvp-end for this representation
+  only; stored values, gameplay and completion dates are unchanged.
 
 ## Golden playthroughs
 
@@ -28,9 +32,9 @@ final `GameState.Hash()` is pinned:
 
 | Run | Ends | Hash |
 |---|---|---|
-| to 1950-01-01 (`Hash1950`) | 1950-01-15, turn 20 | `25ea8fbfdead6bb61510fc206f9e7763c6744d8ce9909f9a6d557fc81fac4ebb` |
-| to 1952-01-01 (`Hash1952`) | 1952-01-15, turn 44 (the game's end) | `ef8c5fea64b2f4ddeb8dda60e26be42066c554b4080224b25cb50cd9a408b6f7` |
-| to the game's end (`mvp-end`) | 1952-01-15, turn 44 | `ef8c5fea64b2f4ddeb8dda60e26be42066c554b4080224b25cb50cd9a408b6f7` |
+| to 1950-01-01 (`Hash1950`) | 1950-01-15, turn 20 | `e3c76f5f6fc45e4941a4499afd2e5c226a4677a651f39c6cef789447d123267a` |
+| to 1952-01-01 (`Hash1952`) | 1952-01-15, turn 44 (the game's end) | `37866907babc55e9477320db32467d1314aa59c8fe86d4d4ad82d8db61731fde` |
+| to the game's end (`mvp-end`) | 1952-01-15, turn 44 | `37866907babc55e9477320db32467d1314aa59c8fe86d4d4ad82d8db61731fde` |
 
 `hash1952` stops at the first turn on or after 1 January 1952, which is the game's last turn, so it is the same run as
 `mvp-end` (`DeterminismTests.TheWholeGameToItsEndIsFixed`). Both names are kept (spec 2026-10-12 section 3 step 6): a
@@ -313,3 +317,6 @@ The hash reads the state keys, so it never sees a record outside its window. An 
 | GDD Phase 7 PR 4 | scenario-reckless | `d7dbcf75` | same; each city houses fewer of its refugees a turn, so more wait (was `a0f094a1`) |
 | GDD Phase 7 PR 4 | scenario-mvp-absorb-first | `234e32ee` | same; the scenario's one order stands, and every city's housed count moves (was `dee4f039`) |
 | GDD Phase 7 PR 4 | scenario-mvp-defeat | `f3daaa70` | same; only the housing web's numbers move, in the third decimal and below - the defeat is unchanged, still `defeat_economy` on 15 January 1952 (was `e71076f7`) |
+| Phase 7 PR 4 carry canonical fix | 1950 | `e3c76f5f` | Nonzero site and city-project carry is written as IEEE bits, consistently on .NET and Unity Mono, instead of runtime-dependent round-trip decimal text. Only canonical representation changes; the stored progress, all other snapshot lines, completion dates and gameplay are unchanged (was `25ea8fbf`). |
+| Phase 7 PR 4 carry canonical fix | 1952 | `37866907` | Nonzero site and city-project carry is written as IEEE bits, consistently on .NET and Unity Mono, instead of runtime-dependent round-trip decimal text. Only canonical representation changes; the stored progress, all other snapshot lines, completion dates and gameplay are unchanged (was `ef8c5fea`). |
+| Phase 7 PR 4 carry canonical fix | mvp-end | `37866907` | Nonzero site and city-project carry is written as IEEE bits, consistently on .NET and Unity Mono, instead of runtime-dependent round-trip decimal text. Only canonical representation changes; the stored progress, all other snapshot lines, completion dates and gameplay are unchanged (was `ef8c5fea`). |
