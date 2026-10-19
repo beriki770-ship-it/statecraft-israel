@@ -38,7 +38,9 @@ public class TownModelScaleTests
 
     static List<SettlementKits.ModelInstance> Models(out MapScene map) => Built(out map, out _).Models;
 
-    static SettlementKits.Result Built(out MapScene map, out List<SettlementKits.Placed> placed)
+    /// <summary>The map's settlements built; their meshes destroyed, except the close meshes when <paramref name="keepClose"/>
+    /// (the caller destroys those).</summary>
+    static SettlementKits.Result Built(out MapScene map, out List<SettlementKits.Placed> placed, bool keepClose = false)
     {
         EditorSceneManager.OpenScene("Assets/Map.unity", OpenSceneMode.Single);
         map = UnityEngine.Object.FindFirstObjectByType<MapScene>(); map.Build();
@@ -48,7 +50,7 @@ public class TownModelScaleTests
         var built = SettlementKits.Build(map.Settlements, map.Localities.Select(p => p.Settlement).ToList(), new List<Localities.Area>(), g, out placed);
         foreach (var k in built.Towns) UnityEngine.Object.DestroyImmediate(k.mesh);
         foreach (var t in built.Tiles) UnityEngine.Object.DestroyImmediate(t.mesh);
-        foreach (var c in built.Close.Values) UnityEngine.Object.DestroyImmediate(c);
+        if (!keepClose) foreach (var c in built.Close.Values) UnityEngine.Object.DestroyImmediate(c);
         return built;
     }
 
@@ -229,6 +231,70 @@ public class TownModelScaleTests
             .Select(g => $"{g.Key} x{g.Count()} {g.Max(l => l.H):0} m ({g.Max(l => l.H) / (LandmarkRealM.TryGetValue(g.Key, out var r) ? r : 1f):0.0}x)")));
         CollectionAssert.IsSubsetOf(LandmarkRealM.Keys, close.Select(l => l.Kind).Distinct().ToList(), "every kind of kit landmark is on the map");
         CollectionAssert.IsEmpty(bad.Take(15), $"{bad.Count} landmarks off the models' scale");
+    }
+
+    /// <summary>Issue #1032, the owner's review of #1048: the close mesh itself draws each kit landmark at the models' scale,
+    /// not only its record. KitMesh.CloseCopy cuts the kit-scale landmark (CutEnd) and draws the shrunk copy instead; without
+    /// the cut the 60x or 100x original stands in the close mesh beside its copy and towers over the 24x houses again. So
+    /// round each close landmark's anchor no close-mesh vertex stands higher than its copy's top (its ground level Y plus
+    /// its height H, 1 m for float rounding), or a neighbouring copy's whose circle meets it. The circle is the copy's
+    /// smaller half side, so a neighbour's palm or plinth stays out; a wall piece's circle (its thickness, mid-length) holds
+    /// no vertex and is skipped, its towers and gates are checked.</summary>
+    [Test]
+    public void TheCloseMeshDrawsEveryKitLandmarkAtItsCopysHeight()
+    {
+        var built = Built(out _, out _, keepClose: true);
+        try
+        {
+            // Every close mesh's vertices, bucketed on a 200 m grid. The close meshes keep no CPU copy (UploadMeshData), so
+            // their positions are read back from the vertex buffer.
+            const float Cell = 200f;
+            var grid = new Dictionary<(int, int), List<Vector3>>();
+            foreach (var m in built.Close.Values)
+                foreach (var v in Positions(m))
+                {
+                    var key = (Mathf.FloorToInt(v.x / Cell), Mathf.FloorToInt(v.z / Cell));
+                    if (!grid.TryGetValue(key, out var l)) grid[key] = l = new List<Vector3>();
+                    l.Add(v);
+                }
+            var bad = new List<string>();
+            int checkedSites = 0;
+            foreach (var l in built.CloseLandmarks)
+            {
+                float r = 0.5f * Mathf.Min(l.W, l.D), top = float.MinValue;
+                for (int x = Mathf.FloorToInt((l.C.x - r) / Cell); x <= Mathf.FloorToInt((l.C.x + r) / Cell); x++)
+                    for (int z = Mathf.FloorToInt((l.C.y - r) / Cell); z <= Mathf.FloorToInt((l.C.y + r) / Cell); z++)
+                        if (grid.TryGetValue((x, z), out var cell))
+                            foreach (var v in cell)
+                                if ((new Vector2(v.x, v.z) - l.C).sqrMagnitude <= r * r) top = Mathf.Max(top, v.y);
+                if (top == float.MinValue) continue;
+                checkedSites++;
+                // A neighbouring copy whose circle meets this one (a gate beside its tower, on higher ground) may stand higher.
+                float limit = built.CloseLandmarks.Where(o => (o.C - l.C).magnitude < r + 0.5f * Mathf.Min(o.W, o.D)).Max(o => o.Y + o.H);
+                if (top > limit + 1f) bad.Add($"{l.Id} {l.Kind}: the close mesh stands {top - l.Y:0} m over its ground, its copy {l.H:0} m");
+            }
+            TestContext.WriteLine($"{checkedSites} of {built.CloseLandmarks.Count} landmark sites checked");
+            Assert.Greater(checkedSites, built.CloseLandmarks.Count * 3 / 4, "most landmark sites have close-mesh vertices");
+            CollectionAssert.IsEmpty(bad.Take(15), $"{bad.Count} landmarks drawn above their copy in the close mesh");
+        }
+        finally { foreach (var c in built.Close.Values) UnityEngine.Object.DestroyImmediate(c); }
+    }
+
+    /// <summary>A mesh's vertex positions, read back from its vertex buffer when it keeps no CPU copy.</summary>
+    static Vector3[] Positions(Mesh m)
+    {
+        if (m.isReadable) return m.vertices;
+        // The readback needs the editor's graphics device (not -nographics) and float32 x 3 positions (SetVertices).
+        Assert.AreEqual(UnityEngine.Rendering.VertexAttributeFormat.Float32, m.GetVertexAttributeFormat(UnityEngine.Rendering.VertexAttribute.Position), m.name);
+        Assert.AreEqual(3, m.GetVertexAttributeDimension(UnityEngine.Rendering.VertexAttribute.Position), m.name);
+        int s = m.GetVertexAttributeStream(UnityEngine.Rendering.VertexAttribute.Position);
+        int off = m.GetVertexAttributeOffset(UnityEngine.Rendering.VertexAttribute.Position) / 4, stride = m.GetVertexBufferStride(s) / 4;
+        using var buf = m.GetVertexBuffer(s);
+        var raw = new float[m.vertexCount * stride];
+        buf.GetData(raw);
+        var p = new Vector3[m.vertexCount];
+        for (int i = 0; i < p.Length; i++) p[i] = new Vector3(raw[i * stride + off], raw[i * stride + off + 1], raw[i * stride + off + 2]);
+        return p;
     }
 
     /// <summary>The products of two plot sides of 1 to <see cref="SettlementKits.MaxPerSide"/>: the counts a full grid holds.</summary>

@@ -23,7 +23,8 @@ namespace Statecraft.Game.Map.Kits
         /// <summary>A Negev lookout at <paramref name="heart"/>, on the settlement's grid angle: the walled yard with its gate,
         /// the lookout tower in one corner, the living quarters along the opposite side and the service buildings along a
         /// third, all flat-roofed. One lot for the whole yard; nothing is built when no free dry spot takes it. Returns how
-        /// many things were built (the yard, the tower and the four buildings, or 0).</summary>
+        /// many things were built (the yard, the tower and the four buildings, or 0). Up close (issue #1032) the yard, its
+        /// tower and its rooms are copied as one landmark at the models' scale, so they keep their places in the yard.</summary>
         static int NegevOutpostKit(Settlement s, Vector2 heart, KitGround ground, KitMesh km, Lots lots)
         {
             float m = KitScale.Houses, side = OutpostSide * m, half = 0.5f * side;

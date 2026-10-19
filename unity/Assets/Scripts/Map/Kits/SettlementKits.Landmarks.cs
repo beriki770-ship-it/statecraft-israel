@@ -50,7 +50,7 @@ namespace Statecraft.Game.Map.Kits
         {
             float k = Mathf.Min(1f, ModelScale / kitScale);
             var b = km.CloseCopy(start, new Vector3(at.x, y, at.y), yaw, keepLength ? 1f : k, k, k);
-            closeLandmarks?.Add(new Placed(id, kind, at, yaw, b.size.x, b.size.z, b.max.y - y, default));
+            closeLandmarks?.Add(new Placed(id, kind, at, yaw, b.size.x, b.size.z, b.max.y - y, default, y));
         }
 
         static Vector2 World(KitGround g, double lon, double lat) { var w = g.Frame.ToWorld(lon, lat, 0); return new Vector2(w.x, w.z); }

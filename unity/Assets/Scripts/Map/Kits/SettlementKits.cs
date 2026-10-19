@@ -64,12 +64,14 @@ namespace Statecraft.Game.Map.Kits
         /// <summary>One thing a kit placed, for the tests' and the docs' town census: a building (<see cref="Placed.Kind"/>
         /// "building", or "wing" for a block's lower part), a street palm ("palm": its crown's square, its height) or a
         /// landmark (its name: "mosque", "clock_tower", ...), with its
-        /// world footprint (centre, yaw in degrees, width and depth in m), its wall height (m) and wall colour.</summary>
+        /// world footprint (centre, yaw in degrees, width and depth in m), its wall height (m) and wall colour; a landmark's
+        /// close copy (issue #1032, <see cref="Result.CloseLandmarks"/>) also its ground level <see cref="Y"/>, the
+        /// level its height stands over.</summary>
         public readonly struct Placed
         {
-            public readonly string Id, Kind; public readonly Vector2 C; public readonly float Yaw, W, D, H; public readonly Color32 Wall;
-            public Placed(string id, string kind, Vector2 c, float yaw, float w, float d, float h, Color32 wall)
-            { Id = id; Kind = kind; C = c; Yaw = yaw; W = w; D = d; H = h; Wall = wall; }
+            public readonly string Id, Kind; public readonly Vector2 C; public readonly float Yaw, W, D, H, Y; public readonly Color32 Wall;
+            public Placed(string id, string kind, Vector2 c, float yaw, float w, float d, float h, Color32 wall, float y = 0f)
+            { Id = id; Kind = kind; C = c; Yaw = yaw; W = w; D = d; H = h; Wall = wall; Y = y; }
             /// <summary>Harbour works stand in the sea by design; everything else stands on land.</summary>
             public bool InSea => Kind == "port" || Kind == "breakwater";
         }
@@ -117,7 +119,7 @@ namespace Statecraft.Game.Map.Kits
             public Dictionary<string, Mesh> Close = new Dictionary<string, Mesh>();
             /// <summary>Issue #1032: every kit landmark as the close mesh draws it, at the models' world scale
             /// (SettlementKits.AtWorldScale): its kind, its anchor, and its copy's box (width along x, depth along z, height
-            /// over its ground), in placement order.</summary>
+            /// over its ground level Y), in placement order.</summary>
             public List<Placed> CloseLandmarks = new List<Placed>();
         }
 

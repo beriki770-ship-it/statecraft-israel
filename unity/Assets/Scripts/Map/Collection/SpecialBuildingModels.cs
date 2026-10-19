@@ -17,11 +17,8 @@ namespace Statecraft.Game.Map.Collection
             Barracks = "b18-military-barracks-v2", Workshop = "b21-artisan-workshop-v2",
             Factory = "b22-industrial-factory-v2";
 
-        /// <summary>The one world scale of Tal Heuberger's building models (the owner on v0.1.1, 18 October 2026: the buildings were
-        /// "way bigger then the train"): the reference house is as long as the locomotive's car of the steam train the map
-        /// runs (ServiceTrain: Tal Heuberger's locomotive and tender at RouteTrain.Scale x ServiceTrain.ModelSize, about 816 m, in
-        /// ServiceTrain.Cars cars of about 204 m), so 204 / 8.5 = 24x a building's real size. The same rule as the #700
-        /// buildings' scale fix (branch map/town-models-world-scale, SettlementKits.ModelScale).</summary>
+        /// <summary>The one world scale of Tal Heuberger's building models: <see cref="Kits.SettlementKits.ModelScale"/> (issue
+        /// #1032).</summary>
         public const float WorldScale = Kits.SettlementKits.ModelScale;   // #1032: one shared constant
 
         /// <summary>Design values, not sourced measurements: the real long side (m) each model stands for, so that at
