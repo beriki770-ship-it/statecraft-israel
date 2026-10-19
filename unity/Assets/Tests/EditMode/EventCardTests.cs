@@ -630,6 +630,18 @@ sources: [{ url: ""https://example.org/record"", checked: 2026-10-17 }]
         Assert.AreEqual(0, ui.Q<VisualElement>("event-options").Query<Label>(className: EventCardPresenter.RejoinClass).ToList().Count);
     }
 
+    /// <summary>A save from older content can name an option the road card no longer has: the card shows, with no banner.</summary>
+    [Test]
+    public void AStaleOptionOnTheRoadShowsNoBanner()
+    {
+        var bridge = OnTheRoad(WithRoad(), "banner_after", Text);
+        bridge.State.ChosenOptions["banner_parent"] = "gone";
+        using var ui = new UiTestKit();
+        var card = new EventCardPresenter(ui.Root, bridge, Text, null);
+        Assert.AreEqual("banner_after", card.Shown!.Id);
+        Assert.AreEqual(DisplayStyle.None, ui.Q<Label>("event-alt-banner").style.display.value);
+    }
+
     [Test]
     public void InHebrewTheBannerAndTheRejoinLineUseTheHebrewStrings()
     {

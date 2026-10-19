@@ -295,10 +295,11 @@ namespace Statecraft.Game.UI
         {
             var origin = Timeline.Origin(c, s, e);
             if (origin == null) return "";
-            var road = c.Events.First(x => x.Id == origin.Value.Event);   // the loader checks every requirement names an event
-            // A save from older content may hold an option the card no longer has: then no banner rather than a broken card.
-            var option = road.Options.FirstOrDefault(o => o.Id == origin.Value.Option);
-            if (option == null) return "";
+            // The loader checks every requirement names an event, but a save from older content may hold an option the card
+            // no longer has: then no banner rather than a broken card.
+            var road = c.Events.FirstOrDefault(x => x.Id == origin.Value.Event);
+            var option = road?.Options.FirstOrDefault(o => o.Id == origin.Value.Option);
+            if (road == null || option == null) return "";
             var date = EventSystem.FillDate(road, s.Date);
             var took = Cabinet.Fill(c, s, option.Text, date);
             var title = EventSystem.Title(c, s, road);
