@@ -8,6 +8,19 @@ adds a line under **Unreleased**; CI's `Changelog` job checks this (see `CONTRIB
 ## [Unreleased]
 
 ### Added
+- GDD Phase 4 PR 2: corridors (refs #786, #384). Halutz units build the Burma Road (four segments, one between each pair
+  of its sourced waypoints), the 1949 Haifa–Tel Aviv rail link (the Yarkon link, one segment) and the Tel Aviv–Netanya
+  road (four segments) with `PioneerWork(unit, build_road | build_rail, corridor:N)`, any segment in any order, one unit
+  per segment (R-COR-001 to R-COR-003; owner, 17 October 2026, #782). `content/corridors.yaml` holds the corridors;
+  `tools/corridor_hexes.py` derives each segment's hexes from the traced route and a CI test keeps them in step. Segment
+  Money and turns are labelled design values (road IL 2m and 6 turns, rail IL 4m and 6 turns). The map gains the rail
+  link's route (`yarkon_rail_link`, from 20 September 1949) and the Tel Aviv–Netanya road (`tlv_netanya_road`, from 28
+  July 1950), drawn as straight draft lines between the five places *The Jerusalem Post* names (`trace: straight`;
+  owner, 18 October 2026, #786). Only the routes drawn at the game's start keep the settlement kits off, so the later
+  routes clear no town's houses or trees (owner, #786: the floors are kept). The unit tokens keep off only the routes
+  drawn while a token stands, so the two later routes move no 1948 token. The reference player builds segments once
+  every yishuv, ready field and camp site is taken, so hash1952 and mvp-end move. A veteran builds a segment at 2 turns
+  of progress a turn and a halutz's segment work counts as service, as on a site (R-VET-001, R-VET-002).
 - The Cabinet disc in the side menu shows a small gold badge while a post is vacant that the player can fill this turn,
   and its tip says so in English and Hebrew. The sim's `Cabinet.Vacancies` decides it (a vacant seat, someone may be
   appointed, no appointment to it queued, the game not over, and enough Attention left after this turn's queued orders,
@@ -18,6 +31,13 @@ adds a line under **Unreleased**; CI's `Changelog` job checks this (see `CONTRIB
 - The Cabinet, Budget, Defence, Why, How to play and Settings screens each gain an X in the header that closes
   them (the same close as Escape): a phone has no Escape key, and re-tapping the lit rail button was the only way
   out (v0.1.1 playtest feedback).
+- The national Arms pool in the GDD loop (R-ARMS-001 to R-ARMS-003; fixes #781): one Arms is the equipment package for a
+  1,000-person recruit group, and the state holds 12 on 15 May 1948. A `BuyArms(count)` order pays IL 1m an Arms,
+  borrows a short Treasury and costs 1 Attention whatever the count; recruit training takes 1 Arms a group when it
+  starts and is refused with a reason without one; cancelling the group gives those Arms back (#1047). The owner
+  approved all four values (#781); they are labelled design values. An event option can also move the stock with an
+  `arms` effect, in whole units and never below 0, and the no-gain rule for sensitive events covers it (R-EFX-001,
+  R-EFX-002); no event uses it yet. The goldens move only by the new `arms=12` line.
 
 ## [0.1.2] - 2026-10-19
 
@@ -141,19 +161,7 @@ adds a line under **Unreleased**; CI's `Changelog` job checks this (see `CONTRIB
   `delegation_loyalty_floor` (5), only `disloyal_effect_share` (0.5) of each numeric effect of the option lands. Both
   are labelled design values in `rules.yaml` `mvp:`. No minister in `people.yaml` is rated below 5 today, so the
   goldens do not move (refs #107).
-- GDD Phase 4 PR 2: corridors (refs #786, #384). Halutz units build the Burma Road (four segments, one between each pair
-  of its sourced waypoints), the 1949 Haifa–Tel Aviv rail link (the Yarkon link, one segment) and the Tel Aviv–Netanya
-  road (four segments) with `PioneerWork(unit, build_road | build_rail, corridor:N)`, any segment in any order, one unit
-  per segment (R-COR-001 to R-COR-003; owner, 17 October 2026, #782). `content/corridors.yaml` holds the corridors;
-  `tools/corridor_hexes.py` derives each segment's hexes from the traced route and a CI test keeps them in step. Segment
-  Money and turns are labelled design values (road IL 2m and 6 turns, rail IL 4m and 6 turns). The map gains the rail
-  link's route (`yarkon_rail_link`, from 20 September 1949) and the Tel Aviv–Netanya road (`tlv_netanya_road`, from 28
-  July 1950), drawn as straight draft lines between the five places *The Jerusalem Post* names (`trace: straight`;
-  owner, 18 October 2026, #786). Only the routes drawn at the game's start keep the settlement kits off, so the later
-  routes clear no town's houses or trees (owner, #786: the floors are kept). The unit tokens keep off only the routes
-  drawn while a token stands, so the two later routes move no 1948 token. The reference player builds segments once
-  every yishuv, ready field and camp site is taken, so hash1952 and mvp-end move. A veteran builds a segment at 2 turns
-  of progress a turn and a halutz's segment work counts as service, as on a site (R-VET-001, R-VET-002).
+
 
 ### Changed
 - Hebrew vote text (`budget.no_vote`, `budget.vote_advisory`, `cabinet.legislature_advisory`) is reworded so it needs
