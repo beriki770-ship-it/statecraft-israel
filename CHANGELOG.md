@@ -14,6 +14,13 @@ adds a line under **Unreleased**; CI's `Changelog` job checks this (see `CONTRIB
 - The Cabinet, Budget, Defence, Why, How to play and Settings screens each gain an X in the header that closes
   them (the same close as Escape): a phone has no Escape key, and re-tapping the lit rail button was the only way
   out (v0.1.1 playtest feedback).
+- Up close the kit landmarks (mosques, churches, minarets, Jerusalem's walls, gates and towers, the Dome of the Rock,
+  Jaffa's clock tower and lighthouse, Ramla's White Tower, Nahalal's hall, Revivim's walled lookout) stand at the
+  models' world scale too, real size x 24 (`SettlementKits.ModelScale`), instead of the kits' 60x and 100x that towered
+  over the houses; never bigger than far off, and Jerusalem's walls keep their circuit and shrink only in height and
+  thickness. A plot's models no longer sit in a regular grid: seeded by the place and the plot, each is turned up to
+  10 degrees and moved within its cell, some cells stay empty and a long plot may get a street through it. Far off
+  nothing changes. The rural life and special buildings take their 24x from the same constant (#1032).
 
 ## [0.1.2] - 2026-10-19
 
@@ -198,13 +205,6 @@ adds a line under **Unreleased**; CI's `Changelog` job checks this (see `CONTRIB
   kits' symbolic 60x and 100x plots, so a house was about 800 m, a Tel Aviv block up to 1.6 km, both bigger than the
   816 m train, and Jaffa's 100x houses rose to about 490 m in front of Tel Aviv's blocks (owner, 18 October 2026). The
   kits far off keep their scale.
-- Up close the kit landmarks (mosques, churches, minarets, Jerusalem's walls, gates and towers, the Dome of the Rock,
-  Jaffa's clock tower and lighthouse, Ramla's White Tower, Nahalal's hall, Revivim's walled lookout) stand at the
-  models' world scale too, real size x 24 (`SettlementKits.ModelScale`), instead of the kits' 60x and 100x that towered
-  over the houses; never bigger than far off, and Jerusalem's walls keep their circuit and shrink only in height and
-  thickness. A plot's models no longer sit in a regular grid: seeded by the place and the plot, each is turned up to
-  10 degrees and moved within its cell, some cells stay empty and a long plot may get a street through it. Far off
-  nothing changes. The rural life and special buildings take their 24x from the same constant (#1032).
 - The sim tests no longer leave a temp folder behind for every `Fixture.Write` call (about 1,150 per run): the
   folders share one root per run, deleted when the run ends (#1017).
 - Event city effects preserve the city's housing condition when changing its housing capacity or job slots (#1000).
