@@ -68,7 +68,8 @@ public class SeaCraftTests
     /// <summary>Issue #1094 (the owner, 19 October 2026: "Yes, 24x like everything else"): every boat is its real length at
     /// the one world scale (SettlementKits.ModelScale, 24x: an 8.5 m house as long as the steam train's 204 m locomotive
     /// car), like #1086's 10 m fishing boat of about 1.2 cars: a 12 m felucca about 1.4 cars, a 10 m cutter about 1.2, an
-    /// 8 m moored fishing boat about 0.9 and the 50 m coastal steamer about 5.9, where before a felucca was 2,040 m (10 cars).</summary>
+    /// 8 m moored fishing boat about 0.9 and the 50 m coastal steamer about 5.9, where before a felucca was 2,040 m (10 cars),
+    /// whatever the kits' landmark scale.</summary>
     [Test]
     public void EveryBoatIsItsRealLengthAtTheTrainScale()
     {
@@ -87,6 +88,10 @@ public class SeaCraftTests
             var (lo, hi) = bands[c.Kind];
             Assert.That(c.Length / car, Is.InRange(lo, hi), $"{c.Kind} at {c.Place}: {c.Length:0} m against the {car:0} m locomotive car");
         }
+        // The one world scale, not the kits' landmark scale: at 120 the same kinds keep the same lengths.
+        KitScale.CityBlocks = 120f;
+        foreach (var c in Place(map, Ground(map)))
+            Assert.AreEqual(crafts.First(o => o.Kind == c.Kind).Length, c.Length, 0.01f, $"{c.Kind} at landmark scale 120");
     }
 
     /// <summary>Review of #536: no hull ever meets a harbour work. At five landmark scales (30-120, the default 60 among
