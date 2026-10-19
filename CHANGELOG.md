@@ -27,6 +27,10 @@ adds a line under **Unreleased**; CI's `Changelog` job checks this (see `CONTRIB
   population has reached a stated number and then the cities' overflow and employed shares are inside stated bounds
   (R-OBJ-004; owner's option (a) on #738). The real objective and its card come with a person's source check, so no
   content uses it yet and no golden moves (refs #738, #383).
+- The real "absorb the immigrants" objective and its card "One million": it completes once the Jewish population has
+  reached 1,000,000 with the cities' overflow at most 10% and their employed at least 40% (design values), with 20 December
+  1949, Ingathering of the Exiles Day, as its reference date. Both JTA sources were checked by Beri on 18 October 2026.
+  No photograph (refs #1039, #738, #383).
 - Farm and village life from MATKOT's 1948 Collection: three tractors by kibbutz fields, three horse wagons and three
   draught horses by moshav and moshava fields, three flocks of five sheep and three donkeys by villages, and three camels
   by Bedouin camp areas, each anchor chosen by a fixed hash and kept clear of the kits, routes, unit tokens, water,
@@ -121,6 +125,9 @@ adds a line under **Unreleased**; CI's `Changelog` job checks this (see `CONTRIB
   to 9 doubling from 1,000 people, at every zoom, at the start of the name and mirrored in Hebrew (owner, 18 October 2026,
   "Accept as shipped"). Rosh Pinna keeps tier 1 from its May 1948 figure of 350, which the data marks `wikipedia-only`
   ("Keep tier 1 from 350"). Nothing changes in the game; EditMode tests pin both rulings (#710).
+- Touchscreens play the map directly: one finger drags it, a pinch zooms it (100 px to the wheel notch, the touchpad's
+  rate), and a tap selects its hex when the finger is released, so a drag never selects by accident. The mouse's controls
+  are unchanged.
 - The 52 `owner_verify` flags on the 1948 localities are cleared (owner, 18 October 2026, "all defaults"), since #488
   checked every row against the Village Statistics 1945 scan and #490 applied the corrections. No other field changes.
   Open from #488, not touched here: the six split-or-merge rows, Dayr al-Qassi's landmark, 'Ilut. The localities are
