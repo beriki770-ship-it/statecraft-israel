@@ -142,15 +142,17 @@ public class InfoPanelLayoutTests
         var he = UiText.Parse(AssetDatabase.LoadAssetAtPath<TextAsset>(UiPaths.StringsHebrew).text, "strings.he.yaml");
         var city = C.SettlementHexes.Single(s => s.Id == "tel_aviv");
         var site = C.Sites.Single(s => s.Id == "mefalsim");
+        var hula = C.Sites.Single(s => s.Id == "hula");   // #1124: the swamp and its waiting field, the tallest site hex
         var problems = new List<string>();
         foreach (var hebrew in new[] { false, true })
             foreach (var (w, h) in Windows)
-                foreach (var (what, q, r) in new[] { ("city", city.Q, city.R), ("site", site.Q, site.R) })
+                foreach (var (what, q, r) in new[] { ("city", city.Q, city.R), ("site", site.Q, site.R), ("field", site.Q, site.R), ("hula", hula.Q, hula.R) })
                 {
                     var g = GameSession.New(C, GoldenRun.Seed, Mode.Historical);
                     var s = g.State;
                     for (int k = 0; k < 2; k++) { var id = s.NextId++; s.Cohorts.Add(id, new Cohort(id, k == 0 ? "recruit" : "halutz", "tel_aviv", 12, 4)); }
                     for (int k = 0; k < 2; k++) { var id = s.NextId++; s.Units.Add(id, new Unit(id, "halutz", city.Q, city.R)); }
+                    if (what == "field") s.Sites[site.Id] = SiteWork.Built(site.Id, s.Date);   // #1124: the yishuv built, its field's Plow
                     var at = $"{(hebrew ? "he" : "en")} {w}x{h} {what}";
                     yield return Rendered(w, h, g, (root, info) => info.Show(q, r), root =>
                     {
