@@ -34,8 +34,8 @@ written by Claude when building the pool.
   turn a purchase still competes with training and events.
 - Not a number, but part of the rule: a purchase arrives at once, with no delivery delay. No plan text asks for a
   delay, and adding one would be a new rule.
-- Cancelling a recruit cohort (R-TRAIN-002) returns no Arms, as it returns no Money. This is the PR's reading of
-  R-TRAIN-002's pattern, not a separate owner decision.
+- Cancelling a recruit cohort (R-TRAIN-002) returns its Arms to the pool, though not the Money (owner, #1047,
+  18 October 2026: "Refund on cancel").
 
 ## Where the approved values differ from the AI draft
 

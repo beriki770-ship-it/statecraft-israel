@@ -78,9 +78,10 @@ Write plain description. Do not put words in anyone's mouth: no invented quotes
 Tags are free-form, but these five are sensitive (checked without regard to case): `holocaust`, `terror`, `massacre`,
 `war-casualties`, `displacement`. An event with any of them:
 
-- cannot give a positive delta to any resource in any option: `treasury`, `fx_reserves`, `food`, `arms`, `food_supply`, `morale`
-  (standing for Social cohesion) or `intl_standing` (standing for International Support). The loader refuses: it would
-  reward the atrocity. Owner decision of 15 October 2026 (Q-EFX-2, "Extend it"); until then the rule covered money only;
+- cannot give a positive delta to any resource in any option: `treasury`, `fx_reserves`, `food`, `arms`, `food_supply`,
+  `morale` (standing for Social cohesion) or `intl_standing` (standing for International Support). The loader refuses:
+  it would reward the atrocity. Owner decision of 15 October 2026 (Q-EFX-2, "Extend it"); until then the rule covered
+  money only;
 - needs `status: sensitivity-reviewed` before any build is shared. That status is set by the maintainer, not by you.
   Submit it as `fact-checked`. `Statecraft.Cli --release-gate`, the `-shareable` build and `tools/package_release.py`
   refuse to release while any sensitive event is not `sensitivity-reviewed`, and a test requires every sensitive event
@@ -254,9 +255,9 @@ An option that did not happen can say who put it forward, and on what record (R-
 - `treasury` or `fx_reserves`, in game money;
 - `food`, the national Food stock, in whole units (one unit is one population unit's food for a month). The delta
   rounds to whole units and the stock never drops below 0, so a larger cut than the stock takes what is there. The
-  Arms stock becomes a target with its pool (#781): `arms` moves it the same way. Note that the monthly import (R-FOOD-002) refills the stock to
-  `cover_months` of the need unless the foreign-currency crisis is on, so outside a crisis a cut only matters if it
-  leaves less than one month's need; a gain stays.
+  Arms stock becomes a target with its pool (#781): `arms` moves it the same way. Note that the monthly import
+  (R-FOOD-002) refills the stock to `cover_months` of the need unless the foreign-currency crisis is on, so outside a
+  crisis a cut only matters if it leaves less than one month's need; a gain stays.
 
 `delta` must be a finite number. Any other target is an error. Policy ids (`rationing`, ...) are not effect targets;
 use `set_policy` for those.
