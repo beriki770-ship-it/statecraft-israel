@@ -180,6 +180,8 @@
                     </ui:VisualElement>
                 </ui:VisualElement>
                 <ui:VisualElement class="gold-rule" />
+                <!-- A consequence card's road and the record beside it (#954); hidden on every other card. -->
+                <ui:Label name="event-alt-banner" class="muted event-alt-banner" />
                 <ui:ScrollView name="event-scroll" class="event-scroll"><ui:Label name="event-text" class="event-text" /><ui:Label name="event-objective" class="muted event-objective" /></ui:ScrollView>
                 <!-- Shown only when the turn's Attention cannot pay for an answer (#1034): End Turn hands the card to its minister. -->
                 <ui:Label name="event-delegate" class="event-delegate" />

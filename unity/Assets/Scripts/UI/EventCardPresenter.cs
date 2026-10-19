@@ -30,6 +30,8 @@ namespace Statecraft.Game.UI
         /// <summary>On End Turn while the shown card cannot be answered with the Attention left (#1034): Statecraft.uss
         /// highlights it, as ending the turn is then the way on (EventSystem.Delegate hands the card to its minister).</summary>
         public const string EndTurnWaitingClass = "end-turn-waiting";
+        /// <summary>The line under an option that returns the course to the record (EventOption.Rejoin, #954; Statecraft.uss).</summary>
+        public const string RejoinClass = "event-rejoin";
 
         readonly VisualElement card; readonly SimBridge bridge; readonly UiText text; readonly PortraitCatalog? portraits;
         readonly EventImageCatalog? photos;
@@ -231,6 +233,9 @@ namespace Statecraft.Game.UI
                     new Length(PortraitFraming.PositionYPercent(portrait.width, portrait.height, PortraitWidth, PortraitHeight, entry!.Value.focusY), LengthUnit.Percent));
             card.Q<Label>("event-draft").style.display = e.Status == "draft" ? DisplayStyle.Flex : DisplayStyle.None;
             card.Q<Label>("event-title").text = EventSystem.Title(c, s, e);
+            var banner = card.Q<Label>("event-alt-banner");   // a consequence card's road (#954); none on any other card
+            banner.text = OriginLine(c, s, e, text);
+            banner.style.display = banner.text.Length == 0 ? DisplayStyle.None : DisplayStyle.Flex;
             var office = holder == null ? null : c.Offices.First(o => o.Id == e.Office);
             card.Q<Label>("event-office").text = holder == null ? "" : text.Format("event.office", ContentNames.Of(text, office!, holder), ContentNames.Of(text, holder));
             card.Q<Label>("event-text").text = EventSystem.Render(c, s, e);
@@ -252,6 +257,11 @@ namespace Statecraft.Game.UI
                 b.SetEnabled(!unpaid);
                 b.generateVisualContent += PaintSign;                      // the promo's round sign at the option's left
                 options.Add(b);
+                if (o.Rejoin == "") continue;
+                // Under the option, not in it: the button's label stays the choice itself, and a Label takes no Tab stop.
+                var rejoin = new Label(text["event.rejoin"]);
+                rejoin.AddToClassList("muted"); rejoin.AddToClassList(RejoinClass);
+                options.Add(rejoin);
             }
             card.Q<Label>("event-count").text = open.Count > 1 ? text.Format("event.more", open.Count - 1) : "";
             if (shown && focusedFor != e.Id) FocusCard(e.Id, force: false);
@@ -274,6 +284,24 @@ namespace Statecraft.Game.UI
             var early = Objectives.MonthsEarly(done, o.ReferenceDate);
             return early == 1 ? t.Format("event.objective_early_one", Date(done), Date(o.ReferenceDate))
                 : t.Format("event.objective_early", Date(done), Date(o.ReferenceDate), early);
+        }
+
+        /// <summary>A consequence card's banner (#954; plan 2026-10-17-alternate-timelines.md, A.4.7): the road it follows as
+        /// the player took it (Timeline.Origin: that card's option and title, through the same text pipeline as that card's
+        /// own labels) and, where that card has one, the record's option beside it (Timeline.HistoricalOption). A chained
+        /// card follows a consequence card, which has no historical option: the comparison is left out, never made up.
+        /// Empty for any other card.</summary>
+        public static string OriginLine(Content c, GameState s, GameEvent e, UiText t)
+        {
+            var origin = Timeline.Origin(c, s, e);
+            if (origin == null) return "";
+            var road = c.Events.First(x => x.Id == origin.Value.Event);   // the loader checks every requirement names an event
+            var date = EventSystem.FillDate(road, s.Date);
+            var took = Cabinet.Fill(c, s, road.Options.First(o => o.Id == origin.Value.Option).Text, date);
+            var title = EventSystem.Title(c, s, road);
+            var record = Timeline.HistoricalOption(road);
+            return record == null ? t.Format("event.alt_origin_no_record", took, title)
+                : t.Format("event.alt_origin", took, title, Cabinet.Fill(c, s, record.Text, date));
         }
 
         /// <summary>A newly shown event puts the keyboard focus on the card (keyboard play, #41): the next Tab reaches its
