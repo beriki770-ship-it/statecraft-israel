@@ -668,6 +668,9 @@ Button.settings-choice-selected { -unity-font-definition: url("project://databas
 }
 .map-label-city { font-size: 23px; color: rgb(250, 242, 224); }
 .map-label-town, .map-label-arab_town { font-size: 19px; }
+/* #1063: the city under the pointer (its hexes or its pill) lights its pill, ivory like the map's selected-hex outline, to say
+   a click opens it. Colours only: a border or padding change would resize the pill and move the names round it. */
+.map-label-hover { background-color: rgb(250, 242, 224); color: rgb(14, 22, 38); }
 /* The population tier (#710): the city's static 1948 tier as a gold disc at the start of its name, over the pill's start
    padding (left, or right in Hebrew). The disc is the pill's sibling in its slot; MapLabelsPresenter sets its left and
    top from the pill's size. */

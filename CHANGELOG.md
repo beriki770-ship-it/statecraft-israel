@@ -14,6 +14,9 @@ adds a line under **Unreleased**; CI's `Changelog` job checks this (see `CONTRIB
 - The Cabinet, Budget, Defence, Why, How to play and Settings screens each gain an X in the header that closes
   them (the same close as Escape): a phone has no Escape key, and re-tapping the lit rail button was the only way
   out (v0.1.1 playtest feedback).
+- Map: a city shows it can be clicked. With the mouse over one of its hexes or its name, the city's name lights up in
+  ivory and the browser's pointer becomes a hand; a click on the name opens the city panel, as a click on its hex does,
+  in English and Hebrew and at every zoom (Fixes #1063).
 
 ## [0.1.2] - 2026-10-19
 
