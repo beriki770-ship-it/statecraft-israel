@@ -23,7 +23,7 @@ As a player of the MVP, I want my pioneer units to lay the Tel Aviv-Haifa railwa
 
 - `content/corridors.yaml` (new, #786): each corridor's kind, names, map route and segments, with sources; the state holds each segment's progress (`corr{}` in the hash, only when a segment is started).
 - `Corridors.cs` (new) and `Projects.cs`: the orders, step 5's progress after the sites, and `StopWork`.
-- `content/map/routes_1948.yaml`: the new `yarkon_rail_link` route, traced into `route_paths_1948.yaml` and baked into the `.tsv` and the route ribbons; `tools/corridor_hexes.py` derives the segment hexes from the traced line.
+- `content/map/routes_1948.yaml`: the new `yarkon_rail_link` route and the `tlv_netanya_road` route (`trace: straight`, drawn as straight lines between its waypoints), traced into `route_paths_1948.yaml` and baked into the `.tsv` and the route ribbons; `tools/corridor_hexes.py` derives the segment hexes from the traced line.
 - `RouteLayer` (Unity): drawing by progress comes with Phase 4 PR 8; until then the new route draws by its `from` date, as every route does.
 
 ## Done when

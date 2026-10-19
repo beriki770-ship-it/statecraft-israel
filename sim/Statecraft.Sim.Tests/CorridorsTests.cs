@@ -154,6 +154,17 @@ public class CorridorsTests
         Assert.Equal(4, r.State.Units[id[0]].Service);
     }
 
+    // R-UNIT-002's fields survive a segment turn and the promotion, as on a site (Projects.Advance).
+    [Fact]
+    public void ASegmentTurnKeepsTheUnitsSideStrengthAndOrder()
+    {
+        var c = Town();   // veteran_halutz_service 4
+        var s = WithHalutzim(c, 1, out var id);
+        s.Units[id[0]] = new Unit(id[0], "halutz", 1, 0, 3, "israel", 5, "hold", "x");
+        var u = Step(c, s, Road(id[0])).State.Units[id[0]];   // service 4: promoted
+        Assert.Equal(("veteran_halutz", "israel", 5, "hold", "x"), (u.Type, u.Side, u.Strength, u.Order, u.OrderTarget));
+    }
+
     // R-COR-001, R-COR-003 (Q-COR-4: any order, one unit per segment)
     [Fact]
     public void TwoUnitsBuildOneCorridorInParallel()
