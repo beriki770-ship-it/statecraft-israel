@@ -74,7 +74,7 @@ namespace Statecraft.Game.UI
         {
             var r = EndReport.For(c, s);
             string Date(DateTime d) => t.Format("date.day_month_year", d.Day, t["date.month_" + d.Month], d.Year);
-            // The GDD loop ends only as the MVP end or a defeat (R-END-004 in the plan); the legacy codes get the generic line.
+            // The GDD loop ends only as the MVP end or a defeat (R-END-002, R-END-005); the legacy codes get the generic line.
             var outcome = "end.outcome." + r.Outcome;
             var lines = new List<(string, string)>
             {
