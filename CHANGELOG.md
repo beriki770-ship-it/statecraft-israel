@@ -62,6 +62,10 @@ adds a line under **Unreleased**; CI's `Changelog` job checks this (see `CONTRIB
 - The sim's end report, `EndReport.For`, reads a finished game for the end screen: the outcome, the score, each
   objective's date beside its historical date, Social cohesion and International Support, and the population beside
   its latest CBS anchor (R-END-005, R-END-006; refs #810). It changes no state and no golden; the score's parts wait for #809.
+- When the game ends, an end screen shows the sim's end report in English and Hebrew: the outcome, the score, each
+  objective's date beside its historical date, Social cohesion, International Support and the population beside its
+  CBS anchor. Close leaves the map to look at (orders stay refused), and New Game is the usual two presses; showing the
+  screen keeps the save (draft, refs #812).
 - An opt-in Civilization-style hex-tile map (`?hex-tiles`, desktop `-hex-tiles`; `?hex-tiles=tel_aviv_crop` for the
   Tel Aviv crop): one-file hex prototypes (towns, orchards, fields, forests, hills), units as their own layer, painted
   ground, a landscape ring round the play hexes and a warmer light while it is on. Presentation only; off by default,
