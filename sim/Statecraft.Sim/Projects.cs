@@ -62,19 +62,24 @@ namespace Statecraft.Sim
             : kind == "housing" || kind == "transit_camp" ? EffectsSystem.HousingConstructionSystem
             : "";
 
-        /// <summary>The turns, this one included, in which <paramref name="unit"/> builds a site with <paramref name="left"/>
-        /// turns of progress to go: Advance's count, a halutz promoted on the way (R-VET-001) building faster from the next turn
-        /// (R-SITE-003, R-VET-002). With build_yishuv_turns it is how long a Build ordered now takes. Read with the rules of
-        /// the current date, as Advance reads them; it changes no state.</summary>
-        public static int TurnsToBuild(Content c, GameState s, int unit, int left)
+        /// <summary>The turns, this one included, in which the unit completes the site's remaining whole work and
+        /// fractional carry at its current minister multiplier. Reads the current date's rules, accounts for a halutz
+        /// promoted during the work, and changes no state. Initial work passes its base duration and zero carry.</summary>
+        public static int TurnsToBuild(Content c, GameState s, int unit, Site site, int left, double carry)
         {
-            var r = c.RulesAt(s.Date).Mvp!;   // the loader requires it in the GDD loop
+            if (site == null) throw new ArgumentNullException(nameof(site));
+            if (left < 1) throw new ArgumentOutOfRangeException(nameof(left));
+            if (!(carry >= 0 && carry < 1)) throw new ArgumentOutOfRangeException(nameof(carry));
+            var r = c.RulesAt(s.Date).Mvp!;
+            var m = EffectsSystem.GddSystemMultiplier(c, s, r, SystemOf(site));
+            if (!(m > 0) || double.IsInfinity(m)) throw new InvalidOperationException("Site progress multiplier must be finite and positive");
             var u = s.Units[unit];
-            for (int turns = 1; ; turns++)
+            for (int turns = 1; ; turns = checked(turns + 1))
             {
-                var progress = Progress(r, u);
-                if (left <= progress) return turns;
-                left -= progress;
+                carry += Progress(r, u) * m;
+                if (carry >= left) return turns;   // before the int cast: completion can exceed the remaining work
+                var whole = (int)Math.Floor(carry);
+                left -= whole; carry -= whole;
                 if (u.Type == "halutz")
                 {
                     var service = u.Service + 1;

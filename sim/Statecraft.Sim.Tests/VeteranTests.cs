@@ -114,12 +114,12 @@ public class VeteranTests
         var s = Simulation.NewGame(c, 1, Mode.Historical);
         var id = s.NextId++;
         s.Units.Add(id, new Unit(id, type, 1, 0, service));
-        Assert.Equal(expected, Projects.TurnsToBuild(c, s, id, c.Rules.Mvp!.BuildYishuvTurns));
+        Assert.Equal(expected, Projects.TurnsToBuild(c, s, id, c.Sites.Single(x => x.Id == "site_a"), c.Rules.Mvp!.BuildYishuvTurns, 0));
         s = Step(c, s, Build(id)).State;
         for (int done = 1; ; done++)
         {
             if (s.Sites["site_a"].BuiltOn != null) { Assert.Equal(expected, done); break; }
-            Assert.Equal(expected - done, Projects.TurnsToBuild(c, s, id, s.Sites["site_a"].TurnsLeft));   // the turns left under way
+            Assert.Equal(expected - done, Projects.TurnsToBuild(c, s, id, c.Sites.Single(x => x.Id == "site_a"), s.Sites["site_a"].TurnsLeft, s.Sites["site_a"].Progress));   // the turns left under way
             s = Step(c, s).State;
         }
     }

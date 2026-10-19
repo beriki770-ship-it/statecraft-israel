@@ -349,7 +349,7 @@ public class CityPanelTests
         using var panel = Panel(ui, bridge, En);
         panel.Show(SiteDef.Q, SiteDef.R);
         var r = C.RulesAt(bridge.State.Date).Mvp!;
-        var turns = Projects.TurnsToBuild(C, bridge.State, vet, r.BuildYishuvTurns);
+        var turns = Projects.TurnsToBuild(C, bridge.State, vet, SiteDef, r.BuildYishuvTurns, 0);
         Assert.Less(turns, r.BuildYishuvTurns, "precondition: a veteran builds faster in the real content");
         var button = ui.Q<Button>($"site-build-{vet}");
         Assert.IsNotNull(button, "a veteran group has a Build button");
@@ -358,16 +358,18 @@ public class CityPanelTests
         Assert.IsNotNull(bridge.QueuedLike(new PioneerWork(vet, Projects.BuildYishuv, Site)));
     }
 
-    [Test]
-    public void AVeteransSiteShowsTheTurnsItReallyHasLeft()
+    [TestCase(0d, 4)]
+    [TestCase(0.75d, 3)]
+    public void AVeteransSiteShowsTheTurnsItReallyHasLeft(double carry, int expected)
     {
         using var ui = new UiTestKit();
         int vet = -1;
-        var bridge = Bridge(En, s => { vet = AddHalutz(s, Projects.VeteranType); s.Sites[Site] = new SiteWork(Site, vet, 4, null); });
+        var bridge = Bridge(En, s => { vet = AddHalutz(s, Projects.VeteranType); s.Sites[Site] = new SiteWork(Site, vet, 4, null, carry); });
         using var panel = Panel(ui, bridge, En);
         panel.Show(SiteDef.Q, SiteDef.R);
-        var turns = Projects.TurnsToBuild(C, bridge.State, vet, 4);
-        Assert.AreEqual(2, turns, "precondition: 4 turns of progress at the real content's 2 a turn");
+        var turns = Projects.TurnsToBuild(C, bridge.State, vet, SiteDef, 4, carry);
+        Assert.AreEqual(0.624, EffectsSystem.GddSystemMultiplier(C, bridge.State, C.RulesAt(bridge.State.Date).Mvp!, EffectsSystem.YishuvWorkSystem), 1e-9, "precondition: current real Agriculture rate");
+        Assert.AreEqual(expected, turns, "four work units at 2 x 0.624 per turn, including saved carry");
         Assert.AreEqual(En.Format("site.building", En.Format("site.group", 1), En.Format("city.turns", turns)), ui.Q<Label>("site-state").text);
     }
 

@@ -235,4 +235,61 @@ offices:
             ["absorption"] = "immigration_minister",
         }, m);
     }
+
+    // The live site ETA must match the resolver, including saved carry and promotion after this turn's work.
+    [Theory]
+    [InlineData(false, "halutz", 0)]
+    [InlineData(true, "halutz", 0)]
+    [InlineData(false, "halutz", 3)]
+    [InlineData(false, "veteran_halutz", 0)]
+    [InlineData(true, "veteran_halutz", 0)]
+    public void AScaledSiteForecastMatchesEveryRemainingTurn(bool able, string type, int service)
+    {
+        var c = Town(able ? Able : "");
+        var s = WithHalutz(c, out var id);
+        s.Units[id] = new Unit(id, type, 1, 0, service);
+        var site = c.Sites.Single(x => x.Id == "site_a");
+        int Forecast(int left, double carry)
+        {
+            var hash = s.Hash();
+            var result = Projects.TurnsToBuild(c, s, id, site, left, carry);
+            Assert.Equal(hash, s.Hash()); // a forecast never advances the real state
+            return result;
+        }
+        var forecasts = new List<int> { Forecast(c.Rules.Mvp!.BuildYishuvTurns, 0) };
+        s = Step(c, s, new PioneerWork(id, Projects.BuildYishuv, site.Id)).State;
+        int actual = 1;
+        while (s.Sites[site.Id].BuiltOn == null && actual < 20)
+        {
+            var work = s.Sites[site.Id];
+            forecasts.Add(Forecast(work.TurnsLeft, work.Progress));
+            s = Step(c, s).State; actual++;
+        }
+        Assert.NotNull(s.Sites[site.Id].BuiltOn);
+        for (int i = 0; i < forecasts.Count; i++) Assert.Equal(actual - i, forecasts[i]);
+    }
+
+    [Fact]
+    public void AChangedMinisterUpdatesTheRemainingForecastWithoutLosingCarry()
+    {
+        var candidate = Lazy.Replace("    offices:\n      - office: agriculture_minister\n        from: 1948-05-14\n", "");
+        var c = Town(Able + candidate);
+        var s = WithHalutz(c, out var id);
+        var site = c.Sites.Single(x => x.Id == "site_a");
+        s = Step(c, s, new PioneerWork(id, Projects.BuildYishuv, site.Id)).State;
+        var work = s.Sites[site.Id];
+        Assert.Equal((2, 0.5), (work.TurnsLeft, work.Progress));
+        var before = s.Hash();
+        Assert.Equal(1, Projects.TurnsToBuild(c, s, id, site, work.TurnsLeft, work.Progress));
+        Assert.Equal(before, s.Hash());
+        Assert.Null(Cabinet.Appoint(c, s, "agriculture_minister", "lazy_agri", new List<Cause>()));
+        before = s.Hash();
+        Assert.Equal(2, Projects.TurnsToBuild(c, s, id, site, work.TurnsLeft, work.Progress));
+        Assert.Equal(before, s.Hash());
+        s = Step(c, s).State;
+        Assert.Null(s.Sites[site.Id].BuiltOn);
+        s = Step(c, s).State;
+        Assert.NotNull(s.Sites[site.Id].BuiltOn);
+    }
+
 }
