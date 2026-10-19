@@ -144,6 +144,9 @@ adds a line under **Unreleased**; CI's `Changelog` job checks this (see `CONTRIB
   18 October 2026: "Neutral wording"); a native speaker still reads it (refs #564).
 - Hatzohar's Hebrew name is "התנועה הרוויזיוניסטית" (owner, 18 October 2026), the form its cited he.wiki article uses
   in its text, not the acronym הצה״ר; it stays flagged `agent-checked` for a native speaker (refs #875, #564).
+- The map's code-built boats (SeaCraft's feluccas, cutters, moored fishing boats and Haifa's coastal steamer) are
+  now their real length at the train's one 24x scale, like every other model: a felucca about 290 m (1.4 locomotive
+  cars) where it was 2,040 m. At the 60 km gameplay view they show only as small white flecks (Fixes #1094).
 - The Burma Road convoy truck and lorry stop on 7 December 1948, the approximate boundary when the Road of Valour
   replaced the Burma Road for regular Jerusalem traffic; the Burma Road itself stays drawn (refs #1040, #1051).
 - Up close, the unit tokens' figures are Tal Heuberger's skinned 1948 Collection figures playing their idle clip: below the town
