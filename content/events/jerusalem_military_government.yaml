@@ -35,7 +35,8 @@ options:
     alternative:
       basis: debated
       by: the Provisional Government of Israel, in its replies to the Mediator
-      # First day of the source's range (the Mediator's proposal of 3 July to the end of the first truce), approximate: owner ruling of 18 October 2026 (#949).
+      # Approximate: the Mediator-proposal boundary (his proposal of 3 July 1948), not an independently dated government
+      # reply. Owner rulings of 18 and 19 October 2026 (#949).
       date: 1948-07-03
       sources:
         - { url: "https://unispal.un.org/pdfs/AB14D4AAFC4E1BB985256204004F55FA.pdf", checked: 2026-10-17 }

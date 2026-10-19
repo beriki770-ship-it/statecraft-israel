@@ -40,7 +40,8 @@ options:
     alternative:
       basis: proposed
       by: the Southern Front command
-      # First day of the note's inferred range (about 7-10 January 1949), approximate: owner ruling of 18 October 2026 (#949).
+      # Approximate: the earliest boundary of the note's inferred range (about 7-10 January 1949); no exact proposal day
+      # has been found. Owner rulings of 18 and 19 October 2026 (#949).
       date: 1949-01-07
       sources:
         - { url: "https://www.idf.il/media/emxjtczk/%D7%A7%D7%95%D7%91%D7%A5-%D7%9E%D7%91%D7%A6%D7%A2-%D7%97%D7%95%D7%A8%D7%91.pdf", checked: 2026-10-18 }
