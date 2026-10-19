@@ -14,6 +14,10 @@ adds a line under **Unreleased**; CI's `Changelog` job checks this (see `CONTRIB
 - The Cabinet, Budget, Defence, Why, How to play and Settings screens each gain an X in the header that closes
   them (the same close as Escape): a phone has no Escape key, and re-tapping the lit rail button was the only way
   out (v0.1.1 playtest feedback).
+- The map zooms from the keyboard (a11y B1a, refs #41): hold = or - (or the numpad's + and -) to zoom in or out at
+  six wheel notches a second, so 6 to 250 km takes about six seconds. Like keyboard pan, the keys work while the
+  pointer rests over a panel, and only without Ctrl, Alt or Cmd, so Ctrl/Cmd with + and - stays the browser's own
+  zoom. A new `ZoomKeys` action in the Camera map; the wheel's `Zoom` keeps its one binding.
 
 ## [0.1.2] - 2026-10-19
 
@@ -137,10 +141,6 @@ adds a line under **Unreleased**; CI's `Changelog` job checks this (see `CONTRIB
   `delegation_loyalty_floor` (5), only `disloyal_effect_share` (0.5) of each numeric effect of the option lands. Both
   are labelled design values in `rules.yaml` `mvp:`. No minister in `people.yaml` is rated below 5 today, so the
   goldens do not move (refs #107).
-- The map zooms from the keyboard (a11y B1a, refs #41): hold = or - (or the numpad's + and -) to zoom in or out at
-  six wheel notches a second, so 6 to 250 km takes about six seconds. Like keyboard pan, the keys work while the
-  pointer rests over a panel, and only without Ctrl, Alt or Cmd, so Ctrl/Cmd with + and - stays the browser's own
-  zoom. A new `ZoomKeys` action in the Camera map; the wheel's `Zoom` keeps its one binding.
 
 ### Changed
 - Hebrew vote text (`budget.no_vote`, `budget.vote_advisory`, `cabinet.legislature_advisory`) is reworded so it needs
