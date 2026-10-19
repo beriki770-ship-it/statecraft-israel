@@ -348,6 +348,9 @@ Button:disabled { color: var(--ink-dim); border-color: rgba(120, 120, 120, 0.4);
 .info-gdd-line { font-size: 17px; flex-shrink: 1; }
 .info-gdd-row { flex-wrap: wrap; align-items: center; }
 .info-gdd Button { margin: 2px 6px 2px 0; font-size: 17px; white-space: normal; flex-shrink: 1; }
+/* Two counts on one row (Jobs | Craftsmen, Refugees waiting | Overflow; #1121): each keeps its width, so the row wraps
+   whole rather than squeezing a line into two, and a gap follows each (mirrored in Hebrew). */
+.info-gdd-pairs > .info-gdd-line { flex-shrink: 0; margin-right: 14px; }
 /* Before a hex is chosen only the hint shows (InfoPanelPresenter sets info-empty): a one-line chip that hugs its text, as
    the promo shows no panel until a tile is chosen (HUD round 1, #398). */
 .info-panel.info-empty { min-height: 0; width: auto; padding: 8px 16px; }
@@ -837,5 +840,6 @@ Button.settings-choice-selected { -unity-font-definition: url("project://databas
    rules above at equal specificity. */
 .lang-he .info-gdd { margin-left: 0; padding-left: 0; border-left-width: 0; margin-right: 14px; padding-right: 14px; border-right-width: 1px; }
 .lang-he .info-gdd Button { margin: 2px 0 2px 6px; }
+.lang-he .info-gdd-pairs > .info-gdd-line { margin-right: 0; margin-left: 14px; }
 .hud-two-row .info-panel.info-gdd-shown { width: 520px; flex-wrap: wrap; }
 .hud-two-row .info-gdd { width: 100%; margin: 8px 0 0 0; padding: 8px 0 0 0; border-left-width: 0; border-right-width: 0; border-top-width: 1px; }

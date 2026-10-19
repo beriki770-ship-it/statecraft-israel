@@ -55,15 +55,20 @@ public class CityPanelTests
     [Test]
     public void TheCityHexShowsItsCountsFromTheSim()
     {
+        // #1121: 4 civilians over the housing and 3 craftsmen trained (housed too, R-HOUSE-003) are 7 groups of overflow
+        // (R-HOUSE-002), so both new lines read nonzero sim values.
         using var ui = new UiTestKit();
-        var bridge = Bridge(En);
+        var bridge = Bridge(En, s => { var x = s.Cities[City]; s.Cities[City] = x.WithCounts(x.HousingCapacity + 4, x.Employed, x.Refugees).WithCraftsmen(3); });
         using var panel = Panel(ui, bridge, En);
         panel.Show(CityHex.q, CityHex.r);
         var city = bridge.State.Cities[City];
         Assert.AreEqual((0, 0), (city.Refugees, city.Recruits), "precondition: no refugees or recruits at the start (the plural forms below)");
+        Assert.AreEqual((7, 3), (Cities.Overflow(bridge.State, city), city.Craftsmen), "precondition: the sim's overflow and craftsmen");
         Assert.AreEqual(DisplayStyle.Flex, Host(ui).style.display.value, "the GDD part of the panel shows");
         Assert.AreEqual(En.Format("city.housing_condition", Cities.Housed(bridge.State, city), En.Format("city.groups", city.HousingCapacity), PlayerText.Percent(city.Condition!.Value)), ui.Q<Label>("city-housing").text);
+        Assert.AreEqual(En.Format("city.overflow", 7), ui.Q<Label>("city-overflow").text);
         Assert.AreEqual(En.Format("city.jobs", city.Employed, city.JobSlots), ui.Q<Label>("city-jobs").text);
+        Assert.AreEqual(En.Format("city.craftsmen", 3), ui.Q<Label>("city-craftsmen").text);
         Assert.AreEqual(En.Format("city.refugees", En.Format("city.groups", city.Refugees)), ui.Q<Label>("city-refugees").text);
         Assert.AreEqual(En.Format("city.recruits", En.Format("city.groups", city.Recruits)), ui.Q<Label>("city-recruits").text);
         Assert.AreEqual(En.Format("city.workers", En.Format("city.groups", city.Employed)), ui.Q<Label>("city-workers").text);
