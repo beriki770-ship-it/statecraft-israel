@@ -105,8 +105,9 @@ armored vehicles of Israel" (about 140 files, none opened one by one [carried]).
   in `tools/slim_collection.py:46-51` (far mesh at most 4,500 triangles for vehicles, near at most 8,000, 512 px colour
   map) [R].
 - **Non-MATKOT unit art goes to the owner for sign-off** before it ships (owner, 17 Oct; #1118's scope limits).
-- **Provenance** for any new model: an `ASSETS.yaml` row; the existing glob `unity/Assets/Art/Collection/*` already
-  covers files added to that folder, so only a model made elsewhere needs its own row.
+- **Provenance** for any new model: add or update an `ASSETS.yaml` row with its actual source, author and licence.
+  The existing `unity/Assets/Art/Collection/*` row describes the named Tal Heuberger Collection assets and their
+  provenance; placing a different or newly sourced model in that folder does not establish the same provenance.
 - **Never invent** a dress detail, marking or emblem the sources lack.
 
 ## 6. Proposed next scope
