@@ -28,9 +28,9 @@ final `GameState.Hash()` is pinned:
 
 | Run | Ends | Hash |
 |---|---|---|
-| to 1950-01-01 (`Hash1950`) | 1950-01-15, turn 20 | `4f1202cfa20e1f3cc7521c7b3baac386330b77fdbacc25928d781b1659747340` |
-| to 1952-01-01 (`Hash1952`) | 1952-01-15, turn 44 (the game's end) | `283349502eb580123fcea6bf64ca174f913627132a1325f3dbf00743435623e2` |
-| to the game's end (`mvp-end`) | 1952-01-15, turn 44 | `283349502eb580123fcea6bf64ca174f913627132a1325f3dbf00743435623e2` |
+| to 1950-01-01 (`Hash1950`) | 1950-01-15, turn 20 | `25ea8fbfdead6bb61510fc206f9e7763c6744d8ce9909f9a6d557fc81fac4ebb` |
+| to 1952-01-01 (`Hash1952`) | 1952-01-15, turn 44 (the game's end) | `ef8c5fea64b2f4ddeb8dda60e26be42066c554b4080224b25cb50cd9a408b6f7` |
+| to the game's end (`mvp-end`) | 1952-01-15, turn 44 | `ef8c5fea64b2f4ddeb8dda60e26be42066c554b4080224b25cb50cd9a408b6f7` |
 
 `hash1952` stops at the first turn on or after 1 January 1952, which is the game's last turn, so it is the same run as
 `mvp-end` (`DeterminismTests.TheWholeGameToItsEndIsFixed`). Both names are kept (spec 2026-10-12 section 3 step 6): a
@@ -306,3 +306,10 @@ The hash reads the state keys, so it never sees a record outside its window. An 
 | GDD Phase 2 PR 3b | scenario-reckless | `a0f094a1` | same (was `8041988a`) |
 | GDD Phase 2 PR 3b | scenario-mvp-absorb-first | `dee4f039` | same (was `be13c409`) |
 | GDD Phase 2 PR 3b | scenario-mvp-defeat | `e71076f7` | same; the defeat run is unchanged apart from `arms=12` (was `19143463`) |
+| GDD Phase 7 PR 4 | 1950 | `25ea8fbf` | the ministers on the GDD systems (R-MIN-001 to R-MIN-003; Q-MIN-1 to Q-MIN-3, owner, 17 and 18 October 2026, #784; #808): construction, pioneer and field work and absorption run at their office's multiplier, with the build's fractional carry kept on the record (an in-progress site writes it, `gilat=b,1,4,0.652...`). At the cut the veteran group has built Beit Kama on 1949-06-15 (was 1949-03-15) and Beit Shemesh on 1949-11-15 (was 1949-06-15) and is on Gilat, so two fewer yishuvim are borrowed and the debt is IL 87.5m (was 91.5m); slower absorption houses fewer civilians, so the cities' overflow is smaller and `housing` 0.1062 (was 0.0932) and `morale` 0.5050 (was 0.5018) rise (was `4f1202cf`) |
+| GDD Phase 7 PR 4 | 1952 | `ef8c5fea` | same; the veteran's builds take 5 turns at 2 x 0.624 = 1.248 a turn, so Gilat is built on 1950-04-15, Kiryat Shmona on 1950-09-15, Mefalsim on 1951-02-15 and Re'im on 1951-07-15 (were 1949-09-15, 1949-12-15, 1950-03-15 and 1950-06-15), only two fields are plowed (Beit Kama 1951-10-15, Beit Shemesh 1952-01-15) and the camps never start. The debt is IL 211.9m (was 223.9m) and the Food stock 2734 (was 2738). The first-new-yishuv objective completes on 1951-02-15, after its reference date, so the score stays 100 (was `28334950`) |
+| GDD Phase 7 PR 4 | mvp-end | `ef8c5fea` | same; the same run as hash1952 (was `28334950`) |
+| GDD Phase 7 PR 4 | scenario-cautious | `9a3d241e` | the absorption and construction multipliers: the cities' housed counts and conditions move, and `housing`, `morale` and stability with them; no order or date changes (was `a6108c91`) |
+| GDD Phase 7 PR 4 | scenario-reckless | `d7dbcf75` | same; each city houses fewer of its refugees a turn, so more wait (was `a0f094a1`) |
+| GDD Phase 7 PR 4 | scenario-mvp-absorb-first | `234e32ee` | same; the scenario's one order stands, and every city's housed count moves (was `dee4f039`) |
+| GDD Phase 7 PR 4 | scenario-mvp-defeat | `f3daaa70` | same; only the housing web's numbers move, in the third decimal and below - the defeat is unchanged, still `defeat_economy` on 15 January 1952 (was `e71076f7`) |
