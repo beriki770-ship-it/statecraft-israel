@@ -190,6 +190,14 @@ R-END-001: Money is exhausted when the debt is at or above `debt_ceiling` (Q-DEF
 
 R-END-002: In the resolver's last step, after the objectives and the score (spec §2.3, step 11), a turn end with Money and Food both exhausted adds 1 to `ExhaustedTurns`, and any other turn end sets it back to 0. When it reaches `defeat_turns`, the game ends with `defeat_economy` and a cause in the turn's causes, under the game's end (`era`) like the MVP end. `defeat_turns` is 3, a labelled design value (Q-DEF-2, owner, 18 October 2026, #784: "3 turns"), required in the GDD loop, at least 1. The step reads the debt as it finds it: the turn's deficit is borrowed after the resolution, so it counts from the next turn's end. A defeat on the game's last turn ends it as a defeat. `ExhaustedTurns` is in the state hash only when above 0, so a run that never has both exhausted hashes as before; the legacy loop never counts.
 
+## The end report
+
+D-H4 as decided (owner, 17 October 2026, #784: Q-END-1 and Q-END-2 as recommended): #19's legacy report folds into the end screen, which reads one sim helper, `EndReport.For` (Phase 7 PR 7, #810). This first slice reads only what the state already holds; the score's parts wait for #809, and the war loss for #8.
+
+R-END-005: Once the game has ended, the end report lists the outcome (the `GameOver` code), the end date, the state's score as it stands, every objective in `objectives.yaml` order with its historical date and, when completed, the player's date and the months from history (`Objectives.MonthsFromHistory`), and the two national parameters, Social cohesion and International Support, with no historical value. It is pure: it computes no rule, writes nothing, and two calls give the same report with the state hash unchanged. A game still on has no report.
+
+R-END-006: The report compares one measure with history (Q-END-2): the Jewish population at the end against the latest CBS anchor in `population.yaml` dated on or before the end, given with that anchor's date and sources. A game that ends before the first anchor has no comparison. No other value is compared, and none is invented.
+
 ## Government
 
 D-C5 as decided (12 October 2026): the cabinet and Attention stay, the coalition is optional with no collapse. The coalition votes, the budget shares and the policies keep running and visible as before (Q-GOV-1, decided 15 October 2026, "Take all recommendations", #375). The defeat (D-B5) is built in Phase 7 (Q-GOV-2, decided the same day).
