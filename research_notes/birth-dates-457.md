@@ -59,7 +59,7 @@ The current English Wikipedia article on Kaplan cites one source for his birth s
 - Seen, secondary only: Wikidata Q2587814, Austria-Forum (derives from Wikipedia), Prabook. They repeat en.wiki and are not independent.
 
 ### geri (1901-09-18)
-- Primary: not found. He was never a Knesset member and the old page has no birth line. Other candidate records (Israel State Archives, Histadrut or Haifa municipal records, JPress notices from his period as Minister of Trade and Industry, 1949 to 1951) were not reachable.
+- Primary: not found. He was never a Knesset member and the old page has no birth line. Other candidate records (Israel State Archives, Histadrut or Haifa municipal records, JPress notices from his period as Minister of Trade and Industry, 1950 to 1951) were not reachable.
 - Related: en.wiki puts the birthplace at Seda, Russian Empire, and says he studied in South Africa. Neither detail has been checked.
 
 ### remez (1886-05-23)
