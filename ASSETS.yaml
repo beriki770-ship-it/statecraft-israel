@@ -265,6 +265,13 @@ rules:
     status: verified
     credit: "Recording: Ralph Hellinger, Israel State Archives"
     note: "Played only from the start screen's 'Play the recording' button, over the still painting, with the declaration's own Hebrew and English text as captions and the credit on screen; never automatic. Rights basis and open questions: docs/oss/DECISIONS.md D-R (the terms' commercial clause, a copy taken from the archive's YouTube channel, the creator's rights, the US status). D-R (owner, 17 Oct 2026)."
+  # --- Sound effects (#39, GameAudio): CC0 clips from Kenney's Interface Sounds pack, copied byte for byte and renamed ---
+  - glob: "unity/Assets/Resources/Audio/*.ogg"
+    licence: CC0-1.0
+    source: "Kenney, 'Interface Sounds' 1.0 (https://kenney.nl/assets/interface-sounds; the page says 'Creative Commons CC0' and the pack's License.txt says 'License: (Creative Commons Zero, CC0) http://creativecommons.org/publicdomain/zero/1.0/'), downloaded 2026-10-19 as kenney_interface-sounds.zip (834,536 B, sha256 f2193d072726d6758a5f7871b2dcc54dcce0d5c35c6f0a62f92549b327c81232). Copied unchanged (Ogg Vorbis, mono, 44.1 kHz) and renamed: turn-ended.ogg = Audio/confirmation_001.ogg (8,968 B, sha256 063564703b6094d70718a3e787a55cc9141611e4ecd6b6637f8828f79b4a8c3a); event-card.ogg = Audio/question_002.ogg (9,455 B, sha256 46056f10c70dda860e93bd27b66f4d33c0b7154eff28def06471b50028efa5b3); refused.ogg = Audio/error_006.ogg (8,288 B, sha256 a97513d7fd2b12b1210c423be943b4c1ab0e899b11db95855e9b74836e646ae0)"
+    status: verified
+    artist: "Kenney (www.kenney.nl)"
+    note: "CC0: no attribution required; the pack asks for an optional credit to Kenney, given here. Played by GameAudio at End Turn, on a refused order and when an event card comes into view, at the Settings screen's sound volume. Not AI-generated."
   # --- Decision-card illustration loops: silent AI clips behind the Illustration switch (docs/event-videos.md; owner ruling D-V) ---
   # Made by tools/encode_event_videos.py from promo shots that are not in the repository (path and SHA-256 per row in
   # unity/Assets/Resources/EventVideos/event-videos.yaml). Rights: owner ruling D-V, 2026-10-13 (docs/oss/DECISIONS.md, merged in #449):

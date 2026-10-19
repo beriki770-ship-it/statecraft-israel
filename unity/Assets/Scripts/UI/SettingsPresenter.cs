@@ -8,25 +8,31 @@ using UnityEngine.UIElements;
 namespace Statecraft.Game.UI
 {
     /// <summary>The Settings screen (#40), opened from the left column's gear like the other screens (ScreenNav). Its options:
-    /// the graphics quality (GraphicsQuality: Auto / High / Low), the UI's language (#1036) and the tilt-shift blur. The
-    /// blur option turns it off and on: applied at once (TiltShift.Enabled, what the "tiltshift" toggle sets) and kept in
+    /// the graphics quality (GraphicsQuality: Auto / High / Low), the sound effects' volume (GameAudio, #39), the UI's
+    /// language (#1036) and the tilt-shift blur. The blur option turns it off and on: applied at once (TiltShift.Enabled, what the "tiltshift" toggle sets) and kept in
     /// the SettingsStore, so it holds after a reload. A stored "off" only ever turns the blur off, so ?notiltshift still boots without it. The
     /// button says what is set ("On" / "Off"), not only a colour: the player's choice (Enabled), not the web tier's
     /// automatic last fallback step (TiltShift.FallbackOff), which it never changes.</summary>
     public sealed class SettingsPresenter : IDisposable
     {
-        public const string TiltShiftKey = "tiltshift", QualityKey = "quality", LanguageKey = "lang", SelectedClass = "settings-choice-selected";
+        public const string TiltShiftKey = "tiltshift", QualityKey = "quality", LanguageKey = "lang", SoundKey = "sfx", SelectedClass = "settings-choice-selected";
+        /// <summary>The sound effects' volume steps (#39): the stored word and GameAudio's volume. With no stored choice, "high".</summary>
+        public static readonly (string level, float volume)[] SoundLevels = { ("off", 0f), ("low", 0.35f), ("high", 1f) };
         readonly SettingsStore? store; readonly UiText text; readonly VisualElement screen; readonly Button tiltShift;
         readonly (Button button, GraphicsQuality.Choice choice, Action pick)[] quality;
         readonly (Button button, string language, Action pick)[] languages;
+        readonly (Button button, string level, Action pick)[] sound;
+        readonly GameAudio? audio;
+        string soundLevel;
         readonly Action<string>? switchLanguage;
 
         /// <param name="store">Where the choice is kept; null keeps nothing (the option still works until the page closes).</param>
         /// <param name="switchLanguage">Puts the UI in the language pressed (GameRoot builds the screens again); null changes
         /// nothing but the stored choice, read at the next start.</param>
-        public SettingsPresenter(VisualElement root, UiText text, SettingsStore? store, Action<string>? switchLanguage = null)
+        /// <param name="audio">The sound effects the volume applies to; null keeps only the choice.</param>
+        public SettingsPresenter(VisualElement root, UiText text, SettingsStore? store, Action<string>? switchLanguage = null, GameAudio? audio = null)
         {
-            this.store = store; this.text = text; this.switchLanguage = switchLanguage;
+            this.store = store; this.text = text; this.switchLanguage = switchLanguage; this.audio = audio;
             screen = root.Q<VisualElement>("screen-settings");
             screen.Q<Label>("settings-screen-title").text = text["settings.title"];
             screen.Q<Label>("settings-tiltshift-label").text = text["settings.tiltshift"];
@@ -61,6 +67,19 @@ namespace Statecraft.Game.UI
                 b.clicked += pick;
                 return (b, l.Item1, pick);
             });
+            // Sound effects (#39): three volume steps, the one that is set marked, applied to GameAudio at once and kept.
+            screen.Q<Label>("settings-sound-label").text = text["settings.sound"];
+            var storedSound = store?.Read(SoundKey);
+            soundLevel = Array.Exists(SoundLevels, l => l.level == storedSound) ? storedSound! : "high";
+            ApplySound();
+            sound = Array.ConvertAll(SoundLevels, l =>
+            {
+                var b = screen.Q<Button>("settings-sound-" + l.level);
+                b.text = text["settings.sound." + l.level];
+                Action pick = () => PickSound(l.level);
+                b.clicked += pick;
+                return (b, l.level, pick);
+            });
             ScreenNav.OnOpened(screen, Show);   // a dev toggle may have changed it while the screen was shut
             Show();
         }
@@ -70,6 +89,7 @@ namespace Statecraft.Game.UI
             tiltShift.clicked -= Flip;
             foreach (var (b, _, pick) in quality) b.clicked -= pick;
             foreach (var (b, _, pick) in languages) b.clicked -= pick;
+            foreach (var (b, _, pick) in sound) b.clicked -= pick;
             if (screen.userData is Action) screen.userData = null;
         }
 
@@ -96,6 +116,23 @@ namespace Statecraft.Game.UI
             }
         }
 
+        void PickSound(string level)
+        {
+            soundLevel = level;
+            ApplySound();
+            Show();
+            try { store?.Write(SoundKey, level); }
+            catch (Exception e) when (e is IOException || e is UnauthorizedAccessException)
+            {
+                Debug.LogWarning($"Settings: could not keep the sound choice ({e.Message}); it holds until the page is closed");
+            }
+        }
+
+        void ApplySound()
+        {
+            if (audio != null) audio.Volume = Array.Find(SoundLevels, l => l.level == soundLevel).volume;
+        }
+
         /// <summary>Keeps the choice first: the switch disposes this presenter with the rest of the UI.</summary>
         void PickLanguage(string language)
         {
@@ -113,6 +150,7 @@ namespace Statecraft.Game.UI
             tiltShift.text = text[TiltShift.Enabled ? "settings.on" : "settings.off"];
             foreach (var (b, c, _) in quality) b.EnableInClassList(SelectedClass, c == GraphicsQuality.Current);
             foreach (var (b, l, _) in languages) b.EnableInClassList(SelectedClass, l == text["ui.lang"]);
+            foreach (var (b, l, _) in sound) b.EnableInClassList(SelectedClass, l == soundLevel);
         }
     }
 }

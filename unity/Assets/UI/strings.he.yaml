@@ -65,6 +65,12 @@ settings.quality: "איכות גרפית"
 settings.quality.auto: "אוטומטית"
 settings.quality.high: "גבוהה"
 settings.quality.low: "נמוכה"
+# The sound effects' volume (#39, GameAudio), in three steps. Adjectives in the masculine plural, agreeing with
+# "צלילים". For the native reviewer (#564).
+settings.sound: "צלילים"
+settings.sound.off: "כבויים"
+settings.sound.low: "חלשים"
+settings.sound.high: "חזקים"
 # The language choice (#1036); the languages' names are on their buttons, in themselves (SettingsPresenter). The note
 # says that the event cards are not translated yet (#55). For the native reviewer (#564).
 settings.language: "שפה"

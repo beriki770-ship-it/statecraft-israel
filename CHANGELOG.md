@@ -19,6 +19,12 @@ adds a line under **Unreleased**; CI's `Changelog` job checks this (see `CONTRIB
   them (the same close as Escape): a phone has no Escape key, and re-tapping the lit rail button was the only way
   out (v0.1.1 playtest feedback).
 
+### Added
+- Sound effects: one audio service plays a short clip when a turn ends, when an order is refused and when an event card
+  comes into view, and the Settings screen has a sound effects volume (off, low, high) that is kept per browser. The
+  three clips are CC0, from Kenney's Interface Sounds pack (27 KB in all), each listed in `ASSETS.yaml`. Presentation
+  only, so the golden hashes do not move (refs #39).
+
 ## [0.1.2] - 2026-10-19
 
 ### Added

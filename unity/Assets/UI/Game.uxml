@@ -329,6 +329,15 @@
                     <ui:Button name="settings-quality-low" text="Low" class="settings-switch" />
                 </ui:VisualElement>
             </ui:VisualElement>
+            <!-- Sound effects (#39, GameAudio): three volume steps, the one that is set carries .settings-choice-selected. -->
+            <ui:VisualElement class="row settings-row">
+                <ui:Label name="settings-sound-label" text="Sound effects" class="settings-name" />
+                <ui:VisualElement class="row settings-choices">
+                    <ui:Button name="settings-sound-off" text="Off" class="settings-switch" />
+                    <ui:Button name="settings-sound-low" text="Low" class="settings-switch" />
+                    <ui:Button name="settings-sound-high" text="High" class="settings-switch" />
+                </ui:VisualElement>
+            </ui:VisualElement>
             <!-- The UI's language (#1036): SettingsPresenter names each language in itself; the one in use carries .settings-choice-selected. -->
             <ui:VisualElement class="row settings-row">
                 <ui:Label name="settings-language-label" text="Language" class="settings-name" />
