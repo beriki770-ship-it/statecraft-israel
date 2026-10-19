@@ -8,6 +8,10 @@ adds a line under **Unreleased**; CI's `Changelog` job checks this (see `CONTRIB
 ## [Unreleased]
 
 ### Added
+- Unit cards can show the place, first commander and sector in Hebrew: optional `place_he`, `first_commander_he` and
+  `sector_he` in `units_1948.yaml`, each with its sources and `*_review: agent-checked`, shown only in the Hebrew UI,
+  each falling back to its own English. The loader refuses a Hebrew text without its English, blank keys, and sources
+  or review flags without the text. No shipped row carries them yet, so no card changes (refs #558).
 - An opt-in Civilization-style hex-tile map (`?hex-tiles`, desktop `-hex-tiles`; `?hex-tiles=tel_aviv_crop` for the
   Tel Aviv crop): one-file hex prototypes (towns, orchards, fields, forests, hills), units as their own layer, painted
   ground, a landscape ring round the play hexes and a warmer light while it is on. Presentation only; off by default,
