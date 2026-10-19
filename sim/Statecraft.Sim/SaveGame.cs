@@ -39,7 +39,7 @@ namespace Statecraft.Sim
     ///   &lt;command&gt; ...              policy ID LEVEL | budget OFFICE=SHARE,... | event ID OPTION | mobilize LEVEL |
     ///                              security DELTA | appoint OFFICE PERSON | map ACTION Q R | work CITY ROLE N |
     ///                              train CITY TRACK N | untrain COHORT | pioneer UNIT ACTION SITE | stop UNIT |
-    ///                              project KIND CITY Q R | unproject PROJECT
+    ///                              project KIND CITY Q R | unproject PROJECT | arms N
     ///   end &lt;hex&gt;                 GameState.Hash() after the last turn (checks the replay)
     /// Doubles are IEEE bit patterns in hex, so replays are exact; strings are percent-escaped (Uri.EscapeDataString).
     /// </summary>

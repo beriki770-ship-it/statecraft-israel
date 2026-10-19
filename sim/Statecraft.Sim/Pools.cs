@@ -18,6 +18,9 @@ namespace Statecraft.Sim
         /// <summary>The event-effect target that moves the Food stock itself (R-EFX-001).</summary>
         public const string FoodTarget = "food";
 
+        /// <summary>The event-effect target that moves the Arms stock (R-EFX-001, #781).</summary>
+        public const string ArmsTarget = "arms";
+
         /// <summary>The command kind that buys Arms with Money (R-ARMS-002).</summary>
         public const string BuyArmsKind = "buy_arms";
 

@@ -18,7 +18,9 @@ adds a line under **Unreleased**; CI's `Changelog` job checks this (see `CONTRIB
   a 1,000-person recruit group, and the state holds 12 on 15 May 1948. A `BuyArms(count)` order pays IL 1m an Arms,
   borrows a short Treasury and costs 1 Attention whatever the count; recruit training takes 1 Arms a group when it starts
   and is refused with a reason without one. The owner approved all four values (#781); they are labelled design values.
-  The goldens move only by the new `arms=12` line.
+  An event option can also move the stock with an `arms` effect, in whole units and never below 0, and the no-gain rule
+  for sensitive events covers it (R-EFX-001, R-EFX-002); no event uses it yet. The goldens move only by the new
+  `arms=12` line.
 
 ## [0.1.2] - 2026-10-19
 
