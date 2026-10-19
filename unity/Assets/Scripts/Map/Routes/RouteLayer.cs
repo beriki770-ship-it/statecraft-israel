@@ -105,6 +105,13 @@ namespace Statecraft.Game.Map.Routes
         public static IEnumerable<RoutePath> KitRoutes(IEnumerable<RoutePath> routes) =>
             routes.Where(r => RoutePaths.WindowOf(r).Covers(DefaultDate));
 
+        /// <summary>The routes whose corridors the unit tokens keep clear: those drawn on some day before <paramref name="until"/>,
+        /// the end of the last token's window. A route opened after every token has left the map (the 1949 rail link, the 1950
+        /// Tel Aviv–Netanya road) never stands beside one, so it takes no token's spot (#786: the straight 1950 road crossed
+        /// Tel Aviv and left Kiryati no spot there).</summary>
+        public static IEnumerable<RoutePath> UnitRoutes(IEnumerable<RoutePath> routes, DateTime until) =>
+            routes.Where(r => RoutePaths.WindowOf(r).From < until);
+
         public static float WidthOf(string kind) => kind switch
         {
             RoutePaths.Rail => RailWidthM,

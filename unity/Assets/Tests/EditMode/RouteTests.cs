@@ -544,6 +544,23 @@ public class RouteTests
             CollectionAssert.DoesNotContain(kept, later);
     }
 
+    /// <summary>#786: the unit tokens keep off the routes drawn while any of them stands (to the end of the last anchor's
+    /// window in units_1948.yaml): the Burma Road, opened in June 1948, still does; the 1949 rail link and the 1950 Tel
+    /// Aviv–Netanya road, opened after the last token leaves, take no spot (the straight 1950 road left Kiryati none in
+    /// Tel Aviv).</summary>
+    [Test]
+    public void TheUnitsKeepOffOnlyTheRoutesDrawnWhileTheyStand()
+    {
+        var routes = RoutePaths.Parse(CommittedYaml, Bounds);
+        var units = Statecraft.Game.Map.Units.UnitData.Parse(File.ReadAllText(Path.Combine(Paths.Content, "map", Statecraft.Game.Map.Units.UnitData.DefaultFileName)));
+        var until = units.SelectMany(u => u.Anchors).Max(a => Statecraft.Game.Map.Units.UnitData.Day(a.To));
+        var kept = RouteLayer.UnitRoutes(routes, until).Select(r => r.Id).ToList();
+        CollectionAssert.IsSubsetOf(new[] { "jaffa_jerusalem_railway", "tel_aviv_haifa_road", "burma_road" }, kept);
+        foreach (var later in new[] { "yarkon_rail_link", "tlv_netanya_road" })
+            CollectionAssert.DoesNotContain(kept, later);
+        Assert.AreEqual(routes.Count - 2, kept.Count, "only the two Phase 4 routes open after the war's last token");
+    }
+
     /// <summary>Kits and routes together (#179 on main): no kit building, landmark or tree reaches into the corridor of a
     /// route drawn at the start (RouteLayer.KitRoutes), half the drawn width plus RouteLayer.CorridorMarginM. Checked by
     /// brute force against every segment, independent of KitGround's grid.</summary>

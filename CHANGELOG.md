@@ -150,7 +150,8 @@ adds a line under **Unreleased**; CI's `Changelog` job checks this (see `CONTRIB
   link's route (`yarkon_rail_link`, from 20 September 1949) and the Tel Aviv–Netanya road (`tlv_netanya_road`, from 28
   July 1950), drawn as straight draft lines between the five places *The Jerusalem Post* names (`trace: straight`;
   owner, 18 October 2026, #786). Only the routes drawn at the game's start keep the settlement kits off, so the later
-  routes clear no town's houses or trees (owner, #786: the floors are kept). The reference player builds segments once
+  routes clear no town's houses or trees (owner, #786: the floors are kept). The unit tokens keep off only the routes
+  drawn while a token stands, so the two later routes move no 1948 token. The reference player builds segments once
   every yishuv, ready field and camp site is taken, so hash1952 and mvp-end move. A veteran builds a segment at 2 turns
   of progress a turn and a halutz's segment work counts as service, as on a site (R-VET-001, R-VET-002).
 

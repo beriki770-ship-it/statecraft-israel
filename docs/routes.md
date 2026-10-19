@@ -341,7 +341,8 @@ does (#320, docs/visual-v1.md).
 - Only the routes drawn on 15 May 1948 get a kit corridor (owner, 18 October 2026, #786: the kit floors are kept, not
   lowered). The kits are built once, not per date, so a later route (the Burma Road, the 1949 rail link, the 1950 Tel
   Aviv–Netanya road) clears no town's houses or trees from the start, and draws over them when it appears. The units
-  still keep off every route (`MapScene.RouteCorridors`).
+  keep off every route drawn while a token stands (`RouteLayer.UnitRoutes`, `MapScene.RouteCorridors`): the Burma Road
+  still, the 1949 rail link and the 1950 road not, as they open after the last token leaves the map.
 - `RouteTests.NoKitBuildingOrTreeStandsOnARoute` checks every lot and tree against every segment of those routes by
   brute force, and logs what the later routes draw over.
 
