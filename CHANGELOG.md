@@ -14,6 +14,11 @@ adds a line under **Unreleased**; CI's `Changelog` job checks this (see `CONTRIB
   priced by the sim's new `AttentionSystem.Price`/`Left`, which `SimBridge` now uses too); the UI only reads it (refs #1109).
 - Unit cards show the sourced Hebrew unit name in the Hebrew UI, with an English fallback. INS Haganah gains its
   sourced Hebrew name, still flagged for a native speaker's review (#902).
+- The info panel on a camp, field or Hula swamp site offers Build a training camp, Plow fields or Drain the swamp to each
+  idle halutz group, beside Build a yishuv, with the cost and turns the sim charges (`Projects.Terms`, which
+  `Projects.Start` now uses too) and Stop while the work runs. A yishuv's or the swamp's field says it waits until that
+  site is built or drained (`Projects.YishuvToBuildFirst`), and `SimBridge` lets the three orders through its id check.
+  New English and Hebrew strings; the Hebrew is flagged for the native reviewer (refs #792, #1124).
 ### Fixed
 - The Cabinet, Budget, Defence, Why, How to play and Settings screens each gain an X in the header that closes
   them (the same close as Escape): a phone has no Escape key, and re-tapping the lit rail button was the only way

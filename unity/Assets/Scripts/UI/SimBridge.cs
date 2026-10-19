@@ -122,10 +122,11 @@ namespace Statecraft.Game.UI
                         ?? Unknown("training", t.Track, Content.UnitTypes.Where(x => !string.IsNullOrEmpty(x.Facility)).Select(x => x.Id));
                 case CancelTraining x:
                     return Unknown("cohort", x.Cohort.ToString(System.Globalization.CultureInfo.InvariantCulture), State.Cohorts.Keys.Select(k => k.ToString(System.Globalization.CultureInfo.InvariantCulture)));
-                // Pioneer work (#378): ids only; the sim refuses a busy unit, a built site or a short Treasury with its own reason.
+                // Pioneer work (#378; the camp, field and swamp actions, #1124): ids only; the sim refuses a busy unit, a built site or
+                // a short Treasury with its own reason, and a site of another kind or a field not ready yet too.
                 case PioneerWork w:
                     return Unknown("unit", w.Unit.ToString(System.Globalization.CultureInfo.InvariantCulture), State.Units.Keys.Select(k => k.ToString(System.Globalization.CultureInfo.InvariantCulture)))
-                        ?? Unknown("pioneer_work", w.Action, new[] { Projects.BuildYishuv }) ?? Unknown("site", w.Site, Content.Sites.Select(x => x.Id));
+                        ?? Unknown("pioneer_work", w.Action, new[] { Projects.BuildYishuv, Projects.BuildCamp, Projects.PlowFields, Projects.DrySwamp }) ?? Unknown("site", w.Site, Content.Sites.Select(x => x.Id));
                 case StopWork w: return Unknown("unit", w.Unit.ToString(System.Globalization.CultureInfo.InvariantCulture), State.Units.Keys.Select(k => k.ToString(System.Globalization.CultureInfo.InvariantCulture)));
                 // City projects (#735): ids only; the sim refuses a far or taken hex, the policy gate and the turn's limit itself.
                 case StartProject p:
