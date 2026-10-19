@@ -77,6 +77,10 @@ namespace Statecraft.Game.UI
         /// cabinet: an appointment queued this turn is in office by then (#1034).</summary>
         public Person? DelegatedTo(GameEvent e) => Simulation.DelegatedTo(Content, State, queue, e.Id);
 
+        /// <summary>The vacant seats the player can fill, less those an appointment queued now fills (Cabinet.Vacancies): the
+        /// side menu's Cabinet badge (#1109).</summary>
+        public IReadOnlyList<Office> Vacancies => Cabinet.Vacancies(Content, State, queue);
+
         /// <summary>Attention left after paying for the queued orders at this turn's prices.</summary>
         public double AttentionLeft => State.Attention - queue.Sum(Price);
 

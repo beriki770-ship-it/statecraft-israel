@@ -347,4 +347,24 @@ public class CabinetTests
         s.Date = new DateTime(1951, 6, 1);
         Assert.Equal("David Remez died on 19 May 1951", Cabinet.Check(c, s, "transportation_minister", "remez"));
     }
+    /// <summary>#1109: the side menu's Cabinet badge reads Cabinet.Vacancies, the playable seats with no holder that someone
+    /// may be appointed to now and that no order in this turn's queue fills. Education is vacant from Remez's death (19 May
+    /// 1951) to Dinur (8 October 1951); the presidency, vacant in December 1952, is the Knesset's to fill, not the player's.</summary>
+    [Fact]
+    public void VacanciesAreTheSeatsThePlayerCanFill()
+    {
+        var c = ContentLoader.Load(RealContentTests.ContentRoot());
+        var none = new Command[0];
+        Assert.Empty(Cabinet.Vacancies(c, new GameState { Date = new DateTime(1948, 6, 12) }, none));   // #217: none in 1948
+        var s = new GameState { Date = new DateTime(1951, 5, 19) };
+        // Minority Affairs has had no holder in people.yaml since 10 March 1949, and offices.yaml gives it no end date.
+        Assert.Equal(new[] { "minority_affairs_minister", "education_minister" }, Cabinet.Vacancies(c, s, none).Select(o => o.Id).ToArray());
+        var fill = Cabinet.Candidates(c, s, "education_minister").First(x => x.reason == null).person.Id;
+        Assert.Equal(new[] { "minority_affairs_minister" },   // a queued appointment fills its seat, and only that one
+            Cabinet.Vacancies(c, s, new Command[] { new Appoint("education_minister", fill) }).Select(o => o.Id).ToArray());
+        Assert.Contains(Cabinet.Vacancies(c, s, new Command[] { new Appoint("finance_minister", fill) }), o => o.Id == "education_minister");
+        var president = new GameState { Date = new DateTime(1952, 12, 15) };
+        Assert.Contains(Cabinet.Lineup(c, president), seat => seat.Office.Id == "president" && seat.Holder == null);
+        Assert.DoesNotContain(Cabinet.Vacancies(c, president, none), o => o.Id == "president");
+    }
 }
