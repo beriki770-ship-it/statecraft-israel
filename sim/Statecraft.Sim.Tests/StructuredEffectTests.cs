@@ -329,7 +329,7 @@ from: 1948-05-15
         Assert.Null(Projects.CheckCity(c, s, "industry", "town_a", 1, 1));
     }
 
-    // R-EFX-008: the unlock is game state, so a save replays it to the same hash, and the refused order before it stays refused.
+    // R-EFX-008: the unlock is game state, so a save replays it to the same hash.
     [Fact]
     public void ASaveWithAnUnlockReplays()
     {
