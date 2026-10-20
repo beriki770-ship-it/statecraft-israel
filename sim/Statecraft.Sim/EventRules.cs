@@ -9,13 +9,13 @@ namespace Statecraft.Sim
     static class EventRules
     {
         public static readonly HashSet<string> SensitiveTags = new HashSet<string>(StringComparer.OrdinalIgnoreCase) { "holocaust", "terror", "massacre", "war-casualties", "displacement" };
-        public static readonly HashSet<string> SpecialTargets = new HashSet<string> { "treasury", "fx_reserves", Pools.FoodTarget };
+        public static readonly HashSet<string> SpecialTargets = new HashSet<string> { "treasury", "fx_reserves", Pools.FoodTarget, Pools.ArmsTarget };
         /// <summary>Targets a sensitive event's options may not raise (CONTENT_POLICY section 4: no mechanic rewards violence against
         /// civilians). Owner decision of 15 October 2026 on Q-EFX-2, "Extend it": every resource, not money alone. Until the
         /// GDD resources exist as targets the legacy indicators stand for them: Money (treasury, fx_reserves), Food
         /// (food_supply), Social cohesion (morale) and International Support (intl_standing). Food also has its own target
-        /// (`food`, R-EFX-001); Arms has no target yet and joins the rule with its pool (#781).</summary>
-        public static readonly HashSet<string> NoGainTargets = new HashSet<string> { "treasury", "fx_reserves", Pools.FoodTarget, "food_supply", "morale", "intl_standing" };
+        /// (`food`, R-EFX-001); Arms joins the rule with its pool (#781).</summary>
+        public static readonly HashSet<string> NoGainTargets = new HashSet<string> { "treasury", "fx_reserves", Pools.FoodTarget, Pools.ArmsTarget, "food_supply", "morale", "intl_standing" };
 
         public static void Validate(Content c, HashSet<string> offices, HashSet<string> indicators)
         {
@@ -74,6 +74,9 @@ namespace Statecraft.Sim
                     if (!optionIds.Add(o.Id)) throw new ContentException(e.File, F($"options[{o.Id}].id"), "duplicate option id");
                     CheckPlaceholders(c, e, F($"options[{o.Id}].text"), o.Text, offices);
                     if (o.Alternative != null) CheckAlternative(e, o, F($"options[{o.Id}].alternative"));
+                    // R-ALT-004: an option that did not happen says who proposed it, or that it is a design assumption.
+                    if (!o.Historical && e.Options.Any(x => x.Historical) && o.Alternative == null)
+                        throw new ContentException(e.File, F($"options[{o.Id}].alternative"), "an option that did not happen says who proposed it, or basis: design");
                     foreach (var kv in o.SetPolicy)
                     {
                         if (c.Policies.All(p => p.Id != kv.Key)) throw new ContentException(e.File, F($"options[{o.Id}].set_policy.{kv.Key}"), "unknown policy");
@@ -87,8 +90,8 @@ namespace Statecraft.Sim
                             throw new ContentException(e.File, F($"options[{o.Id}].effects.{fx.Target}"), "unknown target");
                         Active(F($"options[{o.Id}].effects.{fx.Target}"), fx.Target);
                         ContentLoader.Finite(e.File, F($"options[{o.Id}].effects.{fx.Target}.delta"), fx.Delta);
-                        if (fx.Target == Pools.FoodTarget && Math.Abs(fx.Delta) > int.MaxValue)
-                            throw new ContentException(e.File, F($"options[{o.Id}].effects.{fx.Target}"), "food delta out of range");
+                        if ((fx.Target == Pools.FoodTarget || fx.Target == Pools.ArmsTarget) && Math.Abs(fx.Delta) > int.MaxValue)
+                            throw new ContentException(e.File, F($"options[{o.Id}].effects.{fx.Target}"), $"{fx.Target} delta out of range");
                         if (sensitive && NoGainTargets.Contains(fx.Target) && fx.Delta > 0)
                             throw new ContentException(e.File, F($"options[{o.Id}].effects.{fx.Target}"), $"sensitive events cannot reward {fx.Target}");
                     }

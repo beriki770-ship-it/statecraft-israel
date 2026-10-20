@@ -518,6 +518,10 @@ namespace Statecraft.Sim
         public double? HakhsharaUpkeepPerYear { get; set; }
         /// <summary>The day the cities start taking arrivals: the census day their start values count (R-CITY-003, Q-ARRV-3).</summary>
         public DateTime CityArrivalsFrom { get; set; }
+        /// <summary>The GDD system to office map (R-MIN-001, D-H3, Q-MIN-1): the office whose
+        /// <see cref="EffectsSystem.Multiplier(Content, GameState, string)"/> scales each named system. A system the map does
+        /// not name is neutral. Read on the turn's date.</summary>
+        public Dictionary<string, string> MinisterSystems { get; set; } = new Dictionary<string, string>();
         /// <summary>The day the GDD game ends (R-LOOP-004; D-E5, 15 January 1952 in the real content), or null for the last
         /// era's end. Read from rules.yaml through <see cref="Content.End"/>; the same in every era.</summary>
         public DateTime? End { get; set; }
@@ -556,6 +560,13 @@ namespace Statecraft.Sim
         /// <summary>The months of the nation's need the Food stock holds when full: the start stock and the level the monthly
         /// imports keep (R-FOOD-001, R-FOOD-002). Required in the GDD loop, at least 1.</summary>
         public int? CoverMonths { get; set; }
+        /// <summary>The national Arms stock on 15 May 1948, in Arms units (R-ARMS-001; D-G6, #781). Required in the GDD loop, &gt;= 0.</summary>
+        public int? ArmsStart { get; set; }
+        /// <summary>The Money one Arms unit costs, in IL millions (R-ARMS-002; D-G6, #781). Required in the GDD loop, finite and &gt;= 0.</summary>
+        public double? ArmsPrice { get; set; }
+        /// <summary>The Arms one recruit group takes when its training starts (R-ARMS-003; D-G6, Q-UNIT-3, #781). Required in the
+        /// GDD loop, &gt;= 0.</summary>
+        public int? ArmsPerRecruitGroup { get; set; }
         /// <summary>Turns of work after which a halutz unit becomes a veteran_halutz (R-VET-001; D-D9, Q-VET-1). Required in
         /// the GDD loop, at least 1.</summary>
         public int? VeteranHalutzService { get; set; }

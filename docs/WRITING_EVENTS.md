@@ -78,18 +78,19 @@ Write plain description. Do not put words in anyone's mouth: no invented quotes
 Tags are free-form, but these five are sensitive (checked without regard to case): `holocaust`, `terror`, `massacre`,
 `war-casualties`, `displacement`. An event with any of them:
 
-- cannot give a positive delta to any resource in any option: `treasury`, `fx_reserves`, `food`, `food_supply`, `morale`
-  (standing for Social cohesion) or `intl_standing` (standing for International Support). The loader refuses: it would
-  reward the atrocity. Owner decision of 15 October 2026 (Q-EFX-2, "Extend it"); until then the rule covered money only;
+- cannot give a positive delta to any resource in any option: `treasury`, `fx_reserves`, `food`, `arms`, `food_supply`,
+  `morale` (standing for Social cohesion) or `intl_standing` (standing for International Support). The loader refuses:
+  it would reward the atrocity. Owner decision of 15 October 2026 (Q-EFX-2, "Extend it"); until then the rule covered
+  money only;
 - needs `status: sensitivity-reviewed` before any build is shared. That status is set by the maintainer, not by you.
   Submit it as `fact-checked`. `Statecraft.Cli --release-gate`, the `-shareable` build and `tools/package_release.py`
   refuse to release while any sensitive event is not `sensitivity-reviewed`, and a test requires every sensitive event
   in `content/` to carry exactly that status once reviewed.
 
 For `displacement`, the no-gain rule has no exception: no option may raise Money, Food, Arms, Social cohesion,
-International Support or score (R-EFX-007). Arms and score are not event-effect targets yet, so the loader already
-refuses them as unknown; do not add either target to an event. The rule applies when those targets exist. No event in
-`content/` uses `displacement` yet.
+International Support or score (R-EFX-007). Score is not an event-effect target yet, so the loader already refuses
+it as unknown; do not add it to an event. The rule applies when that target exists. No event in `content/` uses
+`displacement` yet.
 
 The other tag used so far is `security`. It has no rule attached.
 
@@ -218,7 +219,7 @@ Each option has:
 | `set_policy` | no | A map of policy id to a level from 0 to 1. |
 | `grant_units` | no | GDD loop only. A list of `{ type, n, at }`: see "grant_units and city_effects". |
 | `city_effects` | no | GDD loop only. A list of `{ city, field, delta }`: see "grant_units and city_effects". |
-| `alternative` | no (required later, #949) | On an option that did not happen: who put it forward, on what record. See below. |
+| `alternative` | on every option that did not happen, in an event with a historical option | Who put it forward, on what record. See below. |
 | `rejoin` | no | Consequence cards only. The id of the event whose road the card follows; choosing this option returns later cards to the recorded course (R-ALT-009). See "kind". |
 
 An event needs at least one option. `historical` is a statement of fact and needs a source; `recommended` is a game
@@ -242,8 +243,10 @@ An option that did not happen can say who put it forward, and on what record (R-
   `date` is the day it was put forward; `sources` (at least one, `https://`, with `checked`) support both.
 - `design`: nobody is recorded proposing it. It is a design assumption (GDD "Events and consequences"), so it has no
   `by` and no `date`. Sources are optional.
-- The historical option carries none. For now the record is optional; #949 makes it required on every option that did
-  not happen, once the fact-check (#948) has checked each one.
+- The historical option carries none. In an event that has a historical option, every other option must carry one
+  (R-ALT-004): the loader refuses an option that did not happen and says nothing about who proposed it. Copy the
+  record from the checked note (`research_notes/Alternate timelines/roads-checked.md`), or write `{ basis: design }`
+  when nobody is recorded proposing it.
 
 ### effects
 
@@ -254,9 +257,9 @@ An option that did not happen can say who put it forward, and on what record (R-
 - `treasury` or `fx_reserves`, in game money;
 - `food`, the national Food stock, in whole units (one unit is one population unit's food for a month). The delta
   rounds to whole units and the stock never drops below 0, so a larger cut than the stock takes what is there. The
-  Arms stock becomes a target with its pool (#781). Note that the monthly import (R-FOOD-002) refills the stock to
-  `cover_months` of the need unless the foreign-currency crisis is on, so outside a crisis a cut only matters if it
-  leaves less than one month's need; a gain stays.
+  Arms stock becomes a target with its pool (#781): `arms` moves it the same way. Note that the monthly import
+  (R-FOOD-002) refills the stock to `cover_months` of the need unless the foreign-currency crisis is on, so outside a
+  crisis a cut only matters if it leaves less than one month's need; a gain stays.
 
 `delta` must be a finite number. Any other target is an error. Policy ids (`rationing`, ...) are not effect targets;
 use `set_policy` for those.
@@ -339,8 +342,8 @@ Errors are printed as `file: field: message`. These are the messages you are mos
 | `at least one option required` | `options` is empty. |
 | `at most one option can be historical` | Two options have `historical: true`. |
 | `hard anchor needs a historical option` | `anchor: hard` and no option is `historical`. |
-| `unknown target` | An effect `target` is neither an indicator nor `treasury`, `fx_reserves` or `food`. |
-| `sensitive events cannot reward` | A sensitive-tagged event with a positive `treasury`, `fx_reserves`, `food`, `food_supply`, `morale` or `intl_standing` delta. |
+| `unknown target` | An effect `target` is neither an indicator nor `treasury`, `fx_reserves`, `food` or `arms`. |
+| `sensitive events cannot reward` | A sensitive-tagged event with a positive `treasury`, `fx_reserves`, `food`, `arms`, `food_supply`, `morale` or `intl_standing` delta. |
 | `must be 1-5` | `set_rung` outside 1 to 5. |
 | `unknown policy` | `set_policy` names a policy that does not exist. |
 | `needs the GDD loop` | `grant_units` or `city_effects` in content that runs the legacy loop. |

@@ -23,6 +23,13 @@ options:
       - { target: intl_standing, delta: -0.05 }
   - id: halt
     text: Halt the works until there is agreement
+    # Who proposed it: research_notes/Alternate timelines/roads-checked.md (checked by the owner, 19 October 2026).
+    alternative:
+      basis: debated
+      by: the Israeli government, through its delegation to the Mixed Armistice Commission
+      date: 1951-03-08
+      sources:
+        - { url: "https://history.state.gov/historicaldocuments/frus1951v05/d308", checked: 2026-10-17 }
     effects:
       - { target: security, delta: -0.03 }
       - { target: intl_standing, delta: 0.03 }
