@@ -383,7 +383,7 @@
                  (#1170, SharePresenter). -->
             <ui:VisualElement class="row settings-row">
                 <ui:Label name="settings-community-label" text="Community" class="settings-name" />
-                <ui:VisualElement class="row settings-choices">
+                <ui:VisualElement class="row settings-choices settings-community-choices">
                     <ui:Button name="settings-star" text="Star on GitHub" class="settings-switch" />
                     <ui:Button name="settings-report" text="Report a bug or idea" class="settings-switch" />
                     <ui:Button name="settings-share" text="Share" class="settings-switch" />

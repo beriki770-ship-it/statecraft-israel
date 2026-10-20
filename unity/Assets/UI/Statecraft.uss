@@ -462,6 +462,10 @@ Button:disabled { color: var(--ink-dim); border-color: rgba(120, 120, 120, 0.4);
 /* The quality choice's buttons sit side by side; the one that is set is marked by a gold fill and dark text, not only a
    border colour, and keeps it while hovered or focused (Button:hover and :focus would otherwise win). */
 .settings-choices { flex-shrink: 0; }
+/* The Community row's three buttons (Star, Report, Share) are wider than the screen leaves them in Hebrew at 125%: they
+   wrap onto a second line instead, and the row's name keeps its width (SettingsScreenTests, 1280x720). */
+.settings-community-choices { flex-shrink: 1; flex-wrap: wrap; }
+#settings-community-label { flex-shrink: 0; }
 .settings-choice-selected, .settings-choice-selected:hover, .settings-choice-selected:focus { background-color: var(--gold); color: var(--navy-solid); }
 /* The regular cut's thin strokes fade on the gold. Only as specific as ".lang-he Button", which comes later and keeps
    the Hebrew face in Hebrew. */
