@@ -20,6 +20,7 @@ attention_cost:
   unit_order: 0                          # DESIGN VALUE: owner-set balance, not a historical figure (D-A6: unit orders are free; R-ORDER-001, #746)
   start_project: 1                       # DESIGN VALUE: owner-set balance, not a historical figure (D-A6, D-C5, Q-PROJ-5: the map action's cost)
   cancel_project: 0.5                    # DESIGN VALUE: owner-set balance, not a historical figure (D-A6, D-C5, Q-PROJ-5: cancel_training's cost)
+  move: 0                                # DESIGN VALUE: owner-set balance, not a historical figure (D-A6: unit orders are free)
   buy_arms: 1                            # DESIGN VALUE: owner-set balance, not a historical figure (D-A6, D-G6, #781: one order, whatever the quantity)
 # Turn length on each security rung, rungs 1 to 5 (R-TURN-001). The GDD MVP plays monthly turns on every rung (D-B1), so
 # turns from 15 May 1948 end on the 15th of each month.
@@ -126,6 +127,23 @@ mvp:
   # the deputies 5 as a neutral rating, so neutral is not disloyal. Agent-proposed; the owner may override them.
   delegation_loyalty_floor: 5            # DESIGN VALUE: owner-set balance, not a historical figure (D-H1, #107: loyalty below which a delegated decision is half-done)
   disloyal_effect_share: 0.5             # DESIGN VALUE: owner-set balance, not a historical figure (D-H1, #107: share of each numeric effect a disloyal minister delivers)
+  # Movement (R-MOVE-001, R-MOVE-003; Q-MOVE-1, Q-MOVE-3, owner, 15 October 2026, #375: "Take all recommendations").
+  # The numbers below were proposed in PR #1073 (#744) and accepted by the owner as design values on 19 October 2026:
+  # https://github.com/eyalgolan/statecraft-israel/pull/1073#issuecomment-6259021508
+  # The smallest integer spread that separates the plain from the hills from the mountains; lake and sea have no cost,
+  # so they are impassable. Three units of a side per hex: a brigade of battalion-size formations.
+  move_cost:
+    coastal_plain: 1                     # DESIGN VALUE: owner-set balance, not a historical figure (D-G2, Q-MOVE-1: movement points to enter the hex)
+    valley: 1                            # DESIGN VALUE: owner-set balance, not a historical figure (D-G2, Q-MOVE-1: movement points to enter the hex)
+    lowland: 1                           # DESIGN VALUE: owner-set balance, not a historical figure (D-G2, Q-MOVE-1: movement points to enter the hex)
+    hills: 2                             # DESIGN VALUE: owner-set balance, not a historical figure (D-G2, Q-MOVE-1: movement points to enter the hex)
+    desert: 2                            # DESIGN VALUE: owner-set balance, not a historical figure (D-G2, Q-MOVE-1: movement points to enter the hex)
+    mountains: 3                         # DESIGN VALUE: owner-set balance, not a historical figure (D-G2, Q-MOVE-1: movement points to enter the hex)
+  stack_limit: 3                         # DESIGN VALUE: owner-set balance, not a historical figure (D-G2, Q-MOVE-3: units of one side a hex holds)
+  # R-MOVE-005 (Q-CIV-1, owner, 15 October 2026: "No entry until Phase 6"): the settlements no player unit may enter or
+  # cross. DRAFT, UNCHECKED: the owner accepted this list as a draft on 19 October 2026 (https://github.com/eyalgolan/statecraft-israel/pull/1073#issuecomment-6259083180).
+  # No person has yet checked each place's control on 15 May 1948; research task #1096 will check it. Do not treat it as history.
+  enemy_held_localities: [acre, nazareth, lod, ramla, gaza, beersheba]
 # Coalition stability lost by replacing a minister (Cabinet.Appoint): a seat taken from the minister's party, or a
 # reshuffle within it.
 appoint_stability_cost_other_party: 0.06

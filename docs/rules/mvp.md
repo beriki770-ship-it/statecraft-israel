@@ -142,6 +142,22 @@ R-UNIT-001: A military unit is a group at formation scale, one token per formati
 
 R-UNIT-002: A unit's side, strength, order and order target are written into the state hash only when they are not at their default ("" or 0), after its service (R-LOOP-002's rule), so a halutz unit's hash text, and every golden, is unchanged.
 
+## Movement
+
+Phase 5 PR 5 (#744). The numbers are design values this PR proposed (Q-MOVE-1, Q-MOVE-3; owner, 15 October 2026, #375: "Take all recommendations") and the owner accepted them on 19 October 2026 (https://github.com/eyalgolan/statecraft-israel/pull/1073#issuecomment-6259021508).
+
+R-MOVE-001: Each unit type that moves has an integer `movement_points` a turn (`unit_types.yaml`; required, at least 1, on a military type; refused on a population type), and each land biome of `map/hexes.json` an integer cost to enter (`rules.yaml` `mvp.move_cost`, at least 1; the loader refuses a land biome with no cost and a cost for a water biome, so lake and sea are impassable). A path's cost is the sum of the costs of the hexes it enters. A unit's Moves in one turn share its points: a second Move has what the first left, and the next turn has them all again. A type with no movement points (the halutz types) cannot move. Real values: veteran soldier 3, artillery 2, armoured car 5; coastal plain, valley and lowland 1, hills and desert 2, mountains 3.
+
+R-MOVE-002: `Move(unit, q, r)` takes the cheapest path, at command time (spec §2.3). Hexes leave the search in (cost, q, r) ordinal order, neighbours are tried in `tools/hexgrid.py`'s `NEIGHBOURS` order, and a hex reached again at the same cost keeps the hex it was first entered from, so of two equal paths the one through the hex first in that order wins, and the path is the same every run. `Movement.Reachable(c, s, unit)` lists the hexes a Move can end on this turn with their costs, and `Movement.Path` the hexes a path enters; both come from the same search Move uses (spec §2.6).
+
+R-MOVE-003: A hex holds at most `mvp.stack_limit` units of one side (Q-MOVE-3; real value 3). The limit counts the moving unit's side only and applies where a move ends; a path may pass through a full hex. A hex never holds both sides' units: entering an enemy unit's hex is an attack (Phase 5 PR 8), so Move refuses it.
+
+R-MOVE-004: There is no zone of control (Q-MOVE-4): a unit passes next to an enemy unit at the terrain's cost, but no path enters or passes through an enemy unit's hex. Units may enter any land hex on the board; the 1948 control layer stays display-only. There is no transport (Q-MOVE-5).
+
+R-MOVE-005: Before Phase 6 a player unit cannot enter the hex of an enemy-held locality, and no path passes through one (Q-CIV-1, owner, 15 October 2026: "No entry until Phase 6"). The localities are the settlements listed in `rules.yaml` `mvp.enemy_held_localities` (`settlements_1948.yaml` ids; the loader refuses an unknown one). The real list is the owner-accepted DRAFT (19 October 2026, https://github.com/eyalgolan/statecraft-israel/pull/1073#issuecomment-6259083180): acre, nazareth, lod, ramla, gaza, beersheba. It is unchecked: no person has yet checked each place's control on 15 May 1948; research task #1096 will check it.
+
+R-MOVE-006: `Move` is refused with the state unchanged and a reason when the unit does not exist, is not the player's (a unit of a side other than Israel), cannot move or is already on the hex, when the hex is water or off the board, holds an enemy unit, is an enemy-held locality or is full of the unit's side, or when no path reaches it within the points the unit has left this turn. It costs no Attention (D-A6). A Move that goes through clears a fortify order (`fortify`, or `fortifying` the turn it is given) and the hex it names at once, so a unit that leaves its hex and comes back in the same turn is not fortified (Q-HOLD-1, "lost on move"); hold moves with the unit; a refused Move changes nothing.
+
 ## Standing orders
 
 Phase 5 PR 7 (#746). Q-HOLD-1, "(a) 1 turn, free, lost on move", and Q-HOLD-2, "(a) Own hex, no interception" (owner, 15 October 2026, #375). The two percents are design values this PR proposes from avlco's option 1 on #746; the owner may override them.

@@ -240,7 +240,7 @@ series:
     }
 
     /// <summary>The fixture's attention_cost line with the GDD command kinds added (replaces "map_action: 1 }").</summary>
-    public const string GddCosts = "map_action: 1, assign_workers: 1, train: 1, cancel_training: 1, pioneer_work: 0, stop_work: 0, unit_order: 0, start_project: 1, cancel_project: 0.5, buy_arms: 1 }";
+    public const string GddCosts = "map_action: 1, assign_workers: 1, train: 1, cancel_training: 1, pioneer_work: 0, stop_work: 0, start_project: 1, cancel_project: 0.5, buy_arms: 1, move: 0, unit_order: 0 }";
 
     public const string GddRules = @"
 mvp:
@@ -281,6 +281,9 @@ mvp:
   hold_defence_percent: 120
   delegation_loyalty_floor: 5
   disloyal_effect_share: 0.5
+  move_cost: { coastal_plain: 1, hills: 2, desert: 3 }
+  stack_limit: 2
+  enemy_held_localities: []
 ";
 
     public static readonly string GddCities = "\ncities:\n" + City("town_a", 12, 8, 10, 6, "[military_camp, hakhshara]");

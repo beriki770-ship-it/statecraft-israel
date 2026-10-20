@@ -62,6 +62,7 @@ namespace Statecraft.Game.UI
             UnitOrder o => FormattableString.Invariant($"order:{o.Unit}"),
             StartProject p => FormattableString.Invariant($"project:{p.Q},{p.R}"),
             CancelProject x => FormattableString.Invariant($"unproject:{x.Project}"),
+            Move m => FormattableString.Invariant($"move:{m.Unit}"),
             _ => c.Kind,
         };
 
@@ -128,6 +129,9 @@ namespace Statecraft.Game.UI
                     return Unknown("unit", w.Unit.ToString(System.Globalization.CultureInfo.InvariantCulture), State.Units.Keys.Select(k => k.ToString(System.Globalization.CultureInfo.InvariantCulture)))
                         ?? Unknown("pioneer_work", w.Action, new[] { Projects.BuildYishuv }) ?? Unknown("site", w.Site, Content.Sites.Select(x => x.Id));
                 case StopWork w: return Unknown("unit", w.Unit.ToString(System.Globalization.CultureInfo.InvariantCulture), State.Units.Keys.Select(k => k.ToString(System.Globalization.CultureInfo.InvariantCulture)));
+                // Movement (#744): the unit id only; the sim refuses an unreachable, full or forbidden hex with its own reason.
+                case Move m: return Unknown("unit", m.Unit.ToString(System.Globalization.CultureInfo.InvariantCulture), State.Units.Keys.Select(k => k.ToString(System.Globalization.CultureInfo.InvariantCulture)));
+
                 // Standing orders (#746): the unit id only; the sim refuses an unknown order, a halutz or an enemy unit itself.
                 case UnitOrder o: return Unknown("unit", o.Unit.ToString(System.Globalization.CultureInfo.InvariantCulture), State.Units.Keys.Select(k => k.ToString(System.Globalization.CultureInfo.InvariantCulture)));
                 // City projects (#735): ids only; the sim refuses a far or taken hex, the policy gate and the turn's limit itself.

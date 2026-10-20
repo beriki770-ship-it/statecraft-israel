@@ -1088,6 +1088,10 @@ namespace Statecraft.Sim
                     if (!Sides.Contains(x.Side)) throw new ContentException(uf, at + ".side", $"unknown side '{x.Side}' ({string.Join(", ", Sides)})");
                     if (!Classes.Contains(x.Class)) throw new ContentException(uf, at + ".class", $"unknown class '{x.Class}' (infantry, artillery or armour)");
                 }
+                // R-MOVE-001 (Q-MOVE-1): a military type has its movement points; a population count is not on the map.
+                if (x.Kind == "population" && x.MovementPoints != 0) throw new ContentException(uf, at + ".movement_points", "only a unit moves");
+                if (x.Side != "" && x.MovementPoints < 1) throw new ContentException(uf, at + ".movement_points", "required for a military type, at least 1");
+                if (x.MovementPoints < 0) throw new ContentException(uf, at + ".movement_points", "must be >= 0");
                 if (x.Facility == "")
                 {
                     // Training (R-TRAIN-001) needs a place to train; values without one would be read by nothing.
@@ -1190,6 +1194,21 @@ namespace Statecraft.Sim
                 if (m.DelegationLoyaltyFloor < 0 || m.DelegationLoyaltyFloor > 10) throw new ContentException(file, "mvp.delegation_loyalty_floor", "must be 0-10");
                 if (m.DisloyalEffectShare == null) throw new ContentException(file, "mvp.disloyal_effect_share", "required when eras.yaml systems.loop is gdd");
                 Unit(file, "mvp.disloyal_effect_share", m.DisloyalEffectShare.Value);
+                // R-MOVE-001 (Q-MOVE-1): a cost for every land biome of the map, so no hex is read as free, and none for a water
+                // biome, so lake and sea stay impassable.
+                foreach (var b in c.Hexes.Where(h => h.Land).Select(h => h.Biome).Distinct().OrderBy(b => b, StringComparer.Ordinal))
+                    if (!m.MoveCost.ContainsKey(b)) throw new ContentException(file, "mvp.move_cost", $"no cost for land biome '{b}' ({HexesFile})");
+                foreach (var kv in m.MoveCost)
+                {
+                    if (c.Hexes.Any(h => !h.Land && h.Biome == kv.Key)) throw new ContentException(file, "mvp.move_cost." + kv.Key, $"is water in {HexesFile}: lake and sea are impassable");
+                    if (kv.Value < 1) throw new ContentException(file, "mvp.move_cost." + kv.Key, "must be >= 1");
+                }
+                // R-MOVE-003 (Q-MOVE-3): required, so a missing key is never read as no room at all.
+                if (m.StackLimit == null) throw new ContentException(file, "mvp.stack_limit", "required when eras.yaml systems.loop is gdd");
+                if (m.StackLimit < 1) throw new ContentException(file, "mvp.stack_limit", "must be >= 1");
+                // R-MOVE-005 (Q-CIV-1)
+                foreach (var id in m.EnemyHeldLocalities)
+                    if (c.SettlementHexes.All(h => h.Id != id)) throw new ContentException(file, "mvp.enemy_held_localities", $"unknown settlement '{id}' ({SettlementHexesFileName})");
                 if (c.Indicators.All(i => i.Id != Pools.FoodIndicator))
                     throw new ContentException(file, "mvp.k_food", "the Food stock feeds the food_supply indicator, which model.yaml must define");
                 // One game has one last day (R-LOOP-004): an era cannot move it.

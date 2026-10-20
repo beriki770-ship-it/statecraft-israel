@@ -125,6 +125,18 @@ public class DesignValuesTests
         ("projects.yaml", "projects[industry].capacity"),
         ("projects.yaml", "projects[industry].condition"),
         ("projects.yaml", "projects[industry].job_slots"),
+        // Movement (Phase 5 PR 5, #744; Q-MOVE-1, Q-MOVE-3): agent-proposed under "Take all recommendations" (#375).
+        ("rules.yaml", "attention_cost.move"),
+        ("rules.yaml", "mvp.move_cost.coastal_plain"),
+        ("rules.yaml", "mvp.move_cost.valley"),
+        ("rules.yaml", "mvp.move_cost.lowland"),
+        ("rules.yaml", "mvp.move_cost.hills"),
+        ("rules.yaml", "mvp.move_cost.desert"),
+        ("rules.yaml", "mvp.move_cost.mountains"),
+        ("rules.yaml", "mvp.stack_limit"),
+        ("unit_types.yaml", "types[veteran_soldier].movement_points"),
+        ("unit_types.yaml", "types[artillery].movement_points"),
+        ("unit_types.yaml", "types[armoured_car].movement_points"),
         // The national Arms pool (Phase 2 PR 3b; #781, owner 18 October 2026: "Approve as drafted").
         ("rules.yaml", "attention_cost.buy_arms"),
         ("rules.yaml", "mvp.arms_start"),

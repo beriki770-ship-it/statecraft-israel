@@ -34,6 +34,7 @@ public class SimBridgeGuardTests
         [typeof(UnitOrder)] = new UnitOrder(1, "fortify"),
         [typeof(StartProject)] = new StartProject("housing", "tel_aviv", 1, 0),
         [typeof(CancelProject)] = new CancelProject(1),
+        [typeof(Move)] = new Move(1, 2, 0),
         [typeof(BuyArms)] = new BuyArms(0),
     };
 

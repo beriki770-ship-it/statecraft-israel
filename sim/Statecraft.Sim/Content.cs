@@ -594,6 +594,14 @@ namespace Statecraft.Sim
         /// <summary>A minister whose loyalty is below this carries a delegated decision out half-heartedly (R-EVT-003; #107,
         /// owner, 18 October 2026). Required in the GDD loop, 0 to 10 (0: nobody is below it).</summary>
         public int? DelegationLoyaltyFloor { get; set; }
+        /// <summary>The movement points it costs to enter a hex of each land biome of map/hexes.json (R-MOVE-001; Q-MOVE-1).
+        /// Lake and sea have none: they are impassable. The loader requires one for every land biome in the GDD loop.</summary>
+        public Dictionary<string, int> MoveCost { get; set; } = new Dictionary<string, int>();
+        /// <summary>The most units of one side a hex holds (R-MOVE-003; Q-MOVE-3). Required in the GDD loop, at least 1.</summary>
+        public int? StackLimit { get; set; }
+        /// <summary>The settlements (settlements_1948.yaml ids) whose hexes no player unit may enter or cross before Phase 6
+        /// (R-MOVE-005; Q-CIV-1). The owner sets the list.</summary>
+        public List<string> EnemyHeldLocalities { get; set; } = new List<string>();
         /// <summary>The share of each numeric effect a delegated option applies when its minister is below the loyalty floor
         /// (R-EVT-003; #107). Required in the GDD loop, 0 to 1.</summary>
         public double? DisloyalEffectShare { get; set; }
@@ -724,6 +732,9 @@ namespace Statecraft.Sim
         public string Side { get; set; } = "";
         /// <summary>A military type's class: infantry, artillery or armour, or "" for a type that is not military (R-UNIT-001).</summary>
         public string Class { get; set; } = "";
+        /// <summary>The movement points a unit of this type has each turn (R-MOVE-001; Q-MOVE-1), or 0 for a type that does not
+        /// move. Required on a military type.</summary>
+        public int MovementPoints { get; set; }
     }
 
     /// <summary>One stretch of a budget line's ownership (rules.yaml budget_owners): from this day (inclusive) the office owns the line.</summary>
