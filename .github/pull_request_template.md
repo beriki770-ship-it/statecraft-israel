@@ -13,6 +13,10 @@
 ```
 ```
 
+### Visual evidence (if applicable)
+
+<!-- For any change a player can see (models, the map, characters, the UI or the website), matched before/after screenshots are required in the PR description; see CONTRIBUTING.md, "Pull requests". Attach images to this PR, label the changed area and important side effects, and keep state/camera/zoom matched (resolution/lighting when relevant). For changes with no visible effect, explain why screenshots are not applicable; add a short video when motion helps review. Prefer reviewer-accessible GitHub attachments over private Library links or review-only files in the repo. -->
+
 ## Checklist
 
 - [ ] Tests cover the change, and they fail without it.

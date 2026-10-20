@@ -245,7 +245,9 @@ The candidates are tried in three rounds:
 A spot is clear when:
 - the ring's disc stays off every settlement footprint (the kits' discs, times 1.1);
 - an army token's three figure spots (always three, so the spot does not change with the call-up), or a parked
-  aircraft's centre, are on land and at least 700 m beyond every railway and road corridor;
+  aircraft's centre, are on land and at least 700 m beyond every railway and road corridor drawn while a token
+  stands (a route opened after the last anchor's window, the 1949 rail link or the 1950 Tel Aviv–Netanya road, takes no
+  spot; #786);
 - a ship has a sea hex;
 - no other anchor whose window overlaps holds the hex.
 
