@@ -3,7 +3,9 @@
 // gesture. Unity handles a press on the next frame, outside the browser's event, so the press arms a one-shot listener
 // for its release (pointerup on the canvas, or keyup), as ExternalLink.jslib does (#1168), and the release shares. Where
 // the browser cannot share files, the same release downloads the picture instead, and the panel shows the share links.
-// An unused arm disarms itself after 1.5 s. Nothing leaves the page unless the player shares or downloads it.
+// An unused arm disarms itself after 1.5 s, and a new press on the canvas (pointerdown) disarms it at once: a tap shorter
+// than a frame is released before Unity arms the listener, and a stray click would otherwise share or download (#1182
+// review, as on #1178). Nothing leaves the page unless the player shares or downloads it.
 mergeInto(LibraryManager.library, {
   StatecraftShareKeep: function (pngPtr, length, namePtr) {
     var bytes = HEAPU8.slice(pngPtr, pngPtr + length);
@@ -23,6 +25,7 @@ mergeInto(LibraryManager.library, {
     var disarm = function () {
       clearTimeout(timer);
       canvas.removeEventListener("pointerup", go);
+      canvas.removeEventListener("pointerdown", disarm);
       document.removeEventListener("keyup", go);
       window.statecraftShareDisarm = null;
     };
@@ -39,7 +42,6 @@ mergeInto(LibraryManager.library, {
       disarm();
       var file = window.statecraftShareFile;
       if (!file) return;
-      window.statecraftShareFailed = false;
       var canShare = false;
       try { canShare = !!(navigator.canShare && navigator.canShare({ files: [file] })); } catch (e) {}
       if (!canShare) { download(file); return; }
@@ -51,7 +53,11 @@ mergeInto(LibraryManager.library, {
         download(file);
       });
     };
+    // Reset here, not on the release: the panel asks StatecraftShareFailed after this press, and after an earlier
+    // refused sheet it would read that old refusal and show the links before this share has run.
+    window.statecraftShareFailed = false;
     canvas.addEventListener("pointerup", go);
+    canvas.addEventListener("pointerdown", disarm);
     document.addEventListener("keyup", go);
     window.statecraftShareDisarm = disarm;
     timer = setTimeout(disarm, 1500);
