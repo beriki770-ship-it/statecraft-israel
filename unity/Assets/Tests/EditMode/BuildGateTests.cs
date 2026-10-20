@@ -17,10 +17,30 @@ public class BuildGateTests
         return (string?)t!.GetMethod("ShareableRefusal", BindingFlags.Public | BindingFlags.Static)!.Invoke(null, new object?[] { c, null, false, null, null });   // event content only
     }
 
+    /// <summary>The real content with its starting forces' rows fact-checked, as a person's check would leave them
+    /// (R-UNIT-006, Q-START-3), for the tests about the other gates.</summary>
+    internal static Content Checked()
+    {
+        var c = ContentLoader.Load(Paths.Content);
+        foreach (var f in c.StartingForces) f.Status = "fact-checked";
+        return c;
+    }
+
+    /// <summary>R-UNIT-006, Q-START-3 (#743): a starting force's row that is not fact-checked blocks a shareable build, by name.</summary>
+    [Test]
+    public void AShareableBuildWaitsForTheStartingForcesRows()
+    {
+        var c = ContentLoader.Load(Paths.Content);
+        var refusal = Refusal(c);
+        Assert.IsNotNull(refusal, "every real row is draft or to_verify");
+        foreach (var f in c.StartingForces) StringAssert.Contains(f.Row, refusal);
+        Assert.IsNull(Refusal(Checked()));
+    }
+
     [Test]
     public void AShareableBuildWaitsForTheSensitivityReview()
     {
-        var c = ContentLoader.Load(Paths.Content);
+        var c = Checked();
         Assert.IsNull(Refusal(c), "the owner signed off all seven on 2026-10-10 (D11)");
         foreach (var e in c.Events) if (ReleaseGate.SensitiveEvents(c).Contains(e.Id)) e.Status = "fact-checked";   // as before the sign-off
         var refusal = Refusal(c);
@@ -37,7 +57,7 @@ public class BuildGateTests
     {
         var t = Type.GetType("Statecraft.Game.EditorTools.Build, Assembly-CSharp-Editor")!;
         var gate = t.GetMethod("GateRefusal", BindingFlags.Public | BindingFlags.Static)!;
-        var c = ContentLoader.Load(Paths.Content);
+        var c = Checked();
         Assert.IsNull(gate.Invoke(null, new object?[] { new[] { "Unity", "-executeMethod", "Statecraft.Game.EditorTools.Build.Mac" }, c, null, false, null, null }), "a dev build is not gated");
         Assert.IsNull(gate.Invoke(null, new object?[] { new[] { "Unity", "-shareable" }, c, null, false, null, null }), "all seven are sensitivity-reviewed (D11)");
         foreach (var e in c.Events) if (e.Id == "reparations_claim") e.Status = "fact-checked";
@@ -98,7 +118,7 @@ public class BuildGateTests
     {
         var t = Type.GetType("Statecraft.Game.EditorTools.Build, Assembly-CSharp-Editor")!;
         var gate = t.GetMethod("GateRefusal", BindingFlags.Public | BindingFlags.Static)!;
-        var c = ContentLoader.Load(Paths.Content);
+        var c = Checked();
         var photos = ShippedPhotos();
         try
         {
@@ -141,7 +161,7 @@ public class BuildGateTests
     [Test]
     public void TheGateFailsClosedWhenTheCatalogDoesNotLoad()
     {
-        var c = ContentLoader.Load(Paths.Content);
+        var c = Checked();
         var refusal = (string?)Gate.Invoke(null, new object?[] { Shareable, c, null, true, null, null });
         Assert.IsNotNull(refusal, "an existing catalog that did not load is a refusal");
         StringAssert.Contains("did not load", refusal);
@@ -155,7 +175,7 @@ public class BuildGateTests
     [Test]
     public void TheGateRefusesACatalogThatDoesNotMatchTheMapping()
     {
-        var c = ContentLoader.Load(Paths.Content);
+        var c = Checked();
         var photos = ShippedPhotos();
         try
         {

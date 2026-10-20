@@ -235,6 +235,7 @@ series:
             ["sites.yaml"] = GddSites,
             ["projects.yaml"] = GddProjects,
             ["corridors.yaml"] = GddCorridors,
+            ["map/units_1948.yaml"] = "units: []\n",   // no starting forces (R-UNIT-006); StartingForcesTests writes rows
         };
         if (extra != null) foreach (var kv in extra) o[kv.Key] = kv.Value;
         return o;

@@ -22,7 +22,7 @@ using Object = UnityEngine.Object;
 /// skips one; the focus then goes back. A sensitive one waits for the owner's review before a shareable build.</summary>
 public class OutcomeClipTests
 {
-    static readonly Content C = ContentLoader.Load(Paths.Content);
+    static readonly Content C = BuildGateTests.Checked();   // the starting forces' rows fact-checked: these tests are about the clips (R-UNIT-006)
     static UiText Text => UiText.Parse(AssetDatabase.LoadAssetAtPath<TextAsset>(UiPaths.Strings).text);
     static string Yaml => File.ReadAllText(EventVideoMapping.Path);
 

@@ -21,7 +21,7 @@ using UnityEngine.UIElements;
 /// the owner's review before a shareable build.</summary>
 public class EventVideoTests
 {
-    static readonly Content C = ContentLoader.Load(Paths.Content);
+    static readonly Content C = BuildGateTests.Checked();   // the starting forces' rows fact-checked: these tests are about the clips (R-UNIT-006)
     static UiText Text => UiText.Parse(AssetDatabase.LoadAssetAtPath<TextAsset>(UiPaths.Strings).text);
     static EventImageCatalog Photos => AssetDatabase.LoadAssetAtPath<EventImageCatalog>("Assets/Resources/EventImageCatalog.asset");
     static IReadOnlyList<EventVideoMapping.Row> Rows => EventVideoMapping.Parse(File.ReadAllText(EventVideoMapping.Path));

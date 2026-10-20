@@ -42,22 +42,42 @@ public class UnitsInPlayTests
 
     // ---- The data -----------------------------------------------------------------------------------------------
 
-    /// <summary>Map-only: the sim's content hash is the same with and without the unit file (so it cannot move the
-    /// goldens), and the WebGL manifest ships it (the player reads it).</summary>
+    /// <summary>The sim reads the unit file for the starting forces (R-UNIT-006; Q-START-1), so it is in the content hash and
+    /// the goldens follow it; the WebGL manifest ships it (the player reads it).</summary>
     [Test]
-    public void TheUnitFileDoesNotMoveTheContentHash()
+    public void TheUnitFileEntersTheContentHash()
     {
-        var copy = Path.Combine(Path.GetTempPath(), "statecraft-nounits-" + Guid.NewGuid().ToString("N"));
+        var copy = Path.Combine(Path.GetTempPath(), "statecraft-units-" + Guid.NewGuid().ToString("N"));
         try
         {
             Statecraft.Game.Boot.ContentManifest.Copy(Paths.Content, copy);
             var file = Path.Combine(copy, "map", UnitData.DefaultFileName);
             Assert.IsTrue(File.Exists(file), "the manifest copies the unit file");
-            File.Delete(file);
-            Assert.AreEqual(ContentLoader.Load(Paths.Content).Hash, ContentLoader.Load(copy).Hash);
+            File.AppendAllText(file, "# a comment changes the file\n");
+            Assert.AreNotEqual(ContentLoader.Load(Paths.Content).Hash, ContentLoader.Load(copy).Hash);
             CollectionAssert.Contains(Statecraft.Game.Boot.ContentManifest.Collect(Paths.Content), "map/" + UnitData.DefaultFileName);
         }
         finally { if (Directory.Exists(copy)) Directory.Delete(copy, true); }
+    }
+
+    /// <summary>R-UNIT-006: the sim's starting hexes are the hexes the map computes for the same rows' anchors (HexPicker,
+    /// the map's own lon/lat to hex). The token may still stand one hex away (UnitPlacer); the sim's hex is the anchor's.</summary>
+    [Test]
+    public void TheStartMatchesTheMap()
+    {
+        var hexes = MapBuilder.LoadHexes(Path.Combine(Paths.Content, "map", "hexes.json"));
+        var start = C.Rules.Start.ToString("yyyy-MM-dd", System.Globalization.CultureInfo.InvariantCulture);
+        Assert.AreEqual(11, C.StartingForces.Count, "the eleven sourced forces of 15 May 1948 (#743)");
+        foreach (var f in C.StartingForces)
+        {
+            var row = Units.Single(u => u.Id == f.Row);
+            Assert.IsNull(row.Hidden, f.Row);
+            Assert.AreEqual(UnitData.Army, row.Service, f.Row);
+            Assert.AreEqual(f.Side, row.Side, f.Row);
+            var anchor = row.Anchors.First(a => string.CompareOrdinal(a.From, start) <= 0 && string.CompareOrdinal(start, a.To) < 0);
+            Assert.AreEqual(anchor.Place, f.Anchor, f.Row);
+            Assert.AreEqual(HexPicker.FromLonLat(anchor.Lon, anchor.Lat, hexes.bounds, hexes.hex_size_km), (f.Q, f.R), f.Row);
+        }
     }
 
     /// <summary>Review C1: every window ends for a reason. A source-based end cites its source and says which; any other

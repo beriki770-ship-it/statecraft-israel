@@ -324,7 +324,8 @@ namespace Statecraft.Sim
             var aliyah = Read<AliyahFile>(readFile, "aliyah.yaml");
             c.Aliyah = aliyah.Series; c.Regions = aliyah.Regions;
             c.PopulationAnchors = Read<PopulationFile>(readFile, "population.yaml").Anchors;
-            c.Hexes = Read<MapFile>(readFile, HexesFile).Hexes;
+            var map = Read<MapFile>(readFile, HexesFile);
+            c.Hexes = map.Hexes;
             c.SettlementHexes = Read<SettlementHexesFile>(readFile, SettlementHexesFileName).Settlements;
             c.MapLocations = Read<MapLocationsFile>(readFile, MapLocationsFileName).Locations;
             var settlements = ReadSettlements(readFile);
@@ -375,6 +376,8 @@ namespace Statecraft.Sim
                 c.ProjectKinds = Read<ProjectsFile>(readFile, "projects.yaml").Projects;   // design values (Phase 3 PR 4)
                 c.Corridors = Read<CorridorsFile>(readFile, "corridors.yaml").Corridors;   // sourced, hexes derived (Phase 4 PR 2)
                 ValidateGdd(c, settlementIds);
+                // The sourced starting forces (Phase 5 PR 4, R-UNIT-006), once the types and people_per_unit are known valid.
+                c.StartingForces = StartingForces.Read(readFile, c, map.Bounds.Lon0, map.Bounds.Lat0, map.Bounds.Lat1, map.HexSizeKm);
             }
             EventRules.ValidateStructured(c);   // R-EFX-006: after the GDD records it names are read
             c.BuildWindows();
