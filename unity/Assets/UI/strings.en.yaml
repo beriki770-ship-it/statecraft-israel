@@ -65,12 +65,10 @@ how_to_play.end_turn: "End turn carries out your orders and moves to the next mo
 how_to_play.why: "After a turn, open Why? to see each change and its cause."
 # The Objectives screen (#1189): every objective in objectives.yaml, done or not, the player's date beside the historical
 # one, and no score (owner, 20 October 2026). The objective card's wording (#380). {0} the player's date,
-# {1} the historical date (objectives.open: {0}). A name falls back to objectives.yaml's when it has no key here.
+# {1} the historical date (objectives.open: {0}). The names are objectives.yaml's (#1208).
 objectives.title: "Objectives"
 objectives.done: "Completed on {0}; historically {1}"
 objectives.open: "Not completed yet; historically {0}"
-objectives.name.first_new_yishuv: "First new yishuv"
-objectives.name.absorb_immigrants: "Absorb the immigrants"
 # How to play's button that opens the first-turn guide again (#42).
 how_to_play.guide: "Show the first-turn guide"
 # The first-turn guide (#42; Q-ONB-1, owner, 17 October 2026, #784): five steps, each pointing at its part of the HUD
