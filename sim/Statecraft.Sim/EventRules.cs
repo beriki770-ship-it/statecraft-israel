@@ -9,13 +9,13 @@ namespace Statecraft.Sim
     static class EventRules
     {
         public static readonly HashSet<string> SensitiveTags = new HashSet<string>(StringComparer.OrdinalIgnoreCase) { "holocaust", "terror", "massacre", "war-casualties", "displacement" };
-        public static readonly HashSet<string> SpecialTargets = new HashSet<string> { "treasury", "fx_reserves", Pools.FoodTarget };
+        public static readonly HashSet<string> SpecialTargets = new HashSet<string> { "treasury", "fx_reserves", Pools.FoodTarget, Pools.ArmsTarget };
         /// <summary>Targets a sensitive event's options may not raise (CONTENT_POLICY section 4: no mechanic rewards violence against
         /// civilians). Owner decision of 15 October 2026 on Q-EFX-2, "Extend it": every resource, not money alone. Until the
         /// GDD resources exist as targets the legacy indicators stand for them: Money (treasury, fx_reserves), Food
         /// (food_supply), Social cohesion (morale) and International Support (intl_standing). Food also has its own target
-        /// (`food`, R-EFX-001); Arms has no target yet and joins the rule with its pool (#781).</summary>
-        public static readonly HashSet<string> NoGainTargets = new HashSet<string> { "treasury", "fx_reserves", Pools.FoodTarget, "food_supply", "morale", "intl_standing" };
+        /// (`food`, R-EFX-001); Arms joins the rule with its pool (#781).</summary>
+        public static readonly HashSet<string> NoGainTargets = new HashSet<string> { "treasury", "fx_reserves", Pools.FoodTarget, Pools.ArmsTarget, "food_supply", "morale", "intl_standing" };
 
         public static void Validate(Content c, HashSet<string> offices, HashSet<string> indicators)
         {
@@ -39,6 +39,7 @@ namespace Statecraft.Sim
                     throw new ContentException(e.File, F("office"), "historical-only titles cannot be delegated events");
                 CheckPlaceholders(c, e, F("title"), e.Title, offices);
                 CheckPlaceholders(c, e, F("text"), e.Text, offices);
+                CheckHebrew(c, e, offices);
                 // Chapters design 3.2: an event may only name model records that are active for its whole window.
                 void Active(string field, string id)
                 {
@@ -74,6 +75,9 @@ namespace Statecraft.Sim
                     if (!optionIds.Add(o.Id)) throw new ContentException(e.File, F($"options[{o.Id}].id"), "duplicate option id");
                     CheckPlaceholders(c, e, F($"options[{o.Id}].text"), o.Text, offices);
                     if (o.Alternative != null) CheckAlternative(e, o, F($"options[{o.Id}].alternative"));
+                    // R-ALT-004: an option that did not happen says who proposed it, or that it is a design assumption.
+                    if (!o.Historical && e.Options.Any(x => x.Historical) && o.Alternative == null)
+                        throw new ContentException(e.File, F($"options[{o.Id}].alternative"), "an option that did not happen says who proposed it, or basis: design");
                     foreach (var kv in o.SetPolicy)
                     {
                         if (c.Policies.All(p => p.Id != kv.Key)) throw new ContentException(e.File, F($"options[{o.Id}].set_policy.{kv.Key}"), "unknown policy");
@@ -87,8 +91,8 @@ namespace Statecraft.Sim
                             throw new ContentException(e.File, F($"options[{o.Id}].effects.{fx.Target}"), "unknown target");
                         Active(F($"options[{o.Id}].effects.{fx.Target}"), fx.Target);
                         ContentLoader.Finite(e.File, F($"options[{o.Id}].effects.{fx.Target}.delta"), fx.Delta);
-                        if (fx.Target == Pools.FoodTarget && Math.Abs(fx.Delta) > int.MaxValue)
-                            throw new ContentException(e.File, F($"options[{o.Id}].effects.{fx.Target}"), "food delta out of range");
+                        if ((fx.Target == Pools.FoodTarget || fx.Target == Pools.ArmsTarget) && Math.Abs(fx.Delta) > int.MaxValue)
+                            throw new ContentException(e.File, F($"options[{o.Id}].effects.{fx.Target}"), $"{fx.Target} delta out of range");
                         if (sensitive && NoGainTargets.Contains(fx.Target) && fx.Delta > 0)
                             throw new ContentException(e.File, F($"options[{o.Id}].effects.{fx.Target}"), $"sensitive events cannot reward {fx.Target}");
                     }
@@ -111,10 +115,10 @@ namespace Statecraft.Sim
 
         static void CheckStructured(Content c, GameEvent e, EventOption o, bool sensitive, Func<string, string> F)
         {
-            if (o.GrantUnits.Count + o.CityEffects.Count == 0) return;
-            // They act on the GDD records (cities.yaml, unit_types.yaml, sites.yaml), which the legacy loop does not load.
+            if (o.GrantUnits.Count + o.CityEffects.Count + o.UnlockProjects.Count == 0) return;
+            // They act on the GDD records (cities.yaml, unit_types.yaml, sites.yaml, projects.yaml), which the legacy loop does not load.
             if (!c.IsGdd)
-                throw new ContentException(e.File, F($"options[{o.Id}].{(o.GrantUnits.Count > 0 ? "grant_units" : "city_effects")}"), "needs the GDD loop (eras.yaml systems.loop: gdd)");
+                throw new ContentException(e.File, F($"options[{o.Id}].{(o.GrantUnits.Count > 0 ? "grant_units" : o.CityEffects.Count > 0 ? "city_effects" : "unlock_projects")}"), "needs the GDD loop (eras.yaml systems.loop: gdd)");
             for (int i = 0; i < o.GrantUnits.Count; i++)
             {
                 var g = o.GrantUnits[i];
@@ -150,6 +154,16 @@ namespace Statecraft.Sim
                 else if (!(Math.Abs(x.Delta) <= int.MaxValue) || x.Delta != Math.Floor(x.Delta))
                     throw new ContentException(e.File, X(".delta"), "must be a whole number in the int range");
                 if (sensitive && x.Delta > 0) throw new ContentException(e.File, X(""), $"sensitive events cannot reward {x.Field}");
+            }
+            for (int i = 0; i < o.UnlockProjects.Count; i++)
+            {
+                // R-EFX-008. Unlocking a kind that starts unlocked would do nothing, so it is a mistake, as an unknown kind is.
+                var kind = o.UnlockProjects[i];
+                var field = F(FormattableString.Invariant($"options[{o.Id}].unlock_projects[{i}]"));
+                if (sensitive) throw new ContentException(e.File, field, "sensitive events cannot reward a project unlock");
+                var k = c.ProjectKinds.FirstOrDefault(x => x.Id == kind)
+                    ?? throw new ContentException(e.File, field, $"unknown city project '{kind}'");
+                if (!k.Locked) throw new ContentException(e.File, field, $"'{kind}' is not locked in projects.yaml");
             }
         }
 
@@ -366,6 +380,29 @@ namespace Statecraft.Sim
                 path.RemoveAt(path.Count - 1);
             }
             return null;
+        }
+
+        /// <summary>An event's Hebrew text (#1064): title_he, text_he and every option's text_he, all or none (a card half in
+        /// Hebrew would mix the languages), in Hebrew letters, with placeholders that resolve as the English ones must.
+        /// text_he_review is agent-checked until a native speaker has read the text (#564), and needs the text.</summary>
+        static void CheckHebrew(Content c, GameEvent e, HashSet<string> offices)
+        {
+            string F(string field) => $"events[{e.Id}].{field}";
+            if (e.TextHeReviewGiven && e.TextHeReview != HebrewReview.AgentChecked)
+                throw new ContentException(e.File, F("text_he_review"), $"must be {HebrewReview.AgentChecked} (pending a native speaker's review, #564), or left out once a person has reviewed the text");
+            var fields = new List<(string Field, string Value)> { ("title_he", e.TitleHe), ("text_he", e.TextHe) };
+            fields.AddRange(e.Options.Select(o => ($"options[{o.Id}].text_he", o.TextHe)));
+            if (fields.All(x => x.Value == ""))
+            {
+                if (e.TextHeReviewGiven) throw new ContentException(e.File, F("text_he"), "required: text_he_review is set but the event has no Hebrew text");
+                return;
+            }
+            foreach (var (field, value) in fields)
+            {
+                if (value == "") throw new ContentException(e.File, F(field), "required: an event with Hebrew text has it for its title, its text and every option");
+                if (!value.Any(ch => ch >= '\u05D0' && ch <= '\u05EA')) throw new ContentException(e.File, F(field), "must be Hebrew, in Hebrew letters");
+                CheckPlaceholders(c, e, F(field), value, offices);
+            }
         }
 
         static void CheckPlaceholders(Content c, GameEvent e, string field, string text, HashSet<string> offices)

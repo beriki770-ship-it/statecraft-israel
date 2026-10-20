@@ -10,7 +10,7 @@ namespace Statecraft.Game.UI
     /// screen sets. It listens to the hooks itself: End Turn (SimBridge.TurnEnded; a turn with refused orders sounds as a
     /// refusal), an order refused when it is given (SimBridge.Refused) and an event card coming into view
     /// (EventCardPresenter.Opened, which waits for the start screen to close, so on the web the first sound comes after the
-    /// player's first click, as browsers require). The clips are CC0 (ASSETS.yaml) under Resources/Audio. A missing clip
+    /// player's first click, as browsers require). The clips are AI-generated under Resources/Audio; ASSETS.yaml records their provenance and pending publication rights. A missing clip
     /// plays nothing: sound is never worth a failed start. Presentation only: the sim and the golden hashes never see it.
     /// Ben-Gurion's recording on the start screen keeps its own player (DeclarationRecording).</summary>
     public sealed class GameAudio : IDisposable
