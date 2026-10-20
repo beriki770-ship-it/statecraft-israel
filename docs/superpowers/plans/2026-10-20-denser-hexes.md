@@ -167,7 +167,7 @@ These are things a smaller hex breaks that a plain re-bake does not fix. Each ne
 | `unity/Assets/Textures/Map/coast.png` | `tools/terrain_bake.py` | settlement ground from hex area (`terrain_bake.py:72`, `:293-298`); `terrain_bake.png` and `ao.png` do not change (trial bytes identical at all sizes) |
 | `unity/Assets/Resources/Map/BiomeColours.bytes` | `BiomeColourBake.Bake` (Unity) | its header stores `hex_size_km` (`BiomeColourFile.cs:76`); a stale file falls back to blending at boot |
 | `unity/Assets/Resources/HexTiles/Boards/*.json` (3 boards on `main`) | `tools/hex_tiles/make_board.py` | opt-in hex-tile map, q/r on the 5 km grid; the open stack adds a fourth board, see "Order against the open hex-tile stack" below |
-| `content/map/overrides.yaml` (#1099) | hand, or the map editor's save (step 2 of #1009) | keyed by hex q/r (`content/schema/map-overrides.schema.json:12-13`; `MapOverrides.cs:132-133`, `:148`), **empty today** (`overrides.yaml:2-4`: `terrain: []`, `control: []`, `locations: []`). No bake tool reads or rewrites it (`grep overrides tools/*.py` finds none), so the bake does **not** re-place rows. Plan: **no rows go in before the bake**: the loader refuses a row whose hex is not on the grid (`unknown hex`, `not a land hex`), and a row that still parses would name a different place. Rows made after the bake use the new grid. If the owner wants rows before the bake, the bake PR must re-key them by hand |
+| `content/map/overrides.yaml` (#1099) | hand, or the map editor's save (step 2 of #1009) | keyed by hex q/r (`content/schema/map-overrides.schema.json:12-13`; `MapOverrides.cs:132-133`, `:148`), **empty today** (`overrides.yaml:2-4`: `terrain: []`, `control: []`, `locations: []`). No bake tool reads or rewrites it (`grep -l overrides.yaml tools/*.py` finds none), so the bake does **not** re-place rows. Plan: **no rows go in before the bake**: the loader refuses a row whose hex is not on the grid (`unknown hex`, `not a land hex`), and a row that still parses would name a different place. Rows made after the bake use the new grid. If the owner wants rows before the bake, the bake PR must re-key them by hand |
 | `docs/GDD.md:203`, `:242` | hand | both say "the existing grid"; `:242` records the owner's #856 approval of it. **Not a plain edit**: the bake PR adds a "Then decided" note (owner, date, #1183) after each, the form the file already uses at `:244`, and leaves the approval text standing |
 
 Not changed: `unity/Assets/Resources/Routes/RouteRibbons.bytes` (reads the heightmap and `route_paths_1948.yaml` only, `RouteRibbonBake.cs:8-10`),
@@ -227,16 +227,16 @@ The sim test fixtures (`Fixture.cs:175`, `MovementTests.cs:35`) are self-contain
 ## Order against the open hex-tile stack
 
 Open PRs add more 5 km-grid content that the bake would have to move (read from their heads on 20 October 2026; none is on
-`main`). #1131 (`2153830`) adds `Boards/israel.json` (it is also in #1153, #1154 and #1155), `HexBoardOverrides.cs` and the
+`main`). #1131 (`2153830`) adds `Boards/israel.json` (it is also in #1153 and #1154, and inherited by #1155), `HexBoardOverrides.cs` and the
 README section "Painting hexes by hand" for per-board `Boards/<id>.overrides.json` files keyed by q/r like #1099's. No
 `*.overrides.json` is committed in #1131, #1153, #1154 or #1155, so today only the format exists. `HexScale.HexM = 5000f` is at
 `HexTileContract.cs:40` in #1131, and the text "`HexScale.HexM` = 5,000 m" is already on `main` at
 `docs/hex-tiles/CIV-LAYERS-AND-TEAM-PLAN.md:8`. #1162 (`f2fc344`) adds `HexBoardPickingTests` with 5 km coordinates:
 `TestCase(1, 13)`, `(4, 13)`, `(3, 17)` (`:57-59`), `(0, 13)` and `(-8, 32)` (`:108-109`), and
-`HexGeometry.Centre(1, 13, HexScale.HexM)` at `:127` and `:152`. Two orders are possible; the owner picks:
+`HexGeometry.Centre(1, 13, HexScale.HexM)` at `:127` and `:152`. #1160 (canopy containment, `HexModels.cs`) touches no 5 km coordinates, so order does not matter for it. Two orders are possible; the owner picks:
 
 - **Bake after the stack lands.** The bake PR moves one set of boards, README text and picking coordinates, and re-makes
-  any `*.overrides.json` that exist by then. Cost: the bake waits on five open PRs, four of them drafts (#1153-#1155, #1162).
+  any `*.overrides.json` that exist by then. Cost: the bake waits on five open PRs of the stack, four of them drafts (#1153-#1155, #1162).
 - **Bake before the stack.** The stack's PRs then have to be rebased onto the new grid, with `israel.json` and the picking
   coordinates re-made in each. Cost: that rework falls on PRs the bake does not own.
 
