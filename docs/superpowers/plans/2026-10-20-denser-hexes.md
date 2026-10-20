@@ -166,7 +166,9 @@ These are things a smaller hex breaks that a plain re-bake does not fix. Each ne
 | `unity/Assets/Textures/Map/landuse.png` | `tools/land_bake.py` | reads the hex biomes |
 | `unity/Assets/Textures/Map/coast.png` | `tools/terrain_bake.py` | settlement ground from hex area (`terrain_bake.py:72`, `:293-298`); `terrain_bake.png` and `ao.png` do not change (trial bytes identical at all sizes) |
 | `unity/Assets/Resources/Map/BiomeColours.bytes` | `BiomeColourBake.Bake` (Unity) | its header stores `hex_size_km` (`BiomeColourFile.cs:76`); a stale file falls back to blending at boot |
-| `unity/Assets/Resources/HexTiles/Boards/*.json` (3 boards) | `tools/hex_tiles/make_board.py` | opt-in hex-tile map, q/r on the 5 km grid |
+| `unity/Assets/Resources/HexTiles/Boards/*.json` (3 boards on `main`) | `tools/hex_tiles/make_board.py` | opt-in hex-tile map, q/r on the 5 km grid; the open stack adds a fourth board, see "Order against the open hex-tile stack" below |
+| `content/map/overrides.yaml` (#1099) | hand, or the map editor's save (step 2 of #1009) | keyed by hex q/r (`content/schema/map-overrides.schema.json:12-13`; `MapOverrides.cs:132-133`, `:148`), **empty today** (`overrides.yaml:2-4`: `terrain: []`, `control: []`, `locations: []`). No bake tool reads or rewrites it (`grep overrides tools/*.py` finds none), so the bake does **not** re-place rows. Plan: **no rows go in before the bake**: the loader refuses a row whose hex is not on the grid (`unknown hex`, `not a land hex`), and a row that still parses would name a different place. Rows made after the bake use the new grid. If the owner wants rows before the bake, the bake PR must re-key them by hand |
+| `docs/GDD.md:203`, `:242` | hand | both say "the existing grid"; `:242` records the owner's #856 approval of it. **Not a plain edit**: the bake PR adds a "Then decided" note (owner, date, #1183) after each, the form the file already uses at `:244`, and leaves the approval text standing |
 
 Not changed: `unity/Assets/Resources/Routes/RouteRibbons.bytes` (reads the heightmap and `route_paths_1948.yaml` only, `RouteRibbonBake.cs:8-10`),
 `terrain_water.bytes` (heightmap only, `TerrainWaterBake.cs:7-9`), `route_paths_1948.tsv`, `localities_1948.tsv`.
@@ -218,9 +220,29 @@ The sim test fixtures (`Fixture.cs:175`, `MovementTests.cs:35`) are self-contain
 
 ### Docs that name the size
 
-`docs/units.md:257` and `docs/hex-tiles/CIV-LAYERS-AND-TEAM-PLAN.md:9` ("about 8.7 km"), `content/unit_types.yaml:28`,
+`docs/units.md:257` and `docs/hex-tiles/CIV-LAYERS-AND-TEAM-PLAN.md:8-9` ("`HexScale.HexM` = 5,000 m", "about 8.7 km"), `content/unit_types.yaml:28`,
 `docs/superpowers/specs/2026-10-12-gdd-v0.1-impact-and-plan.md:120` ("1,102 hexes, 870 land") and `tools/hexgrid.py:31`.
-`docs/GDD.md` names no hex size today; #1183's "done when" asks that it name the new one.
+`docs/GDD.md` names no hex size, but it does name the grid: `:203` ("Use the existing grid in Map units") and `:242` (the owner's #856 approval of "the existing grid"). Both are in the bakes table above and get a "Then decided" note in the bake PR, not a plain edit; #1183's "done when" asks that the GDD name the new size, and that note is where it goes.
+
+## Order against the open hex-tile stack
+
+Open PRs add more 5 km-grid content that the bake would have to move (read from their heads on 20 October 2026; none is on
+`main`). #1131 (`2153830`) adds `Boards/israel.json` (it is also in #1153, #1154 and #1155), `HexBoardOverrides.cs` and the
+README section "Painting hexes by hand" for per-board `Boards/<id>.overrides.json` files keyed by q/r like #1099's. No
+`*.overrides.json` is committed in #1131, #1153, #1154 or #1155, so today only the format exists. `HexScale.HexM = 5000f` is at
+`HexTileContract.cs:40` in #1131, and the text "`HexScale.HexM` = 5,000 m" is already on `main` at
+`docs/hex-tiles/CIV-LAYERS-AND-TEAM-PLAN.md:8`. #1162 (`f2fc344`) adds `HexBoardPickingTests` with 5 km coordinates:
+`TestCase(1, 13)`, `(4, 13)`, `(3, 17)` (`:57-59`), `(0, 13)` and `(-8, 32)` (`:108-109`), and
+`HexGeometry.Centre(1, 13, HexScale.HexM)` at `:127` and `:152`. Two orders are possible; the owner picks:
+
+- **Bake after the stack lands.** The bake PR moves one set of boards, README text and picking coordinates, and re-makes
+  any `*.overrides.json` that exist by then. Cost: the bake waits on five open PRs, four of them drafts (#1153-#1155, #1162).
+- **Bake before the stack.** The stack's PRs then have to be rebased onto the new grid, with `israel.json` and the picking
+  coordinates re-made in each. Cost: that rework falls on PRs the bake does not own.
+
+Recommendation: after the stack lands. Every file above keys on the grid being baked, the stack is already open, and the
+bake is meant to be the only golden mover in its merge slot, so one pass over the finished set is smaller than a pass over
+the bake plus a rework of each stacked PR. The owner may weigh the wait differently.
 
 ## The PRs, in order (from #1183)
 
@@ -228,7 +250,8 @@ The sim test fixtures (`Fixture.cs:175`, `MovementTests.cs:35`) are self-contain
 2. **The bake PR** (#1183 step 3; alone in its merge slot, the only golden mover): `HEX_SIZE_KM`, every file in "Bakes and data files" in
    the order above, the rule for item 1, the re-placed sites and locations (with the Tzrifin decision), the tests that pin
    counts or coordinates, the three goldens and the content hash re-pinned once, `BiomeColours.bytes`, the hex-tile boards
-   and `HexScale.HexM`, the docs that name the size and the GDD line. Evidence: Tel Aviv to Jerusalem on the game's path,
+   and `HexScale.HexM` (order: see above), `content/map/overrides.yaml` (empty, left empty), the docs that name the size
+   and the two GDD lines with their "Then decided" notes. Evidence: Tel Aviv to Jerusalem on the game's path,
    the full sim, tools and EditMode suites, and `tools/headed.py boot` against the gate.
 3. **A rules PR** (#1183 step 3), **only if the owner re-tunes a design value** (movement points, the map-action radius, `PeoplePerHex` and
    `MinHexes`, `BlendRadiusHexes`): each is a `DESIGN VALUE` the owner sets. Merged with or right after the bake PR, so the
