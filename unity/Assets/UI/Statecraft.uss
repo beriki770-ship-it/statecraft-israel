@@ -172,7 +172,9 @@ Button:disabled { color: var(--ink-dim); border-color: rgba(120, 120, 120, 0.4);
    changes its rows end at about 431 px; each meter line already holds two caption lines, Security's level or "International
    support", so a caption that wraps once more does not add to it). Smaller phones raise it further (26 px at 360x800, 30 px
    at 375x667; the owner: the floor holds "down to 375x667", and the bar grows taller to fit, review of #859): the bar takes
-   its rows' height when that is more than 440 px, and the panels under it move down by what it grew (HudPresenter.PlaceUnderBar). */
+   its rows' height when that is more than 440 px, and the panels under it move down by what it grew (HudPresenter.PlaceUnderBar).
+   When its rows come in shorter (390x844 with turn 1's values, or in Hebrew), it shrinks to them and the panels move up, so
+   no empty band lies between the stats and the map (#1089, the owner: 440 px "stays as the maximum, not a fixed height"). */
 .hud-three-row .top-bar { height: 440px; }
 .hud-three-row .meters { width: 100%; flex-wrap: wrap; }
 /* Each meter a quarter of the row, so the seven always take two lines (four, then three) and the bar's second line is
