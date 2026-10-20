@@ -36,6 +36,7 @@ public class StartingForcesTests
         Assert.Equal(new[]
         {
             ("golani", "Yavne'el", "veteran_soldier", "israel", 5, 10, 9),
+            ("carmeli", "Haifa", "veteran_soldier", "israel", 2, 5, 8),
             ("alexandroni", "Netanya (Camp Dora)", "veteran_soldier", "israel", 5, 0, 15),
             ("kiryati", "Tel Aviv", "veteran_soldier", "israel", 1, -3, 19),
             ("givati", "Gedera", "veteran_soldier", "israel", 5, -5, 23),
@@ -64,7 +65,7 @@ public class StartingForcesTests
         var rows = Real.StartingForces.Select(f => f.Row).ToList();
         foreach (var id in new[] { "oded", "brigade_8", "lebanese_army" }) Assert.DoesNotContain(id, rows);   // hidden
         Assert.DoesNotContain("etzioni", rows);                                                              // no strength
-        foreach (var id in new[] { "carmeli", "yiftach", "brigade_7" }) Assert.DoesNotContain(id, rows);   // no 15 May window
+        foreach (var id in new[] { "yiftach", "brigade_7" }) Assert.DoesNotContain(id, rows);   // no 15 May window
         // The real hidden rows have no anchor, so the fixture holds the case that would otherwise start a unit.
         var c = Load(Row("seen", "israel", 20), Row("unseen", "israel", 20, extra: "  hidden: \"no sourced place\"\n"),
                      Row("unsized", "israel", null), Row("nobody", "israel", 0), Row("later", "israel", 20, from: "1948-06-01"));

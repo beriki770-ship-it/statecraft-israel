@@ -196,12 +196,13 @@ defaults"). The unit stands on the hex holding the anchor's coordinates, by the 
   design value with 3 movement points: `egyptian_army`, `arab_legion` (Jordan), `syrian_army`, `iraqi_army`,
   `arab_liberation_army`. These ids are the sim's, not names shown to the player (Q-UI-2, Q-START-4).
 - **Strength** is the row's people in 1,000-person population units, the nearest unit with a half up, never below 1.
-- **Who starts:** Golani 5, Alexandroni 5, Kiryati 1, Givati 5, Harel 1, Negev 2; Egypt 10, the Arab Legion 5, Syria 3,
-  Iraq 3, the ALA 4. Nothing starts for Etzioni (no sourced strength), Carmeli, the 7th and Yiftach (no window on
-  15 May), Oded, the 8th and the Lebanese row (hidden), or the squadron and the two ships (tokens only, Q-UNIT-5).
+- **Who starts:** Golani 5, Carmeli 2 (at Haifa, its sector seat), Alexandroni 5, Kiryati 1, Givati 5, Harel 1,
+  Negev 2; Egypt 10, the Arab Legion 5, Syria 3, Iraq 3, the ALA 4. Nothing starts for Etzioni (no sourced strength),
+  the 7th and Yiftach (no window on 15 May), Oded, the 8th and the Lebanese row (hidden), or the squadron and the two
+  ships (tokens only, Q-UNIT-5).
 - **Release gate:** every row the sim starts a unit from must be `fact-checked` before a shareable build carries it
   (Q-START-3). `Statecraft.Cli --release-gate`, `Build -shareable` and `tools/package_release.py` refuse until then, and
-  name the rows; today that is all eleven.
+  name the rows; today that is all twelve.
 - Tests: `StartingForcesTests` (dotnet) and `UnitsInPlayTests.TheStartMatchesTheMap` (EditMode).
 
 ### The 1948 Collection on the tokens (#665)

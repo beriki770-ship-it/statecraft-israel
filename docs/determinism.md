@@ -32,9 +32,9 @@ final `GameState.Hash()` is pinned:
 
 | Run | Ends | Hash |
 |---|---|---|
-| to 1950-01-01 (`Hash1950`) | 1950-01-15, turn 20 | `b42731fde64f800ee8d1a64742053e7520c899585f5a9caa700724ea365e716d` |
-| to 1952-01-01 (`Hash1952`) | 1952-01-15, turn 44 (the game's end) | `e8e43ed33035d1851b76630e34d59c12f1c83aa906b0c243a736514673cf4e8b` |
-| to the game's end (`mvp-end`) | 1952-01-15, turn 44 | `e8e43ed33035d1851b76630e34d59c12f1c83aa906b0c243a736514673cf4e8b` |
+| to 1950-01-01 (`Hash1950`) | 1950-01-15, turn 20 | `259133fc83a95471547be0cb1a317bae55c8324778864733b88957d7529c8585` |
+| to 1952-01-01 (`Hash1952`) | 1952-01-15, turn 44 (the game's end) | `452c65ece470e844f6898151c4d9328aa0b2e59df82db4763214d43a8e8ea7f1` |
+| to the game's end (`mvp-end`) | 1952-01-15, turn 44 | `452c65ece470e844f6898151c4d9328aa0b2e59df82db4763214d43a8e8ea7f1` |
 
 `hash1952` stops at the first turn on or after 1 January 1952, which is the game's last turn, so it is the same run as
 `mvp-end` (`DeterminismTests.TheWholeGameToItsEndIsFixed`). Both names are kept (spec 2026-10-12 section 3 step 6): a
@@ -43,7 +43,7 @@ player check enumerate the manifest, so it and every scenario are checked withou
 
 A further value is pinned for the browser smoke run (`?smoke=5`: the golden seed, five turns played through the UI's own
 buttons, answering each event with its first option while the turn's Attention pays for it, the rest left to their
-ministers): `SMOKE OK 5 turns 1948-10-15 6e053519654fdbc253c639b8130459be962d8862f679b8d917cea770113a2392`.
+ministers): `SMOKE OK 5 turns 1948-10-15 e5a66f9c2c0c0718d7969289fcc8dd005dedddd37a7c25adfffdc45e2e8b29cd`.
 It depends on the UI path as well as the sim (which option is first, the turn grid), so re-record it when either changes.
 Check every WebGL build with every manifest entry (plus the UI-path smoke line) with:
 
@@ -54,7 +54,7 @@ while read -r name hash; do
   golden_expect+=(--expect "GOLDEN OK $name $hash")
 done < sim/Statecraft.Sim.Tests/golden/manifest.txt
 uv run tools/web_check.py unity/Builds/Web-<compression> --query "golden&smoke=5" "${golden_expect[@]}" \
-  --expect "SMOKE OK 5 turns 1948-10-15 6e053519654fdbc253c639b8130459be962d8862f679b8d917cea770113a2392"
+  --expect "SMOKE OK 5 turns 1948-10-15 e5a66f9c2c0c0718d7969289fcc8dd005dedddd37a7c25adfffdc45e2e8b29cd"
 ```
 
 **When a golden moves.** The test fails with the lines that changed, grouped by section (`[ind]`, `[pol]`, `[bud]`,
@@ -320,11 +320,11 @@ The hash reads the state keys, so it never sees a record outside its window. An 
 | Phase 7 PR 4 carry canonical fix | 1950 | `e3c76f5f` | Nonzero site and city-project carry is written as IEEE bits, consistently on .NET and Unity Mono, instead of runtime-dependent round-trip decimal text. Only canonical representation changes; the stored progress, all other snapshot lines, completion dates and gameplay are unchanged (was `25ea8fbf`). |
 | Phase 7 PR 4 carry canonical fix | 1952 | `37866907` | Nonzero site and city-project carry is written as IEEE bits, consistently on .NET and Unity Mono, instead of runtime-dependent round-trip decimal text. Only canonical representation changes; the stored progress, all other snapshot lines, completion dates and gameplay are unchanged (was `ef8c5fea`). |
 | Phase 7 PR 4 carry canonical fix | mvp-end | `37866907` | Nonzero site and city-project carry is written as IEEE bits, consistently on .NET and Unity Mono, instead of runtime-dependent round-trip decimal text. Only canonical representation changes; the stored progress, all other snapshot lines, completion dates and gameplay are unchanged (was `ef8c5fea`). |
-| GDD Phase 5 PR 4: the sourced starting forces enter the state | 1950 | `b42731fd` | A new game starts with the 11 forces of `map/units_1948.yaml` (R-UNIT-006): six IDF brigades as `veteran_soldier` and the five Arab forces with a row, ids 0 to 10, so the `units[` section gains them and every later unit, cohort and city project id moves up by 11 (the halutz group 1 is now 12, `next=` 4 is 15). Nothing else in the snapshot moves: no rule reads the forces yet (was `e3c76f5f`) |
-| GDD Phase 5 PR 4: the sourced starting forces enter the state | 1952 | `e8e43ed3` | same; `next=` 7 is 18 (was `37866907`) |
-| GDD Phase 5 PR 4: the sourced starting forces enter the state | mvp-end | `e8e43ed3` | same as 1952 (was `37866907`) |
-| GDD Phase 5 PR 4: the sourced starting forces enter the state | smoke5 | `6e053519` | same; the 11 forces are in the state from the first turn (was `8d000459`) |
-| GDD Phase 5 PR 4: the sourced starting forces enter the state | scenario-cautious | `25a3ed11` | same; the scenario has no unit of its own, so it gains the `units[` section and `next=11` (was `9a3d241e`) |
-| GDD Phase 5 PR 4: the sourced starting forces enter the state | scenario-reckless | `b1f5f465` | same as cautious (was `d7dbcf75`) |
-| GDD Phase 5 PR 4: the sourced starting forces enter the state | scenario-mvp-absorb-first | `8c9561ce` | same as cautious (was `234e32ee`) |
-| GDD Phase 5 PR 4: the sourced starting forces enter the state | scenario-mvp-defeat | `7b12f54a` | same as cautious; the defeat is unchanged (was `f3daaa70`) |
+| GDD Phase 5 PR 4: the sourced starting forces enter the state | 1950 | `259133fc` | A new game starts with the 12 forces of `map/units_1948.yaml` (R-UNIT-006): seven IDF brigades as `veteran_soldier` and the five Arab forces with a row, ids 0 to 11, so the `units[` section gains them and every later unit, cohort and city project id moves up by 12 (the halutz group 1 is now 13, `next=` 4 is 16). Nothing else in the snapshot moves: no rule reads the forces yet (was `e3c76f5f`) |
+| GDD Phase 5 PR 4: the sourced starting forces enter the state | 1952 | `452c65ec` | same; `next=` 7 is 19 (was `37866907`) |
+| GDD Phase 5 PR 4: the sourced starting forces enter the state | mvp-end | `452c65ec` | same as 1952 (was `37866907`) |
+| GDD Phase 5 PR 4: the sourced starting forces enter the state | smoke5 | `e5a66f9c` | same; the 12 forces are in the state from the first turn (was `8d000459`) |
+| GDD Phase 5 PR 4: the sourced starting forces enter the state | scenario-cautious | `b4e5caa1` | same; the scenario has no unit of its own, so it gains the `units[` section and `next=12` (was `9a3d241e`) |
+| GDD Phase 5 PR 4: the sourced starting forces enter the state | scenario-reckless | `8d644f6e` | same as cautious (was `d7dbcf75`) |
+| GDD Phase 5 PR 4: the sourced starting forces enter the state | scenario-mvp-absorb-first | `5792227c` | same as cautious (was `234e32ee`) |
+| GDD Phase 5 PR 4: the sourced starting forces enter the state | scenario-mvp-defeat | `7bd5158f` | same as cautious; the defeat is unchanged (was `f3daaa70`) |

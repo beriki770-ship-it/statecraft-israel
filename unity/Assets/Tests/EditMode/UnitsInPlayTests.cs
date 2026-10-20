@@ -67,7 +67,7 @@ public class UnitsInPlayTests
     {
         var hexes = MapBuilder.LoadHexes(Path.Combine(Paths.Content, "map", "hexes.json"));
         var start = C.Rules.Start.ToString("yyyy-MM-dd", System.Globalization.CultureInfo.InvariantCulture);
-        Assert.AreEqual(11, C.StartingForces.Count, "the eleven sourced forces of 15 May 1948 (#743)");
+        Assert.AreEqual(12, C.StartingForces.Count, "the twelve sourced forces of 15 May 1948 (#743)");
         foreach (var f in C.StartingForces)
         {
             var row = Units.Single(u => u.Id == f.Row);
