@@ -528,6 +528,26 @@ public class SettingsScreenTests
         finally { ExternalLink.Opener = ExternalLink.Default; }
     }
 
+    /// <summary>#1169: with the screens' navigation wired as GameRoot wires it, Esc in the report panel closes the panel
+    /// only; ScreenNav's Cancel handler trickles down from the root before the panel's own and asks the panel first.
+    /// (Time.frameCount does not move in an edit-mode test, so after this the panel keeps saying "used this frame".)</summary>
+    [Test]
+    public void EscapeInTheReportPanelLeavesTheSettingsScreenOpen()
+    {
+        using var ui = new UiTestKit();
+        using var nav = new ScreenNav(ui.Root);
+        using var settings = new SettingsPresenter(ui.Root, En, new SettingsStore(dir));
+        using var feedback = new FeedbackPresenter(ui.Root, En, "0.1.0 / content ab12");
+        nav.TakesEscape = feedback.Escape;
+        nav.Open("settings");
+        UiTestKit.Press(ui.Q<Button>("settings-report"));
+        Assert.IsTrue(feedback.IsOpen);
+        var bug = ui.Q<Button>("feedback-bug");
+        using (var esc = NavigationCancelEvent.GetPooled()) { esc.target = bug; bug.SendEvent(esc); }
+        Assert.IsFalse(feedback.IsOpen, "Esc closes the panel");
+        Assert.AreEqual("settings", nav.Current, "and only the panel");
+    }
+
     /// <summary>A mouse press as the player makes it (StartScreenTests.PressWithPointer): a primary-button pointer down
     /// (GetPooled leaves the button at -1), then the button's Clickable fires on the release.</summary>
     internal static void PressWithPointer(Button b)
