@@ -87,7 +87,7 @@ fails too. To add one: write the file, run `STATECRAFT_UPDATE_GOLDEN=1 dotnet te
 manifest line and the snapshot), then run the tests plain. A scenario that moves is re-pinned with the hash goldens by the same
 command; its snapshot diff in the PR shows what moved, and the commit message says why. All four play the real content.
 `cautious` and `reckless` stay in 1948, so they move only when a 1948 rule or event does; `mvp-absorb-first` (GDD Phase 1
-PR 3) fills Tel Aviv's jobs on the first turn and plays to 15 June 1949; `mvp-defeat` (GDD Phase 7 PR 5) overspends and
+PR 3) fills Tel Aviv's jobs on the first turn and completes the absorb objective on 15 January 1950; `mvp-defeat` (GDD Phase 7 PR 5) overspends and
 turns down every source of foreign currency until Money and Food run out, and ends in `defeat_economy` (R-END-002).
 
 **MVP goldens after the cutover.** The real game is the GDD game, so every golden above is an MVP golden. Each PR that
@@ -320,11 +320,12 @@ The hash reads the state keys, so it never sees a record outside its window. An 
 | Phase 7 PR 4 carry canonical fix | 1950 | `e3c76f5f` | Nonzero site and city-project carry is written as IEEE bits, consistently on .NET and Unity Mono, instead of runtime-dependent round-trip decimal text. Only canonical representation changes; the stored progress, all other snapshot lines, completion dates and gameplay are unchanged (was `25ea8fbf`). |
 | Phase 7 PR 4 carry canonical fix | 1952 | `37866907` | Nonzero site and city-project carry is written as IEEE bits, consistently on .NET and Unity Mono, instead of runtime-dependent round-trip decimal text. Only canonical representation changes; the stored progress, all other snapshot lines, completion dates and gameplay are unchanged (was `ef8c5fea`). |
 | Phase 7 PR 4 carry canonical fix | mvp-end | `37866907` | Nonzero site and city-project carry is written as IEEE bits, consistently on .NET and Unity Mono, instead of runtime-dependent round-trip decimal text. Only canonical representation changes; the stored progress, all other snapshot lines, completion dates and gameplay are unchanged (was `ef8c5fea`). |
+| #738 remaining scenario step | scenario-mvp-absorb-first | `c045ea90` | extends the run to 15 January 1950 so it completes `absorb_immigrants` (R-OBJ-004): two halutz cohorts free city housing, fourteen housing projects take the overflow and two industry projects raise employment, using only existing commands (was `234e32ee`) |
 | GDD Phase 5 PR 4: the sourced starting forces enter the state | 1950 | `259133fc` | A new game starts with the 12 forces of `map/units_1948.yaml` (R-UNIT-006): seven IDF brigades as `veteran_soldier` and the five Arab forces with a row, ids 0 to 11, so the `units[` section gains them and every later unit, cohort and city project id moves up by 12 (the halutz group 1 is now 13, `next=` 4 is 16). Nothing else in the snapshot moves: no rule reads the forces yet (was `e3c76f5f`) |
 | GDD Phase 5 PR 4: the sourced starting forces enter the state | 1952 | `452c65ec` | same; `next=` 7 is 19 (was `37866907`) |
 | GDD Phase 5 PR 4: the sourced starting forces enter the state | mvp-end | `452c65ec` | same as 1952 (was `37866907`) |
 | GDD Phase 5 PR 4: the sourced starting forces enter the state | smoke5 | `e5a66f9c` | same; the 12 forces are in the state from the first turn (was `8d000459`) |
 | GDD Phase 5 PR 4: the sourced starting forces enter the state | scenario-cautious | `b4e5caa1` | same; the scenario has no unit of its own, so it gains the `units[` section and `next=12` (was `9a3d241e`) |
 | GDD Phase 5 PR 4: the sourced starting forces enter the state | scenario-reckless | `8d644f6e` | same as cautious (was `d7dbcf75`) |
-| GDD Phase 5 PR 4: the sourced starting forces enter the state | scenario-mvp-absorb-first | `5792227c` | same as cautious (was `234e32ee`) |
+| GDD Phase 5 PR 4: the sourced starting forces enter the state | scenario-mvp-absorb-first | `7d37c0d0` | same as cautious; the longer #738 run now also carries the 12 forces (was `c045ea90`) |
 | GDD Phase 5 PR 4: the sourced starting forces enter the state | scenario-mvp-defeat | `7bd5158f` | same as cautious; the defeat is unchanged (was `f3daaa70`) |
