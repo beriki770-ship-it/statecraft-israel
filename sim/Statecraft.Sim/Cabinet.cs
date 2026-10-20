@@ -66,11 +66,15 @@ namespace Statecraft.Sim
             return a != null ? c.People.First(p => p.Id == a.Person) : Offices.Holder(c, office, d);
         }
 
-        /// <summary>Offices.Fill with the player's appointments: {office_id} becomes the name of whoever holds it.</summary>
-        public static string Fill(Content c, GameState s, string text, DateTime date) =>
+        /// <summary>Offices.Fill with the player's appointments: {office_id} becomes the name of whoever holds it, as
+        /// <paramref name="name"/> gives it (the Hebrew card text wants the Hebrew name, #1064), or else the English one.</summary>
+        public static string Fill(Content c, GameState s, string text, DateTime date, Func<Person, string>? name = null) =>
             Offices.Placeholder.Replace(text, m =>
-                Holder(c, s, m.Groups[1].Value, date)?.Name
-                ?? throw new InvalidOperationException(FormattableString.Invariant($"no holder of '{m.Groups[1].Value}' on {date:yyyy-MM-dd}")));
+            {
+                var p = Holder(c, s, m.Groups[1].Value, date)
+                    ?? throw new InvalidOperationException(FormattableString.Invariant($"no holder of '{m.Groups[1].Value}' on {date:yyyy-MM-dd}"));
+                return name == null ? p.Name : name(p);
+            });
 
         /// <summary>Every playable office that exists on the state's date, in offices.yaml order, with its holder (null = vacant).
         /// A player's appointee is the seat's only holder (an appointment from a save made before an office allowed several
@@ -132,6 +136,22 @@ namespace Statecraft.Sim
         /// <summary>Every person with the reason they cannot be appointed (null = they can), in people.yaml order.</summary>
         public static IReadOnlyList<(Person person, CabinetReason? reason)> Candidates(Content c, GameState s, string officeId) =>
             c.People.Select(p => (p, CheckReason(c, s, officeId, p.Id))).ToList();
+
+        /// <summary>#1109: the playable offices that are vacant now (<see cref="Lineup"/>, no holder), that someone may be
+        /// appointed to (<see cref="CheckReason"/>), and that no Appoint in <paramref name="pending"/> (this turn's queue)
+        /// fills. Empty when no appointment can be queued this turn, for SimBridge.Queue's reasons: the game is over, or the
+        /// Attention left after <paramref name="pending"/> does not pay for one (#1110 review). A query only: the side menu's
+        /// Cabinet badge reads it.</summary>
+        public static IReadOnlyList<Office> Vacancies(Content c, GameState s, IEnumerable<Command> pending)
+        {
+            var queued = pending.ToList();
+            if (s.GameOver != null || AttentionSystem.Cost(c, s, "appoint") > AttentionSystem.Left(c, s, queued) + 1e-9)
+                return new Office[0];
+            var filled = queued.OfType<Appoint>().Select(a => a.Office).ToList();
+            return Lineup(c, s)
+                .Where(x => x.Holders.Count == 0 && !filled.Contains(x.Office.Id) && c.People.Any(p => CheckReason(c, s, x.Office.Id, p.Id) == null))
+                .Select(x => x.Office).ToList();
+        }
 
         /// <summary>Returns null and appoints, or the reason (state untouched). Replacing a minister costs coalition
         /// stability: rules appoint_stability_cost_other_party when the seat leaves the displaced minister's party (a

@@ -47,7 +47,7 @@ panels:
       note: "Commons title 'מחנות המעצר בקפריסין' (the detention camps in Cyprus), dated February 1949, the last months of the camps, not 1946-47. About 15 identifiable adults, posed, no distress shown. Commons also files it under 'Meitar Collection (review needed)': a person should confirm the NLI record (digital ID 997008136325305171) before it ships. Alternate: Cyprus_(997008136324405171).jpg (the queue at the wire gate)."
   - id: arab_countries
     title: The Arab countries
-    text: "In 1948 more than 135,000 Jews lived in Iraq. In March 1950 Iraq let them leave if they gave up their citizenship. The airlift, Operation Ezra and Nehemiah, began in May 1950, and by January 1952 some 120,000 Iraqi Jews had come to Israel. From Morocco, Libya, Egypt, Tunisia and other Arab lands, tens of thousands more came in the same years."
+    text: "In 1948 more than 135,000 Jews lived in Iraq. In March 1950 Iraq allowed them to leave only if they gave up their citizenship, and in March 1951 it froze the assets of those who had. The airlift, Operation Ezra and Nehemiah, began in May 1950, and by January 1952 some 120,000 Iraqi Jews had come to Israel. From Morocco, Libya, Egypt, Tunisia and other Arab lands, tens of thousands more came in the same years."
     # CBS Publication 1365, Table 5, column "15 V 1948 - 1951", by country of birth.
     arrivals:
       - { country: Iraq, count: 123371 }
@@ -56,7 +56,7 @@ panels:
       - url: "https://israeled.org/airlift-iraqi-jews-begins/"
         supports: "Center for Israel Education: 'In 1948, Iraq had more than 135,000 Jews'; 19 May 1950, 'The first two flights of Operation Ezra and Nehemiah ... leave Baghdad'; 'the first of some 120,000 Jews who make aliyah by January 1952 after the Iraqi government makes a temporary change in the law to allow Jews to emigrate, as long as they renounce their Iraqi citizenship'"
       - url: "https://en.wikipedia.org/w/index.php?title=Operation_Ezra_and_Nehemiah&oldid=1377092685"
-        supports: "'In March 1950, the Iraqi government ... passed a special bill of one-year duration permitting Jewish emigration on condition that Jews renounce their Iraqi citizenship' (the exact day of the law differs between sources, so the text gives only the month)"
+        supports: "'In March 1950, the Iraqi government ... passed a special bill of one-year duration permitting Jewish emigration on condition that Jews renounce their Iraqi citizenship' (the exact day of the law differs between sources, so the text gives only the month); 'On 10 March 1951 ... the government enacted a new law which extended the emigration period whilst also blocking the assets of Jews who had given up their citizenship' (the same page, citing Meir-Glitzenstein 2004, p. 206; a secondary source, the law's own name and text not seen by Claude, so a person should check it against the primary law or a scholarly source)"
       - url: "https://www.cbs.gov.il/he/publications/DocLib/2009/1365/pdf/e_print.pdf"
         supports: "Table 5 (printed pages 38-39), column 15 V 1948 - 1951: Iraq 123,371; Morocco 28,263; Libya 30,972; Egypt, Sudan 16,028; Tunisia 13,293; Algeria 3,810 (the 'tens of thousands more' line)"
     image:
@@ -75,7 +75,7 @@ panels:
       note: "Commons title 'עולים מעירק מגיעים לארץ' (immigrants from Iraq arrive in the country), April 1951. It shows arrival, not departure. Three identifiable men in front. Not from the DDT-spraying frames of the same series. Alternate: Ben_Gurion_International_Airport_(997008136549705171).jpg (a family off a Near East Air Transport plane; children prominent)."
   - id: yemen
     title: Yemen
-    text: "In 1949 the ruler of Yemen let its Jews leave. Operation On Wings of Eagles, known as Magic Carpet, flew them from British-ruled Aden to Israel, with the American Jewish Joint Distribution Committee. When the last two planes landed at Lydda on 24 September 1950, about 49,000 Yemenite Jews had been flown to Israel."
+    text: "In 1949 the ruler of Yemen let its Jews leave. Operation On Wings of Eagles, known as Magic Carpet, flew them from British-ruled Aden to Israel, with the American Jewish Joint Distribution Committee. When the last two planes landed at Lydda on 24 September 1950, about 49,000 Yemenite Jews had been flown to Israel (the operation's own count, from its start in December 1948). The CBS table counts 48,315 people born in Yemen or Aden who arrived from 15 May 1948 through 1951."
     # CBS counts Aden with Yemen (Table 5, note 7).
     arrivals:
       - { country: "Yemen, including the former Aden", count: 48315 }

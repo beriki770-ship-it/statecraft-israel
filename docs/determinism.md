@@ -12,7 +12,11 @@ The simulation must produce the same state, bit for bit, on .NET, Unity Mono and
 - **No trigonometry in the sim:** the sim calls only `Math.Abs`, `Math.Min` and `Math.Max`. Geometry that needs
   cos/sin (which hex owns a settlement) is precomputed by `tools/settlement_hexes.py` and read as content.
 - **Canonical hash:** `GameState.Hash()` is SHA-256 over a canonical text. Keys are sorted ordinally. Doubles are
-  written as IEEE bit patterns, with -0.0 written as 0.0. Culture is invariant.
+  written as IEEE bit patterns, with -0.0 written as 0.0. Culture is invariant. Fractional site and city-project
+  carry follows the same rule: nonzero carry is written as 16 hexadecimal digits of its IEEE bit pattern, and zero carry is omitted.
+  Round-trip decimal formatting is only a display concern: .NET and Unity Mono can spell the same carry bits
+  differently. The Phase 7 minister carry correction re-pins hash1950, hash1952 and mvp-end for this representation
+  only; stored values, gameplay and completion dates are unchanged.
 
 ## Golden playthroughs
 
@@ -28,9 +32,9 @@ final `GameState.Hash()` is pinned:
 
 | Run | Ends | Hash |
 |---|---|---|
-| to 1950-01-01 (`Hash1950`) | 1950-01-15, turn 20 | `9922495a92307f87d7b5338cd8501fb60ad0424ea6b19ef2d1ec55c44a8bdfb8` |
-| to 1952-01-01 (`Hash1952`) | 1952-01-15, turn 44 (the game's end) | `722d90a214d8f328fa9e534ab19a8e973de21cdee645aaa6983fe88b3cc55c08` |
-| to the game's end (`mvp-end`) | 1952-01-15, turn 44 | `722d90a214d8f328fa9e534ab19a8e973de21cdee645aaa6983fe88b3cc55c08` |
+| to 1950-01-01 (`Hash1950`) | 1950-01-15, turn 20 | `e3c76f5f6fc45e4941a4499afd2e5c226a4677a651f39c6cef789447d123267a` |
+| to 1952-01-01 (`Hash1952`) | 1952-01-15, turn 44 (the game's end) | `37866907babc55e9477320db32467d1314aa59c8fe86d4d4ad82d8db61731fde` |
+| to the game's end (`mvp-end`) | 1952-01-15, turn 44 | `37866907babc55e9477320db32467d1314aa59c8fe86d4d4ad82d8db61731fde` |
 
 `hash1952` stops at the first turn on or after 1 January 1952, which is the game's last turn, so it is the same run as
 `mvp-end` (`DeterminismTests.TheWholeGameToItsEndIsFixed`). Both names are kept (spec 2026-10-12 section 3 step 6): a
@@ -39,7 +43,7 @@ player check enumerate the manifest, so it and every scenario are checked withou
 
 A further value is pinned for the browser smoke run (`?smoke=5`: the golden seed, five turns played through the UI's own
 buttons, answering each event with its first option while the turn's Attention pays for it, the rest left to their
-ministers): `SMOKE OK 5 turns 1948-10-15 3005405d64abc6e7418fa1f0d35c36ce5f64ed3af7c5a4c24a73d5dfdb16121f`.
+ministers): `SMOKE OK 5 turns 1948-10-15 8d000459d26a08a49583adfc88c14799ce6e6f653dcecff1e30b5e737f0959aa`.
 It depends on the UI path as well as the sim (which option is first, the turn grid), so re-record it when either changes.
 Check every WebGL build with every manifest entry (plus the UI-path smoke line) with:
 
@@ -50,7 +54,7 @@ while read -r name hash; do
   golden_expect+=(--expect "GOLDEN OK $name $hash")
 done < sim/Statecraft.Sim.Tests/golden/manifest.txt
 uv run tools/web_check.py unity/Builds/Web-<compression> --query "golden&smoke=5" "${golden_expect[@]}" \
-  --expect "SMOKE OK 5 turns 1948-10-15 3005405d64abc6e7418fa1f0d35c36ce5f64ed3af7c5a4c24a73d5dfdb16121f"
+  --expect "SMOKE OK 5 turns 1948-10-15 8d000459d26a08a49583adfc88c14799ce6e6f653dcecff1e30b5e737f0959aa"
 ```
 
 **When a golden moves.** The test fails with the lines that changed, grouped by section (`[ind]`, `[pol]`, `[bud]`,
@@ -298,3 +302,21 @@ The hash reads the state keys, so it never sees a record outside its window. An 
 | #457 item 9 (official records) | 1952 | `722d90a2` | owner ruling "Follow the official records" (18 October 2026, #457): `education_registration_1951` opens on 12 February 1951, its first cited plenum record (was 29 November 1950), so the card fires on 15 February 1951 instead of 15 December 1950 and its morale cost lands two turns later. At the end only coalition stability moves (0.443222 to 0.443592). The same PR's Education vacancy from 19 May to 8 October 1951 (item 8) and the 14 May 1948 start (item 2, unchanged) move no golden: measured with the event date as before (was `548a6acc`) |
 | #457 item 9 (official records) | mvp-end | `722d90a2` | same; the same run as hash1952 (was `548a6acc`) |
 | #457 item 9 (official records) | scenario-mvp-defeat | `19143463` | same card date; at the end only coalition stability moves (0.457037 to 0.457407), and the scenario still ends in `defeat_economy` on 15 January 1952 (was `d1e0dcf6`) |
+| GDD Phase 2 PR 3b | 1950 | `4f1202cf` | the national Arms pool (R-ARMS-001 to R-ARMS-003, #781; owner, 18 October 2026: "Approve as drafted"): the new `arms=` line, 12 at the start. The reference player trains no recruits and buys no Arms, so it stays 12 and nothing else moves (was `9922495a`) |
+| GDD Phase 2 PR 3b | 1952 | `28334950` | same; `arms=12` at the end (was `722d90a2`) |
+| GDD Phase 2 PR 3b | mvp-end | `28334950` | same; the same run as hash1952 (was `722d90a2`) |
+| GDD Phase 2 PR 3b | smoke5 | `8d000459` | same; `arms=12` (was `3005405d`) |
+| GDD Phase 2 PR 3b | scenario-cautious | `a6108c91` | same; no scenario trains recruits or buys Arms, so `arms=12` (was `6507ddc3`) |
+| GDD Phase 2 PR 3b | scenario-reckless | `a0f094a1` | same (was `8041988a`) |
+| GDD Phase 2 PR 3b | scenario-mvp-absorb-first | `dee4f039` | same (was `be13c409`) |
+| GDD Phase 2 PR 3b | scenario-mvp-defeat | `e71076f7` | same; the defeat run is unchanged apart from `arms=12` (was `19143463`) |
+| GDD Phase 7 PR 4 | 1950 | `25ea8fbf` | the ministers on the GDD systems (R-MIN-001 to R-MIN-003; Q-MIN-1 to Q-MIN-3, owner, 17 and 18 October 2026, #784; #808): construction, pioneer and field work and absorption run at their office's multiplier, with the build's fractional carry kept on the record (an in-progress site writes it, `gilat=b,1,4,0.652...`). At the cut the veteran group has built Beit Kama on 1949-06-15 (was 1949-03-15) and Beit Shemesh on 1949-11-15 (was 1949-06-15) and is on Gilat, so two fewer yishuvim are borrowed and the debt is IL 87.5m (was 91.5m); slower absorption houses fewer civilians, so the cities' overflow is smaller and `housing` 0.1062 (was 0.0932) and `morale` 0.5050 (was 0.5018) rise (was `4f1202cf`) |
+| GDD Phase 7 PR 4 | 1952 | `ef8c5fea` | same; the veteran's builds take 5 turns at 2 x 0.624 = 1.248 a turn, so Gilat is built on 1950-04-15, Kiryat Shmona on 1950-09-15, Mefalsim on 1951-02-15 and Re'im on 1951-07-15 (were 1949-09-15, 1949-12-15, 1950-03-15 and 1950-06-15), only two fields are plowed (Beit Kama 1951-10-15, Beit Shemesh 1952-01-15) and the camps never start. The debt is IL 211.9m (was 223.9m) and the Food stock 2734 (was 2738). The first-new-yishuv objective completes on 1951-02-15, after its reference date, so the score stays 100 (was `28334950`) |
+| GDD Phase 7 PR 4 | mvp-end | `ef8c5fea` | same; the same run as hash1952 (was `28334950`) |
+| GDD Phase 7 PR 4 | scenario-cautious | `9a3d241e` | the absorption and construction multipliers: the cities' housed counts and conditions move, and `housing`, `morale` and stability with them; no order or date changes (was `a6108c91`) |
+| GDD Phase 7 PR 4 | scenario-reckless | `d7dbcf75` | same; each city houses fewer of its refugees a turn, so more wait (was `a0f094a1`) |
+| GDD Phase 7 PR 4 | scenario-mvp-absorb-first | `234e32ee` | same; the scenario's one order stands, and every city's housed count moves (was `dee4f039`) |
+| GDD Phase 7 PR 4 | scenario-mvp-defeat | `f3daaa70` | same; only the housing web's numbers move, in the third decimal and below - the defeat is unchanged, still `defeat_economy` on 15 January 1952 (was `e71076f7`) |
+| Phase 7 PR 4 carry canonical fix | 1950 | `e3c76f5f` | Nonzero site and city-project carry is written as IEEE bits, consistently on .NET and Unity Mono, instead of runtime-dependent round-trip decimal text. Only canonical representation changes; the stored progress, all other snapshot lines, completion dates and gameplay are unchanged (was `25ea8fbf`). |
+| Phase 7 PR 4 carry canonical fix | 1952 | `37866907` | Nonzero site and city-project carry is written as IEEE bits, consistently on .NET and Unity Mono, instead of runtime-dependent round-trip decimal text. Only canonical representation changes; the stored progress, all other snapshot lines, completion dates and gameplay are unchanged (was `ef8c5fea`). |
+| Phase 7 PR 4 carry canonical fix | mvp-end | `37866907` | Nonzero site and city-project carry is written as IEEE bits, consistently on .NET and Unity Mono, instead of runtime-dependent round-trip decimal text. Only canonical representation changes; the stored progress, all other snapshot lines, completion dates and gameplay are unchanged (was `ef8c5fea`). |
