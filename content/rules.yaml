@@ -152,9 +152,11 @@ mvp:
   # No person has yet checked each place's control on 15 May 1948; research task #1096 will check it. Do not treat it as history.
   enemy_held_localities: [acre, nazareth, lod, ramla, gaza, beersheba]
   # Combat (R-COMBAT-001 to R-COMBAT-006; Q-COMBAT-1 to Q-COMBAT-4, owner, 15 October 2026, #375: "Take all
-  # recommendations"). PROPOSED in Phase 5 PR 8 (#747) and PENDING THE OWNER: the numbers were asked on #747
-  # (https://github.com/eyalgolan/statecraft-israel/issues/747#issuecomment-6297295556) and are agent defaults until he
-  # sets or accepts them. None is a historical figure. Each engagement draws once from the RNG: a face 1 to 6, the six
+  # recommendations"). PROPOSED in Phase 5 PR 8 (#747) and accepted by the owner as design values on 20 October 2026
+  # (all six defaults, asked at
+  # https://github.com/eyalgolan/statecraft-israel/issues/747#issuecomment-6297295556, ruling at
+  # https://github.com/eyalgolan/statecraft-israel/issues/747#issuecomment-6299184133). They stay labelled design values
+  # for the balance pass (#813). None is a historical figure. Each engagement draws once from the RNG: a face 1 to 6, the six
   # entries of its row. A row applies from its min_ratio_percent (the attackers' summed strength over the defenders'
   # strength after fortify and terrain, in percent) up to the next row's: below 1:2, 1:2, 1:1, 2:1 and 3:1 and up.
   # Losses are population units; defender_retreats 1 sends the defenders that are left one hex back.

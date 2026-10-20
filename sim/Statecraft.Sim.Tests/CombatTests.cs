@@ -5,7 +5,7 @@ using Statecraft.Sim;
 
 /// <summary>Combat (GDD Phase 5 PR 8, #747): UnitOrder(unit, attack, q, r) and resolver step 2. Q-COMBAT-1 to Q-COMBAT-4 are
 /// the plan's recommendations, taken by the owner on 15 October 2026 ("Take all recommendations", #375); Q-CIV-2 is his
-/// "Enemy units only, no effect" and Q-CIV-4 his "2+3". The numbers are pending the owner (#747). The fixture's numbers are
+/// "Enemy units only, no effect" and Q-CIV-4 his "2+3". The numbers were accepted by the owner on #747 (20 October 2026). The fixture's numbers are
 /// fixture values: 10 people a population unit, 2 Arms an attack, hills 150, fortify 150, and a two-face table whose faces
 /// agree, so a test does not depend on the draw: below 2:1 both sides lose 1, from 2:1 the defenders lose 1 and retreat.</summary>
 public class CombatTests

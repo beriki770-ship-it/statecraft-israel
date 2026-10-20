@@ -6,5 +6,5 @@
   none, and the attacker does not advance. Each Israeli attacker spends 1 Arms. Combat changes only the units and the
   Arms, never a city, locality, resident or the score, and each engagement's Why line gives the people both sides lost
   in the same words. The table, the terrain percents and the Arms per attack are new labelled design values in
-  `content/rules.yaml`, pending the owner (#747). The reference player now attacks at 3:2 or better, so the 1950, 1952
+  `content/rules.yaml`, accepted by the owner on #747 (20 October 2026, all six defaults: https://github.com/eyalgolan/statecraft-israel/issues/747#issuecomment-6299184133). The reference player now attacks at 3:2 or better, so the 1950, 1952
   and mvp-end goldens move (re-pinned, docs/determinism.md): unit 0 fights the Syrian unit beside it from 15 May 1948.
