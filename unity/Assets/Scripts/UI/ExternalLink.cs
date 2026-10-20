@@ -10,8 +10,8 @@ namespace Statecraft.Game.UI
     /// input on the next frame, outside it, so Application.OpenURL there can be popup-blocked. ExternalLink.jslib instead
     /// arms a one-shot listener for the press's release (pointerup on #unity-canvas, or keyup), which calls window.open
     /// inside that real gesture. That is why Bind opens on the press (pointer down, or the keyboard's Submit, which comes on
-    /// key down) and not on `clicked`, which comes on the release, too late to arm anything. In the editor and in desktop
-    /// builds Open falls back to Application.OpenURL.</summary>
+    /// key down) and not on `clicked`, which comes on the release, too late to arm anything; so a press dragged off the
+    /// button still opens the page. In the editor and in desktop builds Open falls back to Application.OpenURL.</summary>
     public static class ExternalLink
     {
         /// <summary>The game's repository, which the Star buttons open.</summary>
