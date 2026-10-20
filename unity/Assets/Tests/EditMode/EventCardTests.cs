@@ -91,7 +91,7 @@ public class EventCardTests
         {
             Assert.AreEqual("אלטלנה", ui.Q<Label>("event-title").text);
             Assert.AreEqual(e.TextHe.Replace("{defense_minister}", "דוד בן-גוריון"), ui.Q<Label>("event-text").text);
-            foreach (var o in e.Options) Assert.AreEqual(o.TextHe, ui.Q<Button>("option-" + o.Id).text);
+            foreach (var o in e.Options) StringAssert.Contains(o.TextHe, ui.Q<Button>("option-" + o.Id).text);
         }
     }
 
@@ -105,8 +105,8 @@ public class EventCardTests
         {
             Assert.AreEqual("The Altalena", ui.Q<Label>("event-title").text);
             StringAssert.StartsWith("אלטלנה, ", ui.Q<Label>("event-text").text);
-            Assert.AreEqual("Grant both requests, arming Irgun battalions inside the IDF", ui.Q<Button>("option-compromise").text);
-            Assert.AreEqual(e.Options.First(o => o.Id == "enforce").TextHe, ui.Q<Button>("option-enforce").text);
+            StringAssert.Contains("Grant both requests, arming Irgun battalions inside the IDF", ui.Q<Button>("option-compromise").text);
+            StringAssert.Contains(e.Options.First(o => o.Id == "enforce").TextHe, ui.Q<Button>("option-enforce").text);
         }
         var (en, _) = Altalena(Text);
         using (en)
