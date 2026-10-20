@@ -26,6 +26,7 @@ options:
   - id: hold
     # Game assumption: the notes give no alternative to launching; this one names no advocate.
     text: Hold the lines and wait for talks with Egypt
+    alternative: { basis: design }
     effects:
       - { target: security, delta: -0.01 }
 sources:
