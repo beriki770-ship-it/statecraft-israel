@@ -101,8 +101,9 @@ namespace Statecraft.Game.UI
             onHide = Collapse; onReopen = Reopen;
             onUncovered = () =>
             {
-                // The start screen has closed: the photograph now, in the same frame the card first shows (issue #592).
-                if (photoWaits) { photoWaits = false; if (Shown != null) Render(); }
+                // A cover has closed: render the first visible cue too; a start-screen photograph waits until now (#592).
+                photoWaits = false;
+                if (Shown != null) Render();
                 focusedFor = null; if (!hiddenInCapture && Shown != null && !Collapsed) FocusCard(Shown.Id, force: true);
             };
             onHidePointer = _ => hideByPointer = true;
@@ -266,7 +267,7 @@ namespace Statecraft.Game.UI
                 options.Add(b);
             }
             card.Q<Label>("event-count").text = open.Count > 1 ? text.Format("event.more", open.Count - 1) : "";
-            if (shown && !photoWaits && openedFor != e.Id) { openedFor = e.Id; Opened?.Invoke(e.Id); }
+            if (shown && !photoWaits && layer.enabledInHierarchy && openedFor != e.Id) { openedFor = e.Id; Opened?.Invoke(e.Id); }
             if (shown && focusedFor != e.Id) FocusCard(e.Id, force: false);
         }
 
