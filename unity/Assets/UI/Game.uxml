@@ -417,10 +417,9 @@
                     <ui:VisualElement name="start-actions" class="start-actions">
                         <ui:Button name="start-continue" text="Continue" class="start-button" />
                         <ui:Button name="start-new-game" text="New game" class="start-button" />
-                    </ui:VisualElement>
-                    <!-- Community (#1168): a quiet "Star on GitHub" that opens the repository in a new tab (ExternalLink). -->
-                    <ui:VisualElement name="start-community" class="start-community">
-                        <ui:Button name="start-star" text="Star on GitHub" class="start-star" />
+                        <!-- Community (#1168): "Star on GitHub", New game's size beside it, opens the repository in a new tab
+                             (ExternalLink); its star and GitHub mark are painted in by StartScreenPresenter. -->
+                        <ui:Button name="start-star" text="Star on GitHub" class="start-button start-star" />
                     </ui:VisualElement>
                     <ui:VisualElement name="start-caption" class="start-caption" picking-mode="Ignore">
                         <ui:Label name="start-caption-he" text="…אנו מכריזים בזאת על הקמת מדינה יהודית בארץ־ישראל, היא מדינת ישראל." class="start-he start-caption-he" language-direction="RTL" picking-mode="Ignore" />

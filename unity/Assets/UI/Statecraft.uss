@@ -764,19 +764,24 @@ Button.settings-choice-selected { -unity-font-definition: url("project://databas
 .start-en { font-size: 18px; color: var(--ink-dim); letter-spacing: 1px; -unity-text-align: middle-center; white-space: normal; margin: 2px 0 0 0; }
 .start-source { font-size: 15px; color: var(--ink-dim); -unity-text-align: middle-center; white-space: normal; margin: 14px 0 0 0; }
 .start-actions { flex-direction: row; flex-wrap: wrap; justify-content: center; margin-top: 14px; }
+/* A whole-pixel height (#1168): with Star on GitHub wrapped under New game on a phone held upright, a fractional row
+   height shifts the panel's lines off whole pixels and the band layout (StartScreenPresenter.Fit) then rounds the
+   panel's top back and forth, a layout that never settles. 50 px is the text's own height (49.5) rounded up. */
 .start-button {
     -unity-font-definition: url("project://database/Assets/UI/Fonts/EBGaramond-SemiBold.ttf");
-    font-size: 24px; min-width: 220px; margin: 4px 10px; padding: 8px 24px; -unity-text-align: middle-center;
+    font-size: 24px; min-width: 220px; height: 50px; margin: 4px 10px; padding: 8px 24px; -unity-text-align: middle-center;
 }
 /* The recording (DeclarationRecording): a quiet button and its credit under the source line; while it plays, its words as
    captions in a dark strip just above the panel, over the painting (the panel is the strip's positioned parent, so the
    strip follows it in every layout). */
 .start-recording { display: none; flex-direction: row; flex-wrap: wrap; justify-content: center; align-items: center; margin-top: 8px; }
-.start-listen, .start-star { font-size: 18px; padding: 4px 16px; margin: 2px 10px; -unity-text-align: middle-center; }
-/* Community (#1168): the Star button in its own centred row under the actions, as quiet as the recording's. A
-   whole-pixel height: a fractional one shifts the panel's lines off whole pixels, and on a phone held upright the
-   band layout (StartScreenPresenter.Fit) then rounds the panel's top back and forth, a layout that never settles. */
-.start-community { flex-direction: row; justify-content: center; align-items: center; height: 40px; margin-top: 8px; }
+.start-listen { font-size: 18px; padding: 4px 16px; margin: 2px 10px; -unity-text-align: middle-center; }
+/* Star on GitHub (#1168): a .start-button, New game's size, beside it (the row wraps it under New game in a narrow
+   window). Its star and GitHub mark are painted into the left padding (the right in Hebrew; StartScreenPresenter
+   PaintStarSigns). Secondary to New game in colour: no fill and a grey edge instead of the gold one; hover and keyboard
+   focus still light it like any button (Button:hover and :focus are the more specific rules). */
+.start-star { background-color: rgba(0, 0, 0, 0); border-color: var(--ink-dim); padding-left: 80px; }
+.lang-he .start-star { padding-left: 24px; padding-right: 80px; }
 .start-recording-credit { font-size: 15px; color: var(--ink-dim); margin: 2px 6px; }
 .start-caption {
     display: none; position: absolute; left: 0; right: 0; bottom: 100%; margin-bottom: 12px; padding: 8px 20px 10px 20px;
@@ -806,7 +811,7 @@ Button.settings-choice-selected { -unity-font-definition: url("project://databas
 .lang-he .button, .lang-he Button, .lang-he #event-options Button { -unity-text-align: middle-right; }
 /* The buttons and cards whose text is centred stay centred (the rule above is the more specific one). */
 .lang-he .nav-button, .lang-he .seat { -unity-text-align: upper-center; }
-.lang-he .event-reopen, .lang-he .event-hide, .lang-he .event-illustration, .lang-he .start-button, .lang-he .start-listen, .lang-he .start-star { -unity-text-align: middle-center; }
+.lang-he .event-reopen, .lang-he .event-hide, .lang-he .event-illustration, .lang-he .start-button, .lang-he .start-listen { -unity-text-align: middle-center; }
 .lang-he .card-stat-name { -unity-text-align: middle-right; }
 .lang-he .card-stat-value { -unity-text-align: middle-left; }
 /* The Hebrew plate shows the first name's initial and the surname ("י. ידין", PersonCard.InitialAndSurname), not two

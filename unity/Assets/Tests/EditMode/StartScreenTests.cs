@@ -561,7 +561,7 @@ public class StartScreenTests
                     Assert.GreaterOrEqual(panel.yMin, window.yMin + painted * 0.5f - 0.5f, $"{at}: the panel {panel} covers the painting's upper half");
                 }
                 if (h > w) Assert.IsTrue(root.Q("start-screen").ClassListContains(StartScreenPresenter.BandClass), $"{at}: a phone held upright stacks the painting over the panel");
-                var lines = new[] { "start-title", "start-he-proclamation", "start-en-proclamation", "start-he-date", "start-en-date", "start-source", "start-actions", "start-community" };
+                var lines = new[] { "start-title", "start-he-proclamation", "start-en-proclamation", "start-he-date", "start-en-date", "start-source", "start-actions" };
                 foreach (var name in lines)
                 {
                     var r = R(name);
@@ -578,7 +578,18 @@ public class StartScreenTests
                     Assert.GreaterOrEqual(r.height, 40f, $"{at}: {b} is a usable target");
                 }
                 Assert.IsFalse(R("start-continue").Overlaps(R("start-new-game")), at);
-                Assert.IsTrue(Inside(R("start-star"), R("start-community")), $"{at}: the Star button {R("start-star")} is in its row");
+                // #1168 review: Star on GitHub is New game's size, beside it or (in a narrow window) wrapped under it, and
+                // secondary in colour: no fill and no gold edge.
+                var star = R("start-star");
+                Assert.IsTrue(Inside(star, R("start-actions")) && Inside(star, panel), $"{at}: the Star button {star} is with New game, inside the panel");
+                var onePixel = Mathf.Max(0.5f, window.width / w + 0.01f);   // a scaled panel snaps each edge to a screen pixel
+                Assert.AreEqual(R("start-new-game").height, star.height, onePixel, $"{at}: the Star button is New game's height");
+                Assert.GreaterOrEqual(star.width, R("start-new-game").width - onePixel, $"{at}: the Star button is at least New game's width");
+                Assert.IsFalse(star.Overlaps(R("start-new-game")) || star.Overlaps(R("start-continue")), $"{at}: the Star button overlaps a button");
+                var starStyle = root.Q("start-star").resolvedStyle; var newGameStyle = root.Q("start-new-game").resolvedStyle;
+                Assert.AreEqual(newGameStyle.fontSize, starStyle.fontSize, $"{at}: the Star button's text is New game's size");
+                Assert.Less(starStyle.backgroundColor.a, 0.01f, $"{at}: the Star button has no fill (secondary to New game)");
+                Assert.AreNotEqual(newGameStyle.borderTopColor, starStyle.borderTopColor, $"{at}: the Star button's edge is not New game's gold");
             }
             finally
             {

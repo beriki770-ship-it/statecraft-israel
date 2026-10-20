@@ -24,10 +24,12 @@ adds a line under **Unreleased**; CI's `Changelog` job checks this (see `CONTRIB
   base prices and durations stay unchanged. Veteran progress and a halutz's service follow R-VET-001 and R-VET-002.
 - Hebrew titles, body text and option text for the first batch of 16 event cards, each marked for native-speaker
   review (refs #1065, #564).
-- A "Star on GitHub" button opens the game's repository in a new tab: in a new Community row in Settings and under the
-  start screen's buttons. On the web a press arms a one-shot listener for its release, so the browser opens the tab
-  inside the player's own gesture and does not block it (`ExternalLink.jslib`); the editor and desktop builds use
-  `Application.OpenURL`. English and Hebrew labels; the Hebrew awaits the native reviewer (#564) (fixes #1168).
+- A "Star on GitHub" button opens the game's repository in a new tab: in a new Community row in Settings and beside New
+  game on the start screen, at New game's size with a star and the GitHub mark (Octicons, MIT, drawn in code) and no
+  gold, so it stays secondary. On the web a press arms a one-shot listener for its release, so the browser opens the tab
+  inside the player's own gesture and does not block it (`ExternalLink.jslib`); any new press on the canvas cancels an
+  arm its release never reached. The editor and desktop builds use `Application.OpenURL`. English and Hebrew labels;
+  the Hebrew awaits the native reviewer (#564) (fixes #1168).
 - Hebrew titles, card text and option text for the 16 events in the second translation batch, pending native-speaker
   review (refs #1066, #564).
 - An event option can unlock a city project (GDD Phase 7 PR 2, D-H2): a `projects.yaml` kind marked `locked: true` is
