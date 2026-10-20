@@ -20,6 +20,13 @@ options:
       - { target: morale, delta: 0.02 }
   - id: dismiss
     text: Dismiss the charges and keep the uniform system
+    # Basis and sources: research_notes/Alternate timelines/roads-checked.md (checked by the owner, 19 October 2026).
+    alternative:
+      basis: design
+      # Owner ruling, 19 October 2026 (#949): design, no proposer and no date; the sources conflict on the
+      # committee's date (17 or 19 January 1950), and the note keeps that as a research gap.
+      sources:
+        - { url: "https://www.daat.ac.il/daat/kitveyet/niv/levitan-1.htm", checked: 2026-10-17 }
     effects:
       - { target: morale, delta: -0.04 }
 sources:

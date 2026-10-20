@@ -36,6 +36,15 @@ options:
     # Michelson, "Operation Horev" (IDF), PDF p. 7 / printed p. 53, records the Southern Front commander's proposal
     # to refuse the pullback; source accepted and wording chosen by the owner on 18 October 2026 (#939).
     text: Refuse to pull back the force cutting off the Egyptian army at Rafah
+    # Who proposed it: research_notes/Alternate timelines/roads-checked.md (checked by the owner, 19 October 2026).
+    alternative:
+      basis: proposed
+      by: the Southern Front command
+      # Approximate: the earliest boundary of the note's inferred range (about 7-10 January 1949); no exact proposal day
+      # has been found. Owner rulings of 18 and 19 October 2026 (#949).
+      date: 1949-01-07
+      sources:
+        - { url: "https://www.idf.il/media/emxjtczk/%D7%A7%D7%95%D7%91%D7%A5-%D7%9E%D7%91%D7%A6%D7%A2-%D7%97%D7%95%D7%A8%D7%91.pdf", checked: 2026-10-18 }
     effects:
       - { target: intl_standing, delta: -0.10 }
       - { target: security, delta: 0.025 }
