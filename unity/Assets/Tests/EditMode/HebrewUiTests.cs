@@ -290,6 +290,8 @@ public class HebrewUiTests
         ("nav-settings", "hud.nav.settings"), ("settings-screen-title", "settings.title"), ("settings-tiltshift-label", "settings.tiltshift"),
         ("settings-quality-label", "settings.quality"), ("settings-quality-auto", "settings.quality.auto"),
         ("settings-quality-high", "settings.quality.high"), ("settings-quality-low", "settings.quality.low"),
+        ("settings-sound-label", "settings.sound"), ("settings-sound-off", "settings.sound.off"),
+        ("settings-sound-low", "settings.sound.low"), ("settings-sound-high", "settings.sound.high"),
         ("settings-language-label", "settings.language"), ("settings-language-note", "settings.language.note"),
         ("settings-uiscale-label", "settings.uiscale"),
         ("start-source", "start.source"), ("start-recording-credit", "start.recording_credit"),
