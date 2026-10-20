@@ -17,6 +17,14 @@ options:
       - { target: morale, delta: -0.05 }
   - id: relax
     text: Ease rationing and let imports fill the shops
+    # Who proposed it: research_notes/Alternate timelines/roads-checked.md (checked by the owner, 19 October 2026).
+    alternative:
+      basis: debated
+      by: the Knesset
+      # The day of the confidence vote, from this file; accepted by the owner on 18 October 2026 (#949).
+      date: 1950-08-08
+      sources:
+        - { url: "https://www.jta.org/archive/strike-of-clothing-and-shoe-storekeepers-in-israel-ends-modified-rationing-seen", checked: 2026-10-17 }
     effects:
       - { target: morale, delta: 0.03 }
       - { target: fx_reserves, delta: -8 }

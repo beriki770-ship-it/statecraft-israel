@@ -31,6 +31,7 @@ options:
       - { target: security, delta: 0.02 }
   - id: advance_into_lebanon
     text: Advance further into Lebanon
+    alternative: { basis: design }
     set_rung: 5
     effects:
       - { target: security, delta: 0.025 }
