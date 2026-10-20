@@ -518,6 +518,10 @@ namespace Statecraft.Sim
         public double? HakhsharaUpkeepPerYear { get; set; }
         /// <summary>The day the cities start taking arrivals: the census day their start values count (R-CITY-003, Q-ARRV-3).</summary>
         public DateTime CityArrivalsFrom { get; set; }
+        /// <summary>The GDD system to office map (R-MIN-001, D-H3, Q-MIN-1): the office whose
+        /// <see cref="EffectsSystem.Multiplier(Content, GameState, string)"/> scales each named system. A system the map does
+        /// not name is neutral. Read on the turn's date.</summary>
+        public Dictionary<string, string> MinisterSystems { get; set; } = new Dictionary<string, string>();
         /// <summary>The day the GDD game ends (R-LOOP-004; D-E5, 15 January 1952 in the real content), or null for the last
         /// era's end. Read from rules.yaml through <see cref="Content.End"/>; the same in every era.</summary>
         public DateTime? End { get; set; }
@@ -581,9 +585,23 @@ namespace Statecraft.Sim
         /// <summary>The debt, in IL millions, at or above which Money is exhausted (R-END-001; D-B5, Q-DEF-1). Required in the
         /// GDD loop, a finite number >= 0.</summary>
         public double? DebtCeiling { get; set; }
+        /// <summary>A fortified unit's defence, in percent of its strength (R-ORDER-002; D-G4, Q-HOLD-1). Required in the GDD
+        /// loop, at least 1. Combat (Phase 5 PR 8) reads it through Orders.DefencePercent.</summary>
+        public int? FortifyDefencePercent { get; set; }
+        /// <summary>A holding unit's defence, in percent of its strength (R-ORDER-003; D-G4, Q-HOLD-2). Required in the GDD
+        /// loop, at least 1.</summary>
+        public int? HoldDefencePercent { get; set; }
         /// <summary>A minister whose loyalty is below this carries a delegated decision out half-heartedly (R-EVT-003; #107,
         /// owner, 18 October 2026). Required in the GDD loop, 0 to 10 (0: nobody is below it).</summary>
         public int? DelegationLoyaltyFloor { get; set; }
+        /// <summary>The movement points it costs to enter a hex of each land biome of map/hexes.json (R-MOVE-001; Q-MOVE-1).
+        /// Lake and sea have none: they are impassable. The loader requires one for every land biome in the GDD loop.</summary>
+        public Dictionary<string, int> MoveCost { get; set; } = new Dictionary<string, int>();
+        /// <summary>The most units of one side a hex holds (R-MOVE-003; Q-MOVE-3). Required in the GDD loop, at least 1.</summary>
+        public int? StackLimit { get; set; }
+        /// <summary>The settlements (settlements_1948.yaml ids) whose hexes no player unit may enter or cross before Phase 6
+        /// (R-MOVE-005; Q-CIV-1). The owner sets the list.</summary>
+        public List<string> EnemyHeldLocalities { get; set; } = new List<string>();
         /// <summary>The share of each numeric effect a delegated option applies when its minister is below the loyalty floor
         /// (R-EVT-003; #107). Required in the GDD loop, 0 to 1.</summary>
         public double? DisloyalEffectShare { get; set; }
@@ -609,6 +627,8 @@ namespace Statecraft.Sim
         /// <summary>A city resource the city must have (cities.yaml `resources:`), or "" for none: a specialised industry such as
         /// the winery, which needs vineyards (R-PROJ-005, D-D8).</summary>
         public string Requires { get; set; } = "";
+        /// <summary>Whether StartProject refuses this kind until an event option unlocks it (R-EFX-008). Default false.</summary>
+        public bool Locked { get; set; }
     }
 
     /// <summary>A designated site (sites.yaml; docs/GDD.md "Pioneer work": building is allowed only at designated spots, and a
@@ -712,6 +732,9 @@ namespace Statecraft.Sim
         public string Side { get; set; } = "";
         /// <summary>A military type's class: infantry, artillery or armour, or "" for a type that is not military (R-UNIT-001).</summary>
         public string Class { get; set; } = "";
+        /// <summary>The movement points a unit of this type has each turn (R-MOVE-001; Q-MOVE-1), or 0 for a type that does not
+        /// move. Required on a military type.</summary>
+        public int MovementPoints { get; set; }
     }
 
     /// <summary>One stretch of a budget line's ownership (rules.yaml budget_owners): from this day (inclusive) the office owns the line.</summary>
@@ -840,6 +863,8 @@ namespace Statecraft.Sim
         public List<UnitGrant> GrantUnits { get; set; } = new List<UnitGrant>();
         /// <summary>R-EFX-004: changes to a city's housing capacity, job slots or housing condition, in list order (D-H2, Q-HFX-1).</summary>
         public List<CityEffect> CityEffects { get; set; } = new List<CityEffect>();
+        /// <summary>R-EFX-008: locked projects.yaml kinds this option makes available, in list order (D-H2, Q-HFX-1).</summary>
+        public List<string> UnlockProjects { get; set; } = new List<string>();
         /// <summary>Who put this non-historical option forward, and on what record (R-ALT-003). Null when absent.</summary>
         public OptionAlternative? Alternative { get; set; }
         /// <summary>The event whose historical course this consequence option rejoins (R-ALT-009), or empty.</summary>

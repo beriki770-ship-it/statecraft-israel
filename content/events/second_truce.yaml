@@ -27,6 +27,7 @@ options:
   - id: defy
     # Game assumption: the notes name no advocate for defying the resolution.
     text: Defy the order and keep fighting
+    alternative: { basis: design }
     effects:
       - { target: intl_standing, delta: -0.10 }
       - { target: security, delta: 0.01 }

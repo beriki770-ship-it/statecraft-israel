@@ -27,6 +27,7 @@ options:
       - { target: intl_standing, delta: 0.02 }
   - id: donations_only
     text: Rely on donations and loans
+    alternative: { basis: design }
     effects:
       - { target: fx_reserves, delta: 10 }
 sources:
