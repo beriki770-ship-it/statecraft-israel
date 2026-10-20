@@ -326,6 +326,17 @@ public class MovementTests
         Assert.Equal(3, Movement.Reachable(c, s, 1)[(2, 1)]);
     }
 
+    // R-MOVE-007: a kind's cost needs BOTH ends on the segment: a step from a hex off the built segment onto one of its hexes
+    // costs the terrain's 3, not the road's 1.
+    [Fact]
+    public void AStepOntoABuiltSegmentFromOutsideItCostsTerrain()
+    {
+        var c = DesertRow("road");
+        var s = With(c, Soldier(1, 1, 2));
+        s.Corridors["cor_a"] = new CorridorWork("cor_a", new SegmentWork?[] { new SegmentWork(null, 6, Built), null });
+        Assert.Equal(3, Movement.Reachable(c, s, 1)[(1, 1)]);
+    }
+
     // R-MOVE-001: the loader refuses a military type with no movement points, a population type with some, a land biome
     // with no cost, a cost for water, a stack limit below 1, a missing or zero corridor cost and an unknown locality.
     [Theory]
