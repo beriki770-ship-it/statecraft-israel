@@ -18,6 +18,7 @@
             <ui:Button name="nav-defence" text="Defence" class="nav-button rail-button"><Statecraft.Game.UI.UiIcon glyph="helmet" class="nav-disc" /></ui:Button>
             <ui:Button name="nav-why" text="Why?" class="nav-button rail-button"><Statecraft.Game.UI.UiIcon glyph="question" class="nav-disc" /></ui:Button>
             <ui:Button name="nav-how-to-play" text="How to play" class="nav-button rail-button"><Statecraft.Game.UI.UiIcon glyph="book" class="nav-disc" /></ui:Button>
+            <ui:Button name="nav-objectives" text="Objectives" class="nav-button rail-button"><Statecraft.Game.UI.UiIcon glyph="flag" class="nav-disc" /></ui:Button>
             <ui:Button name="nav-settings" text="Settings" class="nav-button rail-button"><Statecraft.Game.UI.UiIcon glyph="gear" class="nav-disc" /></ui:Button>
         </ui:VisualElement>
         <ui:VisualElement name="top-bar" class="panel top-bar">
@@ -321,6 +322,12 @@
                 <ui:Label name="how-to-play-end-turn" class="how-to-play-line" />
                 <ui:Label name="how-to-play-why" class="how-to-play-line" />
             </ui:ScrollView>
+            <Statecraft.Game.UI.UiFrame />
+        </ui:VisualElement>
+        <!-- The objectives (#1189, ObjectivesPresenter): one row per objective, its status and both dates, no score. -->
+        <ui:VisualElement name="screen-objectives" class="panel screen">
+            <ui:VisualElement class="screen-header"><ui:Label name="objectives-title" text="Objectives" class="title" /></ui:VisualElement>
+            <ui:ScrollView name="objectives-rows" class="grow objectives-rows" />
             <Statecraft.Game.UI.UiFrame />
         </ui:VisualElement>
         <!-- Settings (#40, SettingsPresenter): the player's presentation options, kept per browser (SettingsStore), never in

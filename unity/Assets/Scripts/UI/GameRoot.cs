@@ -252,6 +252,7 @@ namespace Statecraft.Game.UI
             Own(new BudgetPresenter(root, bridge, text));
             Own(new WhyPresenter(root, bridge, text));
             Own(new HowToPlayPresenter(root, text));
+            Own(new ObjectivesPresenter(root, bridge, text));
             // Presentation only (#40): never the sim or the save. Outside Play mode (EditMode tests) no file: the developer's
             // own settings must not leak into a test. Each Begin (New Game too) reads the file again.
             // The language switch (#1036) builds every screen again in the new language over this game (SwitchLanguage).
