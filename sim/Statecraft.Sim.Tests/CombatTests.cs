@@ -277,8 +277,8 @@ public class CombatTests
         Assert.Equal(7, s.Score);
     }
 
-    // R-COMBAT-005: over every engagement in the reference war run (the goldens' run to the game's end), step 2 changes only
-    // the units, the Arms and the RNG. The run has engagements, so the test is not empty.
+    // R-COMBAT-005: over the reference war run (the goldens' run to the game's end), step 2 run on each turn's end state, with
+    // its standing attacks, changes only the units, the Arms and the RNG. The run has engagements, so the test is not empty.
     [Fact]
     public void CombatTouchesOnlyCombatants()
     {
@@ -315,7 +315,8 @@ public class CombatTests
         var faces = cell.AttackerLoss.Count;
         var plain = new HashSet<(int, int)>(c.Hexes.Where(h => h.Land && mvp.CombatTerrainPercent[h.Biome] == 100).Select(h => (h.Q, h.R)));
         var (q, r) = plain.OrderBy(h => h).First(h => plain.Contains((h.Item1 + 1, h.Item2)) && c.SettlementHexes.All(x => (x.Q, x.R) != h));
-        // Strengths of 10 or more, so no loss empties a unit: the ratio is the row's own min, or a third for the first row.
+        // Strengths of 5 or more, above any loss in the table, so no unit is emptied: the ratio is the row's own min, or a
+        // third for the first row.
         var (att, def) = cell.MinRatioPercent == 0 ? (10, 30) : (cell.MinRatioPercent / 10, 10);
         var s = With(c);
         s.Units.Clear();
