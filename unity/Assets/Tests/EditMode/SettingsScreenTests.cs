@@ -518,6 +518,12 @@ public class SettingsScreenTests
             UiTestKit.Press(report);
             UiTestKit.Press(ui.Q<Button>("feedback-close"));
             Assert.IsFalse(feedback.IsOpen, "Close closes it");
+            // GameRoot's Escape poll asks the panel first, in the frame its own Cancel closed it too, so the same key does
+            // not also close the Settings screen under it.
+            Assert.IsTrue(feedback.Escape(), "closed this frame: the key is used");
+            UiTestKit.Press(report);
+            Assert.IsTrue(feedback.Escape());
+            Assert.IsFalse(feedback.IsOpen, "the poll's Escape closes it");
         }
         finally { ExternalLink.Opener = ExternalLink.Default; }
     }

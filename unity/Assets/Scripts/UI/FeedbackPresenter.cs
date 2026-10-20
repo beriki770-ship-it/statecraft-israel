@@ -27,6 +27,7 @@ namespace Statecraft.Game.UI
         readonly EventCallback<NavigationCancelEvent> onCancel;
         Action unbindBug = () => { };
         Button? opener;
+        int closedAt = -1;
         readonly List<(VisualElement part, bool enabled)> covered = new List<(VisualElement, bool)>();
 
         /// <param name="version">ReportLinks.Version: the app's version and the content hash.</param>
@@ -83,11 +84,20 @@ namespace Statecraft.Game.UI
         public void Close()
         {
             if (!IsOpen) return;
+            closedAt = UnityEngine.Time.frameCount;
             hudRoot.RemoveFromClassList(OpenClass);
             foreach (var (part, enabled) in covered) part.SetEnabled(enabled);
             covered.Clear();
             opener?.Focus();
             opener = null;
+        }
+
+        /// <summary>GameRoot's Escape poll: closes the panel and says the key is used, also in the frame the panel's own
+        /// Cancel already closed it, so the same Escape does not go on to close the screen or the turn report under it.</summary>
+        public bool Escape()
+        {
+            if (IsOpen) { Close(); return true; }
+            return closedAt == UnityEngine.Time.frameCount;
         }
 
         /// <summary>The lines a form opens with, one per field, by the template's field id ("title: Bug: ").</summary>
