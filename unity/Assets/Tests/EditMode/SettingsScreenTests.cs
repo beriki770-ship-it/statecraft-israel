@@ -471,7 +471,7 @@ public class SettingsScreenTests
         finally { ExternalLink.Opener = ExternalLink.Default; }
     }
 
-    /// <summary>The two labels; their Hebrew waits for the native reviewer (#564).</summary>
+    /// <summary>The two labels; Beri approved their Hebrew as a native speaker on #1178.</summary>
     [Test]
     public void TheCommunityLabelsAreInBothLanguages()
     {
