@@ -596,8 +596,8 @@ public class SettingsScreenTests
     }
 
     /// <summary>The open screen at 1280x720 (the issue's size), in English and Hebrew, at each UI scale: the title, the option's name and its
-    /// button inside the screen, below the top bar and inside the window, each text whole (on one line or wrapped). 125% and
-    /// 150% run as if verified (VerifyOnEveryShape): the screen itself must hold them once the rest of the UI does.</summary>
+    /// button (the Community row's three: Star, Report and Share) inside the screen, below the top bar and inside the window,
+    /// each text whole (on one line or wrapped). 125% and 150% run as if verified (VerifyOnEveryShape): the screen itself must hold them once the rest of the UI does.</summary>
     [UnityTest]
     public IEnumerator TheOpenScreenFitsAt1280x720InBothLanguages([Values(100, 125, 150)] int uiScale)
     {
@@ -644,9 +644,14 @@ public class SettingsScreenTests
                     Assert.IsTrue(Inside(e.worldBound, screen), $"{at}: {name} {e.worldBound} leaves the screen {screen}");
                     Assert.IsTrue(UiLayoutTests.TextFits(e), $"{at}: {name} '{e.text}' is cut ({e.contentRect})");
                 }
-                // The Community row (#1168) runs right to left in Hebrew, like the language row: the button left of its name.
-                var starAt = root.Q("settings-star").worldBound; var communityAt = root.Q("settings-community-label").worldBound;
-                Assert.AreEqual(hebrew, starAt.xMax <= communityAt.xMin + 0.5f, $"{at}: the Star button {starAt} beside its name {communityAt}");
+                // The Community row (#1168) runs right to left in Hebrew, like the language row: its buttons (Star, #1169's
+                // Report and #1170's Share) left of its name.
+                var communityAt = root.Q("settings-community-label").worldBound;
+                foreach (var button in new[] { "settings-star", "settings-report", "settings-share" })
+                {
+                    var buttonAt = root.Q(button).worldBound;
+                    Assert.AreEqual(hebrew, buttonAt.xMax <= communityAt.xMin + 0.5f, $"{at}: {button} {buttonAt} beside its name {communityAt}");
+                }
                 // The set choice reads as set while it has the focus a press leaves on it: dark text on the gold fill.
                 var low = root.Q<Button>("settings-quality-low");
                 using (var e = NavigationSubmitEvent.GetPooled()) { e.target = low; low.SendEvent(e); }
