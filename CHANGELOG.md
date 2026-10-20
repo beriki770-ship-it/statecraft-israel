@@ -28,6 +28,8 @@ adds a line under **Unreleased**; CI's `Changelog` job checks this (see `CONTRIB
   start screen's buttons. On the web a press arms a one-shot listener for its release, so the browser opens the tab
   inside the player's own gesture and does not block it (`ExternalLink.jslib`); the editor and desktop builds use
   `Application.OpenURL`. English and Hebrew labels; the Hebrew awaits the native reviewer (#564) (fixes #1168).
+- Hebrew titles, card text and option text for the 16 events in the second translation batch, pending native-speaker
+  review (refs #1066, #564).
 - An event option can unlock a city project (GDD Phase 7 PR 2, D-H2): a `projects.yaml` kind marked `locked: true` is
   refused by StartProject until an option with `unlock_projects` naming it has applied. The loader refuses an unknown
   kind or one that is not locked, and a sensitive option may not unlock (R-EFX-008, R-EFX-005; refs #806). No real
@@ -51,6 +53,7 @@ adds a line under **Unreleased**; CI's `Changelog` job checks this (see `CONTRIB
   zoom. A new `ZoomKeys` action in the Camera map; the wheel's `Zoom` keeps its one binding.
 
 ### Fixed
+- Money negatives and changes put the sign next to the number, not the currency ("IL -3.0m", "IL +1.2m"), everywhere the player sees money - top bar, Budget, Why?, the turn report and tooltips - in English and Hebrew (player feedback, 19 October 2026, refs #1107).
 - Fractional site and city-project carry is hashed as IEEE bits on every runtime, avoiding different decimal spellings on .NET and Unity Mono; gameplay progress is unchanged.
 - Site construction forecasts use the current minister rate and saved fractional work, including pioneer promotion.
 - On a notched phone the HUD and the panels keep clear of the notch and the home indicator: the root is padded by
@@ -81,6 +84,9 @@ adds a line under **Unreleased**; CI's `Changelog` job checks this (see `CONTRIB
   offered, 100% always (owner ruling of 19 Oct 2026 on #1011): the layout suites do not pass at 125% or 150% yet, so
   for now the row offers 100% alone, and a saved 125% or 150% starts at 100% (the file keeps the choice).
 ### Changed
+- The map's code-built boats (SeaCraft's feluccas, cutters, moored fishing boats and Haifa's coastal steamer) are
+  now their real length at the train's one 24x scale, like every other model: a felucca about 290 m (1.4 locomotive
+  cars) where it was 2,040 m. Seen from 60 km off Jaffa they are white flecks a few pixels across (Fixes #1094).
 - The map pans left and right from the first frame (#1062, player report): the game opens at 90 km, not 120 km, under
   the ~106 km where a 16:9 view is wider than the map and held centred (#174). A 21:9 window still opens centred
   until zoomed in a little.
