@@ -62,6 +62,8 @@ public class ObjectivesScreenTests
             for (int i = 0; i < status.Count; i++)
             {
                 var o = status[i];
+                // Every objective on main has its name in both strings files (the presenter's objectives.yaml fallback is for #791).
+                Assert.IsTrue(text.Has("objectives.name." + o.Id), when + ": " + o.Id + " has a name in this language");
                 Assert.AreEqual("objectives-row-" + o.Id, rows[i].name, when + ": the helper's order");
                 Assert.AreEqual(text["objectives.name." + o.Id], rows[i].Q<Label>(className: "objectives-name").text, when + ": " + o.Id + " name");
                 var line = rows[i].Q<Label>(className: "objectives-status").text;

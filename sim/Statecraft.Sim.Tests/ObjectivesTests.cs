@@ -459,6 +459,7 @@ eras:
         Assert.Equal(field, ex.Field);
         Assert.Contains(message, ex.Message);
     }
+
     /// <summary>#1189: the Objectives screen's reading, one row per objective in content order, with its name, whether it is done,
     /// the player's date (none until it is done) and the historical date. Pure: the state's hash is the same afterwards.</summary>
     [Fact]

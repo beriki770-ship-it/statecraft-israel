@@ -226,8 +226,8 @@ Button:disabled { color: var(--ink-dim); border-color: rgba(120, 120, 120, 0.4);
 .left-column .rail-button:hover, .left-column .rail-button:focus, .left-column .nav-open { color: rgba(0, 0, 0, 0); }
 /* Seven discs since Objectives (#1189). On the one-row bar: 45 px, 3 px apart, so the column still ends at 112 + 336 px
    (six 50 px discs 6 px apart, #1041: the same), above the info panel's top (456 px) in a short, wide window
-   (InfoPanelLayoutTests), and at least 29 screen px in the smallest one-row window (1366x657). The stacked bar's tiers
-   keep the 50 px discs: the column starts lower there, the info panel is far below it, and 960x600 needs 50 px for the
+   (InfoPanelLayoutTests), and at least 29 screen px in the smallest one-row window (1366x657). The narrow, two-row and
+   three-row tiers keep their discs (50 px; 60 px on a phone): the column starts lower there, the info panel is far below it, and 960x600 needs 50 px for the
    24 screen px floor (LeftColumnTests). The column keeps its 56 px width, so the backdrop, the screens and the toast
    keep their places. */
 .left-column .rail-button .nav-disc { top: 0; left: 0; width: 45px; height: 45px; padding: 10.5px; border-radius: 22.5px; }

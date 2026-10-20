@@ -64,7 +64,7 @@ how_to_play.top_bar: "The top bar shows the date, your Attention, Money and the 
 how_to_play.end_turn: "End turn carries out your orders and moves to the next month. A card you leave unanswered, or have no Attention left to answer, goes to the responsible minister, who decides it for you."
 how_to_play.why: "After a turn, open Why? to see each change and its cause."
 # The Objectives screen (#1189): every objective in objectives.yaml, done or not, the player's date beside the historical
-# one, and no score (owner, 20 October 2026). The same wording as the end screen's lines (#1156). {0} the player's date,
+# one, and no score (owner, 20 October 2026). The objective card's wording (#380). {0} the player's date,
 # {1} the historical date (objectives.open: {0}). A name falls back to objectives.yaml's when it has no key here.
 objectives.title: "Objectives"
 objectives.done: "Completed on {0}; historically {1}"
