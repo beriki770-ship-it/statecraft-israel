@@ -205,6 +205,11 @@ namespace Statecraft.Game.UI
             DiagLog.BootPhase($"session started (turn {session.State.Turn}, replayed)");
             var bridge = Bridge = new SimBridge(session, text);
             if (keep != null) foreach (var order in keep.Queued) bridge.Queue(order);   // in their order: each was within the attention left
+            if (Statecraft.HexTiles.HexTilesLook.Requested())   // opt-in hex-tile map (docs/hex-tiles/README.md); presentation only
+            {
+                Statecraft.HexTiles.HexTilesLook.Apply(map, true);
+                owned.Add(new Undo(() => Statecraft.HexTiles.HexTilesLook.Apply(map, false)));
+            }
             var root = document.rootVisualElement;
             bool hebrew = text["ui.lang"] == UiLanguage.Hebrew;
             // Hebrew: the Hebrew face, the advanced text generator and the mirrored rows (.lang-he); each text's paragraph
@@ -250,7 +255,7 @@ namespace Statecraft.Game.UI
             // Presentation only (#40): never the sim or the save. Outside Play mode (EditMode tests) no file: the developer's
             // own settings must not leak into a test. Each Begin (New Game too) reads the file again.
             // The language switch (#1036) builds every screen again in the new language over this game (SwitchLanguage).
-            Own(new SettingsPresenter(root, text, SettingsFile(), language => SwitchLanguage(inputs, language)));
+            Own(new SettingsPresenter(root, text, SettingsFile(), language => SwitchLanguage(inputs, language), document.panelSettings));
             Own(new CabinetPresenter(root, bridge, text, portraits));
             // After End Turn, what changed in the top bar and the sim's causes (#1037); under an outcome clip, which plays first.
             report = Own(new TurnReportPresenter(root, bridge, text, nav!));
@@ -338,6 +343,9 @@ namespace Statecraft.Game.UI
             pointer.PillHex = pillHex;
             var camRig = rig = cameraController.GetComponent<CameraRig>();
             Own(new TopBarInset(root, camRig));                            // the map is framed below the top bar
+            Own(new SafeAreaFit(root));                                    // the HUD keeps clear of the phone's notch
+            // the map's keyboard stop (#41 B1b): Enter or Space picks the hex under the look-at point, as a click there would
+            Own(new MapFocusPresenter(root, cameraController.GetComponent<Camera>(), camRig, at => pointer.PickAt(at)));
             var mini = minimap = Own(new MinimapPresenter(root, map.Hexes, text));
             var labelCamera = cameraController.GetComponent<Camera>();
             labels = Own(new MapLabelsPresenter(root, map, labelCamera, null,

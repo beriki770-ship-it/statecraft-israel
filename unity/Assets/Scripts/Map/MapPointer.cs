@@ -100,7 +100,20 @@ namespace Statecraft.Game.Map
         {
             var overUi = IsOverUi != null && IsOverUi(pos);
             Boot.DiagLog.NavLine(FormattableString.Invariant($"map click at ({pos.x:0}, {pos.y:0}) overUi={overUi}"));
-            if (overUi || HexAt(pos, false) is not (int q, int r)) return false;   // the UI asked once per press (MapPressTests)
+            if (overUi || HexAt(pos, false, true) is not (int q, int r)) return false;   // the UI asked once per press (MapPressTests)
+            Map!.Select(q, r);                                          // the map marks the hex the info panel describes
+            HexClicked?.Invoke(q, r);
+            return true;
+        }
+
+        /// <summary>The pick without the UI check: the hex under <paramref name="pos"/> (screen pixels) is outlined and raised
+        /// as HexClicked, as for a click. The keyboard's map stop (MapFocusPresenter, #41 B1b) picks here at the projected
+        /// look-at point: that is not a pointer, and on a narrow window the info panel may sit over the centre. Returns
+        /// whether a hex was picked.</summary>
+        public bool PickAt(Vector2 pos)
+        {
+            // terrain only: the stop's centre ring marks the land, not a city's name pill
+            if (HexAt(pos, false, false) is not (int q, int r)) return false;
             Map!.Select(q, r);                                          // the map marks the hex the info panel describes
             HexClicked?.Invoke(q, r);
             return true;
@@ -108,13 +121,13 @@ namespace Statecraft.Game.Map
 
         /// <summary>The hex a click at <paramref name="pos"/> (screen pixels) would pick, or null over the UI or off the map:
         /// a pill's city hex (PillHex), else the hex of the terrain under the pointer. GameRoot also asks it for the hover.</summary>
-        public (int q, int r)? HexAt(Vector2 pos) => HexAt(pos, IsOverUi != null && IsOverUi(pos));
+        public (int q, int r)? HexAt(Vector2 pos) => HexAt(pos, IsOverUi != null && IsOverUi(pos), true);
 
-        (int q, int r)? HexAt(Vector2 pos, bool overUi)
+        (int q, int r)? HexAt(Vector2 pos, bool overUi, bool pills)
         {
             if (overUi) return null;                                    // the UI is asked first, whatever else is missing
             if (Map == null || Map.Terrain == null) return null;
-            if (PillHex?.Invoke(pos) is (int, int) pill) return pill;
+            if (pills && PillHex?.Invoke(pos) is (int, int) pill) return pill;
             var cam = Camera.main;
             var collider = Map.Terrain.GetComponent<TerrainCollider>();
             // only the terrain's own collider: other colliders (markers, future props) never decide which hex is clicked

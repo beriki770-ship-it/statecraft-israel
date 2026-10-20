@@ -29,6 +29,7 @@ options:
     # Game assumption: the notes found no Israeli voice for refusing. The morale cost (an army short of arms, under the
     # Chapter VII warning) is a design inference.
     text: Refuse the truce and keep fighting
+    alternative: { basis: design }
     effects:
       - { target: intl_standing, delta: -0.08 }
       - { target: morale, delta: -0.03 }

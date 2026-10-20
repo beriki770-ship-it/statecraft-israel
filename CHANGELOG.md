@@ -8,19 +8,104 @@ adds a line under **Unreleased**; CI's `Changelog` job checks this (see `CONTRIB
 ## [Unreleased]
 
 ### Added
+- An event option can unlock a city project (GDD Phase 7 PR 2, D-H2): a `projects.yaml` kind marked `locked: true` is
+  refused by StartProject until an option with `unlock_projects` naming it has applied. The loader refuses an unknown
+  kind or one that is not locked, and a sensitive option may not unlock (R-EFX-008, R-EFX-005; refs #806). No real
+  project is locked yet, so no golden moves.
+- Standing orders (GDD Phase 5 PR 7): `UnitOrder(unit, fortify / hold)` gives one of the player's military units a
+  standing order that stays until the player changes it. Fortify is free, is set by the end of the turn it is given and
+  is lost when the unit leaves its hex (Q-HOLD-1); hold acts on the unit's own hex only and intercepts nothing (Q-HOLD-2).
+  `Orders.DefencePercent` gives combat (PR 8) the defence: fortify 125% (owner-decided, 19 Oct 2026) and hold 100% of strength (design
+  values; the balance pass #813 may tune both). Orders are free (D-A6). No golden moves: nothing gives an order yet
+  (R-ORDER-001 to R-ORDER-003; fixes #746, refs #385).
+- The ministers reach the GDD systems (D-H3's first slice, refs #808): the Labour minister's office scales housing and
+  industry construction, the Agriculture minister's office pioneer and field work, and the Immigration minister's
+  office refugee absorption, each at the cabinet multiplier (competence x budget share) on the turn's date. Prices and
+  stated durations are unchanged, a build's fractional progress is carried on its record, and an office that does not
+  exist on the date reads its named successor's multiplier. In the historical run every build and absorption moves:
+  the reference player builds Mefalsim on 15 February 1951 (was 15 March 1950), the camps are never started, and every
+  golden is re-pinned.
+- The map zooms from the keyboard (a11y B1a, refs #41): hold = or - (or the numpad's + and -) to zoom in or out at
+  six wheel notches a second, so 6 to 250 km takes about six seconds. Like keyboard pan, the keys work while the
+  pointer rests over a panel, and only without Ctrl, Alt or Cmd, so Ctrl/Cmd with + and - stays the browser's own
+  zoom. A new `ZoomKeys` action in the Camera map; the wheel's `Zoom` keeps its one binding.
+
+### Fixed
+- Fractional site and city-project carry is hashed as IEEE bits on every runtime, avoiding different decimal spellings on .NET and Unity Mono; gameplay progress is unchanged.
+- Site construction forecasts use the current minister rate and saved fractional work, including pioneer promotion.
+- On a notched phone the HUD and the panels keep clear of the notch and the home indicator: the root is padded by
+  the browser's `env(safe-area-inset-*)` values (the camera's top inset and the map labels follow as before), and it
+  follows the insets even when the root bounds do not change, as a same-size landscape flip moves the notch with no
+  geometry event (a per-frame poll); desktops and notch-free phones are unchanged.
+  With a side inset, raised meter captions reflow into the existing two-row bar when their measured widths no longer
+  fit; Security's level wraps with its caption, and the 12 px text floor is preserved.
+
+### Added
+- The sim's end report, `EndReport.For`, reads a finished game for the end screen: the outcome, the score, each
+  objective's date beside its historical date, Social cohesion and International Support, and the population beside
+  its latest CBS anchor (R-END-005, R-END-006; refs #810). It changes no state and no golden; the score's parts wait for #809.
+- An opt-in Civilization-style hex-tile map (`?hex-tiles`, desktop `-hex-tiles`; `?hex-tiles=tel_aviv_crop` for the
+  Tel Aviv crop): one-file hex prototypes (towns, orchards, fields, forests, hills), units as their own layer, painted
+  ground, a landscape ring round the play hexes and a warmer light while it is on. Presentation only; off by default,
+  the shipped map is unchanged. Its models are local until their assets clear, so other machines draw stand-ins
+  (docs/hex-tiles/README.md; refs #18).
 - The Cabinet disc in the side menu shows a small gold badge while a post is vacant that the player can fill this turn,
   and its tip says so in English and Hebrew. The sim's `Cabinet.Vacancies` decides it (a vacant seat, someone may be
   appointed, no appointment to it queued, the game not over, and enough Attention left after this turn's queued orders,
   priced by the sim's new `AttentionSystem.Price`/`Left`, which `SimBridge` now uses too); the UI only reads it (refs #1109).
 - Unit cards show the sourced Hebrew unit name in the Hebrew UI, with an English fallback. INS Haganah gains its
   sourced Hebrew name, still flagged for a native speaker's review (#902).
+- Settings: a UI scale choice, 100%, 125% or 150%, default 100% (refs #40, third slice; owner decision of 18 Oct 2026).
+  It scales the whole UI at once (the one panel's reference resolution divided by the scale) and is kept in
+  `settings.txt` (key `uiscale`), never in the sim or the save. Only the scales verified to fit the window are
+  offered, 100% always (owner ruling of 19 Oct 2026 on #1011): the layout suites do not pass at 125% or 150% yet, so
+  for now the row offers 100% alone, and a saved 125% or 150% starts at 100% (the file keeps the choice).
+### Changed
+- The map pans left and right from the first frame (#1062, player report): the game opens at 90 km, not 120 km, under
+  the ~106 km where a 16:9 view is wider than the map and held centred (#174). A 21:9 window still opens centred
+  until zoomed in a little.
+- Content: every option that did not happen now says who proposed it, with sources, or that it is a design assumption
+  (R-ALT-004; refs #949, #939). The 30 records are copied from the owner-checked
+  `research_notes/Alternate timelines/roads-checked.md` with the owner's road rulings of 18 October 2026: roads 1, 22
+  and 29 take the first day of their source's range, road 8 keeps 8 August 1950, road 25 (`push_to_hebron`) becomes
+  `design`, and the Latrun option now reads "Attack Latrun before the cabinet votes", `debated`. Road 12
+  (`frumkin_commission/dismiss`) is `design` too, by the owner's ruling of 19 October 2026, with no proposer and no
+  date; the conflicting committee dates stay a research gap in the note.
+- The map can be used from the keyboard: Tab reaches a map stop right after End Turn, a gold ring with a dark outline
+  marks the centre of the view while it has the focus, the camera keys pan the map under it, and Enter or Space selects
+  the hex under the ring through the same pick as a click, with the focus staying on the map. The next Tabs reach the
+  info panel's actions. Covering screens and the start screen take the stop out of reach, and mouse and touch clicks pass
+  through it as before. The empty info panel's hint says so in English and Hebrew, and keeps the right-drag (Hebrew
+  flagged for a native speaker's review; Fixes #1116, refs #41).
 ### Fixed
+- Hebrew budget vote labels use the legislature as their subject, following the native review, so names beginning with ה no longer follow an uninflected ב־ prefix (refs #564).
+- Keep the opt-in hex terrain overlay out of automatic neighboring with the real map terrain.
+- Keep the capsule-collider dependency used while creating hex unit stand-ins in stripped player builds; the temporary collider is still removed.
+- Missing unit models on the opt-in hex-tile map use an owned copy of the shipped material in player builds.
+- The opt-in hex-tile map regenerates cached stand-in meshes released by an editor scene change.
+- The opt-in hex-tile map preserves settlement marker visibility when removed or rebuilt, and missing vehicle models
+  keep their declared box stand-in and footprint size.
 - The Cabinet, Budget, Defence, Why, How to play and Settings screens each gain an X in the header that closes
   them (the same close as Escape): a phone has no Escape key, and re-tapping the lit rail button was the only way
   out (v0.1.1 playtest feedback).
 - Map: a city shows it can be clicked. With the mouse over one of its hexes or its name, the city's name lights up in
   ivory and the browser's pointer becomes a hand; a click on the name opens the city panel, as a click on its hex does,
   in English and Hebrew and at every zoom (Fixes #1063).
+- Up close the kit landmarks (mosques, churches, minarets, Jerusalem's walls, gates and towers, the Dome of the Rock,
+  Jaffa's clock tower and lighthouse, Ramla's White Tower, Nahalal's hall, Revivim's walled lookout) stand at the
+  models' world scale too, real size x 24 (`SettlementKits.ModelScale`), instead of the kits' 60x and 100x that towered
+  over the houses; never bigger than far off, and Jerusalem's walls keep their circuit and shrink only in height and
+  thickness. A plot's models no longer sit in a regular grid: seeded by the place and the plot, each is turned up to
+  10 degrees and moved within its cell, some cells stay empty and a long plot may get a street through it. Far off
+  nothing changes. The rural life and special buildings take their 24x from the same constant (#1032).
+- Unit movement (GDD Phase 5 PR 5): `Move(unit, q, r)` moves a player unit at command time along the cheapest path
+  within the movement points it has left this turn, and `Movement.Reachable` and `Movement.Path` give the preview.
+  Movement points per military type and a cost per land biome are owner-accepted design values (Q-MOVE-1, 19 October 2026); lake and sea are
+  impassable; a hex holds at most three units of a side (Q-MOVE-3); no zone of control, and no entry to an enemy unit's
+  hex or to an enemy-held locality (Q-MOVE-4, Q-CIV-1; the list is an owner-accepted draft: acre, nazareth, lod, ramla, gaza, beersheba, unchecked until research task #1096). Orders are free (D-A6).
+  A Move that goes through clears fortify (set or given this turn) at once, even out and back to the same hex; hold
+  moves with the unit (Q-HOLD-1).
+  No golden moves: nothing issues a Move yet (R-MOVE-001 to R-MOVE-006; fixes #744, refs #385).
 - The national Arms pool in the GDD loop (R-ARMS-001 to R-ARMS-003; fixes #781): one Arms is the equipment package for a
   1,000-person recruit group, and the state holds 12 on 15 May 1948. A `BuyArms(count)` order pays IL 1m an Arms,
   borrows a short Treasury and costs 1 Attention whatever the count; recruit training takes 1 Arms a group when it
@@ -151,6 +236,7 @@ adds a line under **Unreleased**; CI's `Changelog` job checks this (see `CONTRIB
   `delegation_loyalty_floor` (5), only `disloyal_effect_share` (0.5) of each numeric effect of the option lands. Both
   are labelled design values in `rules.yaml` `mvp:`. No minister in `people.yaml` is rated below 5 today, so the
   goldens do not move (refs #107).
+
 
 ### Changed
 - Hebrew vote text (`budget.no_vote`, `budget.vote_advisory`, `cabinet.legislature_advisory`) is reworded so it needs

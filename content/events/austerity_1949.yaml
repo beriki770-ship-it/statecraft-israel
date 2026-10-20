@@ -22,6 +22,7 @@ options:
       - { target: morale, delta: -0.05 }
   - id: decline
     text: Keep markets free and import more
+    alternative: { basis: design }
     effects:
       - { target: fx_reserves, delta: -8 }
       - { target: food_supply, delta: -0.05 }
