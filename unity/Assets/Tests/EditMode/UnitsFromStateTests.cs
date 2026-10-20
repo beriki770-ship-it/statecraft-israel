@@ -6,6 +6,7 @@ using NUnit.Framework;
 using Statecraft.Game;
 using Statecraft.Game.Map;
 using Statecraft.Game.Map.Units;
+using Statecraft.Game.UI;
 using Statecraft.Sim;
 using UnityEditor;
 using UnityEditor.SceneManagement;
@@ -130,6 +131,27 @@ public class UnitsFromStateTests
             Assert.AreEqual(figures, t.Figures, $"{row} at {strength} of 5");
             Assert.AreEqual(figures, t.Headgear.Count, "one headgear per figure");
         }
+    }
+
+    /// <summary>A unit that moved stands on a hex no source names: its card gives no position and the row's sources.</summary>
+    [Test]
+    public void AMovedUnitsCardNamesNoPlaceAndGivesTheRowsSources()
+    {
+        var text = UiText.Parse(AssetDatabase.LoadAssetAtPath<TextAsset>(UiPaths.Strings).text);
+        var s = NewGame();
+        var u = s.Units.Values.First(x => x.Side == "israel");
+        var to = FreeNeighbour(s, u.Q, u.R);
+        MoveTo(s, u.Id, to.q, to.r);
+        var row = C.StartingForces[u.Id].Row;
+        var t = Army(UnitRoster.FromState(Units, C, s, _ => true, new Moved().At)).Single(x => x.Unit.Id == row);
+        var card = UnitCard.For(new PlacedToken(t, default), s, text);
+        var start = UnitRoster.AnchorAt(t.Unit, C.Rules.Start)!;
+        var position = string.IsNullOrWhiteSpace(start.Since) ? text.Format("unit.position_plain", start.Place) : text.Format("unit.position", start.Place, start.Since!);
+        var home = UnitCard.For(new PlacedToken(new UnitToken(t.Unit, start, 3, t.ArtType, false), default), s, text);
+        CollectionAssert.Contains(home.Body.Split('\n'), position, "on its starting anchor the card names the place");
+        CollectionAssert.DoesNotContain(card.Body.Split('\n'), position, "no position line for a hex no source names");
+        foreach (var host in t.Unit.AllSources().Select(x => new Uri(x.Url).Host)) StringAssert.Contains(host, card.Footer);
+        Assert.AreEqual(UnitData.IsWikipediaOnly(t.Unit) ? text["unit.draft_wikipedia"] : text["unit.draft"], card.Note);
     }
 
     /// <summary>#563's spot cache: a rebuild after a move places only the unit that moved; every other token keeps its spot,

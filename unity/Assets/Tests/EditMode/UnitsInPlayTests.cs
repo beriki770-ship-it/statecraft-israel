@@ -557,7 +557,7 @@ public class UnitsInPlayTests
             var checkedFigures = 0; float worstFloat = 0f;
             foreach (var d in new[] { new DateTime(1948, 5, 29), new DateTime(1948, 6, 5), new DateTime(1948, 7, 12), new DateTime(1948, 12, 4) })
             {
-                layer.Show(C, StateAt(d, 5, 0.8));
+                layer.Show(SimBridgeGddTests.Legacy, StateAt(d, 5, 0.8));   // the legacy loop: the war's tokens by date
                 foreach (var f in map.Terrain.transform.Find(UnitLayer.RootName).Find("Tokens").GetComponentsInChildren<Transform>().Where(t => t.name.StartsWith("Rifleman")))
                 {
                     var p = f.position; float lowest = float.MaxValue;
@@ -620,7 +620,7 @@ public class UnitsInPlayTests
             int figures = 0, hidden = 0;
             foreach (var d in OrchardDates)
             {
-                layer.Show(C, StateAt(d, 5, 0.8));
+                layer.Show(SimBridgeGddTests.Legacy, StateAt(d, 5, 0.8));   // the legacy loop: the war's tokens by date
                 var feet = FigureFeet(map);
                 Assert.Greater(feet.Count, 0, $"{d:yyyy-MM-dd}: figures are drawn");
                 var through = veg.Drawable().Where(t => UnderAFigure(t.kind, t.m, feet)).ToList();
@@ -647,7 +647,7 @@ public class UnitsInPlayTests
             var layer = UnitLayer.Create(map, Units, C.Hexes, still: true);
             foreach (var d in OrchardDates.Concat(new[] { new DateTime(1948, 7, 25) }))
             {
-                layer.Show(C, StateAt(d, 5, 0.8));
+                layer.Show(SimBridgeGddTests.Legacy, StateAt(d, 5, 0.8));   // the legacy loop: the war's tokens by date
                 var feet = FigureFeet(map);
                 int expected = veg.Planted().Count(t => UnderAFigure(t.kind, t.m, feet));
                 Assert.AreEqual(expected, veg.Hidden, $"{d:yyyy-MM-dd}: exactly the trees under the shown figures are left out");

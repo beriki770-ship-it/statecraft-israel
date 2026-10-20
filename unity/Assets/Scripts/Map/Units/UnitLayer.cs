@@ -73,7 +73,9 @@ namespace Statecraft.Game.Map.Units
 
         /// <summary>The GDD loop's anchors for units that moved off their starting hex (UnitRoster.FromState), one per row and
         /// sim hex, and their spots: placed once, the first time a unit stands there, so a rebuild after a move places only
-        /// the units that moved (#563's spot cache, GDD Phase 5 PR 14). The spots drawn from are <see cref="spots"/> with these.</summary>
+        /// the units that moved (#563's spot cache, GDD Phase 5 PR 14). The spots drawn from are <see cref="spots"/> with these.
+        /// A cached spot keeps off the hexes other tokens held when it was placed, not those they take later: two tokens can
+        /// then share a hex until stacks are drawn together.</summary>
         readonly Dictionary<(string row, int q, int r), UnitAnchor> movedAnchors = new Dictionary<(string, int, int), UnitAnchor>();
         readonly Dictionary<UnitAnchor, AnchorSpot> movedSpots = new Dictionary<UnitAnchor, AnchorSpot>();
         /// <summary>Moved anchors made since the last placement (each is placed once, spot or not).</summary>

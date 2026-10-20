@@ -149,8 +149,8 @@ ruled (al-Malikiyya on 15 May is the ALA's, #226 ruling 2).
   Army. `UnitRoster.OnMap` (not hidden, and `side: israel` or a side with a figure) keeps the roster and the placer to
   those rows; the Egyptian, Syrian, Iraqi and Lebanese rows give no token, take no spot and clear no ground for the kits.
   A drawn force's token has no code-built figure: it is drawn only once its figure has arrived, so a missing or damaged
-  bundle draws nothing. Three figures (Q-UI-3 at full strength: the rows give only the sourced 15 May strength; owner,
-  17 October 2026, #226), under the neutral pennant (Q-ART-1). Its spot never stands on ground Israel held on its
+  bundle draws nothing. In the legacy loop, three figures (Q-UI-3 at full strength: the rows give only the sourced 15 May
+  strength; owner, 17 October 2026, #226); in the GDD loop, Q-UI-3 by the sim unit's strength ("Tokens from the state"); under the neutral pennant (Q-ART-1). Its spot never stands on ground Israel held on its
   window's first day (#226, ruling 9; `control_hexes_1948_49.yaml`). The card leaves out Israel's call-up line. The
   goldens do not move. Tests: `UnitsInPlayTests.OnlyTheForcesWithAFigureAreDrawnAndOnlyOnceItHasArrived`,
   `UnitFiguresTests.TheArabForcesAreDrawnOnlyWithTheirOwnFiguresOnceTheyArrive`.
