@@ -1236,6 +1236,12 @@ namespace Statecraft.Sim
                     if (row.AttackerLoss.Concat(row.DefenderLoss).Any(x => x < 0)) throw new ContentException(file, at, "a loss must be >= 0");
                     if (row.DefenderRetreats.Any(x => x != 0 && x != 1)) throw new ContentException(file, at + ".defender_retreats", "must be 0 or 1");
                 }
+                // R-MOVE-007 (Q-MOVE-2): required, so a missing key is never read as a free step along a corridor.
+                foreach (var (key, v) in new[] { ("road_move_cost", m.RoadMoveCost), ("rail_move_cost", m.RailMoveCost) })
+                {
+                    if (v == null) throw new ContentException(file, "mvp." + key, "required when eras.yaml systems.loop is gdd");
+                    if (v < 1) throw new ContentException(file, "mvp." + key, "must be >= 1");
+                }
                 // R-MOVE-005 (Q-CIV-1)
                 foreach (var id in m.EnemyHeldLocalities)
                     if (c.SettlementHexes.All(h => h.Id != id)) throw new ContentException(file, "mvp.enemy_held_localities", $"unknown settlement '{id}' ({SettlementHexesFileName})");

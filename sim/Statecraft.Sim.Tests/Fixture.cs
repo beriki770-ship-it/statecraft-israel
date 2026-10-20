@@ -289,6 +289,8 @@ mvp:
   disloyal_effect_share: 0.5
   move_cost: { coastal_plain: 1, hills: 2, desert: 3 }
   stack_limit: 2
+  road_move_cost: 1
+  rail_move_cost: 2
   enemy_held_localities: []
   arms_per_attack: 2
   combat_terrain_percent: { coastal_plain: 100, hills: 150, desert: 100 }
