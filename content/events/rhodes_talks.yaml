@@ -27,6 +27,7 @@ options:
   - id: decline
     # Game assumption: no one is recorded arguing for this; its effect is a design value.
     text: Decline talks for now and keep the pressure on Egypt
+    alternative: { basis: design }
     effects:
       - { target: intl_standing, delta: -0.05 }
 sources:

@@ -34,6 +34,13 @@ options:
     # Game assumption: a design alternative. The notes found no cabinet debate in July; Ben-Gurion's diary of 11 July
     # records Yadin asking where forces should go next [S].
     text: Shift the main effort south, against Egypt
+    # Who proposed it: research_notes/Alternate timelines/roads-checked.md (checked by the owner, 19 October 2026).
+    alternative:
+      basis: debated
+      by: the General Staff, its head of operations
+      date: 1948-07-11
+      sources:
+        - { url: "https://bengurionarchive.bgu.ac.il/en/node/9706", checked: 2026-10-17 }
     set_rung: 5
     effects:
       - { target: security, delta: 0.015 }

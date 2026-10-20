@@ -28,6 +28,7 @@ options:
     # The alternative named in the notes (section 13b). Game assumption: no one is recorded arguing for it; its effects are
     # design values.
     text: Press on for the Old City and the Latrun road
+    alternative: { basis: design }
     effects:
       - { target: security, delta: -0.015 }
       - { target: intl_standing, delta: -0.03 }

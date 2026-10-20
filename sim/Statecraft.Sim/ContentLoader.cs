@@ -344,7 +344,8 @@ namespace Statecraft.Sim
             //                              its historical one (R-ALT-001, R-ALT-002); the ids must exist, an event cannot
             //                              require itself and requirements cannot form a cycle (EventRules)
             //   options: [{ id, text, historical, recommended, effects: [{ target, delta }], set_rung, set_policy,
-            //              grant_units: [{ type, n, at }], city_effects: [{ city, field, delta }] }]
+            //              grant_units: [{ type, n, at }], city_effects: [{ city, field, delta }],
+            //              unlock_projects: [<projects.yaml id of a locked kind>] }]
             //   sources: [{ url, checked }], status
             //   objective                  the objective (objectives.yaml) whose completion card this is: it fires only once
             //                              that objective is recorded, and has exactly one option
@@ -1086,6 +1087,10 @@ namespace Statecraft.Sim
                     if (!Sides.Contains(x.Side)) throw new ContentException(uf, at + ".side", $"unknown side '{x.Side}' ({string.Join(", ", Sides)})");
                     if (!Classes.Contains(x.Class)) throw new ContentException(uf, at + ".class", $"unknown class '{x.Class}' (infantry, artillery or armour)");
                 }
+                // R-MOVE-001 (Q-MOVE-1): a military type has its movement points; a population count is not on the map.
+                if (x.Kind == "population" && x.MovementPoints != 0) throw new ContentException(uf, at + ".movement_points", "only a unit moves");
+                if (x.Side != "" && x.MovementPoints < 1) throw new ContentException(uf, at + ".movement_points", "required for a military type, at least 1");
+                if (x.MovementPoints < 0) throw new ContentException(uf, at + ".movement_points", "must be >= 0");
                 if (x.Facility == "")
                 {
                     // Training (R-TRAIN-001) needs a place to train; values without one would be read by nothing.
@@ -1129,6 +1134,9 @@ namespace Statecraft.Sim
                 }
                 // R-CITY-003: the cities count arrivals from one day; another day in a later era would lose or double-count units.
                 if (m.CityArrivalsFrom == default) throw new ContentException(file, "mvp.city_arrivals_from", "required when eras.yaml systems.loop is gdd");
+                foreach (var kv in m.MinisterSystems)
+                    if (c.Offices.All(o => o.Id != kv.Value))
+                        throw new ContentException(file, $"mvp.minister_systems.{kv.Key}", $"unknown office '{kv.Value}'");
                 if (m.CityArrivalsFrom != c.Rules.Mvp!.CityArrivalsFrom) throw new ContentException(file, "mvp.city_arrivals_from", "must be the same in every era (the cities count arrivals from one day)");
                 if (m.BuildYishuvTurns < 1) throw new ContentException(file, "mvp.build_yishuv_turns", "must be >= 1");
                 if (!(m.BuildYishuvCost >= 0 && IsFinite(m.BuildYishuvCost))) throw new ContentException(file, "mvp.build_yishuv_cost", "must be a finite number >= 0");
@@ -1175,11 +1183,31 @@ namespace Statecraft.Sim
                 if (m.DefeatTurns < 1) throw new ContentException(file, "mvp.defeat_turns", "must be >= 1");
                 if (m.DebtCeiling == null) throw new ContentException(file, "mvp.debt_ceiling", "required when eras.yaml systems.loop is gdd");
                 if (!(m.DebtCeiling >= 0 && IsFinite(m.DebtCeiling.Value))) throw new ContentException(file, "mvp.debt_ceiling", "must be a finite number >= 0");
+                // R-ORDER-002, R-ORDER-003 (#746): required, so a missing key is never read as 0 (a unit with no defence).
+                if (m.FortifyDefencePercent == null) throw new ContentException(file, "mvp.fortify_defence_percent", "required when eras.yaml systems.loop is gdd");
+                if (m.FortifyDefencePercent < 1) throw new ContentException(file, "mvp.fortify_defence_percent", "must be >= 1");
+                if (m.HoldDefencePercent == null) throw new ContentException(file, "mvp.hold_defence_percent", "required when eras.yaml systems.loop is gdd");
+                if (m.HoldDefencePercent < 1) throw new ContentException(file, "mvp.hold_defence_percent", "must be >= 1");
                 // R-EVT-003 (#107): required, so a missing key is never read as 0 (no floor, or a disloyal minister who does nothing).
                 if (m.DelegationLoyaltyFloor == null) throw new ContentException(file, "mvp.delegation_loyalty_floor", "required when eras.yaml systems.loop is gdd");
                 if (m.DelegationLoyaltyFloor < 0 || m.DelegationLoyaltyFloor > 10) throw new ContentException(file, "mvp.delegation_loyalty_floor", "must be 0-10");
                 if (m.DisloyalEffectShare == null) throw new ContentException(file, "mvp.disloyal_effect_share", "required when eras.yaml systems.loop is gdd");
                 Unit(file, "mvp.disloyal_effect_share", m.DisloyalEffectShare.Value);
+                // R-MOVE-001 (Q-MOVE-1): a cost for every land biome of the map, so no hex is read as free, and none for a water
+                // biome, so lake and sea stay impassable.
+                foreach (var b in c.Hexes.Where(h => h.Land).Select(h => h.Biome).Distinct().OrderBy(b => b, StringComparer.Ordinal))
+                    if (!m.MoveCost.ContainsKey(b)) throw new ContentException(file, "mvp.move_cost", $"no cost for land biome '{b}' ({HexesFile})");
+                foreach (var kv in m.MoveCost)
+                {
+                    if (c.Hexes.Any(h => !h.Land && h.Biome == kv.Key)) throw new ContentException(file, "mvp.move_cost." + kv.Key, $"is water in {HexesFile}: lake and sea are impassable");
+                    if (kv.Value < 1) throw new ContentException(file, "mvp.move_cost." + kv.Key, "must be >= 1");
+                }
+                // R-MOVE-003 (Q-MOVE-3): required, so a missing key is never read as no room at all.
+                if (m.StackLimit == null) throw new ContentException(file, "mvp.stack_limit", "required when eras.yaml systems.loop is gdd");
+                if (m.StackLimit < 1) throw new ContentException(file, "mvp.stack_limit", "must be >= 1");
+                // R-MOVE-005 (Q-CIV-1)
+                foreach (var id in m.EnemyHeldLocalities)
+                    if (c.SettlementHexes.All(h => h.Id != id)) throw new ContentException(file, "mvp.enemy_held_localities", $"unknown settlement '{id}' ({SettlementHexesFileName})");
                 if (c.Indicators.All(i => i.Id != Pools.FoodIndicator))
                     throw new ContentException(file, "mvp.k_food", "the Food stock feeds the food_supply indicator, which model.yaml must define");
                 // One game has one last day (R-LOOP-004): an era cannot move it.

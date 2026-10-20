@@ -16,6 +16,14 @@ options:
       - { target: morale, delta: 0.02 }
   - id: keep_ministry
     text: Keep the ministry and the cabinet as they are
+    # Who proposed it: research_notes/Alternate timelines/roads-checked.md (checked by the owner, 19 October 2026).
+    alternative:
+      basis: debated
+      by: "Mapai, the Prime Minister's party"
+      # First day of the source's range (October 1950), approximate: owner ruling of 18 October 2026 (#949).
+      date: 1950-10-01
+      sources:
+        - { url: "https://web.archive.org/web/20120307095248/http://www.knesset.gov.il/review/ReviewPage.aspx?kns=1&lng=3", checked: 2026-10-17 }
     effects:
       - { target: morale, delta: -0.03 }
 sources:
