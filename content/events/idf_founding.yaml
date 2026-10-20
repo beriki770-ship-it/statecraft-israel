@@ -27,6 +27,7 @@ options:
   - id: separate_units
     # Game assumption: the notes name no one who argued for this; it is the status quo the order ended.
     text: Leave the Irgun and Lehi units outside the IDF for now
+    alternative: { basis: design }
     effects:
       - { target: security, delta: -0.015 }
 sources:

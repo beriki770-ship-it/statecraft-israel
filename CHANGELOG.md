@@ -41,6 +41,14 @@ adds a line under **Unreleased**; CI's `Changelog` job checks this (see `CONTRIB
   priced by the sim's new `AttentionSystem.Price`/`Left`, which `SimBridge` now uses too); the UI only reads it (refs #1109).
 - Unit cards show the sourced Hebrew unit name in the Hebrew UI, with an English fallback. INS Haganah gains its
   sourced Hebrew name, still flagged for a native speaker's review (#902).
+### Changed
+- Content: every option that did not happen now says who proposed it, with sources, or that it is a design assumption
+  (R-ALT-004; refs #949, #939). The 30 records are copied from the owner-checked
+  `research_notes/Alternate timelines/roads-checked.md` with the owner's road rulings of 18 October 2026: roads 1, 22
+  and 29 take the first day of their source's range, road 8 keeps 8 August 1950, road 25 (`push_to_hebron`) becomes
+  `design`, and the Latrun option now reads "Attack Latrun before the cabinet votes", `debated`. Road 12
+  (`frumkin_commission/dismiss`) is `design` too, by the owner's ruling of 19 October 2026, with no proposer and no
+  date; the conflicting committee dates stay a research gap in the note.
 - The map can be used from the keyboard: Tab reaches a map stop right after End Turn, a gold ring with a dark outline
   marks the centre of the view while it has the focus, the camera keys pan the map under it, and Enter or Space selects
   the hex under the ring through the same pick as a click, with the focus staying on the map. The next Tabs reach the
