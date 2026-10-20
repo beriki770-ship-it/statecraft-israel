@@ -198,7 +198,7 @@ namespace Statecraft.Game.UI
             if (Shown == null) collapsedFor = null;
             if (bridge.Session != session) { session = bridge.Session; collapsedFor = null; focusedFor = null; }
             var shown = !hiddenInCapture && Shown != null && !Collapsed;
-            card.style.display = shown ? DisplayStyle.Flex : DisplayStyle.None;
+            ScreenNav.Show(card, shown);   // #1106: grows in, shrinks away
             card.SetEnabled(shown);   // a child of an undisplayed element can still take the focus (#400): a collapsed card's options must not
             reopen.style.display = !hiddenInCapture && Collapsed ? DisplayStyle.Flex : DisplayStyle.None;
             hudRoot.EnableInClassList(OpenClass, shown);

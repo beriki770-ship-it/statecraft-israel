@@ -459,4 +459,25 @@ eras:
         Assert.Equal(field, ex.Field);
         Assert.Contains(message, ex.Message);
     }
+    /// <summary>#1187: an objective's Hebrew name loads beside the English, agent-checked until a native read (#564).</summary>
+    [Fact]
+    public void TheHebrewNameLoadsBesideTheEnglish()
+    {
+        var c = Load(true, new Dictionary<string, string> { ["objectives.yaml"] = ObjectivesYaml.Replace("name: First goal,", "name: First goal, name_he: \u05de\u05d8\u05e8\u05d4 \u05e8\u05d0\u05e9\u05d5\u05e0\u05d4, name_he_review: agent-checked,") });
+        var o = c.Objectives.Single(x => x.Id == "first_goal");
+        Assert.Equal(("First goal", "\u05de\u05d8\u05e8\u05d4 \u05e8\u05d0\u05e9\u05d5\u05e0\u05d4", HebrewReview.AgentChecked, true), (o.Name, o.NameHe, o.NameHeReview, o.NameHeReviewGiven));
+    }
+
+    /// <summary>#1187: the Hebrew name is Hebrew letters, and the review flag is agent-checked or absent.</summary>
+    [Theory]
+    [InlineData("name_he: First goal", "name_he", "Hebrew letters")]
+    [InlineData("name_he: \u05de\u05d8\u05e8\u05d4 \u05e8\u05d0\u05e9\u05d5\u05e0\u05d4, name_he_review: reviewed", "name_he_review", "agent-checked")]
+    [InlineData("name_he_review: agent-checked", "name_he", "required")]
+    public void BadHebrewNameIsAContentError(string insert, string field, string message)
+    {
+        var ex = Assert.Throws<ContentException>(() => Load(true, new Dictionary<string, string> { ["objectives.yaml"] = ObjectivesYaml.Replace("name: First goal,", $"name: First goal, {insert},") }));
+        Assert.Equal("objectives.yaml", ex.File);
+        Assert.Equal($"objectives[first_goal].{field}", ex.Field);
+        Assert.Contains(message, ex.Message);
+    }
 }
