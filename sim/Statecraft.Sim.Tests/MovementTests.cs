@@ -38,7 +38,11 @@ public class MovementTests
 
     static Content Load(string board, params (string From, string To)[] edits)
     {
-        var files = Fixture.Gdd(new Dictionary<string, string> { ["unit_types.yaml"] = Types, ["map/hexes.json"] = board });
+        // This custom movement board has no buildable corridors; the shared fixture's corridors belong to its own map.
+        var files = Fixture.Gdd(new Dictionary<string, string>
+        {
+            ["unit_types.yaml"] = Types, ["map/hexes.json"] = board, ["corridors.yaml"] = "corridors: []\n"
+        });
         foreach (var (from, to) in edits) files["rules.yaml"] = files["rules.yaml"].Replace(from, to);
         return ContentLoader.Load(Fixture.Write(files));
     }
