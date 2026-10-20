@@ -584,7 +584,7 @@ public class StartScreenTests
                 Assert.IsTrue(Inside(star, R("start-actions")) && Inside(star, panel), $"{at}: the Star button {star} is with New game, inside the panel");
                 var onePixel = Mathf.Max(0.5f, window.width / w + 0.01f);   // a scaled panel snaps each edge to a screen pixel
                 Assert.AreEqual(R("start-new-game").height, star.height, onePixel, $"{at}: the Star button is New game's height");
-                Assert.GreaterOrEqual(star.width, R("start-new-game").width - onePixel, $"{at}: the Star button is at least New game's width");
+                Assert.AreEqual(R("start-new-game").width, star.width, onePixel, $"{at}: the Star button is New game's width");
                 Assert.IsFalse(star.Overlaps(R("start-new-game")) || star.Overlaps(R("start-continue")), $"{at}: the Star button overlaps a button");
                 var starStyle = root.Q("start-star").resolvedStyle; var newGameStyle = root.Q("start-new-game").resolvedStyle;
                 Assert.AreEqual(newGameStyle.fontSize, starStyle.fontSize, $"{at}: the Star button's text is New game's size");
