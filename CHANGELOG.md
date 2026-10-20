@@ -42,12 +42,6 @@ checks this (see `CONTRIBUTING.md`).
   review (refs #1065, #564).
 - Hebrew titles, card text and option text for the 16 events in the second translation batch, pending native-speaker
   review (refs #1066, #564).
-- A "Share" button, beside Star in Settings and on the turn report, captures the frame (at its end, never inside the
-  click, capped at 1920 px on the long side) and opens a small panel with the post: the in-game date and turn and the
-  itch page, in English or Hebrew. Where the browser can share files, Share opens its share sheet with the picture
-  (`navigator.share`, inside the player's own gesture, `ShareShot.jslib`); elsewhere it downloads
-  `statecraft-<date>.png` and offers X, Facebook, WhatsApp and LinkedIn share links with a note to attach the picture.
-  Nothing is uploaded by the game and nothing is counted. The Hebrew awaits the native reviewer (#564) (fixes #1170).
 - An event option can unlock a city project (GDD Phase 7 PR 2, D-H2): a `projects.yaml` kind marked `locked: true` is
   refused by StartProject until an option with `unlock_projects` naming it has applied. The loader refuses an unknown
   kind or one that is not locked, and a sensitive option may not unlock (R-EFX-008, R-EFX-005; refs #806). No real

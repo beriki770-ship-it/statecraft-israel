@@ -124,7 +124,8 @@ feedback.itch: "אין חשבון בגיטהאב? תגובה בדף המשחק �
 # "downloading the picture", and the note ("these sites do not take a picture through a link: the downloaded picture is
 # to be attached to the post"). The post opens with a noun phrase ("running the State of Israel in 1948 in the game
 # Statecraft: Israel, ...") instead of the English "I'm running", which in Hebrew would agree with the player's gender;
-# it keeps the game's name and the URL in Latin letters, as README.he.md does. For the native reviewer (#564).
+# it keeps the game's name and the URL in Latin letters, as README.he.md does. Approved by Beri, a native speaker,
+# on #1182 (20 Oct 2026). For the native reviewer (#564).
 share.open: "שיתוף"
 share.title: "שיתוף תמונה מהמשחק"
 share.post: "ניהול מדינת ישראל ב־1948 במשחק Statecraft: Israel, משחק אסטרטגיה חינמי בקוד פתוח. {0}, תור {1}. לשחק: {2}"
