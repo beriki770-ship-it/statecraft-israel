@@ -26,11 +26,11 @@ here; **[L]** a lead seen only in a search result, not read. Every source was re
 
 | # | Claim | Sources | Tier | Agreement |
 |---|---|---|---|---|
-| 1 | Israeli forces occupied Umm Rashrash ("Umm Reshresh") in the afternoon of 10 March 1949 | S/1286 (below): "Israeli forces occupied Umm Reshresh, within the borders of Palestine on the Gulf of Aqaba in the afternoon of 10 March"; "The occupation of Umm Reshresh is officially verified by competent Israeli sources" | [V] | All sources read give 10 March |
+| 1 | Israeli forces occupied Umm Rashrash ("Umm Reshresh") in the afternoon of 10 March 1949 | S/1286 (below), per a UN observer whose source was principally the Arab Legion at Aqaba: "Israeli forces occupied Umm Reshresh, within the borders of Palestine on the Gulf of Aqaba in the afternoon of 10 March"; "The occupation of Umm Reshresh is officially verified by competent Israeli sources" | [V] | All sources read give 10 March |
 | 2 | The first party was small: two jeeps and one large personnel carrier; 14 more vehicles three hours later; about 150 men and 25 vehicles that day | S/1286, citing a UN observer "whose source of information was principally the Arab Legion at Aqaba" | [V] (second hand) | No other source read gives numbers |
 | 3 | The Negev Brigade arrived first, at 15:00; Golani about two hours later | en.wiki "Operation Uvda" and JVL "Operation Uvda" (15:00, Golani "about two hours later"); he.wiki "מבצע עובדה" (Negev forward group 15:00, Golani's advance force at 17:00) | [S] | Agree. JVL credits Wikipedia among its sources, so it is not independent |
 | 4 | Umm Rashrash was an abandoned police post | en.wiki and JVL ("the abandoned police station at Umm Rashrash"); he.wiki "מבצע עובדה" (a former police station of several clay huts); NLI titles of two Rothenberg frames: "בניין המשטרה המצרית באילת" (the Egyptian police building at Eilat) | [S] | Sources differ on whose post it was: NLI's titles say Egyptian; a park monument quoted in a search result says Jordanian [L]; the Ben-Gurion diary says Ras al-Naqab and Umm Rashrash had been "in their hands", meaning Transjordan's forces. **Leave the owner of the post out of the card** |
-| 5 | The Ink Flag was a white sheet with the flag drawn on it in ink, raised at the police post on 10 March | he.wiki "דגל הדיו" (raised 10 March 1949, 9 Adar 5709, by Negev Brigade soldiers; ceremony ended at 16:00); JVL (sheet, two ink stripes, a Star of David from a first-aid kit; raised "on March 10 at 16:00"); en.wiki "Ink Flag" (same making; "raised in March 1949") | [S] | Agree on the sheet and the ink. **Who drew it differs**: ynetnews names the brigade secretary Pua'ah Er'el; another Ynet piece (search result only) says the brigade's medic; en.wiki and JVL say "the soldiers". Leave the maker out of the card |
+| 5 | The Ink Flag was a white sheet with the flag drawn on it in ink, raised at the police post on 10 March | he.wiki "דגל הדיו" (raised 10 March 1949, 9 Adar 5709, by Negev Brigade soldiers; ceremony ended at 16:00); JVL (sheet, two ink stripes, a Star of David from a first-aid kit; raised "on March 10 at 16:00"); en.wiki "Ink Flag" (same making; "raised in March 1949") | [S] | Agree on the sheet and the ink. **Who drew it differs**: ynetnews and he.wiki "דגל הדיו" name the brigade secretary Pua'ah Er'el (he.wiki also calls the account of how it was made unresolved); another Ynet piece (search result only) says the brigade's medic; en.wiki and JVL say "the soldiers". Leave the maker out of the card |
 | 6 | Captain Avraham Adan, a company commander in the Negev Brigade's 8th Battalion, raised it; Micha Perry took the photograph | he.wiki "דגל הדיו"; en.wiki "Ink Flag"; ynetnews, Noam Dvir, "New photos released of Ink Flag being raised over Eilat" (undated page, written for the 66th anniversary) | [S] | Agree |
 | 7 | Golani soldiers replaced it with a standard flag about two hours later | he.wiki "דגל הדיו"; ynetnews (Dvir) | [S] | Agree |
 | 8 | Operation Uvda ran 5 to 10 March 1949 | en.wiki, JVL, Wikidata Q931576 (start 5 March, end 10 March) | [S] | **he.wiki "מבצע עובדה" says 6 to 10 March.** The card does not need the start date |
@@ -64,8 +64,9 @@ Establishment Archives page on Uvda was found by search. The Palmach site was no
 read. An Egyptian list of violations that names "the occupation of Um Rash Rash" on 10 March 1949 appears in UNISPAL
 (https://www.un.org/unispal/?p=210082) and FRUS 1950 vol. V d345 [L], neither read.
 
-**The date.** 10 March 1949 rests on a UN document of 13 March 1949 written while it was happening (row 1), which also
-says Israel confirmed it, and on every secondary source read. No source read gives another day for reaching Umm
+**The date.** 10 March 1949 rests on a UN document of 13 March 1949 (row 1). There the day comes from a UN observer
+whose source was mainly the Arab Legion; the Israeli confirmation it reports covers the occupation, and the text does
+not say whether it also covers the day. Every secondary source read gives the same day. No source read gives another day for reaching Umm
 Rashrash or for the flag. (A Jewish Agency page seen in a search result gives 13 March for the flag [L]; it was not
 read and stands alone.)
 
@@ -89,7 +90,9 @@ Red Sea, as NLI's titles do.
 
 None of these is a survey of the 1949 building; the precise points mark today's memorial site. They agree to about
 40 m. Run through `tools/hexgrid.py settlement_hex` against `content/map/hexes.json` on main (read-only, Claude's run),
-all three points fall in **land hex q = -20, r = 56**, and so does en.wiki's rounded point. The hex choice does not
+all three points fall in **land hex q = -20, r = 56**, and so does en.wiki's rounded point. To re-run (numpy needed):
+`uv run --no-project --with numpy python -c "import json,sys; sys.path.insert(0,'tools'); import hexgrid as h; print(h.settlement_hex(34.9533611, 29.5491667, json.load(open('content/map/hexes.json'))))"`
+from the repo root. The hex choice does not
 depend on which source is used.
 
 A proposed record, for whoever opens the map PR (field names follow `content/map/locations_1948.yaml`):
@@ -123,11 +126,11 @@ held") until 10 March 1949, then blue. That note still needs a source for what J
 
 ```yaml
 title: The Ink Flag at Umm Rashrash
-text: 'On the afternoon of 10 March 1949, at the end of Operation Uvda, soldiers of the Negev Brigade reached the abandoned police post at Umm Rashrash on the Red Sea. They had no flag, so they drew one in ink on a white sheet and raised it over the post. Golani arrived about two hours later. The city of Eilat later grew on the site.'
+text: 'On the afternoon of 10 March 1949, at the end of Operation Uvda, soldiers of the Negev Brigade reached the abandoned police post at Umm Rashrash on the Red Sea. They drew a flag in ink on a white sheet and raised it over the post. Golani arrived about two hours later. The city of Eilat later grew on the site.'
 ```
 
 Each clause and its row: the date and "afternoon" (rows 1, 3); "end of Operation Uvda" (row 8); the Negev Brigade
-first (row 3); abandoned police post (row 4); the ink on a sheet (row 5); Golani about two hours later (rows 3, 7);
+first (row 3); abandoned police post (row 4); a flag drawn in ink on a sheet (row 5); Golani about two hours later (rows 3, 7);
 Eilat on the site (en.wiki, JVL, he.wiki). Left out on purpose: whose post it was (row 4), who drew the flag (row 5),
 "ended the war" (row 9), numbers of men (row 2, Arab Legion second hand) and Ben-Gurion's "midnight" (row 10).
 
@@ -157,8 +160,9 @@ licence `{{cc-by-4.0|1={{Meitar Collection/license credit line|Q.photographer=Q1
 2021092910005788; categories include "1949 in Eilat" and "Meitar Collection (review needed)" (see objective-cards.md's
 licence notes on that category). Credit line in the form the repo already uses: "Benno Rothenberg / Meitar Collection /
 National Library of Israel / The Pritzker Family National Photography Collection · CC BY 4.0 · graded and cropped".
-Proposed alt text for the recommended frame: "The police post at Umm Rashrash with a flag on its pole, the Eilat
-mountains behind it, March 1949."
+Proposed alt text for the recommended frame: "A police building at Eilat (the Umm Rashrash site), with a flag on a
+pole and mountains behind, March 1949." That the building is the Umm Rashrash post is inferred from the NLI title and
+the Commons "depicted place" (Eilat, Q134762); neither names Umm Rashrash.
 
 What the picture is not: it is not the Ink Flag. The flag on the pole cannot be identified, and Golani put up a standard
 flag about two hours after the Ink Flag went up (row 7). The NLI title calls the building Egyptian (row 4); if the
@@ -193,7 +197,7 @@ caption names the building, a person decides what to call it. Adding the picture
 7. **The location:** that 29.5492 N, 34.9534 E is the site of the 1949 post (the points mark today's memorial), and that
    the hex is right (q -20, r 56).
 8. **The picture:** look at the recommended frame on the NLI record (997008136795005171); confirm the date "March 1949",
-   the title, that no one in it can be recognised, and that the licence on the file page still reads CC BY 4.0 with the
+   the title, that the building is the Umm Rashrash post (inferred from the NLI title only), that no one in it can be recognised, and that the licence on the file page still reads CC BY 4.0 with the
    VRTS ticket. The NLI pages were not opened from this machine.
 9. **Sensitivity:** the card's wording about the place and the water's name (section 1, "Sensitivity, for the
    reviewer"), and the picture, under the named-reviewer process.
