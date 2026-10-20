@@ -369,7 +369,13 @@ save.write_failed: "לא ניתן היה לשמור את המשחק."
 # The info panel in the GDD loop (GddHexPanel, #381); the GDD's Hebrew for Halutz (חלוץ) and Hakhshara (הכשרה).
 city.housing: "דיור: {0} מתוך {1}"
 city.housing_condition: "דיור: {0} מתוך {1}, מצב {2}"
+# The people beyond the city's housing, in groups (R-HOUSE-002, #1121): new wording, no approved term. For the native
+# reviewer (#564).
+city.overflow: "חריגה מהדיור: {0}"
 city.jobs: "משרות: {0} מתוך {1} מאוישות"
+# The approved word for craftsman, בעל מלאכה (Q-UI-2, #375), in the plural, with a count of groups (#1121). For the
+# native reviewer (#564).
+city.craftsmen: "בעלי מלאכה: {0}"
 city.refugees: "פליטים ממתינים: {0}"
 city.recruits: "מגויסים: {0}"
 city.workers: "בעבודה: {0}"
