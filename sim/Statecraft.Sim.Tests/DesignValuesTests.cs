@@ -129,6 +129,11 @@ public class DesignValuesTests
         ("projects.yaml", "projects[industry].capacity"),
         ("projects.yaml", "projects[industry].condition"),
         ("projects.yaml", "projects[industry].job_slots"),
+        ("projects.yaml", "projects[winery].cost"),
+        ("projects.yaml", "projects[winery].turns"),
+        ("projects.yaml", "projects[winery].capacity"),
+        ("projects.yaml", "projects[winery].condition"),
+        ("projects.yaml", "projects[winery].job_slots"),
         // Movement (Phase 5 PR 5, #744; Q-MOVE-1, Q-MOVE-3): agent-proposed under "Take all recommendations" (#375).
         ("rules.yaml", "attention_cost.move"),
         ("rules.yaml", "mvp.move_cost.coastal_plain"),

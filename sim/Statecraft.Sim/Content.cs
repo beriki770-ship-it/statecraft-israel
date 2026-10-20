@@ -1014,6 +1014,14 @@ namespace Statecraft.Sim
         public string Id { get; set; } = "";
         /// <summary>The name the player reads (in the Why list).</summary>
         public string Name { get; set; } = "";
+        /// <summary>The Hebrew name (#1187), an agent translation of <see cref="Name"/> while it waits for a native
+        /// speaker's review (#564); empty means none yet (the UI keeps the English).</summary>
+        public string NameHe { get; set; } = "";
+        /// <summary>"agent-checked" while <see cref="NameHe"/> waits for a native speaker's review (#564); empty once reviewed.</summary>
+        public string NameHeReview { get => nameHeReview ?? ""; set => nameHeReview = value ?? ""; }
+        /// <summary>True when the file has the key at all, even blank: a blank flag is an error, not a review.</summary>
+        [YamlIgnore] public bool NameHeReviewGiven => nameHeReview != null;
+        string? nameHeReview;
         /// <summary>What completes it, checked at the end of every GDD turn (R-OBJ-001).</summary>
         public ObjectiveCondition? CompletesWhen { get; set; }
         /// <summary>The date the real event happened: completing earlier earns the timing bonus (R-OBJ-002).</summary>
