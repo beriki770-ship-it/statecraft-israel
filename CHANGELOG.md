@@ -3,11 +3,17 @@
 All notable changes to Statecraft: Israel. The format follows
 [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and versions follow
 [Semantic Versioning](https://semver.org/). Every pull request that changes the game (`sim/`, `content/`, `unity/`)
-adds a line under **Unreleased**; CI's `Changelog` job checks this (see `CONTRIBUTING.md`).
+adds a line under **Unreleased**, or a fragment in `changelog.d/` that a release folds in here; CI's `Changelog` job
+checks this (see `CONTRIBUTING.md`).
 
 ## [Unreleased]
 
 ### Added
+- The IDF brigades' 15 May 1948 strengths in `content/map/units_1948.yaml` (the first step of GDD Phase 5 PR 4, refs
+  #743): the eight brigades with a size in the #906 research note (en.wiki's brigade table, citing Ben-Gurion's War
+  Diaries) carry it, cite it and are `status: to_verify` until a primary source replaces it (owner, 20 October 2026).
+  Etzioni, the 7th, the 8th and Oded have no figure and get none. Map-only data: the sim does not read the file yet, so
+  no golden moves.
 - GDD Phase 4 PR 2: corridors (refs #786, #384). Halutz units build the Burma Road (four segments, one between each pair
   of its sourced waypoints), the 1949 Haifa–Tel Aviv rail link (the Yarkon link, one segment) and the Tel Aviv–Netanya
   road (four segments) with `PioneerWork(unit, build_road | build_rail, corridor:N)`, any segment in any order, one unit
@@ -61,6 +67,8 @@ adds a line under **Unreleased**; CI's `Changelog` job checks this (see `CONTRIB
   geometry event (a per-frame poll); desktops and notch-free phones are unchanged.
   With a side inset, raised meter captions reflow into the existing two-row bar when their measured widths no longer
   fit; Security's level wraps with its caption, and the 12 px text floor is preserved.
+- A top-bar number's tip no longer stays open after the mouse leaves it: a mouse click no longer pins it (the mouse
+  hovers), and a tip pinned by a tap closes on the next tap anywhere, on the map or on another control (Fixes #1108).
 
 ### Added
 - The sim's end report, `EndReport.For`, reads a finished game for the end screen: the outcome, the score, each
@@ -89,6 +97,9 @@ adds a line under **Unreleased**; CI's `Changelog` job checks this (see `CONTRIB
 - The map pans left and right from the first frame (#1062, player report): the game opens at 90 km, not 120 km, under
   the ~106 km where a 16:9 view is wider than the map and held centred (#174). A 21:9 window still opens centred
   until zoomed in a little.
+- An event card's options no longer show a chevron (play-test of v0.1.2: it read as "expand", but the press chooses,
+  #1105). The text starts at the button's edge padding in English and Hebrew; the gold rim and the hover and focus
+  fills still mark each option as a button.
 - Content: every option that did not happen now says who proposed it, with sources, or that it is a design assumption
   (R-ALT-004; refs #949, #939). The 30 records are copied from the owner-checked
   `research_notes/Alternate timelines/roads-checked.md` with the owner's road rulings of 18 October 2026: roads 1, 22
