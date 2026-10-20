@@ -306,11 +306,15 @@ namespace Statecraft.Game.UI
             var option = road?.Options.FirstOrDefault(o => o.Id == origin.Value.Option);
             if (road == null || option == null) return "";
             var date = EventSystem.FillDate(road, s.Date);
-            var took = Cabinet.Fill(c, s, option.Text, date);
-            var title = EventSystem.Title(c, s, road);
+            // Use the road card's own per-field fallback and name/date routing (#1064), not the consequence's date.
+            bool hebrew = t["ui.lang"] == UiLanguage.Hebrew;
+            string Local(string english, string he) => hebrew && he != "" ? Cabinet.Fill(c, s, he, date, p => ContentNames.Of(t, p)) : english;
+            var variant = Timeline.Variant(c, s, road);
+            var took = Local(Cabinet.Fill(c, s, option.Text, date), option.TextHe);
+            var title = Local(EventSystem.Title(c, s, road), variant == null || variant.Title == "" ? road.TitleHe : "");
             var record = Timeline.HistoricalOption(road);
             return record == null ? t.Format("event.alt_origin_no_record", took, title)
-                : t.Format("event.alt_origin", took, title, Cabinet.Fill(c, s, record.Text, date));
+                : t.Format("event.alt_origin", took, title, Local(Cabinet.Fill(c, s, record.Text, date), record.TextHe));
         }
 
         /// <summary>A newly shown event puts the keyboard focus on the card (keyboard play, #41): the next Tab reaches its

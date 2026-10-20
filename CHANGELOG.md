@@ -111,7 +111,7 @@ checks this (see `CONTRIBUTING.md`).
   through it as before. The empty info panel's hint says so in English and Hebrew, and keeps the right-drag (Hebrew
   flagged for a native speaker's review; Fixes #1116, refs #41).
 - Event card: a consequence card names the road it follows and the record beside it ("Alternative course. It follows
-  your decision: [option] ([card]). In the record: [historical option]."), from the sim's `Timeline.Origin` and
+  the government's decision: [option] ([card]). In the record: [historical option]."), from the sim's `Timeline.Origin` and
   `Timeline.HistoricalOption`; a card chained on a consequence card, which has no record of its own, leaves the
   comparison out. An option that rejoins the record says "Returns to the recorded course." under it. Ordinary cards are
   unchanged; English and Hebrew, the Hebrew flagged for a native speaker's review (#564) (refs #939, #954).

@@ -541,17 +541,22 @@ public class EventCardTests
     static readonly Dictionary<string, string> RoadFixture = new Dictionary<string, string>
     {
         ["events/zz_banner_parent.yaml"] = @"id: banner_parent
-title: The road test
+title: 'The road of {prime_minister}'
+title_he: 'הדרך של {prime_minister}'
 text: 'A decision with a record.'
+text_he: 'החלטה שיש לה תיעוד.'
+text_he_review: agent-checked
 anchor: hard
 from: 1948-05-15
 to: 1948-06-11
 options:
   - id: record
     text: What happened
+    text_he: מה שקרה
     historical: true
   - id: road
     text: The road not taken
+    text_he: הדרך שלא נבחרה
     alternative:
       basis: proposed
       by: the opposition benches
@@ -626,7 +631,7 @@ sources: [{ url: ""https://example.org/record"", checked: 2026-10-17 }]
         var banner = ui.Q<Label>("event-alt-banner");
         Assert.AreEqual(DisplayStyle.Flex, banner.style.display.value);
         // The option the player took and its card's title, then the record's option on that card (Timeline.Origin, HistoricalOption).
-        Assert.AreEqual("Alternative course. It follows your decision: The road not taken (The road test). In the record: What happened.", banner.text);
+        Assert.AreEqual("Alternative course. It follows the government's decision: The road not taken (The road of David Ben-Gurion). In the record: What happened.", banner.text);
         // The card itself is as before: its title, text and priced options.
         Assert.AreEqual("After the road", ui.Q<Label>("event-title").text);
         Assert.AreEqual("What was feared.", ui.Q<Label>("event-text").text);
@@ -646,7 +651,7 @@ sources: [{ url: ""https://example.org/record"", checked: 2026-10-17 }]
         Assert.IsNull(Timeline.HistoricalOption(c.Events.First(e => e.Id == "banner_after")), "precondition: the card it follows has no record");
         var banner = ui.Q<Label>("event-alt-banner");
         Assert.AreEqual(DisplayStyle.Flex, banner.style.display.value);
-        Assert.AreEqual("Alternative course. It follows your decision: Hold the course (After the road).", banner.text);
+        Assert.AreEqual("Alternative course. It follows the government's decision: Hold the course (After the road).", banner.text);
     }
 
     [Test]
@@ -708,18 +713,43 @@ sources: [{ url: ""https://example.org/record"", checked: 2026-10-17 }]
     }
 
     [Test]
-    public void InHebrewTheBannerAndTheRejoinLineUseTheHebrewStrings()
+    public void InHebrewTheBannerUsesTheRoadCardsHebrewFieldsAndTheRejoinLineUsesHebrew()
     {
         var c = WithRoad();
         var bridge = OnTheRoad(c, "banner_after", He);
         using var ui = new UiTestKit();
         new EventCardPresenter(ui.Root, bridge, He, null);
-        Assert.AreEqual(He.Format("event.alt_origin", "The road not taken", "The road test", "What happened"), ui.Q<Label>("event-alt-banner").text);
+        Assert.AreEqual(He.Format("event.alt_origin", "הדרך שלא נבחרה", "הדרך של דוד בן-גוריון", "מה שקרה"), ui.Q<Label>("event-alt-banner").text);
         StringAssert.StartsWith("מסלול חלופי.", ui.Q<Label>("event-alt-banner").text);
         Assert.AreEqual(He["event.rejoin"], ui.Q<VisualElement>("event-options").Q<Label>(className: EventCardPresenter.RejoinClass).text);
         var chained = OnTheRoad(c, "banner_second", He);
         using var ui2 = new UiTestKit();
         new EventCardPresenter(ui2.Root, chained, He, null);
         Assert.AreEqual(He.Format("event.alt_origin_no_record", "Hold the course", "After the road"), ui2.Q<Label>("event-alt-banner").text);
+    }
+
+    [Test]
+    public void InHebrewTheBannerFallsBackPerFieldAndKeepsAnEnglishVariantTitle()
+    {
+        var c = WithRoad();
+        var bridge = OnTheRoad(c, "banner_after", He);
+        var parent = c.Events.First(e => e.Id == "banner_parent");
+        var taken = parent.Options.First(o => o.Id == "road");
+        using var ui = new UiTestKit();
+        var card = new EventCardPresenter(ui.Root, bridge, He, null);
+
+        taken.TextHe = "";
+        card.Render();
+        Assert.AreEqual(He.Format("event.alt_origin", "The road not taken", "הדרך של דוד בן-גוריון", "מה שקרה"), ui.Q<Label>("event-alt-banner").text);
+
+        taken.TextHe = "הדרך שלא נבחרה";
+        parent.Variants.Add(new EventVariant
+        {
+            When = { new EventRequirement { Event = "banner_parent", Option = "road" } },
+            Title = "A different road title",
+            Text = "A different road text"
+        });
+        card.Render();
+        Assert.AreEqual(He.Format("event.alt_origin", "הדרך שלא נבחרה", "A different road title", "מה שקרה"), ui.Q<Label>("event-alt-banner").text);
     }
 }
