@@ -62,6 +62,7 @@ namespace Statecraft.Game.UI
             UnitOrder o => FormattableString.Invariant($"order:{o.Unit}"),
             StartProject p => FormattableString.Invariant($"project:{p.Q},{p.R}"),
             CancelProject x => FormattableString.Invariant($"unproject:{x.Project}"),
+            Move m => FormattableString.Invariant($"move:{m.Unit}"),
             _ => c.Kind,
         };
 
@@ -123,11 +124,18 @@ namespace Statecraft.Game.UI
                         ?? Unknown("training", t.Track, Content.UnitTypes.Where(x => !string.IsNullOrEmpty(x.Facility)).Select(x => x.Id));
                 case CancelTraining x:
                     return Unknown("cohort", x.Cohort.ToString(System.Globalization.CultureInfo.InvariantCulture), State.Cohorts.Keys.Select(k => k.ToString(System.Globalization.CultureInfo.InvariantCulture)));
-                // Pioneer work (#378): ids only; the sim refuses a busy unit, a built site or a short Treasury with its own reason.
+                // Pioneer work (#378, corridors #786): ids only; the sim refuses a busy unit, a built site or segment, a kind
+                // mismatch or a short Treasury with its own reason. A corridor action names "corridor:N", N from 1.
                 case PioneerWork w:
                     return Unknown("unit", w.Unit.ToString(System.Globalization.CultureInfo.InvariantCulture), State.Units.Keys.Select(k => k.ToString(System.Globalization.CultureInfo.InvariantCulture)))
-                        ?? Unknown("pioneer_work", w.Action, new[] { Projects.BuildYishuv }) ?? Unknown("site", w.Site, Content.Sites.Select(x => x.Id));
+                        ?? Unknown("pioneer_work", w.Action, new[] { Projects.BuildYishuv, Corridors.BuildRoad, Corridors.BuildRail })
+                        ?? (Corridors.IsAction(w.Action)
+                            ? Unknown("corridor_segment", w.Site, Content.Corridors.SelectMany(x => Enumerable.Range(1, x.Segments.Count).Select(n => x.Id + ":" + n.ToString(System.Globalization.CultureInfo.InvariantCulture))))
+                            : Unknown("site", w.Site, Content.Sites.Select(x => x.Id)));
                 case StopWork w: return Unknown("unit", w.Unit.ToString(System.Globalization.CultureInfo.InvariantCulture), State.Units.Keys.Select(k => k.ToString(System.Globalization.CultureInfo.InvariantCulture)));
+                // Movement (#744): the unit id only; the sim refuses an unreachable, full or forbidden hex with its own reason.
+                case Move m: return Unknown("unit", m.Unit.ToString(System.Globalization.CultureInfo.InvariantCulture), State.Units.Keys.Select(k => k.ToString(System.Globalization.CultureInfo.InvariantCulture)));
+
                 // Standing orders (#746): the unit id only; the sim refuses an unknown order, a halutz or an enemy unit itself.
                 case UnitOrder o: return Unknown("unit", o.Unit.ToString(System.Globalization.CultureInfo.InvariantCulture), State.Units.Keys.Select(k => k.ToString(System.Globalization.CultureInfo.InvariantCulture)));
                 // City projects (#735): ids only; the sim refuses a far or taken hex, the policy gate and the turn's limit itself.

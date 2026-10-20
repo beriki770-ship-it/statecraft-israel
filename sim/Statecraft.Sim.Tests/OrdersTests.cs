@@ -9,8 +9,8 @@ public class OrdersTests
 {
     /// <summary>An Israeli soldier, an Egyptian unit (an enemy side) and the fixture's halutz types.</summary>
     const string Types = Fixture.GddUnitTypes
-        + "  - { id: soldier, kind: unit, side: israel, class: infantry }\n"
-        + "  - { id: enemy, kind: unit, side: egypt, class: infantry }\n";
+        + "  - { id: soldier, kind: unit, side: israel, class: infantry, movement_points: 3 }\n"
+        + "  - { id: enemy, kind: unit, side: egypt, class: infantry, movement_points: 3 }\n";
 
     static Content Load() =>
         ContentLoader.Load(Fixture.Write(Fixture.Gdd(new Dictionary<string, string> { ["unit_types.yaml"] = Types })));
