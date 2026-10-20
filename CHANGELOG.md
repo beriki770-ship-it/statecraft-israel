@@ -59,6 +59,9 @@ adds a line under **Unreleased**; CI's `Changelog` job checks this (see `CONTRIB
 - The map pans left and right from the first frame (#1062, player report): the game opens at 90 km, not 120 km, under
   the ~106 km where a 16:9 view is wider than the map and held centred (#174). A 21:9 window still opens centred
   until zoomed in a little.
+- An event card's options no longer show a chevron (play-test of v0.1.2: it read as "expand", but the press chooses,
+  #1105). The text starts at the button's edge padding in English and Hebrew; the gold rim and the hover and focus
+  fills still mark each option as a button.
 - Content: every option that did not happen now says who proposed it, with sources, or that it is a design assumption
   (R-ALT-004; refs #949, #939). The 30 records are copied from the owner-checked
   `research_notes/Alternate timelines/roads-checked.md` with the owner's road rulings of 18 October 2026: roads 1, 22
