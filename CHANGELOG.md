@@ -8,6 +8,10 @@ adds a line under **Unreleased**; CI's `Changelog` job checks this (see `CONTRIB
 ## [Unreleased]
 
 ### Added
+- Windows open and close with motion (#1106, play-test of v0.1.2): every side-menu screen and the decision card scale
+  up and fade in over 0.5 s when they open and scale down over 0.3 s when they close. USS transitions only, switched by
+  ScreenNav.Show; a closing window is out of reach while it shrinks and leaves the layout when the shrink ends. Play mode
+  only: an EditMode panel does not tick, so the layout tests still see windows at full size.
 - An event option can unlock a city project (GDD Phase 7 PR 2, D-H2): a `projects.yaml` kind marked `locked: true` is
   refused by StartProject until an option with `unlock_projects` naming it has applied. The loader refuses an unknown
   kind or one that is not locked, and a sensitive option may not unlock (R-EFX-008, R-EFX-005; refs #806). No real
