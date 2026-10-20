@@ -17,6 +17,13 @@ options:
       - { target: morale, delta: -0.02 }
   - id: concede
     text: Leave camp children in the religious stream
+    # Who proposed it: research_notes/Alternate timelines/roads-checked.md (checked by the owner, 19 October 2026).
+    alternative:
+      basis: debated
+      by: the cabinet
+      date: 1951-01-04
+      sources:
+        - { url: "https://www.jta.org/archive/new-crisis-in-israel-cabinet-orthodox-minister-resigns-two-more-may-quit-government", checked: 2026-10-17 }
     # Conceding angers the labour-movement side of the coalition, which wanted the registration plan; its opinion weighs
     # morale and housing (model.yaml), so the cost is a morale penalty a little larger than the historical option's.
     effects:

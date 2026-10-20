@@ -24,9 +24,17 @@ options:
     effects:
       - { target: intl_standing, delta: 0.01 }
   - id: press_offensive
-    # Effects are game assumptions; the morale cost stands in for the ministers who voted against (the sim has no direct
+    # Effects are game assumptions; the morale cost stands in for the ministers who oppose it (the sim has no direct
     # lever on coalition stability from events).
-    text: Press the attack on Latrun despite the vote
+    text: Attack Latrun before the cabinet votes
+    # Who proposed it: research_notes/Alternate timelines/roads-checked.md (checked by the owner, 19 October 2026).
+    alternative:
+      basis: debated
+      by: the Prime Minister and Minister of Defence, in the cabinet
+      # Option reworded to the record (an attack before the cabinet votes) and kept `debated`: owner ruling of 18 October 2026 (#949).
+      date: 1948-09-26
+      sources:
+        - { url: "https://bengurionarchive.bgu.ac.il/en/node/6251", checked: 2026-10-17 }
     set_rung: 5
     effects:
       - { target: security, delta: 0.025 }

@@ -24,6 +24,8 @@ options:
       - { target: security, delta: 0.025 }
   - id: push_to_hebron
     text: Let Allon push on into the Hebron hills and the Jericho valley
+    # No day on record for the Southern Front command's disagreement, so `design`: owner ruling of 18 October 2026 (#949).
+    alternative: { basis: design }
     set_rung: 5
     effects:
       - { target: security, delta: 0.03 }

@@ -25,6 +25,7 @@ from: 1948-05-15
         delta: -10
 {STRUCTURED}  - id: refuse
     text: Refuse
+    alternative: { basis: design }
 ";
 
     const string Grants = @"    grant_units:

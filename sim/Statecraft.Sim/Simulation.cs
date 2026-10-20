@@ -69,7 +69,7 @@ namespace Statecraft.Sim
             s.Turn++;
             if (s.GameOver == null && s.Date >= end)
             {
-                // the legacy report (#19) will come before this once it exists
+                // #19's legacy report is EndReport.For, which the end screen reads once GameOver is set (D-H4)
                 s.GameOver = end == c.Eras[c.Eras.Count - 1].To ? GameOverCodes.EraEnded : GameOverCodes.MvpEnded;
                 why.Add(new Cause("era", s.GameOver, 0, PlayerText.GameOver(s.GameOver)));
             }
