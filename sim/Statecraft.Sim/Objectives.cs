@@ -30,7 +30,7 @@ namespace Statecraft.Sim
             return r.ObjectivePoints!.Value + (int)bonus;
         }
 
-        /// <summary>The Objectives screen's reading (#1189): one row per objective, in objectives.yaml's order (the loader's),
+        /// <summary>The Objectives screen's reading (#1189): one row per objective, in id order (as the loader sorts them),
         /// done or not, with the player's completion date when it is done and the historical reference date. No score: the
         /// owner's ruling for the screen (20 October 2026). A pure reading: it writes nothing, so the hash stays put.</summary>
         public static IReadOnlyList<ObjectiveStatus> Status(Content c, GameState s) =>
