@@ -5,8 +5,10 @@ GitHub Releases page (and, from M4, on itch.io). Steps 1–3 are a normal pull r
 
 1. **Choose the version** (Semantic Versioning, pre-1.0 while the game is pre-release).
 2. **Bump every version site in one pull request:** `sim/Statecraft.Sim/SimInfo.cs` (`Version`) and
-   `unity/ProjectSettings/ProjectSettings.asset` (`bundleVersion`). Then move the `## [Unreleased]` entries in
-   `CHANGELOG.md` under `## [X.Y.Z] - YYYY-MM-DD` and leave an empty `## [Unreleased]` above it.
+   `unity/ProjectSettings/ProjectSettings.asset` (`bundleVersion`). Fold the changelog fragments with
+   `uv run scripts/oss/changelog_fold.py`: it moves each `changelog.d/*.md` entry into `## [Unreleased]`, in filename
+   order, and deletes the fragments (it refuses, changing nothing, if one has no entry). Then move the
+   `## [Unreleased]` entries in `CHANGELOG.md` under `## [X.Y.Z] - YYYY-MM-DD` and leave an empty `## [Unreleased]` above it.
    `scripts/oss/tests/test_release.py::test_versions_agree` fails if the three disagree.
 3. **Merge** the pull request (squash).
 4. **Run the release gate** on the merged `main` (it refuses to run elsewhere): `bash scripts/oss/release_gate.sh`. It must print
@@ -19,8 +21,8 @@ GitHub Releases page (and, from M4, on itch.io). Steps 1–3 are a normal pull r
    "$UNITY" -batchmode -CI false -GITHUB_ACTIONS false -TF_BUILD false -quit -projectPath unity -buildTarget WebGL -executeMethod Statecraft.Game.EditorTools.Build.Web -compression gzip -shareable -logFile "$PWD/unity-build-web-gz.log"
    git checkout -- unity/Assets/Settings unity/ProjectSettings/ProjectSettings.asset
    golden_expect=(); while read -r name hash; do [[ -z "$name" || "$name" == \#* ]] || golden_expect+=(--expect "GOLDEN OK $name $hash"); done < sim/Statecraft.Sim.Tests/golden/manifest.txt
-   # one GOLDEN OK line per manifest golden (#394), e.g. "GOLDEN OK hash1950 4f1202cfa20e1f3cc7521c7b3baac386330b77fdbacc25928d781b1659747340"
-   # and "GOLDEN OK hash1952 283349502eb580123fcea6bf64ca174f913627132a1325f3dbf00743435623e2"
+   # one GOLDEN OK line per manifest golden (#394), e.g. "GOLDEN OK hash1950 e3c76f5f6fc45e4941a4499afd2e5c226a4677a651f39c6cef789447d123267a"
+   # and "GOLDEN OK hash1952 37866907babc55e9477320db32467d1314aa59c8fe86d4d4ad82d8db61731fde"
    uv run tools/web_check.py unity/Builds/Web-gzip --query "golden&smoke=5" "${golden_expect[@]}" \
      --expect "SMOKE OK 5 turns 1948-10-15 8d000459d26a08a49583adfc88c14799ce6e6f653dcecff1e30b5e737f0959aa"
    uv run tools/web_check.py unity/Builds/Web-gzip --startscreen new --timeout 300 --stall 90
