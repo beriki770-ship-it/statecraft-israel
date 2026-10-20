@@ -17,6 +17,7 @@ options:
       - { target: intl_standing, delta: 0.01 }
   - id: quota
     text: Regulate immigration by yearly quota
+    alternative: { basis: design }
     effects:
       - { target: morale, delta: -0.06 }
 sources:

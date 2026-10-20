@@ -175,24 +175,34 @@ namespace Statecraft.Sim
         public int TurnsLeft { get; }
         /// <summary>The end date of the turn the site was built on; null while it is being built.</summary>
         public DateTime? BuiltOn { get; }
+        /// <summary>The turn-equivalents of work accumulated toward the next whole turn (R-MIN-002: the office multiplier's
+        /// scaled gain accumulates here, and only whole turns leave it, so no fraction of a turn is ever a turn to go). In
+        /// [0, 1) while being built; 0 once built and on a site no minister system scales.</summary>
+        public double Progress { get; }
 
         /// <summary>A site being built (<paramref name="builtOn"/> null) needs its unit; a built site has none.</summary>
-        public SiteWork(string site, int? unit, int turnsLeft, DateTime? builtOn)
+        public SiteWork(string site, int? unit, int turnsLeft, DateTime? builtOn, double progress = 0)
         {
             if ((builtOn == null) != (unit != null)) throw new ArgumentException("a site being built has a unit, and a built site has none", nameof(unit));
-            Site = site; Unit = unit; TurnsLeft = turnsLeft; BuiltOn = builtOn;
+            Site = site; Unit = unit; TurnsLeft = turnsLeft; BuiltOn = builtOn; Progress = progress;
         }
 
         /// <summary>The site built on <paramref name="on"/>, with no unit on it.</summary>
         public static SiteWork Built(string site, DateTime on) => new SiteWork(site, null, 0, on);
 
         /// <summary>The same work with <paramref name="turnsLeft"/> turns to go.</summary>
-        public SiteWork WithTurnsLeft(int turnsLeft) => new SiteWork(Site, Unit, turnsLeft, BuiltOn);
+        public SiteWork WithTurnsLeft(int turnsLeft) => new SiteWork(Site, Unit, turnsLeft, BuiltOn, Progress);
 
-        /// <summary>The record as the state hash writes it: "id=b,UNIT,TURNSLEFT" while building, "id=done,yyyy-MM-dd" once built.</summary>
+        /// <summary>The same work with <paramref name="turnsLeft"/> turns to go and <paramref name="progress"/> accumulated
+        /// (R-MIN-002's floor with carry).</summary>
+        public SiteWork WithProgress(int turnsLeft, double progress) => new SiteWork(Site, Unit, turnsLeft, BuiltOn, progress);
+
+        /// <summary>The record as the state hash writes it: "id=b,UNIT,TURNSLEFT" while building, ",PROGRESS" appended when
+        /// it is not 0, as IEEE bits like the other hashed doubles (R-MIN-002), "id=done,yyyy-MM-dd" once built.</summary>
         public string Canonical() => BuiltOn is DateTime on
             ? Site + "=done," + on.ToString("yyyy-MM-dd", CultureInfo.InvariantCulture)
-            : string.Format(CultureInfo.InvariantCulture, "{0}=b,{1},{2}", Site, Unit, TurnsLeft);
+            : string.Format(CultureInfo.InvariantCulture, "{0}=b,{1},{2}", Site, Unit, TurnsLeft)
+                + (Progress == 0 ? "" : "," + BitConverter.DoubleToInt64Bits(Progress).ToString("X16", CultureInfo.InvariantCulture));
     }
 
     /// <summary>A city project (projects.yaml; R-PROJ-001 to R-PROJ-003): <see cref="Kind"/> built for <see cref="City"/> on hex
@@ -210,21 +220,30 @@ namespace Statecraft.Sim
         public int TurnsLeft { get; }
         /// <summary>The end date of the turn the project was built on; null while it is being built.</summary>
         public DateTime? BuiltOn { get; }
+        /// <summary>The turn-equivalents of work accumulated toward the next whole turn (R-MIN-002), as
+        /// <see cref="SiteWork.Progress"/>. In [0, 1) while being built; 0 once built and on a kind no minister system scales.</summary>
+        public double Progress { get; }
 
-        public CityProject(int id, string kind, string city, int q, int r, int turnsLeft, DateTime? builtOn = null)
+        public CityProject(int id, string kind, string city, int q, int r, int turnsLeft, DateTime? builtOn = null, double progress = 0)
         {
-            Id = id; Kind = kind; City = city; Q = q; R = r; TurnsLeft = turnsLeft; BuiltOn = builtOn;
+            Id = id; Kind = kind; City = city; Q = q; R = r; TurnsLeft = turnsLeft; BuiltOn = builtOn; Progress = progress;
         }
 
         /// <summary>The same project with <paramref name="turnsLeft"/> turns to go.</summary>
-        public CityProject WithTurnsLeft(int turnsLeft) => new CityProject(Id, Kind, City, Q, R, turnsLeft);
+        public CityProject WithTurnsLeft(int turnsLeft) => new CityProject(Id, Kind, City, Q, R, turnsLeft, BuiltOn, Progress);
+
+        /// <summary>The same project with <paramref name="turnsLeft"/> turns to go and <paramref name="progress"/>
+        /// accumulated (R-MIN-002's floor with carry).</summary>
+        public CityProject WithProgress(int turnsLeft, double progress) => new CityProject(Id, Kind, City, Q, R, turnsLeft, BuiltOn, progress);
 
         /// <summary>The same project, built on <paramref name="on"/>.</summary>
         public CityProject Built(DateTime on) => new CityProject(Id, Kind, City, Q, R, 0, on);
 
-        /// <summary>The record as the state hash writes it: "id:KIND@CITY,Q,R/TURNSLEFT" while building, "/done,yyyy-MM-dd" once built.</summary>
+        /// <summary>The record as the state hash writes it: "id:KIND@CITY,Q,R/TURNSLEFT" while building, ",PROGRESS"
+        /// appended as IEEE bits when it is not 0 (R-MIN-002), "/done,yyyy-MM-dd" once built.</summary>
         public string Canonical() => string.Format(CultureInfo.InvariantCulture, "{0}:{1}@{2},{3},{4}/", Id, Kind, City, Q, R)
-            + (BuiltOn is DateTime on ? "done," + on.ToString("yyyy-MM-dd", CultureInfo.InvariantCulture) : TurnsLeft.ToString(CultureInfo.InvariantCulture));
+            + (BuiltOn is DateTime on ? "done," + on.ToString("yyyy-MM-dd", CultureInfo.InvariantCulture)
+                : TurnsLeft.ToString(CultureInfo.InvariantCulture) + (Progress == 0 ? "" : "," + BitConverter.DoubleToInt64Bits(Progress).ToString("X16", CultureInfo.InvariantCulture)));
     }
 
     /// <summary>Work on one corridor segment (R-COR-001 to R-COR-003): <see cref="Unit"/> building it with
@@ -235,20 +254,23 @@ namespace Statecraft.Sim
         public int? Unit { get; }
         /// <summary>Turns of work done (spec section 2.2: "segment progress").</summary>
         public int Progress { get; }
+        /// <summary>Fractional work carried to the next turn (R-MIN-002), omitted from the hash while zero.</summary>
+        public double Carry { get; }
         /// <summary>The end date of the turn the segment was built on; null while it is being built.</summary>
         public DateTime? BuiltOn { get; }
 
         /// <summary>A segment being built (<paramref name="builtOn"/> null) needs its unit; a built segment has none.</summary>
-        public SegmentWork(int? unit, int progress, DateTime? builtOn)
+        public SegmentWork(int? unit, int progress, DateTime? builtOn, double carry = 0)
         {
             if ((builtOn == null) != (unit != null)) throw new ArgumentException("a segment being built has a unit, and a built segment has none", nameof(unit));
-            Unit = unit; Progress = progress; BuiltOn = builtOn;
+            Unit = unit; Progress = progress; BuiltOn = builtOn; Carry = carry;
         }
 
-        /// <summary>"b,UNIT,PROGRESS" while building, "done,yyyy-MM-dd" once built.</summary>
+        /// <summary>"b,UNIT,PROGRESS" while building, with nonzero carry appended as IEEE bits; "done,yyyy-MM-dd" once built.</summary>
         public string Canonical() => BuiltOn is DateTime on
             ? "done," + on.ToString("yyyy-MM-dd", CultureInfo.InvariantCulture)
-            : string.Format(CultureInfo.InvariantCulture, "b,{0},{1}", Unit, Progress);
+            : string.Format(CultureInfo.InvariantCulture, "b,{0},{1}", Unit, Progress)
+                + (Carry == 0 ? "" : "," + BitConverter.DoubleToInt64Bits(Carry).ToString("X16", CultureInfo.InvariantCulture));
     }
 
     /// <summary>A corridor some of whose segments are being built or built (corridors.yaml; R-COR-001 to R-COR-003): one

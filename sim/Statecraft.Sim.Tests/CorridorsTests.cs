@@ -268,4 +268,80 @@ public class CorridorsTests
         Assert.Equal(new[] { (id[0], Projects.BuildYishuv, "site_a"), (id[1], Corridors.BuildRail, "rail_a:1"), (id[2], Corridors.BuildRoad, "road_a:1") }, orders);
         Assert.Empty(Step(c, s, ReferencePlayer.Commands(c, s).ToArray()).Rejected);
     }
+
+    static Content TransportationTown()
+    {
+        var files = Fixture.Gdd();
+        files["offices.yaml"] = Fixture.Files["offices.yaml"] + @"  - id: transportation_minister
+    title: Minister of Transportation
+";
+        files["rules.yaml"] = files["rules.yaml"]
+            .Replace("budget_start: { finance_minister: 1.0 }", "budget_start: { transportation_minister: 1.0, finance_minister: 0.0 }")
+            + @"  minister_systems:
+    corridors: transportation_minister
+";
+        return ContentLoader.Load(Fixture.Write(files));
+    }
+
+    // R-MIN-002/R-COR-002: actual Transportation output is fractional work, not rounded away each turn.
+    [Theory]
+    [InlineData(false)]
+    [InlineData(true)]
+    public void TransportationScalesActualSegmentProgress(bool veteran)
+    {
+        var c = TransportationTown();
+        var s = WithHalutzim(c, 1, out var ids);
+        if (veteran) s.Units[ids[0]] = new Unit(ids[0], Projects.VeteranType, 1, 0, 4);
+        Assert.Equal(0.75, EffectsSystem.GddSystemMultiplier(c, s, c.Rules.Mvp!, "corridors"), 9);
+        Assert.Equal(3, c.Rules.Mvp!.RoadSegmentTurns);
+        var first = Step(c, s, Road(ids[0]));
+        Assert.Empty(first.Rejected);
+        s = first.State;
+        Assert.Equal(veteran ? 1 : 0, s.Corridors["road_a"].Segments[0]!.Progress);
+        Assert.Null(s.Corridors["road_a"].Segments[0]!.BuiltOn);
+        // Same integer progress is insufficient state: the actual fraction must reach the hash.
+        Assert.NotEqual(new SegmentWork(ids[0], veteran ? 1 : 0, null).Canonical(),
+            s.Corridors["road_a"].Segments[0]!.Canonical());
+        Assert.Equal(s.Hash(), s.Clone().Hash());
+        var startedHash = s.Hash();
+        var second = Step(c, s);
+        Assert.Equal(startedHash, s.Hash()); // the real step advances a clone, not its input
+        s = second.State;
+        if (!veteran)
+        {
+            Assert.Equal(1, s.Corridors["road_a"].Segments[0]!.Progress); // 0.75 + 0.75 carries through the whole turn
+            Assert.Null(s.Corridors["road_a"].Segments[0]!.BuiltOn);
+            s = Step(c, s).State;
+            Assert.Equal(2, s.Corridors["road_a"].Segments[0]!.Progress);
+            Assert.Null(s.Corridors["road_a"].Segments[0]!.BuiltOn);
+            s = Step(c, s).State;
+        }
+        var built = s.Corridors["road_a"].Segments[0]!;
+        Assert.Equal(3, built.Progress);
+        Assert.Equal(s.Date, built.BuiltOn);
+        Assert.False(Projects.IsBusy(s, ids[0]));
+        Assert.Equal(new SegmentWork(null, 3, s.Date).Canonical(), built.Canonical());
+    }
+
+    [Fact]
+    public void TransportationCarryReplaysAndStoppingDiscardsIt()
+    {
+        var c = TransportationTown();
+        var g = GameSession.New(c, 1, Mode.Historical);
+        g.Step(new Command[] { new Train("town_a", "halutz", 1) });
+        g.Step(Array.Empty<Command>()); g.Step(Array.Empty<Command>());
+        var id = Assert.Single(g.State.Units.Keys);
+        g.Step(new Command[] { Road(id) });
+        Assert.Equal(0, g.State.Corridors["road_a"].Segments[0]!.Progress);
+        var saved = g.Save.Write();
+        var replay = GameSession.Load(c, saved, out _);
+        Assert.Equal(g.State.Hash(), replay.State.Hash());
+        g.Step(Array.Empty<Command>()); replay.Step(Array.Empty<Command>());
+        Assert.Equal(1, g.State.Corridors["road_a"].Segments[0]!.Progress);
+        Assert.Equal(g.State.Hash(), replay.State.Hash());
+        g.Step(new Command[] { new StopWork(id) });
+        Assert.Empty(g.State.Corridors);
+        g.Step(new Command[] { Road(id) });
+        Assert.Equal(0, g.State.Corridors["road_a"].Segments[0]!.Progress);
+    }
 }

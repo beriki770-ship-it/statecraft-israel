@@ -80,7 +80,8 @@ namespace Statecraft.Sim
         }
 
         /// <summary>R-COR-002, step 5 of the turn after the sites: in ordinal corridor id order, then segment index, each segment
-        /// being built gains one turn of progress, or veteran_progress with a veteran (R-VET-002). One whose progress reaches its
+        /// being built gains one turn of progress, or veteran_progress with a veteran (R-VET-002), scaled by Transportation
+        /// (R-MIN-002), with the fraction carried as on a site. One whose progress reaches its
         /// kind's turns is built on <paramref name="next"/>, the turn's end date, and its unit is idle again. Then the unit, a
         /// halutz, gains a turn of service, and at veteran_halutz_service becomes a veteran_halutz (R-VET-001), as on a site.</summary>
         public static void Advance(Content c, GameState s, DateTime next, List<Cause> why)
@@ -96,8 +97,12 @@ namespace Statecraft.Sim
                     if (!(cur.Segments[i] is SegmentWork x) || x.BuiltOn != null) continue;
                     var u = s.Units[x.Unit!.Value];   // a segment being built always names its unit (SegmentWork)
                     // Capped at the kind's turns, so a built segment's progress reads the same whoever built it.
-                    var progress = Math.Min(turns, x.Progress + (u.Type == Projects.VeteranType ? r.VeteranProgress!.Value : 1));
-                    if (progress < turns) cur = cur.With(i, new SegmentWork(x.Unit, progress, null))!;
+                    var acc = x.Carry + (u.Type == Projects.VeteranType ? r.VeteranProgress!.Value : 1)
+                        * EffectsSystem.GddSystemMultiplier(c, s, r, "corridors");
+                    var whole = (int)Math.Floor(acc);
+                    acc -= whole;
+                    var progress = Math.Min(turns, x.Progress + whole);
+                    if (progress < turns) cur = cur.With(i, new SegmentWork(x.Unit, progress, null, acc))!;
                     else
                     {
                         cur = cur.With(i, new SegmentWork(null, progress, next))!;

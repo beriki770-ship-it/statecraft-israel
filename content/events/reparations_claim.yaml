@@ -27,6 +27,7 @@ options:
       - { target: treasury, delta: -1 }
   - id: refuse
     text: Refuse any dealings with Germany
+    alternative: { basis: design }
     effects:
       - { target: intl_standing, delta: 0 }
       # Owner decision of 17 October 2026 (#938), "A cost for refusing too": the cost is in Foreign currency, for the
