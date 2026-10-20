@@ -39,6 +39,8 @@ adds a line under **Unreleased**; CI's `Changelog` job checks this (see `CONTRIB
   geometry event (a per-frame poll); desktops and notch-free phones are unchanged.
   With a side inset, raised meter captions reflow into the existing two-row bar when their measured widths no longer
   fit; Security's level wraps with its caption, and the 12 px text floor is preserved.
+- A top-bar number's tip no longer stays open after the mouse leaves it: a mouse click no longer pins it (the mouse
+  hovers), and a tip pinned by a tap closes on the next tap anywhere, on the map or on another control (Fixes #1108).
 
 ### Added
 - The sim's end report, `EndReport.For`, reads a finished game for the end screen: the outcome, the score, each
