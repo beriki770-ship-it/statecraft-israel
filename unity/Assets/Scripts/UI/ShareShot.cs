@@ -27,6 +27,8 @@ namespace Statecraft.Game.UI
         public static Action<byte[], string> Keep = DefaultKeep;
         public static Func<bool> CanShareFiles = DefaultCanShareFiles;
         public static Action<string, string> Share = DefaultShare;
+        /// <summary>True when the browser refused the share sheet (not a cancel) and the picture downloaded instead.</summary>
+        public static Func<bool> Failed = DefaultFailed;
 
         /// <summary>The post, in the UI's language, with the in-game date and turn and the itch URL.</summary>
         public static string Text(UiText text, string date, int turn) => text.Format("share.post", date, turn, Itch);
@@ -80,13 +82,15 @@ namespace Statecraft.Game.UI
 
         /// <summary>Captures the frame at its end, after the click that asked for it was handled (never inside it), as
         /// VisualShots does, and hands over its PNG. GameRoot runs it as a coroutine.</summary>
-        public static IEnumerator Capture(Action<byte[]> done)
+        public static IEnumerator Capture(Action<byte[]?> done)
         {
             yield return new WaitForEndOfFrame();
-            var frame = ScreenCapture.CaptureScreenshotAsTexture();
-            byte[] png;
-            try { png = Encode(frame); }
-            finally { UnityEngine.Object.Destroy(frame); }
+            byte[]? png = null;
+            Texture2D? frame = null;
+            // A failed capture hands over null, so the panel can say so and the Share buttons keep working.
+            try { frame = ScreenCapture.CaptureScreenshotAsTexture(); png = Encode(frame); }
+            catch (Exception e) { Debug.LogException(e); }
+            finally { if (frame != null) UnityEngine.Object.Destroy(frame); }
             done(png);
         }
 
@@ -97,11 +101,14 @@ namespace Statecraft.Game.UI
         public static void DefaultKeep(byte[] png, string name) => StatecraftShareKeep(png, png.Length, name);
         public static bool DefaultCanShareFiles() => StatecraftShareCanShareFiles() == 1;
         public static void DefaultShare(string text, string url) => StatecraftShareOnRelease(text, url);
+        [System.Runtime.InteropServices.DllImport("__Internal")] static extern int StatecraftShareFailed();
+        public static bool DefaultFailed() => StatecraftShareFailed() == 1;
 #else
         static byte[]? kept; static string keptName = "";
         public static void DefaultKeep(byte[] png, string name) { kept = png; keptName = name; }
         /// <summary>The editor and desktop builds have no share sheet: the fallback, as in Firefox.</summary>
         public static bool DefaultCanShareFiles() => false;
+        public static bool DefaultFailed() => false;
         /// <summary>The download, outside the browser: the picture goes into the temporary cache, and the log says where.</summary>
         public static void DefaultShare(string text, string url)
         {

@@ -149,6 +149,41 @@ public class ShareShotTests
         finally { ShareShot.Keep = ShareShot.DefaultKeep; }
     }
 
+    /// <summary>A share sheet the browser refused on the release (not a cancel): the picture downloaded instead, and the
+    /// share links show (ShareShot.Failed, polled by the panel's scheduler). A failed capture opens nothing and leaves
+    /// Share working.</summary>
+    [UnityEngine.TestTools.UnityTest]
+    public System.Collections.IEnumerator ARefusedShareSheetShowsTheShareLinks()
+    {
+        bool failed = false, broken = true;
+        ShareShot.Keep = (png, name) => { }; ShareShot.CanShareFiles = () => true; ShareShot.Share = (a, b) => { };
+        ShareShot.Failed = () => failed;
+        var ui = new UiTestKit();
+        try
+        {
+            var bridge = new SimBridge(GameSession.New(C, GoldenRun.Seed, Mode.Historical), En);
+            using var share = new SharePresenter(ui.Root, bridge, En, done => done(broken ? null : new byte[] { 1 }));
+            UiTestKit.Press(ui.Q<Button>("settings-share"));
+            Assert.IsFalse(share.IsOpen, "no picture, no panel");
+            broken = false;
+            UiTestKit.Press(ui.Q<Button>("settings-share"));
+            Assert.IsTrue(share.IsOpen, "the next press works");
+            SettingsScreenTests.PressWithPointer(ui.Q<Button>("share-go"));
+            var fallback = ui.Q<VisualElement>("share-fallback");
+            Assert.AreEqual(DisplayStyle.None, fallback.style.display.value, "the sheet is open: no links yet");
+            failed = true;
+            var until = Time.realtimeSinceStartup + 5f;   // the panel looks every 250 ms
+            while (fallback.style.display.value != DisplayStyle.Flex && Time.realtimeSinceStartup < until) yield return null;
+            Assert.AreEqual(DisplayStyle.Flex, fallback.style.display.value, "refused: the share links show");
+        }
+        finally
+        {
+            ui.Dispose();
+            ShareShot.Keep = ShareShot.DefaultKeep; ShareShot.CanShareFiles = ShareShot.DefaultCanShareFiles;
+            ShareShot.Share = ShareShot.DefaultShare; ShareShot.Failed = ShareShot.DefaultFailed;
+        }
+    }
+
     /// <summary>The turn report's Share opens the same panel over the report.</summary>
     [Test]
     public void TheTurnReportHasAShareButton()

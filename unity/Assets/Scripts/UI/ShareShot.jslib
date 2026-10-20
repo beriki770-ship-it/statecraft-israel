@@ -13,6 +13,7 @@ mergeInto(LibraryManager.library, {
     var file = window.statecraftShareFile;
     try { return file && navigator.canShare && navigator.canShare({ files: [file] }) ? 1 : 0; } catch (e) { return 0; }
   },
+  StatecraftShareFailed: function () { return window.statecraftShareFailed ? 1 : 0; },
   StatecraftShareOnRelease: function (textPtr, urlPtr) {
     var text = UTF8ToString(textPtr), url = UTF8ToString(urlPtr);
     if (typeof window === "undefined") return;
@@ -25,16 +26,7 @@ mergeInto(LibraryManager.library, {
       document.removeEventListener("keyup", go);
       window.statecraftShareDisarm = null;
     };
-    var go = function () {
-      disarm();
-      var file = window.statecraftShareFile;
-      if (!file) return;
-      var canShare = false;
-      try { canShare = !!(navigator.canShare && navigator.canShare({ files: [file] })); } catch (e) {}
-      if (canShare) {
-        navigator.share({ files: [file], text: text, url: url }).catch(function () {});   // a cancelled sheet is not an error
-        return;
-      }
+    var download = function (file) {
       var link = document.createElement("a");
       link.href = URL.createObjectURL(file);
       link.download = file.name;
@@ -42,6 +34,22 @@ mergeInto(LibraryManager.library, {
       link.click();
       link.remove();
       setTimeout(function () { URL.revokeObjectURL(link.href); }, 10000);
+    };
+    var go = function () {
+      disarm();
+      var file = window.statecraftShareFile;
+      if (!file) return;
+      window.statecraftShareFailed = false;
+      var canShare = false;
+      try { canShare = !!(navigator.canShare && navigator.canShare({ files: [file] })); } catch (e) {}
+      if (!canShare) { download(file); return; }
+      // A cancelled sheet (AbortError) is not a failure. Any other refusal (an iframe without web-share, a share target
+      // that fails) downloads the picture instead, and StatecraftShareFailed tells the panel to show the share links.
+      navigator.share({ files: [file], text: text, url: url }).catch(function (e) {
+        if (e && e.name === "AbortError") return;
+        window.statecraftShareFailed = true;
+        download(file);
+      });
     };
     canvas.addEventListener("pointerup", go);
     document.addEventListener("keyup", go);

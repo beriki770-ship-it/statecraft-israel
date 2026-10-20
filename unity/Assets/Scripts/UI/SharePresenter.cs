@@ -26,19 +26,19 @@ namespace Statecraft.Game.UI
         readonly Button go, close, settingsOpen, reportOpen;
         readonly Label post;
         readonly SimBridge bridge; readonly UiText text;
-        readonly Action<Action<byte[]>> capture;
+        readonly Action<Action<byte[]?>> capture;
         readonly EventCallback<PointerDownEvent> onGoPointer;
         readonly EventCallback<NavigationSubmitEvent> onGoSubmit;
         readonly EventCallback<NavigationCancelEvent> onCancel;
         readonly List<Action> unbindSites = new List<Action>();
         readonly List<(VisualElement part, bool enabled)> covered = new List<(VisualElement, bool)>();
         Button? opener;
-        bool capturing, canShareFiles;
+        bool capturing, canShareFiles, disposed;
         int closedAt = -1;
 
         /// <param name="capture">Captures the frame at its end and hands over its PNG (GameRoot: ShareShot.Capture as a
         /// coroutine; a test hands over bytes at once).</param>
-        public SharePresenter(VisualElement root, SimBridge bridge, UiText text, Action<Action<byte[]>> capture)
+        public SharePresenter(VisualElement root, SimBridge bridge, UiText text, Action<Action<byte[]?>> capture)
         {
             this.bridge = bridge; this.text = text; this.capture = capture;
             hudRoot = root.Q("root") ?? root;
@@ -79,6 +79,7 @@ namespace Statecraft.Game.UI
             capture(png =>
             {
                 capturing = false;
+                if (png == null || disposed) return;   // no picture (ShareShot.Capture logged why), or the UI was rebuilt meanwhile
                 var shown = HudModel.From(bridge, text);
                 ShareShot.Keep(png, ShareShot.FileName(bridge.State.Date));
                 canShareFiles = ShareShot.CanShareFiles();
@@ -105,7 +106,10 @@ namespace Statecraft.Game.UI
         {
             if (!IsOpen) return;
             ShareShot.Share(post.text, ShareShot.Itch);
-            if (!canShareFiles) fallback.style.display = DisplayStyle.Flex;
+            if (!canShareFiles) { fallback.style.display = DisplayStyle.Flex; return; }
+            // The share sheet can still be refused on the release (ShareShot.jslib); then the picture downloads and the
+            // share links show, as where files cannot be shared. A refusal comes at once; a few seconds is enough to wait.
+            go.schedule.Execute(() => { if (IsOpen && ShareShot.Failed()) fallback.style.display = DisplayStyle.Flex; }).Every(250).ForDuration(3000);
         }
 
         public void Close()
@@ -130,6 +134,7 @@ namespace Statecraft.Game.UI
 
         public void Dispose()
         {
+            disposed = true;
             Close();
             foreach (var unbind in unbindSites) unbind();
             go.UnregisterCallback(onGoPointer, TrickleDown.TrickleDown);
