@@ -358,6 +358,11 @@
                     <ui:Button name="settings-uiscale-150" text="150%" class="settings-switch" />
                 </ui:VisualElement>
             </ui:VisualElement>
+            <!-- Community (#1168): "Star on GitHub" opens the repository in a new tab (ExternalLink). -->
+            <ui:VisualElement class="row settings-row">
+                <ui:Label name="settings-community-label" text="Community" class="settings-name" />
+                <ui:Button name="settings-star" text="Star on GitHub" class="settings-switch" />
+            </ui:VisualElement>
             <Statecraft.Game.UI.UiFrame />
         </ui:VisualElement>
         <!-- The turn report (#1037, TurnReportPresenter): after End Turn, each top-bar number that changed and the sim's causes.
@@ -412,6 +417,10 @@
                     <ui:VisualElement name="start-actions" class="start-actions">
                         <ui:Button name="start-continue" text="Continue" class="start-button" />
                         <ui:Button name="start-new-game" text="New game" class="start-button" />
+                    </ui:VisualElement>
+                    <!-- Community (#1168): a quiet "Star on GitHub" that opens the repository in a new tab (ExternalLink). -->
+                    <ui:VisualElement name="start-community" class="start-community">
+                        <ui:Button name="start-star" text="Star on GitHub" class="start-star" />
                     </ui:VisualElement>
                     <ui:VisualElement name="start-caption" class="start-caption" picking-mode="Ignore">
                         <ui:Label name="start-caption-he" text="…אנו מכריזים בזאת על הקמת מדינה יהודית בארץ־ישראל, היא מדינת ישראל." class="start-he start-caption-he" language-direction="RTL" picking-mode="Ignore" />

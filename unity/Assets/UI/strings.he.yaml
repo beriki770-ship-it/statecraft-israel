@@ -72,6 +72,11 @@ settings.language.note: "כרטיסי האירועים באנגלית בלבד �
 # The UI scale choice (#40): "the size of the interface"; its buttons are numbers (100%, 125%, 150%). For the native
 # reviewer (#564).
 settings.uiscale: "גודל הממשק"
+# The Community row and the start screen's button (#1168): "קהילה" for the row; the button is a noun phrase ("marking
+# with a star on GitHub"), like the other buttons, so no verb agrees with the player's gender; GitHub in Hebrew letters,
+# as the static texts carry no Latin (HebrewUiTests). For the native reviewer (#564).
+settings.community: "קהילה"
+community.star: "סימון בכוכב בגיטהאב"
 event.draft: "טיוטה"
 start.source: "מתוך ההכרזה על הקמת מדינת ישראל (עיתון רשמי מס׳ 1, 14 במאי 1948) ותרגומה הרשמי לאנגלית. הציור נוצר בבינה מלאכותית."
 # The recordist's name as the Israel State Archives spells it in its own description of item

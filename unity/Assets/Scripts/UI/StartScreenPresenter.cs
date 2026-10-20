@@ -17,7 +17,7 @@ namespace Statecraft.Game.UI
     /// press never wipes the save (#175, B6). Continue and Escape withdraw an open request.
     /// While it shows, the root has OpenClass (Statecraft.uss hides the HUD under it, so Tab reaches only these buttons)
     /// and <c>shownChanged</c> is told, so GameRoot can stop the camera keys. The panel's source line says the painting is
-    /// AI-generated.</summary>
+    /// AI-generated. Under the buttons, "Star on GitHub" opens the repository in a new tab (#1168, ExternalLink).</summary>
     public sealed class StartScreenPresenter : IDisposable
     {
         /// <summary>On the "root" element while the start screen shows.</summary>
@@ -51,6 +51,7 @@ namespace Statecraft.Game.UI
         readonly EventCallback<GeometryChangedEvent> onGeometry;
         readonly Action onContinue, onNewGame, onStarted;
         readonly PressSource presses;
+        readonly Action unbindStar;
 
         /// <summary>Continue is offered: the session continues the autosave.</summary>
         public bool Resumed { get; private set; }
@@ -78,7 +79,9 @@ namespace Statecraft.Game.UI
             {
                 screen.Q<Label>("start-source").text = text["start.source"];
                 continueButton.text = text["start.continue"]; newGameButton.text = text["start.new_game"];
+                screen.Q<Button>("start-star").text = text["community.star"];
             }
+            unbindStar = ExternalLink.Bind(screen.Q<Button>("start-star"), ExternalLink.Repository);   // #1168
             onContinue = Continue; onNewGame = NewGame; onStarted = Started;
             continueButton.clicked += onContinue;
             newGameButton.clicked += onNewGame;
@@ -189,6 +192,7 @@ namespace Statecraft.Game.UI
             continueButton.clicked -= onContinue;
             newGameButton.clicked -= onNewGame;
             newGame.Started -= onStarted;
+            unbindStar();
             screen.UnregisterCallback(onCancel);
             screen.UnregisterCallback(onGeometry);
             panel.UnregisterCallback(onGeometry);
