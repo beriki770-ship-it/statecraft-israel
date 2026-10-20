@@ -8,6 +8,22 @@ adds a line under **Unreleased**; CI's `Changelog` job checks this (see `CONTRIB
 ## [Unreleased]
 
 ### Added
+- GDD Phase 4 PR 2: corridors (refs #786, #384). Halutz units build the Burma Road (four segments, one between each pair
+  of its sourced waypoints), the 1949 Haifa–Tel Aviv rail link (the Yarkon link, one segment) and the Tel Aviv–Netanya
+  road (four segments) with `PioneerWork(unit, build_road | build_rail, corridor:N)`, any segment in any order, one unit
+  per segment (R-COR-001 to R-COR-003; owner, 17 October 2026, #782). `content/corridors.yaml` holds the corridors;
+  `tools/corridor_hexes.py` derives each segment's hexes from the traced route and a CI test keeps them in step. Segment
+  Money and turns are labelled design values (road IL 2m and 6 turns, rail IL 4m and 6 turns). The map gains the rail
+  link's route (`yarkon_rail_link`, from 20 September 1949) and the Tel Aviv–Netanya road (`tlv_netanya_road`, from 28
+  July 1950), drawn as straight draft lines between the five places *The Jerusalem Post* names (`trace: straight`;
+  owner, 18 October 2026, #786). Only the routes drawn at the game's start keep the settlement kits off, so the later
+  routes clear no town's houses or trees (owner, #786: the floors are kept). The unit tokens keep off only the routes
+  drawn while a token stands, so the two later routes move no 1948 token. The reference player builds segments once
+  every yishuv, ready field and camp site is taken; on the current minister-scaled historical run it reaches none by
+  1952, so the goldens do not move. Transportation scales segment progress with fractional work carried as on sites;
+  base prices and durations stay unchanged. Veteran progress and a halutz's service follow R-VET-001 and R-VET-002.
+- Hebrew titles, body text and option text for the first batch of 16 event cards, each marked for native-speaker
+  review (refs #1065, #564).
 - An event option can unlock a city project (GDD Phase 7 PR 2, D-H2): a `projects.yaml` kind marked `locked: true` is
   refused by StartProject until an option with `unlock_projects` naming it has applied. The loader refuses an unknown
   kind or one that is not locked, and a sensitive option may not unlock (R-EFX-008, R-EFX-005; refs #806). No real
@@ -91,6 +107,11 @@ adds a line under **Unreleased**; CI's `Changelog` job checks this (see `CONTRIB
 - Map: a city shows it can be clicked. With the mouse over one of its hexes or its name, the city's name lights up in
   ivory and the browser's pointer becomes a hand; a click on the name opens the city panel, as a click on its hex does,
   in English and Hebrew and at every zoom (Fixes #1063).
+- Event cards in Hebrew (#1064, owner decision on #55): an event can carry `title_he`, `text_he` and each option's
+  `text_he`, all or none, in Hebrew letters, with `text_he_review: agent-checked` until a native speaker has read them
+  (#564). In the Hebrew UI the card shows them, with the minister's Hebrew name in the placeholder, and keeps the English
+  for any field that has no Hebrew. The Altalena card is the first, an AI translation for the native reviewer; the other
+  cards follow in #1065 and #1066. The content hash moves (an older save warns once); no golden does.
 - Up close the kit landmarks (mosques, churches, minarets, Jerusalem's walls, gates and towers, the Dome of the Rock,
   Jaffa's clock tower and lighthouse, Ramla's White Tower, Nahalal's hall, Revivim's walled lookout) stand at the
   models' world scale too, real size x 24 (`SettlementKits.ModelScale`), instead of the kits' 60x and 100x that towered
