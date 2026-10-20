@@ -155,7 +155,7 @@ namespace Statecraft.Game.UI
         readonly EventCallback<NavigationCancelEvent> onCancel;
         readonly EventCallback<GeometryChangedEvent> onGeometry;
 
-        /// <summary>A layer over the screens that takes Escape first (GameRoot: the report panel, #1169): true when it used the
+        /// <summary>A layer over the screens that takes Escape first (GameRoot: the report panel, #1169, and the share panel, #1170): true when it used the
         /// key, and the open screen under it stays open. This handler trickles down from the root, so it runs before the layer's own.</summary>
         public System.Func<bool>? TakesEscape;
 
