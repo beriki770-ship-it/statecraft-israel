@@ -55,7 +55,6 @@ adds a line under **Unreleased**; CI's `Changelog` job checks this (see `CONTRIB
 - The map's code-built boats (SeaCraft's feluccas, cutters, moored fishing boats and Haifa's coastal steamer) are
   now their real length at the train's one 24x scale, like every other model: a felucca about 290 m (1.4 locomotive
   cars) where it was 2,040 m. Seen from 60 km off Jaffa they are white flecks a few pixels across (Fixes #1094).
-
 - The map pans left and right from the first frame (#1062, player report): the game opens at 90 km, not 120 km, under
   the ~106 km where a 16:9 view is wider than the map and held centred (#174). A 21:9 window still opens centred
   until zoomed in a little.
