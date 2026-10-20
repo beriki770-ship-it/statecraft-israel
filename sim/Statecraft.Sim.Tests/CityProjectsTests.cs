@@ -284,14 +284,14 @@ public class CityProjectsTests
 
     /// <summary>town_a on (1, 0) and town_b on (1, 1), next to it, both with the fixture's kinds; town_b has vineyards and the
     /// winery needs them (R-PROJ-005). Fixture values, not the game's.</summary>
-    static Content Neighbours() => ContentLoader.Load(Fixture.Write(Fixture.Gdd(new Dictionary<string, string>
+    static Content Neighbours(bool lockIndustry = false) => ContentLoader.Load(Fixture.Write(Fixture.Gdd(new Dictionary<string, string>
     {
         ["map/settlement_hexes.yaml"] = "settlements:\n  - { id: town_a, q: 1, r: 0 }\n  - { id: town_b, q: 1, r: 1 }\n",
         ["map/settlements_1948.yaml"] = Fixture.Files["map/settlements_1948.yaml"]
             + "  - { id: town_b, name: Town B, lon: 34.42, lat: 33.28, type: town, founded: 1900, pre_modern: false }\n",
         ["cities.yaml"] = "cities:\n" + Fixture.City("town_a", 12, 8, 10, 6)
             + Fixture.City("town_b", 5, 2, 2, 1).Replace("facilities: [] }", Fixture.Vineyards + " }"),
-        ["projects.yaml"] = Fixture.GddProjects + Fixture.Winery,
+        ["projects.yaml"] = (lockIndustry ? Fixture.GddProjects.Replace("job_slots: 3 }", "job_slots: 3, locked: true }") : Fixture.GddProjects) + Fixture.Winery,
     })));
 
     // #1122 (owner ruling 1): the cities whose settlement hex is within map_action_max_distance of the hex, by CheckCity's own
@@ -319,6 +319,7 @@ public class CityProjectsTests
     [Theory]
     [InlineData("unknown kind", "unknown_kind", "")]
     [InlineData("unknown city", "unknown_city", "")]
+    [InlineData("a locked kind", "locked", "industry")]
     [InlineData("camp without the policy", "maabarot_policy", "")]
     [InlineData("no resource", "no_resource", "town_a|vineyards|winery")]
     [InlineData("sea", "not_land", "")]
@@ -328,7 +329,7 @@ public class CityProjectsTests
     [InlineData("the turn's cap", "turn_cap", "2")]
     public void EveryRefusalHasAKindAndInvariantValues(string why, string kind, string values)
     {
-        var c = Neighbours();
+        var c = Neighbours(lockIndustry: why == "a locked kind");
         var s = New(c);
         if (why == "a project there") s.CityProjects.Add(s.NextId, new CityProject(s.NextId++, "housing", "town_a", 1, 1, 2));
         if (why == "a placement there") s.Placements.Add(new Placement(MapActions.TransitCamp, 1, 1, s.Date));
@@ -337,6 +338,7 @@ public class CityProjectsTests
         {
             "unknown kind" => ("harbour", "town_a", 1, 1),
             "unknown city" => ("housing", "atlantis", 1, 1),
+            "a locked kind" => ("industry", "town_a", 1, 1),
             "camp without the policy" => ("transit_camp", "town_a", 1, 1),
             "no resource" => ("winery", "town_a", 1, 1),
             "sea" => ("housing", "town_a", 0, 0),

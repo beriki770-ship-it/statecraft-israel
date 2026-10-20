@@ -53,8 +53,8 @@ public class CityProjectPanelTests
 
     static string Name(UiText t, string kind) => ContentNames.Of(t, C.ProjectKinds.Single(k => k.Id == kind));
 
-    static string Start(UiText t, ProjectKind k) =>
-        t.Format("city.project_start", ContentNames.Of(t, k), PlayerText.Money(C, "treasury", k.Cost), GddHexPanel.Turns(t, k.Turns));
+    static string Start(UiText t, ProjectKind k, GameState s) =>
+        t.Format("city.project_start", ContentNames.Of(t, k), PlayerText.Money(C, "treasury", k.Cost), GddHexPanel.Turns(t, Projects.CityTurnsToBuild(C, s, k.Id, k.Turns, 0)));
 
     [Test]
     public void EveryLoadedKindIsOfferedWithItsContentCostAndTurns([Values] bool hebrew)
@@ -69,7 +69,11 @@ public class CityProjectPanelTests
         Assert.IsNull(ui.Root.Q("city-project-cities"), "one city in reach: nothing to pick");
         Assert.GreaterOrEqual(C.ProjectKinds.Count, 3, "precondition: housing, the transit camp and industry");
         foreach (var k in C.ProjectKinds)
-            Assert.AreEqual(Start(t, k), ui.Q<Button>("city-project-" + k.Id).text, k.Id);
+        {
+            // A kind that needs a resource Haifa lacks (the winery's vineyards, R-PROJ-005) shows the sim's reason instead.
+            if (Projects.CheckCityReason(C, bridge.State, k.Id, City, q, r)?.Kind == "no_resource") { Assert.IsNotNull(ui.Root.Q<Label>($"city-project-{k.Id}-reason"), k.Id); continue; }
+            Assert.AreEqual(Start(t, k, bridge.State), ui.Q<Button>("city-project-" + k.Id).text, k.Id);
+        }
         // Draft Hebrew names (owner ruling 3), the English name where a kind has none.
         Assert.AreEqual(hebrew ? "מיזם דיור" : "a housing project", Name(t, "housing"));
         Assert.AreEqual("a depot", ContentNames.Of(t, new ProjectKind { Id = "depot", Name = "a depot" }));
@@ -94,7 +98,7 @@ public class CityProjectPanelTests
         ui.Press("city-project-industry");   // one order a hex (SimBridge's key): the other kind replaces it
         order = (StartProject)bridge.Queued.Single();
         Assert.AreEqual(("industry", City, q, r), (order.ProjectKind, order.City, order.Q, order.R));
-        Assert.AreEqual(Start(En, C.ProjectKinds.Single(k => k.Id == "housing")), ui.Q<Button>("city-project-housing").text);
+        Assert.AreEqual(Start(En, C.ProjectKinds.Single(k => k.Id == "housing"), bridge.State), ui.Q<Button>("city-project-housing").text);
         Assert.IsTrue(ui.Q<Button>("city-project-housing").enabledSelf);
         Assert.AreEqual(1, bridge.EndTurn().State.CityProjects.Values.Count(p => p.Kind == "industry" && p.City == City && p.Q == q && p.R == r),
             "the sim accepts the order the panel queued");
@@ -138,7 +142,7 @@ public class CityProjectPanelTests
         var bridge = Bridge(t, s => { id = s.NextId++; s.CityProjects.Add(id, new CityProject(id, "housing", City, q, r, 4)); });
         using var panel = Panel(ui, bridge, t);
         panel.Show(q, r);
-        Assert.AreEqual(t.Format("city.project_building", PlayerText.Capitalised(Name(t, "housing")), Towns[City], t.Format("city.turns", 4)), ui.Q<Label>("city-project-state").text);
+        Assert.AreEqual(t.Format("city.project_building", PlayerText.Capitalised(Name(t, "housing")), Towns[City], GddHexPanel.Turns(t, Projects.CityTurnsToBuild(C, bridge.State, "housing", 4, 0))), ui.Q<Label>("city-project-state").text);
         Assert.IsNull(ui.Root.Q("city-project-housing"), "the hex is taken: no Build");
         ui.Press("city-project-cancel");
         Assert.AreEqual(id, ((CancelProject)bridge.Queued.Single()).Project);
@@ -146,6 +150,38 @@ public class CityProjectPanelTests
         Assert.AreEqual(t["city.cancel_ordered"], cancel.text);
         Assert.IsFalse(cancel.enabledSelf);
         Assert.IsFalse(bridge.EndTurn().State.CityProjects.ContainsKey(id), "the sim cancels it");
+    }
+
+    // #1150 (owner review): since #1147 the minister multiplier scales a city project's progress, so the turns on Build and
+    // under way are the sim's forecast (Projects.CityTurnsToBuild), not the kind's base turns or the raw turns left.
+    [Test]
+    public void TheTurnsAreTheSimsForecastAtTheMinistersMultiplier([Values] bool hebrew)
+    {
+        var t = hebrew ? He : En;
+        var (q, r) = Lone;
+        var housing = C.ProjectKinds.Single(k => k.Id == "housing");
+        // Labour's budget line unfunded: its factor at the 0.5 floor, so the multiplier is not 1.
+        void Unfund(GameState s) => s.Budget[Offices.BudgetLineOf(C, "labour_minister", s.Date)!] = 0;
+        using (var ui = new UiTestKit())
+        {
+            var bridge = Bridge(t, Unfund);
+            var turns = Projects.CityTurnsToBuild(C, bridge.State, "housing", housing.Turns, 0);
+            Assert.AreNotEqual(housing.Turns, turns, "precondition: the multiplier is not 1");
+            using var panel = Panel(ui, bridge, t);
+            panel.Show(q, r);
+            Assert.AreEqual(t.Format("city.project_start", Name(t, "housing"), PlayerText.Money(C, "treasury", housing.Cost), GddHexPanel.Turns(t, turns)),
+                ui.Q<Button>("city-project-housing").text);
+        }
+        using (var ui = new UiTestKit())
+        {
+            var bridge = Bridge(t, s => { Unfund(s); var id = s.NextId++; s.CityProjects.Add(id, new CityProject(id, "housing", City, q, r, 4).WithProgress(4, 0.5)); });
+            var left = Projects.CityTurnsToBuild(C, bridge.State, "housing", 4, 0.5);
+            Assert.AreNotEqual(4, left, "precondition: the multiplier is not 1");
+            using var panel = Panel(ui, bridge, t);
+            panel.Show(q, r);
+            Assert.AreEqual(t.Format("city.project_building", PlayerText.Capitalised(Name(t, "housing")), Towns[City], GddHexPanel.Turns(t, left)),
+                ui.Q<Label>("city-project-state").text);
+        }
     }
 
     [Test]
