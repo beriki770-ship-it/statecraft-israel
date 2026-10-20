@@ -256,7 +256,6 @@ namespace Statecraft.Game.UI
                 var b = new Button(() => Choose(e, option)) { name = "option-" + o.Id, text = price > 0 ? text.Format("event.option_cost", label, price) : label };
                 b.AddToClassList(OptionClass);
                 b.SetEnabled(!unpaid);
-                b.generateVisualContent += PaintSign;                      // the promo's round sign at the option's left
                 options.Add(b);
             }
             card.Q<Label>("event-count").text = open.Count > 1 ? text.Format("event.more", open.Count - 1) : "";
@@ -437,19 +436,6 @@ namespace Statecraft.Game.UI
         /// <summary>The shown photograph's alt text (what it depicts), or null when the card shows no photograph (none for
         /// this event, or dropped on a short window).</summary>
         public string? PhotoAlt { get; private set; }
-
-        /// <summary>The round sign in an option's left padding (Statecraft.uss .event-option), painted into the button so it
-        /// stays a leaf whose wrapped text Yoga measures (UiIcon.Paint). In the Hebrew UI it sits in the right padding and
-        /// points left (#193).</summary>
-        const float SignRadius = 15f, SignLeft = 9f;
-
-        static void PaintSign(MeshGenerationContext m)
-        {
-            var e = m.visualElement;
-            bool rtl = UiLanguage.Within(e);
-            var x = rtl ? e.layout.width - SignLeft - SignRadius : SignLeft + SignRadius;
-            UiIcon.PaintDisc(m, rtl ? "chevron-back" : "chevron", new UnityEngine.Vector2(x, e.layout.height / 2f), SignRadius);
-        }
 
         void Choose(GameEvent e, EventOption o)
         {
