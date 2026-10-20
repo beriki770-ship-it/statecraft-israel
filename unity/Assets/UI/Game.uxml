@@ -378,10 +378,14 @@
                     <ui:Button name="settings-uiscale-150" text="150%" class="settings-switch" />
                 </ui:VisualElement>
             </ui:VisualElement>
-            <!-- Community (#1168): "Star on GitHub" opens the repository in a new tab (ExternalLink). -->
+            <!-- Community (#1168): "Star on GitHub" opens the repository in a new tab (ExternalLink); "Report a bug or idea"
+                 opens the report panel (#1169, FeedbackPresenter). -->
             <ui:VisualElement class="row settings-row">
                 <ui:Label name="settings-community-label" text="Community" class="settings-name" />
-                <ui:Button name="settings-star" text="Star on GitHub" class="settings-switch" />
+                <ui:VisualElement class="row settings-choices">
+                    <ui:Button name="settings-star" text="Star on GitHub" class="settings-switch" />
+                    <ui:Button name="settings-report" text="Report a bug or idea" class="settings-switch" />
+                </ui:VisualElement>
             </ui:VisualElement>
             <Statecraft.Game.UI.UiFrame />
         </ui:VisualElement>
@@ -459,12 +463,31 @@
                              (ExternalLink); its star and GitHub mark are painted in by StartScreenPresenter. -->
                         <ui:Button name="start-star" text="Star on GitHub" class="start-button start-star" />
                     </ui:VisualElement>
+                    <!-- "Report a bug or idea" (#1169, FeedbackPresenter): a quiet button under the actions that opens the
+                         report panel. -->
+                    <ui:VisualElement name="start-community" class="start-community">
+                        <ui:Button name="start-report" text="Report a bug or idea" class="start-report" />
+                    </ui:VisualElement>
                     <ui:VisualElement name="start-caption" class="start-caption" picking-mode="Ignore">
                         <ui:Label name="start-caption-he" text="…אנו מכריזים בזאת על הקמת מדינה יהודית בארץ־ישראל, היא מדינת ישראל." class="start-he start-caption-he" language-direction="RTL" picking-mode="Ignore" />
                         <ui:Label name="start-caption-en" text="…HEREBY DECLARE THE ESTABLISHMENT OF A JEWISH STATE IN ERETZ-ISRAEL, TO BE KNOWN AS THE STATE OF ISRAEL." class="start-caption-en" picking-mode="Ignore" />
                     </ui:VisualElement>
                     <Statecraft.Game.UI.UiFrame />
                 </ui:VisualElement>
+            </ui:VisualElement>
+        </ui:VisualElement>
+        <!-- "Report a bug or idea" (#1169, FeedbackPresenter): over everything, the start screen too, with what each GitHub
+             form opens with under its button; the game sends nothing itself. Before the toast, which stays readable. -->
+        <ui:VisualElement name="feedback-layer" class="feedback-layer">
+            <ui:VisualElement name="feedback-panel" class="panel feedback-panel">
+                <ui:VisualElement class="screen-header"><ui:Label name="feedback-title" text="Report a bug or idea" class="title" /><ui:Label name="feedback-intro" text="The form opens with these lines filled in. Nothing is sent until you submit it on GitHub." class="muted feedback-intro" /></ui:VisualElement>
+                <ui:Button name="feedback-bug" text="Report a bug" class="feedback-choice" />
+                <ui:Label name="feedback-bug-preview" class="muted feedback-preview" />
+                <ui:Button name="feedback-feature" text="Suggest a feature" class="feedback-choice" />
+                <ui:Label name="feedback-feature-preview" class="muted feedback-preview" />
+                <ui:Button name="feedback-itch" text="No GitHub account? Comment on itch" class="feedback-choice" />
+                <ui:VisualElement class="row feedback-actions"><ui:Button name="feedback-close" text="Close" /></ui:VisualElement>
+                <Statecraft.Game.UI.UiFrame />
             </ui:VisualElement>
         </ui:VisualElement>
         <ui:Label name="toast" class="panel toast" />

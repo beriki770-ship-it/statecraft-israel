@@ -110,6 +110,15 @@ settings.uiscale: "גודל הממשק"
 # the native reviewer (#564).
 settings.community: "קהילה"
 community.star: "סימון בכוכב בגיטהאב"
+# "Report a bug or idea" (#1169, FeedbackPresenter): the button and the panel's title ("a report of a bug or an idea"),
+# its note ("the form opens with these lines already filled in; nothing is sent before the sending on GitHub"), and the
+# three choices, all noun phrases or impersonal forms, so no verb agrees with the player's gender; GitHub and itch in
+# Hebrew letters, as the static texts carry no Latin (HebrewUiTests). For the native reviewer (#564).
+feedback.open: "דיווח על באג או רעיון"
+feedback.intro: "הטופס נפתח עם השורות האלה כבר ממולאות. שום דבר לא נשלח לפני השליחה בגיטהאב."
+feedback.bug: "דיווח על באג"
+feedback.feature: "הצעה לתכונה חדשה"
+feedback.itch: "אין חשבון בגיטהאב? תגובה בדף המשחק באיץ׳"
 event.draft: "טיוטה"
 start.source: "מתוך ההכרזה על הקמת מדינת ישראל (עיתון רשמי מס׳ 1, 14 במאי 1948) ותרגומה הרשמי לאנגלית. הציור נוצר בבינה מלאכותית."
 # The recordist's name as the Israel State Archives spells it in its own description of item

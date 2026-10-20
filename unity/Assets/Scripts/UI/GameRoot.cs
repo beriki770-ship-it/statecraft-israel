@@ -263,6 +263,8 @@ namespace Statecraft.Game.UI
             // own settings must not leak into a test. Each Begin (New Game too) reads the file again.
             // The language switch (#1036) builds every screen again in the new language over this game (SwitchLanguage).
             Own(new SettingsPresenter(root, text, SettingsFile(), language => SwitchLanguage(inputs, language), panel: document.panelSettings, audio: audio));
+            // "Report a bug or idea" (#1169), from Settings and the start screen: the version line names the content GameBoot logged.
+            Own(new FeedbackPresenter(root, text, ReportLinks.Version(Application.version, inputs.Content.Hash)));
             Own(new CabinetPresenter(root, bridge, text, portraits));
             // After End Turn, what changed in the top bar and the sim's causes (#1037); under an outcome clip, which plays first.
             report = Own(new TurnReportPresenter(root, bridge, text, nav!));

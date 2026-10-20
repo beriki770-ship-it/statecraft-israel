@@ -481,6 +481,47 @@ public class SettingsScreenTests
         Assert.AreEqual("סימון בכוכב בגיטהאב", He["community.star"]);
     }
 
+    /// <summary>#1169: the Community row's "Report a bug or idea" opens the report panel over the screen. The panel shows
+    /// each GitHub form's prefilled lines before anything opens, and each choice opens its link (through the injectable
+    /// opener, so no browser opens): the bug form with the version and this platform, the feature form, the itch page.
+    /// While it shows the rest of the UI is disabled; Esc closes it and gives the focus back to the button.</summary>
+    [Test]
+    public void TheReportButtonShowsWhatEachFormGetsAndOpensIt([Values(false, true)] bool hebrew)
+    {
+        var text = hebrew ? He : En;
+        var opened = new List<string>();
+        ExternalLink.Opener = opened.Add;
+        try
+        {
+            using var ui = new UiTestKit();
+            using var settings = new SettingsPresenter(ui.Root, text, new SettingsStore(dir));
+            using var feedback = new FeedbackPresenter(ui.Root, text, "0.1.0 / content ab12");
+            var report = ui.Q<Button>("settings-report");
+            Assert.AreEqual(text["feedback.open"], report.text);
+            Assert.AreEqual(text["feedback.bug"], ui.Q<Button>("feedback-bug").text);
+            Assert.IsFalse(feedback.IsOpen);
+            UiTestKit.Press(report);
+            Assert.IsTrue(feedback.IsOpen, "the panel opens");
+            Assert.IsEmpty(opened, "nothing opens before a choice");
+            Assert.IsFalse(ui.Q<VisualElement>("screen-settings").enabledSelf, "the screen under the panel is out of Tab's reach");
+            var env = ReportLinks.Environment();
+            Assert.AreEqual($"title: {ReportLinks.BugTitle}\nversion: 0.1.0 / content ab12\nenv: {env}", ui.Q<Label>("feedback-bug-preview").text);
+            Assert.AreEqual($"title: {ReportLinks.FeatureTitle}", ui.Q<Label>("feedback-feature-preview").text);
+            PressWithPointer(ui.Q<Button>("feedback-bug"));
+            UiTestKit.Press(ui.Q<Button>("feedback-feature"));
+            UiTestKit.Press(ui.Q<Button>("feedback-itch"));
+            CollectionAssert.AreEqual(new[] { ReportLinks.Bug("0.1.0 / content ab12", env), ReportLinks.Feature(), ReportLinks.Itch }, opened);
+            using (var esc = NavigationCancelEvent.GetPooled()) { esc.target = ui.Q<Button>("feedback-bug"); ui.Q<Button>("feedback-bug").SendEvent(esc); }
+            Assert.IsFalse(feedback.IsOpen, "Esc closes it");
+            Assert.IsTrue(ui.Q<VisualElement>("screen-settings").enabledSelf, "the screen is usable again");
+            Assert.AreSame(report, report.focusController?.focusedElement, "the focus is back on the button that opened it");
+            UiTestKit.Press(report);
+            UiTestKit.Press(ui.Q<Button>("feedback-close"));
+            Assert.IsFalse(feedback.IsOpen, "Close closes it");
+        }
+        finally { ExternalLink.Opener = ExternalLink.Default; }
+    }
+
     /// <summary>A mouse press as the player makes it (StartScreenTests.PressWithPointer): a primary-button pointer down
     /// (GetPooled leaves the button at -1), then the button's Clickable fires on the release.</summary>
     internal static void PressWithPointer(Button b)
@@ -570,7 +611,7 @@ public class SettingsScreenTests
                     "settings-quality-label", "settings-quality-auto", "settings-quality-high", "settings-quality-low",
                     "settings-language-label", "settings-language-en", "settings-language-he", "settings-language-note",
                     "settings-uiscale-label", "settings-uiscale-100", "settings-uiscale-125", "settings-uiscale-150",
-                    "settings-community-label", "settings-star" })
+                    "settings-community-label", "settings-star", "settings-report" })
                 {
                     var e = root.Q<TextElement>(name);
                     Assert.IsFalse(string.IsNullOrWhiteSpace(e.text), $"{at}: {name} has its text");
