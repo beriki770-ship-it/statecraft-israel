@@ -3,7 +3,8 @@
 All notable changes to Statecraft: Israel. The format follows
 [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and versions follow
 [Semantic Versioning](https://semver.org/). Every pull request that changes the game (`sim/`, `content/`, `unity/`)
-adds a line under **Unreleased**; CI's `Changelog` job checks this (see `CONTRIBUTING.md`).
+adds a line under **Unreleased**, or a fragment in `changelog.d/` that a release folds in here; CI's `Changelog` job
+checks this (see `CONTRIBUTING.md`).
 
 ## [Unreleased]
 
@@ -12,6 +13,29 @@ adds a line under **Unreleased**; CI's `Changelog` job checks this (see `CONTRIB
   R-HOUSE-002), beside the refugees waiting, and its trained craftsmen (`City.Craftsmen`, R-CRAFT-001) beside the jobs,
   in English and Hebrew; both numbers are the sim's, and each pair shares a row so the panel stays clear of the left
   column on a short window (fixes #1121).
+- The IDF brigades' 15 May 1948 strengths in `content/map/units_1948.yaml` (the first step of GDD Phase 5 PR 4, refs
+  #743): the eight brigades with a size in the #906 research note (en.wiki's brigade table, citing Ben-Gurion's War
+  Diaries) carry it, cite it and are `status: to_verify` until a primary source replaces it (owner, 20 October 2026).
+  Etzioni, the 7th, the 8th and Oded have no figure and get none. Map-only data: the sim does not read the file yet, so
+  no golden moves.
+- GDD Phase 4 PR 2: corridors (refs #786, #384). Halutz units build the Burma Road (four segments, one between each pair
+  of its sourced waypoints), the 1949 Haifa–Tel Aviv rail link (the Yarkon link, one segment) and the Tel Aviv–Netanya
+  road (four segments) with `PioneerWork(unit, build_road | build_rail, corridor:N)`, any segment in any order, one unit
+  per segment (R-COR-001 to R-COR-003; owner, 17 October 2026, #782). `content/corridors.yaml` holds the corridors;
+  `tools/corridor_hexes.py` derives each segment's hexes from the traced route and a CI test keeps them in step. Segment
+  Money and turns are labelled design values (road IL 2m and 6 turns, rail IL 4m and 6 turns). The map gains the rail
+  link's route (`yarkon_rail_link`, from 20 September 1949) and the Tel Aviv–Netanya road (`tlv_netanya_road`, from 28
+  July 1950), drawn as straight draft lines between the five places *The Jerusalem Post* names (`trace: straight`;
+  owner, 18 October 2026, #786). Only the routes drawn at the game's start keep the settlement kits off, so the later
+  routes clear no town's houses or trees (owner, #786: the floors are kept). The unit tokens keep off only the routes
+  drawn while a token stands, so the two later routes move no 1948 token. The reference player builds segments once
+  every yishuv, ready field and camp site is taken; on the current minister-scaled historical run it reaches none by
+  1952, so the goldens do not move. Transportation scales segment progress with fractional work carried as on sites;
+  base prices and durations stay unchanged. Veteran progress and a halutz's service follow R-VET-001 and R-VET-002.
+- Hebrew titles, body text and option text for the first batch of 16 event cards, each marked for native-speaker
+  review (refs #1065, #564).
+- Hebrew titles, card text and option text for the 16 events in the second translation batch, pending native-speaker
+  review (refs #1066, #564).
 - An event option can unlock a city project (GDD Phase 7 PR 2, D-H2): a `projects.yaml` kind marked `locked: true` is
   refused by StartProject until an option with `unlock_projects` naming it has applied. The loader refuses an unknown
   kind or one that is not locked, and a sensitive option may not unlock (R-EFX-008, R-EFX-005; refs #806). No real
@@ -35,6 +59,10 @@ adds a line under **Unreleased**; CI's `Changelog` job checks this (see `CONTRIB
   zoom. A new `ZoomKeys` action in the Camera map; the wheel's `Zoom` keeps its one binding.
 
 ### Fixed
+- Money negatives and changes put the sign next to the number, not the currency ("IL -3.0m", "IL +1.2m"), everywhere the player sees money - top bar, Budget, Why?, the turn report and tooltips - in English and Hebrew (player feedback, 19 October 2026, refs #1107).
+- On a phone held upright the three-row top bar shrinks to fit its rows instead of keeping a fixed 440 px, so no
+  empty band is left between the stats and the map, and Attention and End Turn sit at the bar's bottom; the panels
+  under it move up with it. 440 px is no longer reserved; smaller phones whose rows need more still grow it (#1089).
 - Fractional site and city-project carry is hashed as IEEE bits on every runtime, avoiding different decimal spellings on .NET and Unity Mono; gameplay progress is unchanged.
 - Site construction forecasts use the current minister rate and saved fractional work, including pioneer promotion.
 - On a notched phone the HUD and the panels keep clear of the notch and the home indicator: the root is padded by
@@ -43,6 +71,8 @@ adds a line under **Unreleased**; CI's `Changelog` job checks this (see `CONTRIB
   geometry event (a per-frame poll); desktops and notch-free phones are unchanged.
   With a side inset, raised meter captions reflow into the existing two-row bar when their measured widths no longer
   fit; Security's level wraps with its caption, and the 12 px text floor is preserved.
+- A top-bar number's tip no longer stays open after the mouse leaves it: a mouse click no longer pins it (the mouse
+  hovers), and a tip pinned by a tap closes on the next tap anywhere, on the map or on another control (Fixes #1108).
 
 ### Added
 - The sim's end report, `EndReport.For`, reads a finished game for the end screen: the outcome, the score, each
@@ -59,10 +89,21 @@ adds a line under **Unreleased**; CI's `Changelog` job checks this (see `CONTRIB
   priced by the sim's new `AttentionSystem.Price`/`Left`, which `SimBridge` now uses too); the UI only reads it (refs #1109).
 - Unit cards show the sourced Hebrew unit name in the Hebrew UI, with an English fallback. INS Haganah gains its
   sourced Hebrew name, still flagged for a native speaker's review (#902).
+- Settings: a UI scale choice, 100%, 125% or 150%, default 100% (refs #40, third slice; owner decision of 18 Oct 2026).
+  It scales the whole UI at once (the one panel's reference resolution divided by the scale) and is kept in
+  `settings.txt` (key `uiscale`), never in the sim or the save. Only the scales verified to fit the window are
+  offered, 100% always (owner ruling of 19 Oct 2026 on #1011): the layout suites do not pass at 125% or 150% yet, so
+  for now the row offers 100% alone, and a saved 125% or 150% starts at 100% (the file keeps the choice).
 ### Changed
+- The map's code-built boats (SeaCraft's feluccas, cutters, moored fishing boats and Haifa's coastal steamer) are
+  now their real length at the train's one 24x scale, like every other model: a felucca about 290 m (1.4 locomotive
+  cars) where it was 2,040 m. Seen from 60 km off Jaffa they are white flecks a few pixels across (Fixes #1094).
 - The map pans left and right from the first frame (#1062, player report): the game opens at 90 km, not 120 km, under
   the ~106 km where a 16:9 view is wider than the map and held centred (#174). A 21:9 window still opens centred
   until zoomed in a little.
+- An event card's options no longer show a chevron (play-test of v0.1.2: it read as "expand", but the press chooses,
+  #1105). The text starts at the button's edge padding in English and Hebrew; the gold rim and the hover and focus
+  fills still mark each option as a button.
 - Content: every option that did not happen now says who proposed it, with sources, or that it is a design assumption
   (R-ALT-004; refs #949, #939). The 30 records are copied from the owner-checked
   `research_notes/Alternate timelines/roads-checked.md` with the owner's road rulings of 18 October 2026: roads 1, 22
@@ -87,6 +128,28 @@ adds a line under **Unreleased**; CI's `Changelog` job checks this (see `CONTRIB
 - The Cabinet, Budget, Defence, Why, How to play and Settings screens each gain an X in the header that closes
   them (the same close as Escape): a phone has no Escape key, and re-tapping the lit rail button was the only way
   out (v0.1.1 playtest feedback).
+- The Carmeli Brigade stands at Haifa, its sector's seat, from 15 May to 9 July 1948 (before its Operation Brosh
+  window), in the town on a clearing kept free of the kits' buildings. Haifa and Tel Aviv each get a budget of one unit
+  clearing, and Haifa's census floors drop by what Carmeli's clearing takes: 11 houses and 6.8 / 3.9 points of cover
+  (owner, #588). The 8th Brigade stays hidden: Tel Aviv's clearing is Kiryati's, and every spot within 7.4 km of Tel
+  Litvinsky also cuts into another town or village. A unit clearing's ground counts as if it still held plots when a
+  whole-town model finds its town's core (`TownLandmarks.CoreOf`; owner, #588: "Clearing doesn't move the core"), so
+  Haifa's model stays on land beside Carmeli's clearing.
+- Map: a city shows it can be clicked. With the mouse over one of its hexes or its name, the city's name lights up in
+  ivory and the browser's pointer becomes a hand; a click on the name opens the city panel, as a click on its hex does,
+  in English and Hebrew and at every zoom (Fixes #1063).
+- Event cards in Hebrew (#1064, owner decision on #55): an event can carry `title_he`, `text_he` and each option's
+  `text_he`, all or none, in Hebrew letters, with `text_he_review: agent-checked` until a native speaker has read them
+  (#564). In the Hebrew UI the card shows them, with the minister's Hebrew name in the placeholder, and keeps the English
+  for any field that has no Hebrew. The Altalena card is the first, an AI translation for the native reviewer; the other
+  cards follow in #1065 and #1066. The content hash moves (an older save warns once); no golden does.
+- Up close the kit landmarks (mosques, churches, minarets, Jerusalem's walls, gates and towers, the Dome of the Rock,
+  Jaffa's clock tower and lighthouse, Ramla's White Tower, Nahalal's hall, Revivim's walled lookout) stand at the
+  models' world scale too, real size x 24 (`SettlementKits.ModelScale`), instead of the kits' 60x and 100x that towered
+  over the houses; never bigger than far off, and Jerusalem's walls keep their circuit and shrink only in height and
+  thickness. A plot's models no longer sit in a regular grid: seeded by the place and the plot, each is turned up to
+  10 degrees and moved within its cell, some cells stay empty and a long plot may get a street through it. Far off
+  nothing changes. The rural life and special buildings take their 24x from the same constant (#1032).
 - Unit movement (GDD Phase 5 PR 5): `Move(unit, q, r)` moves a player unit at command time along the cheapest path
   within the movement points it has left this turn, and `Movement.Reachable` and `Movement.Path` give the preview.
   Movement points per military type and a cost per land biome are owner-accepted design values (Q-MOVE-1, 19 October 2026); lake and sea are

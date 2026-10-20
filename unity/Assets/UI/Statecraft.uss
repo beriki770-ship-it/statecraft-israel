@@ -172,7 +172,9 @@ Button:disabled { color: var(--ink-dim); border-color: rgba(120, 120, 120, 0.4);
    changes its rows end at about 431 px; each meter line already holds two caption lines, Security's level or "International
    support", so a caption that wraps once more does not add to it). Smaller phones raise it further (26 px at 360x800, 30 px
    at 375x667; the owner: the floor holds "down to 375x667", and the bar grows taller to fit, review of #859): the bar takes
-   its rows' height when that is more than 440 px, and the panels under it move down by what it grew (HudPresenter.PlaceUnderBar). */
+   its rows' height when that is more than 440 px, and the panels under it move down by what it grew (HudPresenter.PlaceUnderBar).
+   When its rows come in shorter (390x844 with turn 1's values, or in Hebrew), it shrinks to them and the panels move up, so
+   no empty band lies between the stats and the map (#1089, the owner: 440 px "stays as the maximum, not a fixed height"). */
 .hud-three-row .top-bar { height: 440px; }
 .hud-three-row .meters { width: 100%; flex-wrap: wrap; }
 /* Each meter a quarter of the row, so the seven always take two lines (four, then three) and the bar's second line is
@@ -320,9 +322,10 @@ Button:disabled { color: var(--ink-dim); border-color: rgba(120, 120, 120, 0.4);
     color: var(--ink); background-color: rgba(5, 9, 18, 0.92); -unity-font-style: italic;   /* 0.92: blending is linear, so less reads grey */
 }
 .event-office { white-space: normal; -unity-text-align: middle-center; font-size: 18px; }
-/* Options wrap inside the card (playtest 2, P2-2); each has a round gold-rimmed sign at its left, as the promo's choices. */
+/* Options wrap inside the card (playtest 2, P2-2). No sign beside the text: a chevron read as "expand", but the press
+   chooses (#1105); the gold rim and the hover and focus fills (Button:hover, :focus) mark it as a button. */
 #event-options Button { white-space: normal; -unity-text-align: middle-left; }
-.event-option { min-height: 42px; padding: 5px 12px 5px 46px; margin: 3px 0; border-color: rgba(196, 160, 92, 0.6); }
+.event-option { min-height: 42px; padding: 5px 12px; margin: 3px 0; border-color: rgba(196, 160, 92, 0.6); }
 .event-title { -unity-text-align: middle-center; margin-bottom: 4px; white-space: normal; font-size: 28px; }   /* centred, as before, in the card */
 .event-text { white-space: normal; margin-bottom: 8px; }
 /* An objective card's line under its text (#380): when it was completed against history. */
@@ -691,6 +694,9 @@ Button.settings-choice-selected { -unity-font-definition: url("project://databas
 }
 .map-label-city { font-size: 23px; color: rgb(250, 242, 224); }
 .map-label-town, .map-label-arab_town { font-size: 19px; }
+/* #1063: the city under the pointer (its hexes or its pill) lights its pill, ivory like the map's selected-hex outline, to say
+   a click opens it. Colours only: a border or padding change would resize the pill and move the names round it. */
+.map-label-hover { background-color: rgb(250, 242, 224); color: rgb(14, 22, 38); }
 /* The population tier (#710): the city's static 1948 tier as a gold disc at the start of its name, over the pill's start
    padding (left, or right in Hebrew). The disc is the pill's sibling in its slot; MapLabelsPresenter sets its left and
    top from the pill's size. */
@@ -842,8 +848,7 @@ Button.settings-choice-selected { -unity-font-definition: url("project://databas
 .lang-he .rung-turn { margin-left: 0; margin-right: 8px; }
 .lang-he .budget-title { margin: 0 0 0 18px; }
 .lang-he .budget-share { margin-left: 0; margin-right: 16px; }
-/* The option's round sign and End Turn's hourglass are painted on the right in Hebrew (EventCardPresenter, HudPresenter). */
-.lang-he .event-option { padding: 5px 46px 5px 12px; }
+/* End Turn's hourglass is painted on the right in Hebrew (HudPresenter). */
 .lang-he .end-turn { padding: 4px 40px 4px 14px; }
 /* A bar fills from the right: the whole bar is flipped, so its fill and its mark (placed from the left in code) follow. */
 .lang-he .ui-bar { scale: -1 1; }
