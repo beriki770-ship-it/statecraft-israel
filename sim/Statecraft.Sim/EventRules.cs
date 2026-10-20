@@ -74,6 +74,9 @@ namespace Statecraft.Sim
                     if (!optionIds.Add(o.Id)) throw new ContentException(e.File, F($"options[{o.Id}].id"), "duplicate option id");
                     CheckPlaceholders(c, e, F($"options[{o.Id}].text"), o.Text, offices);
                     if (o.Alternative != null) CheckAlternative(e, o, F($"options[{o.Id}].alternative"));
+                    // R-ALT-004: an option that did not happen says who proposed it, or that it is a design assumption.
+                    if (!o.Historical && e.Options.Any(x => x.Historical) && o.Alternative == null)
+                        throw new ContentException(e.File, F($"options[{o.Id}].alternative"), "an option that did not happen says who proposed it, or basis: design");
                     foreach (var kv in o.SetPolicy)
                     {
                         if (c.Policies.All(p => p.Id != kv.Key)) throw new ContentException(e.File, F($"options[{o.Id}].set_policy.{kv.Key}"), "unknown policy");

@@ -31,6 +31,15 @@ options:
       - { target: intl_standing, delta: -0.02 }
   - id: accept_demilitarisation
     text: Accept the demilitarisation of Jerusalem
+    # Who proposed it: research_notes/Alternate timelines/roads-checked.md (checked by the owner, 19 October 2026).
+    alternative:
+      basis: debated
+      by: the Provisional Government of Israel, in its replies to the Mediator
+      # Approximate: the Mediator-proposal boundary (his proposal of 3 July 1948), not an independently dated government
+      # reply. Owner rulings of 18 and 19 October 2026 (#949).
+      date: 1948-07-03
+      sources:
+        - { url: "https://unispal.un.org/pdfs/AB14D4AAFC4E1BB985256204004F55FA.pdf", checked: 2026-10-17 }
     effects:
       - { target: security, delta: -0.015 }
       - { target: intl_standing, delta: 0.02 }

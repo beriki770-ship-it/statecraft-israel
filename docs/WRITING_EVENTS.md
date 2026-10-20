@@ -219,7 +219,7 @@ Each option has:
 | `set_policy` | no | A map of policy id to a level from 0 to 1. |
 | `grant_units` | no | GDD loop only. A list of `{ type, n, at }`: see "grant_units and city_effects". |
 | `city_effects` | no | GDD loop only. A list of `{ city, field, delta }`: see "grant_units and city_effects". |
-| `alternative` | no (required later, #949) | On an option that did not happen: who put it forward, on what record. See below. |
+| `alternative` | on every option that did not happen, in an event with a historical option | Who put it forward, on what record. See below. |
 | `rejoin` | no | Consequence cards only. The id of the event whose road the card follows; choosing this option returns later cards to the recorded course (R-ALT-009). See "kind". |
 
 An event needs at least one option. `historical` is a statement of fact and needs a source; `recommended` is a game
@@ -243,8 +243,10 @@ An option that did not happen can say who put it forward, and on what record (R-
   `date` is the day it was put forward; `sources` (at least one, `https://`, with `checked`) support both.
 - `design`: nobody is recorded proposing it. It is a design assumption (GDD "Events and consequences"), so it has no
   `by` and no `date`. Sources are optional.
-- The historical option carries none. For now the record is optional; #949 makes it required on every option that did
-  not happen, once the fact-check (#948) has checked each one.
+- The historical option carries none. In an event that has a historical option, every other option must carry one
+  (R-ALT-004): the loader refuses an option that did not happen and says nothing about who proposed it. Copy the
+  record from the checked note (`research_notes/Alternate timelines/roads-checked.md`), or write `{ basis: design }`
+  when nobody is recorded proposing it.
 
 ### effects
 

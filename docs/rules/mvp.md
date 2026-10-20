@@ -54,7 +54,7 @@ R-CITY-003: Arrivals from the CBS series (`aliyah.yaml`) become refugees in the 
 
 R-CITY-008: `GameState.Population` is the one record of the nation's people: it takes every arrival from 15 May 1948 and is the count the CBS anchors check. The cities are the part of it placed in towns, so their people (civilians, craftsmen, refugees, recruits and the groups in training, times `people_per_unit`) never exceed it (Q-ARRV-2, owner, 15 October 2026). No person is counted twice.
 
-R-CITY-004: Each turn, on the housing step, all of a city's refugees become civilians without a job (R-CITY-009's default may then give them jobs). There is no hard cap (D-D1, Q-HOUSE-1, owner, 15 October 2026): the people beyond the city's housing stay in the city as its overflow (R-HOUSE-002), and residents are housed automatically (Q-HOUSE-4).
+R-CITY-004: Each turn, on the housing step, a city's refugees become civilians without a job (R-CITY-009's default may then give them jobs), `floor(pool x m)` of them at the Immigration minister's multiplier since the ministers (R-MIN-002; all of them before); the rest wait as refugees for the next turns. There is no hard cap (D-D1, Q-HOUSE-1, owner, 15 October 2026): the people beyond the city's housing stay in the city as its overflow (R-HOUSE-002), and residents are housed automatically (Q-HOUSE-4).
 
 R-CITY-009: The job default (Q-JOBS-1, owner, 15 October 2026). On each housing step, after the refugees become civilians (R-CITY-004), each city whose default is on sets its employed to `min(job slots, civilians + craftsmen)`, in ascending city id, at no Attention cost. Every city's default is on at the start; an accepted `AssignWorkers` order fixes that city's number and turns its default off for the rest of the game. Each change is a `city` cause on the Why screen ("Town: N groups in work"). A city's record writes `jobs=manual` into the state hash only when its default is off.
 
@@ -80,7 +80,7 @@ R-PROJ-001: `StartProject(kind, city, q, r)` starts a city project of a `project
 
 R-PROJ-002: `CancelProject(id)` removes a city project that is being built. The Money paid is not returned, and there are no people to return (D-A3, Q-PROJ-3). An unknown or built project is refused with the state unchanged. Its Attention cost is `attention_cost.cancel_project` (0.5, Q-PROJ-5).
 
-R-PROJ-003: On step 5 of the turn (D-A6), after the pioneer work, every city project being built has one turn less to go, in ascending id. One that reaches 0 is built on the turn's end date and adds its kind's `capacity` to the city's housing capacity, its `condition` to the city's housing condition (kept from 0 to 1, R-HOUSE-001) and its `job_slots` to the city's job slots, once: a built project keeps its record, with its hex, and is never advanced again. `GameState.CityProjects` is hashed as `cproj[...]` only when it has a project (R-LOOP-002).
+R-PROJ-003: On step 5 of the turn (D-A6), after the pioneer work, every city project being built has one turn of work less to go, in ascending id - `1 x m` of one at the system's office multiplier since the ministers (R-MIN-002), the fraction carried on the record as on R-SITE-003. One that reaches 0 is built on the turn's end date and adds its kind's `capacity` to the city's housing capacity, its `condition` to the city's housing condition (kept from 0 to 1, R-HOUSE-001) and its `job_slots` to the city's job slots, once: a built project keeps its record, with its hex, and is never advanced again. `GameState.CityProjects` is hashed as `cproj[...]` only when it has a project (R-LOOP-002).
 
 R-PROJ-005: A specialised project is allowed only in a city that has its resource (D-D8: "A winery requires areas for grapes"; Phase 3 PR 6, #737). A `projects.yaml` kind may name a `requires:` resource; a `cities.yaml` city lists its `resources:`, each with an id and sources (a url and a checked date each), and may say what the sources leave open (`to_verify`). `StartProject` of such a kind in a city without the resource is refused like the other R-PROJ-001 refusals, before the hex checks; a city founded in play has no resources. The loader refuses a resource without sources and a kind whose resource no city has. Otherwise the kind is an ordinary city project (R-PROJ-003). The one such kind is the winery, which needs vineyards, in Zikhron Ya'akov with its vineyards flagged `to_verify` (owner, 18 October 2026, on #737, "all defaults"); its content rows enter once a person has checked the vineyards' source (CONTENT_POLICY section 2, rule 6).
 
@@ -108,7 +108,7 @@ R-SITE-001: `PioneerWork(unit, build_yishuv, site)` starts building a yishuv at 
 
 R-SITE-002: `StopWork(unit)` ends the unit's build: the site is available again, the unit is idle, and the progress and the Money paid are lost (D-A3). A unit that does not exist or is not building is refused with the state unchanged. Its Attention cost is 0.
 
-R-SITE-003: Each turn, in ordinal site id order, every site being built has one turn less to go. A site that reaches 0 is built, on the turn's end date, and its unit is idle again. A veteran's site has `veteran_progress` turns less to go (R-VET-002), and the unit's type changes only by R-VET-001. No city, housing, job, population or Social cohesion changes. Sites being built or built are written into the state hash only when there are some.
+R-SITE-003: Each turn, in ordinal site id order, every site being built has one turn of work less to go - `progress x m` of one, the system's office multiplier m since the ministers (R-MIN-002): the integer part at once, the fraction carried on the record and written after it (as 16 hexadecimal digits of its IEEE bit pattern) only while non-zero. A site that reaches 0 is built, on the turn's end date, and its unit is idle again. A veteran's site has `veteran_progress` times as much work a turn (R-VET-002), and the unit's type changes only by R-VET-001. No city, housing, job, population or Social cohesion changes. Sites being built or built are written into the state hash only when there are some.
 
 ## Veteran pioneers
 
@@ -200,6 +200,14 @@ R-END-001: Money is exhausted when the debt is at or above `debt_ceiling` (Q-DEF
 
 R-END-002: In the resolver's last step, after the objectives and the score (spec §2.3, step 11), a turn end with Money and Food both exhausted adds 1 to `ExhaustedTurns`, and any other turn end sets it back to 0. When it reaches `defeat_turns`, the game ends with `defeat_economy` and a cause in the turn's causes, under the game's end (`era`) like the MVP end. `defeat_turns` is 3, a labelled design value (Q-DEF-2, owner, 18 October 2026, #784: "3 turns"), required in the GDD loop, at least 1. The step reads the debt as it finds it: the turn's deficit is borrowed after the resolution, so it counts from the next turn's end. A defeat on the game's last turn ends it as a defeat. `ExhaustedTurns` is in the state hash only when above 0, so a run that never has both exhausted hashes as before; the legacy loop never counts.
 
+## The end report
+
+D-H4 as decided (owner, 17 October 2026, #784: Q-END-1 and Q-END-2 as recommended): #19's legacy report folds into the end screen, which reads one sim helper, `EndReport.For` (Phase 7 PR 7, #810). This first slice reads only what the state already holds; the score's parts wait for #809, and the war loss for #8.
+
+R-END-005: Once the game has ended, the end report lists the outcome (the `GameOver` code), the end date, the state's score as it stands, every objective in `objectives.yaml` order with its historical date and, when completed, the player's date and the months from history (`Objectives.MonthsFromHistory`), and the two national parameters, Social cohesion and International Support, with no historical value. It is pure: it computes no rule, writes nothing, and two calls give the same report with the state hash unchanged. A game still on has no report.
+
+R-END-006: The report compares one measure with history (Q-END-2): the Jewish population at the end against the latest CBS anchor in `population.yaml` dated on or before the end, given with that anchor's date and sources. A game that ends before the first anchor has no comparison. No other value is compared, and none is invented.
+
 ## Government
 
 D-C5 as decided (12 October 2026): the cabinet and Attention stay, the coalition is optional with no collapse. The coalition votes, the budget shares and the policies keep running and visible as before (Q-GOV-1, decided 15 October 2026, "Take all recommendations", #375). The defeat (D-B5) is built in Phase 7 (Q-GOV-2, decided the same day).
@@ -207,6 +215,14 @@ D-C5 as decided (12 October 2026): the cabinet and Attention stay, the coalition
 R-GOV-001: In the GDD loop the coalition's stability never ends the game: it still moves toward public approval each turn and still weights the coalition votes, but a value below 0.2 (`PoliticsSystem.CollapseBelow`) sets no `coalition_collapse` (D-B5: "Coalition collapse is off in the MVP"). The legacy loop keeps its collapse while the legacy code exists (D-E1).
 
 R-GOV-002: Every GDD order kind has an `attention_cost` in the real rules (a design value, R-LOOP-005), the unit orders `pioneer_work` and `stop_work` cost 0 (D-A6: unit orders are free), and a refused order costs nothing: its Attention is refunded before the next order in the turn is priced.
+
+D-H3's first slice in the GDD loop (GDD Phase 7 PR 4, #808): each office's competence scales the GDD systems in its remit. Q-MIN-1 and Q-MIN-3 were decided as recommended, Q-MIN-2 as "Output" (owner, 17 and 18 October 2026, #784): competence scales output and progress a turn, and the base price and stated duration stay unchanged. The system-to-office map is `mvp.minister_systems` in `content/rules.yaml`, each entry a labelled design value; the corridors (#870) and military training (#742) join with their own phases. Candidates and appointment stay `Cabinet.Appoint`'s.
+
+R-MIN-001: Each GDD system named in `mvp.minister_systems` reads its office's cabinet multiplier on the turn's date - the holder's competence factor times the budget factor, `EffectsSystem.Multiplier` - through `EffectsSystem.GddSystemMultiplier` (Q-MIN-1). A system the map does not name is neutral (1.0), and a multiplier within 1e-9 of 1.0 reads as exactly 1.0, so float noise never stalls a neutral system. The loader refuses a map entry whose office `offices.yaml` does not define.
+
+R-MIN-002: The multiplier scales output and progress a turn (Q-MIN-2): a site being built adds `progress x m` of a turn's work (yishuv and field work, R-SITE-003; a veteran's `veteran_progress` is the progress), a city project adds `1 x m` (housing and industry construction, R-PROJ-003), and absorption houses `floor(refugees x m)` groups a turn (R-CITY-004). The base price and the stated duration stay unchanged. The rounding rule is one: the integer part of the work applies at once, the fraction is carried on the record (R-SITE-003), so no fraction of a turn's work is lost and no whole group is housed early; the hash of a build with no carry is unchanged.
+
+R-MIN-003: When the office does not exist on the date - ended, or not yet created - the system reads the multiplier of the office's named successor, or is neutral (1.0) with none (Q-MIN-3); the absent-holder 0.5 of `EffectsSystem.Multiplier` stays the rule for an office that exists but has no holder on the date.
 
 ## National parameters
 
@@ -261,6 +277,8 @@ R-ALT-001: An event's `requires` is a list, and the event is eligible only when 
 R-ALT-002: An entry `{ event, diverged: true }` holds when that event was resolved with any option except its historical one. An event with no historical option cannot diverge, and the loader refuses `diverged` on it.
 
 R-ALT-003: A non-historical option may carry `alternative: { basis, by, date, sources }`. `basis` is `proposed` or `debated` (a body or office, in words, is recorded putting it forward on that date; at least one https source with a checked date) or `design` (nobody is recorded proposing it: a design assumption, which names nobody and no date; sources optional). The historical option carries none.
+
+R-ALT-004: Every non-historical option of an event that has a historical option carries an `alternative` record (R-ALT-003).
 
 R-ALT-005: An event of `kind: consequence` is soft, has no historical option, has at least one requirement naming a road not taken (`diverged: true`, a non-historical option, or an option of another consequence card), carries an `alternative` record on every option, and lies at most 2 cards deep from the record (`EventRules.MaxConsequenceDepth`, a labelled design value, Q-ALT-5). It is never an objective's card, and only a consequence card may require one.
 

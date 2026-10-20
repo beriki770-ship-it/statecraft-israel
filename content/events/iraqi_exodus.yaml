@@ -17,6 +17,7 @@ options:
       - { target: morale, delta: 0.03 }
   - id: pace
     text: Pace arrivals to the places in the camps
+    alternative: { basis: design }
     effects:
       - { target: morale, delta: -0.05 }
       - { target: intl_standing, delta: -0.02 }

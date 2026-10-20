@@ -22,6 +22,7 @@ options:
       - { target: treasury, delta: 2 }
   - id: keep_camps
     text: Keep the free-board immigrant camps
+    alternative: { basis: design }
     effects:
       - { target: housing, delta: -0.03 }
       - { target: treasury, delta: -4 }
