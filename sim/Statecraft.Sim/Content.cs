@@ -607,6 +607,11 @@ namespace Statecraft.Sim
         public Dictionary<string, int> MoveCost { get; set; } = new Dictionary<string, int>();
         /// <summary>The most units of one side a hex holds (R-MOVE-003; Q-MOVE-3). Required in the GDD loop, at least 1.</summary>
         public int? StackLimit { get; set; }
+        /// <summary>The movement points a step costs between two hexes of one built road segment, or of one built rail segment,
+        /// when lower than the terrain's (R-MOVE-007; Q-MOVE-2). Required in the GDD loop, at least 1.</summary>
+        public int? RoadMoveCost { get; set; }
+        /// <inheritdoc cref="RoadMoveCost"/>
+        public int? RailMoveCost { get; set; }
         /// <summary>The settlements (settlements_1948.yaml ids) whose hexes no player unit may enter or cross before Phase 6
         /// (R-MOVE-005; Q-CIV-1). The owner sets the list.</summary>
         public List<string> EnemyHeldLocalities { get; set; } = new List<string>();
