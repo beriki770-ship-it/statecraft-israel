@@ -69,6 +69,9 @@ settings.quality.low: "נמוכה"
 # says that the event cards are not translated yet (#55). For the native reviewer (#564).
 settings.language: "שפה"
 settings.language.note: "כרטיסי האירועים באנגלית בלבד בינתיים."
+# The UI scale choice (#40): "the size of the interface"; its buttons are numbers (100%, 125%, 150%). For the native
+# reviewer (#564).
+settings.uiscale: "גודל הממשק"
 event.draft: "טיוטה"
 start.source: "מתוך ההכרזה על הקמת מדינת ישראל (עיתון רשמי מס׳ 1, 14 במאי 1948) ותרגומה הרשמי לאנגלית. הציור נוצר בבינה מלאכותית."
 # The recordist's name as the Israel State Archives spells it in its own description of item

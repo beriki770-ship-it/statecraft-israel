@@ -587,6 +587,7 @@ public class HudTests
         ("RouteLayer.cs", "CorridorMarginM = 100f", "a clearance in map metres that kit buildings and trees keep from a route (geometry, not a displayed number)"),
         ("CameraController.cs", "PixelsPerNotch = 100f", "wheel pixels in one mouse notch, to scale the browser's wheel events (input, not a displayed number)"),
         ("WildlifeLayer.cs", "MinimumCliffElevationM = 100f", "a real elevation in metres an ibex hex must reach (placement, not a displayed number)"),
+        ("SettingsPresenter.cs", "Level(int percent) => percent / 100.0", "the UI scale's stored percents (#40) to the level PlayerText.Percent formats (1.25 for 125%); it never formats text itself"),
     };
 
     [Test]

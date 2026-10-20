@@ -118,7 +118,7 @@ public class TownModelTests
 
     /// <summary>Every building the census records (and every water tower and port warehouse) is built of models on its plot:
     /// at the world scale (SettlementKits.ModelScale) a kit plot holds a grid of them (a water tower, a warehouse, a dining
-    /// hall and a place's one-off building one), each turned with the plot and inside its footprint; no other model is
+    /// hall and a place's one-off building one), each turned with the plot (up to SettlementKits.MaxTurnDeg off it, #1032) and inside its footprint; no other model is
     /// placed.</summary>
     [Test]
     public void EveryPlacedBuildingIsOneModelOnItsPlot()
@@ -144,7 +144,7 @@ public class TownModelTests
             float a = p.Yaw * Mathf.Deg2Rad, ca = Mathf.Cos(a), sa = Mathf.Sin(a);
             foreach (var mi in at)
             {
-                if (Mathf.Abs(mi.Yaw - p.Yaw) > 0.01f) bad.Add($"{p.Id} {p.Kind} at {p.C}: turned off its plot");
+                if (Mathf.Abs(Mathf.DeltaAngle(mi.Yaw, p.Yaw)) > SettlementKits.MaxTurnDeg + 0.01f) bad.Add($"{p.Id} {p.Kind} at {p.C}: turned off its plot");   // #1032: up to MaxTurnDeg
                 corners.Clear(); mi.Corners(corners);
                 foreach (var c in corners)
                 {
