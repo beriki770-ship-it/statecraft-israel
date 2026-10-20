@@ -66,6 +66,8 @@ namespace Statecraft.Game.UI
         string? collapsedFor;
         /// <summary>The event whose first option last took the focus, so an event already open never takes it again.</summary>
         string? focusedFor;
+        /// <summary>The event whose card last raised Opened, so a card already in view never raises it again.</summary>
+        string? openedFor;
         float appliedWidth = float.NaN;
 
         /// <param name="video">The illustration loop's player, or null when video is off (CardVideo.ForcedOff): then the
@@ -99,8 +101,9 @@ namespace Statecraft.Game.UI
             onHide = Collapse; onReopen = Reopen;
             onUncovered = () =>
             {
-                // The start screen has closed: the photograph now, in the same frame the card first shows (issue #592).
-                if (photoWaits) { photoWaits = false; if (Shown != null) Render(); }
+                // A cover has closed: render the first visible cue too; a start-screen photograph waits until now (#592).
+                photoWaits = false;
+                if (Shown != null) Render();
                 focusedFor = null; if (!hiddenInCapture && Shown != null && !Collapsed) FocusCard(Shown.Id, force: true);
             };
             onHidePointer = _ => hideByPointer = true;
@@ -189,16 +192,20 @@ namespace Statecraft.Game.UI
         /// <summary>The event the card shows, or null when every pending event has a queued answer.</summary>
         public GameEvent? Shown { get; private set; }
 
+        /// <summary>Raised with the event's id when its card comes into view: once per showing, never while the card waits
+        /// under the start screen, is collapsed or is hidden in a capture run (GameAudio's cue, #39).</summary>
+        public event System.Action<string>? Opened;
+
         public void Render()
         {
             var c = bridge.Content; var s = bridge.State;
             var pending = s.PendingEvents.Select(id => c.Events.First(e => e.Id == id)).ToList();
             var open = pending.Where(e => bridge.QueuedLike(new ChooseEventOption(e.Id, "")) == null).ToList();
             Shown = open.FirstOrDefault();
-            if (Shown == null) collapsedFor = null;
-            if (bridge.Session != session) { session = bridge.Session; collapsedFor = null; focusedFor = null; }
+            if (Shown == null) { collapsedFor = null; openedFor = null; }
+            if (bridge.Session != session) { session = bridge.Session; collapsedFor = null; focusedFor = null; openedFor = null; }
             var shown = !hiddenInCapture && Shown != null && !Collapsed;
-            card.style.display = shown ? DisplayStyle.Flex : DisplayStyle.None;
+            ScreenNav.Show(card, shown);   // #1106: grows in, shrinks away
             card.SetEnabled(shown);   // a child of an undisplayed element can still take the focus (#400): a collapsed card's options must not
             reopen.style.display = !hiddenInCapture && Collapsed ? DisplayStyle.Flex : DisplayStyle.None;
             hudRoot.EnableInClassList(OpenClass, shown);
@@ -256,10 +263,10 @@ namespace Statecraft.Game.UI
                 var b = new Button(() => Choose(e, option)) { name = "option-" + o.Id, text = price > 0 ? text.Format("event.option_cost", label, price) : label };
                 b.AddToClassList(OptionClass);
                 b.SetEnabled(!unpaid);
-                b.generateVisualContent += PaintSign;                      // the promo's round sign at the option's left
                 options.Add(b);
             }
             card.Q<Label>("event-count").text = open.Count > 1 ? text.Format("event.more", open.Count - 1) : "";
+            if (shown && !photoWaits && layer.enabledInHierarchy && openedFor != e.Id) { openedFor = e.Id; Opened?.Invoke(e.Id); }
             if (shown && focusedFor != e.Id) FocusCard(e.Id, force: false);
         }
 
@@ -437,19 +444,6 @@ namespace Statecraft.Game.UI
         /// <summary>The shown photograph's alt text (what it depicts), or null when the card shows no photograph (none for
         /// this event, or dropped on a short window).</summary>
         public string? PhotoAlt { get; private set; }
-
-        /// <summary>The round sign in an option's left padding (Statecraft.uss .event-option), painted into the button so it
-        /// stays a leaf whose wrapped text Yoga measures (UiIcon.Paint). In the Hebrew UI it sits in the right padding and
-        /// points left (#193).</summary>
-        const float SignRadius = 15f, SignLeft = 9f;
-
-        static void PaintSign(MeshGenerationContext m)
-        {
-            var e = m.visualElement;
-            bool rtl = UiLanguage.Within(e);
-            var x = rtl ? e.layout.width - SignLeft - SignRadius : SignLeft + SignRadius;
-            UiIcon.PaintDisc(m, rtl ? "chevron-back" : "chevron", new UnityEngine.Vector2(x, e.layout.height / 2f), SignRadius);
-        }
 
         void Choose(GameEvent e, EventOption o)
         {
