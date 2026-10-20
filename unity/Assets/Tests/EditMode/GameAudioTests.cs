@@ -122,6 +122,43 @@ public class GameAudioTests
     }
 
     [Test]
+    public void ACardUnderSettingsWaitsForItsFirstVisibleCue()
+    {
+        var id = C.Events.First(e => e.Options.Count > 0).Id;
+        var bridge = NoEvent();
+        bridge.Session.State.Date = C.Events.First(e => e.Id == id).From;
+        var output = new FakeOutput();
+        using var ui = new UiTestKit();
+        using var nav = new ScreenNav(ui.Root);
+        using var card = new EventCardPresenter(ui.Root, bridge, En, null);
+        using var audio = new GameAudio(bridge, card, Fake, output);
+        var layer = ui.Q<VisualElement>("event-layer");
+        Assert.IsNull(card.Shown, "no card was already visible when audio subscribed");
+        Assert.AreEqual(0, output.Played.Count);
+        nav.Toggle("settings");
+        Assert.AreEqual("settings", nav.Current);
+        Assert.IsFalse(layer.enabledInHierarchy, "Settings really covers the event layer");
+        bridge.Session.State.PendingEvents.Add(id);
+        card.Render();
+        Assert.AreEqual(id, card.Shown?.Id);
+        Assert.IsFalse(card.Collapsed);
+        Assert.IsFalse(layer.enabledInHierarchy, "rendering retains the Settings cover");
+        var coveredCount = output.Played.Count;
+        Assert.IsTrue(nav.Close());
+        Assert.IsNull(nav.Current);
+        Assert.IsTrue(layer.enabledInHierarchy, "closing Settings uncovers the pending card");
+        Assert.AreEqual(id, card.Shown?.Id);
+        var firstVisibleCount = output.Played.Count;
+        card.Render();
+        var repeatedCount = output.Played.Count;
+        TestContext.WriteLine($"COVERED_CARD cue counts covered={coveredCount} firstVisible={firstVisibleCount} repeated={repeatedCount}");
+        Assert.AreEqual(0, coveredCount, "a card covered by Settings has not come into view");
+        Assert.AreEqual(1, firstVisibleCount, "the first uncovered view sounds once");
+        Assert.AreEqual(1, repeatedCount, "another render does not replay the cue");
+        CollectionAssert.AreEqual(new[] { (PathOf(GameAudio.Cue.EventCard), 1f) }, output.Played);
+    }
+
+    [Test]
     public void ACardHiddenInACaptureRunMakesNoSound()
     {
         var id = C.Events.First(e => e.Options.Count > 0).Id;
