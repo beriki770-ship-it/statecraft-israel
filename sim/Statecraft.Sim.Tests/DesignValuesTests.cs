@@ -138,6 +138,8 @@ public class DesignValuesTests
         ("rules.yaml", "mvp.move_cost.desert"),
         ("rules.yaml", "mvp.move_cost.mountains"),
         ("rules.yaml", "mvp.stack_limit"),
+        ("rules.yaml", "mvp.road_move_cost"),   // R-MOVE-007, #745 (Q-MOVE-2): agent-proposed
+        ("rules.yaml", "mvp.rail_move_cost"),
         ("unit_types.yaml", "types[veteran_soldier].movement_points"),
         ("unit_types.yaml", "types[artillery].movement_points"),
         ("unit_types.yaml", "types[armoured_car].movement_points"),
