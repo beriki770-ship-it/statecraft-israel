@@ -530,7 +530,7 @@ Button.settings-choice-selected { -unity-font-definition: url("project://databas
 .feedback-choice { margin-top: 10px; }
 .feedback-preview { font-size: 15px; margin: 2px 4px 0 4px; }
 .feedback-actions { justify-content: flex-end; margin-top: 12px; flex-shrink: 0; }
-/* "Share" (#1170, SharePresenter): a backdrop over everything, the turn report too, as the turn report's; the post, the Share button, and the share
+/* "Share" (#1170, SharePresenter): the turn report's kind of backdrop, drawn over everything, the report too; the post, the Share button, and the share
    links, which show only where the browser cannot share the picture itself. */
 .share-layer { display: none; position: absolute; left: 0; top: 0; right: 0; bottom: 0; justify-content: center; align-items: center; background-color: rgba(5, 9, 18, 0.6); padding: 16px; }
 .share-open .share-layer { display: flex; }

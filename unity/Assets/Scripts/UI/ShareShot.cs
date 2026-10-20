@@ -87,7 +87,7 @@ namespace Statecraft.Game.UI
             yield return new WaitForEndOfFrame();
             byte[]? png = null;
             Texture2D? frame = null;
-            // A failed capture hands over null, so the panel can say so and the Share buttons keep working.
+            // A failed capture is logged and hands over null: the panel stays shut and the Share buttons keep working.
             try { frame = ScreenCapture.CaptureScreenshotAsTexture(); png = Encode(frame); }
             catch (Exception e) { Debug.LogException(e); }
             finally { if (frame != null) UnityEngine.Object.Destroy(frame); }
