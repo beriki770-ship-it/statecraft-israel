@@ -47,6 +47,7 @@ options:
   - id: investigate_only
     # Game assumption: the notes name no advocate for this option.
     text: Ease the crackdown and leave the killing to the investigation
+    alternative: { basis: design }
     effects:
       - { target: intl_standing, delta: -0.05 }   # the killing itself, shared by both options (notes section 6)
       - { target: intl_standing, delta: -0.10 }

@@ -43,6 +43,15 @@ options:
     # records the dispute over whether the arms went to the IDF as a whole or mainly to Irgun units).
     text: Grant both requests, arming Irgun battalions inside the IDF
     text_he: 'לאשר את שתי הבקשות ולחמש את גדודי האצ"ל בתוך צה"ל'
+    # Who proposed it: research_notes/Alternate timelines/roads-checked.md (checked by the owner, 19 October 2026).
+    alternative:
+      basis: debated
+      by: "the Provisional Government's representatives in the talks with the Irgun command"
+      # First day of the source's range (15-20 June 1948), approximate: owner ruling of 18 October 2026 (#949).
+      date: 1948-06-15
+      sources:
+        - { url: "https://daat.ac.il/etzel/english/ac20.htm", checked: 2026-10-17 }
+        - { url: "https://benyehuda.org/read/56639", checked: 2026-10-17 }
     effects:
       - { target: security, delta: -0.025 }
       # Owner decision of 15 October 2026 (Q-EFX-3, "Add a real cost"; #375): a cost in another resource, a design value.

@@ -53,6 +53,9 @@ public class DesignValuesTests
         ("rules.yaml", "mvp.overflow_condition_loss"),
         ("rules.yaml", "mvp.defeat_turns"),
         ("rules.yaml", "mvp.debt_ceiling"),
+        ("rules.yaml", "mvp.fortify_defence_percent"),   // R-ORDER-002, #746 (Q-HOLD-1)
+        ("rules.yaml", "mvp.hold_defence_percent"),      // R-ORDER-003, #746 (Q-HOLD-2)
+        ("rules.yaml", "attention_cost.unit_order"),     // R-ORDER-001, #746 (D-A6)
         ("rules.yaml", "mvp.delegation_loyalty_floor"),   // R-EVT-003, #107
         ("rules.yaml", "mvp.disloyal_effect_share"),
         // Q-START-1 (owner, 15 October 2026, #375): no city has a sourced housing stock or job count, so every city's
