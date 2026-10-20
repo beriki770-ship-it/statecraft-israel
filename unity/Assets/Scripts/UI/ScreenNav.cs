@@ -113,7 +113,6 @@ namespace Statecraft.Game.UI
             window.AddToClassList(ClosingClass);
             window.SetEnabled(false);
             window.RegisterCallback<TransitionEndEvent>(EndClosing);
-            window.RegisterCallback<TransitionCancelEvent>(EndClosing);
             // a safety net for a shrink that never reports its end (an ancestor hidden meanwhile, a panel that stops):
             // the window must not stay in the layout, disabled. A net left from an earlier close can cut a quick
             // close-reopen-close's shrink short; it never leaves a window stuck.
@@ -121,13 +120,12 @@ namespace Statecraft.Game.UI
         }
 
         /// <summary>The safety net's delay: the 0.3 s shrink of .window-closing, plus a margin.</summary>
-        const long ClosingNetMs = 400;
+        internal const long ClosingNetMs = 400;
 
         static void Hide(VisualElement window)
         {
             window.UnregisterCallback<GeometryChangedEvent>(EndOpening);
             window.UnregisterCallback<TransitionEndEvent>(EndClosing);
-            window.UnregisterCallback<TransitionCancelEvent>(EndClosing);
             window.RemoveFromClassList(OpeningClass);
             window.RemoveFromClassList(ClosingClass);
             window.style.display = DisplayStyle.None;
@@ -141,10 +139,11 @@ namespace Statecraft.Game.UI
             window.RemoveFromClassList(OpeningClass);
         }
 
-        /// <summary>The shrink ended (or stopped): the window leaves the layout, unless it was opened again meanwhile. Only
-        /// the scale counts: closed within 0.5 s of opening, the grow's opacity transition ends during the shrink.</summary>
+        /// <summary>The shrink ended: the window leaves the layout, unless it was opened again meanwhile. Only the scale
+        /// counts: closed within 0.5 s of opening, the grow's opacity transition ends during the shrink. A cancelled
+        /// transition does not count: closing mid-grow cancels the grow's scale, and a shrink that stops is the safety
+        /// net's (Show).</summary>
         static void EndClosing(TransitionEndEvent e) => EndClosing((VisualElement)e.currentTarget, e.target, e.AffectsProperty(Scale));
-        static void EndClosing(TransitionCancelEvent e) => EndClosing((VisualElement)e.currentTarget, e.target, e.AffectsProperty(Scale));
         static readonly StylePropertyName Scale = new StylePropertyName("scale");
         static void EndClosing(VisualElement window, IEventHandler target, bool scale)
         {

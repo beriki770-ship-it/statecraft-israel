@@ -324,6 +324,38 @@ public class HudTests
         yield return OpensAndCloses(element, card.Reopen, card.Collapse, "the decision card");
     }
 
+    /// <summary>#1175 review: a window closed while it still grows (within 0.5 s of opening) retargets the scale
+    /// transition, and the panel sends a TransitionCancelEvent for the grow. That must not hide it: it shrinks, and only the
+    /// shrink's end or ScreenNav's safety net (ClosingNetMs) takes it out of the layout.</summary>
+    [UnityTest]
+    public IEnumerator AWindowClosedWhileItGrowsStillShrinks()
+    {
+        ScreenNav.Moves = () => true;   // StillWindows puts it back
+        using var ui = new UiTestKit();
+        using var nav = new ScreenNav(ui.Root);
+        var screen = ScreenNav.Screens.First();
+        var window = ui.Q<VisualElement>("screen-" + screen);
+        ui.Press("nav-" + screen);
+        yield return Until(() => !window.ClassListContains(ScreenNav.OpeningClass));
+        ui.Press("nav-" + screen);                                // closed mid-grow
+        var closedAt = Time.realtimeSinceStartup;
+        using (var e = TransitionCancelEvent.GetPooled(new StylePropertyName("scale"), 0.2))
+        {
+            e.target = window; window.SendEvent(e);               // the grow, cancelled by the shrink
+        }
+        Assert.AreEqual(DisplayStyle.Flex, window.style.display.value, "the cancelled grow does not hide it: it shrinks");
+        Assert.IsTrue(window.ClassListContains(ScreenNav.ClosingClass), "still shrinking");
+        // a quiet EditMode panel runs its scheduler (the safety net) only on player-loop requests (SafeAreaTests)
+        while (window.style.display.value != DisplayStyle.None && Time.realtimeSinceStartup - closedAt < 3f)
+        {
+            EditorApplication.QueuePlayerLoopUpdate();
+            yield return null;
+        }
+        Assert.AreEqual(DisplayStyle.None, window.style.display.value, "the safety net hides it when no shrink end comes");
+        Assert.GreaterOrEqual(Time.realtimeSinceStartup - closedAt, ScreenNav.ClosingNetMs / 1000f - 0.05f,
+            "not before ClosingNetMs");
+    }
+
     [Test]
     public void NavigationOpensOneScreenAtATime()
     {
