@@ -421,7 +421,7 @@ site.built: "נוסד ב־{0}"
 site.ordered: "הוזמן"
 # The camp, field and swamp sites' parts (#1124): one set a kind, as the yishuv's above. "Training camp" as מחנה אימונים,
 # plowing as חריש, draining as ייבוש; the waits_ lines avoid the place's gender ("after X is built" as "after building X").
-# For the native reviewer (#564).
+# Approved by Beri, a native speaker, on #1133 (19 Oct 2026). For the native reviewer (#564).
 site.available_camp: "אתר ייעודי למחנה אימונים"
 site.build_camp: "הקמת מחנה אימונים עם {0}: {1}, {2}"
 site.building_camp: "בבנייה בידי {0}: עוד {1}"
