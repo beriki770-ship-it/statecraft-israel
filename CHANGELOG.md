@@ -42,12 +42,6 @@ checks this (see `CONTRIBUTING.md`).
   review (refs #1065, #564).
 - Hebrew titles, card text and option text for the 16 events in the second translation batch, pending native-speaker
   review (refs #1066, #564).
-- A "Report a bug or idea" button, beside Star in Settings and in a quiet row under the start screen's buttons, opens a
-  small panel with three choices: GitHub's bug form prefilled with a title, the game's version and content hash, and the
-  browser's user agent and screen size; the feature form with its title; and the itch page's comments for a player with
-  no GitHub account. The panel shows every prefilled line before anything opens, the game sends nothing itself, and each
-  value is URL-encoded with the whole link kept under GitHub's 8000 characters (`ReportLinks`). English and Hebrew
-  labels; the Hebrew awaits the native reviewer (#564) (fixes #1169).
 - An event option can unlock a city project (GDD Phase 7 PR 2, D-H2): a `projects.yaml` kind marked `locked: true` is
   refused by StartProject until an option with `unlock_projects` naming it has applied. The loader refuses an unknown
   kind or one that is not locked, and a sensitive option may not unlock (R-EFX-008, R-EFX-005; refs #806). No real

@@ -113,7 +113,8 @@ community.star: "סימון בכוכב בגיטהאב"
 # "Report a bug or idea" (#1169, FeedbackPresenter): the button and the panel's title ("a report of a bug or an idea"),
 # its note ("the form opens with these lines already filled in; nothing is sent before the sending on GitHub"), and the
 # three choices, all noun phrases or impersonal forms, so no verb agrees with the player's gender; GitHub and itch in
-# Hebrew letters, as the static texts carry no Latin (HebrewUiTests). For the native reviewer (#564).
+# Hebrew letters, as the static texts carry no Latin (HebrewUiTests). Approved by Beri, a native speaker, on #1179
+# (20 Oct 2026). For the native reviewer (#564).
 feedback.open: "דיווח על באג או רעיון"
 feedback.intro: "הטופס נפתח עם השורות האלה כבר ממולאות. שום דבר לא נשלח לפני השליחה בגיטהאב."
 feedback.bug: "דיווח על באג"
