@@ -70,6 +70,8 @@ namespace Statecraft.Game.UI
             bugPreview.text = Preview(ReportLinks.BugFields(version, env));
             unbindBug();
             unbindBug = ExternalLink.Bind(bug, ReportLinks.Bug(version, env));
+            // Each part's own state comes back on Close. The panel takes every press meanwhile, so no screen opens or closes
+            // under it; a resize may still run ScreenNav.DisableCovered, and Close then puts back the states from before.
             covered.Clear();
             foreach (var part in hudRoot.Children().Where(c => c != layer)) { covered.Add((part, part.enabledSelf)); part.SetEnabled(false); }
             hudRoot.AddToClassList(OpenClass);

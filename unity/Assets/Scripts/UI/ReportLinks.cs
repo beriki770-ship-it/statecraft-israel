@@ -49,7 +49,7 @@ namespace Statecraft.Game.UI
         /// operating system, the Unity version and the screen size.</summary>
 #if UNITY_WEBGL && !UNITY_EDITOR
         [System.Runtime.InteropServices.DllImport("__Internal")] static extern string StatecraftBrowserEnv();
-        public static string Environment() => StatecraftBrowserEnv();
+        public static string Environment() => StatecraftBrowserEnv() ?? "";
 #else
         public static string Environment() =>
             $"{SystemInfo.operatingSystem} / Unity {Application.unityVersion}, screen {Screen.width}x{Screen.height}";
