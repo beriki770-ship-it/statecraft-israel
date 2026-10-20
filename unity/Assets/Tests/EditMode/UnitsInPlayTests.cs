@@ -746,7 +746,8 @@ public class UnitsInPlayTests
         {
             var layer = UnitLayer.Create(map, Units, C.Hexes, still: true);
             var day = new DateTime(1948, 5, 29);
-            layer.Show(C, StateAt(day, 5, 0.8));
+            // The legacy loop, whose roster follows the dates and the call-up (the GDD loop draws the sim's units).
+            layer.Show(SimBridgeGddTests.Legacy, StateAt(day, 5, 0.8));
             var cam = Camera.main; Assert.IsNotNull(cam, "the default scene's camera");
             var tokensRoot = map.Terrain.transform.Find(UnitLayer.RootName).Find("Tokens");
             Dictionary<string, Vector3> Figures() => tokensRoot.Cast<Transform>().SelectMany(t => t.Cast<Transform>().Where(x => x.name.StartsWith("Rifleman"))
@@ -764,8 +765,8 @@ public class UnitsInPlayTests
             Assert.Greater(at90.Count, 10, "the figures of 29 May 1948 (not a vacuous pass)");
             // A roster change and back, the camera still at yaw 90: Rebuild faces the new tokens to it.
             var fewer = StateAt(day, 5, 0.3);
-            Assert.IsTrue(layer.Show(C, fewer), "the call-up changes the roster");
-            Assert.IsTrue(layer.Show(C, StateAt(day, 5, 0.8)), "and back");
+            Assert.IsTrue(layer.Show(SimBridgeGddTests.Legacy, fewer), "the call-up changes the roster");
+            Assert.IsTrue(layer.Show(SimBridgeGddTests.Legacy, StateAt(day, 5, 0.8)), "and back");
             AssertStill(at90, "rebuilt at yaw 90");
             // A second camera at yaw 0 renders: the badges and flags face it, the figures stay turned for the game camera.
             other.transform.SetPositionAndRotation(cam.transform.position, Quaternion.Euler(CameraRig.Pitch, 0f, 0f));
@@ -803,11 +804,12 @@ public class UnitsInPlayTests
             Assert.IsTrue(layer.Show(C, session.State));
             Assert.AreEqual(before, session.State.Hash(), "drawing the units changed the state");
             Assert.IsFalse(layer.Show(C, session.State), "the same roster draws nothing new");
-            Assert.AreEqual(10, layer.Tokens.Count);
+            // The GDD loop draws the sim's units (GDD Phase 5 PR 14): seven brigades and the two ships; Etzioni has no sim unit.
+            Assert.AreEqual(9, layer.Tokens.Count);
             var tokens = map.Terrain.transform.Find(UnitLayer.RootName).Find("Tokens");
-            Assert.AreEqual(10, tokens.childCount);
+            Assert.AreEqual(9, tokens.childCount);
             var kiryati = tokens.Find("kiryati");
-            Assert.AreEqual(3, kiryati.Cast<Transform>().Count(t => t.name.StartsWith("Rifleman")), "three riflemen at full call-up");
+            Assert.AreEqual(3, kiryati.Cast<Transform>().Count(t => t.name.StartsWith("Rifleman")), "three riflemen at full strength (Q-UI-3)");
             var badge = kiryati.Find("Badge");
             Assert.IsNotNull(badge, "the promo's badge over every token");
             Assert.AreEqual(2, badge.GetComponentsInChildren<MeshRenderer>().Length, "a plate and a glyph");
@@ -960,11 +962,12 @@ public class UnitsInPlayTests
             var layer = UnitLayer.Create(map, Units, C.Hexes, still: true);
             var info = new InfoPanelPresenter(ui.Root, bridge, Text, new Dictionary<string, string>(), null,
                 () => layer.Selected is string id ? layer.Tokens.First(p => p.Token.Unit.Id == id) : (PlacedToken?)null);
-            layer.Show(C, StateAt(new DateTime(1948, 7, 12), 5, 0.8));
+            // The legacy loop, whose roster follows the dates and the call-up (the GDD loop draws the sim's units).
+            layer.Show(SimBridgeGddTests.Legacy, StateAt(new DateTime(1948, 7, 12), 5, 0.8));
             var yiftach = layer.Tokens.Single(p => p.Token.Unit.Id == "yiftach");
             GameRoot.OnHexClicked(map, layer, info, yiftach.Q, yiftach.R);
             Assert.IsTrue(info.ShowsUnit);
-            layer.Show(C, StateAt(new DateTime(1948, 7, 24), 5, 0.8));   // Operation Dani is over
+            layer.Show(SimBridgeGddTests.Legacy, StateAt(new DateTime(1948, 7, 24), 5, 0.8));   // Operation Dani is over
             Assert.IsNull(layer.Selected);
             Assert.IsNull(map.Terrain.transform.Find(UnitLayer.RootName).Find("SelectionRing"));
             info.Render();

@@ -26,7 +26,9 @@ namespace Statecraft.Game.UI
                 var aircraft = text[t.ArtType == UnitShowcase.SpitfireType ? "unit.aircraft.spitfire" : "unit.aircraft.s199"];
                 lines.Add(text.Format(t.Flying ? "unit.flying" : "unit.parked", aircraft));
             }
-            lines.Add(string.IsNullOrWhiteSpace(a.Since) ? text.Format("unit.position_plain", a.Place) : text.Format("unit.position", a.Place, a.Since!));
+            // A unit that moved in play (GDD loop) stands on a hex no source names: no position line, and the row's sources.
+            bool sourced = a.Place != "";
+            if (sourced) lines.Add(string.IsNullOrWhiteSpace(a.Since) ? text.Format("unit.position_plain", a.Place) : text.Format("unit.position", a.Place, a.Since!));
             if (!string.IsNullOrEmpty(u.Formed)) lines.Add(text.Format("unit.formed", u.Formed!));
             if (!string.IsNullOrEmpty(u.FirstCommander)) lines.Add(text.Format("unit.commander", u.FirstCommander!));
             lines.Add(u.Sector);
@@ -39,7 +41,7 @@ namespace Statecraft.Game.UI
                 // Israel's call-up and security level set only Israel's tokens; an Arab force's token reflects neither (#665).
                 Footer = (u.Side == UnitData.Israel ? text.Format("unit.national", PlayerText.Percent(state.Mobilization), state.Rung) + "\n" : "")
                     + text.Format("unit.sources", string.Join(", ", hosts)),
-                Note = UnitData.IsWikipediaOnly(a.Sources) ? text["unit.draft_wikipedia"] : text["unit.draft"],
+                Note = (sourced ? UnitData.IsWikipediaOnly(a.Sources) : UnitData.IsWikipediaOnly(u)) ? text["unit.draft_wikipedia"] : text["unit.draft"],
             };
         }
     }
