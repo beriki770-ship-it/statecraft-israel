@@ -77,7 +77,7 @@ guide.training.text: "במחנה צבאי אפשר לאמן אזרחים ללא 
 guide.event.title: "כרטיס אירוע"
 guide.event.text: "כרטיס אירוע מבקש מכם החלטה. מענה עליו עולה תשומת לב, והבחירה שלכם נכנסת לתוקף בסיום התור. כרטיס שלא עניתם עליו עובר לשר האחראי."
 guide.objectives.title: "יעדים"
-guide.objectives.text: "במסך היעדים מופיעים יעדי המשחק, כמו היישוב החדש הראשון, ולצד כל אחד התאריך שבו השלמתם אותו לעומת התאריך ההיסטורי. השלמת יעד מביאה גם את הכרטיס שלו."
+guide.objectives.text: "במסך היעדים מופיעים יעדי המשחק ולצד כל אחד התאריך שבו השלמתם אותו לעומת התאריך ההיסטורי. השלמת יעד מביאה גם את הכרטיס שלו."
 # The Settings screen (#40). "On" / "Off" as a switch's state, not a command. For the native reviewer (#564).
 settings.title: "הגדרות"
 settings.tiltshift: "טשטוש בחלק העליון ובחלק התחתון של המפה"
@@ -129,6 +129,7 @@ share.post: "ניהול מדינת ישראל ב־1948 במשחק Statecraft: Is
 share.native: "שיתוף"
 share.download: "הורדת התמונה"
 share.attach: "האתרים האלה לא מקבלים תמונה דרך קישור: יש לצרף לפוסט את התמונה שהורדה."
+share.instagram: "לאינסטגרם אין קישור לשיתוף: התמונה הורדה, ויש לפרסם אותה מאפליקציית אינסטגרם."
 # Copy (#1238): the button ("copying"), "the picture was copied", "the text was copied", and the failure ("copying is
 # not possible here; the picture can still be shared or downloaded with the button above"). Agent-drafted.
 # Approved by Beri, a native speaker, on #1253 (21 Oct 2026).
@@ -493,7 +494,8 @@ city.project_ordered: "הוזמנה הקמת {0}"
 city.project_building: "{0} עבור {1}: עוד {2}"
 city.project_built: "{0} עבור {1}: הבנייה הושלמה ב־{2}"
 city.project_reason.no_resource: "ב־{0} אין {1} עבור {2}"
-city.project_reason.turn_cap: "אי אפשר להתחיל יותר מ־{0} פעולות מפה ומיזמים עירוניים בתור אחד"
+# turn_cap: approved by Beri, a native speaker, on #1267 (21 Oct 2026).
+city.project_reason.turn_cap: "אי אפשר להתחיל יותר מ־{0} מיזמים עירוניים בתור אחד"
 # The toggle that folds a city's own projects on a stacked bar or a short window (owner ruling on #1150), {0} the
 # number of kinds. For the native reviewer (#564).
 city.projects_toggle: "מיזמי העיר ({0})"

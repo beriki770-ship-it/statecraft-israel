@@ -27,14 +27,15 @@ macOS IL2CPP parity check is not an MVP release gate.
    "$UNITY" -batchmode -CI false -GITHUB_ACTIONS false -TF_BUILD false -quit -projectPath unity -buildTarget WebGL -executeMethod Statecraft.Game.EditorTools.Build.Web -compression gzip -shareable -logFile "$PWD/unity-build-web-gz.log"
    git checkout -- unity/Assets/Settings unity/ProjectSettings/ProjectSettings.asset
    golden_expect=(); while read -r name hash; do [[ -z "$name" || "$name" == \#* ]] || golden_expect+=(--expect "GOLDEN OK $name $hash"); done < sim/Statecraft.Sim.Tests/golden/manifest.txt
-   # one GOLDEN OK line per manifest golden (#394), e.g. "GOLDEN OK hash1950 73eb50db39dbc9ee569c18a5e0a68e55a2b88980d06da76e5f5bfffe22997675"
-   # and "GOLDEN OK hash1952 d9922fc9baaba3fcc5a6fbcd64de9317f787d7d3a8a0fb61f32a6b1b86462d91"
+   # one GOLDEN OK line per manifest golden (#394), e.g. "GOLDEN OK hash1950 a1ad42117a8523a79cf36cc03f33c63fbe887820d7f6fb89a834f2f952510548"
+   # and "GOLDEN OK hash1952 9cbd73eda1440e1ee3e1ee565cf81960f2e7ee5595e55bdb4ed661f1d5e0ab40"
    uv run tools/web_check.py unity/Builds/Web-gzip --query "golden&smoke=5" "${golden_expect[@]}" \
-     --expect "SMOKE OK 5 turns 1948-10-15 e5a66f9c2c0c0718d7969289fcc8dd005dedddd37a7c25adfffdc45e2e8b29cd"
+     --expect "SMOKE OK 5 turns 1948-10-15 ed761c3b9c4e9b76520af20080b2a7c8b984a1f44f1d52e5127aae1baa992a8d"
    uv run tools/web_check.py unity/Builds/Web-gzip --startscreen new --timeout 300 --stall 90
    uv run tools/web_check.py unity/Builds/Web-gzip --startscreen recording --timeout 300 --stall 90
    uv run tools/web_check.py unity/Builds/Web-gzip --startscreen new --query lang=he --timeout 300 --stall 90
    uv run tools/web_check.py unity/Builds/Web-gzip --startscreen recording --query lang=he --timeout 300 --stall 90
+   uv run tools/web_check.py unity/Builds/Web-gzip --persistence --timeout 300 --stall 90
    bash scripts/oss/package_web.sh unity/Builds/Web-gzip unity/Builds/statecraft-israel-vX.Y.Z-web.zip
    ```
 
@@ -48,6 +49,9 @@ macOS IL2CPP parity check is not an MVP release gate.
    first, which the golden and smoke run skips: New game, and Play the recording then New game, in English and in
    Hebrew. Each must print `PASS`. A console exception, `RECORDING failed` or `BOOT FAIL` fails it (#908).
 
+   The English-only `--persistence` pass waits for each save's matching IndexedDB commit and checks that both reloads
+   restore its date, turn and state hash.
+
    For the website's playable demo, build a second web variant with Unity's Decompression Fallback - GitHub Pages
    cannot set response headers, so the loader must decompress the files itself (the site's Play page explains) -
    check it and package it the same way:
@@ -56,11 +60,12 @@ macOS IL2CPP parity check is not an MVP release gate.
    "$UNITY" -batchmode -CI false -GITHUB_ACTIONS false -TF_BUILD false -quit -projectPath unity -buildTarget WebGL -executeMethod Statecraft.Game.EditorTools.Build.Web -compression gzip -decompressionFallback -shareable -out Builds/Web-pages -logFile "$PWD/unity-build-web-pages.log"
    git checkout -- unity/Assets/Settings unity/ProjectSettings/ProjectSettings.asset
    uv run tools/web_check.py unity/Builds/Web-pages --query "golden&smoke=5" "${golden_expect[@]}" \
-     --expect "SMOKE OK 5 turns 1948-10-15 e5a66f9c2c0c0718d7969289fcc8dd005dedddd37a7c25adfffdc45e2e8b29cd"
+     --expect "SMOKE OK 5 turns 1948-10-15 ed761c3b9c4e9b76520af20080b2a7c8b984a1f44f1d52e5127aae1baa992a8d"
    uv run tools/web_check.py unity/Builds/Web-pages --startscreen new --timeout 300 --stall 90
    uv run tools/web_check.py unity/Builds/Web-pages --startscreen recording --timeout 300 --stall 90
    uv run tools/web_check.py unity/Builds/Web-pages --startscreen new --query lang=he --timeout 300 --stall 90
    uv run tools/web_check.py unity/Builds/Web-pages --startscreen recording --query lang=he --timeout 300 --stall 90
+   uv run tools/web_check.py unity/Builds/Web-pages --persistence --timeout 300 --stall 90
    bash scripts/oss/package_web.sh unity/Builds/Web-pages unity/Builds/statecraft-israel-vX.Y.Z-web-pages.zip
    ```
 

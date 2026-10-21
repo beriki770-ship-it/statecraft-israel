@@ -172,6 +172,11 @@ public class DesignValuesTests
         ("rules.yaml", "mvp.arms_start"),
         ("rules.yaml", "mvp.arms_price"),
         ("rules.yaml", "mvp.arms_per_recruit_group"),
+        // Prisoners (Phase 5 PR 12, #751; Q-POW-2, Q-POW-4, Q-POW-5): agent defaults for the owner to set or accept.
+        ("rules.yaml", "mvp.food_per_prisoner_unit"),
+        ("rules.yaml", "mvp.prisoner_shortfall_cohesion"),
+        ("rules.yaml", "mvp.points_per_prisoner_unit_returned"),
+        ("rules.yaml", "mvp.held_soldier_cost_per_turn"),
     }.Concat(CombatTableCells()).ToArray();
 
     /// <summary>rules.yaml mvp.combat_table, every cell: its five rows (below 1:2, 1:2, 1:1, 2:1, 3:1) with their start ratio
@@ -276,6 +281,7 @@ public class DesignValuesTests
         Assert.Equal((5, 0.5), (m.DelegationLoyaltyFloor, m.DisloyalEffectShare));   // R-EVT-003, #107 (D-H1)
         Assert.Equal((12, 1.0, 1, 1.0), (m.ArmsStart, m.ArmsPrice, m.ArmsPerRecruitGroup, c.Rules.AttentionCost["buy_arms"]));   // #781 (D-G6)
         Assert.Equal((1, 5, 6), (m.ArmsPerAttack, m.CombatTable.Count, m.CombatTable[0].AttackerLoss.Count));   // #747 (D-G6, D-G3), accepted by the owner 20 Oct 2026
+        Assert.Equal((1, 0.01, 10, 0.005), (m.FoodPerPrisonerUnit, m.PrisonerShortfallCohesion, m.PointsPerPrisonerUnitReturned, m.HeldSoldierCostPerTurn));   // #751 (Q-POW-2, Q-POW-4, Q-POW-5), agent defaults
         Assert.Equal(12, c.Cities.Count);
         foreach (var x in c.Cities)   // the listed housing and job values are the ones Cities.Init starts from
             Assert.Equal(((int)x.Housing!.Value, (int)x.Jobs!.Value), (x.HousingCapacity, x.JobSlots));

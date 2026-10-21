@@ -197,7 +197,7 @@ public class CombatTests
         var next = s.NextId;
         var why = Resolve(c, s);
         Assert.False(s.Units.ContainsKey(2));
-        Assert.Contains(why, x => x.Message == "Unit 2 surrendered with 20 people: it had no hex to retreat to");
+        Assert.Contains(why, x => x.Message == "Unit 2 surrendered with 20 people: it had no hex to retreat to. They are held as prisoners");
         Assert.Equal(next, s.NextId);
     }
 
@@ -281,13 +281,16 @@ public class CombatTests
         AssertOnlyCombatantsChanged(before, s);
     }
 
-    /// <summary>R-COMBAT-005: <paramref name="after"/> differs from <paramref name="before"/> only in its units, its Arms and the
-    /// RNG: with those three copied back, the hashes match.</summary>
+    /// <summary>R-COMBAT-005: <paramref name="after"/> differs from <paramref name="before"/> only in its units, its Arms, the
+    /// RNG and, from a surrender, the counts of prisoners and of the player's soldiers held (R-POW-001, R-POW-005): with those
+    /// copied back, the hashes match.</summary>
     internal static void AssertOnlyCombatantsChanged(GameState before, GameState after)
     {
         var copy = before.Clone();
         copy.Units.Clear();
         foreach (var u in after.Units.Values) copy.Units.Add(u.Id, u);
+        copy.PrisonersHeld = new SortedDictionary<string, int>(after.PrisonersHeld, StringComparer.Ordinal);
+        copy.SoldiersHeld = new SortedDictionary<string, int>(after.SoldiersHeld, StringComparer.Ordinal);
         copy.Arms = after.Arms;
         copy.RngState = after.RngState;
         Assert.Equal(after.Describe(), copy.Describe());
@@ -306,12 +309,14 @@ public class CombatTests
     }
 
     // R-COMBAT-005: over the reference war run (the goldens' run to the game's end), step 2 run on each turn's end state, with
-    // its standing attacks, changes only the units, the Arms and the RNG. The run has engagements, so the test is not empty.
+    // its standing attacks, changes only the units, the Arms and the RNG. The run has engagements, so the test is not empty:
+    // since #1240 the real start has none (Golani's 4 against the Syrian 3 is under the policy's 3:2), so unit 0 starts at
+    // its old 5 (ReferencePlayerTests.AtFive).
     [Fact]
     public void CombatTouchesOnlyCombatants()
     {
         var c = Real;
-        var s = Simulation.NewGame(c, GoldenRun.Seed, Mode.Historical);
+        var s = ReferencePlayerTests.AtFive(Simulation.NewGame(c, GoldenRun.Seed, Mode.Historical));
         int engagements = 0;
         for (int turn = 0; turn < 1000 && s.Date < c.End && s.GameOver == null; turn++)
         {
