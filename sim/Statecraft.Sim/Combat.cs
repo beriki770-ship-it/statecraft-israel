@@ -88,8 +88,10 @@ namespace Statecraft.Sim
 
         /// <summary>The attack preview (spec section 2.6; Q-UI-1): the ratio, in percent and rounded down, of unit
         /// <paramref name="unitId"/>'s strength plus that of the units of its team already ordered to attack (q, r) from next to
-        /// it, against the enemy units there after fortify and terrain, and the combat_table row it falls in. Null when (q, r)
-        /// is not next to the unit or holds no enemy unit, or the unit is unknown or no military unit.</summary>
+        /// it (artillery: from within its range), each at its combat factor, against the enemy units there after fortify and
+        /// terrain, and the combat_table row it falls in. Null when (q, r) is out of the unit's reach or holds no enemy unit, or
+        /// the unit is unknown or no military unit. A gun previewed with no other attacker still gets a ratio, though step 2
+        /// would have it hold its fire (R-COMBAT-007); the UI that shows it is Phase 5 PR 15.</summary>
         public static (int RatioPercent, int Row)? Preview(Content c, GameState s, int unitId, int q, int r)
         {
             if (!s.Units.TryGetValue(unitId, out var u) || !Military(u) || !InReach(c, u, q, r)) return null;
