@@ -28,7 +28,9 @@ namespace Statecraft.Sim
             Cities.House(c, s, r, why);                      // 8. housing, then the housing condition; Social cohesion is morale, which the effects web moves after the resolution
             Cities.UpdateCondition(c, s, r, why);
             Cities.Arrive(c, s, r, next, why);            // 9. arrivals
-            // 10. Occupation timers: Phase 6.
+            // 10. Occupation timers: Phase 6 PR 6. On the turn that reaches the game's end, a capture still awaiting the choice
+            //     counts as Raid (R-CTRL-008, #797).
+            if (next >= c.End) SettlementControl.EndPending(c, s, why);
             Objectives.Complete(c, s, r, next, why);      // 11. objectives and score
             Defeat(s, r, why);                            //     then the defeat (D-B5); the war loss waits for Phase 5
         }
