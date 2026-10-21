@@ -151,10 +151,12 @@ public class InfoPanelLayoutTests
         var site = C.Sites.Single(s => s.Id == "mefalsim");
         var start = GameSession.New(C, GoldenRun.Seed, Mode.Historical).State;
         var lone = C.Hexes.Where(x => x.Land && Projects.CitiesFor(C, start, x.Q, x.R).Count == 1).OrderBy(x => x.Q).ThenBy(x => x.R).First();
+        var hula = C.Sites.Single(s => s.Id == "hula");   // #1124: the swamp and its waiting field, the tallest site hex
         var problems = new List<string>();
         foreach (var hebrew in new[] { false, true })
             foreach (var (w, h) in Windows)
-                foreach (var (what, q, r) in new[] { ("city", city.Q, city.R), ("site", site.Q, site.R), ("projects", lone.Q, lone.R), ("city with the policy", city.Q, city.R) })
+                foreach (var (what, q, r) in new[] { ("city", city.Q, city.R), ("site", site.Q, site.R), ("projects", lone.Q, lone.R), ("city with the policy", city.Q, city.R),
+                    ("field", site.Q, site.R), ("hula", hula.Q, hula.R) })
                 {
                     var g = GameSession.New(C, GoldenRun.Seed, Mode.Historical);
                     var s = g.State;
@@ -162,6 +164,7 @@ public class InfoPanelLayoutTests
                     for (int k = 0; k < 2; k++) { var id = s.NextId++; s.Units.Add(id, new Unit(id, "halutz", city.Q, city.R)); }
                     // With the ma'abarot policy every project kind is a Build button: the city's tallest project part (#1122).
                     if (what == "city with the policy") s.Policies[MapActions.MaabarotPolicy] = 1;
+                    if (what == "field") s.Sites[site.Id] = SiteWork.Built(site.Id, s.Date);   // #1124: the yishuv built, its field's Plow
                     var at = $"{(hebrew ? "he" : "en")} {w}x{h} {what}";
                     yield return Rendered(w, h, g, (root, info) => info.Show(q, r), root =>
                     {
