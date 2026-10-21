@@ -36,6 +36,10 @@ R-CTRL-002: Settlement control is an ordinal `SortedDictionary<string, Settlemen
 
 R-CTRL-003: Residents and combatants are distinct fields. Residents are a state, inhabited or depopulated, not a count (Q-CAP-2 (b)). No rule reads residents as combatants, prisoners, refugee units, labour or a resource; annexation is the one place a later owner-approved rule may say otherwise.
 
+R-CTRL-004: Resolver step 3 is the capture check, after combat (step 2), in ordinal settlement id (Q-CAP-1 (a), Q-CAP-3 (a), owner rulings of 18 October 2026). A target that starts under enemy control, one listed in `mvp.enemy_held_localities`, is captured at turn end when Israeli military units are on its hex and no enemy military unit is; only military units are combatants, so a halutz holds nothing. Its record names `israel` as owner, has the state `awaiting_choice` and starts on the turn's end (`Since`); the player's units stay on the hex. A captured target that only enemy military units are on is under enemy control again, and its record is removed. A target not enemy-held at the start (Jaffa, owner ruling of 18 October 2026 on #793, "Only in a what-if") is never captured. The check is an integer rule on unit positions and draws nothing from the RNG.
+
+R-CTRL-005: Capture writes the settlement state only. It changes no resident field (the place stays inhabited), no unit, no resource, parameter, city or score, and counts towards no objective (constraint 6 of the Phase 6 plan; impact plan section 4.3).
+
 ## Saves
 
 R-SAVE-001: A save names the ruleset it was played under (`ruleset legacy` or `ruleset gdd-0.1`, save schema 2). A game refuses a save made under another ruleset. A schema 1 save has no ruleset line and is legacy, so the GDD game refuses it as made under earlier rules. The refusal carries a code (`older_rules`) the UI translates, and the sim's reason does not itself ask for a new game: the player reads that once (N4).
