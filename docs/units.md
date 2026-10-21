@@ -225,7 +225,9 @@ deletes it.
 - **The squadron and the ships** are tokens only (Q-UNIT-5): they still come from their rows' windows.
 - So from 15 May 1948 the map draws the twelve starting forces where the sim holds them. A row with no sim unit (Etzioni,
   which has no sourced strength, and the brigades whose windows open later, such as Yiftach and the 7th) draws no token
-  in the GDD loop until a later Phase 5 PR raises it.
+  in the GDD loop until a later Phase 5 PR raises it. An Israeli army row with a sourced anchor on 15 May and no starting
+  sim unit (Etzioni in Jerusalem; `UnitRoster.Gaps`) shows the gap: its plinth's white rim on the ground and its badge's
+  plate with no glyph, one badge lift higher so it clears Jerusalem's kit (owner on #1205). It cannot be selected.
 - Tests: `UnitsFromStateTests` (EditMode).
 
 ### The 1948 Collection on the tokens (#665)

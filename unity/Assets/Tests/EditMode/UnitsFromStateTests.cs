@@ -56,6 +56,18 @@ public class UnitsFromStateTests
     }
 
     [Test]
+    public void ABrigadeAnchorWithNoStartingUnitIsAGapUntilAUnitExists()
+    {
+        // Owner on #1205: the Jerusalem gap where Etzioni's token was should be easy to spot. Derived from the content, not a name.
+        var units = Units;
+        var gaps = UnitRoster.Gaps(units, C.StartingForces, C.Rules.Start);
+        CollectionAssert.AreEqual(new[] { "etzioni" }, gaps.Select(g => g.row.Id), "the one 15 May brigade anchor with no sim unit");
+        Assert.AreEqual("Jerusalem", gaps[0].anchor.Place);
+        var withUnit = C.StartingForces.Concat(new[] { new StartingForce { Row = "etzioni" } }).ToList();
+        Assert.IsEmpty(UnitRoster.Gaps(units, withUnit, C.Rules.Start), "a starting unit for the row closes the gap");
+    }
+
+    [Test]
     public void OneTokenPerUnitOnItsHex()
     {
         Assert.IsTrue(C.IsGdd, "the real content runs the GDD loop");
