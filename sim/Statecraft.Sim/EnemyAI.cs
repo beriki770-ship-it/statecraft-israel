@@ -51,6 +51,14 @@ namespace Statecraft.Sim
             foreach (var id in s.Units.Keys.ToList())   // Units is a SortedList: ascending id
             {
                 if (!s.Units.TryGetValue(id, out var u) || !IsEnemy(u)) continue;
+                // R-ENEMY-006: a truce ends a standing attack whatever the unit does: a scripted move keeps every order but
+                // fortify (Movement.Move), and step 2 would resolve it inside the truce (owner, #1263).
+                if (truce && u.Order == Combat.Attack)
+                {
+                    s.Units[id] = new Unit(u.Id, u.Type, u.Q, u.R, u.Service, u.Side, u.Strength, "", "");
+                    why.Add(new Cause("map", id.ToString(System.Globalization.CultureInfo.InvariantCulture), 0,
+                        $"Unit {id}'s attack on hex {u.OrderTarget} ends: a truce is on"));
+                }
                 if (Script(c, s, u) is (int q, int r) && Movement.Toward(c, s, u, q, r) is (int tq, int tr)
                     && Movement.Move(c, s, id, tq, tr, spent, why, enemy: true) == null) continue;
                 Goals(c, s, mvp, s.Units[id], truce, why);
