@@ -423,6 +423,19 @@
                 <Statecraft.Game.UI.UiFrame />
             </ui:VisualElement>
         </ui:VisualElement>
+        <!-- The end screen (#812, EndScreenPresenter): the sim's end report once the game is over. Over the turn report the
+             last turn brings, under the outcome clips' layer; the same backdrop and panel as the report. -->
+        <ui:VisualElement name="end-screen" class="turn-report">
+            <ui:VisualElement name="end-screen-panel" class="panel turn-report-panel">
+                <ui:VisualElement class="screen-header"><ui:Label name="end-screen-title" class="title" /></ui:VisualElement>
+                <ui:ScrollView name="end-screen-rows" class="turn-report-rows" />
+                <ui:VisualElement class="row turn-report-actions">
+                    <ui:Button name="end-screen-new-game" />
+                    <ui:Button name="end-screen-close" />
+                </ui:VisualElement>
+                <Statecraft.Game.UI.UiFrame />
+            </ui:VisualElement>
+        </ui:VisualElement>
         <!-- The End Turn outcome clip (OutcomePresenter): the historical order the player gave, as a 3.5 s silent clip in the
              middle, captioned as the order; a click, Enter or Space skips it, Esc skips them all. After the screens, so it
              is drawn over them (an open screen is also closed when a clip starts); only the start screen and the toast come
