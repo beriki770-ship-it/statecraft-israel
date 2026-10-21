@@ -398,7 +398,11 @@ checks every anchor and logs each spot and its distance.
   exactly those hexes (`MapScene.ShowReachable`, a band half the selection's width); a click on a lit hex queues the
   sim's `Move` through `SimBridge` and the card says the move waits for End turn; any other click, a second press, a
   turn or another selection ends the pick. The sim refuses a move that is no longer possible at End turn with its own
-  reason. Tests: `UnitOrdersTests`, `InfoPanelLayoutTests.TheUnitCardWithItsMoveOrderFitsEveryWindow`.
+  reason. Slice 2 adds Fortify and Hold (Q-UI-2's "Fortify" / "ביצור", "Hold" / "החזקה"): each button shows only where
+  the sim's `Orders.Check` takes the order, and where it does not, the card shows the sim's reason as the sim gives it
+  (in English for now, as the End turn toast does). A press queues the sim's `UnitOrder` through `SimBridge` (one standing
+  order per unit: Hold replaces a queued Fortify) and the card says when it takes effect. Tests: `UnitOrdersTests`,
+  `InfoPanelLayoutTests.TheUnitCardWithItsOrdersFitsEveryWindow`.
 
 **The Avia S-199** (`UnitModels.AviaS199`; type `avia-s199-101sqn-1948`):
 - The Bf 109G airframe, 8.94 m long with a 9.92 m span, with the Jumo 211F's wide three-blade paddle propeller and the

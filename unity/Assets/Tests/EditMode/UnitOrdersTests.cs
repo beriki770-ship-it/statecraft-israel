@@ -13,9 +13,10 @@ using UnityEditor.SceneManagement;
 using UnityEngine;
 using UnityEngine.UIElements;
 
-/// <summary>GDD Phase 5 PR 15, slice 1 (#754): the unit card's Move order. The card offers Move only when the sim's
+/// <summary>GDD Phase 5 PR 15 (#754): the unit card's orders. Slice 1, Move: the card offers Move only when the sim's
 /// Movement.Reachable has a hex for the unit; pressing it lights exactly those hexes on the map, a click on one queues the
-/// sim's Move through SimBridge, and a click anywhere else ends the pick and selects as before.</summary>
+/// sim's Move through SimBridge, and a click anywhere else ends the pick and selects as before. Slice 2, Fortify and Hold:
+/// each shows only where the sim's Orders.Check takes it, else the sim's reason, and a press queues the sim's UnitOrder.</summary>
 public class UnitOrdersTests
 {
     static readonly Content C = ContentLoader.Load(Paths.Content);
@@ -157,6 +158,77 @@ public class UnitOrdersTests
             info.Dispose();
         }
         finally { Object.DestroyImmediate(map.gameObject); }
+    }
+
+    /// <summary>Slice 2 (#754): for every unit with a sim unit, Israel's and the enemy's, the card shows Fortify and Hold each
+    /// only where the sim's Orders.Check takes it, and where it does not, the sim's reason, whatever it is (so a refusal the
+    /// sim adds later, such as artillery's hold, shows with no change here). A unit already holding has no Hold, with the
+    /// sim's reason; once the game is over neither shows.</summary>
+    [Test]
+    public void TheCardOffersFortifyAndHoldOnlyWhereTheSimTakesThem()
+    {
+        using var ui = new UiTestKit();
+        var g = GameSession.New(C, GoldenRun.Seed, Mode.Historical);
+        var bridge = new SimBridge(g, Text);
+        PlacedToken? shown = null;
+        var info = new InfoPanelPresenter(ui.Root, bridge, Text, new Dictionary<string, string>(), selectedUnit: () => shown);
+        var buttons = new[] { (Orders.Fortify, ui.Q<Button>("info-fortify")), (Orders.Hold, ui.Q<Button>("info-hold")) };
+        var tokens = UnitRoster.FromState(Units, C, g.State, _ => true, (row, a, q, r) => a).Where(t => UnitCard.SimUnit(C, g.State, t.Unit) != null).ToList();
+        Assert.IsTrue(tokens.Any(t => t.Unit.Side == UnitData.Israel) && tokens.Any(t => t.Unit.Side != UnitData.Israel), "precondition: both sides");
+        void Expect(UnitToken token, string at)
+        {
+            shown = new PlacedToken(token, new AnchorSpot(0, 0, 0, 0, false));
+            info.ShowUnit();
+            var id = UnitCard.SimUnit(C, bridge.State, token.Unit)!.Value;
+            foreach (var (order, button) in buttons)
+            {
+                var why = Orders.Check(C, bridge.State, id, order);
+                Assert.AreEqual(why == null ? DisplayStyle.Flex : DisplayStyle.None, button.style.display.value, $"{at} {token.Unit.Id}: {order} ({why})");
+                if (why != null) StringAssert.Contains(why, ui.Q<Label>("info-reason").text, $"{at} {token.Unit.Id}: the sim's reason");
+            }
+        }
+        foreach (var token in tokens) Expect(token, "start");
+        Assert.AreEqual(("Fortify", "Hold"), (buttons[0].Item2.text, buttons[1].Item2.text), "Q-UI-2's approved names");
+        var golani = tokens.Single(t => t.Unit.Id == "golani");
+        var id0 = UnitCard.SimUnit(C, g.State, golani.Unit)!.Value;
+        Assert.IsNull(bridge.Queue(new UnitOrder(id0, Orders.Hold)));
+        bridge.EndTurn();
+        Assert.IsNotNull(Orders.Check(C, bridge.State, id0, Orders.Hold), "precondition: Golani holds");
+        Expect(golani, "holding");
+        Assert.IsTrue(Shown(buttons[0].Item2), "a holding unit can still fortify");
+        bridge.State.GameOver = GameOverCodes.MvpEnded;
+        info.ShowUnit();
+        Assert.IsFalse(buttons.Any(b => Shown(b.Item2)), "no orders once the game is over");
+        info.Dispose();
+    }
+
+    /// <summary>Fortify queues the sim's UnitOrder(unit, fortify) through SimBridge and the card says when it is set; Hold
+    /// then replaces it (one standing order per unit) and the card says so instead.</summary>
+    [Test]
+    public void FortifyAndHoldQueueTheSimsOrder()
+    {
+        using var ui = new UiTestKit();
+        var g = GameSession.New(C, GoldenRun.Seed, Mode.Historical);
+        var bridge = new SimBridge(g, Text);
+        var golani = UnitRoster.FromState(Units, C, g.State, _ => true, (row, a, q, r) => a).Single(t => t.Unit.Id == "golani");
+        PlacedToken? shown = new PlacedToken(golani, new AnchorSpot(0, 0, 0, 0, false));
+        var info = new InfoPanelPresenter(ui.Root, bridge, Text, new Dictionary<string, string>(), selectedUnit: () => shown);
+        var id = UnitCard.SimUnit(C, g.State, golani.Unit)!.Value;
+        info.ShowUnit();
+        string Lines() => ui.Q<Label>("info-settlements").text;
+        Assert.IsFalse(Lines().Contains(Text["unit.fortify_queued"]) || Lines().Contains(Text["unit.hold_queued"]), Lines());
+        UiTestKit.Press(ui.Q<Button>("info-fortify"));
+        var queued = bridge.Queued.OfType<UnitOrder>().Single();
+        Assert.AreEqual((id, Orders.Fortify, (int?)null, (int?)null), (queued.Unit, queued.Order, queued.Q, queued.R));
+        StringAssert.Contains(Text["unit.fortify_queued"], Lines());
+        UiTestKit.Press(ui.Q<Button>("info-hold"));
+        queued = bridge.Queued.OfType<UnitOrder>().Single();
+        Assert.AreEqual((id, Orders.Hold), (queued.Unit, queued.Order));
+        StringAssert.Contains(Text["unit.hold_queued"], Lines());
+        Assert.IsFalse(Lines().Contains(Text["unit.fortify_queued"]), Lines());
+        Assert.IsEmpty(bridge.EndTurn().Rejected, "the sim takes the order the card queued");
+        Assert.AreEqual(Orders.Hold, bridge.State.Units[id].Order);
+        info.Dispose();
     }
 
     /// <summary>The overlay draws one band per hex given (two rings of MapBuilder.RingVertices each) and hides when given
