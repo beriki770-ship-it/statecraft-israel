@@ -333,14 +333,16 @@ namespace Statecraft.Game.UI
                 EndPick();
             var moves = MoveTargets();
             moveButton.style.display = moves != null ? DisplayStyle.Flex : DisplayStyle.None;
-            // Fortify and Hold (#754): each offered only where the sim's Orders.Check takes it; else the sim's reason, as given.
+            // Fortify and Hold (#754): each offered only where the sim's Orders.Check takes it; else the sim's reason, as given,
+            // on Israel's units only (an enemy's card would only repeat the sim's English "That unit is not yours").
             var orderUnit = OrderUnit();
+            var own = unit?.Token.Unit.Side == UnitData.Israel;
             var refusals = new List<string>();
             foreach (var (order, button) in new[] { (Orders.Fortify, fortifyButton), (Orders.Hold, holdButton) })
             {
                 var why = orderUnit is int ou ? Orders.Check(c, s, ou, order) : null;
                 button.style.display = orderUnit != null && why == null ? DisplayStyle.Flex : DisplayStyle.None;
-                if (why != null && !refusals.Contains(why)) refusals.Add(why);
+                if (why != null && own && !refusals.Contains(why)) refusals.Add(why);
             }
             panel.EnableInClassList(UnitClass, unit != null);
             if (unit != null)
