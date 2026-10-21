@@ -392,7 +392,13 @@ checks every anchor and logs each spot and its distance.
 - It also gives the national values the token reflects on Israel's cards (legacy loop: "Reserve call-up 80% · security level
   5 of 5"; in the GDD loop only the squadron's card has one, "Security level 5 of 5", see above) and the source
   hosts, with a draft note that says "Wikipedia only" when the position's own sources are.
-- It has no orders; a button opens the Defence screen.
+- A button opens the Defence screen. In the GDD loop the card also gives the Move order (GDD Phase 5 PR 15, slice 1,
+  #754; Q-UI-2's name, "Move" / "תנועה"). The button shows only when `Movement.Reachable` has a hex for the unit (the
+  token's sim unit is its row's starting force, `UnitCard.SimUnit`), and not once the game is over. Pressing it lights
+  exactly those hexes (`MapScene.ShowReachable`, a band half the selection's width); a click on a lit hex queues the
+  sim's `Move` through `SimBridge` and the card says the move waits for End turn; any other click, a second press, a
+  turn or another selection ends the pick. The sim refuses a move that is no longer possible at End turn with its own
+  reason. Tests: `UnitOrdersTests`, `InfoPanelLayoutTests.TheUnitCardWithItsMoveOrderFitsEveryWindow`.
 
 **The Avia S-199** (`UnitModels.AviaS199`; type `avia-s199-101sqn-1948`):
 - The Bf 109G airframe, 8.94 m long with a 9.92 m span, with the Jumo 211F's wide three-blade paddle propeller and the

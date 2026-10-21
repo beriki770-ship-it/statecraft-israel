@@ -148,6 +148,8 @@
                     <ui:Button name="build-camp" />
                     <ui:Button name="build-housing" />
                     <ui:Button name="info-defence" />
+                    <!-- The unit card's Move order (GDD loop, #754): shown only when the sim has a hex the unit can reach. -->
+                    <ui:Button name="info-move" />
                 </ui:VisualElement>
                 <ui:Label name="info-reason" class="reason" />
                 <!-- The hex's city projects (GddHexPanel, #1122): here, not in the GDD column, which a city's own hex fills. -->
