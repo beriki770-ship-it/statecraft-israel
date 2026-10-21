@@ -88,20 +88,22 @@ public class OrdersTests
     }
 
     // R-ORDER-003: hold acts on the unit itself and nothing around it: an enemy unit next to it and one past it keep their
-    // hexes through the turn, and neither they nor a player unit beside it change their defence. Enemy moves come with the
-    // enemy AI (Phase 5 PR 10); nothing in hold stops one.
+    // hexes through the turn, and a player unit beside it keeps its defence. The enemy units fortify by their own AI
+    // (R-ENEMY-003, below the attack ratio here), not because of the hold; nothing in hold stops an enemy move.
     [Fact]
     public void HoldNeverIntercepts()
     {
         var c = Load();
-        var s = With(c, Soldier(1, 2, 1), Soldier(2, 3, 1), Enemy(3, 1, 1), Enemy(4, 0, 1));
+        static Unit Strong(Unit u) => new Unit(u.Id, u.Type, u.Q, u.R, side: u.Side, strength: u.Side == "israel" ? 5 : 1);
+        var s = With(c, Strong(Soldier(1, 2, 1)), Strong(Soldier(2, 3, 1)), Strong(Enemy(3, 1, 1)), Strong(Enemy(4, 0, 1)));
         var r = Simulation.Step(c, s, new Command[] { new UnitOrder(1, Orders.Hold) });
         Assert.Empty(r.Rejected);
         Assert.Equal(120, Defence(c, r.State, 1));   // the fixture's hold percent, on its own hex
         foreach (var id in new[] { 2, 3, 4 })
         {
-            Assert.Equal(100, Defence(c, r.State, id));
-            Assert.Equal((s.Units[id].Q, s.Units[id].R, ""), (r.State.Units[id].Q, r.State.Units[id].R, r.State.Units[id].Order));
+            var order = id == 2 ? "" : Orders.Fortify;   // the enemy's own fortify, set at the turn's end (R-ENEMY-003)
+            Assert.Equal(id == 2 ? 100 : 150, Defence(c, r.State, id));
+            Assert.Equal((s.Units[id].Q, s.Units[id].R, order), (r.State.Units[id].Q, r.State.Units[id].R, r.State.Units[id].Order));
         }
     }
 
