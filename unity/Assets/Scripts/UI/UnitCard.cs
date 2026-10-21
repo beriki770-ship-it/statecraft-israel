@@ -21,6 +21,9 @@ namespace Statecraft.Game.UI
         public static UnitCard For(PlacedToken placed, GameState state, UiText text, bool gddLoop = false)
         {
             var t = placed.Token; var u = t.Unit; var a = t.Anchor;
+            bool hebrew = text["ui.lang"] == UiLanguage.Hebrew;
+            // In Hebrew each prose text shows its Hebrew counterpart where the row has one, else its English (#558).
+            string Local(string english, string? he) => hebrew && !string.IsNullOrEmpty(he) ? he! : english;
             var lines = new List<string>();
             if (u.Service == UnitData.Air)
             {
@@ -29,10 +32,15 @@ namespace Statecraft.Game.UI
             }
             // A unit that moved in play (GDD loop) stands on a hex no source names: no position line, and the row's sources.
             bool sourced = a.Place != "";
-            if (sourced) lines.Add(string.IsNullOrWhiteSpace(a.Since) ? text.Format("unit.position_plain", a.Place) : text.Format("unit.position", a.Place, a.Since!));
+            if (sourced)
+            {
+                var place = Local(a.Place, a.PlaceHe);
+                lines.Add(string.IsNullOrWhiteSpace(a.Since) ? text.Format("unit.position_plain", place) : text.Format("unit.position", place, a.Since!));
+            }
             if (!string.IsNullOrEmpty(u.Formed)) lines.Add(text.Format("unit.formed", u.Formed!));
-            if (!string.IsNullOrEmpty(u.FirstCommander)) lines.Add(text.Format("unit.commander", u.FirstCommander!));
-            lines.Add(u.Sector);
+            // The English decides whether the line exists: a Hebrew commander never adds one (owner, #558).
+            if (!string.IsNullOrEmpty(u.FirstCommander)) lines.Add(text.Format("unit.commander", Local(u.FirstCommander!, u.FirstCommanderHe)));
+            lines.Add(Local(u.Sector, u.SectorHe));
             // Israel's call-up and security level set only Israel's tokens; an Arab force's token reflects neither (#665).
             var national = u.Side != UnitData.Israel ? ""
                 : !gddLoop ? text.Format("unit.national", PlayerText.Percent(state.Mobilization), state.Rung)
