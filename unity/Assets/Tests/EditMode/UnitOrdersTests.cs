@@ -256,7 +256,8 @@ public class UnitOrdersTests
         s.Units.Values.Select(u => (u.Q, u.R)).Distinct().Where(h => Combat.Check(C, s, unit, h.Item1, h.Item2) == null).ToList();
 
     /// <summary>Slice 3 (#754): for every unit with a sim unit, Israel's and the enemy's, the card shows Attack only where
-    /// the sim's Combat.Check takes some hex, and the sim's reason for each hex in reach it refuses. With no Arms, Golani
+    /// the sim's Combat.Check takes some hex, and on Israel's units the sim's reason for each hex in reach it refuses (an
+    /// enemy's card gives none, as for Fortify and Hold). With no Arms, Golani
     /// (an enemy in its reach) has no Attack and shows the sim's reason; once the game is over no card has one.</summary>
     [Test]
     public void TheCardOffersAttackOnlyWhereTheSimTakesAHex()
@@ -266,6 +267,14 @@ public class UnitOrdersTests
         var bridge = new SimBridge(g, Text);
         var id = EnemyInGolanisReach(g.State);
         var tokens = UnitRoster.FromState(Units, C, g.State, _ => true, (row, a, q, r) => a).Where(t => UnitCard.SimUnit(C, g.State, t.Unit) != null).ToList();
+        // An enemy with a card next to Golani, so an enemy's card has a hex in reach the sim refuses ("not yours").
+        var foe = UnitCard.SimUnit(C, g.State, tokens.First(t => t.Unit.Side != UnitData.Israel).Unit)!.Value;
+        var gq = g.State.Units[id].Q; var gr = g.State.Units[id].R;
+        var next = new[] { (1, 0), (1, -1), (0, -1), (-1, 0), (-1, 1), (0, 1) }.Select(d => (q: gq + d.Item1, r: gr + d.Item2))
+            .First(h => C.HexAt(h.q, h.r)?.Land == true && !g.State.Units.Values.Any(u => (u.Q, u.R) == h));
+        var f = g.State.Units[foe];
+        g.State.Units[foe] = new Unit(f.Id, f.Type, next.q, next.r, f.Service, f.Side, f.Strength);
+        Assert.IsNotNull(Combat.Preview(C, g.State, foe, gq, gr), "precondition: Golani is in an enemy card's reach");
         PlacedToken? shown = null;
         var info = new InfoPanelPresenter(ui.Root, bridge, Text, new Dictionary<string, string>(), selectedUnit: () => shown);
         var attack = ui.Q<Button>("info-attack");
@@ -279,7 +288,9 @@ public class UnitOrdersTests
             offered.Add(has);
             Assert.AreEqual(has ? DisplayStyle.Flex : DisplayStyle.None, attack.style.display.value, token.Unit.Id);
             foreach (var h in g.State.Units.Values.Select(x => (x.Q, x.R)).Distinct().Where(h => Combat.Preview(C, g.State, u, h.Item1, h.Item2) != null))
-                if (Combat.Check(C, g.State, u, h.Item1, h.Item2) is string why) StringAssert.Contains(why, ui.Q<Label>("info-reason").text, $"{token.Unit.Id}: the sim's reason");
+                if (Combat.Check(C, g.State, u, h.Item1, h.Item2) is string why)
+                    if (token.Unit.Side == UnitData.Israel) StringAssert.Contains(why, ui.Q<Label>("info-reason").text, $"{token.Unit.Id}: the sim's reason");
+                    else StringAssert.DoesNotContain(why, ui.Q<Label>("info-reason").text, $"{token.Unit.Id}: no reason on an enemy's card");
         }
         CollectionAssert.AreEquivalent(new[] { true, false }, offered, "precondition: some cards offer Attack and some do not");
         shown = new PlacedToken(tokens.Single(t => t.Unit.Id == "golani"), new AnchorSpot(0, 0, 0, 0, false));
@@ -329,7 +340,7 @@ public class UnitOrdersTests
                 var bands = Combat.Outcomes(C, bridge.State, p.Row).Select(b => Text.Format(b.Retreat ? "unit.attack_band_retreat" : "unit.attack_band",
                     b.Faces, b.Of, b.AttackersLose, b.DefendersLose));
                 var names = string.Join(", ", bridge.State.Units.Values.Where(u => (u.Q, u.R) == (q, r)).Where(u => u.Side != "" && u.Side != Movement.PlayerSide).Select(u => "Unit-" + u.Id));
-                return Text.Format("unit.attack_odds", names, p.RatioPercent) + "\n" + string.Join("; ", bands);
+                return Text.Format("unit.attack_odds", names, p.RatioPercent) + "\n" + string.Join("\n", bands);   // one band a line
             }
             GameRoot.OnHexClicked(map, layer, info, golani.Q, golani.R);
             UiTestKit.Press(attack);

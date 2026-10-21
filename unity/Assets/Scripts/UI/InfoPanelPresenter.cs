@@ -224,7 +224,7 @@ namespace Statecraft.Game.UI
             var who = names.Count > 0 ? string.Join(", ", names) : string.Format(CultureInfo.InvariantCulture, "{0},{1}", q, r);
             var bands = Combat.Outcomes(c, s, p.Row).Select(b => text.Format(b.Retreat ? "unit.attack_band_retreat" : "unit.attack_band",
                 b.Faces, b.Of, b.AttackersLose, b.DefendersLose));
-            return text.Format("unit.attack_odds", who, p.RatioPercent) + "\n" + string.Join("; ", bands);
+            return text.Format("unit.attack_odds", who, p.RatioPercent) + "\n" + string.Join("\n", bands);   // one band a line
         }
 
         /// <summary>The shown unit's sim id, or null when it can take no order: no unit card, no sim unit for it, or the game
@@ -400,7 +400,7 @@ namespace Statecraft.Game.UI
             // Attack (#754): offered where the sim's Combat.Check takes some hex; its refusals in reach show as the others'.
             var attacks = AttackTargets();
             attackButton.style.display = attacks is { } at && at.hexes.Count > 0 ? DisplayStyle.Flex : DisplayStyle.None;
-            foreach (var why in attacks?.refused ?? new List<string>()) if (!refusals.Contains(why)) refusals.Add(why);
+            foreach (var why in attacks?.refused ?? new List<string>()) if (own && !refusals.Contains(why)) refusals.Add(why);
             panel.EnableInClassList(UnitClass, unit != null);
             if (unit != null)
             {
