@@ -120,6 +120,45 @@ public class EnemyAITests
         Assert.Empty(why);
     }
 
+    // R-ENEMY-003: a standing attack is kept. Step 1 on the next turn finds the unit already attacking the same hex and leaves
+    // the order as it is; giving it again would be refused, and the unit would fortify instead.
+    [Fact]
+    public void AStandingAttackIsKeptOnTheNextTurn()
+    {
+        var c = Load();
+        var s = CombatTests.With(c, Soldier(1, 3, 0, 5), Enemy(2, 2, 0, 10));
+        var why = new List<Cause>();
+        EnemyAI.Order(c, s, why);
+        Assert.Equal((Combat.Attack, "3,0"), (s.Units[2].Order, s.Units[2].OrderTarget));
+        EnemyAI.Order(c, s, why);   // the next turn's step 1, the attack still standing
+        Assert.Equal((Combat.Attack, "3,0"), (s.Units[2].Order, s.Units[2].OrderTarget));
+    }
+
+    // R-ENEMY-001: the enemy orders in ascending unit id. Two scripted units march on the same hex, which has one slot left
+    // (the fixture's two units of a side a hex): unit 0 takes it, and unit 1's move is refused, so it fortifies where it is.
+    [Fact]
+    public void TheLowerIdTakesTheLastStackSlot()
+    {
+        string Row(string id) => "- id: " + id + "\n  service: army\n  side: egypt\n  status: draft\n  strength: { value: 30, as_of: '1948-05-15' }\n  anchors:\n"
+            + "  - { place: Start, lon: 34.29, lat: 33.35, from: '1948-05-15', to: '1948-06-11' }\n"
+            + "  - { place: June, lon: 34.29, lat: 33.35, from: '1948-06-11', to: '1948-07-08', sources: [{ url: 'https://example.org/a', checked: '2026-10-13' }, { url: 'https://example.org/b', checked: '2026-10-13' }] }\n";
+        var c = ContentLoader.Load(Fixture.Write(Fixture.Gdd(new Dictionary<string, string>
+        {
+            ["unit_types.yaml"] = Types,
+            ["map/hexes.json"] = MovementTests.Board(),
+            ["corridors.yaml"] = "corridors: []\n",
+            ["map/units_1948.yaml"] = "units:\n" + Row("first") + Row("second"),
+            ["map/unit_anchor_hexes.yaml"] = "anchors:\n  - { id: first, anchor: 0, q: 2, r: 2 }\n  - { id: first, anchor: 1, q: 3, r: 2 }\n"
+                + "  - { id: second, anchor: 0, q: 4, r: 2 }\n  - { id: second, anchor: 1, q: 3, r: 2 }\n",
+        })));
+        var s = CombatTests.With(c, Enemy(2, 3, 2, 1));   // units 0 and 1 are the two rows; unit 2 already holds one slot
+        Assert.Equal((2, 2), (s.Units[0].Q, s.Units[0].R));
+        Assert.Equal((4, 2), (s.Units[1].Q, s.Units[1].R));
+        EnemyAI.Order(c, s, new List<Cause>());
+        Assert.Equal((3, 2), (s.Units[0].Q, s.Units[0].R));
+        Assert.Equal((4, 2, Orders.Fortifying), (s.Units[1].Q, s.Units[1].R, s.Units[1].Order));
+    }
+
     // Q-ENEMY-2: no RNG in the AI. Step 1 leaves RngState as it found it.
     [Fact]
     public void NoRngInTheAI()
