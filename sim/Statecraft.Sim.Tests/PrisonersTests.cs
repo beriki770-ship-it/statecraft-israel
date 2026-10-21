@@ -15,7 +15,8 @@ public class PrisonersTests
         + "  - { id: soldier, kind: unit, side: israel, class: infantry, movement_points: 3 }\n"
         + "  - { id: enemy, kind: unit, side: egypt, class: infantry, movement_points: 3 }\n"
         + "  - { id: iraqi, kind: unit, side: iraq, class: infantry, movement_points: 3 }\n"
-        + "  - { id: irregular, kind: unit, side: ala, class: infantry, movement_points: 3 }\n";
+        + "  - { id: irregular, kind: unit, side: ala, class: infantry, movement_points: 3 }\n"
+        + "  - { id: egypt_gun, kind: unit, side: egypt, class: artillery, movement_points: 2, range: 2, arms_per_fire: 3, combat_percent: 200 }\n";
 
     static string Card(string id, string front, string from) => $@"
 id: {id}
@@ -294,6 +295,18 @@ options:
         Fight(c, s);
         Assert.False(s.Units.ContainsKey(5));
         Assert.Empty(s.PrisonersHeld);
+        Assert.Equal(new[] { ("egypt", 2) }, s.SoldiersHeld.Select(kv => (kv.Key, kv.Value)));
+    }
+
+    // R-POW-005 with R-COMBAT-007: step 2 lists the guns after the other attackers, but the captor is still the lowest-id
+    // attacker, here Egypt's gun and not the Iraqi unit beside it.
+    [Fact]
+    public void OwnSoldiersAreHeldByTheLowestIdAttackerWhenItIsAGun()
+    {
+        var c = Load();
+        var s = CombatTests.With(c, Attacking(Enemy(2, 0, 1, 4, "egypt_gun"), 0, 0), Attacking(Enemy(4, 1, 0, 4, "iraqi", "iraq"), 0, 0), Soldier(5, 0, 0, 3));
+        Fight(c, s);
+        Assert.False(s.Units.ContainsKey(5));
         Assert.Equal(new[] { ("egypt", 2) }, s.SoldiersHeld.Select(kv => (kv.Key, kv.Value)));
     }
 
