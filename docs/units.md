@@ -401,7 +401,8 @@ checks every anchor and logs each spot and its distance.
   reason. Slice 2 adds Fortify and Hold (Q-UI-2's "Fortify" / "ביצור", "Hold" / "החזקה"): each button shows only where
   the sim's `Orders.Check` takes the order, and where it does not, the card shows the sim's reason as the sim gives it
   (in English for now, as the End turn toast does). A press queues the sim's `UnitOrder` through `SimBridge` (one standing
-  order per unit: Hold replaces a queued Fortify) and the card says when it takes effect. Tests: `UnitOrdersTests`,
+  order per unit: Hold replaces a queued Fortify, and either replaces a queued attack) and the card says when it takes
+  effect. Tests: `UnitOrdersTests`,
   `InfoPanelLayoutTests.TheUnitCardWithItsOrdersFitsEveryWindow`.
 
 **The Avia S-199** (`UnitModels.AviaS199`; type `avia-s199-101sqn-1948`):
