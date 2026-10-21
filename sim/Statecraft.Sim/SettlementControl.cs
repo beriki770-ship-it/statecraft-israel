@@ -81,7 +81,7 @@ namespace Statecraft.Sim
             if (NotAwaiting(s, id) is string no) return no;
             switch (outcome)
             {
-                case Raid: return Withdraw(c, s, id, why);
+                case Raid: return Withdraw(c, s, id, why, false);
                 case Occupy: return "Occupy is not built yet";
                 case Deport: return "Deport is not built yet";
                 default: return "That outcome is not known";
@@ -95,8 +95,9 @@ namespace Statecraft.Sim
         /// alike, leave in id order, each to the first neighbouring hex in the fixed <see cref="Movement.Neighbours"/> order
         /// that is land, holds no enemy unit, is no enemy-held locality (R-MOVE-005) and has room for it (R-MOVE-003). Leaving
         /// costs no movement points (the default proposed on #797). The record goes, so the place is under enemy control again
-        /// at once, and its residents are unchanged. Refused, the state untouched, when a unit has nowhere to go.</summary>
-        static string? Withdraw(Content c, GameState s, string id, List<Cause> why)
+        /// at once, and its residents are unchanged. Refused, the state untouched, when a unit has nowhere to go, unless
+        /// <paramref name="atTheEnd"/>: then that unit stays, the others leave and the record still goes.</summary>
+        static string? Withdraw(Content c, GameState s, string id, List<Cause> why, bool atTheEnd)
         {
             var t = c.SettlementTargets.First(x => x.Id == id);   // only a target gets a record (R-CTRL-004)
             var name = c.SettlementNames[id];
@@ -104,6 +105,7 @@ namespace Statecraft.Sim
             foreach (var u in s.Units.Values.Where(u => u.Q == t.Q && u.R == t.R && !IsEnemy(u)).ToList())   // ascending id
             {
                 var to = Movement.Neighbours.Select(d => ((int Q, int R)?)(t.Q + d.Q, t.R + d.R)).FirstOrDefault(h => Free(c, s, u, h!.Value.Q, h.Value.R));
+                if (to == null && atTheEnd) continue;
                 if (to == null)
                 {
                     foreach (var (from, _) in moved) s.Units[from.Id] = from;   // back as it was
@@ -128,14 +130,14 @@ namespace Statecraft.Sim
 
         /// <summary>R-CTRL-008 (owner, 18 October 2026 on #797, "Counts as Raid"), where resolver step 10 sits on the turn that
         /// reaches the game's end: every capture still awaiting the choice, in ordinal id order, resolves as Raid. A unit with
-        /// nowhere to go stays, and the record goes all the same, since the game is over. It runs before objectives and score
+        /// nowhere to go stays while the others leave, and the record goes all the same, since the game is over. It runs before objectives and score
         /// (step 11) and changes neither, so it adds nothing to the score.</summary>
         internal static void EndPending(Content c, GameState s, List<Cause> why)
         {
             foreach (var id in s.Settlements.Where(kv => kv.Value.State == AwaitingChoice).Select(kv => kv.Key).ToList())   // ordinal
             {
                 why.Add(new Cause("map", id, 0, $"{c.SettlementNames[id]}: no decision was made before the end, so it counts as a raid"));
-                if (Withdraw(c, s, id, why) != null) s.Settlements.Remove(id);
+                Withdraw(c, s, id, why, true);
             }
         }
 

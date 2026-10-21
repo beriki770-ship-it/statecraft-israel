@@ -144,17 +144,41 @@ public class RaidTests
         Assert.Equal(other.Describe(), result.State.Describe());
     }
 
-    // R-CTRL-008: at the end, a unit with nowhere to go stays, and the record still goes (the game is over).
+    // R-CTRL-008: at the end, a unit with nowhere to go stays while the others leave, and the record still goes (the game
+    // is over). Unit 1 fits on (2, 0) beside unit 7; unit 6 then has no room, and enemy units hold the other neighbours.
     [Fact]
     public void AtTheEndTheRecordGoesEvenWithNowhereToWithdraw()
     {
         var c = Load();
+        var s = Awaiting(c, Soldier(1, 1, 0), Soldier(6, 1, 0), Soldier(7, 2, 0), Enemy(3, 0, 0), Enemy(4, 0, 1), Enemy(5, 1, 1));
+        s.Date = c.End.AddDays(-10);   // the next turn ends on the game's end
+        var next = Step(c, s).State;
+        Assert.NotNull(next.GameOver);
+        Assert.Empty(next.Settlements);
+        Assert.Equal((2, 0), (next.Units[1].Q, next.Units[1].R));
+        Assert.Equal((1, 0), (next.Units[6].Q, next.Units[6].R));
+    }
+
+    // R-CTRL-010: a unit keeps its orders when it withdraws, as after a Move; a fortify names the place's hex, so the
+    // turn's order step drops it (R-ORDER-002), and hold goes with the unit.
+    [Fact]
+    public void AFortifyIsLostAndHoldKeptOnWithdrawal()
+    {
+        var c = Load();
+        var fortified = new Unit(1, "soldier", 1, 0, side: "israel", strength: 2, order: Orders.Fortify, orderTarget: "1,0");
+        var holding = new Unit(2, "soldier", 1, 0, side: "israel", strength: 2, order: Orders.Hold);
+        var next = Step(c, Awaiting(c, fortified, holding), Raid()).State;
+        Assert.Equal("", next.Units[1].Order);
+        Assert.Equal(Orders.Hold, next.Units[2].Order);
+    }
+
+    // R-CTRL-009: HistoricalAI leaves out a Raid the sim would refuse, so its orders are never rejected and the capture waits.
+    [Fact]
+    public void HistoricalAIWaitsWhenRaidIsRefused()
+    {
+        var c = Load();
         var s = Awaiting(c, Soldier(1, 1, 0), Enemy(2, 2, 0), Enemy(3, 0, 0), Enemy(4, 0, 1), Enemy(5, 1, 1));
-        s.Date = c.End.AddDays(-10);
-        var why = new List<Cause>();
-        SettlementControl.EndPending(c, s, why);
-        Assert.Empty(s.Settlements);
-        Assert.Equal((1, 0), (s.Units[1].Q, s.Units[1].R));
+        Assert.DoesNotContain(HistoricalAI.Commands(c, s), x => x is ResolveCapture);
     }
 
     // R-CTRL-010, determinism: Raid draws nothing from the RNG.

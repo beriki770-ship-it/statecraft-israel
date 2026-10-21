@@ -18,8 +18,10 @@ namespace Statecraft.Sim
                 .Select(id => c.Events.First(e => e.Id == id))
                 .Select(e => (Command)new ChooseEventOption(e.Id, (e.Options.FirstOrDefault(o => o.Historical) ?? e.Options[0]).Id))
                 .ToList();
-            wanted.AddRange(s.Settlements.Where(kv => kv.Value.State == SettlementControl.AwaitingChoice)
-                .Select(kv => (Command)new ResolveCapture(kv.Key, SettlementControl.Raid)));   // Settlements is ordinal
+            // Settlements is ordinal. A Raid the sim would refuse (a unit with nowhere to go) is left out, so the capture waits.
+            wanted.AddRange(s.Settlements.Where(kv => kv.Value.State == SettlementControl.AwaitingChoice
+                    && SettlementControl.CaptureOptions(c, s, kv.Key)[0].Refusal == null)
+                .Select(kv => (Command)new ResolveCapture(kv.Key, SettlementControl.Raid)));
             var floor = SecuritySystem.MinMobilization(c, s.Date, s.Rung);
             if (s.Mobilization > floor) wanted.Add(new SetMobilization(floor));
             var list = new List<Command>();
