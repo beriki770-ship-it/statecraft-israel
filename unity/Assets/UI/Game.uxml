@@ -181,7 +181,9 @@
                     </ui:VisualElement>
                 </ui:VisualElement>
                 <ui:VisualElement class="gold-rule" />
-                <ui:ScrollView name="event-scroll" class="event-scroll"><ui:Label name="event-text" class="event-text" /><ui:Label name="event-objective" class="muted event-objective" /></ui:ScrollView>
+                <!-- event-alt-banner: a consequence card's road and the record beside it (#954), hidden on every other card;
+                     inside the scroll, so on a short window it scrolls with the text and never pushes the options away. -->
+                <ui:ScrollView name="event-scroll" class="event-scroll"><ui:Label name="event-alt-banner" class="muted event-alt-banner" /><ui:Label name="event-text" class="event-text" /><ui:Label name="event-objective" class="muted event-objective" /></ui:ScrollView>
                 <!-- Shown only when the turn's Attention cannot pay for an answer (#1034): End Turn hands the card to its minister. -->
                 <ui:Label name="event-delegate" class="event-delegate" />
                 <ui:VisualElement name="event-options" />

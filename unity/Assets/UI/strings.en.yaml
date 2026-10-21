@@ -138,6 +138,12 @@ event.objective_early_one: "Completed on {0}; historically {1}; 1 month early."
 event.objective_on_time: "Completed on time, as in history."
 event.objective_late: "Completed {0} months later than in history."
 event.objective_late_one: "Completed 1 month later than in history."
+# A consequence card's banner (#954; plan 2026-10-17-alternate-timelines.md, A.4.7): {0} the option the player took,
+# {1} that card's title, {2} the record's option on it. A card chained on a consequence card has no record to compare:
+# event.alt_origin_no_record. event.rejoin sits under an option that returns the course to the record (R-ALT-009).
+event.alt_origin: "Alternative course. It follows the government's decision: {0} ({1}). In the record: {2}."
+event.alt_origin_no_record: "Alternative course. It follows the government's decision: {0} ({1})."
+event.rejoin: "Returns to the recorded course."
 start.listen: "Play the recording"
 start.stop: "Stop the recording"
 start.loading: "Loading the recording…"

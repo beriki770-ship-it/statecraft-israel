@@ -138,6 +138,10 @@ event.objective_early_one: "הושלם ב־{0}; בהיסטוריה ב־{1}; מו
 event.objective_on_time: "הושלם בזמן, כמו בהיסטוריה."
 event.objective_late: "הושלם באיחור של {0} חודשים לעומת ההיסטוריה."
 event.objective_late_one: "הושלם באיחור של חודש אחד לעומת ההיסטוריה."
+# A consequence card's banner and the rejoin line (#954). For the native reviewer (#564).
+event.alt_origin: "מסלול חלופי. הוא נובע מהחלטת הממשלה: {0} ({1}). בהיסטוריה: {2}."
+event.alt_origin_no_record: "מסלול חלופי. הוא נובע מהחלטת הממשלה: {0} ({1})."
+event.rejoin: "חוזר למסלול ההיסטורי."
 start.listen: "השמעת ההקלטה"
 start.stop: "עצירת ההקלטה"
 start.loading: "טוען את ההקלטה…"
