@@ -172,11 +172,11 @@ public class HebrewNameTests
         Assert.True(seen > 0, $"{file}: no Hebrew names");
     }
 
-    /// <summary>Coverage as researched for #558: only the rows with no sourced Hebrew name are empty.</summary>
+    /// <summary>Coverage as researched for #558 and #1219: only the parties with no sourced Hebrew name are empty.</summary>
     [Fact]
     public void EveryShownNameHasAHebrewFormButTheUnsourcedOnes()
     {
-        Assert.Equal(new[] { "rationing_minister" }, C.Offices.Where(o => o.TitleHe == "").Select(o => o.Id));
+        Assert.Empty(C.Offices.Where(o => o.TitleHe == "").Select(o => o.Id));
         Assert.Equal(new[] { "independent" }, C.Parties.Where(p => p.NameHe == "").Select(p => p.Id));
         Assert.All(C.Governments, g => Assert.NotEqual("", g.NameHe));
         Assert.All(C.Legislatures, l => Assert.NotEqual("", l.BodyHe));

@@ -85,13 +85,11 @@ public class CabinetScreenTests
         // She never held Finance; her order reads the office's title_he_f row all the same (owner on #861: "Move to content").
         Assert.AreEqual("שרת האוצר", C.Offices.Single(o => o.Id == "finance_minister").TitleHeF);
         Assert.AreEqual("ניתנה פקודה: גולדה מאיר לתפקיד שרת האוצר, בסיום התור", ui.Q<Label>("cabinet-status").text);
-        // A row with no Hebrew form in the content keeps its English one: the rationing office has no title_he yet.
-        var rationing = C.Offices.Single(o => o.Id == "rationing_minister");
-        Assert.AreEqual("", rationing.TitleHe);
-        Assert.AreEqual(rationing.Title, ui.Q<Label>("seat-rationing_minister-office").text);
+        // The rationing office reads its sourced Hebrew title like every other row (#1219).
+        Assert.AreEqual("שר האספקה והקיצוב", ui.Q<Label>("seat-rationing_minister-office").text);
         // Every other card and party chip is in Hebrew.
         foreach (var t in ui.Q<VisualElement>("screen-cabinet").Query<TextElement>().ToList())
-            if (t.name != null && t.name != "seat-rationing_minister-office"
+            if (t.name != null
                 && (t.name.EndsWith("-holder") || t.name.EndsWith("-office") || t.name.EndsWith("-party") || t.name.StartsWith("party-")))
                 Assert.IsFalse((t.text ?? "").Any(ch => ch < 128 && char.IsLetter(ch)), $"'{t.name}': {t.text}");
         cabinet.Dispose();
@@ -120,7 +118,7 @@ public class CabinetScreenTests
         Assert.AreEqual("שרת העבודה והרווחה", ContentNames.Of(he, own, golda), "the content's title_he_f wins");
         Assert.AreEqual("שר האוצר", ContentNames.Of(he, O("finance_minister"), C.People.Single(p => p.Id == "kaplan")));
         Assert.AreEqual("Minister of Finance", ContentNames.Of(Text, O("finance_minister"), golda));
-        Assert.AreEqual(O("rationing_minister").Title, ContentNames.Of(he, O("rationing_minister"), golda), "no title_he: English");
+        Assert.AreEqual("שרת האספקה והקיצוב", ContentNames.Of(he, O("rationing_minister"), golda));
     }
 
     /// <summary>#901: candidate refusal arguments are content ids from the sim; the Hebrew UI resolves and formats them.</summary>
