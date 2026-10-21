@@ -12,13 +12,13 @@ namespace Statecraft.Sim
         public const string AwaitingChoice = "awaiting_choice";
 
         /// <summary>Resolver step 3 (R-CTRL-004, R-CTRL-005), after combat, in ordinal settlement id. A curated target that
-        /// starts under enemy control (on mvp.enemy_held_localities) is captured when the player's military units are on its
-        /// hex and no enemy military unit is (Q-CAP-1 (a); Q-CAP-3 (a): only military units are combatants, so a halutz holds
-        /// nothing): its record names the player, awaits the player's choice and starts on <paramref name="next"/>, the turn's
-        /// end. A captured target still awaiting the choice that only enemy military units are on is under enemy control again,
-        /// and its record goes. A target that is not enemy-held at the start (Jaffa, #793) is never captured. Capture writes the
-        /// settlement state only: no resident field, unit, resource, score or objective (R-CTRL-005). It draws nothing from
-        /// the RNG.</summary>
+        /// starts under enemy control (on mvp.enemy_held_localities, owner, 21 October 2026, #796) is captured when the
+        /// player's military units are on its hex and no enemy military unit is (Q-CAP-1 (a); Q-CAP-3 (a): only enemy military
+        /// units are combatants; #796: a halutz holds nothing): its record names the player, awaits the player's choice and
+        /// starts on <paramref name="next"/>, the turn's end. A captured target still awaiting the choice that only enemy
+        /// military units are on is under enemy control again, and its record goes (#796). A target that is not enemy-held
+        /// at the start (Jaffa, #793) is never captured. Capture writes the settlement state only: no resident field, unit,
+        /// resource, score or objective (R-CTRL-005). It draws nothing from the RNG.</summary>
         public static void Capture(Content c, GameState s, DateTime next, List<Cause> why)
         {
             var enemyHeld = new HashSet<string>(c.RulesAt(s.Date).Mvp!.EnemyHeldLocalities, StringComparer.Ordinal);

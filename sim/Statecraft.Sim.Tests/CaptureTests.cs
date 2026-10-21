@@ -5,7 +5,9 @@ using Statecraft.Sim;
 
 /// <summary>Capture, resolver step 3 (GDD Phase 6 PR 4, #796). The owner's rulings of 18 October 2026 (#783, batch 2):
 /// Q-CAP-1 (a), a settlement counts as captured when no enemy combatant is in the hex and a player unit holds it at turn end;
-/// Q-CAP-3 (a), only enemy military units on the hex are its combatants. The fixture's places are fixture values, not
+/// Q-CAP-3 (a), only enemy military units on the hex are its combatants. The owner's ruling of 21 October 2026 (#796): a
+/// halutz holds nothing, "enemy-held" means mvp.enemy_held_localities, and enemy units alone on an awaiting_choice target
+/// take it back. The fixture's places are fixture values, not
 /// history: town_a and town_c are arab_town targets the fixture lists as enemy-held, town_d an arab_town target that is
 /// not, and town_e an enemy-held arab_town that is not a target.</summary>
 public class CaptureTests
@@ -85,7 +87,8 @@ public class CaptureTests
         Assert.Equal(SettlementControl.AwaitingChoice, s.Settlements["town_a"].State);
     }
 
-    // R-CTRL-004 (Q-CAP-1 (a)): no player unit, or only a halutz (no combatant, R-UNIT-001), holds nothing.
+    // R-CTRL-004 (Q-CAP-1 (a); #796, 21 October 2026): no player unit, or only a halutz (no combatant, R-UNIT-001), holds
+    // nothing.
     [Fact]
     public void NoPlayerCombatantNoCapture()
     {
@@ -93,6 +96,15 @@ public class CaptureTests
         Assert.Empty(Step(c, With(c)).Settlements);
         Assert.Empty(Step(c, With(c, new Unit(1, "halutz", 1, 0))).Settlements);
         Assert.Empty(Step(c, With(c, Soldier(1, 2, 0))).Settlements);   // next to the target is not on it
+    }
+
+    // R-CTRL-004 (#796, 21 October 2026): a halutz beside a soldier is not an enemy unit, so the soldier still captures.
+    [Fact]
+    public void AHalutzBesideASoldierDoesNotBlockTheCapture()
+    {
+        var c = Load(AllTargets);
+        var next = Step(c, With(c, Soldier(1, 1, 0), new Unit(2, "halutz", 1, 0)));
+        Assert.Equal("town_a", Assert.Single(next.Settlements).Key);
     }
 
     // R-CTRL-004 (#793, "Only in a what-if"): a target that is not enemy-held at the start (Jaffa's case) offers no capture.
@@ -103,7 +115,8 @@ public class CaptureTests
         Assert.Empty(Step(c, With(c, Soldier(1, 1, 2))).Settlements);
     }
 
-    // R-CTRL-004: a captured target the enemy holds again, with no player combatant there, is back under enemy control.
+    // R-CTRL-004 (#796, 21 October 2026): a captured target the enemy holds again, with no player combatant there, is back
+    // under enemy control.
     [Fact]
     public void AnEnemyUnitHoldingACapturedTargetReturnsItToEnemyControl()
     {
