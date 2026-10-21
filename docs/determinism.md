@@ -36,9 +36,9 @@ final `GameState.Hash()` is pinned:
 
 | Run | Ends | Hash |
 |---|---|---|
-| to 1950-01-01 (`Hash1950`) | 1950-01-15, turn 20 | `11730841449703dcecaabf7ad08ca79b4f3533d5ffbf8319d2d48e87ce7a2f7e` |
-| to 1952-01-01 (`Hash1952`) | 1952-01-15, turn 44 (the game's end) | `99d641fe370e93659853fb3df2a0b89c58e13d0a2efddcb950a70bc60d99b1f2` |
-| to the game's end (`mvp-end`) | 1952-01-15, turn 44 | `99d641fe370e93659853fb3df2a0b89c58e13d0a2efddcb950a70bc60d99b1f2` |
+| to 1950-01-01 (`Hash1950`) | 1950-01-15, turn 20 | `d14a4899a1e068bf238f84f4e8fe06270b5164b2c6ba62f2fef399fd7eaada8e` |
+| to 1952-01-01 (`Hash1952`) | 1952-01-15, turn 44 (the game's end) | `3bacd2b10340aa95ec130d84aedfb560828dae6b0ed35323f64410f9ac8eee85` |
+| to the game's end (`mvp-end`) | 1952-01-15, turn 44 | `3bacd2b10340aa95ec130d84aedfb560828dae6b0ed35323f64410f9ac8eee85` |
 
 `hash1952` stops at the first turn on or after 1 January 1952, which is the game's last turn, so it is the same run as
 `mvp-end` (`DeterminismTests.TheWholeGameToItsEndIsFixed`). Both names are kept (spec 2026-10-12 section 3 step 6): a
@@ -47,7 +47,7 @@ player check enumerate the manifest, so it and every scenario are checked withou
 
 A further value is pinned for the browser smoke run (`?smoke=5`: the golden seed, five turns played through the UI's own
 buttons, answering each event with its first option while the turn's Attention pays for it, the rest left to their
-ministers): `SMOKE OK 5 turns 1948-10-15 ccdf05d2f1a9bb52558a61b323068ee8905c9b7576856b3b64124306cd975aa4`.
+ministers): `SMOKE OK 5 turns 1948-10-15 7559f30cc7649555cb369b729442d203fa0b42968679f870ac88f0e519a8b755`.
 It depends on the UI path as well as the sim (which option is first, the turn grid), so re-record it when either changes.
 Check every WebGL build with every manifest entry (plus the UI-path smoke line) with:
 
@@ -58,7 +58,7 @@ while read -r name hash; do
   golden_expect+=(--expect "GOLDEN OK $name $hash")
 done < sim/Statecraft.Sim.Tests/golden/manifest.txt
 uv run tools/web_check.py unity/Builds/Web-<compression> --query "golden&smoke=5" "${golden_expect[@]}" \
-  --expect "SMOKE OK 5 turns 1948-10-15 ccdf05d2f1a9bb52558a61b323068ee8905c9b7576856b3b64124306cd975aa4"
+  --expect "SMOKE OK 5 turns 1948-10-15 7559f30cc7649555cb369b729442d203fa0b42968679f870ac88f0e519a8b755"
 ```
 
 **When a golden moves.** The test fails with the lines that changed, grouped by section (`[ind]`, `[pol]`, `[bud]`,
@@ -350,8 +350,19 @@ The hash reads the state keys, so it never sees a record outside its window. An 
 | #1240: the seven IDF rows re-sourced to Ben-Gurion's diary of 15 May 1948, owner 21 Oct 2026 | scenario-cautious | `00ec7ec2` | same as reckless (was `b4e5caa1`) |
 | #1240: the seven IDF rows re-sourced to Ben-Gurion's diary of 15 May 1948, owner 21 Oct 2026 | scenario-mvp-absorb-first | `ac5f51bb` | same as reckless (was `7d37c0d0`) |
 | #1240: the seven IDF rows re-sourced to Ben-Gurion's diary of 15 May 1948, owner 21 Oct 2026 | scenario-mvp-defeat | `f2ad1114` | same as reckless; the defeat is unchanged (was `7bd5158f`) |
-| #1241: Etzioni starts, the 7th Brigade arrives (R-UNIT-009) | 1950 | `11730841` | Etzioni's sourced 15 May strength (3,166, Ben-Gurion's diary) starts it under R-UNIT-006 as unit 5 (strength 3, Jerusalem's 0,23), so Harel and every later starting force take the next id (the Syrian unit is 10). The 7th Brigade's reserved id 13 is the first after the starting rows; it arrives on the 15 June 1948 turn (its row's 24 May 1948 strength, 1,650 = 2, at Hulda's -4,23) and stands there. Every later id moves up by two (`next=18`). Nothing else in the snapshot moves: still no engagement, the Arms and the RNG are as before (was `a1ad4211`) |
-| #1241: Etzioni starts, the 7th Brigade arrives (R-UNIT-009) | 1952 | `99d641fe` | same as 1950: the ids and the two units only (was `9cbd73ed`) |
-| #1241: Etzioni starts, the 7th Brigade arrives (R-UNIT-009) | mvp-end | `99d641fe` | same as 1952 (was `9cbd73ed`) |
-| #1241: Etzioni starts, the 7th Brigade arrives (R-UNIT-009) | smoke5 | `ccdf05d2` | same: the ids and the two units only (was `ed761c3b`) |
-| #1241: Etzioni starts, the 7th Brigade arrives (R-UNIT-009) | scenarios | reckless `72debc42`, cautious `df80c26d`, mvp-absorb-first `50279c97`, mvp-defeat `d49fe5b0` | same: the ids and the two units only (were `574c8a19`, `00ec7ec2`, `ac5f51bb`, `f2ad1114`) |
+| GDD Phase 5 PR 10: the enemy AI, part 1 (#749) | 1950 | `1392f3eb` | Resolver step 1 gives the enemy its orders (R-ENEMY-001 to R-ENEMY-004). On 15 May and 15 June 1948 the four scripted forces march on their 11 June anchors (Egypt 7 to -8,25, one hex short of Isdud, round Yad Mordechai and the Negev brigade; the Arab Legion 8 to Latrun, -2,22; Syria 9 to 13,6, one short of the Mishmar HaYarden bridgehead; Iraq 10 to Jenin, 6,13), and every enemy unit fortifies from then on (`order=fortify`). The Syrian unit leaves Golani's side on the first turn (13,6 by the second), so no Israeli attack is ordered there; since #1240 none was (Golani's 4 against the Syrian 3 is under the policy's 3:2), and the Arms stay at 12. No enemy unit attacks on a turn whose middle day is inside a truce (R-ENEMY-006: 15 June to 15 September 1948). On the turn of 15 October 1948 the Legion attacks Harel beside Latrun at 4:1: one engagement, one draw, unit 5 is destroyed and the Legion is at 4. It is the run's only engagement, so the RNG state moves off the seed the header showed (was `a1ad4211`) |
+| GDD Phase 5 PR 10: the enemy AI, part 1 (#749) | 1952 | `cc96cd0a` | same (was `9cbd73ed`) |
+| GDD Phase 5 PR 10: the enemy AI, part 1 (#749) | mvp-end | `cc96cd0a` | same as 1952 (was `9cbd73ed`) |
+| GDD Phase 5 PR 10: the enemy AI, part 1 (#749) | smoke5 | `11c41014` | the enemy's step 1 orders from the first turn, as in 1950. The run ends on 15 October 1948, inside the truce guard's reach (R-ENEMY-006), so Harel survives it: the Legion fortifies on the turns of 15 June to 15 September 1948 (was `ed761c3b`) |
+| GDD Phase 5 PR 10: the enemy AI, part 1 (#749) | scenario-cautious | `230791a1` | the units only, as in 1950: the scripted marches, the fortify orders and the Legion's engagement with Harel (was `00ec7ec2`) |
+| GDD Phase 5 PR 10: the enemy AI, part 1 (#749) | scenario-reckless | `d6fd9e89` | same as cautious (was `574c8a19`) |
+| GDD Phase 5 PR 10: the enemy AI, part 1 (#749) | scenario-mvp-absorb-first | `de176931` | same as cautious (was `ac5f51bb`) |
+| GDD Phase 5 PR 10: the enemy AI, part 1 (#749) | scenario-mvp-defeat | `7404295a` | the units as in cautious; the engagement's draw comes before the delegated events' draws, so a delegated `iraqi_exodus` resolves to `pace` (was `airlift`), and housing, international standing, morale and stability follow. The defeat is unchanged (was `f2ad1114`) |
+| #1241: Etzioni starts, the 7th Brigade arrives (R-UNIT-009), on the enemy AI (#1263) | 1950 | `d14a4899` | Etzioni's sourced 15 May strength (3,166, Ben-Gurion's diary) starts it under R-UNIT-006 as unit 5 (strength 3, Jerusalem's 0,23), so Harel and every later starting force take the next id (Harel 6, Egypt 8, the Legion 9, Syria 10). The 7th Brigade's reserved id 13 is the first after the starting rows; it arrives on the 15 June 1948 turn (its row's 24 May 1948 strength, 1,650 = 2, at Hulda's -4,23) and stands there. Every later id moves up by two (`next=18`). Nothing else in the snapshot moves: the enemy's scripted marches, the fortify orders and the Legion's 15 October 1948 engagement that destroys Harel are as on main, and the RNG and the Arms are unchanged (was `1392f3eb`) |
+| #1241: Etzioni starts, the 7th Brigade arrives (R-UNIT-009), on the enemy AI (#1263) | 1952 | `3bacd2b1` | same as 1950: the ids and the two units only (was `cc96cd0a`) |
+| #1241: Etzioni starts, the 7th Brigade arrives (R-UNIT-009), on the enemy AI (#1263) | mvp-end | `3bacd2b1` | same as 1952 (was `cc96cd0a`) |
+| #1241: Etzioni starts, the 7th Brigade arrives (R-UNIT-009), on the enemy AI (#1263) | smoke5 | `7559f30c` | same: the ids and the two units only (was `11c41014`) |
+| #1241: Etzioni starts, the 7th Brigade arrives (R-UNIT-009), on the enemy AI (#1263) | scenario-reckless | `030817e3` | same: the ids and the two units only (was `d6fd9e89`) |
+| #1241: Etzioni starts, the 7th Brigade arrives (R-UNIT-009), on the enemy AI (#1263) | scenario-cautious | `e45c5429` | same as reckless (was `230791a1`) |
+| #1241: Etzioni starts, the 7th Brigade arrives (R-UNIT-009), on the enemy AI (#1263) | scenario-mvp-absorb-first | `64bdd93b` | same as reckless (was `de176931`) |
+| #1241: Etzioni starts, the 7th Brigade arrives (R-UNIT-009), on the enemy AI (#1263) | scenario-mvp-defeat | `54ec7d6b` | same as reckless; the defeat is unchanged (was `7404295a`) |

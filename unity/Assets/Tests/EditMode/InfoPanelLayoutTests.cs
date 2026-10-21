@@ -38,7 +38,8 @@ public class InfoPanelLayoutTests
     /// <summary>The real Game.uxml on the real PanelSettings at w x h, out of its loading state, with the top bar, an open event
     /// card and the info panel (with the region lines) on the session given.</summary>
     static IEnumerator Rendered(int w, int h, GameSession g, System.Action<VisualElement, InfoPanelPresenter> act, System.Action<VisualElement> check,
-                                UiText? text = null, bool hebrew = false, System.Action<VisualElement>? settled = null)
+                                UiText? text = null, bool hebrew = false, System.Action<VisualElement>? settled = null,
+                                System.Func<Statecraft.Game.Map.Units.PlacedToken?>? unit = null)
     {
         var t = text ?? Text;
         var rt = new RenderTexture(w, h, 0);
@@ -56,7 +57,7 @@ public class InfoPanelLayoutTests
         var bridge = new SimBridge(g, t);
         var hud = new HudPresenter(root, bridge, t);
         var card = new EventCardPresenter(root, bridge, t, null);
-        var info = new InfoPanelPresenter(root, bridge, t, Names(), regions: Regions());
+        var info = new InfoPanelPresenter(root, bridge, t, Names(), regions: Regions(), selectedUnit: unit);
         try
         {
             act(root, info);
@@ -191,6 +192,47 @@ public class InfoPanelLayoutTests
                             if (!TextFits(l)) problems.Add($"{at}: '{l.text}' does not fit its box {l.contentRect} ({l.name})");
                         }
                     }, hebrew ? he : Text, hebrew);
+                }
+        Assert.IsEmpty(problems, string.Join("\n", problems));
+    }
+
+    /// <summary>GDD Phase 5 PR 15, slice 1 (#754): Golani's card at the start with its Move button, before and after the press
+    /// (the pick line under the card's lines), at every window size in English and Hebrew: the panel lies in the window, and
+    /// every shown label and button lies inside the panel with its text fitting its box.</summary>
+    [UnityTest]
+    public IEnumerator TheUnitCardWithItsMoveOrderFitsEveryWindow()
+    {
+        var he = UiText.Parse(AssetDatabase.LoadAssetAtPath<TextAsset>(UiPaths.StringsHebrew).text, "strings.he.yaml");
+        var units = Statecraft.Game.Map.Units.UnitData.Parse(MapFile(Statecraft.Game.Map.Units.UnitData.DefaultFileName));
+        var problems = new List<string>();
+        foreach (var hebrew in new[] { false, true })
+            foreach (var (w, h) in Windows)
+                foreach (var pressed in new[] { false, true })
+                {
+                    var g = GameSession.New(C, GoldenRun.Seed, Mode.Historical);
+                    var token = Statecraft.Game.Map.Units.UnitRoster.FromState(units, C, g.State, null, (row, a, q, r) => a).Single(x => x.Unit.Id == "golani");
+                    Statecraft.Game.Map.Units.PlacedToken? golani = new Statecraft.Game.Map.Units.PlacedToken(token, new Statecraft.Game.Map.Units.AnchorSpot(0, 0, 0, 0, false));
+                    var at = $"{(hebrew ? "he" : "en")} {w}x{h}{(pressed ? " picking" : "")}";
+                    yield return Rendered(w, h, g, (root, info) => info.ShowUnit(), root =>
+                    {
+                        var panel = root.Q("info-panel"); var window = root.worldBound;
+                        var move = root.Q<Button>("info-move");
+                        if (!Shown(move)) { problems.Add($"{at}: precondition: the Move button shows"); return; }
+                        var pick = (hebrew ? he : Text)["unit.move_pick"];
+                        if (root.Q<Label>("info-settlements").text.Contains(pick) != pressed) problems.Add($"{at}: the pick line shows: {!pressed}");
+                        if (!Inside(panel.worldBound, window)) problems.Add($"{at}: the panel {panel.worldBound} leaves the window {window}");
+                        foreach (var l in panel.Query<TextElement>().ToList().Where(l => !string.IsNullOrEmpty(l.text) && Shown(l)))
+                        {
+                            if (!Inside(l.worldBound, panel.worldBound)) problems.Add($"{at}: '{l.text}' {l.worldBound} leaves the panel {panel.worldBound}");
+                            if (!TextFits(l)) problems.Add($"{at}: '{l.text}' does not fit its box {l.contentRect} ({l.name})");
+                        }
+                    }, hebrew ? he : Text, hebrew, root =>
+                    {
+                        if (!pressed) return;
+                        var hide = root.Q<Button>("event-hide");
+                        if (hide != null && Shown(hide)) UiTestKit.Press(hide);   // the turn's decision card disables the panel under it
+                        UiTestKit.Press(root.Q<Button>("info-move"));
+                    }, () => golani);
                 }
         Assert.IsEmpty(problems, string.Join("\n", problems));
     }
