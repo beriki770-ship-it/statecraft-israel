@@ -157,7 +157,7 @@ public class ArtilleryTests
         Assert.Contains(message, ex.Message);
     }
 
-    // R-COMBAT-007, R-COMBAT-008: the real types carry the values proposed on #748.
+    // R-COMBAT-007, R-COMBAT-008: the real types carry the values the owner accepted on #748 (21 October 2026).
     [Fact]
     public void TheRealTypesCarryTheirCombatValues()
     {

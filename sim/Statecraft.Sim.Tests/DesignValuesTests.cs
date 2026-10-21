@@ -157,7 +157,7 @@ public class DesignValuesTests
         ("unit_types.yaml", "types[veteran_soldier].movement_points"),
         ("unit_types.yaml", "types[artillery].movement_points"),
         ("unit_types.yaml", "types[armoured_car].movement_points"),
-        // Artillery's combat role and the armoured car (Phase 5 PR 9, #748; Q-ARTY-1, Q-ARTY-2): agent-proposed, awaiting the owner.
+        // Artillery's combat role and the armoured car (Phase 5 PR 9, #748; Q-ARTY-1, Q-ARTY-2): owner, 21 October 2026.
         ("unit_types.yaml", "types[artillery].range"),
         ("unit_types.yaml", "types[artillery].arms_per_fire"),
         ("unit_types.yaml", "types[artillery].combat_percent"),
