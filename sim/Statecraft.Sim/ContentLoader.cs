@@ -324,8 +324,7 @@ namespace Statecraft.Sim
             var aliyah = Read<AliyahFile>(readFile, "aliyah.yaml");
             c.Aliyah = aliyah.Series; c.Regions = aliyah.Regions;
             c.PopulationAnchors = Read<PopulationFile>(readFile, "population.yaml").Anchors;
-            var map = Read<MapFile>(readFile, HexesFile);
-            c.Hexes = map.Hexes;
+            c.Hexes = Read<MapFile>(readFile, HexesFile).Hexes;
             c.SettlementHexes = Read<SettlementHexesFile>(readFile, SettlementHexesFileName).Settlements;
             c.MapLocations = Read<MapLocationsFile>(readFile, MapLocationsFileName).Locations;
             var settlements = ReadSettlements(readFile);
@@ -377,7 +376,7 @@ namespace Statecraft.Sim
                 c.Corridors = Read<CorridorsFile>(readFile, "corridors.yaml").Corridors;   // sourced, hexes derived (Phase 4 PR 2)
                 ValidateGdd(c, settlementIds);
                 // The sourced starting forces (Phase 5 PR 4, R-UNIT-006), once the types and people_per_unit are known valid.
-                c.StartingForces = StartingForces.Read(readFile, c, map.Bounds.Lon0, map.Bounds.Lat0, map.Bounds.Lat1, map.HexSizeKm);
+                c.StartingForces = StartingForces.Read(readFile, c);
             }
             EventRules.ValidateStructured(c);   // R-EFX-006: after the GDD records it names are read
             c.BuildWindows();
@@ -1215,6 +1214,12 @@ namespace Statecraft.Sim
                 // R-MOVE-003 (Q-MOVE-3): required, so a missing key is never read as no room at all.
                 if (m.StackLimit == null) throw new ContentException(file, "mvp.stack_limit", "required when eras.yaml systems.loop is gdd");
                 if (m.StackLimit < 1) throw new ContentException(file, "mvp.stack_limit", "must be >= 1");
+                // R-MOVE-007 (Q-MOVE-2): required, so a missing key is never read as a free step along a corridor.
+                foreach (var (key, v) in new[] { ("road_move_cost", m.RoadMoveCost), ("rail_move_cost", m.RailMoveCost) })
+                {
+                    if (v == null) throw new ContentException(file, "mvp." + key, "required when eras.yaml systems.loop is gdd");
+                    if (v < 1) throw new ContentException(file, "mvp." + key, "must be >= 1");
+                }
                 // R-MOVE-005 (Q-CIV-1)
                 foreach (var id in m.EnemyHeldLocalities)
                     if (c.SettlementHexes.All(h => h.Id != id)) throw new ContentException(file, "mvp.enemy_held_localities", $"unknown settlement '{id}' ({SettlementHexesFileName})");

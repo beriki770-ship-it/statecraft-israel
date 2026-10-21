@@ -236,6 +236,7 @@ series:
             ["projects.yaml"] = GddProjects,
             ["corridors.yaml"] = GddCorridors,
             ["map/units_1948.yaml"] = "units: []\n",   // no starting forces (R-UNIT-006); StartingForcesTests writes rows
+            ["map/unit_anchor_hexes.yaml"] = "anchors: []\n",   // their hexes (tools/unit_anchor_hexes.py)
         };
         if (extra != null) foreach (var kv in extra) o[kv.Key] = kv.Value;
         return o;
@@ -289,6 +290,8 @@ mvp:
   disloyal_effect_share: 0.5
   move_cost: { coastal_plain: 1, hills: 2, desert: 3 }
   stack_limit: 2
+  road_move_cost: 1
+  rail_move_cost: 2
   enemy_held_localities: []
 ";
 
