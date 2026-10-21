@@ -61,6 +61,20 @@ uv run tools/web_check.py unity/Builds/Web-<compression> --query "golden&smoke=5
   --expect "SMOKE OK 5 turns 1948-10-15 ed761c3b9c4e9b76520af20080b2a7c8b984a1f44f1d52e5127aae1baa992a8d"
 ```
 
+`smoke-orders` (GDD Phase 5 PR 15, #754) is the same kind of browser run for the unit orders (`?smoke-orders`, desktop
+`-smoke-orders`: the golden seed, one turn). It hides the turn's event card (the events go to their ministers), clicks the
+hex of the unit `GoldenRun.SmokeMove` names (the lowest-id unit `Movement.Reachable` has a hex for: unit 0, Golani, on
+10,9), presses the unit card's Move button, clicks the first lit hex in `Reachable`'s (q, r) order (7,11) and presses End
+Turn: `SMOKE ORDERS OK 1948-06-15 5f4190127aa0a6ddfe360d67e9378fe46be9e2882dc807881c29c385e5a6441b`.
+`GoldenRun.PlaySmokeOrders` plays the same turn with that one `Move`, so the value is in the manifest (`SliceSmokeTests.TheSmokeOrdersRunMovesOneUnitAndEndsOnTheGolden`) and the player's golden check
+prints it as `GOLDEN OK smoke-orders`. Re-record it when the sim or the order path on the card changes; the fortify, hold and
+attack slices can add their orders to it. Check a WebGL build with:
+
+```
+uv run tools/web_check.py unity/Builds/Web-<compression> --query "smoke-orders" \
+  --expect "SMOKE ORDERS OK 1948-06-15 5f4190127aa0a6ddfe360d67e9378fe46be9e2882dc807881c29c385e5a6441b"
+```
+
 **When a golden moves.** The test fails with the lines that changed, grouped by section (`[ind]`, `[pol]`, `[bud]`,
 `[sit]` and so on), against a committed snapshot of the run's final state: `sim/Statecraft.Sim.Tests/golden/hash1950.txt`
 and `hash1952.txt`, written by `GameState.Describe()`, which uses the same writer as `Hash()` (so the two cannot list
@@ -136,7 +150,7 @@ goldens (playtest 2 changed every line's casing with no hash change). They are s
 `FinalWaveTests.AReloadedSaveReproducesTheLastTurnsCauses` checks a reloaded save gives the same last-turn Causes, and
 `TheGoldenRunsCausesAreTheSameInEveryCulture` runs the 1952 golden under de-DE and ar-SA against the invariant culture.
 
-Each golden hash is pinned in `sim/Statecraft.Sim.Tests/golden/manifest.txt` (`hash1950`, `hash1952`, `mvp-end`, `smoke5`, and the scenario lines above). The .NET tests
+Each golden hash is pinned in `sim/Statecraft.Sim.Tests/golden/manifest.txt` (`hash1950`, `hash1952`, `mvp-end`, `smoke5`, `smoke-orders`, and the scenario lines above). The .NET tests
 compare against it. These places must agree with it, and `GoldenManifestTests` fails naming the one that does not:
 - `sim/Statecraft.Sim/GoldenRun.cs`, which Unity code and players compare against (the update command rewrites it);
 - this file, `docs/RELEASING.md` and `tools/web_check.py`'s usage example (by hand).
@@ -350,3 +364,4 @@ The hash reads the state keys, so it never sees a record outside its window. An 
 | #1240: the seven IDF rows re-sourced to Ben-Gurion's diary of 15 May 1948, owner 21 Oct 2026 | scenario-cautious | `00ec7ec2` | same as reckless (was `b4e5caa1`) |
 | #1240: the seven IDF rows re-sourced to Ben-Gurion's diary of 15 May 1948, owner 21 Oct 2026 | scenario-mvp-absorb-first | `ac5f51bb` | same as reckless (was `7d37c0d0`) |
 | #1240: the seven IDF rows re-sourced to Ben-Gurion's diary of 15 May 1948, owner 21 Oct 2026 | scenario-mvp-defeat | `f2ad1114` | same as reckless; the defeat is unchanged (was `7bd5158f`) |
+| GDD Phase 5 PR 15 slice 4 (#754) | smoke-orders | `5f419012` | new: one turn from the golden seed whose only order is unit 0 (Golani) moving from 10,9 to 7,11, given through the unit card in the browser run; no other golden moves |

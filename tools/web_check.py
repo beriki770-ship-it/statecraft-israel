@@ -9,6 +9,8 @@ fail on a failure line or a timeout. Uses Chrome for Testing from the Playwright
 
 Usage (from the repo root):
   uv run tools/web_check.py unity/Builds/Web-disabled --query "golden" --expect "GOLDEN OK hash1950 a1ad42117a8523a79cf36cc03f33c63fbe887820d7f6fb89a834f2f952510548" --expect "GOLDEN OK hash1952 9cbd73eda1440e1ee3e1ee565cf81960f2e7ee5595e55bdb4ed661f1d5e0ab40"
+  uv run tools/web_check.py unity/Builds/Web-disabled --query "smoke-orders" --expect "SMOKE ORDERS OK 1948-06-15 5f4190127aa0a6ddfe360d67e9378fe46be9e2882dc807881c29c385e5a6441b"
+  (the smoke-orders golden: one Move given through the unit card, docs/determinism.md)
 Options: --query Q (page URL query, without '?'), --expect TEXT (repeatable), --fail REGEX (default: GOLDEN FAIL|SMOKE FAIL|BOOT FAIL),
 --timeout SECONDS (default 300), --stall SECONDS (fail when no console message arrives for that long; 0 = off),
 --swiftshader (software WebGL when there is no GPU), --dpr N (default 1), --shots DIR (reassemble the player's
