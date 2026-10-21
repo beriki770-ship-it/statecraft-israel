@@ -112,7 +112,8 @@ public class UnitsInPlayTests
         foreach (var u in units)
         {
             // Owner, 20 October 2026, #743: an IDF brigade's secondary-source strength "carries `status: to_verify`".
-            Assert.AreEqual(u.Side == UnitData.Israel && u.Strength != null ? "to_verify" : "draft", u.Status, u.Id);
+            // Etzioni's is Ben-Gurion's diary of 15 May 1948, a primary source, so it stays draft (#1241).
+            Assert.AreEqual(u.Side == UnitData.Israel && u.Strength != null && u.Id != "etzioni" ? "to_verify" : "draft", u.Status, u.Id);
             Assert.AreEqual(UnitData.IsWikipediaOnly(u), u.WikipediaOnly, $"{u.Id}: wikipedia_only must say whether every source is Wikipedia or Wikidata");
             foreach (var s in u.AllSources())
                 Assert.LessOrEqual(UnitData.Day(s.Checked), DateTime.Today, $"{u.Id}: {s.Url} checked in the future");
@@ -804,10 +805,10 @@ public class UnitsInPlayTests
             Assert.IsTrue(layer.Show(C, session.State));
             Assert.AreEqual(before, session.State.Hash(), "drawing the units changed the state");
             Assert.IsFalse(layer.Show(C, session.State), "the same roster draws nothing new");
-            // The GDD loop draws the sim's units (GDD Phase 5 PR 14): seven brigades and the two ships; Etzioni has no sim unit.
-            Assert.AreEqual(9, layer.Tokens.Count);
+            // The GDD loop draws the sim's units (GDD Phase 5 PR 14): eight brigades and the two ships; the 7th arrives from the 15 June turn (R-UNIT-009).
+            Assert.AreEqual(10, layer.Tokens.Count);
             var tokens = map.Terrain.transform.Find(UnitLayer.RootName).Find("Tokens");
-            Assert.AreEqual(9, tokens.childCount);
+            Assert.AreEqual(10, tokens.childCount);
             var kiryati = tokens.Find("kiryati");
             Assert.AreEqual(3, kiryati.Cast<Transform>().Count(t => t.name.StartsWith("Rifleman")), "three riflemen at full strength (Q-UI-3)");
             var badge = kiryati.Find("Badge");
