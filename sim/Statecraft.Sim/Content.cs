@@ -639,6 +639,16 @@ namespace Statecraft.Sim
         /// <summary>The share of each numeric effect a delegated option applies when its minister is below the loyalty floor
         /// (R-EVT-003; #107). Required in the GDD loop, 0 to 1.</summary>
         public double? DisloyalEffectShare { get; set; }
+        /// <summary>Food each population unit of prisoners eats a turn, in step 7 (R-POW-002; Q-POW-5). Required in the GDD loop, &gt;= 0.</summary>
+        public int? FoodPerPrisonerUnit { get; set; }
+        /// <summary>Social cohesion lost for each unit of the prisoners' Food the stock cannot give (R-POW-002; Q-POW-5).
+        /// Required in the GDD loop, &gt;= 0.</summary>
+        public double? PrisonerShortfallCohesion { get; set; }
+        /// <summary>Points scored for each population unit of prisoners returned (R-POW-004; Q-POW-2). Required in the GDD loop, &gt;= 0.</summary>
+        public int? PointsPerPrisonerUnitReturned { get; set; }
+        /// <summary>IL millions the Treasury pays a turn for each population unit of the player's soldiers held (R-POW-005;
+        /// Q-POW-4). Required in the GDD loop, &gt;= 0.</summary>
+        public double? HeldSoldierCostPerTurn { get; set; }
     }
 
     /// <summary>One row of rules.yaml mvp.combat_table (R-COMBAT-002, R-COMBAT-003): it applies from an attack : defence
@@ -1052,6 +1062,10 @@ namespace Statecraft.Sim
         /// only while that site is being worked (R-SWAMP-002; Q-SWAMP-2). The legacy loop reads no sites and ignores it.
         /// Empty for every other event.</summary>
         public string Site { get; set; } = "";
+        /// <summary>The front (one of Prisoners.Fronts) whose prisoners this card returns (R-POW-004; Q-POW-3): it fires only
+        /// while that front holds prisoners or the player's soldiers, has exactly one option and resolves without a draw.
+        /// Empty for every other event.</summary>
+        public string Prisoners { get; set; } = "";
         /// <summary>Path relative to the content root, set by the loader (not read from YAML).</summary>
         [YamlIgnore] public string File { get; set; } = "";
     }
