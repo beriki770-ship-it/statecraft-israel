@@ -30,25 +30,21 @@ namespace Statecraft.Sim
     public static class StartingForces
     {
         public const string FileName = "map/units_1948.yaml";
+        /// <summary>Each anchor's hex, written by tools/unit_anchor_hexes.py with the map's projection and rounding
+        /// (tools/hexgrid.py, Unity's HexPicker), so the sim needs no trigonometry (docs/determinism.md).</summary>
+        public const string HexesFileName = "map/unit_anchor_hexes.yaml";
         /// <summary>Every IDF brigade starts as a veteran soldier (#743, owner, 20 October 2026).</summary>
         public const string IsraeliBrigadeType = "veteran_soldier";
 
         /// <summary>The starting forces in the file's order (R-UNIT-006): every row that is not hidden, is an army row (the
         /// squadron and the ships stay tokens, Q-UNIT-5), has a strength for the start day and an anchor window
-        /// [from, to) covering it. The first such anchor places the unit on the hex holding its coordinates, by the map's
-        /// projection and rounding (tools/hexgrid.py, Unity's HexPicker). Strength is the row's people in population units,
+        /// [from, to) covering it. The first such anchor places the unit on its hex in unit_anchor_hexes.yaml (the hex holding
+        /// its coordinates, precomputed by tools/unit_anchor_hexes.py). Strength is the row's people in population units,
         /// the nearest unit with a half up and at least 1 (#743). A row it cannot place is a load error.</summary>
-        internal static List<StartingForce> Read(Func<string, string?> readFile, Content c, double lon0, double lat0, double lat1, double hexSizeKm)
+        internal static List<StartingForce> Read(Func<string, string?> readFile, Content c)
         {
-            string? text;
-            try { text = readFile(FileName); }
-            catch (System.IO.IOException e) { throw new ContentException(FileName, "(file)", e.Message); }
-            catch (UnauthorizedAccessException e) { throw new ContentException(FileName, "(file)", e.Message); }
-            if (text == null) throw new ContentException(FileName, "(file)", "missing file");
-            Dictionary<string, List<Dictionary<object, object>>>? file;
-            try { file = new DeserializerBuilder().Build().Deserialize<Dictionary<string, List<Dictionary<object, object>>>>(text); }
-            catch (YamlException e) { throw new ContentException(FileName, $"line {e.Start.Line}", e.InnerException?.Message ?? e.Message); }
-            if (file == null || !file.TryGetValue("units", out var rows) || rows == null) throw new ContentException(FileName, "units", "required");
+            var rows = Rows(readFile, FileName, "units");
+            var hexes = Hexes(readFile, rows);
             var start = c.Rules.Start.ToString("yyyy-MM-dd", CultureInfo.InvariantCulture);
             var ppu = c.RulesAt(c.Rules.Start).Mvp!.PeoplePerUnit;   // the start day's rules, as Cities.Init reads them
             var list = new List<StartingForce>();
@@ -70,7 +66,9 @@ namespace Statecraft.Sim
                 if (people < 0 || people != decimal.Truncate(people)) throw new ContentException(FileName, $"{at}.strength.value", "must be a whole number >= 0");
                 var units = Cities.StartUnits(people, ppu);   // the nearest unit, a half up, at least 1 for a force with people
                 if (units == 0) continue;                     // a strength of nobody starts nothing
-                var (q, r) = HexOf(Coordinate(anchor, "lon", $"{at}.anchors[{k}].lon"), Coordinate(anchor, "lat", $"{at}.anchors[{k}].lat"), lon0, lat0, lat1, hexSizeKm);
+                if (!hexes.TryGetValue((id, k), out var qr))
+                    throw new ContentException(HexesFileName, "anchors", $"no hex for {at}.anchors[{k}] ({FileName}); rerun tools/unit_anchor_hexes.py");
+                var (q, r) = qr;
                 var hex = c.HexAt(q, r);
                 if (hex == null) throw new ContentException(FileName, $"{at}.anchors[{k}]", FormattableString.Invariant($"hex q={q} r={r} is not on the map ({ContentLoader.HexesFile})"));
                 if (!hex.Land) throw new ContentException(FileName, $"{at}.anchors[{k}]", FormattableString.Invariant($"hex q={q} r={r} is not a land hex in {ContentLoader.HexesFile}"));
@@ -108,32 +106,52 @@ namespace Statecraft.Sim
             return types[0].Id;
         }
 
-        /// <summary>lon, lat to the axial hex holding it: tools/hexgrid.py's lonlat_to_km and point_to_hex (cube rounding),
-        /// as Unity's HexPicker.FromLonLat does it, so the sim's hex is the one the map computes for the same point.</summary>
-        static (int q, int r) HexOf(double lon, double lat, double lon0, double lat0, double lat1, double size)
+        /// <summary>A file's list under <paramref name="key"/>, read untyped (only the keys the start needs are read).</summary>
+        static List<Dictionary<object, object>> Rows(Func<string, string?> readFile, string fileName, string key)
         {
-            const double KmPerDegLat = 110.57, KmPerDegLonEq = 111.32;   // tools/geo.py
-            var x = (lon - lon0) * (KmPerDegLonEq * Math.Cos((lat0 + lat1) / 2 * (Math.PI / 180)));
-            var y = (lat1 - lat) * KmPerDegLat;
-            var qf = (Math.Sqrt(3) / 3 * x - y / 3) / size;
-            var rf = (2.0 / 3 * y) / size;
-            var sf = -qf - rf;
-            double q = Math.Round(qf, MidpointRounding.ToEven), r = Math.Round(rf, MidpointRounding.ToEven), s = Math.Round(sf, MidpointRounding.ToEven);
-            double dq = Math.Abs(q - qf), dr = Math.Abs(r - rf), ds = Math.Abs(s - sf);
-            if (dq > dr && dq > ds) q = -r - s;
-            else if (dr > ds) r = -q - s;
-            return ((int)q, (int)r);
+            string? text;
+            try { text = readFile(fileName); }
+            catch (System.IO.IOException e) { throw new ContentException(fileName, "(file)", e.Message); }
+            catch (UnauthorizedAccessException e) { throw new ContentException(fileName, "(file)", e.Message); }
+            if (text == null) throw new ContentException(fileName, "(file)", "missing file");
+            Dictionary<string, List<Dictionary<object, object>>>? file;
+            try { file = new DeserializerBuilder().Build().Deserialize<Dictionary<string, List<Dictionary<object, object>>>>(text); }
+            catch (YamlException e) { throw new ContentException(fileName, $"line {e.Start.Line}", e.InnerException?.Message ?? e.Message); }
+            if (file == null || !file.TryGetValue(key, out var rows) || rows == null) throw new ContentException(fileName, key, "required");
+            return rows;
         }
+
+        /// <summary>unit_anchor_hexes.yaml by (row id, anchor index). Every row must name an anchor of <paramref name="units"/>,
+        /// once: a row that does not means the file is stale (the tool was not rerun after units_1948.yaml changed).</summary>
+        static Dictionary<(string id, int anchor), (int q, int r)> Hexes(Func<string, string?> readFile, List<Dictionary<object, object>> units)
+        {
+            var anchors = new Dictionary<string, int>(StringComparer.Ordinal);
+            foreach (var u in units)
+                if (u != null) anchors[Text(u, "id")] = u.TryGetValue("anchors", out var ao) && ao is List<object> list ? list.Count : 0;
+            var hexes = new Dictionary<(string, int), (int, int)>();
+            var rows = Rows(readFile, HexesFileName, "anchors");
+            for (int i = 0; i < rows.Count; i++)
+            {
+                var row = rows[i] ?? throw new ContentException(HexesFileName, $"anchors[{i}]", "empty row");
+                var id = Text(row, "id");
+                var at = id == "" ? $"anchors[{i}]" : $"anchors[{id}]";
+                int k = Int(row, "anchor", at), q = Int(row, "q", at), r = Int(row, "r", at);
+                if (!anchors.TryGetValue(id, out var n) || k < 0 || k >= n)
+                    throw new ContentException(HexesFileName, at, FormattableString.Invariant($"no anchor {k} of a row '{id}' in {FileName}; rerun tools/unit_anchor_hexes.py"));
+                if (!hexes.TryAdd((id, k), (q, r)))
+                    throw new ContentException(HexesFileName, at, FormattableString.Invariant($"anchor {k} is listed twice"));
+            }
+            return hexes;
+        }
+
+        static int Int(Dictionary<object, object> m, string key, string at) =>
+            int.TryParse(Text(m, key), NumberStyles.AllowLeadingSign, CultureInfo.InvariantCulture, out var n)
+                ? n : throw new ContentException(HexesFileName, $"{at}.{key}", "required, a whole number");
 
         static string Text(Dictionary<object, object> m, string key) => m.TryGetValue(key, out var v) && v is string s ? s : "";
 
         static decimal Number(Dictionary<object, object> m, string key, string field) =>
             decimal.TryParse(Text(m, key), NumberStyles.Float, CultureInfo.InvariantCulture, out var d)
-                ? d : throw new ContentException(FileName, field, "required, a number");
-
-        /// <summary>A coordinate as a double, parsed as the map's reader parses it, so both round the same point.</summary>
-        static double Coordinate(Dictionary<object, object> m, string key, string field) =>
-            double.TryParse(Text(m, key), NumberStyles.Float, CultureInfo.InvariantCulture, out var d) && !double.IsNaN(d) && !double.IsInfinity(d)
                 ? d : throw new ContentException(FileName, field, "required, a number");
     }
 }

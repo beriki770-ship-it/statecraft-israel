@@ -191,7 +191,8 @@ date; `as_of` is 15 May 1948, the day the ruling gives the strengths for.
 A Historical game on 15 May 1948 starts with one sim unit per row that is not hidden, is an army row, has a 15 May
 strength and has an anchor window covering the day (docs/rules/mvp.md R-UNIT-006; owner, 20 October 2026, #743: "all five
 defaults"). The unit stands on the hex holding the anchor's coordinates, by the map's own projection and rounding
-(`HexPicker`, `tools/hexgrid.py`); the token may still stand one hex away (`UnitPlacer`), which is presentation.
+(`HexPicker`, `tools/hexgrid.py`), precomputed by `tools/unit_anchor_hexes.py` into `content/map/unit_anchor_hexes.yaml`
+(rerun it after changing an anchor); the token may still stand one hex away (`UnitPlacer`), which is presentation.
 - **Types:** every IDF brigade is a `veteran_soldier`. Each Arab side with a starting row has one infantry type, a labelled
   design value with 3 movement points: `egyptian_army`, `arab_legion` (Jordan), `syrian_army`, `iraqi_army`,
   `arab_liberation_army`. These ids are the sim's, not names shown to the player (Q-UI-2, Q-START-4).

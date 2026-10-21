@@ -6,7 +6,8 @@ using Statecraft.Sim;
 
 /// <summary>The sourced starting forces, both sides (GDD Phase 5 PR 4; #743, owner, 20 October 2026: "all five defaults").
 /// A Historical game starts with one unit per row of map/units_1948.yaml that is not hidden, is an army row, has a 15 May
-/// strength and has an anchor window covering the start; the unit stands on the anchor's hex.</summary>
+/// strength and has an anchor window covering the start; the unit stands on the anchor's hex, read from
+/// map/unit_anchor_hexes.yaml (written by tools/unit_anchor_hexes.py, so the sim needs no projection maths).</summary>
 public class StartingForcesTests
 {
     static readonly Content Real = ContentLoader.Load(RealContentTests.ContentRoot());
@@ -16,16 +17,22 @@ public class StartingForcesTests
         + "  - { id: veteran_soldier, kind: unit, side: israel, class: infantry, movement_points: 3 }\n"
         + "  - { id: egyptian_army, kind: unit, side: egypt, class: infantry, movement_points: 3 }\n";
 
-    /// <summary>One units_1948.yaml row in the fixture's map: an army row with one anchor at (lon, lat), from 15 May 1948.</summary>
-    static string Row(string id, string side, int? people, double lon = 34.29, double lat = 33.35, string extra = "", string from = "1948-05-15") =>
-        FormattableString.Invariant($"- id: {id}\n  service: army\n  side: {side}\n  status: draft\n{extra}")
-        + (people is int p ? FormattableString.Invariant($"  strength: {{ value: {p}, as_of: '1948-05-15' }}\n") : "")
-        + FormattableString.Invariant($"  anchors:\n  - {{ place: Here, lon: {lon}, lat: {lat}, from: '{from}', to: '1949-01-01' }}\n");
+    /// <summary>One units_1948.yaml row in the fixture's map (an army row with one anchor from 15 May 1948) and its anchor's
+    /// unit_anchor_hexes.yaml row on hex (q, r). The anchor's coordinates are those of hex (1, 0); the sim never reads them.</summary>
+    static (string row, string hex) Row(string id, string side, int? people, int q = 1, int r = 0, string extra = "", string from = "1948-05-15",
+        string service = "army", string status = "draft") =>
+        (FormattableString.Invariant($"- id: {id}\n  service: {service}\n  side: {side}\n  status: {status}\n{extra}")
+            + (people is int p ? FormattableString.Invariant($"  strength: {{ value: {p}, as_of: '1948-05-15' }}\n") : "")
+            + FormattableString.Invariant($"  anchors:\n  - {{ place: Here, lon: 34.29, lat: 33.35, from: '{from}', to: '1949-01-01' }}\n"),
+         FormattableString.Invariant($"  - {{ id: {id}, anchor: 0, q: {q}, r: {r} }}\n"));
 
-    static Content Load(params string[] rows) => ContentLoader.Load(Fixture.Write(Fixture.Gdd(new Dictionary<string, string>
+    static Content Load(params (string row, string hex)[] rows) => Load("anchors:\n" + string.Concat(rows.Select(x => x.hex)), rows);
+
+    static Content Load(string hexes, params (string row, string hex)[] rows) => ContentLoader.Load(Fixture.Write(Fixture.Gdd(new Dictionary<string, string>
     {
         ["unit_types.yaml"] = Types,
-        ["map/units_1948.yaml"] = "units:\n" + string.Concat(rows),
+        ["map/units_1948.yaml"] = "units:\n" + string.Concat(rows.Select(x => x.row)),
+        ["map/unit_anchor_hexes.yaml"] = hexes,
     })));
 
     // R-UNIT-006: every starting unit is one row's, at that row's anchor covering 15 May 1948, with the owner's type and
@@ -78,7 +85,7 @@ public class StartingForcesTests
     {
         var rows = Real.StartingForces.Select(f => f.Row).ToList();
         foreach (var id in new[] { "squadron_101", "ins_haganah", "ins_wedgwood" }) Assert.DoesNotContain(id, rows);
-        var c = Load(Row("ships", "israel", 20).Replace("service: army", "service: navy"));
+        var c = Load(Row("ships", "israel", 20, service: "navy"));
         Assert.Empty(c.StartingForces);
     }
 
@@ -87,7 +94,7 @@ public class StartingForcesTests
     [Fact]
     public void StrengthsRoundToTheNearestUnitHalvesUpNeverBelowOne()
     {
-        var c = Load(Row("a", "israel", 45), Row("b", "egypt", 14, lon: 34.38), Row("c", "israel", 4, lon: 34.47));
+        var c = Load(Row("a", "israel", 45), Row("b", "egypt", 14, q: 2), Row("c", "israel", 4, q: 3));
         Assert.Equal(new[] { ("a", 5), ("b", 1), ("c", 1) }, c.StartingForces.Select(f => (f.Row, f.Strength)));
         Assert.Equal(new[] { ("a", "veteran_soldier"), ("b", "egyptian_army"), ("c", "veteran_soldier") }, c.StartingForces.Select(f => (f.Row, f.Type)));
         Assert.Equal(new[] { (1, 0), (2, 0), (3, 0) }, c.StartingForces.Select(f => (f.Q, f.R)));
@@ -95,12 +102,12 @@ public class StartingForcesTests
 
     // R-UNIT-006: a starting row the sim cannot place is a load error naming the file and the row, never a silent skip.
     [Theory]
-    [InlineData("syria", 34.29, 33.35, "units[x].side", "no military type of side 'syria'")]
-    [InlineData("israel", 34.2, 33.35, "units[x].anchors[0]", "hex q=0 r=0 is not a land hex")]
-    [InlineData("israel", 35.5, 31.0, "units[x].anchors[0]", "is not on the map")]
-    public void AStartingRowNeedsALandHexAndAType(string side, double lon, double lat, string field, string message)
+    [InlineData("syria", 1, 0, "units[x].side", "no military type of side 'syria'")]
+    [InlineData("israel", 0, 0, "units[x].anchors[0]", "hex q=0 r=0 is not a land hex")]
+    [InlineData("israel", 40, 0, "units[x].anchors[0]", "hex q=40 r=0 is not on the map")]
+    public void AStartingRowNeedsALandHexAndAType(string side, int q, int r, string field, string message)
     {
-        var ex = Assert.Throws<ContentException>(() => Load(Row("x", side, 20, lon, lat)));
+        var ex = Assert.Throws<ContentException>(() => Load(Row("x", side, 20, q, r)));
         Assert.Equal("map/units_1948.yaml", ex.File);
         Assert.Equal(field, ex.Field);
         Assert.Contains(message, ex.Message);
@@ -111,8 +118,47 @@ public class StartingForcesTests
     public void TheUnitFileEntersTheContentHash()
     {
         var a = Load(Row("a", "israel", 20));
-        var b = Load(Row("a", "israel", 20) + "  # a comment changes the file\n");
+        var row = Row("a", "israel", 20);
+        var b = Load((row.row + "  # a comment changes the file\n", row.hex));
         Assert.NotEqual(a.Hash, b.Hash);
+        var h = Load("anchors:\n" + row.hex + "# a comment changes the hex file\n", row);
+        Assert.NotEqual(a.Hash, h.Hash);
+    }
+
+    // docs/determinism.md: the sim does no projection maths. A starting unit stands on the hex unit_anchor_hexes.yaml gives
+    // its anchor (tools/unit_anchor_hexes.py), not on one the sim works out from lon/lat: the fixture's anchor lies in hex
+    // (1, 0), the file says (2, 1).
+    [Fact]
+    public void TheHexIsReadFromTheGeneratedFileNotProjected()
+    {
+        var c = Load(Row("a", "israel", 20, q: 2, r: 1));
+        Assert.Equal(new[] { (2, 1) }, c.StartingForces.Select(f => (f.Q, f.R)));
+    }
+
+    // The real file is the tool's output (tools/tests/test_unit_anchor_hexes.py); these are its hexes for the 12 starting
+    // anchors, the ones the sim's own projection gave before #1186's review moved it out of the sim (goldens unchanged).
+    [Fact]
+    public void TheRealStartingHexesArePinned() =>
+        Assert.Equal(new[]
+        {
+            ("golani", 10, 9), ("carmeli", 5, 8), ("alexandroni", 0, 15), ("kiryati", -3, 19), ("givati", -5, 23), ("harel", -2, 23),
+            ("negev", -9, 27), ("egyptian_expeditionary_force", -11, 27), ("arab_legion", 0, 22), ("syrian_army", 10, 10),
+            ("iraqi_expeditionary_force", 9, 11), ("arab_liberation_army", 12, 4),
+        }, Real.StartingForces.Select(f => (f.Row, f.Q, f.R)));
+
+    // A starting anchor with no hex row, a row for an anchor that does not exist and a repeated row are load errors naming
+    // unit_anchor_hexes.yaml: the file is stale and the tool must be rerun.
+    [Theory]
+    [InlineData("anchors: []\n", "anchors", "no hex for units[x].anchors[0]")]
+    [InlineData("anchors:\n  - { id: x, anchor: 0, q: 1, r: 0 }\n  - { id: y, anchor: 0, q: 1, r: 0 }\n", "anchors[y]", "no anchor 0 of a row 'y'")]
+    [InlineData("anchors:\n  - { id: x, anchor: 0, q: 1, r: 0 }\n  - { id: x, anchor: 1, q: 1, r: 0 }\n", "anchors[x]", "no anchor 1 of a row 'x'")]
+    [InlineData("anchors:\n  - { id: x, anchor: 0, q: 1, r: 0 }\n  - { id: x, anchor: 0, q: 2, r: 0 }\n", "anchors[x]", "anchor 0 is listed twice")]
+    public void TheHexFileMustMatchTheUnitFile(string hexes, string field, string message)
+    {
+        var ex = Assert.Throws<ContentException>(() => Load(hexes, Row("x", "israel", 20)));
+        Assert.Equal("map/unit_anchor_hexes.yaml", ex.File);
+        Assert.Equal(field, ex.Field);
+        Assert.Contains(message, ex.Message);
     }
 
     // R-UNIT-007, Q-START-2 (owner, 15 October 2026): Open mode starts no forces; it cannot start a game yet at all.
@@ -126,7 +172,7 @@ public class StartingForcesTests
     public void TheReleaseGateWaitsForEveryStartingRowToBeFactChecked()
     {
         Assert.Equal(Real.StartingForces.Select(f => f.Row).OrderBy(x => x, StringComparer.Ordinal), ReleaseGate.StartingForcesUnchecked(Real));
-        var c = Load(Row("b", "israel", 20), Row("a", "israel", 20, lon: 34.38).Replace("status: draft", "status: fact-checked"));
+        var c = Load(Row("b", "israel", 20), Row("a", "israel", 20, q: 2, status: "fact-checked"));
         Assert.Equal(new[] { "b" }, ReleaseGate.StartingForcesUnchecked(c));
     }
 }
