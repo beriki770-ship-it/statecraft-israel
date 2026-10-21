@@ -353,6 +353,8 @@ namespace Statecraft.Sim
             //                              that objective is recorded, and has exactly one option
             //   site                       a swamp site (sites.yaml) whose works the event is about: in the GDD loop it
             //                              fires only while that site is being worked; the legacy loop ignores it
+            //   prisoners                  a front (Prisoners.Fronts) whose prisoners the card returns: it fires only while
+            //                              that front holds some either way, and has exactly one option (R-POW-004)
             foreach (var rel in eventFiles.OrderBy(p => p, StringComparer.Ordinal))
             {
                 var e = Read<GameEvent>(readFile, rel);
@@ -1251,6 +1253,18 @@ namespace Statecraft.Sim
                     throw new ContentException(file, "mvp.k_food", "the Food stock feeds the food_supply indicator, which model.yaml must define");
                 // One game has one last day (R-LOOP-004): an era cannot move it.
                 if (m.End != c.Rules.Mvp!.End) throw new ContentException(file, "mvp.end", "must be the same in every era (the game has one end)");
+                // R-POW-002, R-POW-004, R-POW-005 (Q-POW-2, Q-POW-4, Q-POW-5): required, so a missing key is never read as
+                // prisoners who eat nothing, a shortfall that costs nothing or a return that scores nothing.
+                foreach (var (key, v) in new[] { ("food_per_prisoner_unit", m.FoodPerPrisonerUnit), ("points_per_prisoner_unit_returned", m.PointsPerPrisonerUnitReturned) })
+                {
+                    if (v == null) throw new ContentException(file, "mvp." + key, "required when eras.yaml systems.loop is gdd");
+                    if (v < 0) throw new ContentException(file, "mvp." + key, "must be >= 0");
+                }
+                foreach (var (key, v) in new[] { ("prisoner_shortfall_cohesion", m.PrisonerShortfallCohesion), ("held_soldier_cost_per_turn", m.HeldSoldierCostPerTurn) })
+                {
+                    if (v == null) throw new ContentException(file, "mvp." + key, "required when eras.yaml systems.loop is gdd");
+                    if (!(v >= 0 && IsFinite(v.Value))) throw new ContentException(file, "mvp." + key, "must be a finite number >= 0");
+                }
                 // R-OBJ-002. Required, so a missing key is not read as 0. Zero is allowed (a balance choice); a negative value
                 // would take points away for finishing.
                 foreach (var (key, v) in new[] { ("objective_points", m.ObjectivePoints), ("objective_bonus_per_month", m.ObjectiveBonusPerMonth), ("objective_bonus_cap", m.ObjectiveBonusCap) })
@@ -1276,8 +1290,21 @@ namespace Statecraft.Sim
             ValidateSites(c);
             ValidateObjectiveSites(c);
             ValidateEventSites(c);
+            ValidateEventPrisoners(c);
             ValidateProjects(c);
             ValidateCorridors(c);
+        }
+
+        /// <summary>An exchange card (R-POW-004): a known front, and one option, which Delegate resolves without a draw.</summary>
+        static void ValidateEventPrisoners(Content c)
+        {
+            foreach (var e in c.Events.Where(e => e.Prisoners != ""))
+            {
+                if (!Prisoners.Fronts.Contains(e.Prisoners))
+                    throw new ContentException(e.File, $"events[{e.Id}].prisoners", $"unknown front '{e.Prisoners}' (one of {string.Join(", ", Prisoners.Fronts)})");
+                if (e.Options.Count != 1)
+                    throw new ContentException(e.File, $"events[{e.Id}].options", "an exchange card has exactly one option");
+            }
         }
 
         /// <summary>An event's site (R-SWAMP-002): a designated swamp site, whose works the event is about. Only the GDD loop

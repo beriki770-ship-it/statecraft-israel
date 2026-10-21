@@ -183,10 +183,12 @@ namespace Statecraft.Sim
                 }
                 else
                 {
-                    // The only way a unit is captured (impact plan section 4.3 item 1); the prisoners themselves are Phase 5 PR 12.
+                    // The only way a unit is captured (impact plan section 4.3 item 1; R-POW-001). Its captor is the engagement's
+                    // lowest-id attacker (the list is in id order), whose side holds the player's soldiers (R-POW-005).
                     s.Units.Remove(u.Id);
+                    var held = Prisoners.Take(s, u, attackers[0]);
                     why.Add(new Cause("map", u.Id.ToString(CultureInfo.InvariantCulture), 0,
-                        FormattableString.Invariant($"Unit {u.Id} surrendered with {u.Strength * ppu:N0} people: it had no hex to retreat to")));
+                        FormattableString.Invariant($"Unit {u.Id} surrendered with {u.Strength * ppu:N0} people: it had no hex to retreat to. {held}")));
                 }
             }
         }
