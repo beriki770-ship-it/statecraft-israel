@@ -229,7 +229,8 @@ namespace Statecraft.Sim
             }
         }
 
-        static string Ids(List<Unit> units) => (units.Count == 1 ? "unit " : "units ") + string.Join(", ", units.Select(x => x.Id.ToString(CultureInfo.InvariantCulture)));
+        // Sorted for the text: step 2 puts the guns last (R-COMBAT-007), but the line names the units in id order.
+        static string Ids(List<Unit> units) => (units.Count == 1 ? "unit " : "units ") + string.Join(", ", units.Select(x => x.Id).OrderBy(x => x).Select(x => x.ToString(CultureInfo.InvariantCulture)));
 
         /// <summary>Takes up to <paramref name="loss"/> population units from <paramref name="ids"/>, one at a time from the
         /// strongest unit left (a tie on the lower id; the list is in id order), removing each that reaches 0 (its id is never

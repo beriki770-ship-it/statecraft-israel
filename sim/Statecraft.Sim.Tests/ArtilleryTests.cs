@@ -87,6 +87,7 @@ public class ArtilleryTests
         Assert.Equal(2, r.State.Units[1].Strength);
         Assert.False(r.State.Units.ContainsKey(3));   // the soldier took the loss and was destroyed
         Assert.Equal(2, r.State.Units[2].Strength);
+        Assert.Contains(r.Why, w => w.Message.StartsWith("The attack on hex 2,0 (units 1, 3 against unit 2,", StringComparison.Ordinal));   // id order, though the guns join last
     }
 
     // R-COMBAT-007: the guns pay after the other attackers; a stock that cannot pay for the firing calls it off, and the
@@ -108,6 +109,12 @@ public class ArtilleryTests
         t.Arms = 4;
         Assert.Equal("An attack needs 3 Arms and the stock has 4, of which 2 go to attacks already ordered",
             Assert.Single(Step(c, t, new UnitOrder(1, Combat.Attack, 2, 0)).Rejected).Reason);
+
+        // The other way round: a gun already ordered counts at its own 3 Arms, not at one attack's 2.
+        var g = CombatTests.With(c, Attacking(Of("gun", 1, 4, 0, 2), 2, 0), Of("soldier", 3, 3, 0, 1), Enemy(2, 2, 0, 2));
+        g.Arms = 4;
+        Assert.Equal("An attack needs 2 Arms and the stock has 4, of which 3 go to attacks already ordered",
+            Assert.Single(Step(c, g, new UnitOrder(3, Combat.Attack, 2, 0)).Rejected).Reason);
     }
 
     // R-COMBAT-007: artillery never holds ground. The hold order is refused with a reason; fortify is not.
