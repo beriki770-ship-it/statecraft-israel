@@ -524,9 +524,7 @@ public class UnitsInPlayTests
             layer.Show(C, Simulation.NewGame(C, GoldenRun.Seed, Mode.Historical));   // built inactive
             Assert.AreEqual(0, layer.KeepClear.Count, "a hidden layer hands out no boxes");
             VisualToggles.Set(UnitLayer.ToggleName, true);
-            // One entry per token, then Etzioni's gap plate (owner on #1205: the GDD loop has no sim unit for it).
-            Assert.AreEqual(layer.Tokens.Count + 1, layer.KeepClear.Count, "one entry per token, and the gap's plate");
-            Assert.AreEqual(1, layer.KeepClear[layer.Tokens.Count].Length, "the gap: only its plate");
+            Assert.AreEqual(layer.Tokens.Count, layer.KeepClear.Count, "one entry per token");
             var tokens = map.Terrain.transform.Find(UnitLayer.RootName).Find("Tokens");
             int pieces = 0;
             for (int i = 0; i < layer.Tokens.Count; i++)
@@ -809,11 +807,7 @@ public class UnitsInPlayTests
             // The GDD loop draws the sim's units (GDD Phase 5 PR 14): seven brigades and the two ships; Etzioni has no sim unit.
             Assert.AreEqual(9, layer.Tokens.Count);
             var tokens = map.Terrain.transform.Find(UnitLayer.RootName).Find("Tokens");
-            // ...and the empty plinth ring at Etzioni's Jerusalem anchor marks the gap (owner on #1205).
-            Assert.AreEqual(10, tokens.childCount);
-            var gap = tokens.Find("etzioni (no unit)");
-            Assert.IsNotNull(gap?.Find("SelectionRing"), "a ring where Etzioni's token was");
-            Assert.AreEqual(1, gap!.Find("Badge").GetComponentsInChildren<MeshRenderer>().Length, "its badge's plate, no glyph, shows over Jerusalem's kit");
+            Assert.AreEqual(9, tokens.childCount);
             var kiryati = tokens.Find("kiryati");
             Assert.AreEqual(3, kiryati.Cast<Transform>().Count(t => t.name.StartsWith("Rifleman")), "three riflemen at full strength (Q-UI-3)");
             var badge = kiryati.Find("Badge");

@@ -153,23 +153,6 @@ namespace Statecraft.Game.Map.Units
             return list;
         }
 
-        /// <summary>The GDD loop's gaps (owner on #1205, 21 October 2026: "a circle or a label would make the gap easy to
-        /// spot"): Israel's army rows on the map with a sourced anchor on the start date but no starting sim unit
-        /// (<paramref name="forces"/> names no unit for them; Etzioni in Jerusalem until a later Phase 5 PR raises one). The layer
-        /// draws an empty plinth ring and a blank badge plate at each, for the whole game, as FromState stands every unit on
-        /// its starting anchor until it moves. A row that gets a starting unit drops out.</summary>
-        public static List<(UnitEntry row, UnitAnchor anchor)> Gaps(IReadOnlyList<UnitEntry> units, IReadOnlyList<StartingForce> forces, DateTime start)
-        {
-            var list = new List<(UnitEntry, UnitAnchor)>();
-            foreach (var u in units)
-            {
-                if (!OnMap(u) || u.Side != UnitData.Israel || u.Service != UnitData.Army || forces.Any(f => f.Row == u.Id)) continue;
-                var a = AnchorAt(u, start);
-                if (a != null) list.Add((u, a));
-            }
-            return list;
-        }
-
         /// <summary>Q-UI-3 (owner, 15 October 2026, "Take all recommendations"; #226, 17 October 2026): "3 figures at two
         /// thirds or more of the type's full strength, 2 at a third or more, 1 below that". A unit's full strength is the
         /// sourced strength it started with (Q-UNIT-4: a starting unit's Strength is its row's), so a new game draws every

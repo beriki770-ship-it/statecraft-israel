@@ -42,8 +42,6 @@ namespace Statecraft.Game.Map.Units
         Content? shownContent;
         GameState? shownState;
         List<PlacedToken> placed = new List<PlacedToken>();
-        /// <summary>The GDD loop's gaps drawn now (<see cref="UnitRoster.Gaps"/>): an empty plinth ring each.</summary>
-        List<(UnitEntry row, UnitAnchor anchor)> gaps = new List<(UnitEntry, UnitAnchor)>();
         Transform tokensRoot = null!;
         readonly List<Transform> badges = new List<Transform>();
         /// <summary>Each badge's home (over the highest figure's feet, at the figures' height and the badge's lift) and how
@@ -261,7 +259,6 @@ namespace Statecraft.Game.Map.Units
             roster = now;
             PlaceMoved(now);
             placed = UnitPlacer.Place(now, drawSpots ?? spots);
-            gaps = content.IsGdd ? UnitRoster.Gaps(units, content.StartingForces, content.Rules.Start) : new List<(UnitEntry, UnitAnchor)>();
             Rebuild();
             if (Selected != null && !placed.Any(p => p.Token.Unit.Id == Selected)) Select(null); else Select(Selected);
             return true;
@@ -479,33 +476,6 @@ namespace Statecraft.Game.Map.Units
                 if (pieces is Bounds s) { if (flag != null) s.Encapsulate(WorldBox(flag)); foreach (var m in meshes) s.Encapsulate(WorldBox(m)); pieces = s; }
                 keepClear.Add(pieces is Bounds p2 ? new[] { new Bounds(badge.transform.position, Vector3.one * UnitBadge.SizeM), p2 }
                     : new[] { new Bounds(badge.transform.position, Vector3.one * UnitBadge.SizeM) });
-            }
-            // A brigade with a sourced anchor but no sim unit (Etzioni in Jerusalem), so the gap shows (owner on #1205): its
-            // plinth's white rim alone on the ground, and its badge's plate with no glyph where the badge hung. The plate is
-            // what shows over a town kit (Etzioni's spot is among Jerusalem's). No figures or flag, and nothing to select.
-            foreach (var (row, anchor) in gaps)
-            {
-                if (!spots.TryGetValue(anchor, out var spot)) continue;
-                var go = new GameObject(row.Id + " (no unit)");
-                go.transform.SetParent(tokensRoot, false);
-                var centre = Centre(spot);
-                float plinth = UnitPlinth.Radius(UnitPlinth.TrioWidth(UnitShowcase.FigureOffsets(3), UnitShowcase.DrawSpread * hex * Scale(spot)));
-                UnitShowcase.Ring(map, assets, rim, go.transform, centre, plinth * UnitPlinth.RimOuter);
-                treeHoles.Add((new Vector2(centre.x, centre.z), plinth * UnitPlinth.RimOuter));
-                // Over the spot, one badge lift higher than an army token's badge (over its flag's top): Jerusalem's kit stands
-                // in front of the spot from the game's camera and hid a badge at the usual height.
-                float lift = UnitBadge.LiftM + Mathf.Max(UnitBadge.FigureHeightM * UnitShowcase.FigureScale + UnitBadge.LiftM,
-                    UnitFlags.PoleHeight * UnitBadge.FigureHeightM * UnitShowcase.FigureScale + UnitBadge.SizeM / 2f + BadgeOverFlagM);
-                var home = centre + Vector3.up * lift;
-                var badge = new GameObject("Badge");
-                badge.transform.SetParent(go.transform, false);
-                badge.transform.position = home;   // not set back: no base behind it
-                badge.transform.localScale = Vector3.one * UnitBadge.SizeM;
-                badge.AddComponent<UnitBadge>();
-                badges.Add(badge.transform); badgeHomes.Add((home, 0f, Vector3.zero, null, null));
-                trios.Add((centre, plinth, lift, Array.Empty<(Transform, Vector3, float)>(), Array.Empty<MeshFilter>()));
-                AddRenderer(badge.transform, "Plate", MeshFor("badge-plate", UnitBadge.PlateMesh), badgePlate, 0f);
-                keepClear.Add(new[] { new Bounds(badge.transform.position, Vector3.one * UnitBadge.SizeM) });
             }
             FaceCamera(Camera.main);   // the badges as the main camera sees them until a render turns them
             HideTrees();
