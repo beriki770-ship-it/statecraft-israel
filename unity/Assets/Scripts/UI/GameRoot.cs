@@ -56,8 +56,14 @@ namespace Statecraft.Game.UI
         EventCardPresenter? card;
         /// <summary>Tests: the decision card of the last Begin.</summary>
         internal EventCardPresenter? Card => card;
+        /// <summary>Tests: the settlement name pills of the last Begin.</summary>
+        internal MapLabelsPresenter? Labels => labels;
+        string? hoveredCity;   // the city HoverCity lit (#1063)
         OutcomePresenter? outcomes;
         TurnReportPresenter? report;
+        FirstTurnGuidePresenter? guide;
+        /// <summary>Tests: the first-turn guide of the last Begin.</summary>
+        internal FirstTurnGuidePresenter? Guide => guide;
         CameraRig? rig;
         List<(string, int, int, DateTime)>? drawn;
         /// <summary>The designated sites on the map (#381), made on first use beside the placements; and their states as drawn.</summary>
@@ -241,6 +247,9 @@ namespace Statecraft.Game.UI
                 // A screenshot run (?shot) captures the map: the opening card would cover it (UnitLayer.HiddenInCaptures' rule).
                 hiddenInCapture: EventCardPresenter.HiddenInCaptures(Application.absoluteURL, Environment.GetCommandLineArgs(),
                     Application.platform == RuntimePlatform.WebGLPlayer)));
+            // The sound effects (#39): End Turn, a refused order, a card coming into view; the Settings screen sets the volume.
+            // After the card: a card already open when Begin rebuilds the UI (New Game, a language switch) makes no sound.
+            var audio = Own(new GameAudio(bridge, card));
             // The End Turn outcome clips (decision videos, phase 3): none in the automated runs (no video there). Their own
             // player, so the card's loop never takes it; an open screen closes when one starts.
             outcomes = video == null ? null : Own(new OutcomePresenter(root, bridge, text, Own(new CardVideo()), mapping.outcomes,
@@ -249,10 +258,11 @@ namespace Statecraft.Game.UI
             Own(new BudgetPresenter(root, bridge, text));
             Own(new WhyPresenter(root, bridge, text));
             Own(new HowToPlayPresenter(root, text));
+            Own(new ObjectivesPresenter(root, bridge, text));
             // Presentation only (#40): never the sim or the save. Outside Play mode (EditMode tests) no file: the developer's
             // own settings must not leak into a test. Each Begin (New Game too) reads the file again.
             // The language switch (#1036) builds every screen again in the new language over this game (SwitchLanguage).
-            Own(new SettingsPresenter(root, text, SettingsFile(), language => SwitchLanguage(inputs, language), document.panelSettings));
+            Own(new SettingsPresenter(root, text, SettingsFile(), language => SwitchLanguage(inputs, language), panel: document.panelSettings, audio: audio));
             Own(new CabinetPresenter(root, bridge, text, portraits));
             // After End Turn, what changed in the top bar and the sim's causes (#1037); under an outcome clip, which plays first.
             report = Own(new TurnReportPresenter(root, bridge, text, nav!));
@@ -330,6 +340,14 @@ namespace Statecraft.Game.UI
             pointer.IsOverUi = overUi;
             Action<int, int> onHex = (q, r) => OnHexClicked(map, unitLayer, info, q, r);
             pointer.HexClicked += onHex;
+            // #1063: a click on a city's name pill is a click on the city's hex (its settlement hex, where the city panel opens).
+            Func<Vector2, (int q, int r)?> pillHex = p =>
+            {
+                if (labels?.PillAt(p) is not string id || !bridge.State.Cities.ContainsKey(id)) return null;
+                foreach (var x in bridge.Content.SettlementHexes) if (x.Id == id) return (x.Q, x.R);
+                return null;
+            };
+            pointer.PillHex = pillHex;
             var camRig = rig = cameraController.GetComponent<CameraRig>();
             Own(new TopBarInset(root, camRig));                            // the map is framed below the top bar
             Own(new SafeAreaFit(root));                                    // the HUD keeps clear of the phone's notch
@@ -380,6 +398,7 @@ namespace Statecraft.Game.UI
                 bridge.Changed -= onChanged;
                 bridge.TurnEnded -= onTurn;
                 pointer.HexClicked -= onHex;
+                if (pointer.PillHex == pillHex) pointer.PillHex = null;
                 if (pointer.IsOverUi == overUi) pointer.IsOverUi = null;
                 if (cameraController.IsOverUi == overUi) cameraController.IsOverUi = null;
                 if (pointer.Map == map) pointer.Map = null;
@@ -389,15 +408,33 @@ namespace Statecraft.Game.UI
             drawn = null; drawnSites = null;
             RenderPlacementsIfChanged();
             SyncMinimap();
+            // The first-turn guide (#42) opens when the start screen closes on a new game (not on Continue). It is made after
+            // the screen, so Shutdown disposes it first and the screen's closing then opens nothing.
+            FirstTurnGuidePresenter? firstTurn = null;
             // The start screen goes up in the same frame the loading state ends, so the HUD never flashes before it. While it
             // shows, the camera keys are off (keyboard pan would otherwise move the hidden map; plan amendment A4).
             if (showsStart)                                                // newGame is made above whenever smoke == 0
             {
                 var cam = cameraController;
                 var recording = Own(new DeclarationRecording(root, text, toast.Show));   // never built in automated runs (Skipped)
-                start = Own(new StartScreenPresenter(root, newGame!, resumed, shown => { if (cam != null) cam.enabled = !shown; }, recording, text));
+                start = Own(new StartScreenPresenter(root, newGame!, resumed, shown =>
+                {
+                    if (cam != null) cam.enabled = !shown;
+                    if (!shown && start?.Resumed == false) firstTurn?.NewGame();
+                }, recording, text));
                 start.Show();
             }
+            // It shows by itself only where the start screen does (never in the automated runs, nor under ?firstcard, which
+            // times the first card) and a settings file remembers that it has; How to play opens it again anywhere. Steps 2
+            // and 3 show its city as a click there would, without selecting a unit on the city's hex.
+            Action showCity = () =>
+            {
+                if (FirstTurnGuidePresenter.CityHex(bridge.Content, bridge.State) is not (int q, int r)) return;
+                unitLayer.Select(null); map.Select(q, r); info.Show(q, r);
+            };
+            guide = firstTurn = Own(new FirstTurnGuidePresenter(root, text, showsStart && !FirstCardCheckRequested() ? SettingsFile() : null,
+                card, showCity, () => nav?.Close()));
+            if (newGame != null) newGame.Started += firstTurn.NewGame;      // New Game in the top bar too; both die with this Begin
             if (hebrew) Own(new UiDirection(root, bridge));
             root.Q("root")?.RemoveFromClassList("loading");                // ready: the bar, panels and screens may show (P2-1)
             DiagLog.BootPhase("screens ready");
@@ -468,6 +505,34 @@ namespace Statecraft.Game.UI
             else info.Show(q, r);
         }
 
+        /// <summary>#1063 (player report: a city is hard to tell from the land round it and hard to click): the city under a
+        /// hovering pointer, on its hexes or its name pill, lights its pill and turns the browser's pointer into a hand, so the
+        /// player sees it can be clicked. Null (and nothing lit) over the UI, off the map, off every city, or with no hovering
+        /// pointer (a touchscreen). Returns that city's id; called each frame (LateUpdate), it changes the UI only when the city does.</summary>
+        internal string? HoverCity(Vector2? screenYUp)
+        {
+            var city = screenYUp is Vector2 p && Bridge != null && pointer.HexAt(p) is (int q, int r) ? CityAt(Bridge.Content, Bridge.State, q, r) : null;
+            if (city == hoveredCity) return city;
+            hoveredCity = city;
+            labels?.Highlight(city);
+            HandCursor(city != null);
+            return city;
+        }
+
+        /// <summary>The city with a settlement hex at (q, r): one in State.Cities, whose hex opens the city panel (GddHexPanel); or null.</summary>
+        internal static string? CityAt(Content c, GameState s, int q, int r)
+        {
+            foreach (var x in c.SettlementHexes) if (x.Q == q && x.R == r && s.Cities.ContainsKey(x.Id)) return x.Id;
+            return null;
+        }
+
+#if UNITY_WEBGL && !UNITY_EDITOR
+        [System.Runtime.InteropServices.DllImport("__Internal")] static extern void StatecraftHandCursor(int on);   // HandCursor.jslib
+        static void HandCursor(bool on) => StatecraftHandCursor(on ? 1 : 0);
+#else
+        static void HandCursor(bool on) { }   // the game ships as the browser build; the editor keeps its own cursor
+#endif
+
         /// <summary>Disposes every presenter, the autosave and the camera/pointer hooks (newest first). Safe to call twice.</summary>
         void Shutdown()
         {
@@ -478,7 +543,8 @@ namespace Statecraft.Game.UI
             if (card != null) { owned.Remove(card); card.Dispose(); }
             for (int i = owned.Count - 1; i >= 0; i--) owned[i].Dispose();
             owned.Clear();
-            minimap = null; labels = null; nav = null; start = null; card = null; outcomes = null; report = null; rig = null; drawn = null; drawnSites = null; units = null; Regions = null; logCamera = false;
+            if (hoveredCity != null) { hoveredCity = null; HandCursor(false); }   // the next Begin's pills start unlit
+            minimap = null; labels = null; nav = null; start = null; card = null; outcomes = null; report = null; guide = null; rig = null; drawn = null; drawnSites = null; units = null; Regions = null; logCamera = false;
             // A ?profile run cut short (a stopped coroutine never reaches its restore line) must not leave the terrain at the
             // profile's pixel error (Task 24 review M1). Nothing else changes it, so restoring is always right.
             if (map != null && map.Terrain != null) map.Terrain.heightmapPixelError = MapBuilder.TerrainPixelError;
@@ -596,7 +662,9 @@ namespace Statecraft.Game.UI
             labels.Refresh();
             // Today's name under a 1948 locality's pill: while a mouse (or pen) is over it (owner ruling 2026-10-11), or after a
             // tap on it (#245). A touchscreen has no hover: its last touch position stays after the finger lifts.
-            labels.Hover(MapLabelsPresenter.HoverPosition(UnityEngine.InputSystem.Pointer.current));
+            var hover = MapLabelsPresenter.HoverPosition(UnityEngine.InputSystem.Pointer.current);
+            labels.Hover(hover);
+            HoverCity(hover);
             var touch = UnityEngine.InputSystem.Touchscreen.current;
             if (touch != null && touch.primaryTouch.press.wasPressedThisFrame) labels.Tap(touch.primaryTouch.position.ReadValue());
         }
@@ -606,9 +674,10 @@ namespace Statecraft.Game.UI
             // Escape closes the open screen even when no element has the keyboard focus (ScreenNav also takes the UI
             // Cancel event from a focused element; closing twice is harmless). On the start screen it withdraws an open New
             // Game request (StartScreenPresenter.Escape; idempotent too).
+            // With no screen to close, Escape skips the first-turn guide (FirstTurnGuidePresenter.Escape).
             // With nothing else to close, Escape on the open decision card is Hide (EventCardPresenter.Escape; the card itself
             // takes the Cancel event when it has the focus).
-            if (UnityEngine.InputSystem.Keyboard.current?.escapeKey.wasPressedThisFrame == true) { bool done = outcomes?.SkipAll() == true || outcomes?.ClosedThisFrame == true; if (!done) done = report?.Close() == true || report?.ClosedThisFrame == true; done |= start?.Escape() == true; done |= nav?.Close() == true; if (!done && document.rootVisualElement.focusController?.focusedElement == null) card?.Escape(); }
+            if (UnityEngine.InputSystem.Keyboard.current?.escapeKey.wasPressedThisFrame == true) { bool done = outcomes?.SkipAll() == true || outcomes?.ClosedThisFrame == true; if (!done) done = report?.Close() == true || report?.ClosedThisFrame == true; done |= start?.Escape() == true; done |= nav?.Close() == true; if (!done) done = guide?.Escape() == true; if (!done && document.rootVisualElement.focusController?.focusedElement == null) card?.Escape(); }
             // PageUp, PageDown, Home and End, with no modifier, scroll the open screen or the open card's text, with or without
             // focus (KeyScroll; accessibility audit H3), but not under an End Turn outcome clip, which covers them. The arrows
             // stay with the camera (NavigationGuard, B6).

@@ -90,7 +90,7 @@ The owner ruled:
 3. 101 Squadron shows an Avia S-199 until the Spitfire's sourced date, then the Spitfire.
 4. The four brigades with no sourced position (Carmeli, Alexandroni, the 8th, Oded) are listed in the file and hidden.
    - 2026-10-15 (refs #385): Carmeli (from 9 July 1948; coordinator's option (d)) and Alexandroni now have sourced
-     positions (below) and are shown. The 8th
+     positions (below) and are shown. Since #588 (owner, 18 October 2026) Carmeli also stands at Haifa before that. The 8th
      is sourced at Tel Litvinsky (24 May to 9 July 1948; owner, 2026-10-15: "Accept, verify later") but stays hidden:
      the map has no clear spot for it on its own side within one hex of the camp. Oded stays hidden (its sources
      conflict and name no place).
@@ -226,7 +226,7 @@ own root rotation kept (the FBX axis turn, -90 degrees about X), so the camera's
 | Unit | Positions (dated, from the sources) | Ends |
 |---|---|---|
 | Golani (1st) | Yavne'el (since February 1948); the Julis camp from December 1948 | December 1948 (source); 24 Feb 1949 (Egypt) |
-| Carmeli (2nd) | Facing the Syrian bridgehead at Mishmar HaYarden, on the Rosh Pinna side, 9-18 July 1948 (Operation Brosh). Not drawn at Haifa, its sector's seat: no clear spot outside the town (#588) | 19 Jul 1948, the second truce (source) |
+| Carmeli (2nd) | Haifa, its sector's seat (since February 1948), in the town on Haifa's one unit clearing (#588); facing the Syrian bridgehead at Mishmar HaYarden, on the Rosh Pinna side, 9-18 July 1948 (Operation Brosh) | 9 Jul 1948, Operation Brosh (source); 19 Jul 1948, the second truce (source) |
 | Alexandroni (3rd) | Netanya, its headquarters at Camp Dora (since March 1948) | November 1948, the move to the Faluja pocket (source) |
 | Kiryati (4th) | Tel Aviv (since February 1948) | 3 Apr 1949 (Jordan) |
 | Givati (5th) | Gedera, one of the three places its sector names (no start given) | November 1948, the move to the centre (source) |
@@ -263,8 +263,9 @@ The candidates are tried in three rounds:
 3. If the whole neighbourhood is town, the compact point that reaches least deep into it (then the nearest; with a
    `toward` point, the nearest to that). The map then keeps a clearing of the compact ring's radius free of the kits'
    buildings and trees there (`MapScene.UnitClearings`, computed before the kits from the same data), so the token never
-   stands in a building. The clearing may cut only into the anchor's own town, never a neighbour's. Kiryati (Tel Aviv)
-   and Etzioni (West Jerusalem) stand this way.
+   stands in a building. The clearing may cut only into the anchor's own town, never a neighbour's. Kiryati (Tel Aviv),
+   Carmeli (Haifa) and Etzioni (West Jerusalem) stand this way. Haifa and Tel Aviv each have a budget of one such
+   clearing, and their census floors are measured with it (#588, owner, 18 October 2026; `TownCensusTests`).
 
 A spot is clear when:
 - the ring's disc stays off every settlement footprint (the kits' discs, times 1.1);
@@ -373,7 +374,7 @@ headless `?vprofile` on the WebGL build of 943184c, 1920x1080 at DPR 1, 2026-10-
   archives.
 - No dated front line: tokens keep within one hex of their sourced place, and three anchors carry a sourced `toward`
   point to stay on their own side (review MF1).
-- **Kit baseline break:** from 943184c the kits keep the unit clearings in Tel Aviv and West Jerusalem, in plain
+- **Kit baseline break:** from 943184c the kits keep the unit clearings in Tel Aviv and West Jerusalem (and in Haifa since #588), in plain
   checkpoints too. So kit metrics before and after that commit are not comparable; this is marked in the art log.
 - Merges still to come (review I7). With promo-borderdata, the info panel's region label must be cleared when a unit
   card shows. With promo-screens, the wide-screen click guard must cover `ShowUnit` and `UnitLayer.Select` as well as
