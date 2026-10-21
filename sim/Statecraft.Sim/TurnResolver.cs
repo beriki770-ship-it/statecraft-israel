@@ -29,6 +29,7 @@ namespace Statecraft.Sim
             Cities.House(c, s, r, why);                      // 8. housing, then the housing condition; Social cohesion is morale, which the effects web moves after the resolution
             Cities.UpdateCondition(c, s, r, why);
             Cities.Arrive(c, s, r, next, why);            // 9. arrivals
+            StartingForces.Arrive(c, s, next);            //    and the brigades dated after the start (R-UNIT-009)
             // 10. Occupation timers: Phase 6.
             Objectives.Complete(c, s, r, next, why);      // 11. objectives and score
             Defeat(s, r, why);                            //     then the defeat (D-B5); the war loss waits for Phase 5

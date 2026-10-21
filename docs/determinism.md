@@ -36,9 +36,9 @@ final `GameState.Hash()` is pinned:
 
 | Run | Ends | Hash |
 |---|---|---|
-| to 1950-01-01 (`Hash1950`) | 1950-01-15, turn 20 | `73eb50db39dbc9ee569c18a5e0a68e55a2b88980d06da76e5f5bfffe22997675` |
-| to 1952-01-01 (`Hash1952`) | 1952-01-15, turn 44 (the game's end) | `b389b2786ac6b7c4c5bd3662cb7e96868d351a585e866a8660191c3db8ffff4a` |
-| to the game's end (`mvp-end`) | 1952-01-15, turn 44 | `b389b2786ac6b7c4c5bd3662cb7e96868d351a585e866a8660191c3db8ffff4a` |
+| to 1950-01-01 (`Hash1950`) | 1950-01-15, turn 20 | `e2ad0974bffc0a87210084d7830cbd97d0d5d7d4b924bac20a7041489d5882bd` |
+| to 1952-01-01 (`Hash1952`) | 1952-01-15, turn 44 (the game's end) | `d92a0540491639204974fd820433b94a562d119d1e28d3c39e56f2161099a478` |
+| to the game's end (`mvp-end`) | 1952-01-15, turn 44 | `d92a0540491639204974fd820433b94a562d119d1e28d3c39e56f2161099a478` |
 
 `hash1952` stops at the first turn on or after 1 January 1952, which is the game's last turn, so it is the same run as
 `mvp-end` (`DeterminismTests.TheWholeGameToItsEndIsFixed`). Both names are kept (spec 2026-10-12 section 3 step 6): a
@@ -47,7 +47,7 @@ player check enumerate the manifest, so it and every scenario are checked withou
 
 A further value is pinned for the browser smoke run (`?smoke=5`: the golden seed, five turns played through the UI's own
 buttons, answering each event with its first option while the turn's Attention pays for it, the rest left to their
-ministers): `SMOKE OK 5 turns 1948-10-15 e5a66f9c2c0c0718d7969289fcc8dd005dedddd37a7c25adfffdc45e2e8b29cd`.
+ministers): `SMOKE OK 5 turns 1948-10-15 882663704b2cee7749983d7b1e033a9a0e51371018c25729820d95b16af393c4`.
 It depends on the UI path as well as the sim (which option is first, the turn grid), so re-record it when either changes.
 Check every WebGL build with every manifest entry (plus the UI-path smoke line) with:
 
@@ -58,7 +58,7 @@ while read -r name hash; do
   golden_expect+=(--expect "GOLDEN OK $name $hash")
 done < sim/Statecraft.Sim.Tests/golden/manifest.txt
 uv run tools/web_check.py unity/Builds/Web-<compression> --query "golden&smoke=5" "${golden_expect[@]}" \
-  --expect "SMOKE OK 5 turns 1948-10-15 e5a66f9c2c0c0718d7969289fcc8dd005dedddd37a7c25adfffdc45e2e8b29cd"
+  --expect "SMOKE OK 5 turns 1948-10-15 882663704b2cee7749983d7b1e033a9a0e51371018c25729820d95b16af393c4"
 ```
 
 **When a golden moves.** The test fails with the lines that changed, grouped by section (`[ind]`, `[pol]`, `[bud]`,
@@ -342,3 +342,8 @@ The hash reads the state keys, so it never sees a record outside its window. An 
 | Combined #1186 + #791 (C20) | mvp-end | `72b8e8014c96c943e390f0fd109df68b78f59e5560b05c2d231e1fbe599d1280` | The same full run and combined #1186 + #791 state as hash1952 (was `452c65ece470e844f6898151c4d9328aa0b2e59df82db4763214d43a8e8ea7f1`). |
 | GDD Phase 4 PR 7 (#791) on combat (#747) | 1952 | `b389b278` | #1226 merged with main after combat (#747). As in the rows above, the first-new-yishuv objective becomes the all-six `yishuvim` infrastructure part, recorded 15 July 1951 instead of 15 February 1951, and neither corridor completes, so the shared 100-point base is unpaid and the snapshot's `score=100` line goes (a zero score is not written). Only those two `obj{`/score lines move; hash1950, smoke5 and the four scenario goldens equal main (was `d9922fc9`) |
 | GDD Phase 4 PR 7 (#791) on combat (#747) | mvp-end | `b389b278` | same as 1952 (was `d9922fc9`) |
+| #1241: Etzioni starts, the 7th Brigade arrives (R-UNIT-009) | 1950 | `e2ad0974` | Etzioni's sourced 15 May strength (3,166, Ben-Gurion's diary) starts it under R-UNIT-006 as unit 5 (strength 3, Jerusalem's 0,23), so Harel and every later starting force take the next id (the Syrian unit is 10). The 7th Brigade's reserved id 13 is the first after the starting rows; it arrives on the 15 June 1948 turn (its row's 24 May 1948 strength, 1,650 = 2, at Hulda's -4,23) and stands there. Every later id moves up by two (`next=18`). Nothing else in the snapshot moves: the combat, the Arms and the RNG are as before (was `73eb50db`) |
+| #1241: Etzioni starts, the 7th Brigade arrives (R-UNIT-009) | 1952 | `d92a0540` | same as 1950: the ids and the two units only (was `b389b278`) |
+| #1241: Etzioni starts, the 7th Brigade arrives (R-UNIT-009) | mvp-end | `d92a0540` | same as 1952 (was `b389b278`) |
+| #1241: Etzioni starts, the 7th Brigade arrives (R-UNIT-009) | smoke5 | `88266370` | same: the ids and the two units only (was `e5a66f9c`) |
+| #1241: Etzioni starts, the 7th Brigade arrives (R-UNIT-009) | scenarios | reckless `334da74b`, cautious `79be2aac`, mvp-absorb-first `40376e02`, mvp-defeat `55c56adb` | same: the ids and the two units only (were `8d644f6e`, `b4e5caa1`, `7d37c0d0`, `7bd5158f`) |

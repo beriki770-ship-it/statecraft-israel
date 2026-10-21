@@ -66,10 +66,10 @@ public class UnitsInPlayTests
     public void TheStartMatchesTheMap()
     {
         var hexes = MapBuilder.LoadHexes(Path.Combine(Paths.Content, "map", "hexes.json"));
-        var start = C.Rules.Start.ToString("yyyy-MM-dd", System.Globalization.CultureInfo.InvariantCulture);
-        Assert.AreEqual(12, C.StartingForces.Count, "the twelve sourced forces of 15 May 1948 (#743)");
+        Assert.AreEqual(14, C.StartingForces.Count, "the thirteen sourced forces of 15 May 1948 (#743, #1241) and the 7th's arrival (R-UNIT-009)");
         foreach (var f in C.StartingForces)
         {
+            var start = (f.Arrives ?? C.Rules.Start).ToString("yyyy-MM-dd", System.Globalization.CultureInfo.InvariantCulture);
             var row = Units.Single(u => u.Id == f.Row);
             Assert.IsNull(row.Hidden, f.Row);
             Assert.AreEqual(UnitData.Army, row.Service, f.Row);

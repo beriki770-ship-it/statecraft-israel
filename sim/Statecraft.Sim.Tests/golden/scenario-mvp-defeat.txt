@@ -139,14 +139,16 @@ units[
   2:veteran_soldier@0,15|side=israel|strength=5
   3:veteran_soldier@-3,19|side=israel|strength=1
   4:veteran_soldier@-5,23|side=israel|strength=5
-  5:veteran_soldier@-2,23|side=israel|strength=1
-  6:veteran_soldier@-9,27|side=israel|strength=2
-  7:egyptian_army@-11,27|side=egypt|strength=10
-  8:arab_legion@0,22|side=jordan|strength=5
-  9:syrian_army@10,10|side=syria|strength=3
-  10:iraqi_army@9,11|side=iraq|strength=3
-  11:arab_liberation_army@12,4|side=ala|strength=4
-next=12
+  5:veteran_soldier@0,23|side=israel|strength=3
+  6:veteran_soldier@-2,23|side=israel|strength=1
+  7:veteran_soldier@-9,27|side=israel|strength=2
+  8:egyptian_army@-11,27|side=egypt|strength=10
+  9:arab_legion@0,22|side=jordan|strength=5
+  10:syrian_army@10,10|side=syria|strength=3
+  11:iraqi_army@9,11|side=iraq|strength=3
+  12:arab_liberation_army@12,4|side=ala|strength=4
+  13:veteran_soldier@-4,23|side=israel|strength=2
+next=14
 food=0,1390,1390
 exhausted=3
 arms=12
