@@ -146,13 +146,15 @@ public class StartingForcesTests
             ("iraqi_expeditionary_force", 9, 11), ("arab_liberation_army", 12, 4),
         }, Real.StartingForces.Select(f => (f.Row, f.Q, f.R)));
 
-    // A starting anchor with no hex row, a row for an anchor that does not exist and a repeated row are load errors naming
+    // A starting anchor with no hex row, a row for an anchor that does not exist, a repeated row and a q that is not a whole
+    // number are load errors naming
     // unit_anchor_hexes.yaml: the file is stale and the tool must be rerun.
     [Theory]
     [InlineData("anchors: []\n", "anchors", "no hex for units[x].anchors[0]")]
     [InlineData("anchors:\n  - { id: x, anchor: 0, q: 1, r: 0 }\n  - { id: y, anchor: 0, q: 1, r: 0 }\n", "anchors[y]", "no anchor 0 of a row 'y'")]
     [InlineData("anchors:\n  - { id: x, anchor: 0, q: 1, r: 0 }\n  - { id: x, anchor: 1, q: 1, r: 0 }\n", "anchors[x]", "no anchor 1 of a row 'x'")]
     [InlineData("anchors:\n  - { id: x, anchor: 0, q: 1, r: 0 }\n  - { id: x, anchor: 0, q: 2, r: 0 }\n", "anchors[x]", "anchor 0 is listed twice")]
+    [InlineData("anchors:\n  - { id: x, anchor: 0, q: 1.5, r: 0 }\n", "anchors[x].q", "required, a whole number")]
     public void TheHexFileMustMatchTheUnitFile(string hexes, string field, string message)
     {
         var ex = Assert.Throws<ContentException>(() => Load(hexes, Row("x", "israel", 20)));
