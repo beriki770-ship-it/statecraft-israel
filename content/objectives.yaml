@@ -5,8 +5,7 @@
 objectives:
   - id: first_new_yishuv
     name: First new yishuv
-    # AI translation of the English name (#564, as the cards' text_he_review). Approved by Beri, a native speaker,
-    # on #1215 (21 Oct 2026).
+    # AI translation of the English name, not yet read by a person (#564, as the cards' text_he_review).
     name_he: היישוב החדש הראשון
     name_he_review: agent-checked
     completes_when: { site_built: mefalsim }   # sites.yaml; built by a halutz group's Build yishuv (R-SITE-001 to R-SITE-003)
