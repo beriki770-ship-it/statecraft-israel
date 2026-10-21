@@ -185,7 +185,8 @@ namespace Statecraft.Game.UI
             if (!(pick is { } p)) return false;
             EndPick();
             if (!p.hexes.Contains((q, r))) return false;
-            if (bridge.Queue(new Move(p.unit, q, r)) != null) Render();   // a refusal is raised by the bridge; the card drops the pick line
+            bridge.Queue(new Move(p.unit, q, r));   // a refusal is raised by the bridge (Refused)
+            Render();   // the card drops the pick line either way: a refused Queue raises no Changed
             return true;
         }
 

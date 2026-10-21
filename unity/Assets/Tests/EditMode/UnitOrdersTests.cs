@@ -31,6 +31,8 @@ public class UnitOrdersTests
         return map;
     }
 
+    static bool Shown(VisualElement e) => e.style.display.value != DisplayStyle.None;
+
     static Material Load(string name) => AssetDatabase.LoadAssetAtPath<Material>($"Assets/Materials/{name}.mat");
 
     /// <summary>The sim unit a row stands for is the starting force of that row (R-UNIT-006: unit i of a new game is
@@ -132,6 +134,26 @@ public class UnitOrdersTests
             Assert.IsTrue(info.ShowsUnit);
             Assert.IsFalse(map.Terrain.transform.Find(MapScene.SelectionName).GetComponent<MeshRenderer>().enabled, "one highlight: the ring");
             Assert.IsTrue(ui.Q<Label>("info-settlements").text.Contains(Text["unit.move_queued"]), ui.Q<Label>("info-settlements").text);
+            // A refused order (here the game ends while the pick is open): nothing more is queued and the pick line goes.
+            bridge.Withdraw(queued);
+            UiTestKit.Press(move);
+            bridge.State.GameOver = GameOverCodes.MvpEnded;
+            GameRoot.OnHexClicked(map, layer, info, q, r);
+            Assert.IsEmpty(bridge.Queued, "the bridge refuses an order once the game is over");
+            Assert.IsEmpty(lit.Last());
+            Assert.IsFalse(ui.Q<Label>("info-settlements").text.Contains(Text["unit.move_pick"]), ui.Q<Label>("info-settlements").text);
+            bridge.State.GameOver = null;
+            // A turn ends the pick (its hexes were the last turn's), as does another selection.
+            UiTestKit.Press(move);
+            Assert.IsNotEmpty(lit.Last());
+            bridge.EndTurn();
+            Assert.IsEmpty(lit.Last(), "End turn ends the pick");
+            Assert.IsFalse(ui.Q<Label>("info-settlements").text.Contains(Text["unit.move_pick"]));
+            Assert.IsTrue(info.ShowsUnit && Shown(move), "precondition: Golani's card still offers Move on the next turn");
+            UiTestKit.Press(move);
+            Assert.IsNotEmpty(lit.Last());
+            info.Clear();
+            Assert.IsEmpty(lit.Last(), "another selection ends the pick");
             info.Dispose();
         }
         finally { Object.DestroyImmediate(map.gameObject); }
