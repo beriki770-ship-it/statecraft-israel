@@ -28,15 +28,16 @@ namespace Statecraft.Sim
 
         /// <summary>R-ORDER-001's refusals: null when <see cref="Give"/> takes the order, else the reason shown to the player.
         /// Changes nothing: the unit card asks it before it offers fortify or hold (#754). Refused for an unknown order or
-        /// unit, a unit with no side (a halutz), an enemy unit, or the order it already has. The content is not read yet; it
-        /// is here as in the other Checks (MapActions.Check, Cabinet.Check) for the refusals that will need it. The legacy loop's
-        /// refusal is Simulation.Step's, before Give, so Check does not give it.</summary>
+        /// unit, a unit with no side (a halutz), an enemy unit, hold for artillery (R-COMBAT-007: it never holds ground,
+        /// Q-ARTY-1), or the order it already has. The legacy loop's refusal is Simulation.Step's, before Give, so Check does
+        /// not give it.</summary>
         public static string? Check(Content c, GameState s, int unitId, string order)
         {
             if (order != Fortify && order != Hold) return "That order is not known";
             if (!s.Units.TryGetValue(unitId, out var u)) return "There is no such unit";
             if (u.Side == "") return "Only a military unit takes that order";
             if (u.Side != PlayerSide) return "That unit is not yours";
+            if (order == Hold && c.UnitTypes.FirstOrDefault(t => t.Id == u.Type)?.Class == Combat.ArtilleryClass) return "Artillery does not hold ground";
             var already = order == Hold ? u.Order == Hold : (u.Order == Fortify || u.Order == Fortifying) && u.OrderTarget == Hex(u);
             return already ? "That unit already has that order" : null;
         }
