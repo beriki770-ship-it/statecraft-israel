@@ -636,6 +636,16 @@ namespace Statecraft.Sim
         /// <summary>The share of each numeric effect a delegated option applies when its minister is below the loyalty floor
         /// (R-EVT-003; #107). Required in the GDD loop, 0 to 1.</summary>
         public double? DisloyalEffectShare { get; set; }
+        /// <summary>Food each population unit of prisoners eats a turn, in step 7 (R-POW-002; Q-POW-5). Required in the GDD loop, &gt;= 0.</summary>
+        public int? FoodPerPrisonerUnit { get; set; }
+        /// <summary>Social cohesion lost for each unit of the prisoners' Food the stock cannot give (R-POW-002; Q-POW-5).
+        /// Required in the GDD loop, &gt;= 0.</summary>
+        public double? PrisonerShortfallCohesion { get; set; }
+        /// <summary>Points scored for each population unit of prisoners returned (R-POW-004; Q-POW-2). Required in the GDD loop, &gt;= 0.</summary>
+        public int? PointsPerPrisonerUnitReturned { get; set; }
+        /// <summary>IL millions the Treasury pays a turn for each population unit of the player's soldiers held (R-POW-005;
+        /// Q-POW-4). Required in the GDD loop, &gt;= 0.</summary>
+        public double? HeldSoldierCostPerTurn { get; set; }
     }
 
     /// <summary>One row of rules.yaml mvp.combat_table (R-COMBAT-002, R-COMBAT-003): it applies from an attack : defence
@@ -1049,6 +1059,10 @@ namespace Statecraft.Sim
         /// only while that site is being worked (R-SWAMP-002; Q-SWAMP-2). The legacy loop reads no sites and ignores it.
         /// Empty for every other event.</summary>
         public string Site { get; set; } = "";
+        /// <summary>The front (one of Prisoners.Fronts) whose prisoners this card returns (R-POW-004; Q-POW-3): it fires only
+        /// while that front holds prisoners or the player's soldiers, has exactly one option and resolves without a draw.
+        /// Empty for every other event.</summary>
+        public string Prisoners { get; set; } = "";
         /// <summary>Path relative to the content root, set by the loader (not read from YAML).</summary>
         [YamlIgnore] public string File { get; set; } = "";
     }
@@ -1059,6 +1073,10 @@ namespace Statecraft.Sim
     public sealed class Objective
     {
         public string Id { get; set; } = "";
+        /// <summary>The objective this record is one part of. Empty for a standalone objective. Parts record and earn their
+        /// timing bonuses separately, while the parent objective's base points are paid only when its last part completes
+        /// (R-OBJ-005, R-OBJ-006).</summary>
+        public string PartOf { get; set; } = "";
         /// <summary>The name the player reads (in the Why list).</summary>
         public string Name { get; set; } = "";
         /// <summary>The Hebrew name (#1187), an agent translation of <see cref="Name"/> while it waits for a native
@@ -1075,6 +1093,8 @@ namespace Statecraft.Sim
         public DateTime ReferenceDate { get; set; }
         /// <summary>The id of the card event (content/events/), which names this objective back in its `objective` key.</summary>
         public string Card { get; set; } = "";
+        /// <summary>Sources for a part's historical reference date. Required for objective parts (R-OBJ-005).</summary>
+        public List<Source> Sources { get; set; } = new List<Source>();
     }
 
     /// <summary>What completes an objective (objectives.yaml completes_when): exactly one kind.</summary>
@@ -1084,6 +1104,10 @@ namespace Statecraft.Sim
         public string SiteBuilt { get; set; } = "";
         /// <summary>The cities have absorbed the immigrants (R-OBJ-004, D-B4).</summary>
         public AbsorbCondition? Absorbed { get; set; }
+        /// <summary>A corridor (corridors.yaml): complete once every segment is built (R-OBJ-005, R-COR-003).</summary>
+        public string CorridorComplete { get; set; } = "";
+        /// <summary>Designated yishuv sites (sites.yaml): complete once every listed site is built (R-OBJ-005).</summary>
+        public List<string> SitesBuilt { get; set; } = new List<string>();
     }
 
     /// <summary>R-OBJ-004 (D-B4; owner, 18 October 2026, #738, option (a)): once the Jewish population has reached
