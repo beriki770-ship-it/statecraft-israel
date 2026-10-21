@@ -78,6 +78,34 @@ public class CombatTests
         Assert.Equal("That unit already has that order", Assert.Single(Step(c, given, new UnitOrder(1, Combat.Attack, 2, 0)).Rejected).Reason);
     }
 
+    // Q-COMBAT-4: the Arms are paid at resolution, so a new attack counts the attacks already ordered. With the stock for
+    // one attack, two new orders in one turn: the first is taken, the second refused (#1194 review).
+    [Fact]
+    public void ASecondAttackTheStockCannotPayForIsRefused()
+    {
+        var c = Load();
+        var s = With(c, Soldier(1, 3, 0, 5), Soldier(3, 1, 1, 5), Enemy(2, 2, 0, 3));
+        s.Arms = 2;   // the fixture's attack takes 2
+        var r = Step(c, s, new UnitOrder(1, Combat.Attack, 2, 0), new UnitOrder(3, Combat.Attack, 2, 0));
+        var refused = Assert.Single(r.Rejected);
+        Assert.Equal("An attack needs 2 Arms and the stock has 2, of which 2 go to attacks already ordered", refused.Reason);
+        Assert.Equal("", r.State.Units[3].Order);
+        Assert.Equal(0, r.State.Arms);
+    }
+
+    // A unit that replaces its own attack is not counted twice: the stock for one attack still lets it switch hex.
+    [Fact]
+    public void ReplacingAnAttackDoesNotCountItTwice()
+    {
+        var c = Load();
+        var s = With(c, Attacking(Soldier(1, 3, 0, 5), 2, 0), Enemy(2, 2, 0, 3), Enemy(4, 4, 0, 3));
+        s.Arms = 2;
+        var r = Step(c, s, new UnitOrder(1, Combat.Attack, 4, 0));
+        Assert.Empty(r.Rejected);
+        Assert.Equal(0, r.State.Arms);
+        Assert.Equal(2, r.State.Units[4].Strength);   // the new hex was attacked
+    }
+
     // R-COMBAT-002, R-COMBAT-004: the attack resolves in the turn it is given, in step 2; the player's unit pays the Arms then.
     // Below 2:1 the fixture's row has both sides lose 1.
     [Fact]

@@ -35,8 +35,8 @@ namespace Statecraft.Sim
 
         /// <summary>R-COMBAT-001: gives the player's military unit a standing attack on the adjacent hex (q, r), replacing its
         /// order (a fortify is lost). Refused, state untouched, for an unknown unit, a halutz, an enemy unit, no hex, the attack
-        /// it already has, a hex not next to it or with no enemy unit, or fewer Arms than one attack takes (Q-COMBAT-4). It
-        /// costs no Attention (D-A6) and resolves in this turn's step 2.</summary>
+        /// it already has, a hex not next to it or with no enemy unit, or fewer Arms than one attack takes on top of the
+        /// player's other attacks already ordered (Q-COMBAT-4). It costs no Attention (D-A6) and resolves in this turn's step 2.</summary>
         internal static string? Give(Content c, GameState s, int unitId, int? q, int? r, List<Cause> why)
         {
             if (!s.Units.TryGetValue(unitId, out var u)) return "There is no such unit";
@@ -48,13 +48,18 @@ namespace Statecraft.Sim
             if (!Adjacent(u, q.Value, r.Value)) return "That hex is not next to the unit";
             if (Defenders(s, u, q.Value, r.Value).Count == 0) return "There is no enemy unit on that hex";
             var need = c.RulesAt(s.Date).Mvp!.ArmsPerAttack!.Value;
-            if (s.Arms < need) return Short(need, s.Arms);
+            // Arms are paid at resolution, so the stock must also cover the player's other standing attacks, this turn's
+            // included; the unit's own attack, which this order replaces, is not counted.
+            var ordered = s.Units.Values.Count(x => x.Id != unitId && x.Order == Attack && Military(x) && Player(x));
+            if (s.Arms < need * (ordered + 1)) return Short(need, s.Arms, ordered * need);
             s.Units[unitId] = new Unit(u.Id, u.Type, u.Q, u.R, u.Service, u.Side, u.Strength, Attack, target);
             why.Add(new Cause("map", unitId.ToString(CultureInfo.InvariantCulture), 0, $"Unit {unitId} will attack hex {target}"));
             return null;
         }
 
-        static string Short(int need, int have) => FormattableString.Invariant($"An attack needs {need} Arms and the stock has {have}");
+        static string Short(int need, int have, int committed) => committed == 0
+            ? FormattableString.Invariant($"An attack needs {need} Arms and the stock has {have}")
+            : FormattableString.Invariant($"An attack needs {need} Arms and the stock has {have}, of which {committed} go to attacks already ordered");
 
         /// <summary>The attack preview (spec section 2.6; Q-UI-1): the ratio, in percent and rounded down, of unit
         /// <paramref name="unitId"/>'s strength plus that of the units of its team already ordered to attack (q, r) from next to
