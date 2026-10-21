@@ -302,6 +302,7 @@ mvp:
   combat_table:
     - { min_ratio_percent: 0, attacker_loss: [1, 1], defender_loss: [1, 1], defender_retreats: [0, 0] }
     - { min_ratio_percent: 200, attacker_loss: [0, 0], defender_loss: [1, 1], defender_retreats: [1, 1] }
+  enemy_attack_ratio_percent: 200
 ";
 
     public static readonly string GddCities = "\ncities:\n" + City("town_a", 12, 8, 10, 6, "[military_camp, hakhshara]");

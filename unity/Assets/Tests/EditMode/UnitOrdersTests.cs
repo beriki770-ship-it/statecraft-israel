@@ -163,8 +163,9 @@ public class UnitOrdersTests
     }
 
     /// <summary>Slice 2 (#754): for every unit with a sim unit, Israel's and the enemy's, the card shows Fortify and Hold each
-    /// only where the sim's Orders.Check takes it, and where it does not, the sim's reason, whatever it is (so a refusal the
-    /// sim adds later, such as artillery's hold, shows with no change here). A unit already holding has no Hold, with the
+    /// only where the sim's Orders.Check takes it, and where it does not, on Israel's units the sim's reason, whatever it is
+    /// (so a refusal the sim adds later, such as artillery's hold, shows with no change here); an enemy's card gives no reason
+    /// (the sim's "not yours" is in English and says nothing the card does not). A unit already holding has no Hold, with the
     /// sim's reason; once the game is over neither shows.</summary>
     [Test]
     public void TheCardOffersFortifyAndHoldOnlyWhereTheSimTakesThem()
@@ -186,7 +187,9 @@ public class UnitOrdersTests
             {
                 var why = Orders.Check(C, bridge.State, id, order);
                 Assert.AreEqual(why == null ? DisplayStyle.Flex : DisplayStyle.None, button.style.display.value, $"{at} {token.Unit.Id}: {order} ({why})");
-                if (why != null) StringAssert.Contains(why, ui.Q<Label>("info-reason").text, $"{at} {token.Unit.Id}: the sim's reason");
+                if (why == null) continue;
+                if (token.Unit.Side == UnitData.Israel) StringAssert.Contains(why, ui.Q<Label>("info-reason").text, $"{at} {token.Unit.Id}: the sim's reason");
+                else StringAssert.DoesNotContain(why, ui.Q<Label>("info-reason").text, $"{at} {token.Unit.Id}: no reason on an enemy's card");
             }
         }
         foreach (var token in tokens) Expect(token, "start");
