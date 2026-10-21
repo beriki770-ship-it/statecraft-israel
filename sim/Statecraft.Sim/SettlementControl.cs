@@ -118,7 +118,9 @@ namespace Statecraft.Sim
             s.Settlements.Remove(id);
             foreach (var (_, w) in moved)
                 why.Add(new Cause("map", w.Id.ToString(CultureInfo.InvariantCulture), 0, FormattableString.Invariant($"Unit {w.Id} withdrew from {name} to hex {w.Q},{w.R}")));
-            why.Add(new Cause("map", id, 0, $"{name}: Israeli units withdrew and it is under enemy control again. Its residents are unchanged"));
+            why.Add(new Cause("map", id, 0, moved.Count > 0
+                ? $"{name}: Israeli units withdrew and it is under enemy control again. Its residents are unchanged"
+                : $"{name} is under enemy control again. Its residents are unchanged"));
             return null;
         }
 
@@ -137,7 +139,7 @@ namespace Statecraft.Sim
             foreach (var id in s.Settlements.Where(kv => kv.Value.State == AwaitingChoice).Select(kv => kv.Key).ToList())   // ordinal
             {
                 why.Add(new Cause("map", id, 0, $"{c.SettlementNames[id]}: no decision was made before the end, so it counts as a raid"));
-                Withdraw(c, s, id, why, true);
+                Withdraw(c, s, id, why, true);   // at the end it never refuses
             }
         }
 
