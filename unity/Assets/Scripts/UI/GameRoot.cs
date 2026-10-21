@@ -279,6 +279,8 @@ namespace Statecraft.Game.UI
             report = Own(new TurnReportPresenter(root, bridge, text, nav!));
             // "Share" (#1170), from Settings and the turn report: the frame is captured at its end, before the panel shows.
             var sharePanel = share = Own(new SharePresenter(root, bridge, text, done => StartCoroutine(ShareShot.Capture(done))));
+            // Star, Report and Share as round icons at the map screen's bottom left (#1236): the same actions as Settings' buttons.
+            Own(new CommunityIconsPresenter(root, text, feedbackPanel, sharePanel));
             // Both panels in one hook: the same Escape never closes the screen under the panel too.
             nav!.TakesEscape = () => feedbackPanel.Escape() || sharePanel.Escape();
             var names = map.SettlementsFor(inputs.Map.SettlementsYaml).ToDictionary(s => s.Id, s => s.Name);   // the map's parse (issue #321)
@@ -446,11 +448,18 @@ namespace Statecraft.Game.UI
             }
             // It shows by itself only where the start screen does (never in the automated runs, nor under ?firstcard, which
             // times the first card) and a settings file remembers that it has; How to play opens it again anywhere. Steps 2
-            // and 3 show its city as a click there would, without selecting a unit on the city's hex.
+            // and 3 show its city as a click there would, without selecting a unit on the city's hex; step 4 shows a unit
+            // that can move, its ring and its card, as a click on it would (OnHexClicked).
             Action showCity = () =>
             {
                 if (FirstTurnGuidePresenter.CityHex(bridge.Content, bridge.State) is not (int q, int r)) return;
                 unitLayer.Select(null); map.Select(q, r); info.Show(q, r);
+            };
+            Action showUnit = () =>
+            {
+                if (FirstTurnGuidePresenter.UnitToShow(bridge.Content, bridge.State, unitLayer.Tokens.Select(t => t.Token.Unit)) is not string id) return;
+                unitLayer.Select(id);
+                if (unitLayer.Selected != null) { map.ClearSelection(); info.ShowUnit(); }
             };
             // When it closes, the guide puts back the selection it found (a hex, a unit, or none), unless the player has
             // picked something else meanwhile (the HUD stays usable under it).
@@ -459,9 +468,11 @@ namespace Statecraft.Game.UI
                 var hex = info.ShowsUnit ? null : info.Selected;
                 var unit = info.ShowsUnit ? unitLayer.Selected : null;
                 var city = FirstTurnGuidePresenter.CityHex(bridge.Content, bridge.State);
+                var guideUnit = FirstTurnGuidePresenter.UnitToShow(bridge.Content, bridge.State, unitLayer.Tokens.Select(t => t.Token.Unit));
                 return () =>
                 {
-                    if (info.Covered || info.ShowsUnit || info.Selected != city) return;   // under a screen, or the player picked another
+                    // Under a screen, or the player picked another than the guide's city or unit: kept.
+                    if (info.Covered || (info.ShowsUnit ? unitLayer.Selected != guideUnit : info.Selected != city)) return;
                     unitLayer.Select(unit);
                     if (unitLayer.Selected != null) { map.ClearSelection(); info.ShowUnit(); }
                     else if (hex is (int q, int r)) { map.Select(q, r); info.Show(q, r); }
@@ -469,7 +480,7 @@ namespace Statecraft.Game.UI
                 };
             };
             guide = firstTurn = Own(new FirstTurnGuidePresenter(root, text, showsStart && !FirstCardCheckRequested() ? SettingsFile() : null,
-                card, showCity, () => nav?.Close(), bridge, keepSelection));
+                card, showCity, () => nav?.Close(), bridge, keepSelection, showUnit));
             if (newGame != null) newGame.Started += firstTurn.NewGame;      // New Game in the top bar too; both die with this Begin
             if (hebrew) Own(new UiDirection(root, bridge));
             root.Q("root")?.RemoveFromClassList("loading");                // ready: the bar, panels and screens may show (P2-1)

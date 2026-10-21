@@ -36,9 +36,9 @@ final `GameState.Hash()` is pinned:
 
 | Run | Ends | Hash |
 |---|---|---|
-| to 1950-01-01 (`Hash1950`) | 1950-01-15, turn 20 | `a1ad42117a8523a79cf36cc03f33c63fbe887820d7f6fb89a834f2f952510548` |
-| to 1952-01-01 (`Hash1952`) | 1952-01-15, turn 44 (the game's end) | `9cbd73eda1440e1ee3e1ee565cf81960f2e7ee5595e55bdb4ed661f1d5e0ab40` |
-| to the game's end (`mvp-end`) | 1952-01-15, turn 44 | `9cbd73eda1440e1ee3e1ee565cf81960f2e7ee5595e55bdb4ed661f1d5e0ab40` |
+| to 1950-01-01 (`Hash1950`) | 1950-01-15, turn 20 | `1392f3eb726172c284555b2bcacc0be3f8d9e33d19306dfc3baf0e2c63fe249b` |
+| to 1952-01-01 (`Hash1952`) | 1952-01-15, turn 44 (the game's end) | `cc96cd0a8d50a7693300ef887673c7ccfc18dac6d4dcaa9f52ed2ed09062eda5` |
+| to the game's end (`mvp-end`) | 1952-01-15, turn 44 | `cc96cd0a8d50a7693300ef887673c7ccfc18dac6d4dcaa9f52ed2ed09062eda5` |
 
 `hash1952` stops at the first turn on or after 1 January 1952, which is the game's last turn, so it is the same run as
 `mvp-end` (`DeterminismTests.TheWholeGameToItsEndIsFixed`). Both names are kept (spec 2026-10-12 section 3 step 6): a
@@ -47,7 +47,7 @@ player check enumerate the manifest, so it and every scenario are checked withou
 
 A further value is pinned for the browser smoke run (`?smoke=5`: the golden seed, five turns played through the UI's own
 buttons, answering each event with its first option while the turn's Attention pays for it, the rest left to their
-ministers): `SMOKE OK 5 turns 1948-10-15 ed761c3b9c4e9b76520af20080b2a7c8b984a1f44f1d52e5127aae1baa992a8d`.
+ministers): `SMOKE OK 5 turns 1948-10-15 11c41014a5ed74f783bc2fa0af99ee86830d162d5e71c883318e36f68f47b9b4`.
 It depends on the UI path as well as the sim (which option is first, the turn grid), so re-record it when either changes.
 Check every WebGL build with every manifest entry (plus the UI-path smoke line) with:
 
@@ -58,7 +58,7 @@ while read -r name hash; do
   golden_expect+=(--expect "GOLDEN OK $name $hash")
 done < sim/Statecraft.Sim.Tests/golden/manifest.txt
 uv run tools/web_check.py unity/Builds/Web-<compression> --query "golden&smoke=5" "${golden_expect[@]}" \
-  --expect "SMOKE OK 5 turns 1948-10-15 ed761c3b9c4e9b76520af20080b2a7c8b984a1f44f1d52e5127aae1baa992a8d"
+  --expect "SMOKE OK 5 turns 1948-10-15 11c41014a5ed74f783bc2fa0af99ee86830d162d5e71c883318e36f68f47b9b4"
 ```
 
 **When a golden moves.** The test fails with the lines that changed, grouped by section (`[ind]`, `[pol]`, `[bud]`,
@@ -350,3 +350,11 @@ The hash reads the state keys, so it never sees a record outside its window. An 
 | #1240: the seven IDF rows re-sourced to Ben-Gurion's diary of 15 May 1948, owner 21 Oct 2026 | scenario-cautious | `00ec7ec2` | same as reckless (was `b4e5caa1`) |
 | #1240: the seven IDF rows re-sourced to Ben-Gurion's diary of 15 May 1948, owner 21 Oct 2026 | scenario-mvp-absorb-first | `ac5f51bb` | same as reckless (was `7d37c0d0`) |
 | #1240: the seven IDF rows re-sourced to Ben-Gurion's diary of 15 May 1948, owner 21 Oct 2026 | scenario-mvp-defeat | `f2ad1114` | same as reckless; the defeat is unchanged (was `7bd5158f`) |
+| GDD Phase 5 PR 10: the enemy AI, part 1 (#749) | 1950 | `1392f3eb` | Resolver step 1 gives the enemy its orders (R-ENEMY-001 to R-ENEMY-004). On 15 May and 15 June 1948 the four scripted forces march on their 11 June anchors (Egypt 7 to -8,25, one hex short of Isdud, round Yad Mordechai and the Negev brigade; the Arab Legion 8 to Latrun, -2,22; Syria 9 to 13,6, one short of the Mishmar HaYarden bridgehead; Iraq 10 to Jenin, 6,13), and every enemy unit fortifies from then on (`order=fortify`). The Syrian unit leaves Golani's side on the first turn (13,6 by the second), so no Israeli attack is ordered there; since #1240 none was (Golani's 4 against the Syrian 3 is under the policy's 3:2), and the Arms stay at 12. No enemy unit attacks on a turn whose middle day is inside a truce (R-ENEMY-006: 15 June to 15 September 1948). On the turn of 15 October 1948 the Legion attacks Harel beside Latrun at 4:1: one engagement, one draw, unit 5 is destroyed and the Legion is at 4. It is the run's only engagement, so the RNG state moves off the seed the header showed (was `a1ad4211`) |
+| GDD Phase 5 PR 10: the enemy AI, part 1 (#749) | 1952 | `cc96cd0a` | same (was `9cbd73ed`) |
+| GDD Phase 5 PR 10: the enemy AI, part 1 (#749) | mvp-end | `cc96cd0a` | same as 1952 (was `9cbd73ed`) |
+| GDD Phase 5 PR 10: the enemy AI, part 1 (#749) | smoke5 | `11c41014` | the enemy's step 1 orders from the first turn, as in 1950. The run ends on 15 October 1948, inside the truce guard's reach (R-ENEMY-006), so Harel survives it: the Legion fortifies on the turns of 15 June to 15 September 1948 (was `ed761c3b`) |
+| GDD Phase 5 PR 10: the enemy AI, part 1 (#749) | scenario-cautious | `230791a1` | the units only, as in 1950: the scripted marches, the fortify orders and the Legion's engagement with Harel (was `00ec7ec2`) |
+| GDD Phase 5 PR 10: the enemy AI, part 1 (#749) | scenario-reckless | `d6fd9e89` | same as cautious (was `574c8a19`) |
+| GDD Phase 5 PR 10: the enemy AI, part 1 (#749) | scenario-mvp-absorb-first | `de176931` | same as cautious (was `ac5f51bb`) |
+| GDD Phase 5 PR 10: the enemy AI, part 1 (#749) | scenario-mvp-defeat | `7404295a` | the units as in cautious; the engagement's draw comes before the delegated events' draws, so a delegated `iraqi_exodus` resolves to `pace` (was `airlift`), and housing, international standing, morale and stability follow. The defeat is unchanged (was `f2ad1114`) |
