@@ -15,23 +15,24 @@ namespace Statecraft.Sim
         /// starts under enemy control (on mvp.enemy_held_localities) is captured when the player's military units are on its
         /// hex and no enemy military unit is (Q-CAP-1 (a); Q-CAP-3 (a): only military units are combatants, so a halutz holds
         /// nothing): its record names the player, awaits the player's choice and starts on <paramref name="next"/>, the turn's
-        /// end. A captured target that only enemy military units are on is under enemy control again, and its record goes. A
-        /// target that is not enemy-held at the start (Jaffa, #793) is never captured. Capture writes the settlement state
-        /// only: no resident field, unit, resource, score or objective (R-CTRL-005). It draws nothing from the RNG.</summary>
+        /// end. A captured target still awaiting the choice that only enemy military units are on is under enemy control again,
+        /// and its record goes. A target that is not enemy-held at the start (Jaffa, #793) is never captured. Capture writes the
+        /// settlement state only: no resident field, unit, resource, score or objective (R-CTRL-005). It draws nothing from
+        /// the RNG.</summary>
         public static void Capture(Content c, GameState s, DateTime next, List<Cause> why)
         {
             var enemyHeld = new HashSet<string>(c.RulesAt(s.Date).Mvp!.EnemyHeldLocalities, StringComparer.Ordinal);
             foreach (var t in c.SettlementTargets.Where(x => enemyHeld.Contains(x.Id)).OrderBy(x => x.Id, StringComparer.Ordinal))
             {
                 var holder = Holder(s, t.Q, t.R);
-                var captured = s.Settlements.ContainsKey(t.Id);
+                var record = s.Settlements.TryGetValue(t.Id, out var held) ? held : null;
                 var name = c.SettlementNames[t.Id];
-                if (holder == Movement.PlayerSide && !captured)
+                if (holder == Movement.PlayerSide && record == null)
                 {
                     s.Settlements[t.Id] = new SettlementControl(Movement.PlayerSide, AwaitingChoice, next);
                     why.Add(new Cause("map", t.Id, 0, $"{name} is captured: Israeli units hold it and no enemy unit is there. It awaits a decision"));
                 }
-                else if (holder == Enemy && captured)
+                else if (holder == Enemy && record?.State == AwaitingChoice)   // PR 5's outcomes decide what a later state returns to
                 {
                     s.Settlements.Remove(t.Id);
                     why.Add(new Cause("map", t.Id, 0, $"{name} is under enemy control again: enemy units hold it and no Israeli unit is there"));

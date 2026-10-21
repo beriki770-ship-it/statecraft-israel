@@ -23,7 +23,7 @@ public class CaptureTests
     static string Target(string id, int q, int r) => FormattableString.Invariant(
         $"  - {{ id: {id}, q: {q}, r: {r}, operation: fixture_operation, sources: [{{ url: \"https://example.org/{id}\", checked: 2026-10-18 }}], status: sensitivity-reviewed }}\n");
 
-    /// <summary>MovementTests' 6 x 3 coastal plain with the five places; <paramref name="targets"/> lists the targets in
+    /// <summary>MovementTests' 6 x 3 coastal plain with the four places; <paramref name="targets"/> lists the targets in
     /// file order.</summary>
     static Content Load(params string[] targets)
     {
@@ -72,13 +72,17 @@ public class CaptureTests
         Assert.Contains("ctrl{\n  town_a=owner=israel,state=awaiting_choice,since=", next.Describe());
     }
 
-    // R-CTRL-004 (Q-CAP-1 (a), Q-CAP-3 (a)): an enemy military unit on the hex is a combatant, so no capture.
+    // R-CTRL-004 (Q-CAP-1 (a), Q-CAP-3 (a)): an enemy military unit on the hex is a combatant, so no capture; and with
+    // both sides on a captured target, neither holds it, so its record stays.
     [Fact]
     public void AnEnemyCombatantOnTheHexPreventsTheCapture()
     {
         var c = Load(AllTargets);
         var s = With(c, Soldier(1, 1, 0), Enemy(2, 1, 0));
         Assert.Empty(Step(c, s).Settlements);
+        s.Settlements["town_a"] = new SettlementControl(Movement.PlayerSide, SettlementControl.AwaitingChoice, s.Date);
+        Assert.Empty(Capture(c, s));
+        Assert.Equal(SettlementControl.AwaitingChoice, s.Settlements["town_a"].State);
     }
 
     // R-CTRL-004 (Q-CAP-1 (a)): no player unit, or only a halutz (no combatant, R-UNIT-001), holds nothing.
@@ -146,9 +150,10 @@ public class CaptureTests
         var c2 = Load("town_c", "town_a");
         var s1 = With(c1, Soldier(1, 1, 0), Soldier(2, 4, 0));
         var s2 = With(c2, Soldier(2, 4, 0), Soldier(1, 1, 0));
-        Capture(c1, s1);
-        Capture(c2, s2);
-        Assert.Equal(new[] { "town_a", "town_c" }, s1.Settlements.Keys.ToArray());
+        var why1 = Capture(c1, s1);
+        var why2 = Capture(c2, s2);
+        Assert.Equal(new[] { "town_a", "town_c" }, why1.Select(x => x.Target).ToArray());   // the Why lines, in ordinal id order
+        Assert.Equal(why1.Select(x => x.Message), why2.Select(x => x.Message));
         Assert.Equal(s1.Describe(), s2.Describe());
     }
 
