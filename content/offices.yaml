@@ -78,7 +78,6 @@ offices:
   # it, so the 1949-50 title is the only sourced one. The feminine form is built, not sourced: the same construction as the
   # other ministries'; its source row is the ministry's page, which gives the name.
   # For the native reviewer (#564): both forms are an AI agent's; the Knesset record (gov1.pdf) was unreachable on 2026-10-21.
-  # Approved by Beri, a native speaker, on #1224 (21 Oct 2026).
   # The title holds only while the ministry existed (owner ruling on PR #1224, 21 October 2026,
   # https://github.com/eyalgolan/statecraft-israel/pull/1224): title_he_from is the day Dov Yosef took it, "עם הקמת ממשלת
   # ישראל הראשונה ב־10 במרץ 1949 מונה לשר האספקה והקיצוב" (he.wiki "דב יוסף"); title_he_until is the day it ended, "ב-1
