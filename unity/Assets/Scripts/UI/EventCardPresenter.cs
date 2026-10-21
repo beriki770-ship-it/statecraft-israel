@@ -246,8 +246,7 @@ namespace Statecraft.Game.UI
             // the ministers' Hebrew names in its placeholders, and the English where it has none (fail open). A variant
             // (R-ALT-010) has no Hebrew, so a card on a road not taken keeps its variant's English.
             var variant = Timeline.Variant(c, s, e);
-            bool hebrew = text["ui.lang"] == UiLanguage.Hebrew;
-            string Local(string english, string he) => hebrew && he != "" ? Cabinet.Fill(c, s, he, date, p => ContentNames.Of(text, p)) : english;
+            string Local(string english, string he) => ContentNames.Fill(text, c, s, date, english, he);
             card.Q<Label>("event-title").text = Local(EventSystem.Title(c, s, e), variant == null || variant.Title == "" ? e.TitleHe : "");
             var office = holder == null ? null : c.Offices.First(o => o.Id == e.Office);
             card.Q<Label>("event-office").text = holder == null ? "" : text.Format("event.office", ContentNames.Of(text, office!, holder), ContentNames.Of(text, holder));
