@@ -187,15 +187,16 @@ def test_strength_has_one_value_and_a_source():
 # Owner, 20 October 2026, on #743: "the 15 May 1948 IDF brigade strengths may come from secondary sources, since no
 # primary order of battle gives them. Every row cites its source, carries `status: to_verify`, and is replaced when a
 # primary source turns up." The figures are the brigade table of research_notes/M4 war mode/war-1948.md, section 1
-# (#906); the brigades it gives no size for get none.
-IDF_STRENGTH = {'golani': 4500, 'carmeli': 2000, 'alexandroni': 5200, 'kiryati': 1400, 'givati': 5000, 'harel': 1400,
-                'yiftach': 4500, 'negev': 2400}
+# (#906); the brigades it gives no size for get none. Owner, 21 October 2026, #1240: seven of them take Ben-Gurion's
+# diary for 15 May 1948 instead (Golani 3,573 + 522 paid recruits); they stay `to_verify` until a person checks them.
+IDF_STRENGTH = {'golani': 4095, 'carmeli': 2289, 'alexandroni': 3588, 'kiryati': 2504, 'givati': 3229, 'harel': 1300,
+                'yiftach': 4500, 'negev': 1300}
 
 
-# #1241 (owner, 21 October 2026): Etzioni's 15 May strength from Ben-Gurion's diary (a primary source, so draft), and the
-# 7th's first sourced strength, dated on its first anchor's day, the day it arrives (secondary, so to_verify). The figures
-# are research_notes/GDD phase 5/later-brigades-1241.md, sections 1 and 4.
-LATER_STRENGTH = {'etzioni': (3166, '1948-05-15', 'draft'), 'brigade_7': (1650, '1948-05-24', 'to_verify')}
+# #1241 (owner, 21 October 2026): Etzioni's 15 May strength from Ben-Gurion's diary (to_verify until a person checks it,
+# as the #1240 rows), and the 7th's first sourced strength, dated on its first anchor's day, the day it arrives
+# (secondary, so to_verify). The figures are research_notes/GDD phase 5/later-brigades-1241.md, sections 1 and 4.
+LATER_STRENGTH = {'etzioni': (3166, '1948-05-15', 'to_verify'), 'brigade_7': (1650, '1948-05-24', 'to_verify')}
 
 
 def test_idf_brigade_strengths_are_secondary_and_to_verify():
@@ -220,6 +221,7 @@ def test_idf_brigade_strengths_are_secondary_and_to_verify():
         assert st.get('sources'), f"{uid}: the strength cites no source"
         assert not RANGE.search(str(st.get('note', ''))), f"{uid}: the strength note copies a range"
         assert u.get('status') == status, uid
+        assert u.get('to_verify'), f"{uid}: to_verify says what a person or a primary source must settle"
         # R-UNIT-009: a strength dated after the start is the arrival day, so an anchor window opens on it.
         assert as_of == '1948-05-15' or any(a['from'] == as_of for a in u['anchors']), f"{uid}: no anchor opens on {as_of}"
     for uid, u in israel.items():

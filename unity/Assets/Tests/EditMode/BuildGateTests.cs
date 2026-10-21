@@ -226,7 +226,7 @@ public class BuildGateTests
                 var reviewed = id == "burma_road_complete" ? "false" : "true";
                 StringAssert.IsMatch($"\"event_id\":\\s*\"{id}\",\\s*\"sensitive\":\\s*true,\\s*\"sensitivity_reviewed\":\\s*{reviewed}", dev);
             }
-            Assert.AreEqual(26, System.Text.RegularExpressions.Regex.Matches(dev, "\"event_id\"").Count);   // first_new_yishuv came with #380
+            Assert.AreEqual(27, System.Text.RegularExpressions.Regex.Matches(dev, "\"event_id\"").Count);   // first_new_yishuv came with #380, absorb_immigrants with #739
             StringAssert.IsMatch("\"shareable\":\\s*true", (string)json.Invoke(null, new object?[] { photos, true })!);
             StringAssert.IsMatch("\"photos\":\\s*\\[\\s*\\]", (string)json.Invoke(null, new object?[] { null, true })!);
         }

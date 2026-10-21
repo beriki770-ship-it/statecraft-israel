@@ -170,21 +170,32 @@ turns up." The figures are the brigade table of `research_notes/M4 war mode/war-
 1948 war article, whose size column cites Ben-Gurion's War Diaries (Arabic edition, 1994, p. 303). The table gives no
 date; `as_of` is 15 May 1948, the day the ruling gives the strengths for.
 
+**Ben-Gurion's diary for 15 May 1948 (#1240).** The owner's ruling of 21 October 2026 replaces seven of the table's
+figures with the diary's for the day, a primary source: the Ben-Gurion Archive's English transcription, item 221910
+([Wayback copy](https://web.archive.org/web/20240203024717/https://bengurionarchive.bgu.ac.il/en/node/8733), checked
+2026-10-21): "Palmach – about 6,000, of whom 1,300 are in Harel [...], 1,300 in the Negev, 1,200 in the north, 1,000
+women; Golani has 3,573 + 522 paid recruits; Carmeli 2,289; Alexandroni 3,588; Kiriati 2,504; Givati 3,229; Etsiyyoni
+3,166 – the total for all brigades is about 24,400." Golani counts the 522 paid recruits (4 units either way); Harel and
+Negev, Palmach brigades, take the diary's Palmach in Harel and in the Negev. en.wiki's table stays as each row's second
+source. The rows stay `to_verify` until a person checks the seven figures against the page; then they can be marked
+`fact-checked`.
+
 | Row | Strength (15 May) |
 |---|---|
-| Golani | 4,500 |
-| Carmeli | 2,000 |
-| Alexandroni | 5,200 |
-| Kiryati | 1,400 |
-| Givati | 5,000 |
-| Harel | 1,400 |
+| Golani | 4,095 (diary: 3,573 + 522 paid recruits; the table gave 4,500) |
+| Carmeli | 2,289 (diary; the table gave 2,000) |
+| Alexandroni | 3,588 (diary; the table gave 5,200) |
+| Kiryati | 2,504 (diary; the table gave 1,400) |
+| Givati | 3,229 (diary; the table gave 5,000) |
+| Harel | 1,300 (diary, the Palmach in Harel; the table gave 1,400) |
 | Yiftach | 4,500 (the table counts some Golani men in it) |
-| Negev | 2,400 |
+| Negev | 1,300 (diary, the Palmach in the Negev; the table gave 2,400) |
 
 - **No figure, no strength:** the 8th and Oded have no size in the note, so their rows give none and stay `status: draft`.
-- **Etzioni and the 7th (#1241):** Etzioni gives 3,166 on 15 May 1948 from Ben-Gurion's diary, a primary source, so it
-  stays `status: draft`. The 7th gives 1,650, its men in Operation Bin Nun Alef, dated 24 May 1948, the day its Hulda
-  window opens: a secondary figure, so `status: to_verify` (`research_notes/GDD phase 5/later-brigades-1241.md`).
+- **Etzioni and the 7th (#1241):** Etzioni gives 3,166 on 15 May 1948 from Ben-Gurion's diary, the same page as the
+  seven rows above, so like them it stays `status: to_verify` until a person checks the figure. The 7th gives 1,650,
+  its men in Operation Bin Nun Alef, dated 24 May 1948, the day its Hulda window opens: a secondary figure, so
+  `status: to_verify` (`research_notes/GDD phase 5/later-brigades-1241.md`).
   Yiftach's 4,500 stays until a person settles the note's conflict (4,500, about 2,000 or 1,200).
 - **The sim reads them** since Phase 5 PR 4: see "The starting forces" below.
 - Tests: `test_idf_brigade_strengths_are_secondary_and_to_verify` (Python) and `UnitsInPlayTests` (EditMode).
@@ -200,10 +211,10 @@ defaults"). The unit stands on the hex holding the anchor's coordinates, by the 
   design value with 3 movement points: `egyptian_army`, `arab_legion` (Jordan), `syrian_army`, `iraqi_army`,
   `arab_liberation_army`. These ids are the sim's, not names shown to the player (Q-UI-2, Q-START-4).
 - **Strength** is the row's people in 1,000-person population units, the nearest unit with a half up, never below 1.
-- **Who starts:** Golani 5, Carmeli 2 (at Haifa, its sector seat), Alexandroni 5, Kiryati 1, Givati 5, Harel 1,
-  Etzioni 3 (Jerusalem), Negev 2; Egypt 10, the Arab Legion 5, Syria 3, Iraq 3, the ALA 4. Nothing starts for Yiftach
-  (no window on 15 May), Oded, the 8th and the Lebanese row (hidden), or the squadron and the two ships (tokens only,
-  Q-UNIT-5).
+- **Who starts:** Golani 4, Carmeli 2 (at Haifa, its sector seat), Alexandroni 4, Kiryati 3, Givati 3, Harel 1,
+  Etzioni 3 (Jerusalem), Negev 1 (#1240, #1241); Egypt 10, the Arab Legion 5, Syria 3, Iraq 3, the ALA 4. Nothing starts
+  for Yiftach (no window on 15 May), Oded, the 8th and the Lebanese row (hidden), or the squadron and the two ships
+  (tokens only, Q-UNIT-5).
 - **Arrivals (R-UNIT-009, #1241):** a row whose strength is dated after 15 May, with an anchor window covering that day,
   arrives on that day: in the resolution of the monthly turn that reaches it, on that anchor's hex, with that strength. Its
   unit id is reserved at the start, after the starting rows, so unit i is still row i. Today that is the 7th: 2 units at

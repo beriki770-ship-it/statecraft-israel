@@ -112,8 +112,8 @@ public class UnitsInPlayTests
         foreach (var u in units)
         {
             // Owner, 20 October 2026, #743: an IDF brigade's secondary-source strength "carries `status: to_verify`".
-            // Etzioni's is Ben-Gurion's diary of 15 May 1948, a primary source, so it stays draft (#1241).
-            Assert.AreEqual(u.Side == UnitData.Israel && u.Strength != null && u.Id != "etzioni" ? "to_verify" : "draft", u.Status, u.Id);
+            // Owner, 21 October 2026, #1240: a diary strength stays `to_verify` until a person checks it (Etzioni too, #1241).
+            Assert.AreEqual(u.Side == UnitData.Israel && u.Strength != null ? "to_verify" : "draft", u.Status, u.Id);
             Assert.AreEqual(UnitData.IsWikipediaOnly(u), u.WikipediaOnly, $"{u.Id}: wikipedia_only must say whether every source is Wikipedia or Wikidata");
             foreach (var s in u.AllSources())
                 Assert.LessOrEqual(UnitData.Day(s.Checked), DateTime.Today, $"{u.Id}: {s.Url} checked in the future");
