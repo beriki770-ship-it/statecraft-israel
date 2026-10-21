@@ -921,7 +921,7 @@ public class UnitsInPlayTests
             var words = ui.Q<VisualElement>("info-panel").Query<Label>().ToList().Select(l => l.text).ToList();
             Assert.AreEqual("Golani Brigade", ui.Q<Label>("info-title").text);
             Assert.IsTrue(words.Any(w => w.Contains("At Yavne'el since February 1948")), string.Join(" | ", words));
-            Assert.IsTrue(words.Any(w => w.Contains("Reserve call-up 80%") && w.Contains("security level 5")), string.Join(" | ", words));
+            Assert.IsFalse(words.Any(w => w.Contains("Reserve call-up")), "the GDD loop: the call-up no longer sets the figures (#1205) | " + string.Join(" | ", words));
             Assert.IsTrue(words.Any(w => w.Contains("Wikipedia only")), "a Wikipedia-only position says it is a draft");
             Assert.AreEqual(DisplayStyle.None, ui.Q<Button>("build-camp").style.display.value, "no orders on a unit");
             var defence = ui.Q<Button>("info-defence");

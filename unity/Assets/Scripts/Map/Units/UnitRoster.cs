@@ -130,6 +130,8 @@ namespace Statecraft.Game.Map.Units
             var list = new List<UnitToken>();
             foreach (var unit in state.Units.Values.OrderBy(v => v.Q).ThenBy(v => v.R).ThenBy(v => v.Id))
             {
+                // Unit i of a new game is StartingForces[i] (R-UNIT-006); a unit raised in play takes the next id, at or above
+                // the count, and has no row yet (UnitsFromStateTests.AUnitRaisedInPlayDrawsNoToken).
                 if (unit.Side == "" || unit.Id >= content.StartingForces.Count) continue;
                 var force = content.StartingForces[unit.Id];
                 var row = units.FirstOrDefault(u => u.Id == force.Row);

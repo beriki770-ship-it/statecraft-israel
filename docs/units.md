@@ -219,7 +219,9 @@ deletes it.
   card names no place (no source does) and gives the row's sources.
 - **Figures follow Q-UI-3** (owner, 15 October 2026; #226): 3 at two thirds or more of full strength, 2 at a third or
   more, 1 below that. Full strength is the sourced strength the unit started with (Q-UNIT-4), so a new game draws three
-  figures on every token whatever the call-up, and losses take figures away.
+  figures on every token whatever the call-up, and losses take figures away. So the card leaves out the call-up: an army
+  token's card has no national line, and the squadron's gives the security level alone ("Security level 5 of 5"), which
+  still sets whether it flies.
 - **The squadron and the ships** are tokens only (Q-UNIT-5): they still come from their rows' windows.
 - So from 15 May 1948 the map draws the twelve starting forces where the sim holds them. A row with no sim unit (Etzioni,
   which has no sourced strength, and the brigades whose windows open later, such as Yiftach and the 7th) draws no token
@@ -376,7 +378,8 @@ checks every anchor and logs each spot and its distance.
 - A second click shows the hex and its map actions. A hidden layer (the `units` toggle off) selects nothing.
 - The card gives the name, the number and the service, where the unit stands (with "since" only from a sourced start),
   its formation and first commander where sourced, and the sector in the source's words.
-- It also gives the national values the token reflects ("Reserve call-up 80% · security level 5 of 5") and the source
+- It also gives the national values the token reflects on Israel's cards (legacy loop: "Reserve call-up 80% · security level
+  5 of 5"; in the GDD loop only the squadron's card has one, "Security level 5 of 5", see above) and the source
   hosts, with a draft note that says "Wikipedia only" when the position's own sources are.
 - It has no orders; a button opens the Defence screen.
 

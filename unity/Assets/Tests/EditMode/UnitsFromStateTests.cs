@@ -154,6 +154,41 @@ public class UnitsFromStateTests
         Assert.AreEqual(UnitData.IsWikipediaOnly(t.Unit) ? text["unit.draft_wikipedia"] : text["unit.draft"], card.Note);
     }
 
+    /// <summary>A unit raised in play takes the next id, at or above <c>StartingForces.Count</c>, so it has no row and no art
+    /// yet: it draws no token (UnitRoster.FromState's id check).</summary>
+    [Test]
+    public void AUnitRaisedInPlayDrawsNoToken()
+    {
+        var s = NewGame();
+        var units = Units;
+        var before = Army(UnitRoster.FromState(units, C, s, _ => true, new Moved().At));
+        Assert.IsNotEmpty(before);
+        var like = s.Units.Values.First(x => x.Side == "israel");
+        var to = FreeNeighbour(s, like.Q, like.R);
+        Assert.GreaterOrEqual(s.NextId, C.StartingForces.Count, "ids below the count are the starting forces");
+        s.Units.Add(s.NextId, new Unit(s.NextId, like.Type, to.q, to.r, side: like.Side, strength: like.Strength)); s.NextId++;
+        CollectionAssert.AreEqual(before, Army(UnitRoster.FromState(units, C, s, _ => true, new Moved().At)), "the raised unit draws nothing");
+    }
+
+    /// <summary>Review point 3 on #1205: in the GDD loop the call-up no longer sets the figures, so the card's footer does not
+    /// lead with it. An army token's footer gives only its sources; the squadron's keeps the security level, which still
+    /// sets whether it flies. The legacy loop keeps the call-up line.</summary>
+    [Test]
+    public void TheGddCardDoesNotLeadWithTheCallUp()
+    {
+        var text = UiText.Parse(AssetDatabase.LoadAssetAtPath<TextAsset>(UiPaths.Strings).text);
+        var s = NewGame(); s.Date = new DateTime(1948, 7, 1);   // the squadron at Herzliya
+        var tokens = UnitRoster.FromState(Units, C, s, _ => true, new Moved().At);
+        var army = tokens.First(t => t.Unit.Service == UnitData.Army && t.Unit.Side == UnitData.Israel);
+        var air = tokens.First(t => t.Unit.Service == UnitData.Air);
+        var national = text.Format("unit.national", PlayerText.Percent(s.Mobilization), s.Rung);
+        string First(UnitToken t, bool gdd) => UnitCard.For(new PlacedToken(t, default), s, text, gdd).Footer.Split('\n')[0];
+        StringAssert.StartsWith(text.Format("unit.sources", ""), First(army, true), "an army token: sources only");
+        Assert.AreEqual(text.Format("unit.security", s.Rung), First(air, true), "the squadron: the security level alone");
+        Assert.AreEqual(national, First(army, false), "the legacy loop still leads with the call-up");
+        Assert.AreEqual(national, First(air, false));
+    }
+
     /// <summary>#563's spot cache: a rebuild after a move places only the unit that moved; every other token keeps its spot,
     /// and a unit back on its starting hex stands on its starting spot again.</summary>
     [Test]
