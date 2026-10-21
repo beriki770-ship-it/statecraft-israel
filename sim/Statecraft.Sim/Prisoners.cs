@@ -80,6 +80,7 @@ namespace Statecraft.Sim
         /// score (Q-POW-4).</summary>
         internal static void Return(Content c, GameState s, string front, List<Cause> why)
         {
+            // Only GDD combat creates prisoners and the card waits for them, so this runs only in the GDD loop, which has Mvp.
             var points = c.RulesAt(s.Date).Mvp!.PointsPerPrisonerUnitReturned!.Value;
             var ppu = c.RulesAt(s.Date).Mvp!.PeoplePerUnit;
             int returned = 0, home = 0;

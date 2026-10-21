@@ -269,6 +269,21 @@ options:
         Assert.Contains(why, x => x.Message.StartsWith("The prisoners held went short of 5 units of Food: ", StringComparison.Ordinal));
     }
 
+    // R-POW-002: the cost survives the whole turn: the effects web that runs after step 7 keeps the shift.
+    [Fact]
+    public void AFoodShortfallCostsCohesionOverATurn()
+    {
+        var c = Load();
+        var without = Simulation.NewGame(c, 1, Mode.Historical);
+        var with = without.Clone();
+        with.PrisonersHeld["egypt"] = 1000;   // more than the stock after the import can feed
+        var a = Simulation.Step(c, without, Array.Empty<Command>()).State;
+        var b = Simulation.Step(c, with, Array.Empty<Command>()).State;
+        Assert.Equal(0, b.Food);
+        Assert.True(b.Indicators["morale"] < a.Indicators["morale"]);
+        Assert.Equal(1000, b.PrisonersHeld["egypt"]);
+    }
+
     // R-POW-005 (Q-POW-4): a surrendered unit of the player's is counted under the side of the engagement's lowest-id
     // attacker, not as prisoners and not in its units.
     [Fact]
