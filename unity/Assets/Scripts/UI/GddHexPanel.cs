@@ -27,6 +27,9 @@ namespace Statecraft.Game.UI
         /// <summary>The city-project part's host (#1122), in the hex's facts column: the GDD column beside it is already full on a city's
         /// own hex, and the facts column has room (InfoPanelLayoutTests).</summary>
         public const string ProjectsHostName = "info-projects";
+        /// <summary>On the city's own hex, on a stacked bar or a short window, the project part folds behind this toggle
+        /// ("City projects (N)") and the list it opens (owner ruling on #1150, 21 Oct 2026; Statecraft.uss .city-projects-list).</summary>
+        public const string ToggleName = "city-projects-toggle", ListName = "city-projects-list", OpenClass = "info-projects-open";
         const string LineClass = "info-gdd-line", RowClass = "info-gdd-row", PairsClass = "info-gdd-pairs";
 
         public static void Hide(VisualElement host) { host.Clear(); host.style.display = DisplayStyle.None; }
@@ -43,13 +46,14 @@ namespace Statecraft.Game.UI
             {
                 foreach (var at in c.SettlementHexes.Where(x => x.Q == q && x.R == r && s.Cities.ContainsKey(x.Id)))
                     City(host, bridge, text, at.Id);
+                var cityHere = host.childCount > 0;
                 var site = c.Sites.FirstOrDefault(x => x.Q == q && x.R == r && Projects.IsYishuvSite(x));
                 if (site != null)
                 {
                     title = text["ui.lang"] == UiLanguage.Hebrew && !string.IsNullOrWhiteSpace(site.NameHe) ? site.NameHe : site.Name;
                     Site(host, bridge, text, site);
                 }
-                CityProjects(projects, bridge, text, q, r, townName);
+                CityProjects(projects, bridge, text, q, r, townName, cityHere);
             }
             host.style.display = host.childCount > 0 ? DisplayStyle.Flex : DisplayStyle.None;
             projects.style.display = projects.childCount > 0 ? DisplayStyle.Flex : DisplayStyle.None;
@@ -154,8 +158,10 @@ namespace Statecraft.Game.UI
         /// (R-PROJ-002). Else, for the cities in reach (Projects.CitiesFor; none: nothing shows), the city that builds: the one
         /// the player picked on this hex, else the queued order's, else the nearest. Build for each kind queues StartProject for
         /// that city and hex, one order a hex (SimBridge's key, so another kind or city replaces it); the Attention is the
-        /// bridge's, which refuses an order it cannot pay for as for every order.</summary>
-        static void CityProjects(VisualElement host, SimBridge bridge, UiText text, int q, int r, Func<string, string> townName)
+        /// bridge's, which refuses an order it cannot pay for as for every order. On a city's own hex (<paramref name="cityHere"/>)
+        /// the cities and the kinds go into the ListName list under the ToggleName toggle, which the stylesheet shows only on a
+        /// stacked bar or a short window (InfoPanelPresenter.ShortClass) and which opens and closes the list there.</summary>
+        static void CityProjects(VisualElement host, SimBridge bridge, UiText text, int q, int r, Func<string, string> townName, bool cityHere)
         {
             var c = bridge.Content; var s = bridge.State;
             string Kind(string id) => PlayerText.Capitalised(ContentNames.Of(text, c.ProjectKinds.First(x => x.Id == id)));
@@ -175,21 +181,32 @@ namespace Statecraft.Game.UI
             var cities = Projects.CitiesFor(c, s, q, r);
             if (cities.Count == 0 || c.ProjectKinds.Count == 0) return;
             var queued = bridge.QueuedLike(new StartProject("", "", q, r)) as StartProject;
+            // Owner ruling on #1150 (21 Oct 2026): under the city's own part the full list ran into the left column on a stacked
+            // bar or a short window, so there it folds behind one toggle; a refusal is then one tap away. The open state is the
+            // host's class, kept across renders (InfoPanelPresenter.Show closes it for a newly chosen hex).
+            var list = host;
+            if (cityHere)
+            {
+                Button(host, ToggleName, text.Format("city.projects_toggle", c.ProjectKinds.Count), () => host.ToggleInClassList(OpenClass));
+                list = new VisualElement { name = ListName };
+                list.AddToClassList(ListName);
+                host.Add(list);
+            }
             // The pick lives on the host, which the panel keeps across renders; it is for this hex only.
             var city = host.userData is ValueTuple<int, int, string> pick && pick.Item1 == q && pick.Item2 == r && cities.Contains(pick.Item3) ? pick.Item3
                 : queued != null && cities.Contains(queued.City) ? queued.City : cities[0];
             // The city's line and, when several can build, the pick on one row, so the part stays short (InfoPanelLayoutTests).
-            if (cities.Count == 1) Line(host, "city-project-for", text.Format("city.project_for", townName(city)));
+            if (cities.Count == 1) Line(list, "city-project-for", text.Format("city.project_for", townName(city)));
             else
             {
-                var row = Row(host, "city-project-cities");
+                var row = Row(list, "city-project-cities");
                 Line(row, "city-project-for", text.Format("city.project_for", townName(city)));
                 foreach (var id in cities)
                     Button(row, "city-project-city-" + id, townName(id), () =>
                     {
                         host.userData = (q, r, id);
                         host.Clear();
-                        CityProjects(host, bridge, text, q, r, townName);
+                        CityProjects(host, bridge, text, q, r, townName, cityHere);
                         // The pressed button is rebuilt (and now disabled): the focus stays in the row, for the keyboard.
                         host.Q("city-project-cities")?.Query<Button>().Where(b => b.enabledSelf).First()?.Focus();
                     }).SetEnabled(id != city);
@@ -200,14 +217,14 @@ namespace Statecraft.Game.UI
             // as the map actions do (#398). A kind this city lacks the resource for (R-PROJ-005: the winery outside Rishon
             // LeZion) does not split that line into one per kind.
             var shared = words.Where((x, i) => refusals[i]?.Kind != "no_resource").ToList();
-            if (words.All(x => x != null) && shared.Count > 0 && shared.Distinct().Count() == 1) { Line(host, "city-project-reason", shared[0]!); return; }
+            if (words.All(x => x != null) && shared.Count > 0 && shared.Distinct().Count() == 1) { Line(list, "city-project-reason", shared[0]!); return; }
             // A kind the sim refuses shows its reason alone, which names the kind (no disabled Build above it: one line, not two).
             for (int i = 0; i < c.ProjectKinds.Count; i++)
             {
                 var k = c.ProjectKinds[i];
-                if (words[i] != null) { Line(host, $"city-project-{k.Id}-reason", words[i]!); continue; }
+                if (words[i] != null) { Line(list, $"city-project-{k.Id}-reason", words[i]!); continue; }
                 var ordered = queued != null && queued.ProjectKind == k.Id && queued.City == city;
-                Button(host, "city-project-" + k.Id, ordered ? text.Format("city.project_ordered", ContentNames.Of(text, k))
+                Button(list, "city-project-" + k.Id, ordered ? text.Format("city.project_ordered", ContentNames.Of(text, k))
                         : text.Format("city.project_start", ContentNames.Of(text, k), PlayerText.Money(c, "treasury", k.Cost), Turns(text, Projects.CityTurnsToBuild(c, s, k.Id, k.Turns, 0))),
                     () => bridge.Queue(new StartProject(k.Id, city, q, r))).SetEnabled(!ordered);
             }

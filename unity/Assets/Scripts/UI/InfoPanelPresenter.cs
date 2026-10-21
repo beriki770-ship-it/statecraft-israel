@@ -77,11 +77,20 @@ namespace Statecraft.Game.UI
             defenceButton.clicked += onDefence;
             defenceButton.text = text["unit.defence"];
             bridge.Changed += Render;
+            panel.parent?.RegisterCallback<GeometryChangedEvent>(OnHudGeometry);
             Render();
         }
 
+        void OnHudGeometry(GeometryChangedEvent e) => panel.EnableInClassList(ShortClass, e.newRect.height < ShortBelowPx);
+
         /// <summary>Unsubscribes from the bridge and the buttons (the owner calls this when disabled).</summary>
-        public void Dispose() { bridge.Changed -= Render; campButton.clicked -= onCamp; housingButton.clicked -= onHousing; defenceButton.clicked -= onDefence; }
+        public void Dispose() { bridge.Changed -= Render; panel.parent?.UnregisterCallback<GeometryChangedEvent>(OnHudGeometry); campButton.clicked -= onCamp; housingButton.clicked -= onHousing; defenceButton.clicked -= onDefence; }
+
+        /// <summary>Below this window height (logical px; 1366x657 is about 998) the panel gets ShortClass, and the city's own
+        /// hex folds its projects behind their toggle as on a stacked bar (GddHexPanel.ToggleName): there the full list ran into
+        /// the left column (InfoPanelLayoutTests).</summary>
+        public const float ShortBelowPx = 1040f;
+        public const string ShortClass = "info-short";
 
         public (int q, int r)? Selected { get; private set; }
 
@@ -105,7 +114,9 @@ namespace Statecraft.Game.UI
         public void Show(int q, int r)
         {
             if (Covered) return;   // covered (#210)
-            unitMode = false; Selected = (q, r); Render();
+            if (unitMode || Selected != (q, r)) projects.RemoveFromClassList(GddHexPanel.OpenClass);   // a newly chosen hex starts with its city projects folded
+            unitMode = false; Selected = (q, r);
+            Render();
         }
 
         /// <summary>Shows the selected unit's card (the unit comes from the selectedUnit callback); ignored while covered.</summary>
