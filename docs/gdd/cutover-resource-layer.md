@@ -58,4 +58,4 @@ As a player of the MVP, I want the real game to switch to the GDD loop with mont
 
 - No Phase 2 plan question is open (owner, 15 October 2026 [S3] and [S4]); the plan's table records the decided rows (`Q-CUT-4` to `Q-CUT-8`, `Q-POOL-2/4/5`, `Q-NAT-2/3/5`, `Q-EFX-1/3`, `Q-GOV-1/2`, `Q-HUD-1` to `Q-HUD-3`, `Q-MONEY-2` and `Q-MONEY-4`) [S2], `Q-HUD-3` and `Q-MONEY-4` included, as merged by #604.
 - D-C6: the balance values themselves. Each enters `content/` as a labelled design value for the owner to set or accept in review (decided 15 October 2026 [S2]).
-- D-B4: open, moved to Phase 4 [S5]. (D-B3, the railway card's reference date, is decided: 20 September 1949, owner, 17 October 2026 [S8].)
+- D-B3 and D-B4 are no longer open. D-B3, the railway card's reference date: 20 September 1949 (owner, 17 October 2026 [S8]). D-B4: the immigrants part decided 15 October 2026 and the required yishuvim 17 October 2026 (#782 [S8]), as the plan's table records [S2].
