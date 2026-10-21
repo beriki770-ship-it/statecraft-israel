@@ -56,7 +56,7 @@ namespace Statecraft.Sim
                 if (u.Order == Combat.Attack && u.OrderTarget == target) return;
                 if (Combat.Give(c, s, u.Id, q, r, why, enemy: true) == null) return;
             }
-            Orders.Give(s, u.Id, Orders.Fortify, why, enemy: true);
+            Orders.Give(c, s, u.Id, Orders.Fortify, why, enemy: true);
         }
     }
 }

@@ -68,7 +68,7 @@ public class EnemyAITests
         Assert.Equal("That hex already holds 2 units of that side, the most one hex can hold", Movement.Move(c, s, 5, 2, 2, spent, why, enemy: true));
         Assert.Equal("That unit is not yours", Combat.Give(c, s, 1, 2, 0, why, enemy: true));
         Assert.Equal("That hex is not next to the unit", Combat.Give(c, s, 3, 3, 0, why, enemy: true));
-        Assert.Equal("That unit is not yours", Orders.Give(s, 1, Orders.Fortify, why, enemy: true));
+        Assert.Equal("That unit is not yours", Orders.Give(c, s, 1, Orders.Fortify, why, enemy: true));
         Assert.Equal(before, s.Hash());
         Assert.Empty(why);
     }
