@@ -107,7 +107,7 @@ Quotes:
 - **Q-E7** Dupuy p. 98: "[...] surrendered at 9:15 in the morning." (Beersheba, 21 October.) And: "Less than a brigade
   was with the division headquarters in the Rafah-Gaza area. A brigade was isolated in and around Faluja.
   Approximately two battalions, mostly [...] Volunteers, were isolated in the Hebron-Jerusalem area."
-- **Q-E8** O'Ballance p. 180: "[...] became known as the 'Faluja pocket'. It was held mainly by Sudanese troops, of which
+- **Q-E8** O'Ballance pp. 179 to 180: "[...] became known as the 'Faluja pocket'. It was held mainly by Sudanese troops, of which
   there were about 3,500 [...]." And: "Beersheba was garrisoned by about 500 men [...]" (OCR: "mart"), "[...] surrendered
   about dawn on the 21st."
 - **Q-E9** Dupuy p. 99: "[...] on October 27 the Egyptians evacuated Ashdod, pulling their troops back as rapidly as
@@ -251,7 +251,7 @@ The row has no 11 June anchor with two sources today, so it has no script under 
 | B1 | The line from Rosh HaNikra to al-Malikiyya (al-Malikiyya as the hex, C11) | 1948-07-08 to 1948-10-31 | source: the Lebanese footholds lost in Operation Hiram (Dupuy p. 104; O'Ballance pp. 190 to 191; BG diary 31 Oct) | Q-B1 to Q-B5 | 3 | 6 |
 
 After 31 October 1948 no source puts the Lebanese Army in Palestine; the armistice line is the international boundary
-(Q-B5). The row would have no anchor from 31 October to 23 March 1949, so the simple goals would take over (Q-ENEMY-1
+(Q-B5). The row would have no anchor from 31 October to 23 March 1949, so the simple goals would take over (Q-ENEMY-1 in #1263
 default), unless the owner rules the force leaves the map.
 
 Quotes:
@@ -324,7 +324,7 @@ Quotes:
 ## 7. Conflicts and points for the owner
 
 - **C1, the second truce's hour.** Dupuy p. 86: 7:00 p.m. on 18 July; O'Ballance p. 165: 5.30 p.m. (local time). The game
-  goes by day, so both give 18 July; R-ENEMY-006 already uses 18 July.
+  goes by day, so both give 18 July; R-ENEMY-006 (#1263) already uses 18 July.
 - **C2, the Faluja pocket's strength.** About 4,000 (Dupuy p. 97) or about 3,500 Sudanese troops (O'Ballance p. 180). The
   rows give 15 May strengths only, so this matters only if a later strength is ever wanted.
 - **C3, Iraq Suwaydan.** Surrendered on 8 November (O'Ballance p. 183) or fell on 9 November 1948 (en.wiki Iraq
