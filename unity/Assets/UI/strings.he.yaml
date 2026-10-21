@@ -425,9 +425,9 @@ unit.draft: "טיוטה: טרם נבדק בידי היסטוריון"
 unit.defence: "פתיחת מסך הביטחון"
 # The unit card's Move order (#754): the order's name is Q-UI-2's, approved by the owner (#375).
 unit.order.move: "תנועה"
-# For the native reviewer (#564)
+# Approved by Beri, a native speaker, on #1265 (21 Oct 2026). For the native reviewer (#564)
 unit.move_pick: "בחרו משושה מואר שאליו היחידה תנוע"
-# For the native reviewer (#564)
+# Approved by Beri, a native speaker, on #1265 (21 Oct 2026). For the native reviewer (#564)
 unit.move_queued: "ניתנה פקודת תנועה: היחידה תנוע בסיום התור"
 newgame.confirm: "יש ללחוץ שוב על משחק חדש כדי לעזוב את המשחק הזה ולהתחיל מחדש."
 newgame.delete_failed: "לא ניתן היה להסיר את השמירה הקודמת; היא תוחלף אחרי התור הבא."
