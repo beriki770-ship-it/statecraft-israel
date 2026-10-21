@@ -30,7 +30,7 @@ macOS IL2CPP parity check is not an MVP release gate.
    # one GOLDEN OK line per manifest golden (#394), e.g. "GOLDEN OK hash1950 5d114d4da0164eacc3d99d8e2ab230d6416e48f6031cce0727070deca20c5397"
    # and "GOLDEN OK hash1952 b35580f01ba7b27543c9465ea130d0657bb7a1edbe9c251b911ad60d6a97a566"
    uv run tools/web_check.py unity/Builds/Web-gzip --query "golden&smoke=5" "${golden_expect[@]}" \
-     --expect "SMOKE OK 5 turns 1948-10-15 77e444c37120dec1b603eecb3be034b1e1df0287d60393a78914c352297cfbbf"
+     --expect "SMOKE OK 5 turns 1948-10-15 9e9744878a86089d8643291ee824324c2208841dfbff2106ddcfe6ba59b2e0ef"
    uv run tools/web_check.py unity/Builds/Web-gzip --startscreen new --timeout 300 --stall 90
    uv run tools/web_check.py unity/Builds/Web-gzip --startscreen recording --timeout 300 --stall 90
    uv run tools/web_check.py unity/Builds/Web-gzip --startscreen new --query lang=he --timeout 300 --stall 90
@@ -60,7 +60,7 @@ macOS IL2CPP parity check is not an MVP release gate.
    "$UNITY" -batchmode -CI false -GITHUB_ACTIONS false -TF_BUILD false -quit -projectPath unity -buildTarget WebGL -executeMethod Statecraft.Game.EditorTools.Build.Web -compression gzip -decompressionFallback -shareable -out Builds/Web-pages -logFile "$PWD/unity-build-web-pages.log"
    git checkout -- unity/Assets/Settings unity/ProjectSettings/ProjectSettings.asset
    uv run tools/web_check.py unity/Builds/Web-pages --query "golden&smoke=5" "${golden_expect[@]}" \
-     --expect "SMOKE OK 5 turns 1948-10-15 77e444c37120dec1b603eecb3be034b1e1df0287d60393a78914c352297cfbbf"
+     --expect "SMOKE OK 5 turns 1948-10-15 9e9744878a86089d8643291ee824324c2208841dfbff2106ddcfe6ba59b2e0ef"
    uv run tools/web_check.py unity/Builds/Web-pages --startscreen new --timeout 300 --stall 90
    uv run tools/web_check.py unity/Builds/Web-pages --startscreen recording --timeout 300 --stall 90
    uv run tools/web_check.py unity/Builds/Web-pages --startscreen new --query lang=he --timeout 300 --stall 90

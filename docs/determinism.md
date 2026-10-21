@@ -47,7 +47,7 @@ player check enumerate the manifest, so it and every scenario are checked withou
 
 A further value is pinned for the browser smoke run (`?smoke=5`: the golden seed, five turns played through the UI's own
 buttons, answering each event with its first option while the turn's Attention pays for it, the rest left to their
-ministers): `SMOKE OK 5 turns 1948-10-15 77e444c37120dec1b603eecb3be034b1e1df0287d60393a78914c352297cfbbf`.
+ministers): `SMOKE OK 5 turns 1948-10-15 9e9744878a86089d8643291ee824324c2208841dfbff2106ddcfe6ba59b2e0ef`.
 It depends on the UI path as well as the sim (which option is first, the turn grid), so re-record it when either changes.
 Check every WebGL build with every manifest entry (plus the UI-path smoke line) with:
 
@@ -58,7 +58,7 @@ while read -r name hash; do
   golden_expect+=(--expect "GOLDEN OK $name $hash")
 done < sim/Statecraft.Sim.Tests/golden/manifest.txt
 uv run tools/web_check.py unity/Builds/Web-<compression> --query "golden&smoke=5" "${golden_expect[@]}" \
-  --expect "SMOKE OK 5 turns 1948-10-15 77e444c37120dec1b603eecb3be034b1e1df0287d60393a78914c352297cfbbf"
+  --expect "SMOKE OK 5 turns 1948-10-15 9e9744878a86089d8643291ee824324c2208841dfbff2106ddcfe6ba59b2e0ef"
 ```
 
 **When a golden moves.** The test fails with the lines that changed, grouped by section (`[ind]`, `[pol]`, `[bud]`,
@@ -342,10 +342,10 @@ The hash reads the state keys, so it never sees a record outside its window. An 
 | Combined #1186 + #791 (C20) | mvp-end | `72b8e8014c96c943e390f0fd109df68b78f59e5560b05c2d231e1fbe599d1280` | The same full run and combined #1186 + #791 state as hash1952 (was `452c65ece470e844f6898151c4d9328aa0b2e59df82db4763214d43a8e8ea7f1`). |
 | GDD Phase 4 PR 7 (#791) on combat (#747) | 1952 | `b389b278` | #1226 merged with main after combat (#747). As in the rows above, the first-new-yishuv objective becomes the all-six `yishuvim` infrastructure part, recorded 15 July 1951 instead of 15 February 1951, and neither corridor completes, so the shared 100-point base is unpaid and the snapshot's `score=100` line goes (a zero score is not written). Only those two `obj{`/score lines move; hash1950, smoke5 and the four scenario goldens equal main (was `d9922fc9`) |
 | GDD Phase 4 PR 7 (#791) on combat (#747) | mvp-end | `b389b278` | same as 1952 (was `d9922fc9`) |
-| GDD Phase 5 PR 10: the enemy AI, part 1 (#749) | 1950 | `5d114d4d` | Resolver step 1 gives the enemy its orders (R-ENEMY-001 to R-ENEMY-004). On 15 May and 15 June 1948 the four scripted forces march on their 11 June anchors (Egypt 7 to -8,25, one hex short of Isdud, round Yad Mordechai and the Negev brigade; the Arab Legion 8 to Latrun, -2,22; Syria 9 to 13,6, one short of the Mishmar HaYarden bridgehead; Iraq 10 to Jenin, 6,13), and every enemy unit fortifies from then on (`order=fortify`). The Syrian unit leaves Golani's side on the first turn, so unit 0's attack ends before it is paid: it stays at 5, unit 9 survives, and the Arms stay at 12 (was 8). On 15 August 1948 the Legion attacks Harel beside Latrun at 4:1: one engagement, one draw, unit 5 is destroyed and the Legion is at 4. The RNG state moves accordingly (was `73eb50db`) |
+| GDD Phase 5 PR 10: the enemy AI, part 1 (#749) | 1950 | `5d114d4d` | Resolver step 1 gives the enemy its orders (R-ENEMY-001 to R-ENEMY-004). On 15 May and 15 June 1948 the four scripted forces march on their 11 June anchors (Egypt 7 to -8,25, one hex short of Isdud, round Yad Mordechai and the Negev brigade; the Arab Legion 8 to Latrun, -2,22; Syria 9 to 13,6, one short of the Mishmar HaYarden bridgehead; Iraq 10 to Jenin, 6,13), and every enemy unit fortifies from then on (`order=fortify`). The Syrian unit leaves Golani's side on the first turn, so unit 0's attack ends before it is paid: it stays at 5, unit 9 survives, and the Arms stay at 12 (was 8). No enemy unit attacks on a turn whose middle day is inside a truce (R-ENEMY-006: 15 June to 15 September 1948). On the turn of 15 October 1948 the Legion attacks Harel beside Latrun at 4:1: one engagement, one draw, unit 5 is destroyed and the Legion is at 4. The RNG state moves accordingly (was `73eb50db`) |
 | GDD Phase 5 PR 10: the enemy AI, part 1 (#749) | 1952 | `b35580f0` | same (was `b389b278`) |
 | GDD Phase 5 PR 10: the enemy AI, part 1 (#749) | mvp-end | `b35580f0` | same as 1952 (was `b389b278`) |
-| GDD Phase 5 PR 10: the enemy AI, part 1 (#749) | smoke5 | `77e444c3` | the enemy's step 1 orders from the first turn, as in 1950 (was `e5a66f9c`) |
+| GDD Phase 5 PR 10: the enemy AI, part 1 (#749) | smoke5 | `9e974487` | the enemy's step 1 orders from the first turn, as in 1950. The run ends on 15 October 1948, inside the truce guard's reach (R-ENEMY-006), so Harel survives it: the Legion fortifies on the turns of 15 June to 15 September 1948 (was `e5a66f9c`) |
 | GDD Phase 5 PR 10: the enemy AI, part 1 (#749) | scenario-cautious | `597cbf9f` | the units only, as in 1950: the scripted marches, the fortify orders and the Legion's engagement with Harel (was `b4e5caa1`) |
 | GDD Phase 5 PR 10: the enemy AI, part 1 (#749) | scenario-reckless | `09839eab` | same as cautious (was `8d644f6e`) |
 | GDD Phase 5 PR 10: the enemy AI, part 1 (#749) | scenario-mvp-absorb-first | `071e0709` | same as cautious (was `7d37c0d0`) |

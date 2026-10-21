@@ -269,6 +269,67 @@ public class EnemyAITests
         Assert.Contains(u.Order, new[] { Orders.Fortifying, Combat.Attack });
     }
 
+    // R-ENEMY-006: no enemy attack inside a truce window. In the reference run Harel (unit 5, by Sha'ar HaGai) stands next
+    // to the Arab Legion at Latrun. The turn of 15 July 1948 runs to 15 August, its middle (30 July) inside the second truce,
+    // so the Legion fortifies and Harel is still there on 15 August. Without the guard the Legion destroyed it at 4:1 on
+    // that turn.
+    [Fact]
+    public void TheArabLegionDoesNotAttackHarelAtLatrunInTheSecondTruce()
+    {
+        var s = GoldenRun.Play(Real, new DateTime(1948, 7, 15));
+        Assert.Equal(new DateTime(1948, 7, 15), s.Date);
+        var legion = Real.StartingForces.FindIndex(f => f.Row == "arab_legion");
+        var harel = Real.StartingForces.FindIndex(f => f.Row == "harel");
+        Assert.Equal((-2, 22), (s.Units[legion].Q, s.Units[legion].R));   // the Legion on Latrun
+        Assert.Equal(1, Distance(s.Units[legion].Q, s.Units[legion].R, s.Units[harel].Q, s.Units[harel].R));
+        var strength = s.Units[harel].Strength;
+        var step = Simulation.Step(Real, s, GoldenRun.Orders(Real, s));
+        Assert.Equal(new DateTime(1948, 8, 15), step.State.Date);
+        Assert.DoesNotContain(step.Why, x => x.Message.StartsWith($"Unit {legion} will attack", StringComparison.Ordinal));
+        Assert.True(step.State.Units.ContainsKey(harel), "Harel was destroyed");
+        Assert.Equal(strength, step.State.Units[harel].Strength);
+        Assert.Equal(Orders.Fortify, step.State.Units[legion].Order);
+    }
+
+    // R-ENEMY-006: the truce windows are the sourced ones, half-open: the first truce from 11 June to 8 July 1948 and the
+    // second from 18 July to 15 October 1948. The Ten Days and Operation Yoav's first day are open to attacks. When `next`
+    // is omitted the turn is read on its first day.
+    [Theory]
+    [InlineData(1948, 6, 10, false)]
+    [InlineData(1948, 6, 11, true)]
+    [InlineData(1948, 7, 7, true)]
+    [InlineData(1948, 7, 8, false)]
+    [InlineData(1948, 7, 17, false)]
+    [InlineData(1948, 7, 18, true)]
+    [InlineData(1948, 10, 14, true)]
+    [InlineData(1948, 10, 15, false)]
+    public void TheTruceWindowsAreTheSourcedOnes(int y, int m, int d, bool truce)
+    {
+        var c = Load();
+        var s = CombatTests.With(c, Soldier(1, 3, 0, 5), Enemy(2, 2, 0, 10));
+        s.Date = new DateTime(y, m, d);
+        EnemyAI.Order(c, s, new List<Cause>());
+        Assert.Equal(truce ? (Orders.Fortifying, "2,0") : (Combat.Attack, "3,0"), (s.Units[2].Order, s.Units[2].OrderTarget));
+    }
+
+    // R-ENEMY-006: a turn is in a truce when its middle day is. The 15 May 1948 turn (middle 30 May) is war, though the first
+    // truce starts before it ends; the 15 July turn (30 July) is the second truce, though the Ten Days are on when it starts;
+    // the 15 October turn (30 October) is war again.
+    [Theory]
+    [InlineData(5, 6, false)]
+    [InlineData(6, 7, true)]
+    [InlineData(7, 8, true)]
+    [InlineData(9, 10, true)]
+    [InlineData(10, 11, false)]
+    public void ATurnIsReadAtItsMiddle(int from, int to, bool truce)
+    {
+        var c = Load();
+        var s = CombatTests.With(c, Soldier(1, 3, 0, 5), Enemy(2, 2, 0, 10));
+        s.Date = new DateTime(1948, from, 15);
+        EnemyAI.Order(c, s, new List<Cause>(), new DateTime(1948, to, 15));
+        Assert.Equal(truce ? Orders.Fortifying : Combat.Attack, s.Units[2].Order);
+    }
+
     // R-ENEMY-004: no reinforcements in Phase 5 (Q-ENEMY-3). No turn adds an enemy unit.
     [Fact]
     public void NoReinforcements()

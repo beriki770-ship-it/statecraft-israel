@@ -7,3 +7,6 @@
   Israeli unit at 2:1 or better (`mvp.enemy_attack_ratio_percent`, a new labelled design value). No RNG, no enemy
   supply, no reinforcements. An enemy unit may not enter a locality that is not on `mvp.enemy_held_localities`, so no
   enemy move ends on an Israeli locality before enemy capture exists. Every golden moves (re-pinned, docs/determinism.md).
+- No enemy attack inside the two truces (11 June to 8 July and 18 July to 15 October 1948; owner, 21 October 2026, #749):
+  on a turn whose middle day falls in a truce an enemy unit only moves on its script or fortifies (R-ENEMY-006). A stopgap
+  by date until the full war state (#750); of the goldens it moves only smoke5 again. The march through the 15 June 1948 turn is the owner's reading (same ruling).
