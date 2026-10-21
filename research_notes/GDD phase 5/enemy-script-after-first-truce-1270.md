@@ -185,7 +185,7 @@ Quotes:
   round to the east of Jerusalem and moved down to the Hebron district to do what it could to save the situation."
   And p. 181: "[...] it bumped into the Arab Legion armoured column at a point about 7 kilometres to the east of Beit
   Jibrin."
-- **Q-L10** O'Ballance p. 206 (the Jordan armistice): "[...] except in the Jerusalem district, where the existing status
+- **Q-L10** O'Ballance p. 205 (the Jordan armistice): "[...] except in the Jerusalem district, where the existing status
   quo was accepted."
 
 ## 3. Syrian Army (`syrian_army`)
@@ -212,7 +212,7 @@ Quotes:
   continued to hold their position in Mishmar Hayarden itself. This strongly-fortified position was closely contained
   by the Israelis but not attacked." And: "[...] the Syrians retained only their tiny bridgehead just west of the Jordan
   at Mishmar Hayarden."
-- **Q-S6** O'Ballance p. 206: "Eventually, on July 20th, these were concluded and all Syrian troops were withdrawn from
+- **Q-S6** O'Ballance p. 205: "Eventually, on July 20th, these were concluded and all Syrian troops were withdrawn from
   Israeli territory." Armistice SY, Art. V.3: "The Armistice Demarcation Line shall follow a line midway between the
   existing truce lines [...]." Art. V.5(a): "[...] the area between the Armistice Demarcation Line and the boundary
   [...] shall be established as a Demilitarized Zone from which the armed forces of both Parties shall be totally
@@ -237,8 +237,8 @@ Quotes:
   taken up in stages, "within five weeks", "within seven weeks" and "(c) In all other areas of the Iraqi sector:
   within fifteen weeks of the date on which this Armistice Agreement is signed." Art. VI.7: "The Hashemite Jordan
   Kingdom accepts responsibility for all Iraqi forces in Palestine."
-- **Q-I4** O'Ballance p. 206: "In this agreement, Jordan took over the Iraqi-held Samarian Triangle [...]. All these moves
-  were completed by July 17th." And: "[...] as the Arab Legion moved into the positions occupied by them this in practice
+- **Q-I4** O'Ballance p. 205: "In this agreement, Jordan took over the Iraqi-held Samarian Triangle [...]. All these moves
+  were completed by July 17th." And p. 206: "[...] as the Arab Legion moved into the positions occupied by them this in practice
   did not amount to much. Sadly disillusioned, they then withdrew through Jordan to make their way back to their
   country." (Fifteen weeks after 3 April 1949 is 17 July 1949, the agent's arithmetic: the two agree.)
 
