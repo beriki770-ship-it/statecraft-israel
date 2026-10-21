@@ -105,20 +105,28 @@ public class CabinetScreenTests
         var he = UiText.Parse(AssetDatabase.LoadAssetAtPath<TextAsset>(UiPaths.StringsHebrew).text, "strings.he.yaml");
         var golda = C.People.Single(p => p.Id == "golda_meir");
         Office O(string id) => C.Offices.Single(o => o.Id == id);
+        var day = new DateTime(1950, 2, 1);   // inside every title's days, the rationing office's too
         foreach (var o in C.Offices.Where(o => o.TitleHeF != ""))
-            Assert.AreEqual(o.TitleHeF, ContentNames.Of(he, o, golda), o.Id);
+            Assert.AreEqual(o.TitleHeF, ContentNames.Of(he, o, golda, day), o.Id);
         var unsourced = new Office { Title = "Minister of Finance", TitleHe = "שר האוצר" };
-        Assert.AreEqual("Minister of Finance", ContentNames.Of(he, unsourced, golda), "no title_he_f: English, no derived form");
-        Assert.AreEqual("שרת האוצר", ContentNames.Of(he, O("finance_minister"), golda));
-        Assert.AreEqual("השרה לנפגעי מלחמה", ContentNames.Of(he, O("war_victims_minister"), golda));
-        Assert.AreEqual("שרה בלי תיק", ContentNames.Of(he, O("minister_without_portfolio"), golda));
-        Assert.AreEqual("ראש הממשלה", ContentNames.Of(he, O("prime_minister"), golda));
-        Assert.AreEqual("שרת העבודה", ContentNames.Of(he, O("labour_minister"), golda));
+        Assert.AreEqual("Minister of Finance", ContentNames.Of(he, unsourced, golda, day), "no title_he_f: English, no derived form");
+        Assert.AreEqual("שרת האוצר", ContentNames.Of(he, O("finance_minister"), golda, day));
+        Assert.AreEqual("השרה לנפגעי מלחמה", ContentNames.Of(he, O("war_victims_minister"), golda, day));
+        Assert.AreEqual("שרה בלי תיק", ContentNames.Of(he, O("minister_without_portfolio"), golda, day));
+        Assert.AreEqual("ראש הממשלה", ContentNames.Of(he, O("prime_minister"), golda, day));
+        Assert.AreEqual("שרת העבודה", ContentNames.Of(he, O("labour_minister"), golda, day));
         var own = new Office { Title = "Minister of Labour", TitleHe = "שר העבודה", TitleHeF = "שרת העבודה והרווחה" };
-        Assert.AreEqual("שרת העבודה והרווחה", ContentNames.Of(he, own, golda), "the content's title_he_f wins");
-        Assert.AreEqual("שר האוצר", ContentNames.Of(he, O("finance_minister"), C.People.Single(p => p.Id == "kaplan")));
-        Assert.AreEqual("Minister of Finance", ContentNames.Of(Text, O("finance_minister"), golda));
-        Assert.AreEqual("שרת האספקה והקיצוב", ContentNames.Of(he, O("rationing_minister"), golda));
+        Assert.AreEqual("שרת העבודה והרווחה", ContentNames.Of(he, own, golda, day), "the content's title_he_f wins");
+        Assert.AreEqual("שר האוצר", ContentNames.Of(he, O("finance_minister"), C.People.Single(p => p.Id == "kaplan"), day));
+        Assert.AreEqual("Minister of Finance", ContentNames.Of(Text, O("finance_minister"), golda, day));
+        Assert.AreEqual("שרת האספקה והקיצוב", ContentNames.Of(he, O("rationing_minister"), golda, day));
+        // The rationing title is the ministry's and holds only while it existed (owner on #1224, 21 October 2026): its last
+        // day is 31 October 1950; from 1 November 1950 the office keeps its English title, for a man or a woman.
+        var rationing = O("rationing_minister");
+        var lavon = C.People.Single(p => p.Id == "lavon");
+        Assert.AreEqual("שר האספקה והקיצוב", ContentNames.Of(he, rationing, lavon, new DateTime(1950, 10, 31)));
+        Assert.AreEqual(rationing.Title, ContentNames.Of(he, rationing, lavon, new DateTime(1950, 11, 1)), "after the ministry: English");
+        Assert.AreEqual(rationing.Title, ContentNames.Of(he, rationing, golda, new DateTime(1950, 11, 1)), "after the ministry: English");
     }
 
     /// <summary>#901: candidate refusal arguments are content ids from the sim; the Hebrew UI resolves and formats them.</summary>

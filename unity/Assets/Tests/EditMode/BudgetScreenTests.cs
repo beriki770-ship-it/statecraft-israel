@@ -257,7 +257,7 @@ public class BudgetScreenTests
         Assert.AreEqual("שרת העבודה (גולדה מאיר)", ui.Q<Label>("budget-labour_minister-name").text, "the feminine title for her");
         var rationing = c.Offices.Single(o => o.Id == "rationing_minister");
         Assert.AreEqual("שר האספקה והקיצוב", rationing.TitleHe);
-        Assert.AreEqual(rationing.TitleHe + " (פנחס לבון)", ui.Q<Label>("budget-rationing_minister-name").text, "the 1949-50 title, which the office keeps under its later holders (#1219)");
+        Assert.AreEqual(rationing.Title + " (פנחס לבון)", ui.Q<Label>("budget-rationing_minister-name").text, "Lavon's term, after the ministry closed on 1 November 1950: the English title (owner on #1224)");
         StringAssert.Contains(Offices.Legislature(c, g.State.Date)!.BodyHe, ui.Q<Label>("budget-vote").text);
     }
 

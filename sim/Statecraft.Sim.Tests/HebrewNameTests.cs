@@ -185,6 +185,36 @@ public class HebrewNameTests
         Assert.Equal(C.Offices.Where(o => o.TitleHe != "").Select(o => o.Id), C.Offices.Where(o => o.TitleHeF != "").Select(o => o.Id));
     }
 
+    /// <summary>Owner ruling on #1224 (21 October 2026): the rationing office's sourced title is the ministry's, so it shows
+    /// only while the ministry existed, 10 March 1949 to 1 November 1950. The new government of 1 November 1950 had no such
+    /// ministry, and from that day the UI keeps the English title until a Hebrew one is sourced.</summary>
+    [Fact]
+    public void TheRationingTitleHoldsOnlyWhileTheMinistryExisted()
+    {
+        var o = C.Offices.Single(x => x.Id == "rationing_minister");
+        var golda = C.People.Single(p => p.Id == "golda_meir");
+        Assert.Equal("", o.TitleHeOn(null, new DateTime(1949, 3, 9)));
+        Assert.Equal("שר האספקה והקיצוב", o.TitleHeOn(null, new DateTime(1949, 3, 10)));
+        Assert.Equal("שר האספקה והקיצוב", o.TitleHeOn(null, new DateTime(1950, 10, 31)));
+        Assert.Equal("שרת האספקה והקיצוב", o.TitleHeOn(golda, new DateTime(1950, 10, 31)));
+        Assert.Equal("", o.TitleHeOn(null, new DateTime(1950, 11, 1)));
+        Assert.Equal("", o.TitleHeOn(golda, new DateTime(1950, 11, 1)));
+        // Every other title holds on any day.
+        Assert.Equal(new[] { "rationing_minister" }, C.Offices.Where(x => x.TitleHeFrom.HasValue || x.TitleHeUntil.HasValue).Select(x => x.Id));
+    }
+
+    const string Titled = "    title: Prime Minister\n    title_he: ראש הממשלה\n    title_he_sources: " + Src + "\n    title_he_f: ראשת הממשלה\n    title_he_f_sources: " + Src + "\n";
+
+    /// <summary>A window bounds a Hebrew title, so it needs one, and it must end after it starts.</summary>
+    [Theory]
+    [InlineData("    title: Prime Minister\n    title_he_until: 1950-11-01\n", "offices[prime_minister].title_he")]
+    [InlineData(Titled + "    title_he_from: 1950-11-01\n    title_he_until: 1950-11-01\n", "offices[prime_minister].title_he_until")]
+    public void ATitleWindowNeedsItsTitleAndEndsAfterItStarts(string to, string field)
+    {
+        var ex = Assert.Throws<ContentException>(() => Load(Replace("offices.yaml", "    title: Prime Minister\n", to)));
+        Assert.Equal(("offices.yaml", field), (ex.File, ex.Field));
+    }
+
     /// <summary>The owner's 2026-10-14 answers: places in their 1948 form, parties by their short common names, the First
     /// Knesset mirroring its English name, a feminine title where a woman held the office; and of 2026-10-18 (#875):
     /// Hatzohar by its full name, not the acronym.</summary>
