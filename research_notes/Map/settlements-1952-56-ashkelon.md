@@ -15,7 +15,7 @@ The question: which Jewish localities were founded in the Ashkelon subdistrict b
 CBS localities file 2024 (columns "סמל נפה" and "שם נפה"; source below). It is the line the Negev note left out: that
 note takes subdistrict 62 and names the Lachish area as outside it. Subdistrict 61 holds the Lachish area moshavim,
 Kiryat Gat, Ashdod and Sde Yoav, and also the strip along the Gaza line further south (Nahal Oz and Kefar Azza are in
-it; both have CBS year 1951, and Nahal Oz is in the 1949-51 note). As in the Negev note, this line was chosen because the official source
+it; both have year 1951 in the CBS file, and Nahal Oz is in the 1949-51 note). As in the Negev note, this line was chosen because the official source
 applies it to every row. **Other regions of #27 (the north, the centre, Jerusalem) are open to other claimants, and the
 owner can draw this line differently.**
 
@@ -158,7 +158,7 @@ Common sources, cited by short name in every row:
 - **Founded: [C], day.** Gvati: 2.10.52, region "דרום", affiliation Tnuat HaMoshavim. Hebrew Wikipedia: "ארבעת
   המתיישבים הראשונים עלו למושב בספטמבר 1952" (the first four settlers came in September 1952), citing Davar, 29 Sep
   1953 and 11 Jan 1955, not read. **Year 1952 [V]**: CBS 1952; English Wikipedia "founded in 1952". I prefer neither
-  day; the two may date different steps (the first four settlers in September, Gvati's 2 October).
+  day; our reading: the two may date different steps (the first four settlers in September, Gvati's 2 October).
 - **Founders. [S, Wikipedia]** Hebrew Wikipedia: a moshav for immigrants from the United States, set up on the
   initiative of the "האיכר העובד" movement; later families mainly from New Jersey. English Wikipedia: immigrants from
   the United States, Canada and South Africa.
@@ -337,7 +337,7 @@ Common sources, cited by short name in every row:
   "מושבים שיתופיים". Hebrew Wikipedia: "היישוב הוקם כהיאחזות נח"ל ביוני 1955" (a Nahal outpost in June 1955), citing
   HaTzofe, 9 Jun 1955, p. 4, not read; set up together with Lachish (row 18) and Nehusha near the armistice line with
   Jordan. **Year 1955 [V]**: CBS 1955; English Wikipedia 1955. I prefer neither date: Gvati is read directly, the June
-  date rests on a newspaper I could not read, and they may date different steps.
+  date rests on a newspaper I could not read, and (our reading) they may date different steps.
 - **Renames.** None found. Named for King Amaziah of Judah (Gvati and English Wikipedia).
 - **Site note. [S, Wikipedia]** Paraphrased: both Wikipedias place it on the land of al-Dawayima.
 - **Coordinates.** CBS 31.53242, 34.91373 (code 23).
