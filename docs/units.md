@@ -177,8 +177,7 @@ figures with the diary's for the day, a primary source: the Ben-Gurion Archive's
 women; Golani has 3,573 + 522 paid recruits; Carmeli 2,289; Alexandroni 3,588; Kiriati 2,504; Givati 3,229; Etsiyyoni
 3,166 – the total for all brigades is about 24,400." Golani counts the 522 paid recruits (4 units either way); Harel and
 Negev, Palmach brigades, take the diary's Palmach in Harel and in the Negev. en.wiki's table stays as each row's second
-source. The rows stay `to_verify` until a person checks the seven figures against the page; then they can be marked
-`fact-checked`.
+source. A person has checked the seven figures against the page, so the rows are `fact-checked`.
 
 | Row | Strength (15 May) |
 |---|---|
@@ -193,9 +192,9 @@ source. The rows stay `to_verify` until a person checks the seven figures agains
 
 - **No figure, no strength:** the 8th and Oded have no size in the note, so their rows give none and stay `status: draft`.
 - **Etzioni and the 7th (#1241):** Etzioni gives 3,166 on 15 May 1948 from Ben-Gurion's diary, the same page as the
-  seven rows above, so like them it stays `status: to_verify` until a person checks the figure. The 7th gives 1,650,
-  its men in Operation Bin Nun Alef, dated 24 May 1948, the day its Hulda window opens: a secondary figure, so
-  `status: to_verify` (`research_notes/GDD phase 5/later-brigades-1241.md`).
+  seven rows above, which are `fact-checked`; Etzioni stays `status: to_verify` until a person checks the figure.
+  The 7th gives 1,650, its men in Operation Bin Nun Alef, dated 24 May 1948, the day its Hulda window opens: a
+  secondary figure, so `status: to_verify` (`research_notes/GDD phase 5/later-brigades-1241.md`).
   Yiftach's 4,500 stays until a person settles the note's conflict (4,500, about 2,000 or 1,200).
 - **The sim reads them** since Phase 5 PR 4: see "The starting forces" below.
 - Tests: `test_idf_brigade_strengths_are_secondary_and_to_verify` (Python) and `UnitsInPlayTests` (EditMode).
