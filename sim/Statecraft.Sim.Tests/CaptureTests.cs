@@ -216,4 +216,26 @@ public class CaptureTests
         Assert.Equal((3, 2), (result.State.Units[1].Q, result.State.Units[1].R));
         Assert.Empty(result.State.Settlements);
     }
+
+    // #1304's done-when on the shipped content, so a change to settlement_targets.yaml cannot quietly reopen Gaza or close Acre:
+    // a player unit beside Acre (a target) can reach it, and none beside Gaza (not one) can.
+    [Fact]
+    public void RealContentGazaStaysClosedAndAcreIsReachable()
+    {
+        var c = ContentLoader.Load(RealContentTests.ContentRoot());
+        var type = Simulation.NewGame(c, 1, Mode.Historical).Units.Values.First(u => u.Side == "israel").Type;
+        (int Q, int R) Hex(string id) { var h = c.SettlementHexes.Single(x => x.Id == id); return (h.Q, h.R); }
+        bool Reaches(string id)   // from any of the six hexes around it (some are sea or too far on the real map)
+        {
+            var (q, r) = Hex(id);
+            return new[] { (1, 0), (-1, 0), (0, 1), (0, -1), (1, -1), (-1, 1) }.Any(d =>
+            {
+                var s = With(c, new Unit(900, type, q + d.Item1, r + d.Item2, side: "israel", strength: 2));
+                foreach (var id in s.Units.Where(x => (x.Value.Q, x.Value.R) == (q, r)).Select(x => x.Key).ToList()) s.Units.Remove(id);   // an enemy unit's hex is refused first
+                return Movement.Reachable(c, s, 900).ContainsKey((q, r));
+            });
+        }
+        Assert.False(Reaches("gaza"));
+        Assert.True(Reaches("acre"));
+    }
 }

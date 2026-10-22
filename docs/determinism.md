@@ -22,8 +22,7 @@ The simulation must produce the same state, bit for bit, on .NET, Unity Mono and
   positions, with no RNG draw (R-CTRL-004; `CaptureTests.SettlementsResolveInOrdinalOrder` and `NoRngDraw`). The shipped
   list has six targets (#793), and no golden captures a place: player units may enter the five enemy-held ones since
   #1304 (R-MOVE-005), but the reference player sends no Move, so none of its units stands on one, and its unit on
-  Jaffa's hex (shared with Tel Aviv) captures nothing, since Jaffa
-  is not enemy-held at the start.
+  Jaffa's hex (shared with Tel Aviv) captures nothing, since Jaffa is not enemy-held at the start.
 - **Answering a capture (Raid and withdraw):** the units on the place leave in ascending id, each to the first free hex in
   the fixed neighbour order, and the captures still waiting at the game's end resolve in ordinal id order, with no RNG
   draw (R-CTRL-008, R-CTRL-010; `RaidTests.RaidDrawsNothing`). No golden captures a place, so none answers one.
