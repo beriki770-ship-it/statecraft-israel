@@ -91,7 +91,6 @@ public class RaidTests
     [InlineData("town_c", "raid", "not awaiting a decision")]   // a target with no record
     [InlineData("nowhere", "raid", "not awaiting a decision")]   // not a settlement
     [InlineData("town_a", "surrender", "not known")]
-    [InlineData("town_a", "occupy", "not built yet")]
     [InlineData("town_a", "deport", "not built yet")]
     public void ResolveCaptureIsRefusedWithAReason(string id, string outcome, string reason)
     {

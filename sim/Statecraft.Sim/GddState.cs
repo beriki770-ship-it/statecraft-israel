@@ -16,10 +16,13 @@ namespace Statecraft.Sim
         public bool Depopulated { get; }
         public int Combatants { get; }
         public string Buildings { get; }
+        /// <summary>The occupation's turns left (R-CTRL-012): X when Occupy is given, counted down in resolver step 10; 0 when
+        /// the place is not occupied or its timer has ended.</summary>
+        public int Turns { get; }
 
-        public SettlementControl(string owner = "", string state = "", DateTime since = default, bool depopulated = false, int combatants = 0, string buildings = "")
+        public SettlementControl(string owner = "", string state = "", DateTime since = default, bool depopulated = false, int combatants = 0, string buildings = "", int turns = 0)
         {
-            Owner = owner; State = state; Since = since; Depopulated = depopulated; Combatants = combatants; Buildings = buildings;
+            Owner = owner; State = state; Since = since; Depopulated = depopulated; Combatants = combatants; Buildings = buildings; Turns = turns;
         }
 
         public string Canonical()
@@ -31,6 +34,7 @@ namespace Statecraft.Sim
             if (Depopulated) fields.Add("depopulated=1");
             if (Combatants != 0) fields.Add("combatants=" + Combatants.ToString(CultureInfo.InvariantCulture));
             if (Buildings != "") fields.Add("buildings=" + Buildings);
+            if (Turns != 0) fields.Add("turns=" + Turns.ToString(CultureInfo.InvariantCulture));
             return string.Join(",", fields);
         }
     }
