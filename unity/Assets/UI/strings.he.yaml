@@ -442,6 +442,13 @@ unit.order.move: "תנועה"
 unit.move_pick: "בחרו משושה מואר שאליו היחידה תנוע"
 # Approved by Beri, a native speaker, on #1265 (21 Oct 2026). For the native reviewer (#564)
 unit.move_queued: "ניתנה פקודת תנועה: היחידה תנוע בסיום התור"
+# Fortify and Hold (#754): the names are Q-UI-2's, approved by the owner (#375).
+unit.order.fortify: "ביצור"
+unit.order.hold: "החזקה"
+# Approved by Beri, a native speaker, on #1269 (21 Oct 2026). For the native reviewer (#564)
+unit.fortify_queued: "ניתנה פקודת ביצור: היחידה תהיה מבוצרת מסוף התור"
+# Approved by Beri, a native speaker, on #1269 (21 Oct 2026). For the native reviewer (#564)
+unit.hold_queued: "ניתנה פקודת החזקה: היחידה תחזיק במשושה שלה בסיום התור"
 newgame.confirm: "יש ללחוץ שוב על משחק חדש כדי לעזוב את המשחק הזה ולהתחיל מחדש."
 newgame.delete_failed: "לא ניתן היה להסיר את השמירה הקודמת; היא תוחלף אחרי התור הבא."
 save.unreadable: "לא ניתן היה לטעון את המשחק השמור ({0}). משחק חדש התחיל."

@@ -118,9 +118,38 @@ public class OrdersTests
     {
         var c = Load();
         var s = With(c, Soldier(1, 2, 1), new Unit(2, "soldier", 3, 1, side: "israel", order: Orders.Hold), Enemy(3, 0, 1), new Unit(5, "halutz", 4, 1));
+        var before = s.Describe();
+        Assert.Equal(reason, Orders.Check(c, s, unit, order));   // the unit card asks before it offers the order (#754)
+        Assert.Equal(before, s.Describe());
         var r = Simulation.Step(c, s, new Command[] { new UnitOrder(unit, order) });
         Assert.Equal(reason, Assert.Single(r.Rejected).Reason);
         Assert.Equal(Simulation.Step(c, s, new Command[0]).State.Describe(), r.State.Describe());
+    }
+
+    // R-ORDER-001: Check is null exactly where Give takes the order (the unit card offers it, #754), and changes nothing.
+    [Fact]
+    public void CheckIsNullForAnOrderGiveTakes()
+    {
+        var c = Load();
+        var s = With(c, Soldier(1, 2, 1), new Unit(2, "soldier", 3, 1, side: "israel", order: Orders.Hold));
+        var before = s.Describe();
+        Assert.Null(Orders.Check(c, s, 1, Orders.Fortify));
+        Assert.Null(Orders.Check(c, s, 1, Orders.Hold));
+        Assert.Null(Orders.Check(c, s, 2, Orders.Fortify));
+        Assert.Equal(before, s.Describe());
+        Assert.Empty(Simulation.Step(c, s, new Command[] { new UnitOrder(1, Orders.Fortify), new UnitOrder(2, Orders.Fortify) }).Rejected);
+    }
+
+    // R-ENEMY-001: with enemy, Check runs the same checks with the sides swapped, as Give does for the enemy AI: the enemy's
+    // unit is taken, the player's is not.
+    [Fact]
+    public void CheckForTheEnemySwapsTheSides()
+    {
+        var c = Load();
+        var s = With(c, Soldier(1, 2, 1), Enemy(3, 0, 1));
+        Assert.Null(Orders.Check(c, s, 3, Orders.Fortify, enemy: true));
+        Assert.Equal("That unit is not yours", Orders.Check(c, s, 1, Orders.Fortify, enemy: true));
+        Assert.Null(Orders.Give(c, s, 3, Orders.Fortify, new List<Cause>(), enemy: true));
     }
 
     // R-ORDER-001: fortify again on the hex it is fortifying is refused; the legacy loop refuses the order before charging.

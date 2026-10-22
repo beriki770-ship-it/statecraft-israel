@@ -84,7 +84,7 @@ namespace Statecraft.Sim
         }
 
         /// <summary>R-MOVE-003: the refusal when (q, r) already holds stack_limit units of <paramref name="u"/>'s side, else null.</summary>
-        static string? Full(Content c, GameState s, Unit u, int q, int r)
+        internal static string? Full(Content c, GameState s, Unit u, int q, int r)
         {
             var limit = c.RulesAt(s.Date).Mvp!.StackLimit!.Value;   // the loader requires it in the GDD loop
             var held = s.Units.Values.Count(x => x.Id != u.Id && x.Side == u.Side && x.Q == q && x.R == r);
