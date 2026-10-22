@@ -31,7 +31,7 @@ public class BuildGateTests
     public void AShareableBuildWaitsForTheStartingForcesRows()
     {
         var c = ContentLoader.Load(Paths.Content);
-        CollectionAssert.IsEmpty(ReleaseGate.StartingForcesUnchecked(c), "the owner person-checked the real rows (21 October 2026, #1240)");
+        CollectionAssert.AreEqual(new[] { "brigade_7", "etzioni" }, ReleaseGate.StartingForcesUnchecked(c), "the owner person-checked the real rows (21 October 2026, #1240); the later brigades' new rows wait for his check (#1241, Q-START-3)");
         foreach (var f in c.StartingForces) f.Status = "to_verify";   // in memory only: the rows as they were before that check
         var refusal = Refusal(c);
         Assert.IsNotNull(refusal, "a row that is not fact-checked blocks a shareable build");
