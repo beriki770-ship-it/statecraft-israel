@@ -1,7 +1,7 @@
 # The Fourth to Eighth Knessets: elections, results, mergers and budgets, 1957 to 1977
 
-Researched 23 October 2026. Every URL below was opened or queried on that date. Research note for issue #114 (1957-77
-2, the research part only, opened by the owner's ruling of 22 October 2026 on #49). Research only: nothing here is
+Researched 23 October 2026. Every URL below was opened or queried on that date. Research note for issue #114 (titled "1957-77
+2", the research part only, opened by the owner's ruling of 22 October 2026 on #49). Research only: nothing here is
 drafted for the game, and no file in `content/` is changed. The `legislatures.yaml` records stay paused.
 
 ## Purpose
@@ -49,7 +49,7 @@ archived (see §7).
 | K-MS | Knesset, "Mergers and Splits Among Parliamentary Groups", [archive copy of 3 March 2016](https://web.archive.org/web/20160303233309/http://www.knesset.gov.il/faction/eng/FactionHistoryAll_eng.asp) | Every faction merger, split and renaming, dated, Knesset by Knesset. Some Hebrew words on the page are mojibake in the copy (noted where it matters) |
 | OD-F | Knesset OData `KNS_Faction`, mirror: https://production.oknesset.org/pipelines/data/knesset/kns_faction/kns_faction.csv | Every faction with its start and finish date. Rows for Knessets 3 to 9 used |
 | OD-D | Knesset OData `KNS_KnessetDates`, mirror: https://production.oknesset.org/pipelines/data/knesset/kns_knessetdates/kns_knessetdates.csv | First day of each Knesset's sessions |
-| OD-P | Members' faction terms, mirror: https://production.oknesset.org/pipelines/data/members/mk_individual/mk_individual_factions.csv | Open Knesset's table of each member's faction terms (member id, faction id, start, finish), built from the Knesset's `KNS_PersonToPosition`. Counted here: members sitting in each faction on a given day |
+| OD-P | Members' faction terms (derived, not a Knesset OData table; its counts are tagged [V] in this note with that caveat), mirror: https://production.oknesset.org/pipelines/data/members/mk_individual/mk_individual_factions.csv | Open Knesset's table of each member's faction terms (member id, faction id, start, finish), built from the Knesset's `KNS_PersonToPosition`. Counted here: members sitting in each faction on a given day |
 | OD-B | Knesset OData `KNS_Bill`, mirror: https://production.oknesset.org/pipelines/data/bills/kns_bill/kns_bill.csv | Laws passed (StatusID 118, "התקבלה בקריאה שלישית", passed third reading, per `KNS_Status`), with publication date, series, issue and page |
 | OD-I | Knesset OData `KNS_PlmSessionItem` and `KNS_PlenumSession`, mirrors: https://production.oknesset.org/pipelines/data/plenum/kns_plmsessionitem/kns_plmsessionitem.csv and https://production.oknesset.org/pipelines/data/plenum/kns_plenumsession/kns_plenumsession.csv | Each sitting at which a bill was on the agenda, with the bill's status there: 141 laid on the table for first reading, 111 for plenum debate towards first reading, 114 for debate towards second-third reading, 117 for debate towards third reading (`KNS_Status`, mirror https://production.oknesset.org/pipelines/data/knesset/kns_status/kns_status.csv) |
 | OD-DOC | Knesset OData `KNS_DocumentBill` and `KNS_DocumentPlenumSession`, mirrors under https://production.oknesset.org/pipelines/data/bills/kns_documentbill/ and https://production.oknesset.org/pipelines/data/plenum/kns_documentplenumsession/ | The fs.knesset.gov.il file of each law and protocol (listed in §5 so they can be read from inside Israel) |
@@ -70,7 +70,7 @@ current site serves only recent elections (as the 1977-93 note found), so its pe
 | Knesset | Election | Set by | First sitting | Term ended | Threshold | Eligible voters (K-RES) | Valid votes | Votes per seat | Turnout (CEC-PCT) |
 |---|---|---|---|---|---|---|---|---|---|
 | 4th | 3 Nov 1959 | end of term (our reading; §1.1) | 30 Nov 1959 | 4 Sep 1961 | 1% (9,693 votes) | 1,218,724 | 969,337 | 7,800 | 81.6% |
-| 5th | 15 Aug 1961 | Dissolution of the Fourth Knesset Law, 1961 | 4 Sep 1961 | 22 Nov 1965 | 1% (10,070) | 1,274,280 | 1,006,964 | 8,332 | 83.0% [C] C3 |
+| 5th | 15 Aug 1961 | Dissolution of the Fourth Knesset Law, 1961 | 4 Sep 1961 | 22 Nov 1965 | 1% (10,070) | 1,274,280 | 1,006,964 | 8,332 | 83.0% (CEC-PCT) or 81.6% (computed) [C] C3 |
 | 6th | 1 Nov 1965 (Knesset) or 2 Nov 1965 [C] C1 | end of term (our reading) | 22 Nov 1965 | 17 Nov 1969 | 1% (12,067) | 1,499,988 | 1,206,728 | 9,881 | 83.0% |
 | 7th | 28 Oct 1969 | end of term (our reading) | 17 Nov 1969 | 21 Jan 1974 | 1% (13,677) | 1,758,685 | 1,367,743 | 11,274 | 81.7% |
 | 8th | 31 Dec 1973, postponed from 30 Oct 1973 | L-PP-8 | 21 Jan 1974 | 13 Jun 1977 | 1% (15,668) | 2,037,478 | 1,566,855 | 12,424 | 78.6% |
@@ -106,7 +106,11 @@ Arithmetic, computed here from K-RES-n:
   the fall of the Ninth Government to "the Lavon Affair": the Prime Minister "resigned on 31 January, 1961, against the
   background of a motion of no-confidence tabled by Herut and the General Zionists".
 - 1965 and 1969: OD-B lists no dissolution law for the Fifth or Sixth Knesset, so neither election was brought forward
-  by a dissolution law (our reading).
+  by a dissolution law (our reading). OD-B does list two temporary-provision election laws whose texts were not read
+  [GAP]: Knesset Elections (Temporary Provisions) Law, 5730-1969 (חוק הבחירות לכנסת (הוראות שעה), התש"ל-1969), Sefer
+  HaHukim 576, p. 2, 5 Oct 1969, and Knesset and Local Authorities Elections (Temporary Provision) Law, 5733-1973
+  (חוק הבחירות לכנסת ולרשויות המקומיות (הוראת שעה), התשל"ג-1973), Sefer HaHukim 678, p. 41, 18 Jan 1973. Whether
+  either fixed an election date is open.
 - 1973: L-PP-8, section 1: the elections to the Eighth Knesset set for "(30 באוקטובר 1973)" (30 October 1973) "נדחות"
   (are postponed) and are held "(31 בדצמבר 1973)" [V]. Section 2 extends the Seventh Knesset's term to the Eighth's
   first sitting. Section 3: for the length of the Eighth Knesset's term and the Ninth Knesset's election, the Eighth
@@ -194,7 +198,7 @@ votes are 1.36% of valid votes (computed here); K-RES-6 prints 1.3.
 | Po'alei Agudat Yisrael | פועלי אגודת ישראל | 24,968 | 1.9 | 2 | 2 | agree |
 | Shituf Ve`ahvah* | שיתוף ואחווה | 19,943 | 1.4 | 2 | 2 | agree |
 | Ha'olam Hazeh-Koah Hadash | העולם הזה - כוח חדש | 16,853 | 1.2 | 2 | 2 | agree |
-| Hamerkaz Hahofshi (Free Center) | מרכז חופשי | 16,393 | 1.2 | 2 | 2 | agree |
+| Hamerkaz Hahofshi | מרכז חופשי (Free Center) | 16,393 | 1.2 | 2 | 2 | agree |
 | Maki | מפלגה קומוניסטית ישראלית | 15,712 | 1.1 | 1 | 1 | agree |
 
 Computed here: Po'alei Agudat Yisrael's 24,968 votes are 1.83% (printed 1.9) and Shituf Ve`ahvah's 19,943 are 1.46%
@@ -251,7 +255,7 @@ are not moves.
 | 22 Jan 1957 | Poel Mizrahi - Mizrahi renamed the National Religious Party | [V] K-MS; OD-F (מפלגה דתית לאומית from 22 Jan 1957) |
 | 31 Dec 1957 | Ben-Gurion resigns "against the background of the leaking of information from government meetings" | [V] K-HIST-3 |
 | 7 Jan 1958 | Ben-Gurion forms the 8th government: Mapai, NRP, Mapam, Ahdut Ha'avoda, the Progressive Party and the minority lists; 16 ministers | [V] K-HIST-3 |
-| 5 Jul 1959 | Ben-Gurion resigns after Ahdut Ha'avoda and Mapam ministers vote against the government on arms sales to West Germany and refuse to resign | [V] K-HIST-3 (paraphrased) |
+| 5 Jul 1959 | Ben-Gurion resigns after "the members of Ahdut Ha'avoda and Mapam" vote against the government on arms sales to West Germany and refuse to resign | [V] K-HIST-3 (paraphrased) |
 
 ### 4th Knesset (30 November 1959 to 4 September 1961)
 
@@ -269,7 +273,7 @@ are not moves.
 | Date | Change | Seats after | Source |
 |---|---|---|---|
 | 2 Nov 1961 | Ben-Gurion forms the 10th government: Mapai, NRP, Ahdut Ha'avoda, Po'alei Agudat Yisrael and the minority lists; 15 ministers | - | [V] K-HIST-5. WP-1961 says 13 ministers [S, C7] |
-| 16 Jun 1963 | Ben-Gurion resigns "for "personal reasons"" | - | [V] K-HIST-5 |
+| 16 Jun 1963 | Ben-Gurion resigns "for 'personal reasons'" | - | [V] K-HIST-5 |
 | 26 Jun 1963 | Eshkol forms the 11th government, same coalition; 16 ministers | - | [V] K-HIST-5 |
 | 15 Dec 1964 | The government resigns over Ben-Gurion's demand for a judicial inquiry into the Lavon Affair | - | [V] K-HIST-5. WP-1961 gives 10 Dec 1964 [S, C7] |
 | 22 Dec 1964 | Eshkol forms the 12th government, same coalition; 16 ministers. Yona Kesse leaves Mapai and sits alone; K-MS: the House Committee "did not approve his becoming a single member parliamentary group" by the name "Min Hayesod" | Mapai 41 | [V] K-HIST-5, K-MS, OD-F, OD-P |
@@ -304,7 +308,7 @@ are not moves.
 | 15 Dec 1969 | Meir forms the 15th government, "as in the fourteenth government"; 24 ministers | - | [V] K-HIST-7 |
 | 6 Aug 1970 | Gahal resigns over the government's acceptance of the Rogers Plan; ministers go down to 22 | - | [V] K-HIST-7 |
 | 4 Jan 1972 | Shalom Cohen leaves Ha-olam Hazeh - Koah Hadash and sits alone | 1 | [V] K-MS, OD-F |
-| 25 Apr 1972 | Meir Avizohar leaves the State List and sits alone; he joins the Alignment on 17 Jul 1973 | State List 3; Alignment 57 from 17 Jul 1973 | [V] K-MS, OD-F, OD-P |
+| 25 Apr 1972 | Meir Avizohar leaves the State List (K-MS: "National List"; C6) and sits alone; he joins the Alignment on 17 Jul 1973 | State List 3; Alignment 57 from 17 Jul 1973 | [V] K-MS, OD-F, OD-P |
 | 22 May 1973 | Avner-Hai Shaki leaves the NRP and sits alone | NRP 11 | [V] K-MS, OD-F |
 | 3 Jul 1973 | Ha-olam Hazeh - Koah Hadash renamed the Radical Camp of Israel (מחנה רדיקלי ישראלי) | 1 | [V] K-MS, OD-F; K-HIST-7 note 4 gives the new name as "Meri" (C5) |
 | 25 Jul 1973 | The Israel Communist Party renamed Moked | 1 | [V] K-MS, OD-F |
@@ -414,12 +418,13 @@ Files that would close the gaps (OD-DOC; all on fs.knesset.gov.il, none archived
   both are given.
 - **C3. Turnout, 1961.** CEC-PCT: 83.0%. Computed here from WP-1961's valid and invalid votes (1,037,030) over
   CEC-PCT's own electorate: 81.57%; WP-1961 also gives 81.57%. CEC-PCT prints 83.0 for 1965 as well. Preferred: 81.6%,
-  because it is the only figure consistent with the votes, with 83.0% kept as CEC-PCT's printed value.
+  because it is the only figure consistent with the votes, with 83.0% kept as CEC-PCT's printed value. The
+  preference rests on WP-1961's invalid-vote count, which is [S].
 - **C4. Mapai at the end of the Fifth Knesset.** K-HIST-5: 34. OD-P on 20 Nov 1965: Mapai 32, Yona Kesse alone, and
   119 members in all. Our reading: K-HIST-5 still counts Kesse, whose single-member group the House Committee did not
   approve (K-MS), and one vacant seat under Mapai.
 - **C5. The Seventh Knesset's end column.** K-HIST-7's "Before Next Elections" column sums to 119 (computed here):
-  Ha-olam Hazeh - Koah Hadash goes from 2 to 0, with note 4 "Changed its name to "Meri". MK Shalom Cohen split off",
+  Ha-olam Hazeh - Koah Hadash goes from 2 to 0, with note 4 "Changed its name to "Meri". MK Shalom Cohen split off and remained a single MK.",
   but no row for the renamed one-member faction. K-MS and OD-F name it the Radical Camp of Israel from 3 Jul 1973, with
   one member (OD-P). The 120th seat is that faction; the "Meri" name is in K-HIST-7 only.
 - **C6. Naming only.** The Torah list: K-RES-4 "Religious Torah Front", K-HIST-4 "United Torah Front", K-RES-8 and
