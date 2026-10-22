@@ -124,9 +124,10 @@ namespace Statecraft.Game.UI
                 if (row == null) return text.Format("report.unit", id);
                 return hebrew && !string.IsNullOrEmpty(row.NameHe) ? row.NameHe : row.Name;
             }
-            // An engagement (#1297) names its enemy attackers, one line each; an order names its unit, Target.
+            // An engagement (#1297) names its enemy attackers, one line each, and gives no line if it names none: its Target is
+            // a hex, not a unit. An order names its unit, Target.
             return turn.Why.Where(w => w.EnemyOrder != "")
-                .SelectMany(w => (w.EnemyAttackers.Count > 0 ? w.EnemyAttackers : new[] { int.Parse(w.Target, CultureInfo.InvariantCulture) })
+                .SelectMany(w => (w.EnemyOrder == Combat.Attack ? w.EnemyAttackers : new[] { int.Parse(w.Target, CultureInfo.InvariantCulture) })
                     .Select(id => text.Format("report.enemy_" + w.EnemyOrder, Name(id)))).ToList();
         }
 

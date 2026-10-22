@@ -90,7 +90,7 @@ namespace Statecraft.Sim
             if (refused != null) return refused;
             var u = s.Units[unitId]; var target = Hex(q!.Value, r!.Value);
             s.Units[unitId] = new Unit(u.Id, u.Type, u.Q, u.R, u.Service, u.Side, u.Strength, Attack, target);
-            why.Add(new Cause("map", unitId.ToString(CultureInfo.InvariantCulture), 0, $"Unit {unitId} will attack hex {target}", enemy ? Attack : ""));
+            why.Add(new Cause("map", unitId.ToString(CultureInfo.InvariantCulture), 0, $"Unit {unitId} will attack hex {target}"));
             return null;
         }
 

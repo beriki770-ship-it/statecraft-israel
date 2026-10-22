@@ -137,6 +137,20 @@ public class TurnReportTests
         }
     }
 
+    /// <summary>#1297 review: an attack cause's Target is a hex ("q,r"), not a unit, so one that names no attackers gives no
+    /// line rather than a parse that throws. Combat fills the attackers for every enemy engagement today, so the turn is
+    /// replaced with one such cause through Session.Last's private setter.</summary>
+    [Test]
+    public void AnAttackThatNamesNoAttackersGivesNoLine()
+    {
+        using var k = new Kit(En);
+        k.Bridge.EndTurn();
+        var last = k.Bridge.Session.Last!;
+        typeof(GameSession).GetProperty(nameof(GameSession.Last))!.SetValue(k.Bridge.Session,
+            new StepResult(last.State, new[] { new Cause("map", "3,0", 0, "The attack on hex 3,0", Combat.Attack) }, last.Rejected));
+        Assert.IsFalse(TurnReportPresenter.Lines(k.Bridge, En).Any(l => l.Meter == TurnReportPresenter.EnemyRow));
+    }
+
     [Test]
     public void ItCoversTheHudUntilClosedAndThenTheCardIsBack()
     {
