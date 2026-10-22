@@ -50,8 +50,8 @@ namespace Statecraft.Sim
         /// Craftsmen take the jobs first (R-CRAFT-002).</summary>
         public int Employed { get; }
         public int Refugees { get; }
-        /// <summary>The recruits who finished basic training here (GDD "Progression"; R-TRAIN-003). A count until Phase 5 makes
-        /// soldiers units.</summary>
+        /// <summary>Legacy city recruit count, retained for canonical compatibility. New training completes into
+        /// State.Units (R-TRAIN-003), never this field; saves replay their command log rather than city snapshots.</summary>
         public int Recruits { get; }
         /// <summary>The craftsmen trained here (D-D4; R-CRAFT-001): a count, not movable units (D-A2), and not part of
         /// <see cref="Civilians"/>.</summary>
@@ -122,10 +122,13 @@ namespace Statecraft.Sim
         /// <summary>The unit's standing order and what it names, or "" for none (R-UNIT-001). Later Phase 5 PRs set them.</summary>
         public string Order { get; }
         public string OrderTarget { get; }
+        /// <summary>The city whose housing includes this formation (R-HOUSE-003, Q-HOUSE-5), independent of its current hex.
+        /// Empty for units without a known home, including pioneers.</summary>
+        public string HomeCity { get; }
 
-        public Unit(int id, string type, int q, int r, int service = 0, string side = "", int strength = 0, string order = "", string orderTarget = "")
+        public Unit(int id, string type, int q, int r, int service = 0, string side = "", int strength = 0, string order = "", string orderTarget = "", string homeCity = "")
         {
-            Id = id; Type = type; Q = q; R = r; Service = service; Side = side; Strength = strength; Order = order; OrderTarget = orderTarget;
+            Id = id; Type = type; Q = q; R = r; Service = service; Side = side; Strength = strength; Order = order; OrderTarget = orderTarget; HomeCity = homeCity;
         }
 
         /// <summary>The record as the state hash writes it. Each field after the hex is written only when it is not at its
@@ -136,7 +139,8 @@ namespace Statecraft.Sim
             + (Side == "" ? "" : "|side=" + Side)
             + (Strength == 0 ? "" : "|strength=" + Strength.ToString(CultureInfo.InvariantCulture))
             + (Order == "" ? "" : "|order=" + Order)
-            + (OrderTarget == "" ? "" : "|target=" + OrderTarget);
+            + (OrderTarget == "" ? "" : "|target=" + OrderTarget)
+            + (HomeCity == "" ? "" : "|home=" + HomeCity);
     }
 
     /// <summary>A group of a city's people in training (GDD "Progression"; R-TRAIN-001): <see cref="Count"/> population units

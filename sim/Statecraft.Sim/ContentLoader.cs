@@ -1088,6 +1088,7 @@ namespace Statecraft.Sim
             {
                 var at = $"types[{x.Id}]";
                 if (x.Kind != "population" && x.Kind != "unit") throw new ContentException(uf, at + ".kind", "must be population or unit");
+                if (x.Id == "recruit" && x.Side != "israel") throw new ContentException(uf, at + ".side", "a recruit must be an Israeli military unit (R-UNIT-003)");
                 // R-UNIT-001: a type with a side or a class is military, and needs both; the sides are units_1948.yaml's.
                 if (x.Side != "" || x.Class != "")
                 {
@@ -1133,6 +1134,9 @@ namespace Statecraft.Sim
                 if (x.TrainingTurns < 1) throw new ContentException(uf, at + ".training_turns", "must be >= 1");
                 if (!(x.TrainingCost >= 0 && IsFinite(x.TrainingCost))) throw new ContentException(uf, at + ".training_cost", "must be a finite number >= 0");
             }
+            // R-UNIT-004: promotion must not create a unit whose military type is missing or belongs to another side.
+            if (c.UnitTypes.Any(t => t.Id == "recruit") && !c.UnitTypes.Any(t => t.Id == "veteran_soldier" && t.Kind == "unit" && t.Side == "israel" && t.Class == "infantry"))
+                throw new ContentException(uf, "types[veteran_soldier]", "required as an Israeli infantry unit for recruit promotion");
             // R-CITY-003: the arrivals are spread over the cities, so there must be one to take them.
             if (c.Cities.Count == 0) throw new ContentException(cf, "cities", "the GDD loop needs at least one city to take the arrivals");
             foreach (var (file, r) in new[] { ("rules.yaml", c.Rules) }.Concat(c.EraRules.OrderBy(kv => kv.Key, StringComparer.Ordinal).Select(kv => ("rules/" + kv.Key + ".yaml", kv.Value))))
@@ -1195,6 +1199,11 @@ namespace Statecraft.Sim
                 if (!(m.ArmsPrice >= 0 && IsFinite(m.ArmsPrice.Value))) throw new ContentException(file, "mvp.arms_price", "must be a finite number >= 0");
                 if (m.ArmsPerRecruitGroup == null) throw new ContentException(file, "mvp.arms_per_recruit_group", "required when eras.yaml systems.loop is gdd");
                 if (m.ArmsPerRecruitGroup < 0) throw new ContentException(file, "mvp.arms_per_recruit_group", "must be >= 0");
+                // R-UNIT-010, R-UNIT-004: omitted values must not silently make upkeep free or promotion immediate.
+                if (m.MilitaryUpkeepPerTurn == null) throw new ContentException(file, "mvp.military_upkeep_per_turn", "required when eras.yaml systems.loop is gdd");
+                if (!(m.MilitaryUpkeepPerTurn >= 0 && IsFinite(m.MilitaryUpkeepPerTurn.Value))) throw new ContentException(file, "mvp.military_upkeep_per_turn", "must be a finite number >= 0");
+                if (m.VeteranSoldierService == null) throw new ContentException(file, "mvp.veteran_soldier_service", "required when eras.yaml systems.loop is gdd");
+                if (m.VeteranSoldierService < 1) throw new ContentException(file, "mvp.veteran_soldier_service", "must be >= 1");
                 // R-VET-001, R-VET-002: required, so a missing key is not read as 0 (a veteran after no work, or one that builds nothing).
                 foreach (var (key, v) in new[] { ("veteran_halutz_service", m.VeteranHalutzService), ("veteran_progress", m.VeteranProgress) })
                 {

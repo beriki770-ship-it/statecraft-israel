@@ -111,7 +111,7 @@ namespace Statecraft.Sim
                     foreach (var (from, _) in moved) s.Units[from.Id] = from;   // back as it was
                     return $"Unit {u.Id} has no free hex next to {name} to withdraw to";
                 }
-                var w = new Unit(u.Id, u.Type, to.Value.Q, to.Value.R, u.Service, u.Side, u.Strength, u.Order, u.OrderTarget);
+                var w = new Unit(u.Id, u.Type, to.Value.Q, to.Value.R, u.Service, u.Side, u.Strength, u.Order, u.OrderTarget, u.HomeCity);
                 s.Units[u.Id] = w;
                 moved.Add((u, w));
             }

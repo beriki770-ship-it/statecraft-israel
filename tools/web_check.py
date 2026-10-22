@@ -8,8 +8,8 @@ fail on a failure line or a timeout. Uses Chrome for Testing from the Playwright
 --enable-logging=stderr --v=1 as INFO:CONSOLE... "text", source: ...
 
 Usage (from the repo root):
-  uv run tools/web_check.py unity/Builds/Web-disabled --query "golden" --expect "GOLDEN OK hash1950 f70d7cc2d9438c3b0859a957842fae9a456198d1a1160f962b61fec5b28af0df" --expect "GOLDEN OK hash1952 ca78893d57bd7235dd923f29b611e0c12e99d702312c24b5bfc72ac82b3d14bf"
-  uv run tools/web_check.py unity/Builds/Web-disabled --query "smoke-orders" --expect "SMOKE ORDERS OK 1948-06-15 4c9916304b71a66c989494a80b0e9b70db98a26f4697e29066425b77539743ee"
+  uv run tools/web_check.py unity/Builds/Web-disabled --query "golden" --expect "GOLDEN OK hash1950 f3ec68b734a3beb24df9a873e0400f0253aed48f3cde2ea12415f1890dcaa5b0" --expect "GOLDEN OK hash1952 6b374f69a0ed276eeea69737e2a8b0e72d26feb930dab35e8f7c50113c4e9c0b"
+  uv run tools/web_check.py unity/Builds/Web-disabled --query "smoke-orders" --expect "SMOKE ORDERS OK 1948-06-15 ee6bfee561120532416c1aff2cd7cd741256aaafb443d19b414031356b680ae6"
   (the smoke-orders golden: one Move given through the unit card, docs/determinism.md)
 Options: --query Q (page URL query, without '?'), --expect TEXT (repeatable), --fail REGEX (default: GOLDEN FAIL|SMOKE FAIL|BOOT FAIL),
 --timeout SECONDS (default 300), --stall SECONDS (fail when no console message arrives for that long; 0 = off),
