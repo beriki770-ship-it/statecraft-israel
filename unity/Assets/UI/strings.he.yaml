@@ -533,6 +533,7 @@ site.stop_swamp: "עצירת הייבוש (הכסף שהוצא לא יוחזר)"
 site.built_swamp: "יובש ב־{0}"
 # A corridor segment's part (#792): the owner's approved words סלילת כביש and הנחת מסילה (Q-UI-2, #782); a segment is
 # קטע, as order.kind.corridor_segment. For the native reviewer (#564).
+# Approved by Beri, a native speaker, on #1320 (22 Oct 2026).
 corridor.segment: "{0}, קטע {1}"
 corridor.build_road: "סלילת כביש עם {0}: {1}, {2}"
 corridor.build_rail: "הנחת מסילה עם {0}: {1}, {2}"
