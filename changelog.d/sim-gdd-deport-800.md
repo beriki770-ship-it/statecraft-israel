@@ -4,5 +4,6 @@
   in Raid, Social cohesion and International Support fall at once, the place counts in `DisplacedByPlayer` (places, not
   people), International Support drags each turn and has a lower ceiling for the rest of the game, and the place is
   depopulated: no city project or corridor segment on its hex, no timer, no gain. No razing in the MVP.
-  `DeportNeverDominates` checks Deport is never better than Raid or Occupy on anything. The four sizes are design values
-  proposed on #800. No golden moves.
+  Deport also costs the Treasury IL 6.25m at once (owner decision, 22 October 2026, #1327), so `DeportNeverDominates`
+  checks Deport is never better than Raid or Occupy on anything, Money included, in every state. The four indicator sizes
+  are design values proposed on #800. A depopulated place stays closed to the player's units. No golden moves.

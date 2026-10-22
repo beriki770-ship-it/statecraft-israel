@@ -1293,7 +1293,8 @@ namespace Statecraft.Sim
                 foreach (var (key, v) in new[] { ("prisoner_shortfall_cohesion", m.PrisonerShortfallCohesion), ("held_soldier_cost_per_turn", m.HeldSoldierCostPerTurn), ("occupation_upkeep_per_turn", m.OccupationUpkeepPerTurn),
                     // R-CTRL-018 (Q-DEP-5 (c)): required, so a missing key is never read as a Deport that costs nothing
                     ("deport_cohesion_cost", m.DeportCohesionCost), ("deport_support_cost", m.DeportSupportCost),
-                    ("deport_support_drag_per_turn", m.DeportSupportDragPerTurn), ("deport_support_ceiling_drop", m.DeportSupportCeilingDrop) })
+                    ("deport_support_drag_per_turn", m.DeportSupportDragPerTurn), ("deport_support_ceiling_drop", m.DeportSupportCeilingDrop),
+                    ("deport_money_cost", m.DeportMoneyCost) })
                 {
                     if (v == null) throw new ContentException(file, "mvp." + key, "required when eras.yaml systems.loop is gdd");
                     if (!(v >= 0 && IsFinite(v.Value))) throw new ContentException(file, "mvp." + key, "must be a finite number >= 0");

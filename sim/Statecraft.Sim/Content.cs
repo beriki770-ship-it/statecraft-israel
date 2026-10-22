@@ -670,6 +670,9 @@ namespace Statecraft.Sim
         /// <summary>How far International Support's ceiling falls below 1 for each place in DisplacedByPlayer, for the rest of
         /// the game (R-CTRL-018; Q-DEP-5 (c)). Required in the GDD loop, &gt;= 0.</summary>
         public double? DeportSupportCeilingDrop { get; set; }
+        /// <summary>IL millions the Treasury pays at once for a Deport, borrowing what it lacks (R-CTRL-018; owner, 22 October
+        /// 2026, #1327: Deport's Money at or below Occupy's and Raid's in every state). Required in the GDD loop, &gt;= 0.</summary>
+        public double? DeportMoneyCost { get; set; }
         /// <summary>Whether ResolveCapture may answer with Deport (R-CTRL-007). Off, the default and the real content's value,
         /// Deport is refused as not built yet until its cards and dialog are reviewed (Phase 6 PRs 9 and 10).</summary>
         public bool DeportInPlay { get; set; }

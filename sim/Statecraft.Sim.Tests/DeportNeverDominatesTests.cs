@@ -6,8 +6,8 @@ using Statecraft.Sim;
 /// <summary>R-CTRL-022, DeportNeverDominates (impact plan section 4.1 item 5; Q-TECH-4 as drafted, with Q-DEP-7 (b) and (c);
 /// Q-DEP-5 (c): "must hold with a margin"). From each capture state, the state is cloned three times and each clone answers
 /// the capture with one outcome, then steps with the reference policy (GoldenRun's orders) to the game's end. At the turn's
-/// end and at the end, Deport is no better than Raid on any measure, and no better than Occupy on any measure but Money
-/// (Occupy pays upkeep, Q-OCC-1 (a), and Deport has no Money cost: an owner question on #800). The measures: Money,
+/// end and at the end, Deport is no better than Raid or Occupy on any measure, Money included in every state (owner, 22
+/// October 2026, #1327: the fixture's deport_money_cost covers Occupy's upkeep to the end and the shared hex). The measures: Money,
 /// foreign currency, Food, Arms, Attention, coalition stability, every indicator, the score, the objectives and the day each
 /// was met (the war objective's timing), the player's units and their strength, housing, jobs, people, built sites, and not
 /// losing the war (Q-DEP-7 (b)). On Social cohesion and International Support it is below both by at least
@@ -15,8 +15,9 @@ using Statecraft.Sim;
 /// fixture states carry the test: town_a captured at full and at minimum strength, with a halutz, with an enemy beside it,
 /// and with a second place awaiting, with the fixture's one city moved to town_d's hex, out of reach. "shared hex" keeps the
 /// city on town_a's own hex, as Tel Aviv shares Jaffa's: there no city project can be started on the depopulated hex
-/// (R-CTRL-020), so the reference policy builds less and spends less, and Money is the one measure not compared (an owner
-/// question on #800). Each run is also the fixture stand-in for the paired mvp-occupy-cost and mvp-deport-cost scenarios
+/// (R-CTRL-020), so the reference policy builds less and spends less (IL 3.0m in the fixture), which the Money cost covers.
+/// Food ends the same under all three outcomes in these states, so a Food gain from Deport shows only in
+/// DeportTests.TheCostsApplyAtOnce, not here. Each run is also the fixture stand-in for the paired mvp-occupy-cost and mvp-deport-cost scenarios
 /// (spec section 3).</summary>
 public class DeportNeverDominatesTests
 {
@@ -71,7 +72,6 @@ public class DeportNeverDominatesTests
                 var margin = key == "ind:morale" || key == "ind:intl_standing" ? Margin : 0.0;
                 foreach (var (other, values) in new[] { ("Raid", raid), ("Occupy", occupy) })
                 {
-                    if (key == "money" && (other == "Occupy" || shared)) continue;
                     var v = values.GetValueOrDefault(key, double.MinValue);
                     Assert.True(deport[key] <= v - margin + 1e-9, $"{name}, {(at == end ? "the end" : "the turn's end")}: Deport's {key} is {deport[key]}, {other}'s {v}");
                 }

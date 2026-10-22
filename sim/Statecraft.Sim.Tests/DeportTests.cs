@@ -55,12 +55,14 @@ public class DeportTests
         var deport = Resolved(c, s, SettlementControl.Deport);
         Assert.Equal(Cohesion(raid) - 0.2, Cohesion(deport), 9);
         Assert.Equal(Support(raid) - 0.1, Support(deport), 9);
+        Assert.Equal(raid.Treasury - raid.Debt - 121, deport.Treasury - deport.Debt, 9);   // the fixture's deport_money_cost, borrowed where the Treasury lacks it
         Assert.Equal((0, 1), (raid.DisplacedByPlayer, deport.DisplacedByPlayer));
         Assert.Contains("displaced=1", deport.Describe());
         var option = SettlementControl.CaptureOptions(c, s, "town_a").Single(o => o.Outcome == SettlementControl.Deport);
         Assert.Null(option.Refusal);
         var p = option.Preview!;
-        Assert.Equal((0.0, 0.0, 0.0, 0, 0, 0), (p.Attention, p.Money, p.Debt, p.Food, p.Arms, p.Score));
+        Assert.Equal((0.0, 0, 0, 0), (p.Attention, p.Food, p.Arms, p.Score));
+        Assert.Equal(-121, p.Money - p.Debt, 9);
         Assert.Equal((-0.2, -0.1), (Math.Round(p.SocialCohesion, 9), Math.Round(p.InternationalSupport, 9)));
     }
 
@@ -218,6 +220,37 @@ public class DeportTests
         var before = s.Describe();
         Assert.Contains("not built yet", SettlementControl.Resolve(c, s, "town_a", SettlementControl.Deport, new List<Cause>()));
         Assert.Equal(before, s.Describe());
+    }
+
+    // R-CTRL-007 in the real content (#1327 nit 3): with deport_in_play off in rules.yaml, a player unit on Jaffa's hex with
+    // Jaffa awaiting the choice still has Deport refused, and nothing is depopulated or displaced.
+    [Fact]
+    public void TheRealContentRefusesDeport()
+    {
+        var c = ContentLoader.Load(RealContentTests.ContentRoot());
+        var s = Simulation.NewGame(c, 1, Mode.Historical);
+        Assert.False(c.RulesAt(s.Date).Mvp!.DeportInPlay);
+        var jaffa = c.SettlementTargets.Single(t => t.Id == "jaffa");
+        var u = s.Units.Values.First(x => x.Side == Movement.PlayerSide);
+        s.Units[u.Id] = new Unit(u.Id, u.Type, jaffa.Q, jaffa.R, side: u.Side, strength: u.Strength);
+        s.Settlements["jaffa"] = new SettlementControl(Movement.PlayerSide, SettlementControl.AwaitingChoice, s.Date);
+        var result = Simulation.Step(c, s, new Command[] { new ResolveCapture("jaffa", SettlementControl.Deport) });
+        Assert.Contains("not built yet", Assert.Single(result.Rejected).Reason);
+        Assert.Equal(0, result.State.DisplacedByPlayer);
+        Assert.False(result.State.Settlements["jaffa"].Depopulated);
+    }
+
+    // R-CTRL-018, the real content's deport_money_cost (owner, 22 October 2026, #1327): at least the most Occupy can pay in
+    // upkeep, every turn of the game, plus the dearest city project a depopulated hex shared with a city no longer takes.
+    // DeportNeverDominates checks the fixture; this keeps the real value on the same side of that bound.
+    [Fact]
+    public void TheRealDeportCostCoversOccupyAndTheDearestProject()
+    {
+        var c = ContentLoader.Load(RealContentTests.ContentRoot());
+        var m = c.Rules.Mvp!;
+        var turns = (c.End.Year - c.Rules.Start.Year) * 12 + c.End.Month - c.Rules.Start.Month;   // monthly turns (D-B1)
+        Assert.Equal(44, turns);
+        Assert.True(m.DeportMoneyCost >= m.OccupationUpkeepPerTurn * turns + c.ProjectKinds.Max(k => k.Cost));
     }
 
     // Determinism: Deport and the drag draw nothing from the RNG.

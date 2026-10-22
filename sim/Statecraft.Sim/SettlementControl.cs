@@ -168,6 +168,9 @@ namespace Statecraft.Sim
                 var change = EffectsSystem.Shift(c, s, indicator, -cost);
                 why.Add(new Cause("map", indicator, change, $"{PlayerText.Change(c, indicator, change)} (Deport of {name})"));
             }
+            // Deport never pays (owner, 22 October 2026, #1327): its Money stays at or below Occupy's and Raid's.
+            why.Add(new Cause("economy", "treasury", -r.DeportMoneyCost!.Value, $"{PlayerText.Change(c, "treasury", -r.DeportMoneyCost.Value)} (Deport of {name})"));
+            EconomySystem.PayOrBorrow(c, s, r.DeportMoneyCost.Value, $"for the Deport of {name}", why);
             return null;
         }
 

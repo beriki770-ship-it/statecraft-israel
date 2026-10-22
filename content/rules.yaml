@@ -238,6 +238,11 @@ mvp:
   deport_support_cost: 0.15              # DESIGN VALUE: owner-set balance, not a historical figure (D-C1, Q-DEP-5: International Support lost at once)
   deport_support_drag_per_turn: 0.005    # DESIGN VALUE: owner-set balance, not a historical figure (D-C1, Q-DEP-5: International Support lost each turn after, per place)
   deport_support_ceiling_drop: 0.25      # DESIGN VALUE: owner-set balance, not a historical figure (D-C1, Q-DEP-5: International Support ceiling lowered for good, per place)
+  # Deport's Money cost (owner decision, 22 October 2026: https://github.com/eyalgolan/statecraft-israel/pull/1327#issuecomment-6337946480):
+  # set so that Deport's Money is at or below Occupy's and Raid's in every state. Occupy pays at most
+  # occupation_upkeep_per_turn for all 44 turns (0.22); a depopulated hex shared with a city takes no new project, so the
+  # city may spend less, and the dearest project is housing (6, projects.yaml). 0.22 + 6, rounded up to a quarter million.
+  deport_money_cost: 6.25                # DESIGN VALUE: owner-set balance, not a historical figure (D-C6, #1327: IL millions paid at once for a Deport)
   # Deport stays out of play until the owner has reviewed its cards (Phase 6 PR 9) and its dialog (PR 10): with this off,
   # ResolveCapture(..., deport) is refused as not built yet (R-CTRL-007; plan, PR 8 sensitivity gate). PR 10 lifts it.
   deport_in_play: false

@@ -190,6 +190,7 @@ public class DesignValuesTests
         ("rules.yaml", "mvp.deport_support_cost"),
         ("rules.yaml", "mvp.deport_support_drag_per_turn"),
         ("rules.yaml", "mvp.deport_support_ceiling_drop"),
+        ("rules.yaml", "mvp.deport_money_cost"),
     }.Concat(CombatTableCells()).ToArray();
 
     /// <summary>rules.yaml mvp.combat_table, every cell: its five rows (below 1:2, 1:2, 1:1, 2:1, 3:1) with their start ratio
