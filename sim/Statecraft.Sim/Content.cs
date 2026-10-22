@@ -584,6 +584,10 @@ namespace Statecraft.Sim
         /// <summary>The Arms one recruit group takes when its training starts (R-ARMS-003; D-G6, Q-UNIT-3, #781). Required in the
         /// GDD loop, &gt;= 0.</summary>
         public int? ArmsPerRecruitGroup { get; set; }
+        /// <summary>IL millions per Israeli military formation per turn, not per strength point (R-UNIT-010; Q-UNIT-3).</summary>
+        public double? MilitaryUpkeepPerTurn { get; set; }
+        /// <summary>Turns served as a recruit before promotion to veteran_soldier (R-UNIT-004; Q-UNIT-2).</summary>
+        public int? VeteranSoldierService { get; set; }
         /// <summary>Turns of work after which a halutz unit becomes a veteran_halutz (R-VET-001; D-D9, Q-VET-1). Required in
         /// the GDD loop, at least 1.</summary>
         public int? VeteranHalutzService { get; set; }

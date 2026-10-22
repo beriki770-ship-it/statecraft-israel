@@ -78,7 +78,7 @@ public class MovementTests
     }
 
     // R-MOVE-001: the real game's numbers, design values this PR proposes (Q-MOVE-1): one cost per land biome of hexes.json,
-    // none for lake and sea, and the movement points of the three military types.
+    // none for lake and sea, and the movement points of the four military types.
     [Fact]
     public void TheRealGameHasACostForEveryLandBiomeAndPointsForEveryMilitaryType()
     {
@@ -88,7 +88,7 @@ public class MovementTests
                      new SortedDictionary<string, int>(costs));
         Assert.Equal(new SortedSet<string>(costs.Keys), new SortedSet<string>(c.Hexes.Where(h => h.Land).Select(h => h.Biome)));
         Assert.DoesNotContain(c.Hexes, h => h.Land && (h.Biome == "sea" || h.Biome == "lake"));
-        Assert.Equal(new[] { ("veteran_soldier", 3), ("artillery", 2), ("armoured_car", 5), ("egyptian_army", 3), ("arab_legion", 3),
+        Assert.Equal(new[] { ("recruit", 3), ("veteran_soldier", 3), ("artillery", 2), ("armoured_car", 5), ("egyptian_army", 3), ("arab_legion", 3),
                              ("syrian_army", 3), ("iraqi_army", 3), ("arab_liberation_army", 3) },   // the Arab types: #743, owner, 20 October 2026
                      c.UnitTypes.Where(t => t.Side != "").Select(t => (t.Id, t.MovementPoints)));
     }

@@ -120,7 +120,8 @@ namespace Statecraft.Game.Map
         }
 
         /// <summary>The hex a click at <paramref name="pos"/> (screen pixels) would pick, or null over the UI or off the map:
-        /// a pill's city hex (PillHex), else the hex of the terrain under the pointer. GameRoot also asks it for the hover.</summary>
+        /// a pill's city hex (PillHex), else the hex of the unit token drawn under the pointer (UnitLayer.TokenAtScreen), else
+        /// the hex of the terrain under the pointer. GameRoot also asks it for the hover.</summary>
         public (int q, int r)? HexAt(Vector2 pos) => HexAt(pos, IsOverUi != null && IsOverUi(pos), true);
 
         (int q, int r)? HexAt(Vector2 pos, bool overUi, bool pills)
@@ -129,10 +130,31 @@ namespace Statecraft.Game.Map
             if (Map == null || Map.Terrain == null) return null;
             if (pills && PillHex?.Invoke(pos) is (int, int) pill) return pill;
             var cam = Camera.main;
-            var collider = Map.Terrain.GetComponent<TerrainCollider>();
-            // only the terrain's own collider: other colliders (markers, future props) never decide which hex is clicked
-            if (cam == null || collider == null || !collider.Raycast(cam.ScreenPointToRay(pos), out var hit, 1_000_000f)) return null;
+            // A unit's badge and figures stand above the ground: a click on them is a click on the unit's hex, not on the
+            // terrain behind them (owner's report on v0.2.0). Not for the keyboard's look-at point (pills false).
+            var units = pills && cam != null ? Map.Terrain.transform.Find(Units.UnitLayer.RootName) : null;
+            if (units != null && units.TryGetComponent<Units.UnitLayer>(out var layer) && layer.TokenAtScreen(cam!, pos) is Units.PlacedToken token)
+                return (token.Q, token.R);
+            if (cam == null || !TryGroundHit(Map, cam.ScreenPointToRay(pos), out var hit)) return null;
             return Pick(Map, hit.point);
+        }
+
+        // The opt-in board draws its own terrain above the lowered real map. Use the nearest displayed ground,
+        // falling through its sea/outside holes to the real map. Props and markers never decide the clicked hex.
+        static bool TryGroundHit(MapScene map, Ray ray, out RaycastHit hit)
+        {
+            hit = default;
+            bool found = false;
+            foreach (var terrain in map.GetComponentsInChildren<Terrain>())
+            {
+                if (!terrain.enabled || !terrain.drawHeightmap) continue;
+                var collider = terrain.GetComponent<TerrainCollider>();
+                if (collider == null || !collider.enabled ||
+                    !collider.Raycast(ray, out var candidate, found ? hit.distance : 1_000_000f)) continue;
+                hit = candidate;
+                found = true;
+            }
+            return found;
         }
 
         public static (int q, int r) Pick(MapScene map, Vector3 world)

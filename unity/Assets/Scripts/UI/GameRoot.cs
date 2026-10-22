@@ -56,6 +56,9 @@ namespace Statecraft.Game.UI
         EventCardPresenter? card;
         /// <summary>Tests: the decision card of the last Begin.</summary>
         internal EventCardPresenter? Card => card;
+        CaptureDialogPresenter? capture;
+        /// <summary>Tests: the capture dialog of the last Begin.</summary>
+        internal CaptureDialogPresenter? Capture => capture;
         /// <summary>Tests: the settlement name pills of the last Begin.</summary>
         internal MapLabelsPresenter? Labels => labels;
         string? hoveredCity;   // the city HoverCity lit (#1063)
@@ -295,6 +298,10 @@ namespace Statecraft.Game.UI
             // Both panels in one hook: the same Escape never closes the screen under the panel too.
             nav!.TakesEscape = () => feedbackPanel.Escape() || sharePanel.Escape();
             var names = map.SettlementsFor(inputs.Map.SettlementsYaml).ToDictionary(s => s.Id, s => s.Name);   // the map's parse (issue #321)
+            // The capture dialog (GDD Phase 6 PR 10, #802): in the decision layer, after the card, which goes first; the
+            // places' Hebrew names from the same parse.
+            capture = Own(new CaptureDialogPresenter(root, bridge, text, card,
+                map.SettlementsFor(inputs.Map.SettlementsYaml).ToDictionary(s => s.Id, s => s.NameHe)));
             // The 1948 sub-districts, outlined on the map, and each front's 1949 armistice line from its agreement's date
             // where the line exists (display only: the sim never reads them; docs/visual-v1.md, owner rulings 2026-10-11).
             // Since the owner's rulings of 2026-10-14 the areas are coloured by side (control_hexes_1948_49.yaml), from 15 May 1948
@@ -323,6 +330,7 @@ namespace Statecraft.Game.UI
             DiagLog.BootPhase("screens wired");   // issue #321: the splits of the units layer
             // The map's own parse of the unit file when it read this text (issue #321: it was parsed twice at boot).
             var unitData = map.UnitEntriesFor(inputs.Map.UnitsYaml, Debug.LogWarning);
+            report.Units = unitData;   // the turn report names the enemy's units by these rows (#1293)
             DiagLog.BootPhase("units layer data read");
             var unitLayer = units = Statecraft.Game.Map.Units.UnitLayer.Create(map,
                 unitData, inputs.Content.Hexes,
@@ -344,7 +352,9 @@ namespace Statecraft.Game.UI
                 regions: regions, localitiesAt: localitiesAt,
                 townHex: InfoPanelPresenter.TownHex(map.SettlementsFor(inputs.Map.SettlementsYaml), map.Hexes),
                 townNamesHe: map.SettlementsFor(inputs.Map.SettlementsYaml).ToDictionary(s => s.Id, s => s.NameHe),
-                showReachable: map.ShowReachable));
+                showReachable: map.ShowReachable,
+                unitName: id => unitLayer.Tokens.Where(p => UnitCard.SimUnit(bridge.Content, bridge.State, p.Token.Unit) == id)
+                    .Select(p => UnitCard.For(p, bridge.State, text, bridge.Content.IsGdd).Title).FirstOrDefault()));
             // A smoke session never touches the player's save: no autosave, and no New Game (which deletes the autosave).
             // Leaving New Game out is safer than handing it a throwaway store: no file is ever deleted, no path has to be
             // right on every platform, and the scripted run never presses it.
@@ -548,8 +558,8 @@ namespace Statecraft.Game.UI
 
         /// <summary>A map click: on a unit's hex it selects the unit (the ring and its card; the hex outline is cleared, so
         /// the unit has the promo's one highlight); a second click on it, or a click anywhere else, shows the hex (so a token
-        /// never hides the hex's map actions). While the card's Move pick is open (#754), a click on a lit hex queues the move
-        /// and keeps the unit's card; any other click ends the pick first and then selects as usual.</summary>
+        /// never hides the hex's map actions). While the card's Move or Attack pick is open (#754), a click on a lit hex queues
+        /// the order and keeps the unit's card; any other click ends the pick first and then selects as usual.</summary>
         internal static void OnHexClicked(MapScene map, Statecraft.Game.Map.Units.UnitLayer units, InfoPanelPresenter info, int q, int r)
         {
             if (info.Covered)
@@ -559,7 +569,7 @@ namespace Statecraft.Game.UI
                 if (info.Selected is (int sq, int sr) && !info.ShowsUnit) map.Select(sq, sr); else map.ClearSelection();
                 return;
             }
-            if (info.PickMoveTarget(q, r)) { map.ClearSelection(); return; }   // the unit keeps its ring, the one highlight
+            if (info.PickTarget(q, r)) { map.ClearSelection(); return; }   // the unit keeps its ring, the one highlight
             var id = units.UnitToSelectAt(q, r);
             units.Select(id);
             if (id != null) { map.ClearSelection(); info.ShowUnit(); }
@@ -620,7 +630,9 @@ namespace Statecraft.Game.UI
         void RenderPlacementsIfChanged()
         {
             if (Bridge == null) return;
-            Statecraft.Game.Map.Routes.RouteLayer.ShowAt(map, Bridge.State.Date);   // dated routes (the Burma Road from June 1948)
+            // Dated routes (the Burma Road from June 1948); in the GDD loop the corridors by their built segments (#792).
+            Statecraft.Game.Map.Routes.RouteLayer.ShowAt(map, Bridge.State.Date,
+                Bridge.Content.IsGdd ? Statecraft.Game.Map.Routes.RouteLayer.BuiltSegments(Bridge.Content, Bridge.State) : null);
             // Tal Heuberger's whole-town models on their towns far off (#663, "Whole model far, buildings near"), streamed after the first frame; the ma'abara from its date.
             // The camps and housing built as city projects bring theirs too, as the placement layer draws them (#1275).
             Statecraft.Game.Map.Collection.TownLandmarks.ShowAt(map, Bridge.State.Date,
@@ -743,9 +755,10 @@ namespace Statecraft.Game.UI
             // Game request (StartScreenPresenter.Escape; idempotent too).
             // With no screen to close, Escape skips the first-turn guide (FirstTurnGuidePresenter.Escape).
             // With nothing else to close, Escape on the open decision card is Hide (EventCardPresenter.Escape; the card itself
-            // takes the Cancel event when it has the focus).
+            // takes the Cancel event when it has the focus), and so on the open capture dialog (CaptureDialogPresenter.Escape),
+            // which shows only while the card does not.
             // The report panel (#1169) and the share panel (#1170) are over everything: their Escape goes no further.
-            if (UnityEngine.InputSystem.Keyboard.current?.escapeKey.wasPressedThisFrame == true && feedback?.Escape() != true && share?.Escape() != true) { bool done = outcomes?.SkipAll() == true || outcomes?.ClosedThisFrame == true; if (!done) done = end?.Close() == true || end?.ClosedThisFrame == true; if (!done) done = report?.Close() == true || report?.ClosedThisFrame == true; done |= start?.Escape() == true; done |= nav?.Close() == true; if (!done) done = guide?.Escape() == true; if (!done && document.rootVisualElement.focusController?.focusedElement == null) card?.Escape(); }
+            if (UnityEngine.InputSystem.Keyboard.current?.escapeKey.wasPressedThisFrame == true && feedback?.Escape() != true && share?.Escape() != true) { bool done = outcomes?.SkipAll() == true || outcomes?.ClosedThisFrame == true; if (!done) done = end?.Close() == true || end?.ClosedThisFrame == true; if (!done) done = report?.Close() == true || report?.ClosedThisFrame == true; done |= start?.Escape() == true; done |= nav?.Close() == true; if (!done) done = guide?.Escape() == true; if (!done && document.rootVisualElement.focusController?.focusedElement == null && capture?.Escape() != true) card?.Escape(); }
             // PageUp, PageDown, Home and End, with no modifier, scroll the open screen or the open card's text, with or without
             // focus (KeyScroll; accessibility audit H3), but not under an End Turn outcome clip, which covers them. The arrows
             // stay with the camera (NavigationGuard, B6).

@@ -22,9 +22,11 @@ public class UnitsInPlayTests
     static List<UnitEntry> Units => UnitData.Parse(CommittedYaml);
     static UiText Text => UiText.Parse(AssetDatabase.LoadAssetAtPath<TextAsset>(UiPaths.Strings).text);
     static readonly DateTime LastArmistice = new DateTime(1949, 7, 20);
-    /// <summary>The starting rows the owner person-checked on 21 October 2026 (#1240); a row added later is not covered.</summary>
-    static readonly HashSet<string> PersonChecked = new HashSet<string> { "alexandroni", "arab_legion", "arab_liberation_army", "carmeli",
-        "egyptian_expeditionary_force", "givati", "golani", "harel", "iraqi_expeditionary_force", "kiryati", "negev", "syrian_army" };
+    /// <summary>The starting rows the owner person-checked on 21 October 2026 (#1240), and Etzioni and the 7th after them
+    /// (#1241, https://github.com/eyalgolan/statecraft-israel/issues/793#issuecomment-6338280840); a row added later is not covered.</summary>
+    static readonly HashSet<string> PersonChecked = new HashSet<string> { "alexandroni", "arab_legion", "arab_liberation_army", "brigade_7",
+        "carmeli", "egyptian_expeditionary_force", "etzioni", "givati", "golani", "harel", "iraqi_expeditionary_force", "kiryati", "negev",
+        "syrian_army" };
 
     static IEnumerable<string> Ids(IEnumerable<UnitToken> tokens) => tokens.Select(t => t.Unit.Id);
 
@@ -114,8 +116,8 @@ public class UnitsInPlayTests
             .Where(a => UnitData.Day(a.From) <= truce && truce < UnitData.Day(a.To)).Select(a => a.Place.Split(',')[0]));
         foreach (var u in units)
         {
-            // Owner, 20 October 2026, #743: an IDF brigade's secondary-source strength "carries `status: to_verify`"; the twelve
-            // starting rows the owner person-checked on 21 October 2026 (#1240) are fact-checked.
+            // Owner, 20 October 2026, #743: an IDF brigade's secondary-source strength "carries `status: to_verify`"; the
+            // starting rows the owner person-checked (#1240, #1241) are fact-checked.
             Assert.AreEqual(PersonChecked.Contains(u.Id) ? "fact-checked" : u.Side == UnitData.Israel && u.Strength != null ? "to_verify" : "draft", u.Status, u.Id);
             Assert.AreEqual(UnitData.IsWikipediaOnly(u), u.WikipediaOnly, $"{u.Id}: wikipedia_only must say whether every source is Wikipedia or Wikidata");
             foreach (var s in u.AllSources())
@@ -852,7 +854,9 @@ public class UnitsInPlayTests
             var placed = new PlacedToken(new UnitToken(u, anchor, 0, "", false), default);
             Assert.AreEqual(u.NameHe, UnitCard.For(placed, state, he).Title, u.Id + ": Hebrew title");
             Assert.AreEqual(u.Name, UnitCard.For(placed, state, Text).Title, u.Id + ": English title");
-            StringAssert.Contains(u.Sector, UnitCard.For(placed, state, he).Body, u.Id + ": sourced biography retained");
+            // The sector in Hebrew where the row has one (#1292), else its English; the English card keeps the English.
+            StringAssert.Contains(u.SectorHe ?? u.Sector, UnitCard.For(placed, state, he).Body, u.Id + ": sourced biography retained");
+            StringAssert.Contains(u.Sector, UnitCard.For(placed, state, Text).Body, u.Id + ": English biography retained");
         }
     }
 
@@ -869,7 +873,7 @@ public class UnitsInPlayTests
 
     // ---- Optional Hebrew card prose (#558) -------------------------------------------------------------------------
     // Test-only fixtures: the Hebrew below is placeholder text ("test place", "test commander", "test sector"), not a
-    // translation of any real row and not a historical source. content/map/units_1948.yaml carries none of these keys yet.
+    // translation of any real row and not a historical source.
 
     const string HeSource = "[{url: 'https://he.example.org/a', checked: '2026-10-19'}]";
     const string PlaceHe = "place_he: מקום בדיקה, place_he_sources: " + HeSource + ", place_he_review: agent-checked, ";
@@ -930,7 +934,7 @@ public class UnitsInPlayTests
     }
 
     /// <summary>#1292: the Hebrew card names a formed or since date's month in Hebrew (date.month_*), as the event cards'
-    /// dates do; a date in prose keeps its English (no row has a Hebrew one), and the English card is unchanged.</summary>
+    /// dates do; a date in prose without formed_he or since_he keeps its English, and the English card is unchanged.</summary>
     [TestCase("March 1948", "24 May 1948", "הוקמה: מרץ 1948", "מאז ‎24‎ במאי ‎1948‎")]
     [TestCase("Late 1947", "the first half of May 1948", "הוקמה: ‎Late 1947‎", "מאז ‎the first half of May 1948‎")]
     public void TheHebrewCardNamesTheMonthsOfItsDatesInHebrew(string formed, string since, string formedLine, string sinceText)
@@ -943,6 +947,21 @@ public class UnitsInPlayTests
         StringAssert.Contains($"At Test Place since {since}\nFormed {formed}\n", ProseCard(u, Text).Body);
     }
 
+    const string FormedHe = "formed_he: סוף 1947, formed_he_sources: " + HeSource + ", formed_he_review: agent-checked, ";
+    const string SinceHe = "since: the first half of May 1948, since_he_sources: " + HeSource + ", since_he_review: agent-checked, since_he: המחצית הראשונה של מאי 1948, ";
+
+    /// <summary>#1292: a formed or since date in prose shows its Hebrew counterpart (formed_he, since_he) in the Hebrew
+    /// card, each falling back to its English alone; the English card is unchanged.</summary>
+    [TestCase(FormedHe, SinceHe, "מיקום: מקום בדיקה, מאז המחצית הראשונה של מאי 1948\nהוקמה: סוף 1947\n")]
+    [TestCase("", SinceHe, "מיקום: מקום בדיקה, מאז המחצית הראשונה של מאי 1948\nהוקמה: \u200ELate 1947\u200E\n")]
+    [TestCase(FormedHe, "since: the first half of May 1948, ", "מיקום: מקום בדיקה, מאז \u200Ethe first half of May 1948\u200E\nהוקמה: סוף 1947\n")]
+    public void AProseDateShowsItsHebrewInTheHebrewCard(string formedHe, string sinceHe, string start)
+    {
+        var u = ProseUnit(PlaceHe + sinceHe, "formed: Late 1947, " + formedHe);
+        StringAssert.StartsWith(start, ProseCard(u, He).Body);
+        StringAssert.StartsWith("At Test Place since the first half of May 1948\nFormed Late 1947\n", ProseCard(u, Text).Body);
+    }
+
     /// <summary>#1292, the issue's example: the Negev Brigade's Hebrew card has no English month name left.</summary>
     [Test]
     public void TheNegevBrigadesHebrewCardHasNoEnglishMonth()
@@ -952,6 +971,17 @@ public class UnitsInPlayTests
         StringAssert.Contains("הוקמה: מרץ 1948", body);
         StringAssert.Contains("מאז מרץ 1948", body);
         StringAssert.DoesNotContain("March", body);
+    }
+
+    /// <summary>#1292, the issue's example: the Negev Brigade's Hebrew card shows its first commander and sector in Hebrew.</summary>
+    [Test]
+    public void TheNegevBrigadesHebrewCardShowsItsCommanderAndSectorInHebrew()
+    {
+        var body = ProseCard(Units.Single(x => x.Id == "negev"), He).Body;
+        StringAssert.Contains("מפקד ראשון: נחום שריג\n", body);
+        StringAssert.Contains("\nהנגב, בשתי גזרות שכביש באר שבע-עזה מפריד ביניהן; מטה החטיבה במחנה מקורות שליד ניר עם.", body);
+        StringAssert.DoesNotContain("Nahum Sarig", body);
+        StringAssert.DoesNotContain("Beersheba", body);
     }
 
     // hidden: the rows with "anchors: []" reach the source checks, which run after the anchors'.
@@ -979,8 +1009,11 @@ public class UnitsInPlayTests
     [TestCase(ProseRow + "sector_he: Sector, sector_he_sources: " + HeSource + ", anchors: []}", "sector_he must contain Hebrew letters")]
     [TestCase(ProseRow + "sector_he: גזרה, sector_he_sources: [{url: 'http://x.org', checked: '2026-10-19'}], anchors: []}", "without an https url")]
     [TestCase(ProseRow + "sector_he: גזרה, sector_he_sources: [{url: 'https://x.org'}], anchors: []}", "source https://x.org: checked")]
-    // Only the three meanings: other Hebrew keys are unknown, and a key twice is refused.
-    [TestCase(ProseRow + "formed: '1948', formed_he: '1948', anchors: []}", "Property 'formed_he' not found")]
+    [TestCase(ProseRow + FormedHe + "anchors: []}", "formed_he is set without formed")]
+    [TestCase(ProseRow + ProseAnchor + "since_he_review: agent-checked}]}", "since_he_review is set without since_he")]
+    [TestCase(ProseRow + ProseAnchor + "since_he: סוף 1947, since_he_sources: " + HeSource + "}]}", "since_he is set without since")]
+    // Only the five meanings: other Hebrew keys are unknown, and a key twice is refused.
+    [TestCase(ProseRow + "number_he: 'חטיבה 1', anchors: []}", "Property 'number_he' not found")]
     [TestCase(ProseRow + "sector_he: גזרה, sector_he: גזרה, anchors: []}", "duplicate key sector_he")]
     public void BadHebrewProseNamesTheProblem(string yaml, string expected)
     {

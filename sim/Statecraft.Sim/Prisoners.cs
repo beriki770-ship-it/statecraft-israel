@@ -92,6 +92,7 @@ namespace Statecraft.Sim
             if (returned > 0)
             {
                 s.Score += returned * points;
+                s.ScorePrisonerPoints += returned * points;   // R-SCORE-001
                 why.Add(new Cause("events", "prisoners", returned, FormattableString.Invariant($"Prisoners exchanged: {returned * ppu:N0} prisoners returned to {Name(front)}")));
             }
             if (home > 0)

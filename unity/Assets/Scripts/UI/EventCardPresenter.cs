@@ -203,7 +203,17 @@ namespace Statecraft.Game.UI
         /// under the start screen, is collapsed or is hidden in a capture run (GameAudio's cue, #39).</summary>
         public event System.Action<string>? Opened;
 
+        /// <summary>Raised at the end of every render, whatever it showed: the capture dialog (CaptureDialogPresenter) waits
+        /// while this card is open, and follows it when it is hidden, answered or opened again.</summary>
+        public event System.Action? Rendered;
+
         public void Render()
+        {
+            try { RenderCard(); }
+            finally { Rendered?.Invoke(); }
+        }
+
+        void RenderCard()
         {
             var c = bridge.Content; var s = bridge.State;
             var pending = s.PendingEvents.Select(id => c.Events.First(e => e.Id == id)).ToList();
@@ -456,7 +466,13 @@ namespace Statecraft.Game.UI
             if (h < needs - 0.5f) SetPhotoShown(false);
         }
 
-        void OnPhotoGeometry(GeometryChangedEvent evt) => FitPhoto();
+        void OnPhotoGeometry(GeometryChangedEvent evt)
+        {
+            // A padding change can resize the header without changing the card's outer rectangle (#649).
+            // The existing width guard prevents the height update from chasing its own geometry events.
+            OnCardGeometry(evt);
+            FitPhoto();
+        }
 
         /// <summary>The decision layer changed size (the window did; the card's content never moves it, as the layer is pinned
         /// to the window on every side). A shown photograph is checked again; a dropped one comes back only when the room now
@@ -488,9 +504,12 @@ namespace Statecraft.Game.UI
         void Choose(GameEvent e, EventOption o)
         {
             // The bridge raises Refused (the toast shows it) or Changed (the toast clears and Render shows the next event,
-            // which takes the focus). Answered from the keyboard with no event left, the focus goes to End Turn (#41 M1).
+            // which takes the focus). Answered from the keyboard with no event left, the focus goes to End Turn (#41 M1),
+            // unless a control outside the card took it meanwhile (the first-turn guide's Next, as it moves on, #1323).
             bridge.Queue(new ChooseEventOption(e.Id, o.Id));
-            if (Shown == null && presses.ByKeyboard) FocusReturn.To(hudRoot.Q<Button>("end-turn"));
+            var focused = hudRoot.focusController?.focusedElement as VisualElement;
+            bool kept = focused != null && focused.panel != null && !layer.Contains(focused);
+            if (Shown == null && presses.ByKeyboard && !kept) FocusReturn.To(hudRoot.Q<Button>("end-turn"));
         }
     }
 }
