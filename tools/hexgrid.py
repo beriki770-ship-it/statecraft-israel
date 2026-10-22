@@ -53,7 +53,7 @@ PRECIP_NODATA = 65535
 STATIONS_NAME = "precip_stations.json"
 SEA_EPS_M = 0.5  # Copernicus sea is exactly 0 m
 IDW_MIN_D2_KM2 = 1e-6  # a station on a cell centre gets (almost) all the weight there
-HEX_SIZE_KM = 5.0  # circumradius (centre to corner)
+HEX_SIZE_KM = 4.4  # circumradius (centre to corner)
 SQRT3 = math.sqrt(3)
 NEIGHBOURS = [(1, 0), (1, -1), (0, -1), (-1, 0), (-1, 1), (0, 1)]  # axial directions
 

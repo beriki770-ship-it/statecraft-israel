@@ -28,7 +28,7 @@ public class ReferencePlayerTests
     internal static GameState AtFive(GameState s)
     {
         var u = s.Units[0];
-        Assert.Equal(("veteran_soldier", 10, 9, 4), (u.Type, u.Q, u.R, u.Strength));
+        Assert.Equal(("veteran_soldier", 11, 11, 4), (u.Type, u.Q, u.R, u.Strength));
         s.Units[0] = new Unit(u.Id, u.Type, u.Q, u.R, u.Service, u.Side, 5, u.Order, u.OrderTarget);
         return s;
     }
