@@ -15,8 +15,9 @@ macOS IL2CPP parity check is not an MVP release gate.
 3. **Merge** the pull request (squash).
 4. **Run the release gate** on the merged `main` (it refuses to run elsewhere): `bash scripts/oss/release_gate.sh`. It must print
    `RELEASE GATE OK`. It refuses while an owner decision is open (including D10, history acknowledgement, and D11, the
-   sensitivity review), while an asset row is `owner-verify`, while the sim's sensitivity gate refuses `content/`, or
-   while the history scan shows an open secret-shape row.
+   sensitivity review), while an asset row is `owner-verify`, while the sim's sensitivity gate refuses `content/`
+   (including a `content/settlement_targets.yaml` row that is not `sensitivity-reviewed`, Q-TGT-3 (b)), or while the
+   history scan shows an open secret-shape row.
 5. **Build and package** on the owner's machine, from the merged `main`:
 
    Build both web zips from the merged release commit, never from a pre-merge candidate. The .NET SDK includes the

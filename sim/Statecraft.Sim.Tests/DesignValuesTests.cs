@@ -170,6 +170,7 @@ public class DesignValuesTests
         ("unit_types.yaml", "types[arab_liberation_army].movement_points"),   // #743, owner, 20 October 2026
         // The national Arms pool (Phase 2 PR 3b; #781, owner 18 October 2026: "Approve as drafted").
         ("rules.yaml", "attention_cost.buy_arms"),
+        ("rules.yaml", "attention_cost.resolve_capture"),   // #797 (Q-TECH-3): proposed, for owner override
         ("rules.yaml", "mvp.arms_start"),
         ("rules.yaml", "mvp.arms_price"),
         ("rules.yaml", "mvp.arms_per_recruit_group"),

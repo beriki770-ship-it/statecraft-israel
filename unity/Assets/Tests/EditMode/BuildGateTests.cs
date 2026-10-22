@@ -39,6 +39,19 @@ public class BuildGateTests
         Assert.IsNull(Refusal(ReviewedContent()));
     }
 
+    /// <summary>Q-TGT-3 (b) (#783, #1274): a settlement target row that is not sensitivity-reviewed blocks a shareable build,
+    /// by name; a reviewed row does not.</summary>
+    [Test]
+    public void AShareableBuildWaitsForTheSettlementTargetsReview()
+    {
+        var c = ReviewedContent();
+        var target = new SettlementTarget { Id = "fixture_target", Status = "draft" };
+        c.SettlementTargets.Add(target);
+        StringAssert.Contains("fixture_target", Refusal(c));
+        target.Status = ReleaseGate.ReviewedStatus;
+        Assert.IsNull(Refusal(c));
+    }
+
     [Test]
     public void AShareableBuildWaitsForTheSensitivityReview()
     {
