@@ -22,7 +22,8 @@ The simulation must produce the same state, bit for bit, on .NET, Unity Mono and
   positions, with no RNG draw (R-CTRL-004; `CaptureTests.SettlementsResolveInOrdinalOrder` and `NoRngDraw`). The shipped
   list has six targets (#793), and no golden captures a place: player units may enter the five enemy-held ones since
   #1304 (R-MOVE-005), but the reference player sends no Move, so none of its units stands on one, and its unit on
-  Jaffa's hex (shared with Tel Aviv) captures nothing, since Jaffa is not enemy-held at the start.
+  Jaffa's hex (shared with Tel Aviv) captures nothing, since Jaffa is not enemy-held at the start. The smoke-orders
+  move skips the lit hexes of enemy-held places on purpose (`GoldenRun.SmokeMove`), so it stays a plain move.
 - **Answering a capture (Raid and withdraw):** the units on the place leave in ascending id, each to the first free hex in
   the fixed neighbour order, and the captures still waiting at the game's end resolve in ordinal id order, with no RNG
   draw (R-CTRL-008, R-CTRL-010; `RaidTests.RaidDrawsNothing`). No golden captures a place, so none answers one.
@@ -69,8 +70,9 @@ uv run tools/web_check.py unity/Builds/Web-<compression> --query "golden&smoke=5
 `smoke-orders` (GDD Phase 5 PR 15, #754) is the same kind of browser run for the unit orders (`?smoke-orders`, desktop
 `-smoke-orders`: the golden seed, one turn). It hides the turn's event card (the events go to their ministers), clicks the
 hex of the unit `GoldenRun.SmokeMove` names (the lowest-id unit `Movement.Reachable` has a hex for: unit 0, Golani, on
-10,9), presses the unit card's Move button, clicks the first lit hex in `Reachable`'s (q, r) order (7,11) and presses End
-Turn: `SMOKE ORDERS OK 1948-06-15 98422be8eca2981e191fde3a7aaf28fdef269203cee2f6dfe7a7cddb770f7133`.
+10,9), presses the unit card's Move button, clicks the first lit hex in `Reachable`'s (q, r) order that is no enemy-held
+place (7,11; it skips Nazareth's 7,10, so the run captures nothing) and presses End Turn:
+`SMOKE ORDERS OK 1948-06-15 98422be8eca2981e191fde3a7aaf28fdef269203cee2f6dfe7a7cddb770f7133`.
 `GoldenRun.PlaySmokeOrders` plays the same turn with that one `Move`, so the value is in the manifest (`SliceSmokeTests.TheSmokeOrdersRunMovesOneUnitAndEndsOnTheGolden`) and the player's golden check
 prints it as `GOLDEN OK smoke-orders`. Re-record it when the sim or the order path on the card changes; the fortify, hold and
 attack slices can add their orders to it. Check a WebGL build with:
