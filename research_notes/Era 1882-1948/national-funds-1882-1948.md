@@ -156,12 +156,13 @@ page does not say which.
 - Kaplan p. 114 prints "the total income of the Keren Hayesod and Jewish Agency from all sources during these five
   years amounted to £19,950,000". My reading: "five" is a misprint for the 25 years of the paragraph, because 14,532,000
   + 5,419,000 = 19,951,000 (derived) and the same sentence says £9,023,000 of it came "up to the end of 1939".
-- Kaplan pp. 113-114 also prints (dash adapted): "American donations to the Keren Hayesod until 1939 (i.e. the outbreak
-  of war) totalled £7,356,000. and a further sum of £7,176,000 was received after the outbreak of war - October, 1939 to
-  September. 1945, of which £2,340,000 was received in 5705. The amount received from America during the Jewish year
-  5705 totalled £1,561,000, or 66.7 per cent. of the total income from contributions." My reading: 7,356,000 and 7,176,000 are all
-  contributions, not American ones, because they add up to the 14,532,000 total (derived: 7,356,000 + 7,176,000 =
-  14,532,000), and £2,340,000 is the 5705 total, because 1,561,000 / 2,340,000 = 66.7 per cent (derived).
+- Kaplan pp. 113-114 also prints (dash adapted): "American donations to the Keren Hayesod until 1939 (i.e. the
+  outbreak of war) totalled £7,356,000. and a further sum of £7,176,000 was received after the outbreak of war -
+  October, 1939 to September. 1945, of which £2,340,000 was received in 5705. The amount received from America during
+  the Jewish year 5705 totalled £1,561,000, or 66.7 per cent. of the total income from contributions." My reading:
+  7,356,000 and 7,176,000 are all contributions, not American ones, because they add up to the 14,532,000 total
+  (derived: 7,356,000 + 7,176,000 = 14,532,000), and £2,340,000 is the 5705 total, because 1,561,000 / 2,340,000 =
+  66.7 per cent (derived).
 - [C] 25-year spending: £19,884,000 (Kaplan, Keren Hayesod and Jewish Agency, "exclusive of the expenditure on
   organisation and propaganda of the Keren Hayesod Head Office") against £P 19,977,000 (Survey II, Keren Hayesod,
   1921-1945). The scopes are not the same; neither is preferred. The Survey's split: agricultural settlement 5,892,000,
@@ -234,10 +235,10 @@ content work needs a value that this note does not have: [GAP].
   Survey II p. 912 says "Keren Kayemeth Leisrael Ltd. ... established in 1907" and "Keren Hayesod Ltd. ... established
   in 1921". My reading: Survey II dates the limited companies. Prefer 1901 and 1920 for the funds.
 - Survey II p. 914: the image reads 4,888,179 for Keren Hayesod's agricultural settlement 1921-1944, which does not
-  make the printed column total. Only 4,388,179 makes the printed column total of 9,944,241 (derived: 2,710,524 + 4,388,179 + 1,605,439 +
-  1,240,099 = 9,944,241). Keren Kayemeth's column checks. The table's "Total" column is not the sum of its six fund
-  columns (for contributions the six give 29,178,245, derived, and the column prints 29,892,961), so this note uses
-  only the single-fund columns.
+  make the printed column total. Only 4,388,179 makes the printed column total of 9,944,241 (derived: 2,710,524 +
+  4,388,179 + 1,605,439 + 1,240,099 = 9,944,241). Keren Kayemeth's column checks. The table's "Total" column is not
+  the sum of its six fund columns (for contributions the six give 29,178,245, derived, and the column prints
+  29,892,961), so this note uses only the single-fund columns.
 - A yearly JNF series for 1918 to 1948 was not found in an open source: [GAP] for the years not listed.
 
 ## 3. Kofer HaYishuv and the emergency taxes
@@ -255,11 +256,11 @@ content work needs a value that this note does not have: [GAP].
 
 - AR 1938 p. 33 adds that the collections "were actively opposed by the Revisionists, on the grounds that members of
   their organization had not been allowed to co-operate in the measures taken for the defence of Jewish settlements".
-- The Slutsky snippet, as the search index shows it: ירדו הכנסות ,כופר הישוב" מ152,0007 לא"י בשנת תרצ"ט ל57,0007
-  לא"י בת"ש. My reading: "152,0007" and "57,0007" are 152,000 and 57,000 with an OCR artefact. The page is not known
-  (the index volume lists "מס החירום" at pages 199, 204-205, 688-9 and 1273, and "תקציב ה,הגנה"" at 1272-1274, 1329 (with
-  a range the OCR breaks) and 1817; read in [FTS] only). The same volume says the Haganah's income came "בעיקר מארבע מקורות", the first being
-  Kofer HaYishuv [FTS].
+- The Slutsky snippet, as the search index shows it: ירדו הכנסות ,כופר הישוב" מ152,0007 לא"י בשנת תרצ"ט ל57,0007 לא"י
+  בת"ש. My reading: "152,0007" and "57,0007" are 152,000 and 57,000 with an OCR artefact. The page is not known (the
+  index volume lists "מס החירום" at pages 199, 204-205, 688-9 and 1273, and "תקציב ה,הגנה"" at 1272-1274, 1329 (with a
+  range the OCR breaks) and 1817; read in [FTS] only). The same volume says the Haganah's income came "בעיקר מארבע
+  מקורות", the first being Kofer HaYishuv [FTS].
 - he.wiki Kofer (revision 43640790) says: "בשנה 1940 הוטל "מס חירום", ובשנת 1942 הוטלה "מגבית ההתגייסות", שפעלו כמיסים
   ישירים." No primary source for these two dates was opened.
 - The assemblies note ([PR #1362](https://github.com/eyalgolan/statecraft-israel/pull/1362)) covers how the Vaad Leumi's
@@ -291,8 +292,8 @@ content work needs a value that this note does not have: [GAP].
   610,000 לא"י". It is a proposal, not an approved budget, and its month is not in the snippet.
 - Slutsky says "תקציבה של ה,הגנה" הלך וגדל משנה לשנה, כפי שיש לראות מן" and goes on to a table [FTS]; the table itself
   could not be read. It is the most likely source for a yearly series.
-- The Haganah command and its heads are in the offices note
-  ([PR #1358](https://github.com/eyalgolan/statecraft-israel/pull/1358)), which also sources Eliezer Kaplan as the Jewish
+- The Haganah command and its heads are in the offices note ([PR
+  #1358](https://github.com/eyalgolan/statecraft-israel/pull/1358)), which also sources Eliezer Kaplan as the Jewish
   Agency's treasurer from 1933 to 1948.
 
 ## 5. Currency dates
@@ -315,12 +316,13 @@ content work needs a value that this note does not have: [GAP].
   Palestine Currency Board*, 2005, p. 46): "during the occupation by the Egyptian Expeditionary Force of territories
   formally under Turkish rule Egyptian coinage and Egyptian bank notes shall be accepted as legal tender."
 - Berlin pp. 6-7 reprints Notice No. 10, signed at Jaffa on 18 January 1918 by Lieutenant Colonel A.C. Parker, Acting
-  Administrator of the Occupied Enemy Territory: "Turkish notes are not to be accepted for the purpose of receipts or payments, and
-  are now declared not to be legal tender in the Occupied Enemy Territory." My reading: listed Ottoman coins stayed in
-  limited legal use until the 1921 notice below. When the Ottoman lira stopped being legal tender outright is not stated: [GAP].
+  Administrator of the Occupied Enemy Territory: "Turkish notes are not to be accepted for the purpose of receipts or
+  payments, and are now declared not to be legal tender in the Occupied Enemy Territory." My reading: listed Ottoman
+  coins stayed in limited legal use until the 1921 notice below. When the Ottoman lira stopped being legal tender
+  outright is not stated: [GAP].
 - Berlin p. 11 reprints Herbert Samuel's Public Notice No. 36 of 2 January 1921: "from the 22nd day of January, 1921,
-  the following only shall be legal tender in Palestine: Egyptian gold, notes, silver, and nickel coins; the British gold
-  sovereign, at the rate of 97½ Egyptian Piastres."
+  the following only shall be legal tender in Palestine: Egyptian gold, notes, silver, and nickel coins; the British
+  gold sovereign, at the rate of 97½ Egyptian Piastres."
 - [C] Berlin p. 67 says the Board's notes date "From their original issue of September 1, 1927", while p. 37 gives
   1 November 1927 for putting the currency into circulation. My reading: 1 September 1927 is the date printed on the
   notes, not the day they became legal tender; prefer 1 November 1927 for the changeover.
@@ -344,9 +346,9 @@ content work needs a value that this note does not have: [GAP].
   percent compulsory loan levied on cash holdings and current accounts." Its notes carry "Issue date June 9, 1952".
 
 **The par the design asks about.** In 1948 the Anglo-Palestine Bank notes were printed in "Palestine Pound" (BoI APB),
-[V]; my reading is that the unit therefore did not change at the boundary. For the 1952 change to the Israeli pound, no source opened states an
-exchange rate; the BoI page names only the 10 per cent compulsory loan. A primary statement that it was at par is
-[GAP].
+[V]; my reading is that the unit therefore did not change at the boundary. For the 1952 change to the Israeli pound,
+no source opened states an exchange rate; the BoI page names only the 10 per cent compulsory loan. A primary statement
+that it was at par is [GAP].
 
 ## 6. What the paused content work can take from this
 
