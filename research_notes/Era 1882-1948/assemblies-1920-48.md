@@ -51,7 +51,7 @@ The heads of the Vaad Leumi (presidium, chairman, president) and its departments
 | JTA-440810 | JTA, "Final Results of Palestine Elections Announced; Laborite Groups Form Majority", 10 August 1944, https://www.jta.org/archive/final-results-of-palestine-elections-announced-laborite-groups-form-majority | 1944 results and boycotts |
 | JTA-440913 | JTA, "Simple Ceremony Marks Opening Session of Newly-elected Palestine Jewish Assembly", 13 September 1944, https://www.jta.org/archive/simple-ceremony-marks-opening-session-of-newly-elected-palestine-jewish-assembly | 1944 first session |
 | REG | Regulations of Knesset Israel (תקנות כנסת ישראל), Laws of Palestine vol. 3, ch. 126, p. 2221, with the amendments of 1934, 1937, 1938, 1943 and 1948, Hebrew text on Wikisource: https://he.wikisource.org/wiki/תקנות_כנסת_ישראל | Regulations 11 to 15. This is the consolidated text as amended up to 1948, not the 1928 Gazette text (see §6) |
-| NAOR | Mordecai Naor (ed.), *Friday That Changed Destiny: 5th Iyar 5708 (May 14, 1948)*, English edition hosted by idekel.co.il, pp. 265-266: https://idekel.co.il/Books/Shishi_Hagadol/files/basic-html/page265.html and https://idekel.co.il/Books/Shishi_Hagadol/files/basic-html/page266.html | The People's Council and People's Administration |
+| NAOR | Mordecai Naor (ed.), *Friday That Changed Destiny: 5th Iyar 5708 (May 14, 1948)*, English edition hosted by idekel.co.il, pp. 265-266 of the flipbook, which are printed pages 263-264; the People's Council passage on p. 266 (printed 264) is credited there to Pinhas Medding, "The Institutions of Government in the First Year of Independence" (Hebrew), in *Shana Rishona LaAtzma'ut* (Yitzhak Ben-Zvi Institute, 1988), not to Naor; p. 265 (printed 263) carries no credit for that part: https://idekel.co.il/Books/Shishi_Hagadol/files/basic-html/page265.html and https://idekel.co.il/Books/Shishi_Hagadol/files/basic-html/page266.html | The People's Council and People's Administration |
 | CZA-30 | *30 Zionist Landmarks: Thirty Documents from the Central Zionist Archives* (Jerusalem, 1978), as reproduced by the Center for Online Judaic Studies: https://cojs.org/?p=6132 | The Zionist General Council's announcement of April 1948 |
 | WP-EN | English Wikipedia, raw wikitext of "Assembly of Representatives (Mandatory Palestine)", "1920 Assembly of Representatives election", "1925 ...", "1931 ...", "1944 ...", "Provisional State Council" | [S], comparison only. The 1920 and 1925 articles cite Zalman Abramov, *Perpetual Dilemma* (1976), pp. 87-90 and 108-109, which was not read |
 | WP-HE | Hebrew Wikipedia, raw wikitext of אספת הנבחרים, הבחירות לאספת הנבחרים הראשונה (and השנייה), הוועד הלאומי, מועצת העם | [S], comparison only |
@@ -112,8 +112,8 @@ Assemblies are a [GAP]. The design's 1944 values (2 August, 173 seats) are not p
 
 [C], not settled from a primary source. he.wiki says the riots of 1920 (מאורעות תר"פ) postponed the vote in Jerusalem
 and Jaffa by eight days, citing *Doar HaYom*, 22 April 1920, p. 14, which was not read [S]. WP-EN says voting was on
-19 April 1920 "except in Jerusalem where voting took place on 3 May", and that the Orthodox "held separate elections in
-Jerusalem on 3 May, from which women were banned", citing Abramov, p. 90 [S]. EJ-PL gives only 19 April 1920 for the
+19 April 1920 "except in Jerusalem where voting took place on 3 May" (citing Tariq Ali (2022), p. 370), and that the
+Orthodox "held separate elections in Jerusalem on 3 May, from which women were banned" (citing Abramov, p. 90) [S]. EJ-PL gives only 19 April 1920 for the
 election and says the 51 Orthodox delegates were "chosen at separate polls by Orthodox men" [V], without a date for
 those polls. Neither value is preferred. The day Jerusalem voted is a [GAP] until the 1920 press is read.
 
@@ -128,7 +128,7 @@ participate in elections in which women had the franchise." These add up to 314 
 "the 20 factions combined into three wings".
 
 WP-EN and WP-HE list the small lists by name [S]. Their totals also reach 314 (computed here), but they give the
-Orthodox ("Haredi Party") 53, not 51 [C], and WP-EN's infobox gives Mizrahi Youth 3 where its own results table gives 2.
+Orthodox ("Haredi Party") 53, not 51 [C] (WP-EN disagrees with itself: its prose says "another 51 by Orthodox voters", and the 53 is only in its infobox and table), and WP-EN's infobox gives Mizrahi Youth 3 where its own results table gives 2.
 Preferred: EJ-PL for the lists it names; the names and seats of the 11 "other groups" are [S] only.
 
 Turnout: EJ-PL gives 28,765 electors and 77% [V]; KN-AR gives 22,200 voters [V]. 77% of 28,765 is about 22,150
@@ -179,7 +179,8 @@ Women's Association 13, Agricultural Bloc 9 and Democrats 9; its own infobox giv
 ## 4. The third Assembly, 1931
 
 The rules (MR-1930 paras. 18 to 20; JTA-301230; EJ-PL) [V]: held on 5 January 1931 under an electoral regulation
-made under the 1927 Regulations; 71 seats; voters 20 or over on the community register; candidates 25 or over with
+(our reading: made under the 1927 Regulations; MR-1930 para. 18 says only "under the Electoral Regulation of which the text is
+given in Appendix I to this Report"); 71 seats; voters 20 or over on the community register; candidates 25 or over with
 Hebrew (JTA-301230). Electors were split by community: "Ashkenazim (Western Jews) could only vote for an Ashkenazi list,
 Sephardim (Eastern Jews) for a Sephardi list and Yemenites for a Yemenite list" (MR-1930 para. 20); EJ-PL and EJ-GOV
 give the seats per college as 53 Ashkenazi, 15 Sephardi and 3 Yemenite. Agudat Israel called a boycott, with "little
@@ -216,7 +217,8 @@ Seats and votes (MR-1930 paras. 20 and 21) [V]. Eighteen lists stood; twelve won
 The seats add up to 71 (computed here). The list votes add up to 49,475 (computed here), 961 fewer than the 50,436
 votes cast; MR-1930 shows no figure ("--") for the Farmers' and Middle Class lists and gives no count of invalid votes,
 so the 961 are not explained. [C] EJ-PL: Revisionists "16, including 5 Sephardim" (MR-1930: 10 + 5 = 15)
-and General Zionists 4 (MR-1930: 5). he.wiki gives the Revisionists 11 and the General Zionists 4 [S]. Preferred:
+and General Zionists 4 (MR-1930: 5). he.wiki אספת הנבחרים gives the Revisionists 11 and the General Zionists 4 [S]; he.wiki הבחירות לאספת הנבחרים השלישית
+gives the Revisionists 10 and the General Zionists 5 in its summary table but 4 in its results table [S]. Preferred:
 MR-1930. Lists represented: 12 (MR-1930, KN-AR) or 14 (EJ-PL) [C]; preferred 12.
 
 ## 5. The fourth Assembly, 1944, and the boycotts
@@ -224,8 +226,8 @@ MR-1930. Lists represented: 12 (MR-1930, KN-AR) or 14 (EJ-PL) [C]; preferred 12.
 ### Date
 
 [C] 1 August 1944: EJ-PL ("The fourth Asefat ha-Nivharim was elected on August 1, 1944") and UN-JA11 (the Vaad
-Leumi's own cable of February 1948: "4th ASSEFAT NIVHARIM 1st AUGUST 1944"); he.wiki also gives 1 August [S].
-2 August 1944: AJYB-46 p. 460 ("On August 2, 1944, general elections to the Assefath Hanivcharim ... took place") and
+Leumi's own cable of February 1948: "4th ASSEFAT NIVHARIM 1st AUGUST 1944"); he.wiki אספת הנבחרים also gives 1 August [S].
+2 August 1944: he.wiki הבחירות לאספת הנבחרים הרביעית [S]; AJYB-46 p. 460 ("On August 2, 1944, general elections to the Assefath Hanivcharim ... took place") and
 en.wiki [S]. Preferred: 1 August, the date the Vaad Leumi itself gave. UN-NC84 says only "August 1944".
 
 ### Who boycotted
@@ -333,7 +335,7 @@ No source read gives a seat for every list that adds up to 171:
 
 [C] Preferred for the total: 171 (KN-AR, EJ-PL, UN-JA11, and AJYB-46's own arithmetic). For single lists: Mapai 63
 (UN-JA11, AJYB-46), Left Front 21, Ahdut ha-Avodah 16 and Communists 3 (EJ-PL
-footnote: "Ha-Shomer ha-Za'ir 21; Le-Ahdut ha-Avodah 16; Popular Democrats (Communists) 3"), Hapoel Hamizrahi 17 and
+footnote, adapted: the page's dashes and diacritics are removed per repo policy: "Ha-Shomer ha-Za'ir 21; Le-Ahdut ha-Avodah 16; Popular Democrats (Communists) 3"), Hapoel Hamizrahi 17 and
 Mizrahi 7 (all three sources). Aliyah Hadashah is 16, 18 or 19 [C]; EJ-PL's table footnote reads "Including 18 Aliyah"
 [V], which with AJYB-46 makes 18 the better-supported value. The seats of the other small lists are [GAP]: the cable's
 list misses 2 seats. en.wiki's results table, from the *Palestine Post* of 9 August 1944 (not read), gives Mapai 64,
@@ -384,9 +386,10 @@ to the government in 1948 and were assigned to the Minister of Religions (Offici
 Mandate the budget in 13(6) went to the High Commissioner for approval; the 1928 Gazette wording itself was not read
 [GAP], and which clauses the 1934 amendment to regulation 13 changed is a [GAP].
 
-Before 1928: he.wiki says the Assembly's finance committee set the Vaad Leumi's budget with the Assembly's approval,
-and that the Vaad Leumi could only raise voluntary levies (the "Sela ha-Yishuv") until its constitution was approved
-[S]. EJ-PL [V]: the second session of the first Assembly was delayed partly by "the Sephardim's and Farmers'
+Finance, from he.wiki הוועד הלאומי [S]: the finance committee set up by the Assembly set the Vaad Leumi's budget, with
+the Assembly's approval (the page gives no date for this). Before its constitution was approved the Vaad Leumi had two
+levies: the first, the "Sela ha-Yishuv", was voluntary; the second was an assessment tax ("מס הערכה") and was
+compulsory. The page dates the constitution's approval to 1925. EJ-PL [V]: the second session of the first Assembly was delayed partly by "the Sephardim's and Farmers'
 objections to the proposed self-taxation system".
 
 How each year's budget was actually voted (dates, amounts, tallies): [GAP]. No session record was read.
@@ -434,6 +437,8 @@ organisational framework both of the Jewish Agency and of the Vaad Leumi is the 
 
 ## 8. The People's Council (Mo'etzet ha-Am), April and May 1948
 
+NAOR page numbers below are the flipbook's (265 = printed 263, 266 = printed 264); the passage is Medding's (1988), reprinted in Naor's book (see the source table).
+
 - Set up by the Zionist General Council: "On April 12, 1948, the Zionist General Council laid the foundations for the
   self-governing institutions of the Jewish state by appointing a provisional legislature, called Mo'ezet ha-Am
   (People's Council), and an executive called Minhelet ha-Am (People's Administration)" (EJ-PL) [V]. CZA-30: the
@@ -456,7 +461,7 @@ Seats by party:
 | General Zionists | 6 | 6 | 4 | 3 |
 | Mapam | 5 | 5 | 5 | 5 (Mapam 3, Ahdut ha-Avodah-Poalei Zion 1, Left Poale Zion 1) |
 | Mizrachi and Ha-Po'el ha-Mizrachi | 5 | 5 | 5 (3 + 2) | 5 (3 + 2) |
-| Agudat Israel and Po'alei Agudat Israel | 3 | 3 | 3 (2 + 1) | 3 (2 + 1) |
+| Agudat Israel and Po'alei Agudat Israel | 3 (EJ-PL: "three from Agudat Israel", Po'alei not named) | 3 (NAOR names both) | 3 (2 + 1) | 3 (2 + 1) |
 | Revisionists | 3 | 3 | 3 | 3 |
 | Aliyah Hadashah | 1 | 1 | 3 (as the Progressive Party) | 3 |
 | WIZO | 1 | 1 | 1 | 1 |
