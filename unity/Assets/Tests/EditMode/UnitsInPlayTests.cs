@@ -69,10 +69,10 @@ public class UnitsInPlayTests
     public void TheStartMatchesTheMap()
     {
         var hexes = MapBuilder.LoadHexes(Path.Combine(Paths.Content, "map", "hexes.json"));
-        var start = C.Rules.Start.ToString("yyyy-MM-dd", System.Globalization.CultureInfo.InvariantCulture);
-        Assert.AreEqual(12, C.StartingForces.Count, "the twelve sourced forces of 15 May 1948 (#743)");
+        Assert.AreEqual(14, C.StartingForces.Count, "the thirteen sourced forces of 15 May 1948 (#743, #1241) and the 7th's arrival (R-UNIT-009)");
         foreach (var f in C.StartingForces)
         {
+            var start = (f.Arrives ?? C.Rules.Start).ToString("yyyy-MM-dd", System.Globalization.CultureInfo.InvariantCulture);
             var row = Units.Single(u => u.Id == f.Row);
             Assert.IsNull(row.Hidden, f.Row);
             Assert.AreEqual(UnitData.Army, row.Service, f.Row);
@@ -808,10 +808,10 @@ public class UnitsInPlayTests
             Assert.IsTrue(layer.Show(C, session.State));
             Assert.AreEqual(before, session.State.Hash(), "drawing the units changed the state");
             Assert.IsFalse(layer.Show(C, session.State), "the same roster draws nothing new");
-            // The GDD loop draws the sim's units (GDD Phase 5 PR 14): seven brigades and the two ships; Etzioni has no sim unit.
-            Assert.AreEqual(9, layer.Tokens.Count);
+            // The GDD loop draws the sim's units (GDD Phase 5 PR 14): eight brigades and the two ships; the 7th arrives from the 15 June turn (R-UNIT-009).
+            Assert.AreEqual(10, layer.Tokens.Count);
             var tokens = map.Terrain.transform.Find(UnitLayer.RootName).Find("Tokens");
-            Assert.AreEqual(9, tokens.childCount);
+            Assert.AreEqual(10, tokens.childCount);
             var kiryati = tokens.Find("kiryati");
             Assert.AreEqual(3, kiryati.Cast<Transform>().Count(t => t.name.StartsWith("Rifleman")), "three riflemen at full strength (Q-UI-3)");
             var badge = kiryati.Find("Badge");
