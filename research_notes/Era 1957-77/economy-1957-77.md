@@ -28,7 +28,7 @@ Researched 2026-10-23. All URLs were opened on that date. Research only, for iss
 
 The chapter links of the 1967 to 1977 reports sit on the Bank's report pages (for example https://www.boi.org.il/en/communication-and-publications/regular-publications/bank-of-israel-annual-report/bank-of-israel-annual-report-1975/), which also returned a browser check, so the links were taken from Wayback copies of those pages (1968, 1971, 1973, 1975). Each PDF was downloaded directly from boi.org.il.
 
-**Source caveat.** No volume of the CBS *Statistical Abstract of Israel* for 1957-77 was opened; most Bank of Israel tables below say they are based on CBS data, and where a table says so it is noted. The scholarly works named in the brief (Halevi and Klinov-Malul, *The Economic Development of Israel*; Ben-Porath (ed.), *The Israeli Economy: Maturing through Crises*; Bruno and Fischer on the 1970s inflation) were not opened, so nothing here is cited from them. Each annual report revises the figures of the reports before it, so the same year often has two or three values (sections 1 and 7).
+**Source caveat.** No volume of the CBS *Statistical Abstract of Israel* for 1957-77 was opened; most Bank of Israel tables below say they are based on CBS data, and where a table says so it is noted. The scholarly works named in the brief (Halevi and Klinov-Malul, *The Economic Development of Israel*; Ben-Porath (ed.), *The Israeli Economy: Maturing through Crises*; Bruno and Fischer on the 1970s inflation) were not opened, so nothing here is cited from them. The same year often has two or three values in successive reports (sections 1 and 7); our reading is that later reports revise earlier ones, and BoI 1977 Table I-1 footnote a (section 1.1, the change of price base) partly explains the differences.
 
 ---
 
@@ -47,12 +47,12 @@ The chapter links of the 1967 to 1977 reports sit on the Bank's report pages (fo
 | 1963 | 11.5 | GNP | BoI 1966, Table I-1, p. 5 |
 | 1964 | 10.3 | GNP | BoI 1966, Table I-1, p. 5 |
 | 1965 | 8.2 or 8.4 [C] | GNP | 8.2: BoI 1966, Table I-1, p. 5. 8.4: BoI 1968, Table I-1, p. 4 |
-| 1966 | 0.6, 1.5 or 1.4 [C] | GNP; GNP; GDP | 0.6: BoI 1966, Table I-1, p. 5. 1.5: BoI 1968, Table I-1, p. 4. 1.4 (GDP): BoI 1975, Table I-1, p. 4 |
-| 1967 | 1.1 or 2.5 [C] | GNP; GDP | 1.1: BoI 1968, Table I-1, p. 4. 2.5 (GDP): BoI 1975, Table I-1, p. 4 |
-| 1968 | 13.2 or 14.7 [C] | GNP; GDP | 13.2: BoI 1968, Table I-1, p. 4. 14.7 (GDP): BoI 1975, Table I-1, p. 4 |
-| 1969 | 12.9 | GDP | BoI 1975, Table I-1, p. 4 |
-| 1970 | 8.9 | GDP | BoI 1975, Table I-1, p. 4 |
-| 1971 | 10.2 or 11.0 [C] | GDP | 10.2: BoI 1975, Table I-1, p. 4. 11.0: BoI 1977, Table I-1, p. 4 |
+| 1966 | 0.6, 1.5, 1.6 or 1.4 [C] | GNP; GNP; GNP; GDP | 0.6: BoI 1966, Table I-1, p. 5. 1.5: BoI 1968, Table I-1, p. 4. 1.6: BoI 1971, Table I-1, p. 4. 1.4 (GDP): BoI 1975, Table I-1, p. 4 |
+| 1967 | 1.1, 2.7 or 2.5 [C] | GNP; GNP; GDP | 1.1: BoI 1968, Table I-1, p. 4. 2.7: BoI 1971, Table I-1, p. 4. 2.5 (GDP): BoI 1975, Table I-1, p. 4 |
+| 1968 | 13.2, 14.0 or 14.7 [C] | GNP; GNP; GDP | 13.2: BoI 1968, Table I-1, p. 4. 14.0: BoI 1971, Table I-1, p. 4. 14.7 (GDP): BoI 1975, Table I-1, p. 4 |
+| 1969 | 12.0 or 12.9 [C] | GNP; GDP | 12.0: BoI 1971, Table I-1, p. 4. 12.9 (GDP): BoI 1975, Table I-1, p. 4 |
+| 1970 | 8.0 or 8.9 [C] | GNP; GDP | 8.0: BoI 1971, Table I-1, p. 4. 8.9 (GDP): BoI 1975, Table I-1, p. 4 |
+| 1971 | 8.8, 10.2 or 11.0 [C] | GNP; GDP; GDP | 8.8: BoI 1971, Table I-1, p. 4 (its text, p. 3: "the national product was up 9 percent in 1971, compared with 8 percent the year before"). 10.2: BoI 1975, Table I-1, p. 4. 11.0: BoI 1977, Table I-1, p. 4 |
 | 1972 | 12.0 or 12.1 [C] | GDP | 12.0: BoI 1975. 12.1: BoI 1977 (same tables) |
 | 1973 | 6.7 or 5.0 [C] | GDP | 6.7: BoI 1975 (7.0 for January to September). 5.0: BoI 1977 |
 | 1974 | 6.7 or 4.6 [C] | GDP | 6.7: BoI 1975. 4.6: BoI 1977 |
@@ -60,12 +60,12 @@ The chapter links of the 1967 to 1977 reports sit on the Bank's report pages (fo
 | 1976 | 1.5 | GDP | BoI 1977, Table I-1, p. 4 |
 | 1977 | 0.6, or "1-3 percent" [C] | GDP | 0.6: BoI 1977, Table I-1, p. 4. Text, p. 6: "The gross domestic product crept up 1-3 percent", with the footnote that the demand-side method of the report gives 1 percent and indicators of the industrial origin of GNP give 3 percent |
 
-Averages printed in the same tables [V]: GNP 1961-64, 10.8 percent a year (BoI 1968, Table I-1); GDP 1961-65, 10.0 (BoI 1975 and BoI 1977, Table I-1); GDP 1966-67, 2.0, and 1968-70, 12.5 (BoI 1977, Table I-1).
+Averages printed in the same tables [V]: GNP 1961-64, 10.8 percent a year (BoI 1968, Table I-1); GNP 1961-65, 10.2 (BoI 1971, Table I-1); GDP 1961-65, 10.0 (BoI 1975 and BoI 1977, Table I-1); GDP 1966-67, 2.0, and 1968-70, 12.5 (BoI 1977, Table I-1).
 
 Notes on the measures [V]:
-- BoI 1975 and BoI 1977 print GDP "Valued at the effective rate of exchange" (footnote b to Table I-1). The earlier reports print GNP. The 1966 and 1967 values therefore differ partly in what they measure, partly by revision.
-- The basis changed over time. BoI 1977, footnote a to Table I-1 (p. 5): "Until 1968 the percentage changes were calculated on the basis of the previous year's prices. From 1969 to 1975 the rates of real change were calculated on the basis of 1970 prices, and since 1976 they have been calculated on the basis of 1975 prices." BoI 1975, footnote a to Table I-1 (p. 5), says the same for the years to 1975.
-- BoI 1975 and BoI 1977 each print 1971-75 in their Table I-1, "Main economic indicators", with the different values above. Suggestion for step 2: take the later report (BoI 1977) as the revised series for 1971-77 and BoI 1975 as the second value; for 1957-70, the report nearest after the year, as listed.
+- BoI 1975 and BoI 1977 print GDP "Valued at the effective rate of exchange" (footnote b to Table I-1). The earlier reports (to BoI 1971) print GNP. Our reading: the 1966-71 values therefore differ partly in what they measure and partly by revision; no opened source splits the difference.
+- The basis changed over time. BoI 1977, footnote a to Table I-1 (p. 5): "Until 1968 the percentage changes were calculated on the basis of the previous year's prices. From 1969 to 1975 the rates of real change were calculated on the basis of 1970 prices, and since 1976 they have been calculated on the basis of 1975 prices." BoI 1975, footnote a to Table I-1 (p. 5), says "since 1969 the rates of real change have been calculated on the basis of constant 1970 prices".
+- BoI 1975 and BoI 1977 each print 1971-75 in their Table I-1, "Main economic indicators", with the different values above. Suggestion for step 2: take the later report (BoI 1977) as the revised series for 1971-77 and BoI 1975 as the second value; for 1966-70, BoI 1975 (GDP, constant 1970 prices from 1969) with BoI 1971 (GNP, the report nearest after those years) as the second value; for 1957-65, the report nearest after the year, as listed.
 
 ### 1.2 Growth after 1967 in the reports' words [V]
 
@@ -124,7 +124,7 @@ The page prints the labels "Fixed rate*" ("* With one-time adjustments") beside 
 ### 3.2 Each devaluation in the annual reports
 
 - **1962** [V, C on the day]. BoI 1962, p. 3: "On February 9, the official rate of exchange was raised from IL 1.80 per dollar to IL 3.00, and simultaneously the majority of import levies and export subsidies, which in recent years could be regarded as a substitute for a higher rate of exchange, were abolished." The same page gives the effect on effective rates: the return per dollar of exports rose 20 percent, from an average effective IL 2.50 to IL 3.00, and the average price of imports rose 44 percent, from an effective IL 2.31 to IL 3.00 plus customs duties at an average of 10 percent. The day differs: 9 February in the report, 10.2.62 in BoI rates. Our reading: an announcement on the 9th taking effect on the 10th, which neither source says.
-- **1967** [V]. BoI 1968, p. 466: "the devaluation of the Israeli pound on November 19, 1967", the same day as BoI rates. No opened report text states the new rate in words. BoI 1967, p. 544, gives the Bank's gold as $68.4 million at the end of both 1966 and 1967, valued at IL 205.1 million and IL 239.5 million (computed here: IL 3.00 and IL 3.50 per dollar, which matches BoI rates). BoI 1968, p. 5, says the devaluation "had only a slight impact on the domestic price level", and p. 6 links the rise in exports in 1968 mainly to "the larger return on exports after the devaluation in November 1967".
+- **1967** [V]. BoI 1968, p. 466: "the devaluation of the Israeli pound on November 19, 1967", the same day as BoI rates. BoI 1967, p. 544, states both rates: "$ 612.3 million at the previous exchange rate of IL 3/$ 1" and "($ 694.7 million according to the present rate of IL 3.50/$ 1 )". The same page gives the Bank's gold as $68.4 million at the end of both 1966 and 1967, valued at IL 205.1 million and IL 239.5 million (computed here: IL 3.00 and IL 3.50 per dollar, which matches BoI rates). BoI 1968, p. 5, says the devaluation "had only a slight impact on the domestic price level", and p. 6 links the rise in exports in 1968 mainly to "the larger return on exports after the devaluation in November 1967".
 - **1971** [V for the month]. BoI 1971, chapter I (p. 3), calls it "the devaluation of August 1971"; chapters I and III, the only ones opened, do not state the official rates in words; the day and rate (22.8.71, 4.20) are from BoI rates only [S for the day].
 - **1974** [V, C on the day]. BoI 1974, p. 549: "the change in the rate of exchange of the Israeli pound on November 9, 1974"; p. 552: "Until the devaluation of the Israeli pound on November 9, foreign currency reserves had declined by $ 816 million (IL 3,427 million)" (computed here: IL 4.20 per dollar, the pre-devaluation rate in BoI rates). BoI rates gives 10.11.74. Our reading, as for 1962: announced on one day, effective the next; no opened source says so.
 - **1975 onwards** [V]. BoI 1975, pp. 52-53: "In 1975 a more flexible exchange rate system was introduced, with a view to making it an instrument of current balance of payments policy and to diminish the need for large devaluations with all their unsettling effects." BoI 1975, chapter X, puts the average official rate at IL 4.5 per dollar in 1974 and IL 6.3 in 1975, with the average import levy down from 27.2 to 15 percent (p. 209).
@@ -187,9 +187,9 @@ The two reports differ by 0.1 to 0.3 points for 1971-74. Suggestion for step 2: 
 | Total long-term capital movements | 723 | 1,001 | 633 | 1,506 |
 | Total capital imports (including transfers) | 1,775 | 3,174 | 2,370 | 3,261 |
 
-- **1973, the emergency aid.** BoI 1973, p. 103, footnote 21: "Because of the emergency situation in Israel, the U.S. approved $ 2,200 million in aid to this country. Part of the sum was received in the latter part of 1973 in the form of a grant." In the fourth quarter of 1973, intergovernmental transfers totalled $723 million, "with the bulk of the sum connected with the special emergency grant made available by the U.S. Government in 1973" (p. 103). The same page gives unilateral transfers for 1973 as $2,190 million, against $2,173 million in BoI 1975, Table V-1 [C, revision].
+- **1973, the emergency aid.** BoI 1973, p. 103, footnote 21: "Because of the emergency situation in Israel, the U.S. approved $ 2,200 million in aid to this country. Part of the sum was received in the latter part of 1973 in the form of a grant." In the fourth quarter of 1973, intergovernmental transfers totalled $723 million, "with the bulk of the sum connected with the special emergency grant made available by the U.S. Government in 1973" (p. 103). The same page gives unilateral transfers for 1973 as $2,190 million, against $2,173 million in BoI 1975, Table V-1 [C] (our reading: a revision).
 - **1975.** BoI 1975, p. 99: "Capital movement as assistance from the United States government expanded by $1 billion this year and totalled $1.9 billion, of which $1.5 billion were granted as military aid." The same page says that, unlike earlier years, most of the financial aid came as long-term loans, "which totalled $1.2 billion, and only a small proportion as a grant".
-- **1977.** BoI 1977, p. 6, links the fall in the import surplus partly to "the contraction of defense-related U.S. government aid", and gives net long-term borrowing as "roughly $500 million in 1977, about a third of the 1975 volume".
+- **1977.** BoI 1977, pp. 3 and 6: "Another notable development was the smaller capital inflow of the public sector and the consequent reduction of its weight in total capital imports", which the report calls "an outcome of the contraction of defense-related U.S. government aid". The same report (p. 6) gives net long-term borrowing as "roughly $500 million in 1977, about a third of the 1975 volume".
 - **[GAP]** US aid amounts for 1976 and 1977, and the split of 1973-74 US aid between grants and loans: the capital-imports chapters of BoI 1976 and BoI 1977 were not opened (their chapter links were not found in the time available).
 
 ### 5.3 Foreign exchange reserves, end of year, $ millions
@@ -236,7 +236,7 @@ BoI 1975, Table III-5, p. 52, also gives "Total official reserve assets" (Bank o
 | 1976 | 9,371 | BoI 1977, Table I-1 |
 | 1977 | 10,715 | BoI 1977, Table I-1 |
 
-BoI 1975, p. 111, footnote 7: "The economy's foreign currency debt is not identical with its external debt which also includes Israeli currency liabilities abroad, balance in clearing accounts, foreign investment in Israel and deposits of foreign nationals in Israeli banks, as well as loans whose maturity date is less than 90 days." Our reading: the 1961-66 figures (foreign currency liabilities or indebtedness) are the nearest match to the later "foreign currency debt", but no opened source says the definitions are the same. BoI 1975, p. 100, adds that the economy would have to repay $1.4 billion of principal in 1976, and that interest on the foreign debt rose to "more than half a billion dollars" in 1975 against $389 million in 1974.
+BoI 1975, p. 111, footnote 7: "The economy's foreign currency debt is not identical with its external debt which also includes Israeli currency liabilities abroad, balance in clearing accounts, foreign investment in Israel and deposits of foreign nationals in Israeli banks, as well as loans whose maturity date is less than 90 days." Our reading: the 1961-66 figures (foreign currency liabilities or indebtedness) are the nearest match to the later "foreign currency debt", but no opened source says the definitions are the same. BoI 1975, p. 100, adds that "During the coming year the economy will have to repay $1.4 billion on account of principal", and pp. 112-113 that interest payments "totalled more than half a billion this year, as compared to $390 million in 1974 and $261 million in 1973".
 
 ## 6. Prices: consumer price index, annual average, percent rise [V, C]
 
@@ -259,14 +259,14 @@ The era design (§5.3) names a calibration test on "foreign-currency reserves, d
 | Year | Real growth, percent | Reserves, end of year, $ m | Foreign currency debt, end of year, $ m |
 |---|---|---|---|
 | 1962 | GNP 12 (BoI 1962) | 496.9 gross, 369.5 net (BoI 1962); 506 and 406 (BoI 1966) [C] | 806.2 (foreign currency liabilities incl. short-term, BoI 1962) |
-| 1966 | GNP 0.6 (BoI 1966), 1.5 (BoI 1968); GDP 1.4 (BoI 1975) [C] | 730 gross, 576 net (BoI 1966) | 1,320 (BoI 1966) |
-| 1967 | GNP 1.1 (BoI 1968); GDP 2.5 (BoI 1975) [C] | 968 gross, 777 net (BoI 1968) | [GAP] |
+| 1966 | GNP 0.6 (BoI 1966), 1.5 (BoI 1968), 1.6 (BoI 1971); GDP 1.4 (BoI 1975) [C] | 730 gross, 576 net (BoI 1966) | 1,320 (BoI 1966) |
+| 1967 | GNP 1.1 (BoI 1968), 2.7 (BoI 1971); GDP 2.5 (BoI 1975) [C] | 968 gross, 777 net (BoI 1968) | [GAP] |
 | 1972 | GDP 12.0 (BoI 1975), 12.1 (BoI 1977) [C] | 1,230 gross, 1,070 net, at the Bank of Israel (BoI 1975, BoI 1977) | 4,081 (BoI 1977) |
 | 1975 | GDP 1.0 (BoI 1975), 3.8 (BoI 1977) [C] | 1,184 gross, 1,040 net, at the Bank of Israel (BoI 1975, BoI 1977) | 7,617 (BoI 1977); "$7.6 billion" (BoI 1975) |
 
 Suggestion for step 2:
 - The reserve figures for 1962-67 cover deposits abroad of the whole banking system, and those for 1970-77 the Bank of Israel alone (section 5.3). A test that compares levels across the era needs one definition; the net Bank of Israel series (BoI 1977, Table I-1) covers only 1971-77.
-- For growth, the later report's value for each year (BoI 1977 for 1971-77, BoI 1975 for 1966-70) gives the most revised figure; the values printed at the time are the second value.
+- For growth, the latest opened report's value for each year (BoI 1977 for 1971-77, BoI 1975 for 1966-70) is, in our reading, the most revised figure; the values printed at the time are the second value.
 - Defence (section 4.1) and the dated rate steps (section 3.1) are the other anchors §5.3 names; both are tabled above.
 
 ## 8. Open items
