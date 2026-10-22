@@ -212,6 +212,21 @@ def test_two_sub_districts_listed_on_one_hex_fail_the_bake_even_if_one_matches_t
         bb.apply_places({(-15, 31): ids["gaza"]}, places, HEXES, ids)
 
 
+def test_a_shared_hex_resolved_by_hand_keeps_its_centre_region_if_it_is_one_of_theirs():
+    """#1183 (4.4 km bake): Kefar Sava (Jaffa) shares a hex with Kafr Saba and Jaljuliya (Tulkarm). That set is resolved
+    by hand in SHARED_HEXES: the region of rules 2-4 stands if it is one of theirs, otherwise the bake still fails."""
+    at = (34.92186, 32.15619)
+    places = [(name, sub, *at) for name, sub in [("Kefar Sava", "jaffa"), ("Kafr Saba", "tulkarm"), ("Jaljuliya", "tulkarm")]]
+    ids = {"jaffa": 1, "tulkarm": 2, bb.OUTSIDE: 3}
+    qr = hg.settlement_hex(*at, HEXES)
+    for kept in ("jaffa", "tulkarm"):
+        cells = {qr: ids[kept]}
+        bb.apply_places(cells, places, HEXES, ids)
+        assert cells[qr] == ids[kept]
+    with pytest.raises(ValueError, match="different sub-districts"):
+        bb.apply_places({qr: ids[bb.OUTSIDE]}, places, HEXES, ids)
+
+
 def test_the_layer_shows_from_the_start_until_replaced_with_its_label():
     """Owner ruling 2026-10-11 (I4): from the 1948 start until the armistice lines replace it, labelled."""
     assert BAKED["label"] == "Mandate sub-districts, 1947"
