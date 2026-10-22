@@ -42,8 +42,8 @@ are open to other claimants, and this region could also be split differently if 
   in Israel", Ben-Yehuda Project edition, https://benyehuda.org/read/14684 (checked 2026-10-22). Its sections
   ("קיבוצים", "מושבים", "מושבים שיתופיים") give the type used below for rural rows; its columns are name, region
   ("אזור גיאוגרפי"), date of founding, affiliation ("השתייכות ארגונית") and origin of the name. The column does not say
-  whether the date is the day on the land or a later recognition. It is one secondary compilation. It does not list
-  towns.
+  whether the date is the day on the land or a later recognition. It is one secondary compilation. Its section of
+  urban settlements ("ישובים עירוניים שנוסדו כמושבות") lists no development towns.
 - **Wikipedia** (Hebrew and English) was read as wikitext of the current revision, cited by `oldid`. It is a pointer
   and a cross-check: a fact resting on Wikipedia alone is tagged **[S, Wikipedia]**, and where it cites a newspaper or
   book I give that citation as Wikipedia gives it and do not count it as read. Quotes from Wikipedia are from the
@@ -137,9 +137,10 @@ Common sources, cited by short name in every row:
 
 - **Founded 15 May 1952. [V]** Gvati: 15.5.52, region "הר הנגב", affiliation HaIhud, section "קיבוצים". English
   Wikipedia: "established on 15 May 1952". Hebrew Wikipedia: "בהמשך נקבע יום העלייה לקרקע ל-15 במאי 1952" (the day
-  on the land was later set as 15 May 1952), after a founders' meeting on 10 January 1952. CBS: 1952.
-- **Type. [S, Wikipedia]** Hebrew Wikipedia: registered first as an agricultural cooperative ("אגודת "שדה בוקר -
-  חווה לגידול מקנה""); the members decided in October 1955 to be a kibbutz, and it joined Ihud HaKvutzot
+  on the land was later set as 15 May 1952), after a founders' meeting on 10 January 1952. CBS: 1952. The Hebrew Wikipedia infobox
+  gives "תאריך ייסוד הגרעין" (the garin's founding) as 1949; not used for the settlement.
+- **Type. [S, Wikipedia]** Hebrew Wikipedia: registered first as an agricultural cooperative, an association named "שדה בוקר" with the
+  description "חווה לגידול מקנה" (a livestock farm; the full name is paraphrased here, not quoted); the members decided in October 1955 to be a kibbutz, and it joined Ihud HaKvutzot
   VeHaKibbutzim after a vote in April 1962. Gvati lists it under kibbutzim.
 - **Founders. [S, Wikipedia]** Hebrew Wikipedia names ten founders from the founding meeting's minutes (citing Osem,
   not read). English Wikipedia: "former soldiers".
@@ -179,7 +180,9 @@ Common sources, cited by short name in every row:
 - **Founded 1952. [V]** CBS: 1952. Hebrew Wikipedia: the agricultural school and the youth village "הוקמו בשנת 1952",
   opening ceremony at the end of November 1952 (citing HaTzofe, 24 Nov 1952, not read). English Wikipedia: "The
   following year an agricultural school and youth village were founded on the site". **[S, Wikipedia]** An earlier
-  school on the site in 1951 (both Wikipedias). Not in Gvati.
+  school on the site in 1951: English Wikipedia, and Hebrew Wikipedia's history section ("בית הספר "אשל הנשיא הוקם
+  ב-1951"); Hebrew Wikipedia's opening section instead says school and youth village were both founded in 1952, so
+  that page differs between its two sections. Not in Gvati.
 - **Type.** Agricultural school and youth village (both Wikipedias). It is not a moshav or kibbutz.
 - **Founders. [GAP]** No founding group found; Hebrew Wikipedia names the first director, Zalman Wilkomirski.
 - **Renames.** None found. Name: after the tamarisk (eshel) and President Chaim Weizmann (both Wikipedias).
@@ -243,7 +246,8 @@ Common sources, cited by short name in every row:
   1953; both Wikipedias 1953.
 - **Founders. [S, Wikipedia]** Hebrew Wikipedia: "מרבית תושביו הם יוצאי מרוקו" (most residents are of Moroccan
   origin; this describes residents, not only founders); English Wikipedia: "Moroccan immigrants making up most of the
-  founders". One of the three "Yahdav" moshavim with Tidhar and Te'ashur (Hebrew Wikipedia).
+  founders". One of the three "יחדיו" (Yahdav) moshavim with Tidhar and Te'ashur (Hebrew Wikipedia, "שלושת מושבי
+  "יחדיו"").
 - **Renames.** None found.
 - **Coordinates.** CBS 31.37051, 34.63301 (code 2060).
 - **Sources.** CBS; Gvati; https://he.wikipedia.org/w/index.php?oldid=43596485 ;
@@ -332,10 +336,16 @@ Common sources, cited by short name in every row:
   - The local council's own page, "הסיפור שלנו": heading "נוסד בשנת 1956" (founded 1956); in its text the road
     building began in 1953, and "בראשית אוגוסט 1953 החלה לפעול במקום אגודה שיתופית בראשות חגי אבריאל" (a cooperative
     led by Avriel started in early August 1953).
-  - So the camp's start is 1951 (Wikipedia) or 1953 (council), and the town's founding 1954 (CBS) or 1956 (council,
+  - Hebrew Wikipedia's opening section: "היא הוקמה בשנת 1953 כמחנה עבודה לפועלים שסללו את הדרך לאילת, והפכה ליישוב
+    קבע בשנת 1956" (founded 1953 as a workers' camp, a permanent settlement in 1956). In the wikitext the "1953" is a
+    link whose target is the year page 1951 (`[[1951|1953]]`), so the page shows 1953 while its history section says
+    1951.
+  - So the camp's start is 1951 (Hebrew Wikipedia history section, English Wikipedia) or 1953 (Hebrew Wikipedia
+    opening section, council page), and the town's founding 1954 (CBS) or 1956 (council,
     Hebrew Wikipedia). **I prefer 1956 for the settlement**, the date the locality itself uses; the 1951/1953 camp
     date stays as given.
-- **Founders. [V]** A group led by Haggai Avriel (council page; Hebrew Wikipedia).
+- **Founders. [S, per event]** Haggai Avriel led both events, as two sources describe them: the August 1953
+  cooperative (council page) and the settlers of 26 May 1956 (Hebrew Wikipedia).
 - **Renames.** None found.
 - **Coordinates.** CBS 30.6229, 34.80162 (code 99).
 - **Sources.** CBS; https://mitzpe-ramon.muni.il/מצפה-רמון/הסיפור-שלנו/ ;
@@ -348,8 +358,9 @@ Common sources, cited by short name in every row:
   "נוסד ביום א' אלול תשי"ד, 30 באוגוסט 1954" (citing Vilnai, vol. 3, p. 1084, not read); 1 Elul 5714 is 30 August 1954
   (`convertdate`). CBS: 1954. English Wikipedia: 1954. Hebrew Wikipedia adds the houses were ready in early 1954 and
   stood empty for some months.
-- **Founders. [S, Wikipedia]** Both Wikipedias: immigrants from Iran, Morocco and Tunisia. **[C, minor]** Hebrew
-  Wikipedia names the settling movement as HaOved HaTzioni; Gvati gives the affiliation HaIhud HaHaklai.
+- **Founders. [S, Wikipedia]** Both Wikipedias: immigrants from Iran, Morocco and Tunisia. Hebrew
+  Wikipedia names the settling movement ("התנועה המיישבת") of 1954 as HaOved HaTzioni and the present affiliation as
+  HaIhud HaHaklai ("המשתייך לארגון יישובי האיחוד החקלאי"), which matches Gvati's affiliation.
 - **Renames. [S, Wikipedia]** Hebrew Wikipedia: "כונה באופן זמני שובל 4"; English Wikipedia: "initially called Shoval
   Daled and then Shadma, before adopting its current name". "Shadma" is in the English article only.
 - **Coordinates.** CBS 31.4494, 34.67791 (code 414).
