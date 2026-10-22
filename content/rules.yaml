@@ -220,6 +220,19 @@ mvp:
   # population unit that stays. Neither is a historical figure.
   occupation_turns: 6                    # DESIGN VALUE: owner-set balance, not a historical figure (D-F4, Q-OCC-3: X, the turns every occupation lasts)
   occupation_upkeep_per_turn: 0.005      # DESIGN VALUE: owner-set balance, not a historical figure (D-F4, Q-OCC-1: IL millions a turn per occupied place)
+  # Deport (R-CTRL-018; owner ruling 1, "honest cost, no reward"; Q-DEP-5 (c), owner, 18 October 2026, #783 "Accept all 16
+  # drafts": fixed costs to Social cohesion and International Support, a fixed International Support drag a turn and a lower
+  # International Support ceiling for the rest of the game; "sizes are labelled design values the balance pass sets;
+  # DeportNeverDominates must hold with a margin"). PROPOSED on #800; the owner may override them. "Large" is read as 1.5
+  # times the largest single event move on either parameter in content (0.10). The drag and the ceiling drop count per
+  # place deported (DisplacedByPlayer counts places, Q-CAP-2 (b)). None is a historical figure.
+  deport_cohesion_cost: 0.15             # DESIGN VALUE: owner-set balance, not a historical figure (D-C1, Q-DEP-5: Social cohesion lost at once)
+  deport_support_cost: 0.15              # DESIGN VALUE: owner-set balance, not a historical figure (D-C1, Q-DEP-5: International Support lost at once)
+  deport_support_drag_per_turn: 0.005    # DESIGN VALUE: owner-set balance, not a historical figure (D-C1, Q-DEP-5: International Support lost each turn after, per place)
+  deport_support_ceiling_drop: 0.25      # DESIGN VALUE: owner-set balance, not a historical figure (D-C1, Q-DEP-5: International Support ceiling lowered for good, per place)
+  # Deport stays out of play until the owner has reviewed its cards (Phase 6 PR 9) and its dialog (PR 10): with this off,
+  # ResolveCapture(..., deport) is refused as not built yet (R-CTRL-007; plan, PR 8 sensitivity gate). PR 10 lifts it.
+  deport_in_play: false
 # Coalition stability lost by replacing a minister (Cabinet.Appoint): a seat taken from the minister's party, or a
 # reshuffle within it.
 appoint_stability_cost_other_party: 0.06

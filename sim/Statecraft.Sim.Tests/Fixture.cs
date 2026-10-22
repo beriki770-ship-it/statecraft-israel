@@ -300,6 +300,10 @@ mvp:
   held_soldier_cost_per_turn: 0.5
   occupation_turns: 3
   occupation_upkeep_per_turn: 0.25
+  deport_cohesion_cost: 0.2
+  deport_support_cost: 0.1
+  deport_support_drag_per_turn: 0.01
+  deport_support_ceiling_drop: 0.3
   combat_terrain_percent: { coastal_plain: 100, hills: 150, desert: 100 }
   combat_table:
     - { min_ratio_percent: 0, attacker_loss: [1, 1], defender_loss: [1, 1], defender_retreats: [0, 0] }

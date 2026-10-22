@@ -79,7 +79,8 @@ namespace Statecraft.Sim
         static double Indicator(GameState s, string id) => s.Indicators.TryGetValue(id, out var v) ? v : 0;
 
         /// <summary>R-CTRL-007: carries out ResolveCapture. Null when done, else the reason, with the state unchanged: the place
-        /// is not awaiting the choice, the outcome is not known, or it is not built yet (Deport is PR 8).</summary>
+        /// is not awaiting the choice, the outcome is not known, or Deport is not in play (mvp.deport_in_play, off in the real
+        /// content until PR 10 lifts it).</summary>
         internal static string? Resolve(Content c, GameState s, string id, string outcome, List<Cause> why)
         {
             if (NotAwaiting(s, id) is string no) return no;
@@ -87,7 +88,7 @@ namespace Statecraft.Sim
             {
                 case Raid: return Withdraw(c, s, id, why, false);
                 case Occupy: return StartOccupation(c, s, id, why);
-                case Deport: return "Deport is not built yet";
+                case Deport: return c.RulesAt(s.Date).Mvp!.DeportInPlay ? Depopulate(c, s, id, why) : "Deport is not built yet";
                 default: return "That outcome is not known";
             }
         }
@@ -105,28 +106,73 @@ namespace Statecraft.Sim
         {
             var t = c.SettlementTargets.First(x => x.Id == id);   // only a target gets a record (R-CTRL-004)
             var name = c.SettlementNames[id];
-            var moved = new List<(Unit From, Unit To)>();
+            var moved = new List<Unit>();
+            if (MoveOut(c, s, t, name, atTheEnd, moved) is string no) return no;
+            s.Settlements.Remove(id);
+            Withdrew(name, moved, why);
+            why.Add(new Cause("map", id, 0, moved.Count > 0
+                ? $"{name}: Israeli units withdrew and it is under enemy control again. Its residents are unchanged"
+                : $"{name} is under enemy control again. Its residents are unchanged"));
+            return null;
+        }
+
+        /// <summary>R-CTRL-010's move: the units leave <paramref name="t"/>'s hex as <see cref="Withdraw"/> says, into
+        /// <paramref name="moved"/>. Raid and Deport share it (R-CTRL-018). The reason, with every unit back where it was, when
+        /// one has nowhere to go, unless <paramref name="atTheEnd"/>.</summary>
+        static string? MoveOut(Content c, GameState s, SettlementTarget t, string name, bool atTheEnd, List<Unit> moved)
+        {
+            var from = new List<Unit>();
             foreach (var u in s.Units.Values.Where(u => u.Q == t.Q && u.R == t.R && !IsEnemy(u)).ToList())   // ascending id
             {
                 var to = Movement.Neighbours.Select(d => ((int Q, int R)?)(t.Q + d.Q, t.R + d.R)).FirstOrDefault(h => Free(c, s, u, h!.Value.Q, h.Value.R));
                 if (to == null && atTheEnd) continue;
                 if (to == null)
                 {
-                    foreach (var (from, _) in moved) s.Units[from.Id] = from;   // back as it was
+                    foreach (var x in from) s.Units[x.Id] = x;   // back as it was
+                    moved.Clear();
                     return $"Unit {u.Id} has no free hex next to {name} to withdraw to";
                 }
                 var w = new Unit(u.Id, u.Type, to.Value.Q, to.Value.R, u.Service, u.Side, u.Strength, u.Order, u.OrderTarget);
                 s.Units[u.Id] = w;
-                moved.Add((u, w));
+                from.Add(u);
+                moved.Add(w);
             }
-            s.Settlements.Remove(id);
-            foreach (var (_, w) in moved)
-                why.Add(new Cause("map", w.Id.ToString(CultureInfo.InvariantCulture), 0, FormattableString.Invariant($"Unit {w.Id} withdrew from {name} to hex {w.Q},{w.R}")));
-            why.Add(new Cause("map", id, 0, moved.Count > 0
-                ? $"{name}: Israeli units withdrew and it is under enemy control again. Its residents are unchanged"
-                : $"{name} is under enemy control again. Its residents are unchanged"));
             return null;
         }
+
+        static void Withdrew(string name, List<Unit> moved, List<Cause> why)
+        {
+            foreach (var w in moved)
+                why.Add(new Cause("map", w.Id.ToString(CultureInfo.InvariantCulture), 0, FormattableString.Invariant($"Unit {w.Id} withdrew from {name} to hex {w.Q},{w.R}")));
+        }
+
+        /// <summary>R-CTRL-018 to R-CTRL-021, Deport (impact plan section 4.1; Q-DEP-1 (a) to Q-DEP-5 (c), Q-DEP-7 (c)). The
+        /// player's units leave as in Raid, refused the same way (Q-DEP-7 (a): no military advantage over Raid). The record
+        /// keeps only the capture date and depopulated: no owner, state or timer, and the buildings at their default (Q-DEP-4
+        /// (a), no razing in the MVP). The place counts once in DisplacedByPlayer, its residents nowhere else (Q-DEP-2 (a),
+        /// Q-DEP-3 (a)). Social cohesion and International Support fall at once by the labelled costs, through the permanent
+        /// shift. It draws nothing from the RNG.</summary>
+        static string? Depopulate(Content c, GameState s, string id, List<Cause> why)
+        {
+            var t = c.SettlementTargets.First(x => x.Id == id);   // only a target gets a record (R-CTRL-004)
+            var name = c.SettlementNames[id];
+            var moved = new List<Unit>();
+            if (MoveOut(c, s, t, name, false, moved) is string no) return no;
+            s.Settlements[id] = new SettlementControl(since: s.Settlements[id].Since, depopulated: true);
+            s.DisplacedByPlayer++;
+            Withdrew(name, moved, why);
+            why.Add(new Cause("map", id, 0, $"{name}: Deport. Its residents are displaced and the place is depopulated"));
+            var r = c.RulesAt(s.Date).Mvp!;   // the loader requires both costs in the GDD loop
+            foreach (var (indicator, cost) in new[] { ("morale", r.DeportCohesionCost!.Value), (SupportIndicator, r.DeportSupportCost!.Value) })
+            {
+                var change = EffectsSystem.Shift(c, s, indicator, -cost);
+                why.Add(new Cause("map", indicator, change, $"{PlayerText.Change(c, indicator, change)} (Deport of {name})"));
+            }
+            return null;
+        }
+
+        /// <summary>International Support, the indicator Deport's costs, drag and ceiling act on (R-CTRL-018).</summary>
+        internal const string SupportIndicator = "intl_standing";
 
         /// <summary>R-CTRL-011, R-CTRL-012 (Q-OCC-1 (a), Q-OCC-3 (a)): Occupy keeps the place under the player's control and
         /// starts its timer at mvp.occupation_turns, the one X for every place. It needs an Israeli military unit on the hex,
@@ -193,6 +239,21 @@ namespace Statecraft.Sim
                     : FormattableString.Invariant($"{name}: {left} turns of occupation left")));
             }
         }
+
+        /// <summary>Resolver step 10, after the occupation timers (R-CTRL-018; Q-DEP-5 (c)): International Support falls by
+        /// mvp.deport_support_drag_per_turn for each place in DisplacedByPlayer, every turn from the Deport turn to the game's
+        /// end. It draws nothing from the RNG.</summary>
+        internal static void Drag(Content c, GameState s, MvpRules r, List<Cause> why)
+        {
+            if (s.DisplacedByPlayer == 0) return;
+            var change = EffectsSystem.Shift(c, s, SupportIndicator, -r.DeportSupportDragPerTurn!.Value * s.DisplacedByPlayer);
+            if (change != 0) why.Add(new Cause("map", SupportIndicator, change, $"{PlayerText.Change(c, SupportIndicator, change)} (the places depopulated by Deport)"));
+        }
+
+        /// <summary>R-CTRL-020 (Q-DEP-7 (c), Q-SENS-2 (c)): whether (q, r) is the hex of a place the player has depopulated,
+        /// where no city project or corridor segment may be started (no designated site can be on a settlement's hex at all).</summary>
+        internal static bool DepopulatedAt(Content c, GameState s, int q, int r) =>
+            s.Settlements.Any(kv => kv.Value.Depopulated && c.SettlementTargets.Any(t => t.Id == kv.Key && t.Q == q && t.R == r));
 
         const string Enemy = "enemy";
 
