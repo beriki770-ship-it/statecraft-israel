@@ -35,7 +35,7 @@ public class CombatTests
     static Unit Soldier(int id, int q, int r, int strength) => new Unit(id, "soldier", q, r, side: "israel", strength: strength);
     static Unit Enemy(int id, int q, int r, int strength) => new Unit(id, "enemy", q, r, side: "egypt", strength: strength);
     static Unit Attacking(Unit u, int q, int r) =>
-        new Unit(u.Id, u.Type, u.Q, u.R, u.Service, u.Side, u.Strength, Combat.Attack, FormattableString.Invariant($"{q},{r}"));
+        new Unit(u.Id, u.Type, u.Q, u.R, u.Service, u.Side, u.Strength, Combat.Attack, FormattableString.Invariant($"{q},{r}"), u.HomeCity);
 
     static StepResult Step(Content c, GameState s, params Command[] cmds) => Simulation.Step(c, s, cmds);
 
@@ -44,6 +44,106 @@ public class CombatTests
         var why = new List<Cause>();
         Combat.Resolve(c, s, why);
         return why;
+    }
+
+    // R-HOUSE-003, R-COMBAT-001: issuing an attack preserves the existing formation's housing home.
+    [Fact]
+    public void GivingAnAttackRetainsTheFormationsHomeAndHousing()
+    {
+        var c = Load();
+        var s = With(c, new Unit(1, "soldier", 3, 0, side: "israel", strength: 5, homeCity: "town_a"), Enemy(2, 2, 0, 5));
+        Assert.Equal("town_a", s.Units[1].HomeCity);
+        Assert.Equal(15, Cities.Housed(s, s.Cities["town_a"]));
+
+        Assert.Null(Combat.Give(c, s, 1, 2, 0, new List<Cause>()));
+
+        var u = s.Units[1];
+        Assert.Equal((1, "israel", 5, "town_a", Combat.Attack, "2,0"), (u.Id, u.Side, u.Strength, u.HomeCity, u.Order, u.OrderTarget));
+        Assert.Equal(15, Cities.Housed(s, s.Cities["town_a"]));
+    }
+
+    // R-HOUSE-003, R-COMBAT-001: ending an attack does not release a surviving formation's housing.
+    [Fact]
+    public void EndingAnAttackRetainsTheFormationsHomeAndHousing()
+    {
+        var c = Load();
+        var s = With(c, Attacking(new Unit(1, "soldier", 3, 0, side: "israel", strength: 5, homeCity: "town_a"), 2, 0));
+        Assert.Equal("town_a", s.Units[1].HomeCity); // The fixture must not lose the home before the Act step.
+        Assert.Equal(15, Cities.Housed(s, s.Cities["town_a"]));
+
+        Resolve(c, s); // There is no defender, so the standing attack ends without combat.
+
+        var u = s.Units[1];
+        Assert.Equal((1, "israel", 5, "town_a", "", ""), (u.Id, u.Side, u.Strength, u.HomeCity, u.Order, u.OrderTarget));
+        Assert.Equal(15, Cities.Housed(s, s.Cities["town_a"]));
+    }
+
+    // R-HOUSE-003, R-COMBAT-003: isolate the retreat copy from the separate surviving-loss copy.
+    [Fact]
+    public void RetreatingRetainsTheFormationsHomeAndHousing()
+    {
+        var c = Load();
+        c.Rules.Mvp!.CombatTable[1].DefenderLoss = new List<int> { 0, 0 }; // Fixture: retreat without losses.
+        var s = With(c, Attacking(Enemy(1, 3, 0, 10), 2, 0), new Unit(2, "soldier", 2, 0, side: "israel", strength: 5, homeCity: "town_a"));
+        Assert.Equal("town_a", s.Units[2].HomeCity);
+        Assert.Equal(15, Cities.Housed(s, s.Cities["town_a"]));
+
+        Resolve(c, s);
+
+        var u = s.Units[2];
+        Assert.Equal((2, "israel", 5, "town_a", 1, 0), (u.Id, u.Side, u.Strength, u.HomeCity, u.Q, u.R));
+        Assert.Equal(15, Cities.Housed(s, s.Cities["town_a"]));
+    }
+
+    // R-HOUSE-003, R-COMBAT-003: casualties release only their strength, not the survivor's entire home allocation.
+    [Fact]
+    public void SurvivingLossReleasesOnlyLostStrengthFromHomeHousing()
+    {
+        var c = Load();
+        var s = With(c, Attacking(Enemy(1, 3, 0, 5), 2, 0), new Unit(2, "soldier", 2, 0, side: "israel", strength: 5, homeCity: "town_a"));
+        Assert.Equal("town_a", s.Units[2].HomeCity);
+        Assert.Equal(15, Cities.Housed(s, s.Cities["town_a"]));
+
+        Resolve(c, s); // The fixture's lower row loses one per side and does not retreat.
+
+        var u = s.Units[2];
+        Assert.Equal((2, "israel", 4, "town_a", 2, 0), (u.Id, u.Side, u.Strength, u.HomeCity, u.Q, u.R));
+        Assert.Equal(14, Cities.Housed(s, s.Cities["town_a"]));
+    }
+
+    // R-HOUSE-003: a trained formation's home survives a real attack command and command-log replay.
+    [Fact]
+    public void AHomeFormationRetainsHousingThroughAttackCommandReplay()
+    {
+        var c = ContentLoader.Load(Fixture.Write(Fixture.Gdd(new Dictionary<string, string>
+        {
+            ["unit_types.yaml"] = Types,
+            ["map/hexes.json"] = MovementTests.Board(),
+            ["corridors.yaml"] = "corridors: []\n",
+            ["map/units_1948.yaml"] = "units:\n  - id: opponent\n    service: army\n    side: egypt\n    status: draft\n    strength: { value: 50, as_of: '1948-05-15' }\n    anchors:\n      - { place: Fixture, from: '1948-05-15', to: '1949-01-01' }\n",
+            ["map/unit_anchor_hexes.yaml"] = "anchors:\n  - { id: opponent, anchor: 0, q: 2, r: 0 }\n",
+        })));
+        var g = GameSession.New(c, 1, Mode.Historical);
+        Assert.Empty(g.Step(new Command[] { new Train("town_a", "recruit", 2) }).Rejected);
+        g.Step(new Command[0]);
+        var recruit = Assert.Single(g.State.Units.Values, u => u.Type == "recruit");
+        Assert.Equal(("town_a", 2), (recruit.HomeCity, recruit.Strength));
+        Assert.Empty(g.State.Cohorts);
+        var city = g.State.Cities["town_a"];
+        Assert.Equal(city.Civilians + city.Craftsmen + city.Recruits + 2, Cities.Housed(g.State, city));
+
+        var result = g.Step(new Command[] { new UnitOrder(recruit.Id, Combat.Attack, 2, 0) });
+
+        Assert.Empty(result.Rejected);
+        var survivor = g.State.Units[recruit.Id];
+        Assert.Equal((recruit.Id, "israel", 1, "town_a"), (survivor.Id, survivor.Side, survivor.Strength, survivor.HomeCity));
+        var loaded = GameSession.Load(c, g.Save.Write(), out var warning);
+        Assert.Empty(warning);
+        Assert.Equal(g.State.Hash(), loaded.State.Hash());
+        Assert.Equal(g.State.Describe(), loaded.State.Describe());
+        Assert.Equal(survivor.Canonical(), loaded.State.Units[recruit.Id].Canonical());
+        city = loaded.State.Cities["town_a"];
+        Assert.Equal(city.Civilians + city.Craftsmen + city.Recruits + 1, Cities.Housed(loaded.State, city));
     }
 
     // R-COMBAT-001: an attack names an adjacent hex that holds an enemy unit, and the player's unit must have the Arms for

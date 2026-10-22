@@ -68,10 +68,18 @@ namespace Statecraft.Sim
         public static int TurnsToBuild(Content c, GameState s, int unit, Site site, int left, double carry)
         {
             if (site == null) throw new ArgumentNullException(nameof(site));
+            return TurnsToBuild(c, s, unit, SystemOf(site), left, carry);
+        }
+
+        /// <summary><see cref="TurnsToBuild(Content, GameState, int, Site, int, double)"/> for work scaled by
+        /// <paramref name="system"/>'s minister multiplier: a site's (SystemOf), or a corridor segment's
+        /// (Corridors.TurnsToBuild, #792).</summary>
+        public static int TurnsToBuild(Content c, GameState s, int unit, string system, int left, double carry)
+        {
             if (left < 1) throw new ArgumentOutOfRangeException(nameof(left));
             if (!(carry >= 0 && carry < 1)) throw new ArgumentOutOfRangeException(nameof(carry));
             var r = c.RulesAt(s.Date).Mvp!;
-            var m = EffectsSystem.GddSystemMultiplier(c, s, r, SystemOf(site));
+            var m = EffectsSystem.GddSystemMultiplier(c, s, r, system);
             if (!(m > 0) || double.IsInfinity(m)) throw new InvalidOperationException("Site progress multiplier must be finite and positive");
             var u = s.Units[unit];
             for (int turns = 1; ; turns = checked(turns + 1))
@@ -83,7 +91,7 @@ namespace Statecraft.Sim
                 if (u.Type == "halutz")
                 {
                     var service = u.Service + 1;
-                    u = new Unit(u.Id, service >= r.VeteranHalutzService!.Value ? VeteranType : u.Type, u.Q, u.R, service, u.Side, u.Strength, u.Order, u.OrderTarget);
+                    u = new Unit(u.Id, service >= r.VeteranHalutzService!.Value ? VeteranType : u.Type, u.Q, u.R, service, u.Side, u.Strength, u.Order, u.OrderTarget, u.HomeCity);
                 }
             }
         }
@@ -166,6 +174,9 @@ namespace Statecraft.Sim
             BuildCamp => (r.BuildCampCost!.Value, r.BuildCampTurns!.Value),
             PlowFields => (r.PlowFieldsCost!.Value, r.PlowFieldsTurns),
             DrySwamp => (r.DrySwampCost!.Value, r.DrySwampTurns!.Value),
+            // A corridor segment's kind (R-COR-001, R-COR-002): what Corridors.Start charges and Corridors.Advance takes (#792).
+            Corridors.BuildRoad => (r.RoadSegmentCost, r.RoadSegmentTurns),
+            Corridors.BuildRail => (r.RailSegmentCost, r.RailSegmentTurns),
             _ => (r.BuildYishuvCost, r.BuildYishuvTurns),
         };
 
@@ -223,7 +234,7 @@ namespace Statecraft.Sim
                 if (u.Type != "halutz") continue;
                 var service = u.Service + 1;
                 var promoted = service >= r.VeteranHalutzService!.Value;
-                s.Units[u.Id] = new Unit(u.Id, promoted ? VeteranType : u.Type, u.Q, u.R, service, u.Side, u.Strength, u.Order, u.OrderTarget);
+                s.Units[u.Id] = new Unit(u.Id, promoted ? VeteranType : u.Type, u.Q, u.R, service, u.Side, u.Strength, u.Order, u.OrderTarget, u.HomeCity);
                 if (promoted) why.Add(new Cause("map", w.Site, 1, "A group of halutzim became veteran pioneers"));
             }
             Corridors.Advance(c, s, next, why);   // R-COR-002: after the sites (Phase 4 PR 2)

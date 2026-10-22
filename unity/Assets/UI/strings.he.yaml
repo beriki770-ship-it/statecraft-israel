@@ -174,6 +174,27 @@ event.objective_late_one: "הושלם באיחור של חודש אחד לעומ
 event.alt_origin: "מסלול חלופי. הוא נובע מהחלטת הממשלה: {0} ({1}). בהיסטוריה: {2}."
 event.alt_origin_no_record: "מסלול חלופי. הוא נובע מהחלטת הממשלה: {0} ({1})."
 event.rejoin: "חוזר למסלול ההיסטורי."
+# The capture dialog (GDD Phase 6 PR 10, #802). SENSITIVE: the owner reviews every line before any shareable build.
+# Agent-drafted, for the native reviewer (#564). Q-UI-1 (b): direct Hebrew equivalents of the GDD's words, except the
+# owner's own (22 October 2026, #1317): Occupy is "שחרור", and the Deport line is the owner's "displaced" wording.
+# Gender-neutral phrasing ("יש לבחור").
+capture.intro: "כוחות ישראליים מחזיקים ב־{0}, ואין שם כוחות אויב. יש לבחור מה יקרה עכשיו. הבחירה תיכנס לתוקף בסיום התור; עד שתיבחר אפשרות, הכוחות נשארים במקום."
+capture.option.raid: "פשיטה ונסיגה"
+capture.option.occupy: "שחרור"
+capture.option.deport: "גירוש"
+capture.about.raid: "הכוחות יוצאים מיד, והמקום חוזר לשליטת האויב. מצב התושבים לא משתנה."
+capture.about.occupy: "יחידה אחת נשארת ומחזיקה במקום מספר קבוע של תורות, בעלות כספית בכל תור. התושבים לא מושפעים."
+capture.about.deport: "התושבים נעקרים ממקומם, והמקום מתרוקן מתושביו. הלכידות החברתית והתמיכה הבינלאומית יורדות, והתמיכה הבינלאומית ממשיכה לרדת עד סוף המשחק."
+capture.changes: "שינויים מיידיים:"
+capture.changes_none: "שינויים מיידיים: אין"
+capture.caption.attention: "תשומת לב"
+capture.caption.food: "מזון"
+capture.caption.arms: "נשק"
+capture.caption.score: "ניקוד"
+capture.delta_attention: "{0:+0.0;-0.0}"
+capture.delta_count: "{0:+#,##0;-#,##0}"
+capture.none: "אף אחת מהאפשרויות אינה זמינה בתור הזה. הכוחות נשארים במקום, וההחלטה ממתינה."
+capture.reopen: "החלטה ממתינה: {0}"
 start.listen: "השמעת ההקלטה"
 start.stop: "עצירת ההקלטה"
 start.loading: "טוען את ההקלטה…"
@@ -554,6 +575,13 @@ site.build_swamp: "ייבוש הביצה עם {0}: {1}, {2}"
 site.building_swamp: "בייבוש בידי {0}: עוד {1}"
 site.stop_swamp: "עצירת הייבוש (הכסף שהוצא לא יוחזר)"
 site.built_swamp: "יובש ב־{0}"
+# A corridor segment's part (#792): the owner's approved words סלילת כביש and הנחת מסילה (Q-UI-2, #782); a segment is
+# קטע, as order.kind.corridor_segment. For the native reviewer (#564).
+# Approved by Beri, a native speaker, on #1320 (22 Oct 2026).
+corridor.segment: "{0}, קטע {1}"
+corridor.build_road: "סלילת כביש עם {0}: {1}, {2}"
+corridor.build_rail: "הנחת מסילה עם {0}: {1}, {2}"
+corridor.built: "נבנה ב־{0}"
 
 # Timeline screen (#955). Hebrew drafts: agent-checked, native review pending (#564).
 timeline.title: "הדרך שלך והרצף ההיסטורי"

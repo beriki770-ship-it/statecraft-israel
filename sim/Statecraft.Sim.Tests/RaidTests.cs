@@ -172,6 +172,17 @@ public class RaidTests
         Assert.Equal(Orders.Hold, next.Units[2].Order);
     }
 
+    // R-CTRL-010 with R-HOUSE-003 (Q-HOUSE-5, #1130): a withdrawing formation keeps its home city, so it still counts in
+    // that city's housing after it steps out.
+    [Fact]
+    public void AWithdrawingFormationKeepsItsHomeCity()
+    {
+        var c = Load();
+        var formation = new Unit(1, "soldier", 1, 0, side: "israel", strength: 2, homeCity: "town_a");
+        var next = Step(c, Awaiting(c, formation), Raid()).State;
+        Assert.Equal(((2, 0), "town_a"), ((next.Units[1].Q, next.Units[1].R), next.Units[1].HomeCity));
+    }
+
     // R-CTRL-009: HistoricalAI leaves out a Raid the sim would refuse, so its orders are never rejected and the capture waits.
     [Fact]
     public void HistoricalAIWaitsWhenRaidIsRefused()

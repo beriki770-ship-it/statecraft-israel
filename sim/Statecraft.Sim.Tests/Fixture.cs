@@ -278,6 +278,8 @@ mvp:
   arms_start: 20
   arms_price: 0.25
   arms_per_recruit_group: 2
+  military_upkeep_per_turn: 0.1
+  veteran_soldier_service: 3
   veteran_halutz_service: 4
   veteran_progress: 2
   housing_start_condition: 0.5
@@ -316,9 +318,10 @@ mvp:
 types:
   - { id: civilian, kind: population }
   - { id: refugee, kind: population }
-  - { id: recruit, kind: population, facility: military_camp, training_turns: 2, training_cost: 0.5 }
+  - { id: recruit, kind: unit, side: israel, class: infantry, facility: military_camp, training_turns: 2, training_cost: 0.5, movement_points: 3 }
   - { id: halutz, kind: unit, facility: hakhshara, training_turns: 3, training_cost: 0.25 }
   - { id: craftsman, kind: population, facility: industry, training_turns: 3, training_cost: 0.75 }
+  - { id: veteran_soldier, kind: unit, side: israel, class: infantry, movement_points: 3 }
 ";
 
     /// <summary>The three city project kinds (R-PROJ-001). Fixture values, not the game's.</summary>

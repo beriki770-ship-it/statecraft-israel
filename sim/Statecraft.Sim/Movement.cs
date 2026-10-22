@@ -73,7 +73,7 @@ namespace Statecraft.Sim
             // is given, with the hex it names), so a unit that goes out and comes back the same turn is not fortified; hold moves with
             // the unit. The order step at the end of the turn only sees the final hex.
             var fortified = u.Order == "fortify" || u.Order == "fortifying";
-            s.Units[unitId] = new Unit(u.Id, u.Type, q, r, u.Service, u.Side, u.Strength, fortified ? "" : u.Order, fortified ? "" : u.OrderTarget);
+            s.Units[unitId] = new Unit(u.Id, u.Type, q, r, u.Service, u.Side, u.Strength, fortified ? "" : u.Order, fortified ? "" : u.OrderTarget, u.HomeCity);
             spent[unitId] = used + cost;
             why.Add(new Cause("map", unitId.ToString(CultureInfo.InvariantCulture), cost,
                 FormattableString.Invariant($"Unit {unitId} moved to hex {q},{r} for {cost} movement points"), enemy ? Kind : ""));

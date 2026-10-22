@@ -41,9 +41,9 @@ final `GameState.Hash()` is pinned:
 
 | Run | Ends | Hash |
 |---|---|---|
-| to 1950-01-01 (`Hash1950`) | 1950-01-15, turn 20 | `f70d7cc2d9438c3b0859a957842fae9a456198d1a1160f962b61fec5b28af0df` |
-| to 1952-01-01 (`Hash1952`) | 1952-01-15, turn 44 (the game's end) | `ca78893d57bd7235dd923f29b611e0c12e99d702312c24b5bfc72ac82b3d14bf` |
-| to the game's end (`mvp-end`) | 1952-01-15, turn 44 | `ca78893d57bd7235dd923f29b611e0c12e99d702312c24b5bfc72ac82b3d14bf` |
+| to 1950-01-01 (`Hash1950`) | 1950-01-15, turn 20 | `f3ec68b734a3beb24df9a873e0400f0253aed48f3cde2ea12415f1890dcaa5b0` |
+| to 1952-01-01 (`Hash1952`) | 1952-01-15, turn 44 (the game's end) | `6b374f69a0ed276eeea69737e2a8b0e72d26feb930dab35e8f7c50113c4e9c0b` |
+| to the game's end (`mvp-end`) | 1952-01-15, turn 44 | `6b374f69a0ed276eeea69737e2a8b0e72d26feb930dab35e8f7c50113c4e9c0b` |
 
 `hash1952` stops at the first turn on or after 1 January 1952, which is the game's last turn, so it is the same run as
 `mvp-end` (`DeterminismTests.TheWholeGameToItsEndIsFixed`). Both names are kept (spec 2026-10-12 section 3 step 6): a
@@ -52,7 +52,7 @@ player check enumerate the manifest, so it and every scenario are checked withou
 
 A further value is pinned for the browser smoke run (`?smoke=5`: the golden seed, five turns played through the UI's own
 buttons, answering each event with its first option while the turn's Attention pays for it, the rest left to their
-ministers): `SMOKE OK 5 turns 1948-10-15 71a4cef0f81439c475e5e8a4e36bea9296f14287bc894cbc90efc4d2714348d1`.
+ministers): `SMOKE OK 5 turns 1948-10-15 d449bf194d94e882d36b899079ce573094ea710327db7ac6e84939632c46bf85`.
 It depends on the UI path as well as the sim (which option is first, the turn grid), so re-record it when either changes.
 Check every WebGL build with every manifest entry (plus the UI-path smoke line) with:
 
@@ -63,21 +63,21 @@ while read -r name hash; do
   golden_expect+=(--expect "GOLDEN OK $name $hash")
 done < sim/Statecraft.Sim.Tests/golden/manifest.txt
 uv run tools/web_check.py unity/Builds/Web-<compression> --query "golden&smoke=5" "${golden_expect[@]}" \
-  --expect "SMOKE OK 5 turns 1948-10-15 71a4cef0f81439c475e5e8a4e36bea9296f14287bc894cbc90efc4d2714348d1"
+  --expect "SMOKE OK 5 turns 1948-10-15 d449bf194d94e882d36b899079ce573094ea710327db7ac6e84939632c46bf85"
 ```
 
 `smoke-orders` (GDD Phase 5 PR 15, #754) is the same kind of browser run for the unit orders (`?smoke-orders`, desktop
 `-smoke-orders`: the golden seed, one turn). It hides the turn's event card (the events go to their ministers), clicks the
 hex of the unit `GoldenRun.SmokeMove` names (the lowest-id unit `Movement.Reachable` has a hex for: unit 0, Golani, on
 10,9), presses the unit card's Move button, clicks the first lit hex in `Reachable`'s (q, r) order (7,11) and presses End
-Turn: `SMOKE ORDERS OK 1948-06-15 4c9916304b71a66c989494a80b0e9b70db98a26f4697e29066425b77539743ee`.
+Turn: `SMOKE ORDERS OK 1948-06-15 ee6bfee561120532416c1aff2cd7cd741256aaafb443d19b414031356b680ae6`.
 `GoldenRun.PlaySmokeOrders` plays the same turn with that one `Move`, so the value is in the manifest (`SliceSmokeTests.TheSmokeOrdersRunMovesOneUnitAndEndsOnTheGolden`) and the player's golden check
 prints it as `GOLDEN OK smoke-orders`. Re-record it when the sim or the order path on the card changes; the fortify, hold and
 attack slices can add their orders to it. Check a WebGL build with:
 
 ```
 uv run tools/web_check.py unity/Builds/Web-<compression> --query "smoke-orders" \
-  --expect "SMOKE ORDERS OK 1948-06-15 4c9916304b71a66c989494a80b0e9b70db98a26f4697e29066425b77539743ee"
+  --expect "SMOKE ORDERS OK 1948-06-15 ee6bfee561120532416c1aff2cd7cd741256aaafb443d19b414031356b680ae6"
 ```
 
 **When a golden moves.** The test fails with the lines that changed, grouped by section (`[ind]`, `[pol]`, `[bud]`,
@@ -395,3 +395,12 @@ The hash reads the state keys, so it never sees a record outside its window. An 
 | GDD Phase 5 PR 11, slice 1: the call-up retires in the GDD loop (#750, #1148) | scenario-mvp-absorb-first | `912504be` | the scenario sends no call-up order, so on main the 80% call-up stayed after the armistices; now it follows rung 2 down to 5% (`mob` 0.8 to 0.05, debt IL 316.4m to 272.9m) (was `64bdd93b`) |
 | GDD Phase 5 PR 11, slice 1: the call-up retires in the GDD loop (#750, #1148) | scenario-mvp-defeat | `109b0a5e` | the retired full call-up is replaced by 120 Arms bought on credit on the first turn (`arms` 12 to 132), and the call-up follows the armistices to 5% (`mob` 1 to 0.05). The debt passes the ceiling in July 1951 (was April) and ends at IL 281.6m (was 339.1m); the defeat is unchanged: `defeat_economy` on 15 January 1952 after three exhausted turns (was `54ec7d6b`) |
 | GDD Phase 5 PR 11, slice 1: the call-up retires in the GDD loop (#750, #1148) | smoke-orders | `4c991630` | R-WAR-003: the ceasefire clock never starts, so the one-turn run ends on `cf=0` (was `cf=48`); nothing else moves (was `98422be8`) |
+| GDD Phase 5 PR 3: recruit formations and their upkeep (#742, #1130) | 1950 | `f3ec68b7` | owner-accepted military upkeep (R-UNIT-010; IL 0.05m per Israeli formation per turn, owner 19 October 2026 on #1130) charges the starting forces and the 7th Brigade once it arrives; the reference player trains no recruits, so only debt moves, by IL 8.2m over 20 turns (164 formation-turns); every other snapshot field is unchanged (was `f70d7cc2`) |
+| GDD Phase 5 PR 3: recruit formations and their upkeep (#742, #1130) | 1952 | `6b374f69` | same; debt alone rises by IL 17.8m over 44 turns (356 formation-turns) (was `ca78893d`) |
+| GDD Phase 5 PR 3: recruit formations and their upkeep (#742, #1130) | mvp-end | `6b374f69` | same as 1952 (was `ca78893d`) |
+| GDD Phase 5 PR 3: recruit formations and their upkeep (#742, #1130) | smoke5 | `d449bf19` | same upkeep over the five smoke turns; no snapshot is kept for this run (was `71a4cef0`) |
+| GDD Phase 5 PR 3: recruit formations and their upkeep (#742, #1130) | smoke-orders | `ee6bfee5` | the same upkeep over its one turn; no snapshot is kept for this run (was `4c991630`) |
+| GDD Phase 5 PR 3: recruit formations and their upkeep (#742, #1130) | scenario-reckless | `6650ed3e` | same; debt alone rises by IL 3.4m (was `57b3c29d`) |
+| GDD Phase 5 PR 3: recruit formations and their upkeep (#742, #1130) | scenario-cautious | `95982cf8` | same as reckless (was `d6e7cea0`) |
+| GDD Phase 5 PR 3: recruit formations and their upkeep (#742, #1130) | scenario-mvp-absorb-first | `d6d47fd8` | same; debt alone rises by IL 8.2m (was `912504be`) |
+| GDD Phase 5 PR 3: recruit formations and their upkeep (#742, #1130) | scenario-mvp-defeat | `584a828a` | same; debt alone rises by IL 17.8m; the defeat is unchanged (was `109b0a5e`) |
