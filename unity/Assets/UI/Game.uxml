@@ -317,6 +317,9 @@
                             <ui:VisualElement name="rung-1" class="rung"><ui:Label name="rung-1-name" class="grow rung-name" /><ui:Label name="rung-1-turn" class="muted rung-turn" /></ui:VisualElement>
                         </ui:VisualElement>
                         <ui:Label name="ceasefire" class="muted wrap" />
+                        <!-- #755: the GDD loop's war state and the truce in force (R-WAR-002, R-COMBAT-009). -->
+                        <ui:Label name="war-state" class="wrap" />
+                        <ui:Label name="truce" class="muted wrap" />
                         <ui:VisualElement class="row">
                             <ui:Button name="de-escalate" text="Lower the level" />
                             <ui:Button name="escalate" text="Raise the level" />
@@ -341,6 +344,14 @@
                     <ui:Label name="defence-title-budget" class="section-title budget-title" />
                     <Statecraft.Game.UI.UiBar name="defence-budget-bar" class="ui-bar--budget big-bar grow" />
                     <ui:Label name="defence-budget-share" class="budget-share" />
+                    <Statecraft.Game.UI.UiFrame shadow="false" />
+                </ui:VisualElement>
+                <!-- #755: the prisoners held and returned and our soldiers held (R-POW-001, R-POW-004, R-POW-005), GDD loop only. -->
+                <ui:VisualElement name="defence-prisoners" class="defence-panel">
+                    <ui:Label name="defence-title-prisoners" class="section-title" />
+                    <ui:Label name="prisoners-held" class="wrap" />
+                    <ui:Label name="prisoners-returned" class="wrap" />
+                    <ui:Label name="soldiers-held" class="wrap" />
                     <Statecraft.Game.UI.UiFrame shadow="false" />
                 </ui:VisualElement>
             </ui:ScrollView>

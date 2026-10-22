@@ -67,8 +67,13 @@ namespace Statecraft.Sim
         /// <summary>R-COMBAT-009: whether a truce the player accepted is in force on <see cref="GameState.Date"/> (the
         /// turn's first day, the date the HUD shows): until the turn that covers the window's end, so a complying
         /// player attacks again from the 15 October 1948 turn (owner ruling 1, 22 October 2026, #750).</summary>
-        internal static bool TruceInForce(GameState s) =>
-            PlayerTruces.Any(t => s.Date < t.Until && s.ChosenOptions.TryGetValue(t.Event, out var o) && o == t.Option);
+        internal static bool TruceInForce(GameState s) => TruceUntil(s) != null;
+
+        /// <summary>R-COMBAT-009: the end of the window of the truce in force (<see cref="TruceInForce"/>), else null. The
+        /// Defence screen's truce line reads it (#755), so the UI holds no truce rule.</summary>
+        public static DateTime? TruceUntil(GameState s) =>
+            PlayerTruces.Where(t => s.Date < t.Until && s.ChosenOptions.TryGetValue(t.Event, out var o) && o == t.Option)
+                .Select(t => (DateTime?)t.Until).FirstOrDefault();
 
         /// <summary>R-COMBAT-009: accepting a truce ends and clears every standing attack of the player's, with a
         /// line, the same as the enemy side's (owner ruling 2, 22 October 2026, #750; R-ENEMY-006).</summary>
