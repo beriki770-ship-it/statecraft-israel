@@ -37,6 +37,9 @@ namespace Statecraft.Game.Map
         /// <summary>The built sites as places (Prefix + id, the site's name, a kibbutz on its hex), for their name pills
         /// (MapLabelsPresenter.SetSites).</summary>
         public IReadOnlyList<Settlement> Places => places;
+        readonly List<SettlementKits.Placed> placed = new List<SettlementKits.Placed>();
+        /// <summary>What the built sites' kits placed (SettlementKits.Placed, by site place id), as Render drew them (tests).</summary>
+        internal IReadOnlyList<SettlementKits.Placed> Placed => placed;
 
         List<SiteWork>? lastSites; Content? lastContent; MapScene? lastMap; bool kitsShown;
 
@@ -58,7 +61,7 @@ namespace Statecraft.Game.Map
                 if (Application.isPlaying) { old.transform.SetParent(null); Destroy(old); if (own != null) Destroy(own); }
                 else { DestroyImmediate(old); if (own != null) DestroyImmediate(own); }
             }
-            columns.Clear(); places.Clear();
+            columns.Clear(); places.Clear(); placed.Clear();
             var list = sites.ToList();
             lastSites = list; lastContent = content; lastMap = map; kitsShown = map.KitsShown;
             var block = new MaterialPropertyBlock();
@@ -90,13 +93,14 @@ namespace Statecraft.Game.Map
 
         /// <summary>What a built site's kit is built from: a camp site's place as a camp (SettlementKits.CampType, its barracks
         /// yard), any other built site's place as it is, a kibbutz (the rural kit). Its pill and its box stay the kibbutz's.</summary>
-        internal static Settlement KitOf(Site site, Settlement place) => !site.Kinds.Contains("military_camp") ? place
+        internal static Settlement KitOf(Site site, Settlement place) => !site.Kinds.Contains(SettlementKits.CampType) ? place
             : new Settlement { Id = place.Id, Name = place.Name, NameHe = place.NameHe, Type = SettlementKits.CampType, Lon = place.Lon, Lat = place.Lat };
 
         /// <summary>Draws the built sites as kits (one object each, Kit.mat), keeps their columns, and returns the ids drawn.</summary>
         HashSet<string> Kits(List<Settlement> built, MapScene map)
         {
-            var kits = SettlementKits.Build(built, PlacementLayer.CampGround(map), out _, columns);
+            var kits = SettlementKits.Build(built, PlacementLayer.CampGround(map), out _, out var census, columns);
+            placed.AddRange(census);
             var drawn = new HashSet<string>();
             foreach (var (s, mesh, _) in kits)
             {

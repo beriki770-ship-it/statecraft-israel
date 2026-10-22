@@ -10,6 +10,7 @@ using Statecraft.Sim;
 using UnityEditor;
 using UnityEditor.SceneManagement;
 using UnityEngine;
+using Object = UnityEngine.Object;
 
 /// <summary>GDD Phase 4 PR 8, item 3 (#792): a built site draws the kit of what was built there. A built yishuv is a rural kit
 /// (a kibbutz's houses and its dining hall), a built camp is a camp kit (a fenced yard of barracks), never the other's.</summary>
@@ -17,21 +18,18 @@ public class SettlementPlacerTests
 {
     static readonly Content C = ContentLoader.Load(Paths.Content);
 
+    /// <summary>The game's map scene (Map.unity, with its kit materials and town models), built: SiteLayer draws kits only
+    /// when the map does.</summary>
     static MapScene Map()
     {
-        new GameObject("TestMainCamera") { tag = "MainCamera" }.AddComponent<Camera>();
-        var map = new GameObject("MapScene").AddComponent<MapScene>();
-        map.Configure(AssetDatabase.LoadAssetAtPath<Material>("Assets/Materials/Terrain.mat"),
-            AssetDatabase.LoadAssetAtPath<Material>("Assets/Materials/SettlementMarker.mat"),
-            AssetDatabase.LoadAssetAtPath<Material>("Assets/Materials/HexSelection.mat"),
-            AssetDatabase.LoadAssetAtPath<Material>("Assets/Materials/Sea.mat"),
-            AssetDatabase.LoadAssetAtPath<Material>("Assets/Materials/MapFrame.mat"));
+        EditorSceneManager.OpenScene("Assets/Map.unity", OpenSceneMode.Single);
+        var map = Object.FindFirstObjectByType<MapScene>();
         map.Build();
         return map;
     }
 
     /// <summary>Renders <paramref name="id"/> built, checks a kit (not the marker box) stands on the site's hex, and returns the
-    /// kinds of what that site's kit placed (SiteLayer.KitOf, built on the camp ground as SiteLayer builds it).</summary>
+    /// kinds of what SiteLayer itself placed for that site (SiteLayer.Placed).</summary>
     static List<string> BuiltKitKinds(string id)
     {
         var map = Map();
@@ -40,15 +38,12 @@ public class SettlementPlacerTests
         var site = C.Sites.Single(x => x.Id == id);
         var place = layer.Places.Single();
         Assert.AreEqual(SiteLayer.Prefix + id, place.Id, "the site's place");
-        if (map.KitsShown)
-        {
-            var drawn = layer.transform.GetChild(0);
-            Assert.AreNotEqual("Cube", drawn.GetComponent<MeshFilter>().sharedMesh.name, "a kit, not the marker box");
-            var b = drawn.GetComponent<MeshRenderer>().bounds;
-            Assert.AreEqual((site.Q, site.R), MapPointer.Pick(map, b.center), "the kit stands on the site's hex");
-        }
-        SettlementKits.Build(new[] { SiteLayer.KitOf(site, place) }, PlacementLayer.CampGround(map), out _, out var placed);
-        return placed.Where(p => p.Id == place.Id).Select(p => p.Kind).ToList();
+        Assert.IsTrue(map.KitsShown, "the map draws kits, so the hex check below runs");
+        var drawn = layer.transform.GetChild(0);
+        Assert.AreNotEqual("Cube", drawn.GetComponent<MeshFilter>().sharedMesh.name, "a kit, not the marker box");
+        var b = drawn.GetComponent<MeshRenderer>().bounds;
+        Assert.AreEqual((site.Q, site.R), MapPointer.Pick(map, b.center), "the kit stands on the site's hex");
+        return layer.Placed.Where(p => p.Id == place.Id).Select(p => p.Kind).ToList();
     }
 
     [Test]
@@ -71,7 +66,7 @@ public class SettlementPlacerTests
         try
         {
             var camps = C.Sites.Where(s => s.Kinds.Contains("military_camp")).Select(s => s.Id).ToList();
-            Assert.IsNotEmpty(camps, "sites.yaml has camp sites");
+            CollectionAssert.IsSubsetOf(new[] { "camp_80", "tzrifin" }, camps, "sites.yaml's camp sites");
             foreach (var id in camps)
             {
                 var kinds = BuiltKitKinds(id);
