@@ -124,7 +124,7 @@ public class UnitPlinthTests
 
     /// <summary>Every row of the unit file names its side, and every formation the map draws is Israel's or a force with a
     /// Collection figure (the other Arab forces' rows are data only; owner, 17 October 2026, #740; issue #665); only Israel
-    /// has a flag (built from the 1948 specification), so no flag is invented: a drawn force with none flies the neutral
+    /// and the Arab Legion have a flag (built from the 1948 texts), so no flag is invented: a drawn force with none flies the neutral
     /// pennant (Q-ART-1, owner, 15 October 2026), in neither side's colours and not white, and no other side flies anything.</summary>
     [Test]
     public void TheFlagIsTheSidesAndOnlyASourcedFlagIsDrawn()
@@ -254,8 +254,12 @@ public class UnitPlinthTests
         var cloth = Enumerable.Range(1, colours.Count).SelectMany(m.GetTriangles).Select(i => v[i]).ToList();
         Assert.AreEqual(2f, cloth.Max(p => p.x), 1e-4f); Assert.AreEqual(1f, cloth.Max(p => p.y), 1e-4f, "2:1");
         Assert.AreEqual(0f, cloth.Min(p => p.x), 1e-4f); Assert.AreEqual(0f, cloth.Min(p => p.y), 1e-4f);
-        // The star: white, over the red, centred on the incentre (1/(2+sqrt 2), 1/2), its points on a circle 1/12 across.
-        var centre = new Vector2(1f / (2f + Mathf.Sqrt(2f)), 0.5f);
+        // The star: white, over the red, centred on the incentre (the side-weighted mean of the corners, each corner weighted
+        // by the side opposite it), its points on a circle 1/12 across.
+        Vector2 A = new Vector2(0f, 0f), B = new Vector2(0f, 1f), Cc = new Vector2(0.5f, 0.5f);
+        float sa = (B - Cc).magnitude, sb = (Cc - A).magnitude, sc = (A - B).magnitude;
+        var centre = (sa * A + sb * B + sc * Cc) / (sa + sb + sc);
+        Assert.AreEqual(centre.x, (1f - centre.x - centre.y) / Mathf.Sqrt(2f), 1e-4f, "as far from the hoist as from the upper edge x + y = 1");
         var star = m.GetTriangles(white).Select(i => v[i]).Where(p => Mathf.Abs(p.z) > 1e-4f).Select(p => (Vector2)p - centre).ToList();
         Assert.IsNotEmpty(star, "a white star, off the cloth's plane on both faces");
         Assert.That(star.Max(q => q.magnitude), Is.EqualTo(1f / 24f).Within(1e-4f), "a twenty-fourth of the length across");

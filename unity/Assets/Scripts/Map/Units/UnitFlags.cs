@@ -128,10 +128,10 @@ namespace Statecraft.Game.Map.Units
             m.Plate(at, new List<Vector2> { F(0.5f, 0.5f), F(2, 0.5f), F(2, third), F(third, third) }, P.RoundelWhite, shade: 0.9f);
             m.Plate(at, new List<Vector2> { F(0, 0), F(third, third), F(2, third), F(2, 0) }, P.CamoGreen, shade: 0.9f);
             m.Plate(at, new List<Vector2> { F(0, 0), F(0, 1), F(0.5f, 0.5f) }, P.MarkingRed, shade: 0.9f);
-            // The star at the incentre of the triangle (sides 1, sqrt 1/2, sqrt 1/2): (1/(2+sqrt 2), 1/2), its points on a
-            // circle of radius 1/24 (a diameter of a twenty-fourth of the length 2), one point up. The inner corners at the
-            // regular {7/2} star's depth: the law gives none.
-            float cx = 1f / (2f + Mathf.Sqrt(2f)), outer = 1f / 24f, inner = outer * Mathf.Cos(2f * Mathf.PI / 7f) / Mathf.Cos(Mathf.PI / 7f);
+            // The star at the incentre of the triangle (sides 1, sqrt 1/2, sqrt 1/2): (1/(2+2 sqrt 2), 1/2), its inradius from
+            // the hoist; its points on a circle of radius 1/24 (a diameter of a twenty-fourth of the length 2), one point up.
+            // The inner corners at the regular {7/2} star's depth: the law gives none.
+            float cx = 1f / (2f + 2f * Mathf.Sqrt(2f)), outer = 1f / 24f, inner = outer * Mathf.Cos(2f * Mathf.PI / 7f) / Mathf.Cos(Mathf.PI / 7f);
             var star = new List<Vector2> { F(cx, 0.5f) };   // a fan from the centre
             for (int i = 0; i <= 14; i++)
             {
