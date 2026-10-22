@@ -1,10 +1,12 @@
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using NUnit.Framework;
 using Statecraft.Game;
 using Statecraft.Game.Boot;
 using Statecraft.Game.Map;
+using Statecraft.Game.Map.Collection;
 using Statecraft.Game.Map.Routes;
 using Statecraft.Sim;
 using UnityEditor;
@@ -81,8 +83,48 @@ public class RouteLayerCorridorTests
             // Every corridor route is cut, each into its corridor's segments.
             foreach (var d in C.Corridors)
                 Assert.AreEqual(d.Segments.Count, Marks(map).Count(m => m.Route == d.Route && m.Index >= 0), d.Id);
+            // A rebuild of the map (MapScene.RouteSegmentsBuilt) draws the corridors as the game left them.
+            map.Build();
+            shown = Marks(map).Where(m => m.gameObject.activeInHierarchy).ToList();
+            Assert.AreEqual(1, shown.Count, "after a rebuild: " + string.Join(", ", shown.Select(m => m.name)));
+            Assert.AreEqual((burma.Route, 0), (shown[0].Route, shown[0].Index), "after a rebuild");
         }
         finally { Object.DestroyImmediate(map.gameObject); }
+    }
+
+    /// <summary>The owner's review of #1312: in the GDD loop the Burma Road's convoy truck and lorry (RoadVehicles.Plans) wait
+    /// until every segment of the road is built, so no vehicle drives on road that is not drawn; once it is, both run.</summary>
+    [Test]
+    public void BurmaRoadVehiclesWaitForTheWholeRoad()
+    {
+        var burma = C.Corridors.Single(d => d.Id == "burma_road");
+        var convoy = new[] { RoadVehicles.SandwichConvoy, RoadVehicles.CanvasLorry };
+        var saved = RoadVehicles.Request;
+        var asked = new List<(string id, Action<GameObject> done)>();
+        RoadVehicles.Request = (id, detail, done) => asked.Add((id, done));
+        var map = RouteTests.BuildMap();
+        try
+        {
+            map.Control = Control1948.Parse(File.ReadAllText(Path.Combine(Paths.Content, "map", Control1948.FileName)));
+            var vehicles = RouteTests.RoutesRoot(map).Find(RoadVehicles.Name).GetComponent<RoadVehicles>();
+            void Answer() { foreach (var q in asked.ToArray()) q.done(AssetDatabase.LoadAssetAtPath<GameObject>(CollectionCatalog.PrefabPath(q.id, CollectionDetail.Near))); }
+            var date = new DateTime(1948, 7, 15);
+            var done = new SegmentWork(null, 6, new DateTime(1948, 6, 30));
+            var state = new GameState();
+            state.Corridors[burma.Id] = new CorridorWork(burma.Id, new SegmentWork[] { done, done, done, null });
+            RouteLayer.ShowAt(map, date, RouteLayer.BuiltSegments(C, state));
+            Answer();
+            Assert.IsFalse(asked.Any(q => convoy.Contains(q.id)), "three of four segments built: the convoy models are not asked for");
+            Assert.IsFalse(vehicles.Placed.Any(p => p.Route == burma.Route), "three of four segments built: no vehicle on the road");
+            Assert.IsTrue(vehicles.Placed.Any(), "the other roads' vehicles still run");
+
+            state.Corridors[burma.Id] = new CorridorWork(burma.Id, new SegmentWork[] { done, done, done, done });
+            RouteLayer.ShowAt(map, date, RouteLayer.BuiltSegments(C, state));
+            Answer();
+            CollectionAssert.AreEquivalent(convoy, vehicles.Placed.Where(p => p.Route == burma.Route).Select(p => p.Model),
+                "the whole road built: the convoy truck and the lorry run on it");
+        }
+        finally { RoadVehicles.Request = saved; Object.DestroyImmediate(map.gameObject); }
     }
 
     /// <summary>Outside the GDD loop (no built segments given) the corridor routes keep their dates: the Burma Road's

@@ -82,7 +82,7 @@ namespace Statecraft.Game.Map.Routes
             var service = map.Terrain.transform.Find($"{RootName}/{ServiceTrain.Name}");
             if (service != null) service.GetComponent<ServiceTrain>().ShowAt(date);   // from the service date on (issue #668)
             var vehicles = map.Terrain.transform.Find($"{RootName}/{RoadVehicles.Name}");
-            if (vehicles != null) vehicles.GetComponent<RoadVehicles>().ShowAt(date);
+            if (vehicles != null) vehicles.GetComponent<RoadVehicles>().ShowAt(date, built);
             var ribbons = map.Terrain.transform.Find($"{RootName}/{RibbonsName}");
             if (ribbons == null) return;
             foreach (var g in ribbons.GetComponentsInChildren<RouteGroup>(true)) g.gameObject.SetActive(g.Window.Covers(date));
