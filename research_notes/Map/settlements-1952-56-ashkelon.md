@@ -15,7 +15,7 @@ The question: which Jewish localities were founded in the Ashkelon subdistrict b
 CBS localities file 2024 (columns "סמל נפה" and "שם נפה"; source below). It is the line the Negev note left out: that
 note takes subdistrict 62 and names the Lachish area as outside it. Subdistrict 61 holds the Lachish area moshavim,
 Kiryat Gat, Ashdod and Sde Yoav, and also the strip along the Gaza line further south (Nahal Oz and Kefar Azza are in
-it; both are 1951 and in the 1949-51 note). As in the Negev note, this line was chosen because the official source
+it; both have CBS year 1951, and Nahal Oz is in the 1949-51 note). As in the Negev note, this line was chosen because the official source
 applies it to every row. **Other regions of #27 (the north, the centre, Jerusalem) are open to other claimants, and the
 owner can draw this line differently.**
 
@@ -127,7 +127,7 @@ Coordinates: CBS 2024, lat N, lon E, today's site. "Founded" is the best-support
 | 28 | Sde Yoav / שדה יואב | Kibbutz | 10 May 1956 (Gvati) or 2 Jun 1966 (he Wikipedia) **[C]** | 31.64513, 34.67719 | None found |
 | 29 | Sde Moshe / שדה משה | Moshav | 17 Jun 1956 **[S]**; 1956 **[V]** | 31.61133, 34.80146 | "Sde Yeshayahu" or "Sde Eliyahu" **[C]** |
 | 30 | Even Shmuel / אבן שמואל | Rural centre | 1956 **[V]** | 31.5749, 34.76544 | First "Oman" |
-| 31 | Kfar HaRif / כפר הרי"ף | Moshav | Nov 1956 **[V]** | 31.74546, 34.79289 | None found |
+| 31 | Kfar HaRif / כפר הרי"ף | Moshav | Nov 1956 **[S]**; 1956 **[V]** | 31.74546, 34.79289 | None found |
 
 Rows: 31. By type (first form): 22 moshavim or moshavim shitufim (Amatzia and Lachish began as Nahal outposts), 2
 kibbutzim (Hatzor-Ashdod, Sde Yoav), 2 youth villages or schools (Kannot, Kfar Silver), 2 rural centres (Nehora, Even
@@ -158,7 +158,7 @@ Common sources, cited by short name in every row:
 - **Founded: [C], day.** Gvati: 2.10.52, region "דרום", affiliation Tnuat HaMoshavim. Hebrew Wikipedia: "ארבעת
   המתיישבים הראשונים עלו למושב בספטמבר 1952" (the first four settlers came in September 1952), citing Davar, 29 Sep
   1953 and 11 Jan 1955, not read. **Year 1952 [V]**: CBS 1952; English Wikipedia "founded in 1952". I prefer neither
-  day; the two are a few days apart at most.
+  day; the two may date different steps (the first four settlers in September, Gvati's 2 October).
 - **Founders. [S, Wikipedia]** Hebrew Wikipedia: a moshav for immigrants from the United States, set up on the
   initiative of the "האיכר העובד" movement; later families mainly from New Jersey. English Wikipedia: immigrants from
   the United States, Canada and South Africa.
@@ -261,7 +261,8 @@ Common sources, cited by short name in every row:
   Hungarian youth movement HaNoar HaTzioni "who survived the Holocaust".
 - **Renames. [S, Wikipedia]** Hebrew Wikipedia: "ונקרא בשנותיו הראשונות "זיכרון נתן"" (called Zikhron Natan in its
   first years). Named after Ottó Komoly (Natan) (Gvati and both Wikipedias).
-- **Site note. [S, Wikipedia]** Hebrew Wikipedia: "היישוב הוקם במקום בו שכן הכפר הערבי בית עפה".
+- **Site note. [S, Wikipedia]** Hebrew Wikipedia: "היישוב הוקם במקום בו שכן הכפר הערבי בית עפה". English Wikipedia
+  (paraphrased): built 800 m south of Bayt 'Affa and 1 km north-east of Iraq Suwaydan, both depopulated in 1948.
 - **Coordinates.** CBS 31.65238, 34.70557 (code 775).
 - **Sources.** CBS; Gvati; https://he.wikipedia.org/w/index.php?oldid=43771659 ;
   https://en.wikipedia.org/w/index.php?oldid=1375075621 . All checked 2026-10-22.
@@ -378,6 +379,7 @@ Common sources, cited by short name in every row:
 - **Founders. [S, Wikipedia]** Hebrew Wikipedia: "על ידי עולים ממרוקו"; English Wikipedia: immigrants "from the
   Moroccan youth movement HaNoar HaTzioni".
 - **Renames.** None found. Named after Zalman David Levontin (Gvati and Hebrew Wikipedia).
+- **Site note. [S, Wikipedia]** Paraphrased: English Wikipedia places it near Burayr, depopulated in 1948.
 - **Coordinates.** CBS 31.57619, 34.68403 (code 36).
 - **Sources.** CBS; Gvati; https://he.wikipedia.org/w/index.php?oldid=43685481 ;
   https://en.wikipedia.org/w/index.php?oldid=1375073018 . All checked 2026-10-22.
@@ -461,7 +463,7 @@ Common sources, cited by short name in every row:
 - **Founders. [C]** Hebrew Wikipedia: a garin of about ninety young people from Haifa, of Ihud HaKvutzot
   VeHaKibbutzim, later filled with Nahal graduates. English Wikipedia: "originally settled by Jewish refugees from
   North Africa". No third source read.
-- **Renames. [S, Wikipedia]** Hebrew Wikipedia: it was first meant to be called "הילה" (Hila); the name marks the 58
+- **Renames. [S, Wikipedia]** Hebrew Wikipedia: it was first meant to be called "הילה" (Hila); the final name, Nir Hen (ח"ן = 58), marks the 58
   passengers of the El Al plane shot down over Bulgaria on 27 July 1955 (also Gvati's name origin).
 - **Site note. [S, Wikipedia]** Paraphrased: Hebrew Wikipedia places it on part of the land of al-Faluja.
 - **Coordinates.** CBS 31.60875, 34.71465 (code 11).
@@ -564,8 +566,8 @@ Common sources, cited by short name in every row:
 
 ### 31. Kfar HaRif (כפר הרי"ף), moshav
 
-- **Founded November 1956. [V]** Gvati: "11.56", region "שפלת יהודה", affiliation HaIhud HaHaklai. English Wikipedia:
-  "The moshav was founded at the end of 1956". CBS: 1956. Hebrew Wikipedia: "כפר הרי"ף נוסד בשנת 1956 כמושב". The day
+- **Founded November 1956. [S]**; **1956 [V].** Gvati: "11.56", region "שפלת יהודה", affiliation HaIhud HaHaklai. English Wikipedia:
+  "The moshav was founded at the end of 1956" (consistent with November, but not the same claim). CBS: 1956. Hebrew Wikipedia: "כפר הרי"ף נוסד בשנת 1956 כמושב". The day
   is **[GAP]**.
 - **Founders. [C]** Hebrew Wikipedia: meant for well-off Zionists from Morocco, most of whom did not come or left; their
   places were taken by immigrants from Poland and Russia, mostly Holocaust survivors. English Wikipedia: "Jewish
@@ -582,7 +584,7 @@ Common sources, cited by short name in every row:
   the Harubit and Masua transit camps (1955) are one example found by chance.
 - **No newspaper of the time was read**; every newspaper date above is as Wikipedia cites it.
 - **Days** confirmed by two sources only for Nir Hen (cornerstone); months confirmed by two sources for Menuha, Sgula,
-  Beit Nir and Kfar HaRif. Every other day is single-source, conflicting or missing.
+  Otzem and Beit Nir. Every other day is single-source, conflicting or missing.
 - **Rows that may fall outside the window**: Hatzor-Ashdod (row 10; only Gvati says 1953), Ashdod (row 25; CBS 1955,
   both Wikipedias 1956, so inside either way), Kfar Silver (row 27; CBS 1957) and Sde Yoav (row 28; both Wikipedia
   texts say 1966).
