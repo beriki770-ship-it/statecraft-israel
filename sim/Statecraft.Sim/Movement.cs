@@ -102,9 +102,9 @@ namespace Statecraft.Sim
 
         /// <summary>R-MOVE-005 in Phase 6 (#1304): the hexes a move and its path may not enter. For the player, those of
         /// mvp.enemy_held_localities that are not curated targets (settlement_targets.yaml), so a target can be captured in play
-        /// (the owner's #793 ruling) while the rest, Gaza today, stay closed, and so does a depopulated target (R-CTRL-020); for the enemy, <see cref="NoEntry"/>'s mirror
-        /// unchanged. Raid's withdrawal and combat retreat still read <see cref="NoEntry"/>, so neither ends on an enemy-held
-        /// place.</summary>
+        /// (the owner's #793 ruling) while the rest, Gaza today, stay closed, and so does a depopulated target (R-CTRL-020);
+        /// for the enemy, <see cref="NoEntry"/>'s mirror unchanged. Raid's withdrawal and combat retreat still read
+        /// <see cref="NoEntry"/>, so neither ends on an enemy-held place.</summary>
         static HashSet<(int Q, int R)> Closed(Content c, GameState s, bool enemy)
         {
             if (enemy) return NoEntry(c, s, true);
