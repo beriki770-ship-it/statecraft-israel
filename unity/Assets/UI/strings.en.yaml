@@ -239,7 +239,8 @@ report.intro: "What changed in the top bar, and the main causes:"
 report.line: "{0}: {1}"
 report.all: "See all in Why?"
 report.close: "Close"
-# The enemy's orders this turn (#1293): one line per order the enemy AI gave (R-ENEMY-001), {0} the unit's name.
+# The enemy's orders this turn (#1293): one line per order the enemy AI gave (R-ENEMY-001), and one per enemy unit in
+# each attack that engaged, a standing one too (#1297); {0} the unit's name.
 report.enemy: "What the Arab forces did"
 report.enemy_move: "{0} moved to a new position"
 report.enemy_attack: "{0} launched an attack on one of your units"

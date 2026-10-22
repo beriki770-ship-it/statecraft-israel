@@ -80,7 +80,7 @@ namespace Statecraft.Sim
             var committed = s.Units.Values.Where(x => x.Id != unitId && x.Order == Attack && Military(x) && Player(x)).Sum(x => Need(c, mvp, x));
             if (!enemy && s.Arms < need + committed) return Short(need, s.Arms, committed);
             s.Units[unitId] = new Unit(u.Id, u.Type, u.Q, u.R, u.Service, u.Side, u.Strength, Attack, target);
-            why.Add(new Cause("map", unitId.ToString(CultureInfo.InvariantCulture), 0, $"Unit {unitId} will attack hex {target}", enemy ? Attack : ""));
+            why.Add(new Cause("map", unitId.ToString(CultureInfo.InvariantCulture), 0, $"Unit {unitId} will attack hex {target}"));
             return null;
         }
 
@@ -209,7 +209,9 @@ namespace Statecraft.Sim
             var attackersLost = Take(s, attackers.Where(x => !Guns(c, x)).Select(x => x.Id).ToList(), row.AttackerLoss[face], removed);
             var defendersLost = Take(s, defenders.Select(x => x.Id).ToList(), row.DefenderLoss[face], removed);
             why.Add(new Cause("map", target, 0, FormattableString.Invariant(
-                $"The attack on hex {target} ({Ids(attackers)} against {Ids(defenders)}, strength ratio {ratio}%): the attackers lost {attackersLost * ppu:N0} people and the defenders lost {defendersLost * ppu:N0} people")));
+                $"The attack on hex {target} ({Ids(attackers)} against {Ids(defenders)}, strength ratio {ratio}%): the attackers lost {attackersLost * ppu:N0} people and the defenders lost {defendersLost * ppu:N0} people"),
+                // #1297: the turn report names an enemy attack on every turn it engages, a standing one too (R-ENEMY-003)
+                Player(attackers[0]) ? "" : Attack, Player(attackers[0]) ? null : attackers.Select(x => x.Id).OrderBy(x => x).ToList()));
             foreach (var id in removed)
                 why.Add(new Cause("map", id.ToString(CultureInfo.InvariantCulture), 0, $"Unit {id} was destroyed"));
             if (row.DefenderRetreats[face] != 1) return;
