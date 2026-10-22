@@ -195,7 +195,7 @@ No black-market price index for goods was found: not in Patinkin, BoI 1955 or Bo
 | 1955 | 2.280 | 2.200 | 2.330 | 2.460 |
 | 1956 | 2.380 | 2.383 | 2.430 | 2.704 |
 
-The table prints December 1953 twice (old and new money series, p. 142); both rows give 2.514. Patinkin's notes (p. 145): September 1951 and September 1952 are interpolated from the rate in Zurich; March 1956 is the average of February and April 1956. He writes that the black-market rate "shot upwards at the end of 1951 in anticipation of the depreciation of February 1952" and, apart from "an upward flutter at the time of the Sinai Campaign", stayed "more or less constant since" (p. 122). The same table gives the end-of-quarter cost-of-living index (col. 7, 1952 = 100): December 1952 116, December 1953 139, December 1954 149, December 1955 156, December 1956 163 [V].
+The table prints December 1953 twice (old and new money series, pp. 142-143); both rows give 2.514. Patinkin's notes (p. 145): September 1951 and September 1952 are interpolated from the rate in Zurich; March 1956 is the average of February and April 1956. He writes that the black-market rate "shot upwards at the end of 1951 in anticipation of the depreciation of February 1952" and, apart from "an upward flutter at the time of the Sinai Campaign", stayed "more or less constant since" (p. 122). The same table gives the end-of-quarter cost-of-living index (col. 7, 1952 = 100): December 1952 116, December 1953 139, December 1954 149, December 1955 156, December 1956 163 [V].
 
 ## 5. Open items
 
