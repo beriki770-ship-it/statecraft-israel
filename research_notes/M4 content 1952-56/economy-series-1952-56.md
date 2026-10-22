@@ -18,7 +18,7 @@ Researched 2026-10-22. All URLs were opened on that date. Research only, for ste
 
 **Source caveat.** No volume of the CBS *Statistical Abstract of Israel* for these years was found online (searched cbs.gov.il and the web; library catalogues hold print copies only). Where a figure comes from the Abstract, it is given as Patinkin or the Bank of Israel quotes it, with the Abstract page they cite; the Abstract page itself was not opened. Patinkin's 1950 to 1954 national accounts come from Lubell, *Israel's National Expenditure 1950-1954* (FP and CBS, Special Series No. 74, 1958), which was not opened either. Both annual reports call their own national accounts "provisional" (BoI 1955, p. 21, text after Table 2; BoI 1956, p. 29, opening of chapter II).
 
-**Which series to use.** Patinkin's tables are the only opened source that covers all five years on one basis, and for 1955 and 1956 they take the later figures of the Bank of Israel *Annual Report 1957* (Patinkin, p. 45, sources to Table 12). The two annual reports printed earlier, provisional figures that differ (section 1.3). Use Patinkin for a consistent series and the annual reports as the second value.
+**Which series to use.** Patinkin's tables are the only opened source that covers all five years on one basis, and for 1955 and 1956 they take the later figures of the Bank of Israel *Annual Report 1957* (Patinkin, p. 45, sources to Table 12). The two annual reports printed earlier, provisional figures that differ (section 1.3). Suggestion for step 2: use Patinkin for a consistent series and the annual reports as the second value.
 
 ---
 
@@ -37,7 +37,7 @@ Researched 2026-10-22. All URLs were opened on that date. Research only, for ste
 | 5. Import surplus | 262.7 | 316.9 | 367.1 | 509 | 642 |
 | 6. Gross national product (4 less 5) | 1,063.0 | 1,348.7 | 1,828.9 | 2,114 | 2,543 |
 
-Patinkin's sources (p. 45): 1952 to 1954 from Lubell, Special Series No. 74, p. 50, Table 4-1A (line 2b: p. 63, Table 4-5A); 1955 and 1956 from Bank of Israel, *Annual Report 1957*, p. 11, Table II-1, with line 2b from CBS government expenditure figures and the Accountant General's reports. Depreciation in line 3 is taken at 7.5 percent of GNP for these years (Table 12, line 3a). The import surplus is valued at the official exchange rates; Patinkin says these rates often overvalued the pound, so the GNP estimates of those years are overvalued too (p. 44; see also p. 46).
+Patinkin's sources (p. 45): 1952 to 1954 from Lubell, Special Series No. 74, p. 50, Table 4-1A (line 2b: p. 63, Table 4-5A); 1955 and 1956 from Bank of Israel, *Annual Report 1957*, p. 11, Table II-1, with line 2b, for 1955, from R. M. Barkay, *The Public Sector Accounts of Israel: 1948/49-1954/55*, Vol. 1, Table 1, p. 105, and CBS, *Expenditures and Receipts of the Government: 1955/56 and 1956/57*, Table 1, prorated by quarters; for 1956, calculated from that CBS table and the Accountant General's *Financial Reports* for April-December 1955 and 1956 (sources to Table 12, p. 45). Depreciation in line 3 is taken at 7.5 percent of GNP for these years (Table 12, line 3a). The import surplus is valued at the official exchange rates; Patinkin says these rates often overvalued the pound, so the GNP estimates of those years are overvalued too (p. 44; see also p. 46).
 
 ### 1.2 Constant 1952 prices (Patinkin, Table 18, p. 59) [V]
 
@@ -61,7 +61,7 @@ Sources as printed under the table: 1952 to 1954 from Lubell, p. 51, Table 4-1C;
 | 1955 real growth | 1,474.2 against 1,341.3 in Table 18 (computed here: +9.9 percent) | +9.9 percent (at 1954 prices) | "10-11 per cent" in the text (p. 30) |
 | 1956 real growth | 1,627.4 against 1,474.2 in Table 18 (computed here: +10.4 percent) | not given | +8.3 percent real, +9.2 percent in prices (Table II-1); "8 or 9 per cent" in the text (p. 30) |
 
-BoI 1956 says its figures differ from BoI 1955 "due to the changed base and the receipt of more up-to-date statistics" (p. 29, footnote 2). Use Patinkin's values; give the annual-report values as the contemporary estimate. The 1954 figure differs most: 1,828.9 against 1,737.
+BoI 1956 says its figures differ from BoI 1955 "due to the changed base and the receipt of more up-to-date statistics" (p. 29, footnote 2). Suggestion for step 2: use Patinkin's values; give the annual-report values as the contemporary estimate. The 1954 figure differs most: 1,828.9 against 1,737.
 
 The rendered BoI 1956 Table II-1 (p. 31) also gives, for 1955 and 1956 at current prices: imports of goods and services 768 and 953, public consumption 436 and 689, private consumption 1,644 and 1,850, gross investment 551 and 615, exports of goods and services 259 and 308 (IL millions) [V].
 
@@ -108,12 +108,12 @@ Defence spending in the national accounts (line 2b of Table 12 above) went from 
 | Ordinary Budget | 344.9 | 332.7 | 482.9 | 483.4 |
 | Development Budget, debt redemption and special expenditure | 316.4 | 295.7 | 371.3 | 371.3 |
 | Earmarked revenue and expenditure | 9.1 | 9.1 | 12.3 | 12.3 |
-| Current surplus or deficit (as printed) | - | 33.0 | 0.5 | - |
+| Current surplus or deficit (as printed; for 1955-56 a deficit of 0.5 million in the estimates) | - | 33.0 | 0.5 | - |
 | Total | 670.4 | 670.4 | 867.0 | 867.0 |
 
-The 1954-55 columns are actuals; the 1955-56 columns are estimates and include the special Defence Fund Budget of 50 million IL (text, p. 217). The source is the Accountant General's financial reports. Read as printed: the 33.0 sits in the expenditure column of 1954-55, so revenue exceeded expenditure that year, and the 0.5 sits in the revenue column of 1955-56. The text on p. 219 says "the revenue surplus from the financial year 1954-55 was absorbed".
+The 1954-55 columns are actuals; the 1955-56 columns are estimates and include the special Defence Fund Budget of 50 million IL (text, p. 217). The source is the Accountant General's financial reports. Read as printed: the 33.0 sits in the expenditure column of 1954-55, so revenue exceeded expenditure that year, and the 0.5 sits in the revenue column of 1955-56. In words: the 1955-56 estimates carry a deficit of 0.5 million IL; Table 142 (p. 218) prints it as "Surplus of Expenditure 0.5". The text on p. 219 says "the revenue surplus from the financial year 1954-55 was absorbed".
 
-**[GAP]** Budget outturns for 1952-53, 1953-54 and 1956-57: not in the opened chapters of BoI 1955 or BoI 1956 (the BoI 1956 public-finance chapter was not opened). The candidates are the Accountant General's reports and CBS *Expenditures and Receipts of the Government* cited by Patinkin (p. 45).
+**[GAP]** Budget outturns for 1952-53, 1953-54 and 1956-57: not in the opened chapters of BoI 1955 or BoI 1956 (the BoI 1956 public-finance chapter was not opened; it is in the same file set and may close this gap, a follow-up). The candidates are the Accountant General's reports and CBS *Expenditures and Receipts of the Government* cited by Patinkin (p. 45).
 
 ## 3. Unemployment
 
@@ -139,12 +139,12 @@ Figures in parentheses are, in Patinkin's words, "not too reliable" (list of sym
 | November 1955 | BoI 1956, Table VIII-4 (p. 129) | not given | gainfully employed 92.8 percent |
 | June 1956 | BoI 1956, Table VIII-4 (p. 129) | not given | gainfully employed 92.7 percent; civilian labour force 620,000 |
 
-The two Bank of Israel reports disagree on June 1954: 8.0 percent unemployed against 91.4 percent employed (so 8.6 percent not employed). Both say they are corrected or revised figures. Patinkin's annual figure for 1954 is 7.4 percent. The surveys give a single week each, and BoI 1956 warns they "do not permit the drawing of conclusions as to changes" between them (p. 130).
+The two Bank of Israel reports disagree on June 1954: 8.0 percent unemployed against 91.4 percent employed (so 8.6 percent not employed). Both say they are corrected or revised figures. Table VIII-4 (p. 129) also prints the civilian labour force: 596,000 in June 1954, 631,000 in November 1955 and 620,000 in June 1956. Computed here: 8.6 percent of 596,000 is about 51,300 not employed, against the 47,800 unemployed in BoI 1955. Patinkin's annual figure for 1954 is 7.4 percent. The surveys give a single week each, and BoI 1956 warns they "do not permit the drawing of conclusions as to changes" between them (p. 130).
 
 ### 3.3 Registered unemployment
 
 - BoI 1956: "In 1956, the level of registered unemployment was 8 per cent higher than in 1955", and in the last quarter of 1956 more than 23 percent higher than a year earlier (p. 135) [V]. The monthly daily averages for 1955 and 1956 are in Table VIII-8 (p. 136).
-- Eshkol (1962), as cited in `new-economic-policy-1952.md` section 4: registered unemployment 7.2 percent of the labour force (year implied 1952) and 11.3 percent in 1953 [S here: from the sibling note, not re-opened]. These are higher than Patinkin's 6.3 and 8.9 for the same years [C]. They measure different things (registrations as against Patinkin's survey-equivalent extrapolation), so neither is wrong. Use Patinkin's for a consistent series and say so.
+- Eshkol (1962), as cited in `new-economic-policy-1952.md` section 4: registered unemployment 7.2 percent of the labour force (year implied 1952) and 11.3 percent in 1953 [S here: from the sibling note, not re-opened]. These are higher than Patinkin's 6.3 and 8.9 for the same years [C]. They measure different things (registrations as against Patinkin's survey-equivalent extrapolation), so neither is wrong. Suggestion for step 2: use Patinkin's for a consistent series and say so.
 
 ## 4. Prices and exchange rates
 
@@ -202,5 +202,5 @@ The table prints December 1953 twice (old and new money series, pp. 142-143); bo
 1. Open the CBS *Statistical Abstract* volumes Nos. 4 to 9 (1952/53 to 1957/58) for the primary pages Patinkin cites: No. 8, pp. 148-49 (black-market rate); No. 9, p. 111 (national income) and p. 285 (cost-of-living index). No digitised copy was found; the National Library of Israel or a university library holds print copies.
 2. Open the Bank of Israel *Annual Report 1957* (p. 11, Table II-1; p. 18, Table II-6), the source of Patinkin's revised 1955 and 1956 national accounts and government saving.
 3. Budget outturns for the financial years 1952-53, 1953-54 and 1956-57 (section 2.2 gap).
-4. Resolve the June 1954 survey figure (8.0 percent unemployed in BoI 1955 against 91.4 percent employed in BoI 1956).
-5. A black-market goods price index, if one exists (section 4.2). If none does, step 2 should calibrate against the official index and say so.
+4. Resolve the June 1954 survey figure (8.0 percent unemployed in BoI 1955 against 91.4 percent employed in BoI 1956; the labour force figures are in section 3.2).
+5. A black-market goods price index, if one exists (section 4.2). If none does, step 2 could calibrate against the official index and say so.
