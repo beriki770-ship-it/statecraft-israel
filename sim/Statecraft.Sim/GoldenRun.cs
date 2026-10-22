@@ -16,13 +16,13 @@ namespace Statecraft.Sim
         /// <summary>Final hash of Play(content, Until1950). Changing it is a deliberate rules or content change: the value
         /// is pinned in sim/Statecraft.Sim.Tests/golden/manifest.txt, and STATECRAFT_UPDATE_GOLDEN=1 dotnet test rewrites
         /// both (docs/determinism.md). Say why in the commit message.</summary>
-        public const string Hash1950 = "f70d7cc2d9438c3b0859a957842fae9a456198d1a1160f962b61fec5b28af0df";
+        public const string Hash1950 = "f3ec68b734a3beb24df9a873e0400f0253aed48f3cde2ea12415f1890dcaa5b0";
 
         public static readonly DateTime Until1950 = new DateTime(1950, 1, 1);
 
         /// <summary>Final hash of Play(content, Until1952): the M3 content range (to 31 December 1951). The GDD game ends on
         /// 15 January 1952 (R-LOOP-004), the first turn on or after Until1952, so this is also the mvp-end run.</summary>
-        public const string Hash1952 = "ca78893d57bd7235dd923f29b611e0c12e99d702312c24b5bfc72ac82b3d14bf";
+        public const string Hash1952 = "6b374f69a0ed276eeea69737e2a8b0e72d26feb930dab35e8f7c50113c4e9c0b";
 
         public static readonly DateTime Until1952 = new DateTime(1952, 1, 1);
 
@@ -96,15 +96,16 @@ namespace Statecraft.Sim
 
         /// <summary>The smoke-orders golden's one order (GDD Phase 5 PR 15, #754), what the WebGL ?smoke-orders run's
         /// GameRoot.SmokeOrders gives through the unit card: Move for the lowest-id unit Movement.Reachable has a hex for,
-        /// to the first of those hexes in Reachable's (q, r) order. Here, so Unity's run and the tests pick the same order.</summary>
+        /// to the first of those hexes in Reachable's (q, r) order that is not an enemy-held place (Movement.NoEntry), so the
+        /// golden stays a plain move and captures nothing (#1304 opened the target towns). Here, so Unity's run and the tests
+        /// pick the same order.</summary>
         public static Move SmokeMove(Content c, GameState s)
         {
             if (c == null) throw new ArgumentNullException(nameof(c));
+            var places = Movement.NoEntry(c, s);
             foreach (var id in s.Units.Keys)   // a SortedList: in id order
-            {
-                var reach = Movement.Reachable(c, s, id);
-                if (reach.Count > 0) { var (q, r) = reach.Keys.First(); return new Move(id, q, r); }
-            }
+                foreach (var (q, r) in Movement.Reachable(c, s, id).Keys)
+                    if (!places.Contains((q, r))) return new Move(id, q, r);
             throw new InvalidOperationException("the smoke-orders run needs a unit that can move");
         }
 

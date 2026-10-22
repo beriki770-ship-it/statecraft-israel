@@ -127,6 +127,9 @@ namespace Statecraft.Sim
                 var type = c.UnitTypes.FirstOrDefault(t => t.Id == g.Type)
                     ?? throw new ContentException(e.File, G(".type"), $"unknown unit type '{g.Type}'");
                 if (type.Kind != "unit") throw new ContentException(e.File, G(".type"), $"'{g.Type}' is not a unit type (kind {type.Kind})");
+                // R-EFX-003: this schema has neither strength nor a sourced military formation. Do not turn a recruit
+                // into a default-side, zero-strength unit now that training produces military units (R-UNIT-003).
+                if (type.Side != "") throw new ContentException(e.File, G(".type"), "grant_units does not specify military strength; use recruit training instead");
                 if (g.N < 1) throw new ContentException(e.File, G(".n"), "must be at least 1");
                 if (g.At == "" && c.Cities.Count(x => x.Facilities.Contains(EventSystem.MilitaryCamp)) != 1)
                     throw new ContentException(e.File, G(".at"), "required: no single city has the military camp, so name a city");
