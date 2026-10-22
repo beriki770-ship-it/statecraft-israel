@@ -272,7 +272,7 @@ R-OBJ-005: An objective part (`part_of`) may name `completes_when: { corridor_co
 
 R-OBJ-006: Parts with the same `part_of` are one objective for `objective_points`: its base points are added exactly once, when the last part records. Earlier parts add only their R-OBJ-005 timing bonus. Rechecking any recorded part changes neither the records nor the score (Q-OBJ-1, owner, 17 October 2026, #782).
 
-R-OBJ-007: Objectives keep `objectives.yaml`'s order: step 11 records them in it, and when two or more objectives' cards fire on the same turn they fire in it (Q-CARD-2, owner, 17 October 2026, #784). Among the events eligible that turn, an objective's card sorts with the others by `from` as R-EVT-001 orders them, after the other events of the same `from`.
+R-OBJ-007: Objectives keep `objectives.yaml`'s order: step 11 records them in it, and when two or more objectives' cards fire on the same turn they fire in it (Q-CARD-2, owner, 17 October 2026, #784). Among the events eligible that turn, an objective's card sorts with the others by `from` as R-EVT-001 orders them, after the other events of the same `from` (our tiebreak, not part of Q-CARD-2).
 
 R-SCORE-001: The score is the sum of the parts Q-SCORE-1 names (owner, 17 October 2026, #784), and nothing else: objective base points (R-OBJ-002, R-OBJ-006), their timing bonuses (R-OBJ-002, R-OBJ-005) and points for prisoners returned (R-POW-004). The state keeps each part as it scores, so a later reading never rebuilds one from rules that may have changed since (a turn scores with the rules of the date it starts from); `ScoreParts.For` reads them, and they always sum to `GameState.Score`.
 

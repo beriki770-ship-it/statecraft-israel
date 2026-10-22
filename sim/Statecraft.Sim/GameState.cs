@@ -83,8 +83,8 @@ namespace Statecraft.Sim
         public SortedDictionary<string, DateTime> Objectives = new SortedDictionary<string, DateTime>(StringComparer.Ordinal);
         /// <summary>Settlement control by target id, ordinal (R-CTRL-002).</summary>
         public SortedDictionary<string, SettlementControl> Settlements = new SortedDictionary<string, SettlementControl>(StringComparer.Ordinal);
-        /// <summary>The player's score (GDD "Objectives": bonus points). An int assumes whole-number points; the point values and
-        /// the timing bonus are open decisions with the owner (D-B2, D-B6), so the type is revisited when they are set.</summary>
+        /// <summary>The player's score (GDD "Objectives": bonus points). An int: the point values (D-B6) and the timing bonus (D-B2)
+        /// the owner set on 14 October 2026 (#456) are whole numbers (R-OBJ-002).</summary>
         public int Score;
         /// <summary>The parts of <see cref="Score"/> (R-SCORE-001; Q-SCORE-1), each added when it scores, so no reading has to
         /// rebuild them from rules that may have changed since: objective base points (R-OBJ-002, R-OBJ-006), timing bonuses
