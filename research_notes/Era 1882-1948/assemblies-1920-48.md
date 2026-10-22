@@ -72,9 +72,9 @@ reports for 1920 to 1928 (only 1929 and 1930 were read).
 | Third | 5 January 1931 [V] MR-1930, EJ-PL | [GAP] | 71 [V] KN-AR, MR-1930, EJ-PL | 12 MR-1930, KN-AR; 14 EJ-PL [C] | 50,436 [V] MR-1930, KN-AR | 75,046 voters' cards MR-1930; 89,656 EJ-PL [C] | 65% MR-1930; 56% EJ-PL [C] |
 | Fourth | 1 August 1944 [V] EJ-PL, UN-JA11; 2 August AJYB-46 [C] | September 1944 [V] AJYB-46; 12 or 13 September [C], see §5 | 171 [V] KN-AR, EJ-PL, UN-JA11 | 18 [V] KN-AR, EJ-PL | 202,448 [V] UN-NC84, KN-AR; others [C] | 300,018 [V] UN-NC84, UN-JA11 | 67% [V] EJ-PL |
 
-KN-AR: "The first had 314 members, representing 20 lists elected by 22,200 voters; the second had 221 members,
-representing 26 lists elected by 36,437 voters; the third had 71 members, representing 12 lists elected by 50,436
-voters, and the fourth had 171 members, representing 18 lists and elected by 202,448 voters."
+KN-AR gives, for each Assembly in turn, its members, the lists represented and the voters, as in the table: "The
+first had 314 members, representing 20 lists elected by 22,200 voters", and so on to "171 members, representing 18
+lists and elected by 202,448 voters".
 
 EJ-GOV on how often each Assembly met: "The first met three times and the second twice; the third held 18 sessions
 and the fourth seven. It met for its last working session in October 1947, and the concluding session took place after
@@ -84,8 +84,10 @@ WP-EN gives 13 February 1949 as the last day [S]. EJ-PL dates the first Assembly
 The third Assembly "lasted for over 13 years, as elections were repeatedly postponed because of recurrent Arab
 violence, continuous political tension, and then the outbreak of World War ii" (EJ-PL) [V].
 
-Terms in law: from 1928 the Regulations set a four-year term for the Assembly (REG 12(1)), a one-year term for the
-Vaad Leumi (REG 14) and a session at least once in twelve months (REG 15(1)) [V, as amended to 1948; see §6].
+Terms in law: the consolidated text of the Regulations, as amended up to 1948, sets a four-year term for the Assembly
+(REG 12(1)), a one-year term for the Vaad Leumi (REG 14) and a session at least once in twelve months (REG 15(1)) [V].
+Regulation 12 is marked as amended in 1937 and 1948, and 14 and 15 in 1948, so which of these terms were in the 1928
+text is a [GAP]. In practice the third Assembly sat for over 13 years (below).
 
 Against the design (§2): the sizes 314, 221, 71 and 171 are confirmed. The design's dates "from 6 Dec 1925", "from
 5 Jan 1931" and "from Aug 1944" are election dates, not first sessions; the first sessions of the second and third
@@ -117,7 +119,8 @@ those polls. Neither value is preferred. The day Jerusalem voted is a [GAP] unti
 
 ### Result
 
-EJ-PL [V]: "nineteen lists of candidates were submitted. Each list received one delegate for every 80 votes polled;
+EJ-PL [V] (its prose says 19 lists stood, its table and KN-AR say 20 were represented [C, not settled]):
+"nineteen lists of candidates were submitted. Each list received one delegate for every 80 votes polled;
 77% of the electors voted and 314 delegates were elected." Ahdut ha-Avodah 70, Sephardi Union 54, Ha-Po'el ha-Za'ir
 41, Farmers' Union 16, Progressive Party (Mitkaddemim) 13, Yemenites 12, two Mizrachi lists 11, "11 other groups with
 a total of 46 places", and "an additional 51 delegates were chosen at separate polls by Orthodox men, who refused to
@@ -191,7 +194,7 @@ Seats and votes (MR-1930 paras. 20 and 21) [V]. Eighteen lists stood; twelve won
 
 | List (MR-1930's name) | Votes | Seats |
 |---|---|---|
-| Labour (Mapai) | 21,497 | 27 |
+| Labour (Mapai, a label added here from EJ-PL) | 21,497 | 27 |
 | Revisionists | 8,069 | 10 |
 | Sephardic "Bloc" | 2,301 | 6 |
 | Mizrahi and Hapoel Hamizrahi | 4,107 | 5 |
@@ -210,7 +213,9 @@ Seats and votes (MR-1930 paras. 20 and 21) [V]. Eighteen lists stood; twelve won
 | Farmers' Association | none shown | 0 |
 | Middle Class Association | none shown | 0 |
 
-The seats add up to 71 (computed here). [C] EJ-PL: Revisionists "16, including 5 Sephardim" (MR-1930: 10 + 5 = 15)
+The seats add up to 71 (computed here). The list votes add up to 49,475 (computed here), 961 fewer than the 50,436
+votes cast; MR-1930 shows no figure ("--") for the Farmers' and Middle Class lists and gives no count of invalid votes,
+so the 961 are not explained. [C] EJ-PL: Revisionists "16, including 5 Sephardim" (MR-1930: 10 + 5 = 15)
 and General Zionists 4 (MR-1930: 5). he.wiki gives the Revisionists 11 and the General Zionists 4 [S]. Preferred:
 MR-1930. Lists represented: 12 (MR-1930, KN-AR) or 14 (EJ-PL) [C]; preferred 12.
 
@@ -236,8 +241,7 @@ All [V], and they agree except on the farmers and the size of the General Zionis
 - JTA-440810: "The Zionist-Revisionist Party, the Sephardic Jews, the General Zionist Group 'B' and the Jewish farmers
   Association will not be represented ... since they boycotted the elections."
 - AJYB-46 p. 460: "Several Rightist groups (Sephardim, Revisionists, Landowners, and a General Zionists fraction)
-  boycotted the elections. They asserted that the proportional system adopted in voting for the Assembly was
-  'super-democratic'."
+  boycotted the elections", calling the proportional system "super-democratic".
 - UN-NC84: "Certain Right-Wing groups abstained from voting."
 - KN-AR: "After 1944, the Revisionists and several other political groups also boycotted it due to their opposition to
   the official policy of the elected leadership."
@@ -245,7 +249,11 @@ All [V], and they agree except on the farmers and the size of the General Zionis
   boycotted the elections".
 - AJYB-46 p. 461: the opposition later offered to take part in new elections "in a year or two under a slightly
   modified electoral system"; talks on their temporary entry into the Vaad Leumi "on the basis of their representation
-  in the previous Assefath Hanivcharim" had "not yet advanced sufficiently". Whether they joined is a [GAP].
+  in the previous Assefath Hanivcharim" had "not yet advanced sufficiently". Whether they joined is a [GAP]. A
+  lead, not proof: in February 1948 Shertok wrote that Agudath Israel was "the only Jewish party or group" outside the
+  framework of both the Jewish Agency and the Vaad Leumi (UN-JA11) [V]. The same letter lists the Revisionists among
+  the parties in the 1946 Congress elections, and being inside the Agency's framework is not the same as sitting in
+  the Vaad Leumi.
 
 EJ-VL's "the General Zionists" is wider than the other sources' "General Zionists b" or "a General Zionists fraction":
 General Zionist lists did stand and win seats (below). Preferred: General Zionists B only.
@@ -261,8 +269,9 @@ General Zionist lists did stand and win seats (below). Preferred: General Zionis
 | "a total of 200,881 among 280,000 eligible voters"; 24 parties and groups, 1,694 candidates | AJYB-46 p. 460 [V] |
 | 67% of "the vastly increased electorate of 300,000" | EJ-PL [V] |
 
-[C] Preferred: 202,448 of 300,018, the figure in two independent records (the Vaad Leumi's letter to UNSCOP and the
-Knesset lexicon), whose list totals add up (below). Whether the 9,219 soldiers' votes are inside that figure is a
+[C] Preferred: 202,448 of 300,018, the figure in the Vaad Leumi's letter to UNSCOP, whose list totals add up (below),
+and in the Knesset lexicon (which may have taken it from the same record). The Vaad Leumi's own cable of February 1948
+(UN-JA11) gives 202,404, so the Vaad Leumi itself gave two values. Whether the 9,219 soldiers' votes are inside that figure is a
 [GAP]. The 1944 percentage is 67.5% on the preferred figures (computed here), matching EJ-PL's 67%.
 
 ### Votes by list (UN-NC84 page 2, the Vaad Leumi's table) [V]
@@ -487,7 +496,7 @@ over Wikipedia).
 Gaps [GAP]: the first sessions of the second and third Assemblies; the day of the 1920 Jerusalem and Orthodox polls;
 the day of the 1925 Yemenite poll; the full 1925 list of seats; the seats of the small 1944 lists; whether the 9,219
 soldiers' votes are in the 1944 total; whether the 1944 boycotters later joined the Vaad Leumi; the party make-up of
-each Vaad Leumi executive; the 1932 and 1944 Vaad Leumi beyond the parties named; the 1928 Gazette wording of
+each Vaad Leumi executive (#89 asks for it; only the full Vaad Leumi's parties were found, §7); the 1932 and 1944 Vaad Leumi beyond the parties named; the 1928 Gazette wording of
 regulation 13 and its 1934 amendment; the record of any annual budget vote in the Assembly; how the Jewish Agency's
 budget was approved before 1948; the People's Council's sittings.
 
