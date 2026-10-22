@@ -107,7 +107,7 @@ Table rows checked:
   Agency, amounted to £P.242,805." Spending in 5694: ten items summing to 166,600. Receipts in 1934: Keren Hayesod
   255,800 ("£243,000 collections, on account of debts, £12,800"), JNF 207,500, Hadassah 70,000, WIZO 40,000, Central
   Bureau for settling German Jews 92,000 (665,300), Hebrew University and Technicum 74,000 (739,300). Both sums check.
-  The same page records a loan of £P 500,000 taken by the Jewish Agency and Keren Hayesod, of which £P 135,100 had
+  Pages 32-33 also record a loan of £P 500,000 taken by the Jewish Agency and Keren Hayesod, of which £P 135,100 had
   been spent by the end of 1934.
 
 ### 1b. "National Funds Collected", Kaplan 1946
@@ -137,7 +137,9 @@ My reading: the two funds are Keren Hayesod and the JNF; the table does not name
 
 The years 1924/25 to 1931/32 are not in the table: [GAP]. The per-head column is the total divided by the immigrants
 of the calendar year printed beside it (for example 492,000 / 7,844 = 62.7, and 1,706,000 / 4,547 = 375.2; derived
-checks).
+checks). One row does not: for 1942/43 the page prints 18,507 immigrants (for 1943), which gives 154.3 (derived), but
+prints 335.6, which is 2,855,000 / 8,507 (derived). My reading: one of the two figures in that row is a misprint; the
+page does not say which.
 
 ### 1c. Keren Hayesod and Jewish Agency totals
 
@@ -231,8 +233,8 @@ content work needs a value that this note does not have: [GAP].
 - [C] founding dates: Survey I p. 376 says the JNF "was established in 1901" and Keren Hayesod "in 1920" (p. 377);
   Survey II p. 912 says "Keren Kayemeth Leisrael Ltd. ... established in 1907" and "Keren Hayesod Ltd. ... established
   in 1921". My reading: Survey II dates the limited companies. Prefer 1901 and 1920 for the funds.
-- Survey II p. 914: the scan's digit for Keren Hayesod's agricultural settlement 1921-1944 reads either 4,388,179 or
-  4,888,179. Only 4,388,179 makes the printed column total of 9,944,241 (derived: 2,710,524 + 4,388,179 + 1,605,439 +
+- Survey II p. 914: the image reads 4,888,179 for Keren Hayesod's agricultural settlement 1921-1944, which does not
+  make the printed column total. Only 4,388,179 makes the printed column total of 9,944,241 (derived: 2,710,524 + 4,388,179 + 1,605,439 +
   1,240,099 = 9,944,241). Keren Kayemeth's column checks. The table's "Total" column is not the sum of its six fund
   columns (for contributions the six give 29,178,245, derived, and the column prints 29,892,961), so this note uses
   only the single-fund columns.
@@ -319,6 +321,9 @@ content work needs a value that this note does not have: [GAP].
 - Berlin p. 11 reprints Herbert Samuel's Public Notice No. 36 of 2 January 1921: "from the 22nd day of January, 1921,
   the following only shall be legal tender in Palestine: Egyptian gold, notes, silver, and nickel coins; the British gold
   sovereign, at the rate of 97½ Egyptian Piastres."
+- [C] Berlin p. 67 says the Board's notes date "From their original issue of September 1, 1927", while p. 37 gives
+  1 November 1927 for putting the currency into circulation. My reading: 1 September 1927 is the date printed on the
+  notes, not the day they became legal tender; prefer 1 November 1927 for the changeover.
 - Berlin p. 37: the introduction date was moved from 1 October 1927 (a Saturday) to 1 November 1927. Berlin p. 38: "On
   February 9, 1928, Lord Plumer, declared in a proclamation that Egyptian banknotes, gold, silver, and nickel coins,
   which had been legal tender in Palestine, would be demonetized on March 31, 1928." The sovereign "was to be withdrawn
@@ -339,7 +344,7 @@ content work needs a value that this note does not have: [GAP].
   percent compulsory loan levied on cash holdings and current accounts." Its notes carry "Issue date June 9, 1952".
 
 **The par the design asks about.** In 1948 the Anglo-Palestine Bank notes were printed in "Palestine Pound" (BoI APB),
-so the unit did not change at the boundary [V]. For the 1952 change to the Israeli pound, no source opened states an
+[V]; my reading is that the unit therefore did not change at the boundary. For the 1952 change to the Israeli pound, no source opened states an
 exchange rate; the BoI page names only the 10 per cent compulsory loan. A primary statement that it was at par is
 [GAP].
 
