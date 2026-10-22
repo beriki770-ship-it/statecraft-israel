@@ -363,8 +363,8 @@ namespace Statecraft.Sim
             }
             // Objectives (GDD v0.1, Phase 1 PR 6). Read in both loops, since their cards are events every loop loads; a content
             // set without objectives has no file.
-            c.Objectives = ReadOptional<ObjectivesFile>(readFile, ObjectivesFileName)?.Objectives
-                .OrderBy(o => o.Id, StringComparer.Ordinal).ToList() ?? new List<Objective>();
+            // In the file's order, not sorted: it is the order objectives record and their cards fire in (R-OBJ-007, Q-CARD-2).
+            c.Objectives = ReadOptional<ObjectivesFile>(readFile, ObjectivesFileName)?.Objectives ?? new List<Objective>();
             Validate(c, settlementIds);
             ApplyMapOverrides(readFile, c, settlementIds);   // after the map's own checks, before the GDD records that read it
             if (c.IsGdd)

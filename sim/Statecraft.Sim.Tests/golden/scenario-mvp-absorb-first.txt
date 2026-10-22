@@ -390,5 +390,6 @@ next=273
 obj{
   absorb_immigrants=1950-01-15
 score=100
+scoreparts=100,0,0
 food=3003,1001,0
 arms=12
