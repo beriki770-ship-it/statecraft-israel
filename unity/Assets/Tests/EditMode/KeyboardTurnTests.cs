@@ -205,6 +205,7 @@ public class KeyboardTurnTests
         // The candidate list's and the seat list's own scroll bars take Tab after their last row: no error, and Tab goes on.
         yield return TabTo(v => v.name == "seat-chief_of_staff", "the last seat, past every candidate", 120);
         yield return Tab();
+        Assert.IsTrue(At is Scroller || At.GetFirstAncestorOfType<Scroller>() != null, $"the Tab after the last seat lands on a scroll bar (K1), not {FocusedName}");
         yield return TabTo("nav-cabinet");
         yield return Escape();
         Assert.IsNull(ScreenOpen(), "Escape closes the Cabinet");
