@@ -398,15 +398,18 @@ checks every anchor and logs each spot and its distance.
 - The card gives the name, the number and the service, where the unit stands (with "since" only from a sourced start),
   its formation and first commander where sourced, and the sector in the source's words.
 - In the Hebrew UI the place, the first commander and the sector each show their optional Hebrew counterpart in
-  `units_1948.yaml` (#558): `place_he` on an anchor, `first_commander_he` and `sector_he` on the row, each with its
+  `units_1948.yaml` (#558): `place_he` on an anchor, `first_commander_he` and `sector_he` on the row, and for a date in
+  prose `since_he` on an anchor and `formed_he` on the row (#1292; a plain day or month names its month through the
+  date strings instead), each with its
   `*_he_sources` (the sources of its proper names) and `*_he_review: agent-checked` until a native speaker has read it
-  (#564). A field without one shows its English, independently of the other two; the English card never changes.
+  (#564). A field without one shows its English, independently of the others; the English card never changes.
   `UnitData.Parse` refuses a Hebrew text without its English (so a Hebrew commander never adds a line), a present but
   blank key, sources or a review flag without the text, and text without Hebrew letters; an unknown key such as
-  `formed_he` fails as every unknown key does. Their sources join the card's source hosts but, like `name_he_sources`,
-  never clear `wikipedia_only` (#902). The shipped rows carry none yet; the translations in `research_notes/Map/unit-card-hebrew-harel-givati-negev.md` wait for its
-  person's source checks. Tests: `UnitsInPlayTests` (`TheHebrewProseShows...`, `EachHebrewFieldFallsBack...`,
-  `AHebrewCommanderWithoutTheEnglishAddsNoLine`, `BadHebrewProseNamesTheProblem`), on test-only fixtures.
+  `number_he` fails as every unknown key does. Their sources join the card's source hosts but, like `name_he_sources`,
+  never clear `wikipedia_only` (#902). The shipped rows carry them since #1292 (all `agent-checked`, each name's source its he.wiki article), except
+  the Iraqi force's sector, whose "Ma'ad" has no Hebrew spelling found. Tests: `UnitsInPlayTests` (`TheHebrewProseShows...`, `EachHebrewFieldFallsBack...`,
+  `AHebrewCommanderWithoutTheEnglishAddsNoLine`, `AProseDateShowsItsHebrewInTheHebrewCard`,
+  `BadHebrewProseNamesTheProblem`), on test-only fixtures.
 - It also gives the national values the token reflects on Israel's cards (legacy loop: "Reserve call-up 80% · security level
   5 of 5"; in the GDD loop only the squadron's card has one, "Security level 5 of 5", see above) and the source
   hosts, with a draft note that says "Wikipedia only" when the position's own sources are.
@@ -420,7 +423,14 @@ checks every anchor and logs each spot and its distance.
   the sim's `Orders.Check` takes the order, and where it does not, the card shows the sim's reason as the sim gives it
   (in English for now, as the End turn toast does). A press queues the sim's `UnitOrder` through `SimBridge` (one standing
   order per unit: Hold replaces a queued Fortify, and either replaces a queued attack) and the card says when it takes
-  effect. Tests: `UnitOrdersTests`,
+  effect. Slice 3 adds Attack (Q-UI-2's "Attack" / "התקפה"): the button shows only where the sim's `Combat.Check` takes
+  some unit's hex, and the sim's reasons for the enemy hexes in reach it refuses (no Arms, the attack it already has)
+  show as the others do. Pressing it lights those hexes; for each the card gives the units there by name, the sim's
+  strength ratio (`Combat.Preview`) and its `combat_table` row's outcome bands (`Combat.Outcomes`: how many faces of the
+  draw give each outcome, and the people each side loses), as Q-UI-1 decided. A click on a lit hex queues the sim's
+  `UnitOrder(unit, attack, q, r)` through `SimBridge`, and the card says the attack comes at End turn, with that hex's
+  odds. `Orders.Give` and `Combat.Give` run `Orders.Check` and `Combat.Check` first, so the card and End turn refuse the
+  same orders for the same reasons. Tests: `UnitOrdersTests`,
   `InfoPanelLayoutTests.TheUnitCardWithItsOrdersFitsEveryWindow`.
 
 **The Avia S-199** (`UnitModels.AviaS199`; type `avia-s199-101sqn-1948`):
@@ -548,7 +558,7 @@ figures tall standing at the base's back edge. `UnitPlinth` and `UnitFlags` draw
   and the pole behind it (`TheTrioReadsSideBySideAndThePoleStandsBehindItAtEveryYaw`).
   - **Use of the flag:** the Flag and Emblem Law, 5709-1949, s. 2(a), forbids using the State flag for commerce, business or
     profession without a permit from the Minister of the Interior (the 1949 text, read on the cited scan; the amended text
-    not checked). The game is free and non-commercial; a paid release needs this checked first. Only a side whose 1948
+    not checked). The game is free and non-commercial, and there is no paid release (owner ruling, 2026-10-22, #30). Only a side whose 1948
   flag is sourced here gets one, so no flag is invented:
   - Israel: the Provisional Council of State's "Proclamation on the Flag of the State of Israel" of 25 Tishrei 5709
     (28 October 1948), Iton Rishmi No. 32, 10 Heshvan 5709 (12 November 1948), p. 62

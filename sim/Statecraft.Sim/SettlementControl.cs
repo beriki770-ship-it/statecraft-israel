@@ -132,7 +132,7 @@ namespace Statecraft.Sim
                     moved.Clear();
                     return $"Unit {u.Id} has no free hex next to {name} to withdraw to";
                 }
-                var w = new Unit(u.Id, u.Type, to.Value.Q, to.Value.R, u.Service, u.Side, u.Strength, u.Order, u.OrderTarget);
+                var w = new Unit(u.Id, u.Type, to.Value.Q, to.Value.R, u.Service, u.Side, u.Strength, u.Order, u.OrderTarget, u.HomeCity);
                 s.Units[u.Id] = w;
                 from.Add(u);
                 moved.Add(w);

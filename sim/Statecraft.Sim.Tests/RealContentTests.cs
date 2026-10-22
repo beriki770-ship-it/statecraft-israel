@@ -36,6 +36,19 @@ public class RealContentTests
     static readonly Content C = ContentLoader.Load(ContentRoot());
     static readonly DateTime Checked = new DateTime(2026, 10, 9);
 
+    // R-UNIT-005's Signed helper ties Send home to the content by name: every front Prisoners.Fronts names must keep
+    // its armistice_<front> event with a `sign` option, or Send home would quietly never open for that front.
+    [Fact]
+    public void EveryFrontHasItsArmisticeEventWithASignOption()
+    {
+        Assert.Equal(new[] { "egypt", "jordan", "lebanon", "syria" }, Prisoners.Fronts);
+        foreach (var front in Prisoners.Fronts)
+        {
+            var e = Assert.Single(C.Events, e => e.Id == "armistice_" + front);
+            Assert.Contains(e.Options, o => o.Id == "sign");
+        }
+    }
+
     /// <summary>R-ALT-004 on the real content: every one of the 30 alternatives carries its record.</summary>
     [Fact]
     public void EveryAlternativeInContentSaysWhoProposedIt()
@@ -47,13 +60,14 @@ public class RealContentTests
     }
 
     // R-CTRL-001: the six rows the owner approved on 19 October 2026 and filled on 21 October 2026 (#793), Gaza excluded.
-    // Each stays draft until a person checks its sources; the ruling writes no review status.
+    // The owner sensitivity-reviewed them (Q-TGT-3 (b); #793, https://github.com/eyalgolan/statecraft-israel/issues/793#issuecomment-6338280840), so the release gate passes them.
     [Fact]
-    public void SettlementTargetsAreTheSixApprovedDraftRows()
+    public void SettlementTargetsAreTheSixApprovedReviewedRows()
     {
         Assert.Equal(new[] { "acre", "beersheba", "jaffa", "lod", "nazareth", "ramla" },
             C.SettlementTargets.Select(t => t.Id).OrderBy(x => x, StringComparer.Ordinal));
-        Assert.All(C.SettlementTargets, target => Assert.Equal("draft", target.Status));
+        Assert.All(C.SettlementTargets, target => Assert.Equal(ReleaseGate.ReviewedStatus, target.Status));
+        Assert.Empty(ReleaseGate.SettlementTargetsUnchecked(C));
     }
 
     // R-CTRL-001 with #796: capture applies only to a target on mvp.enemy_held_localities. The five Arab-held targets are

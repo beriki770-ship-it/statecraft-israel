@@ -105,6 +105,13 @@ mvp:
   arms_start: 12                         # DESIGN VALUE: owner-set balance, not a historical figure (D-G6, #781: Arms on 15 May 1948)
   arms_price: 1                          # DESIGN VALUE: owner-set balance, not a historical figure (D-G6, #781: IL millions per Arms)
   arms_per_recruit_group: 1              # DESIGN VALUE: owner-set balance, not a historical figure (D-G6, Q-UNIT-3: Arms per recruit group trained)
+  # Agent-proposed values accepted by the owner on 19 October 2026 (Q-GEN-1, Q-UNIT-2, Q-UNIT-3):
+  # https://github.com/eyalgolan/statecraft-israel/pull/1130#issuecomment-6269103829
+  # Upkeep is per formation, not strength:
+  # IL 0.05m is one tenth of a single group's IL 0.5m training cost per turn. Six service turns match the veteran pioneer
+  # threshold as an accepted initial design value; neither number asserts a historical cost or period.
+  military_upkeep_per_turn: 0.05         # DESIGN VALUE: owner-set balance, not a historical figure (D-C6, Q-UNIT-3: IL millions per formation per turn)
+  veteran_soldier_service: 6             # DESIGN VALUE: owner-set balance, not a historical figure (D-D9, Q-UNIT-2: service turns, excluding training)
   # The veteran pioneer (R-VET-001, R-VET-002; D-D9). Agent-proposed design values the owner took on 17 October 2026 (#782:
   # "take all of the plan's recommendations"; Phase 4 plan Q-VET-1, Q-VET-2). Service is build_yishuv_turns, so one
   # completed yishuv makes a veteran pioneer.
@@ -214,7 +221,8 @@ mvp:
   held_soldier_cost_per_turn: 0.005      # DESIGN VALUE: owner-set balance, not a historical figure (D-C6, Q-POW-4: IL millions a turn per population unit of our soldiers held)
   # Occupation (R-CTRL-011, R-CTRL-012; Q-OCC-1 (a) and Q-OCC-3 (a), owner, 18 October 2026, #783 batches 3 and 4: one unit
   # stays with Money upkeep per turn, one X for every place, both "labelled design values proposed by agents for owner
-  # override"). PROPOSED on #798; the owner may override them. X is 6 monthly turns, half a year, the length of
+  # override"). Accepted by the owner on 22 October 2026 (https://github.com/eyalgolan/statecraft-israel/issues/798#issuecomment-6338594839).
+  # X is 6 monthly turns, half a year, the length of
   # build_yishuv_turns and veteran_halutz_service, so an occupation begun in the war ends well inside the game. The upkeep
   # is derived as held_soldier_cost_per_turn is (#751): one month of income_per_job_per_year (0.06 / 12) for the one
   # population unit that stays. Neither is a historical figure.
