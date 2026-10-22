@@ -303,9 +303,9 @@ totals are **derived** (average x years):
 | 1932-35 | 360 | 1.48 | 0.9 | 360 x 4 = 1,440 |
 | 1936-38 | 5,712 | 19.67 | 31.2 | 5,712 x 3 = 17,136 |
 | 1939-44 | 333 | 0.68 | 2.6 | 333 x 6 = 1,998 |
-| 1945 - 14 May 1948 | 3,677 | 6.38 | 16.9 | 3,677 x 3.368 = 12,383 |
+| 1945 - 14 May 1948 | 3,677 | 6.38 | 16.9 | 3,677 x 3.3676 = 12,383 |
 
-- Length of the last period, derived: 1 January 1945 to 14 May 1948 inclusive is 1,230 days; 1,230 / 365.25 = 3.368
+- Length of the last period, derived: 1 January 1945 to 14 May 1948 inclusive is 1,230 days; 1,230 / 365.25 = 3.3676
   years.
 - Bachi's averages row [V]: 1932-48 2,013; 1920-48 2,289. The 1920-31 average is not legible on the scan (it starts
   "2,6"). Derived from the rows: (9,108 + 4,188 + 12,436 + 6,300) / 12 = 32,032 / 12 = 2,669.
@@ -329,7 +329,8 @@ Not a model, only the arithmetic the sources allow:
 - 1919 to 14 May 1948: CBS immigration 482,857 (452,306 in periods plus 30,551 without a period), net emigration about
   65,000 (5b), against a growth from 56,000 (end of 1918) to 649,600 (15 May 1948), derived: 649,600 - 56,000 =
   593,600. The remainder, 593,600 - 482,857 + 64,989 = 175,732, is what natural increase would have to supply. That is
-  a derived residual, not a sourced natural-increase figure; Survey Table 6 (page 144) gives the Jewish rates of
+  a derived residual, not a sourced natural-increase figure, and it carries no emigration for 1919 (Bachi's series
+  starts in 1920); Survey Table 6 (page 144) gives the Jewish rates of
   natural increase per 1000 by five-year period (20.44 in 1922/25 down to 17.83 in 1941/44) if the content work wants
   to check it.
 
