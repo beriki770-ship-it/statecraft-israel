@@ -498,3 +498,16 @@ corridor.segment: "{0}, segment {1}"
 corridor.build_road: "Build road with {0}: {1}, {2}"
 corridor.build_rail: "Build railway with {0}: {1}, {2}"
 corridor.built: "Built on {0}"
+
+# Timeline screen (#955).
+timeline.title: "Your course and the record"
+timeline.yours: "Your course"
+timeline.record: "The record"
+timeline.no_record: "No single recorded answer"
+timeline.rejoined: "Rejoined the record"
+nav.timeline: "Timeline"
+
+# Q-ALT-7: after the choice only; GDD195 identifies design assumptions.
+timeline.alt_proposed: "Not adopted. Proposed by {0}, {1}."
+timeline.alt_debated: "Not adopted. Debated by {0}, {1}."
+timeline.alt_design: "Design assumption."
