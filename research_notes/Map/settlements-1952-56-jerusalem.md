@@ -3,7 +3,8 @@
 Status: research only. Nothing here is in `content/`, `sim/`, `tools/` or `unity/`; the dated settlements file and the
 tool change (#61) stay paused until after the MVP. Refs #27, its 1952-56 rows, one region. It follows the format of
 [`settlements-1949-51.md`](../GDD%20objectives/settlements-1949-51.md) (#485), which covers 1949-1951; those rows are
-not repeated here. Sibling notes for other regions: the Negev (#1366) and the Ashkelon subdistrict (#1369).
+not repeated here. Sibling notes for other regions: the Negev (#1366), the Ashkelon subdistrict (#1369) and the Northern District
+(#1380).
 
 The question: which Jewish localities were founded in the Jerusalem District between 1 January 1952 and 31 December
 1956, and for each: founding date, coordinates, type, founding group, renames and sources.
@@ -56,8 +57,8 @@ founded inside the city in 1952-56 are not localities in the CBS sense and were 
   origin, garin) come from Wikipedia and are tagged as such.
 - Hebrew dates were converted with the `convertdate` library.
 - **Site notes.** Ten rows sit, by the Wikipedia articles, on or next to the lands of an Arab village depopulated in
-  1948. Each such row has a one-line **Site note** that names the village as the article does, in a neutral
-  paraphrase, for the owner's sensitivity review. They are recorded, not weighed.
+  1948. Each such row has a one-line **Site note** that names the village where the article does (row 4 names
+  none), in a neutral paraphrase, for the owner's sensitivity review. They are recorded, not weighed.
 
 Tags, one per fact, as in `settlements-1949-51.md`:
 - **[V] verified**: two or more independent sources agree, or one authoritative primary source.
@@ -89,7 +90,7 @@ gives the same day.
   עברה המעברה למבני קבע" (moved to permanent buildings in 1952). English Wikipedia: "On 6 December 1950, the Hartuv
   displaced persons camp "Ma'abarat Har-Tuv" was established". So it was **founded in 1950 and is out of scope**; the
   1952 move to permanent houses and the 1953 rename fall inside the window and are noted here only. It is row 16 of
-  `settlements-1949-51.md`, and the owner gave its sensitivity sign-off for the MVP on 17 Oct 2026
+  `settlements-1949-51.md`, and the owner gave its sensitivity sign-off on 17 Oct 2026 (it joins Phase 4's founding-site list)
   (https://github.com/eyalgolan/statecraft-israel/issues/782#issuecomment-6233776625). Sources:
   https://he.wikipedia.org/w/index.php?oldid=43925345 ; https://en.wikipedia.org/w/index.php?oldid=1380233679 . Checked
   2026-10-22.
@@ -117,8 +118,8 @@ Coordinates: CBS 2024, lat N, lon E, today's site. "Founded" is the best-support
 
 Rows: 11. By type: 6 moshavim (Kesalon, Beko'a, Gefen, Sdot Micha, Luzit, Tirosh), 1 Nahal outpost that became a
 moshav (Nehusha), 4 institutions (Eitanim hospital, Kiryat Ye'arim Youth Village, the Ein Kerem agricultural school,
-Givat Shemesh). No town and no kibbutz was founded in the district in the window by any source read. Rows sorted by
-the earliest date any source gives.
+Givat Shemesh). No town and no kibbutz was founded in the district in the window by any source read. Rows are ordered roughly
+by date, CBS-dated rows first.
 
 ## Rows
 
@@ -152,8 +153,9 @@ Common sources, cited by short name in every row:
   HaHaklai. Hebrew Wikipedia: "בשנת 1952 הפכה המעברה למושב בה יושבו עולי תימן שעזבו את עגור" (in 1952 the ma'abara
   became a moshav, settled by Yemenite immigrants who had left Agur). English Wikipedia: category "Populated places in
   Israel established in 1952". **Day 4 December 1952 [S]** (Gvati only).
-- **Earlier camp. [S, Wikipedia]** Both Wikipedias: a ma'abara on the site from 1950 (English: "The first transit camp
-  (ma'abara) for new Jewish immigrants was set up in 1950"). The 1950 camp is before the window; the moshav is in it.
+- **Earlier camp. [S, Wikipedia]** A ma'abara on the site first. English Wikipedia: "The first transit camp
+  (ma'abara) for new Jewish immigrants was set up in 1950"; Hebrew Wikipedia places it during Operation On Eagles'
+  Wings (1949-1950), citing press of 1950 (Maariv, 28 Jul 1950; 9 Jun 1950), not read. The 1950 camp is before the window; the moshav is in it.
 - **Founders. [S, Wikipedia]** Yemenite immigrants (both Wikipedias). Hebrew Wikipedia: they later left, 37 families
   from Romania came, the place was abandoned again, and "והוא אוכלס מחדש בשנת 1955 על ידי עולים מתוניסיה ומרוקו"
   (resettled in 1955 by immigrants from Tunisia and Morocco). English Wikipedia names only Moroccans as the
@@ -170,7 +172,7 @@ Common sources, cited by short name in every row:
 - **Founded 1952. [V]** CBS: 1952 (row "קריית יערים (מוסד)", code 2039). Hebrew Wikipedia: "כפר הנוער נוסד ב-1952
   בתרומת יהודי שווייץ ובסיוע הסוכנות היהודית". English Wikipedia: "The village was established in 1952 with a donation
   from Swiss Jews." The day is **[GAP]**. Not in Gvati.
-- **Type.** A youth village (boarding school), not a moshav or kibbutz (both Wikipedias).
+- **Type.** A youth village, not a moshav or kibbutz (both Wikipedias; Hebrew Wikipedia adds a boarding house).
 - **Founders. [S, Wikipedia]** Funded by Swiss Jews with the Jewish Agency (quote above); no founding group of
   residents named. Run in 1954-1959 by Yisrael Katz, later a minister (both Wikipedias).
 - **Renames.** None found. It is a separate CBS row from the later locality Kiryat Ye'arim (code 1137, CBS 1975).
@@ -223,7 +225,7 @@ Common sources, cited by short name in every row:
   the one dated statement; 1954 is given with no event. Not in Gvati.
 - **Type. [S, Wikipedia]** An institution, not a residential settlement: a home for young people with intellectual
   disabilities, later run privately (Hebrew Wikipedia); today the Retorno rehabilitation centre (English Wikipedia,
-  picture caption in Hebrew Wikipedia).
+  and the body text of Hebrew Wikipedia).
 - **Founders. [S, Wikipedia]** AKIM and the Welfare Ministry (Hebrew Wikipedia); 45 residents at the opening.
 - **Site note. [S, Wikipedia]** English Wikipedia: on the land of the Arab village of Dayr Rafat, depopulated in July
   1948, just west of the village site (paraphrase). For the owner's sensitivity review.
@@ -312,15 +314,16 @@ Common sources, cited by short name in every row:
 
 ## Gaps and notes for the owner
 
-- **Small region.** By the CBS year only 7 localities qualify, 3 of them institutions; with the Wikipedia conflicts,
+- **Small region.** By the CBS year only 7 localities qualify, 2 of them institutions; with the Wikipedia conflicts,
   11. The district's big wave of moshavim came in 1949-1950 (`settlements-1949-51.md`) and the next in 1958 (near
   misses above).
 - **Institutions.** Four rows are a hospital, two schools and a youth village. They are CBS localities, but whether
   the map wants them is the owner's call.
 - **Defunct localities** founded 1952-56 in the district were not searched for beyond the Wikipedia categories.
 - **No newspaper of the time was read**; every newspaper date above is as Wikipedia cites it.
-- **Days** confirmed by two sources only for Gefen; Kesalon, Sdot Micha and Luzit have Gvati's day only; Tirosh's
-  Gvati day is unreadable; the rest have a month or a year.
+- **Days** confirmed by two sources only for Gefen; Kesalon, Sdot Micha and Luzit have Gvati's day only; Beko'a has
+  Gvati's day inside a year conflict; Tirosh's Gvati day is unreadable; the rest have a month or a year. Gefen's two
+  sources (Gvati, Hebrew Wikipedia) were not checked for independence.
 - **Site notes** are recorded for ten rows (Eitanim, Kesalon, the Ein Kerem school, Beko'a, Givat Shemesh, Gefen,
   Sdot Micha, Luzit, Tirosh, Nehusha; Eitanim, Kesalon, the Ein Kerem school and Luzit from both Wikipedias, the
   others mostly from English Wikipedia citing Khalidi, *All That Remains*, 1992, not read). Hexes and armistice-line flags were not computed;
