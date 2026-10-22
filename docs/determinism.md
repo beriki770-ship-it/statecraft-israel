@@ -20,7 +20,12 @@ The simulation must produce the same state, bit for bit, on .NET, Unity Mono and
   only; stored values, gameplay and completion dates are unchanged.
 - **Settlement control (resolver step 3):** targets resolve in ordinal id order, and the capture check reads only unit
   positions, with no RNG draw (R-CTRL-004; `CaptureTests.SettlementsResolveInOrdinalOrder` and `NoRngDraw`). The shipped
-  target list is empty, so no golden captures a place.
+  list has six targets (#793), and no golden captures a place: the five enemy-held ones are no-entry hexes for player
+  units (R-MOVE-005), and the reference player's unit on Jaffa's hex (shared with Tel Aviv) captures nothing, since Jaffa
+  is not enemy-held at the start.
+- **Answering a capture (Raid and withdraw):** the units on the place leave in ascending id, each to the first free hex in
+  the fixed neighbour order, and the captures still waiting at the game's end resolve in ordinal id order, with no RNG
+  draw (R-CTRL-008, R-CTRL-010; `RaidTests.RaidDrawsNothing`). No golden captures a place, so none answers one.
 
 ## Golden playthroughs
 
@@ -36,9 +41,9 @@ final `GameState.Hash()` is pinned:
 
 | Run | Ends | Hash |
 |---|---|---|
-| to 1950-01-01 (`Hash1950`) | 1950-01-15, turn 20 | `73eb50db39dbc9ee569c18a5e0a68e55a2b88980d06da76e5f5bfffe22997675` |
-| to 1952-01-01 (`Hash1952`) | 1952-01-15, turn 44 (the game's end) | `b389b2786ac6b7c4c5bd3662cb7e96868d351a585e866a8660191c3db8ffff4a` |
-| to the game's end (`mvp-end`) | 1952-01-15, turn 44 | `b389b2786ac6b7c4c5bd3662cb7e96868d351a585e866a8660191c3db8ffff4a` |
+| to 1950-01-01 (`Hash1950`) | 1950-01-15, turn 20 | `d14a4899a1e068bf238f84f4e8fe06270b5164b2c6ba62f2fef399fd7eaada8e` |
+| to 1952-01-01 (`Hash1952`) | 1952-01-15, turn 44 (the game's end) | `3bacd2b10340aa95ec130d84aedfb560828dae6b0ed35323f64410f9ac8eee85` |
+| to the game's end (`mvp-end`) | 1952-01-15, turn 44 | `3bacd2b10340aa95ec130d84aedfb560828dae6b0ed35323f64410f9ac8eee85` |
 
 `hash1952` stops at the first turn on or after 1 January 1952, which is the game's last turn, so it is the same run as
 `mvp-end` (`DeterminismTests.TheWholeGameToItsEndIsFixed`). Both names are kept (spec 2026-10-12 section 3 step 6): a
@@ -47,7 +52,7 @@ player check enumerate the manifest, so it and every scenario are checked withou
 
 A further value is pinned for the browser smoke run (`?smoke=5`: the golden seed, five turns played through the UI's own
 buttons, answering each event with its first option while the turn's Attention pays for it, the rest left to their
-ministers): `SMOKE OK 5 turns 1948-10-15 e5a66f9c2c0c0718d7969289fcc8dd005dedddd37a7c25adfffdc45e2e8b29cd`.
+ministers): `SMOKE OK 5 turns 1948-10-15 7559f30cc7649555cb369b729442d203fa0b42968679f870ac88f0e519a8b755`.
 It depends on the UI path as well as the sim (which option is first, the turn grid), so re-record it when either changes.
 Check every WebGL build with every manifest entry (plus the UI-path smoke line) with:
 
@@ -58,7 +63,21 @@ while read -r name hash; do
   golden_expect+=(--expect "GOLDEN OK $name $hash")
 done < sim/Statecraft.Sim.Tests/golden/manifest.txt
 uv run tools/web_check.py unity/Builds/Web-<compression> --query "golden&smoke=5" "${golden_expect[@]}" \
-  --expect "SMOKE OK 5 turns 1948-10-15 e5a66f9c2c0c0718d7969289fcc8dd005dedddd37a7c25adfffdc45e2e8b29cd"
+  --expect "SMOKE OK 5 turns 1948-10-15 7559f30cc7649555cb369b729442d203fa0b42968679f870ac88f0e519a8b755"
+```
+
+`smoke-orders` (GDD Phase 5 PR 15, #754) is the same kind of browser run for the unit orders (`?smoke-orders`, desktop
+`-smoke-orders`: the golden seed, one turn). It hides the turn's event card (the events go to their ministers), clicks the
+hex of the unit `GoldenRun.SmokeMove` names (the lowest-id unit `Movement.Reachable` has a hex for: unit 0, Golani, on
+10,9), presses the unit card's Move button, clicks the first lit hex in `Reachable`'s (q, r) order (7,11) and presses End
+Turn: `SMOKE ORDERS OK 1948-06-15 98422be8eca2981e191fde3a7aaf28fdef269203cee2f6dfe7a7cddb770f7133`.
+`GoldenRun.PlaySmokeOrders` plays the same turn with that one `Move`, so the value is in the manifest (`SliceSmokeTests.TheSmokeOrdersRunMovesOneUnitAndEndsOnTheGolden`) and the player's golden check
+prints it as `GOLDEN OK smoke-orders`. Re-record it when the sim or the order path on the card changes; the fortify, hold and
+attack slices can add their orders to it. Check a WebGL build with:
+
+```
+uv run tools/web_check.py unity/Builds/Web-<compression> --query "smoke-orders" \
+  --expect "SMOKE ORDERS OK 1948-06-15 98422be8eca2981e191fde3a7aaf28fdef269203cee2f6dfe7a7cddb770f7133"
 ```
 
 **When a golden moves.** The test fails with the lines that changed, grouped by section (`[ind]`, `[pol]`, `[bud]`,
@@ -136,7 +155,7 @@ goldens (playtest 2 changed every line's casing with no hash change). They are s
 `FinalWaveTests.AReloadedSaveReproducesTheLastTurnsCauses` checks a reloaded save gives the same last-turn Causes, and
 `TheGoldenRunsCausesAreTheSameInEveryCulture` runs the 1952 golden under de-DE and ar-SA against the invariant culture.
 
-Each golden hash is pinned in `sim/Statecraft.Sim.Tests/golden/manifest.txt` (`hash1950`, `hash1952`, `mvp-end`, `smoke5`, and the scenario lines above). The .NET tests
+Each golden hash is pinned in `sim/Statecraft.Sim.Tests/golden/manifest.txt` (`hash1950`, `hash1952`, `mvp-end`, `smoke5`, `smoke-orders`, and the scenario lines above). The .NET tests
 compare against it. These places must agree with it, and `GoldenManifestTests` fails naming the one that does not:
 - `sim/Statecraft.Sim/GoldenRun.cs`, which Unity code and players compare against (the update command rewrites it);
 - this file, `docs/RELEASING.md` and `tools/web_check.py`'s usage example (by hand).
@@ -342,3 +361,28 @@ The hash reads the state keys, so it never sees a record outside its window. An 
 | Combined #1186 + #791 (C20) | mvp-end | `72b8e8014c96c943e390f0fd109df68b78f59e5560b05c2d231e1fbe599d1280` | The same full run and combined #1186 + #791 state as hash1952 (was `452c65ece470e844f6898151c4d9328aa0b2e59df82db4763214d43a8e8ea7f1`). |
 | GDD Phase 4 PR 7 (#791) on combat (#747) | 1952 | `b389b278` | #1226 merged with main after combat (#747). As in the rows above, the first-new-yishuv objective becomes the all-six `yishuvim` infrastructure part, recorded 15 July 1951 instead of 15 February 1951, and neither corridor completes, so the shared 100-point base is unpaid and the snapshot's `score=100` line goes (a zero score is not written). Only those two `obj{`/score lines move; hash1950, smoke5 and the four scenario goldens equal main (was `d9922fc9`) |
 | GDD Phase 4 PR 7 (#791) on combat (#747) | mvp-end | `b389b278` | same as 1952 (was `d9922fc9`) |
+| #1240: the seven IDF rows re-sourced to Ben-Gurion's diary of 15 May 1948, owner 21 Oct 2026 | 1950 | `a1ad4211` | The seven IDF starting rows take the diary's 15 May strengths, so the starting units move: Golani 5 -> 4, Alexandroni 5 -> 4, Kiryati 1 -> 3, Givati 5 -> 3, Negev 2 -> 1 (Carmeli 2 and Harel 1 unchanged). Unit 0 (Golani, 4 on 10,9) against the Syrian 3 on 10,10 is now 133 percent, under the reference player's 150, so the run has no engagement: unit 0 ends at 4, not 3, the Syrian unit 9 stays in `units[`, the Arms stay at 12 (was 8), and the RNG is never drawn, so the snapshot's header shows the seed, 1948. Nothing else in the snapshot moves (was `73eb50db`) |
+| #1240: the seven IDF rows re-sourced to Ben-Gurion's diary of 15 May 1948, owner 21 Oct 2026 | 1952 | `9cbd73ed` | same (was `b389b278`) |
+| #1240: the seven IDF rows re-sourced to Ben-Gurion's diary of 15 May 1948, owner 21 Oct 2026 | mvp-end | `9cbd73ed` | same as 1952 (was `b389b278`) |
+| #1240: the seven IDF rows re-sourced to Ben-Gurion's diary of 15 May 1948, owner 21 Oct 2026 | smoke5 | `ed761c3b` | same starting strengths; the smoke run gives no attack (was `e5a66f9c`) |
+| #1240: the seven IDF rows re-sourced to Ben-Gurion's diary of 15 May 1948, owner 21 Oct 2026 | scenario-reckless | `574c8a19` | same starting strengths; only those five `units[` lines move (was `8d644f6e`) |
+| #1240: the seven IDF rows re-sourced to Ben-Gurion's diary of 15 May 1948, owner 21 Oct 2026 | scenario-cautious | `00ec7ec2` | same as reckless (was `b4e5caa1`) |
+| #1240: the seven IDF rows re-sourced to Ben-Gurion's diary of 15 May 1948, owner 21 Oct 2026 | scenario-mvp-absorb-first | `ac5f51bb` | same as reckless (was `7d37c0d0`) |
+| #1240: the seven IDF rows re-sourced to Ben-Gurion's diary of 15 May 1948, owner 21 Oct 2026 | scenario-mvp-defeat | `f2ad1114` | same as reckless; the defeat is unchanged (was `7bd5158f`) |
+| GDD Phase 5 PR 10: the enemy AI, part 1 (#749) | 1950 | `1392f3eb` | Resolver step 1 gives the enemy its orders (R-ENEMY-001 to R-ENEMY-004). On 15 May and 15 June 1948 the four scripted forces march on their 11 June anchors (Egypt 7 to -8,25, one hex short of Isdud, round Yad Mordechai and the Negev brigade; the Arab Legion 8 to Latrun, -2,22; Syria 9 to 13,6, one short of the Mishmar HaYarden bridgehead; Iraq 10 to Jenin, 6,13), and every enemy unit fortifies from then on (`order=fortify`). The Syrian unit leaves Golani's side on the first turn (13,6 by the second), so no Israeli attack is ordered there; since #1240 none was (Golani's 4 against the Syrian 3 is under the policy's 3:2), and the Arms stay at 12. No enemy unit attacks on a turn whose middle day is inside a truce (R-ENEMY-006: 15 June to 15 September 1948). On the turn of 15 October 1948 the Legion attacks Harel beside Latrun at 4:1: one engagement, one draw, unit 5 is destroyed and the Legion is at 4. It is the run's only engagement, so the RNG state moves off the seed the header showed (was `a1ad4211`) |
+| GDD Phase 5 PR 10: the enemy AI, part 1 (#749) | 1952 | `cc96cd0a` | same (was `9cbd73ed`) |
+| GDD Phase 5 PR 10: the enemy AI, part 1 (#749) | mvp-end | `cc96cd0a` | same as 1952 (was `9cbd73ed`) |
+| GDD Phase 5 PR 10: the enemy AI, part 1 (#749) | smoke5 | `11c41014` | the enemy's step 1 orders from the first turn, as in 1950. The run ends on 15 October 1948, inside the truce guard's reach (R-ENEMY-006), so Harel survives it: the Legion fortifies on the turns of 15 June to 15 September 1948 (was `ed761c3b`) |
+| GDD Phase 5 PR 10: the enemy AI, part 1 (#749) | scenario-cautious | `230791a1` | the units only, as in 1950: the scripted marches, the fortify orders and the Legion's engagement with Harel (was `00ec7ec2`) |
+| GDD Phase 5 PR 10: the enemy AI, part 1 (#749) | scenario-reckless | `d6fd9e89` | same as cautious (was `574c8a19`) |
+| GDD Phase 5 PR 10: the enemy AI, part 1 (#749) | scenario-mvp-absorb-first | `de176931` | same as cautious (was `ac5f51bb`) |
+| GDD Phase 5 PR 10: the enemy AI, part 1 (#749) | scenario-mvp-defeat | `7404295a` | the units as in cautious; the engagement's draw comes before the delegated events' draws, so a delegated `iraqi_exodus` resolves to `pace` (was `airlift`), and housing, international standing, morale and stability follow. The defeat is unchanged (was `f2ad1114`) |
+| #1241: Etzioni starts, the 7th Brigade arrives (R-UNIT-009), on the enemy AI (#1263) | 1950 | `d14a4899` | Etzioni's sourced 15 May strength (3,166, Ben-Gurion's diary) starts it under R-UNIT-006 as unit 5 (strength 3, Jerusalem's 0,23), so Harel and every later starting force take the next id (Harel 6, Egypt 8, the Legion 9, Syria 10). The 7th Brigade's reserved id 13 is the first after the starting rows; it arrives on the 15 June 1948 turn (its row's 24 May 1948 strength, 1,650 = 2, at Hulda's -4,23) and stands there. Every later id moves up by two (`next=18`). Nothing else in the snapshot moves: the enemy's scripted marches, the fortify orders and the Legion's 15 October 1948 engagement that destroys Harel are as on main, and the RNG and the Arms are unchanged (was `1392f3eb`) |
+| #1241: Etzioni starts, the 7th Brigade arrives (R-UNIT-009), on the enemy AI (#1263) | 1952 | `3bacd2b1` | same as 1950: the ids and the two units only (was `cc96cd0a`) |
+| #1241: Etzioni starts, the 7th Brigade arrives (R-UNIT-009), on the enemy AI (#1263) | mvp-end | `3bacd2b1` | same as 1952 (was `cc96cd0a`) |
+| #1241: Etzioni starts, the 7th Brigade arrives (R-UNIT-009), on the enemy AI (#1263) | smoke5 | `7559f30c` | same: the ids and the two units only (was `11c41014`) |
+| #1241: Etzioni starts, the 7th Brigade arrives (R-UNIT-009), on the enemy AI (#1263) | scenario-reckless | `030817e3` | same: the ids and the two units only (was `d6fd9e89`) |
+| #1241: Etzioni starts, the 7th Brigade arrives (R-UNIT-009), on the enemy AI (#1263) | scenario-cautious | `e45c5429` | same as reckless (was `230791a1`) |
+| #1241: Etzioni starts, the 7th Brigade arrives (R-UNIT-009), on the enemy AI (#1263) | scenario-mvp-absorb-first | `64bdd93b` | same as reckless (was `de176931`) |
+| #1241: Etzioni starts, the 7th Brigade arrives (R-UNIT-009), on the enemy AI (#1263) | scenario-mvp-defeat | `54ec7d6b` | same as reckless; the defeat is unchanged (was `7404295a`) |
+| GDD Phase 5 PR 15 slice 4 (#754) | smoke-orders | `98422be8` | new: one turn from the golden seed whose only order is unit 0 (Golani) moving from 10,9 to 7,11, given through the unit card in the browser run; no other golden moves |

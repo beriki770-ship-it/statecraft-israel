@@ -27,7 +27,7 @@ public class CaptureTests
 
     /// <summary>MovementTests' 6 x 3 coastal plain with the four places; <paramref name="targets"/> lists the targets in
     /// file order.</summary>
-    static Content Load(params string[] targets)
+    internal static Content Load(params string[] targets)
     {
         var files = Fixture.Gdd(new Dictionary<string, string>
         {
@@ -41,11 +41,11 @@ public class CaptureTests
         return ContentLoader.Load(Fixture.Write(files));
     }
 
-    static readonly string[] AllTargets = { "town_a", "town_c", "town_d" };
+    internal static readonly string[] AllTargets = { "town_a", "town_c", "town_d" };
 
     static GameState With(Content c, params Unit[] units) => CombatTests.With(c, units);
-    static Unit Soldier(int id, int q, int r) => new Unit(id, "soldier", q, r, side: "israel", strength: 2);
-    static Unit Enemy(int id, int q, int r) => new Unit(id, "enemy", q, r, side: "egypt", strength: 2);
+    internal static Unit Soldier(int id, int q, int r) => new Unit(id, "soldier", q, r, side: "israel", strength: 2);
+    internal static Unit Enemy(int id, int q, int r) => new Unit(id, "enemy", q, r, side: "egypt", strength: 2);
 
     static GameState Step(Content c, GameState s) => Simulation.Step(c, s, Array.Empty<Command>()).State;
 
@@ -134,7 +134,7 @@ public class CaptureTests
         var c = Load(AllTargets);
         var s = With(c, Soldier(1, 4, 2));   // town_e: an enemy-held arab_town, not a target
         Assert.Empty(Step(c, s).Settlements);
-        var none = Load();   // the real list ships empty
+        var none = Load();   // an empty list
         Assert.Empty(Step(none, With(none, Soldier(1, 1, 0))).Settlements);
     }
 
