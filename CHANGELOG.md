@@ -394,11 +394,6 @@ checks this (see `CONTRIBUTING.md`).
 - The Cabinet, Budget, Defence, Why, How to play and Settings screens each gain an X in the header that closes
   them (the same close as Escape): a phone has no Escape key, and re-tapping the lit rail button was the only way
   out (v0.1.1 playtest feedback).
-- Draft sources for the opening cutscene (GDD Phase 7 PR 10): one paragraph per origin (Europe, the Arab countries,
-  Yemen) and a closing line, the CBS Publication 1365 Table 5 arrivals, and three Meitar CC BY 4.0 photographs, in
-  `unity/Assets/UI/Opening/`. An AI draft: nothing shows them yet, and a person's source check and the owner's
-  sensitivity review come before they do (refs #530).
-
 - The Carmeli Brigade stands at Haifa, its sector's seat, from 15 May to 9 July 1948 (before its Operation Brosh
   window), in the town on a clearing kept free of the kits' buildings. Haifa and Tel Aviv each get a budget of one unit
   clearing, and Haifa's census floors drop by what Carmeli's clearing takes: 11 houses and 6.8 / 3.9 points of cover
