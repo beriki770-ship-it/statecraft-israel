@@ -270,6 +270,7 @@ public class DeportTests
     [InlineData("deport_support_cost: 0.1", "deport_support_cost: -0.1", "mvp.deport_support_cost", "must be a finite number >= 0")]
     [InlineData("deport_support_drag_per_turn: 0.01", "", "mvp.deport_support_drag_per_turn", "required")]
     [InlineData("deport_support_ceiling_drop: 0.3", "deport_support_ceiling_drop: -1", "mvp.deport_support_ceiling_drop", "must be a finite number >= 0")]
+    [InlineData("deport_money_cost: 121", "", "mvp.deport_money_cost", "required")]
     public void BadValuesFailNamingTheField(string from, string to, string field, string message)
     {
         var files = Fixture.Gdd();
