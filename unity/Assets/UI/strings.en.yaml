@@ -426,7 +426,8 @@ unit.hold_queued: "Hold ordered: the unit holds its hex when you end the turn"
 # ({0} the defenders' names, or the hex's coordinates; {1} the percent), then each of Combat.Outcomes' bands ({0} of {1} faces; {2} and {3} people lost).
 unit.order.attack: "Attack"
 unit.attack_pick: "Choose a lit hex to attack"
-unit.attack_odds: "{0}: strength ratio {1}%"
+# {1}'s format carries the %, as in Hebrew (the two files' format items must match), where it keeps the sign inside UiText.Format's marks.
+unit.attack_odds: "{0}: strength ratio {1:0'%'}"
 unit.attack_band: "{0} in {1}: you lose {2:N0} people, they lose {3:N0}"
 unit.attack_band_retreat: "{0} in {1}: you lose {2:N0} people, they lose {3:N0} and retreat"
 unit.attack_queued: "Attack ordered: the unit attacks when you end the turn"

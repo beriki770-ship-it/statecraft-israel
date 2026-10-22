@@ -454,7 +454,8 @@ unit.order.attack: "התקפה"
 # Approved by Beri, a native speaker, on #1277 (21 Oct 2026). For the native reviewer (#564)
 unit.attack_pick: "בחרו משושה מואר להתקפה"
 # Approved by Beri, a native speaker, on #1277 (21 Oct 2026). For the native reviewer (#564)
-unit.attack_odds: "{0}: יחס כוחות {1}%"
+# The % is in {1}'s format, inside the left-to-right marks UiText.Format puts round the value: a bare % after them is drawn on the number's left (#754).
+unit.attack_odds: "{0}: יחס כוחות {1:0'%'}"
 # Approved by Beri, a native speaker, on #1277 (21 Oct 2026). For the native reviewer (#564)
 unit.attack_band: "{0} מתוך {1}: אתם מאבדים {2:N0} איש, הם מאבדים {3:N0}"
 # Approved by Beri, a native speaker, on #1277 (21 Oct 2026). For the native reviewer (#564)
