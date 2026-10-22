@@ -50,7 +50,7 @@ why.title: "למה זה קרה?"
 how_to_play.title: "איך משחקים"
 how_to_play.turn: "כל תור הוא חודש אחד. בחנו את מצב המדינה, תנו הוראות ואז לחצו על סיום התור."
 how_to_play.attention: "רוב ההוראות עולות תשומת לב, המוצגת בסרגל העליון. היא מתמלאת מחדש בתחילת כל תור, ותשומת לב שלא ניצלתם אינה עוברת לתור הבא."
-how_to_play.city: "בחרו עיר במפה כדי לראות את הדיור ואת המשרות בה, וקבעו כמה מאזרחיה עובדים."
+how_to_play.city: "בחרו עיר במפה כדי לראות את הדיור ואת המשרות בה. קבעו את מספר העובדים; השינוי יתבצע בסיום התור."
 how_to_play.training: "בעיר שיש בה מחנה צבאי או מחנה הכשרה אפשר לאמן אזרחים ללא עבודה כמגויסים או להכשיר אותם כחלוצים. הכפתור מראה כמה עולה האימון וכמה תורות הוא נמשך."
 how_to_play.events: "כרטיס אירוע מבקש מכם החלטה. מענה עליו עולה תשומת לב, והבחירה שלכם נכנסת לתוקף בסיום התור."
 how_to_play.top_bar: "הסרגל העליון מציג את התאריך, את תשומת הלב שלכם, את הכסף ואת המדדים העיקריים של המדינה."
@@ -398,7 +398,8 @@ info.map_action_reason.not_land: "המשושה הזה אינו יבשה"
 info.map_action_reason.too_far_one: "המשושה הזה נמצא במרחק של יותר מ־{0} משושה מיישוב"
 info.map_action_reason.too_far_many: "המשושה הזה נמצא במרחק של יותר מ־{0} משושים מיישוב"
 info.map_action_reason.occupied: "במשושה הזה כבר יש {0}"
-info.map_action_reason.turn_cap: "אי אפשר לבצע יותר מ־{0} פעולות מפה בתור אחד"
+# Draft alignment with English for #1139; native review pending (#564).
+info.map_action_reason.turn_cap: "המגבלה היא {0} פעולות מפה בכל תור. אפשר לנסות שוב בתור הבא."
 # Cabinet candidate refusals (#901). The sim supplies content ids and ISO dates; the UI supplies the Hebrew names and
 # wording. No verb agrees with the person's gender ("כבר בתפקיד", not "מכהן"), since a woman can be any candidate.
 # Short, neutral drafts for the native reviewer (#564).
@@ -450,6 +451,26 @@ unit.order.move: "תנועה"
 unit.move_pick: "בחרו משושה מואר שאליו היחידה תנוע"
 # Approved by Beri, a native speaker, on #1265 (21 Oct 2026). For the native reviewer (#564)
 unit.move_queued: "ניתנה פקודת תנועה: היחידה תנוע בסיום התור"
+# Fortify and Hold (#754): the names are Q-UI-2's, approved by the owner (#375).
+unit.order.fortify: "ביצור"
+unit.order.hold: "החזקה"
+# Approved by Beri, a native speaker, on #1269 (21 Oct 2026). For the native reviewer (#564)
+unit.fortify_queued: "ניתנה פקודת ביצור: היחידה תהיה מבוצרת מסוף התור"
+# Approved by Beri, a native speaker, on #1269 (21 Oct 2026). For the native reviewer (#564)
+unit.hold_queued: "ניתנה פקודת החזקה: היחידה תחזיק במשושה שלה בסיום התור"
+# Attack (#754): the name is Q-UI-2's, approved by the owner (#375).
+unit.order.attack: "התקפה"
+# Approved by Beri, a native speaker, on #1277 (21 Oct 2026). For the native reviewer (#564)
+unit.attack_pick: "בחרו משושה מואר להתקפה"
+# Approved by Beri, a native speaker, on #1277 (21 Oct 2026). For the native reviewer (#564)
+# The % is in {1}'s format, inside the left-to-right marks UiText.Format puts round the value: a bare % after them is drawn on the number's left (#754).
+unit.attack_odds: "{0}: יחס כוחות {1:0'%'}"
+# Approved by Beri, a native speaker, on #1277 (21 Oct 2026). For the native reviewer (#564)
+unit.attack_band: "{0} מתוך {1}: אתם מאבדים {2:N0} איש, הם מאבדים {3:N0}"
+# Approved by Beri, a native speaker, on #1277 (21 Oct 2026). For the native reviewer (#564)
+unit.attack_band_retreat: "{0} מתוך {1}: אתם מאבדים {2:N0} איש, הם מאבדים {3:N0} ונסוגים"
+# Approved by Beri, a native speaker, on #1277 (21 Oct 2026). For the native reviewer (#564)
+unit.attack_queued: "ניתנה פקודת התקפה: היחידה תתקוף בסיום התור"
 newgame.confirm: "יש ללחוץ שוב על משחק חדש כדי לעזוב את המשחק הזה ולהתחיל מחדש."
 newgame.delete_failed: "לא ניתן היה להסיר את השמירה הקודמת; היא תוחלף אחרי התור הבא."
 save.unreadable: "לא ניתן היה לטעון את המשחק השמור ({0}). משחק חדש התחיל."
@@ -458,8 +479,9 @@ save.refused.older_rules: "המשחק השמור נוצר בגרסה קודמת 
 save.refused.newer_version: "המשחק השמור נוצר בגרסה חדשה יותר של המשחק ואי אפשר לפתוח אותו כאן. משחק חדש התחיל."
 # save.warning.*: a save made with other content is continued, and each warning kind the sim returns
 # (GameSession.ContentChanged, ReplayDiffers) is said here, not in the sim's English (#637). For the native reviewer (#564).
-save.warning.content_changed: "השמירה הזאת מגרסה קודמת של המשחק, לכן ייתכן שהאירועים יתפתחו קצת אחרת."
-save.warning.replay_differs: "המשחק שוחזר, אבל לא בדיוק כפי שנשמר."
+# Draft alignment with English for #1139; native review pending (#564).
+save.warning.content_changed: "המשחק השתנה מאז יצירת השמירה הזאת. ייתכן שהאירועים יתפתחו אחרת."
+save.warning.replay_differs: "חלקים מהמשחק ששוחזר שונים מהשמירה. בדקו את מצב המשחק לפני שתמשיכו."
 boot.failed: "לא ניתן היה להפעיל את Statecraft: {0}. יש לטעון את הדף מחדש."
 # boot.reason_other fills boot.failed's {0} instead of the exception's English text, which goes to the log (#637).
 # For the native reviewer (#564).
@@ -532,3 +554,16 @@ site.build_swamp: "ייבוש הביצה עם {0}: {1}, {2}"
 site.building_swamp: "בייבוש בידי {0}: עוד {1}"
 site.stop_swamp: "עצירת הייבוש (הכסף שהוצא לא יוחזר)"
 site.built_swamp: "יובש ב־{0}"
+
+# Timeline screen (#955). Hebrew drafts: agent-checked, native review pending (#564).
+timeline.title: "הדרך שלך והרצף ההיסטורי"
+timeline.yours: "הדרך שלך"
+timeline.record: "הרצף ההיסטורי"
+timeline.no_record: "אין תשובה מתועדת אחת"
+timeline.rejoined: "חזרה לרצף ההיסטורי"
+nav.timeline: "ציר הזמן"
+
+# Q-ALT-7: after the choice only; GDD195 identifies design assumptions. Hebrew drafts: agent-checked; native review pending (#564).
+timeline.alt_proposed: "לא אומץ. הוצע בידי {0}, {1}."
+timeline.alt_debated: "לא אומץ. נדון בידי {0}, {1}."
+timeline.alt_design: "הנחת תכנון."

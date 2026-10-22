@@ -177,8 +177,7 @@ figures with the diary's for the day, a primary source: the Ben-Gurion Archive's
 women; Golani has 3,573 + 522 paid recruits; Carmeli 2,289; Alexandroni 3,588; Kiriati 2,504; Givati 3,229; Etsiyyoni
 3,166 – the total for all brigades is about 24,400." Golani counts the 522 paid recruits (4 units either way); Harel and
 Negev, Palmach brigades, take the diary's Palmach in Harel and in the Negev. en.wiki's table stays as each row's second
-source. The rows stay `to_verify` until a person checks the seven figures against the page; then they can be marked
-`fact-checked`.
+source. A person has checked the seven figures against the page, so the rows are `fact-checked`.
 
 | Row | Strength (15 May) |
 |---|---|
@@ -191,8 +190,12 @@ source. The rows stay `to_verify` until a person checks the seven figures agains
 | Yiftach | 4,500 (the table counts some Golani men in it) |
 | Negev | 1,300 (diary, the Palmach in the Negev; the table gave 2,400) |
 
-- **No figure, no strength:** Etzioni, the 7th, the 8th and Oded have no size in the note, so their rows give none and
-  stay `status: draft`.
+- **No figure, no strength:** the 8th and Oded have no size in the note, so their rows give none and stay `status: draft`.
+- **Etzioni and the 7th (#1241):** Etzioni gives 3,166 on 15 May 1948 from Ben-Gurion's diary, the same page as the
+  seven rows above, which are `fact-checked`; Etzioni stays `status: to_verify` until a person checks the figure.
+  The 7th gives 1,650, its men in Operation Bin Nun Alef, dated 24 May 1948, the day its Hulda window opens: a
+  secondary figure, so `status: to_verify` (`research_notes/GDD phase 5/later-brigades-1241.md`).
+  Yiftach's 4,500 stays until a person settles the note's conflict (4,500, about 2,000 or 1,200).
 - **The sim reads them** since Phase 5 PR 4: see "The starting forces" below.
 - Tests: `test_idf_brigade_strengths_are_secondary_and_to_verify` (Python) and `UnitsInPlayTests` (EditMode).
 
@@ -208,12 +211,17 @@ defaults"). The unit stands on the hex holding the anchor's coordinates, by the 
   `arab_liberation_army`. These ids are the sim's, not names shown to the player (Q-UI-2, Q-START-4).
 - **Strength** is the row's people in 1,000-person population units, the nearest unit with a half up, never below 1.
 - **Who starts:** Golani 4, Carmeli 2 (at Haifa, its sector seat), Alexandroni 4, Kiryati 3, Givati 3, Harel 1,
-  Negev 1 (#1240); Egypt 10, the Arab Legion 5, Syria 3, Iraq 3, the ALA 4. Nothing starts for Etzioni (no sourced strength),
-  the 7th and Yiftach (no window on 15 May), Oded, the 8th and the Lebanese row (hidden), or the squadron and the two
-  ships (tokens only, Q-UNIT-5).
+  Etzioni 3 (Jerusalem), Negev 1 (#1240, #1241); Egypt 10, the Arab Legion 5, Syria 3, Iraq 3, the ALA 4. Nothing starts
+  for Yiftach (no window on 15 May), Oded, the 8th and the Lebanese row (hidden), or the squadron and the two ships
+  (tokens only, Q-UNIT-5).
+- **Arrivals (R-UNIT-009, #1241):** a row whose strength is dated after 15 May, with an anchor window covering that day,
+  arrives on that day: in the resolution of the monthly turn that reaches it, on that anchor's hex, with that strength. Its
+  unit id is reserved at the start, after the starting rows, so unit i is still row i. Today that is the 7th: 2 units at
+  Hulda from the 15 June 1948 turn.
 - **Release gate:** every row the sim starts a unit from must be `fact-checked` before a shareable build carries it
   (Q-START-3). `Statecraft.Cli --release-gate`, `Build -shareable` and `tools/package_release.py` refuse until then, and
-  name the rows; today that is all twelve.
+  name the rows; today that is Etzioni and the 7th (#1241), since the owner checked the other twelve on 21 October 2026
+  (#1240).
 - Tests: `StartingForcesTests` (dotnet) and `UnitsInPlayTests.TheStartMatchesTheMap` (EditMode).
 
 ### Tokens from the state (Phase 5 PR 14, #753)
@@ -234,9 +242,8 @@ deletes it.
   token's card has no national line, and the squadron's gives the security level alone ("Security level 5 of 5"), which
   still sets whether it flies.
 - **The squadron and the ships** are tokens only (Q-UNIT-5): they still come from their rows' windows.
-- So from 15 May 1948 the map draws the twelve starting forces where the sim holds them. A row with no sim unit (Etzioni,
-  which has no sourced strength, and the brigades whose windows open later, such as Yiftach and the 7th) draws no token
-  in the GDD loop until a later Phase 5 PR raises it.
+- So from 15 May 1948 the map draws the thirteen starting forces where the sim holds them, and the 7th from its arrival,
+  on its arrival anchor. A row with no sim unit (Yiftach, whose window opens later) draws no token in the GDD loop.
 - Tests: `UnitsFromStateTests` (EditMode).
 
 ### The 1948 Collection on the tokens (#665)
@@ -250,8 +257,9 @@ own root rotation kept (the FBX axis turn, -90 degrees about X), so the camera's
 |---|---|---|---|
 | C04 sabra pioneer | an Israeli rifleman in the bush hat (the uniform default's first figure; the showcase trio's first) | #507's pairing | always |
 | C06 young recruit | an Israeli rifleman in the Mk II steel helmet (every token's second figure) | #507's pairing | always |
-| C07 veteran fighter | an Israeli rifleman in the knitted stocking cap: the Negev Brigade's first and third, the showcase's third | the Negev headgear photographs (Sources) | always |
-| C05 pioneer veteran | the third figure of every Israeli brigade with the uniform default, except Harel | a presentation choice: the default's third figure is not sourced | always |
+| C07 veteran fighter | an Israeli rifleman in the knitted stocking cap: the Negev Brigade's first, the showcase's third | the Negev headgear photographs (Sources) | always |
+| C05 pioneer veteran | the third figure of every Israeli brigade with the uniform default, except Harel and Yiftach | a presentation choice: the default's third figure is not sourced | always |
+| #336's 1948 soldier | the third figure of Yiftach and Negev, the Palmach brigades other than Harel: a rifleman in khaki in the Palmach's knitted stocking cap, so Negev's token shows C07, C06 and him and keeps its sourced caps | owner, 21 October 2026 (#708, through the coordinator): "a third figure on some brigade unit tokens, next to C06 and C07"; the rows' numbers (11th and 12th Brigade (Palmach)) | always |
 | C12F Palmach scout | Harel's third figure, at Sha'ar HaGai on the convoy road | Harel's row (a Palmach brigade escorting the convoys, Izkor); en.wiki Netiva Ben-Yehuda (a Palmach woman's duties included "escorting convoys") | always |
 | C08 Arab Legion | the Arab Legion's three figures | the row; owner, #756 (Tal Heuberger's models approved) | the row's windows |
 | C09 irregular | the Arab Liberation Army's three figures | en.wiki Arab Liberation Army: "an irregular army" of volunteers | the row's windows |
@@ -268,8 +276,8 @@ own root rotation kept (the FBX axis turn, -90 degrees about X), so the camera's
   45 km), each figure whose model has an idle clip (`CollectionCatalog.Animated`) shows its skinned near model playing the
   clip, as tall as its far model and under the same holder (`UnitFigureDetail`). The near models are asked for only once a
   camera first comes close; until one arrives, and for good if it is missing, the far mesh stays. C05 has no idle clip
-  (walk and run only) and keeps his still far model (owner, 18 October 2026, #665: "Keep its still model"). The vehicles
-  stay far.
+  (walk and run only) and keeps his still far model (owner, 18 October 2026, #665: "Keep its still model"); #336's soldier
+  has no rig and keeps his still far model too. The vehicles stay far.
 - **Fail open:** an Israeli figure keeps its code-built mesh until its model arrives, and for good if the bundle is
   missing or damaged; a vehicle and an Arab force's token are not drawn until their model arrives.
 - Tests: `UnitFiguresTests` (every one of the nine is placed on some day of the war; the table; the swap; arms down;
@@ -408,7 +416,19 @@ checks every anchor and logs each spot and its distance.
   exactly those hexes (`MapScene.ShowReachable`, a band half the selection's width); a click on a lit hex queues the
   sim's `Move` through `SimBridge` and the card says the move waits for End turn; any other click, a second press, a
   turn or another selection ends the pick. The sim refuses a move that is no longer possible at End turn with its own
-  reason. Tests: `UnitOrdersTests`, `InfoPanelLayoutTests.TheUnitCardWithItsMoveOrderFitsEveryWindow`.
+  reason. Slice 2 adds Fortify and Hold (Q-UI-2's "Fortify" / "ביצור", "Hold" / "החזקה"): each button shows only where
+  the sim's `Orders.Check` takes the order, and where it does not, the card shows the sim's reason as the sim gives it
+  (in English for now, as the End turn toast does). A press queues the sim's `UnitOrder` through `SimBridge` (one standing
+  order per unit: Hold replaces a queued Fortify, and either replaces a queued attack) and the card says when it takes
+  effect. Slice 3 adds Attack (Q-UI-2's "Attack" / "התקפה"): the button shows only where the sim's `Combat.Check` takes
+  some unit's hex, and the sim's reasons for the enemy hexes in reach it refuses (no Arms, the attack it already has)
+  show as the others do. Pressing it lights those hexes; for each the card gives the units there by name, the sim's
+  strength ratio (`Combat.Preview`) and its `combat_table` row's outcome bands (`Combat.Outcomes`: how many faces of the
+  draw give each outcome, and the people each side loses), as Q-UI-1 decided. A click on a lit hex queues the sim's
+  `UnitOrder(unit, attack, q, r)` through `SimBridge`, and the card says the attack comes at End turn, with that hex's
+  odds. `Orders.Give` and `Combat.Give` run `Orders.Check` and `Combat.Check` first, so the card and End turn refuse the
+  same orders for the same reasons. Tests: `UnitOrdersTests`,
+  `InfoPanelLayoutTests.TheUnitCardWithItsOrdersFitsEveryWindow`.
 
 **The Avia S-199** (`UnitModels.AviaS199`; type `avia-s199-101sqn-1948`):
 - The Bf 109G airframe, 8.94 m long with a 9.92 m span, with the Jumo 211F's wide three-blade paddle propeller and the
