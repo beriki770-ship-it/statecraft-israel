@@ -15,7 +15,7 @@ namespace Statecraft.Sim
         /// <summary>Fires every unfired event whose `requires` (if any) is met, whose window [From, To) overlaps the turn just played,
         /// [<paramref name="turnStart"/>, s.Date), or contains s.Date; <paramref name="turnStart"/> defaults to s.Date
         /// (game start). Every eligible hard anchor fires; MaxSoftEventsPerTurn caps only the non-hard events per turn,
-        /// which fill the slots that remain (max(0, cap - hard count)) in the usual order (consequence cards first, R-ALT-008, then From, then id). The fired
+        /// which fill the slots that remain (max(0, cap - hard count)) in the usual order (consequence cards first, R-ALT-008, then From, objective cards last in objectives.yaml's order, R-OBJ-007, then id). The fired
         /// events keep the usual order.
         /// Late fire: an event whose window overlapped the turn just played can fire after its window has ended; its
         /// conditions are evaluated at the end of the turn, and its text is filled at the last in-window day
@@ -39,7 +39,9 @@ namespace Statecraft.Sim
                                                && (!k.Min.HasValue || v >= k.Min.Value) && (!k.Max.HasValue || v <= k.Max.Value)))
                 // R-ALT-008: a road the player took is not crowded out of its window. With no consequence card eligible the first
                 // key is the same for every event, and (From, id) is a total order (ids are unique), so the order is as before.
-                .OrderBy(e => e.Kind == EventKinds.Consequence ? 0 : 1).ThenBy(e => e.From).ThenBy(e => e.Id, StringComparer.Ordinal)
+                // R-OBJ-007 (Q-CARD-2): objective cards of the same From come after that From's other events, in objectives.yaml's order.
+                .OrderBy(e => e.Kind == EventKinds.Consequence ? 0 : 1).ThenBy(e => e.From)
+                .ThenBy(e => e.Objective == "" ? -1 : c.Objectives.FindIndex(o => o.Id == e.Objective)).ThenBy(e => e.Id, StringComparer.Ordinal)
                 .ToList();
             var hardCount = eligible.Count(e => e.Anchor == "hard");
             var chosen = new HashSet<string>(eligible.Where(e => e.Anchor == "hard")

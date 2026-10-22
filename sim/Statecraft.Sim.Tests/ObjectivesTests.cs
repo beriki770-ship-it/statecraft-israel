@@ -302,7 +302,7 @@ eras:
     public void TheInfrastructureObjectiveHasItsThreeParts()
     {
         var parts = Real.Objectives.Where(x => x.PartOf == "establish_key_infrastructure").ToList();
-        Assert.Equal(new[] { "burma_road", "railway", "yishuvim" }, parts.Select(x => x.Id));
+        Assert.Equal(new[] { "railway", "burma_road", "yishuvim" }, parts.Select(x => x.Id));   // objectives.yaml's order (R-OBJ-007)
         Assert.Equal("burma_road", parts.Single(x => x.Id == "burma_road").CompletesWhen!.CorridorComplete);
         Assert.Equal("tlv_haifa_rail", parts.Single(x => x.Id == "railway").CompletesWhen!.CorridorComplete);
         Assert.Equal(new[] { "mefalsim", "beit_kama", "reim", "gilat", "kiryat_shmona", "beit_shemesh" },

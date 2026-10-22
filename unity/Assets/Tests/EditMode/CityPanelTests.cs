@@ -269,6 +269,46 @@ public class CityPanelTests
     }
 
     [Test]
+    public void EveryTrainableTypeHasThePanelsStringsInBothLanguages()
+    {
+        // #1357: the panel words a Train button as city.train_<type> and a cohort as city.track_<type>, for every type with a
+        // facility; a missing key throws (UiText) and the whole city panel fails to open. A new trainable type needs both.
+        var trainable = C.UnitTypes.Where(t => t.Facility != "").Select(t => t.Id).ToList();
+        CollectionAssert.Contains(trainable, Training.Craftsman, "precondition: the craftsman trains at a facility (R-CRAFT-001)");
+        var missing = (from strings in new[] { ("strings.en.yaml", En), ("strings.he.yaml", He) }
+                       from id in trainable
+                       from key in new[] { "city.train_" + id, "city.track_" + id }
+                       where !strings.Item2.Has(key)
+                       select $"{strings.Item1}: {key}").ToList();
+        Assert.IsEmpty(missing, string.Join(", ", missing));
+    }
+
+    [Test]
+    public void ACityWithAFinishedIndustryProjectOffersCraftTraining([Values] bool hebrew)
+    {
+        // #1357, R-CRAFT-001: a completed industry project gives its city the craftsman's Train button and its cohorts' rows.
+        var t = hebrew ? He : En;
+        var type = C.UnitTypes.Single(x => x.Id == Training.Craftsman);
+        Assert.IsFalse(C.Cities.Single(x => x.Id == City).Facilities.Contains(Training.Industry), "precondition: Tel Aviv's industry comes from the project");
+        using var ui = new UiTestKit();
+        int cohort = -1;
+        var bridge = Bridge(t, s =>
+        {
+            var id = s.NextId++;
+            s.CityProjects.Add(id, new CityProject(id, Training.Industry, City, CityHex.q, CityHex.r, 1).Built(s.Date));
+            cohort = s.NextId++;
+            s.Cohorts.Add(cohort, new Cohort(cohort, Training.Craftsman, City, 2, 3));
+        });
+        using var panel = Panel(ui, bridge, t);
+        panel.Show(CityHex.q, CityHex.r);
+        Assert.AreEqual(t.Format("city.train_craftsman", PlayerText.Money(C, "treasury", type.TrainingCost), GddHexPanel.Turns(t, type.TrainingTurns)),
+            ui.Q<Button>("city-train-craftsman").text);
+        Assert.AreEqual(t.Format("city.cohort", t["city.track_craftsman"], GddHexPanel.Groups(t, 2), GddHexPanel.Turns(t, 3)), ui.Q<Label>($"city-cohort-{cohort}").text);
+        UiTestKit.Press(ui.Q<Button>("city-train-craftsman"));
+        Assert.IsNotNull(bridge.QueuedLike(new Train(City, Training.Craftsman, 1)), "the press queues craft training");
+    }
+
+    [Test]
     public void ACohortShowsItsTurnsLeftAndCancelQueuesCancelTraining()
     {
         using var ui = new UiTestKit();
@@ -482,6 +522,31 @@ public class CityPanelTests
         UiTestKit.Press(drain);
         var order = bridge.QueuedLike(new StopWork(a)) as PioneerWork;
         Assert.AreEqual((Projects.DrySwamp, "hula"), (order?.Action, order?.Site));
+    }
+
+    /// <summary>#41 (review of #1330): on a hex with two sites both parts hold a site-build-&lt;unit&gt; button; when the panel
+    /// is rebuilt (any bridge change), the focus goes back to the button in the part that had it, not the first part's.</summary>
+    [Test]
+    public void ARebuiltSiteHexKeepsTheFocusInThePartThatHadIt()
+    {
+        var camp = Def("camp_80");
+        var field = new Statecraft.Sim.Site { Id = "a_camp_field", Name = "A camp field", Q = camp.Q, R = camp.R, Kinds = new System.Collections.Generic.List<string> { "field" } };
+        C.Sites.Add(field);
+        try
+        {
+            using var ui = new UiTestKit();
+            int a = -1;
+            var bridge = Bridge(En, s => a = AddHalutz(s));
+            using var panel = Panel(ui, bridge, En);
+            panel.Show(camp.Q, camp.R);
+            Assert.IsNotNull(SiteBox(ui, camp.Id).Q<Button>($"site-build-{a}"), "precondition: the camp's part, first, has the same button");
+            SiteBox(ui, field.Id).Q<Button>($"site-build-{a}").Focus();
+            panel.Render();
+            var focused = ui.Root.focusController.focusedElement as VisualElement;
+            Assert.AreEqual($"site-build-{a}", focused?.name);
+            Assert.IsTrue(SiteBox(ui, field.Id).Contains(focused), "the field's rebuilt Build, not the camp's");
+        }
+        finally { C.Sites.Remove(field); }
     }
 
     /// <summary>#1124 (R-FIELD-001): a yishuv's field waits while the yishuv is not built, and offers Plow once it is.</summary>

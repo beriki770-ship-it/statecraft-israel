@@ -83,9 +83,13 @@ namespace Statecraft.Sim
         public SortedDictionary<string, DateTime> Objectives = new SortedDictionary<string, DateTime>(StringComparer.Ordinal);
         /// <summary>Settlement control by target id, ordinal (R-CTRL-002).</summary>
         public SortedDictionary<string, SettlementControl> Settlements = new SortedDictionary<string, SettlementControl>(StringComparer.Ordinal);
-        /// <summary>The player's score (GDD "Objectives": bonus points). An int assumes whole-number points; the point values and
-        /// the timing bonus are open decisions with the owner (D-B2, D-B6), so the type is revisited when they are set.</summary>
+        /// <summary>The player's score (GDD "Objectives": bonus points). An int: the point values (D-B6) and the timing bonus (D-B2)
+        /// the owner set on 14 October 2026 (#456) are whole numbers (R-OBJ-002).</summary>
         public int Score;
+        /// <summary>The parts of <see cref="Score"/> (R-SCORE-001; Q-SCORE-1), each added when it scores, so no reading has to
+        /// rebuild them from rules that may have changed since: objective base points (R-OBJ-002, R-OBJ-006), timing bonuses
+        /// (R-OBJ-002, R-OBJ-005) and points for prisoners returned (R-POW-004). Their sum is <see cref="Score"/>.</summary>
+        public int ScoreObjectivePoints, ScoreTimingBonuses, ScorePrisonerPoints;
         /// <summary>The national Food stock (R-FOOD-001; D-C2): units of Food, one population unit's food for a month. Never below 0.</summary>
         public int Food;
         /// <summary>The Food the nation needed in the last turn (R-FOOD-002): its population in units, set at the start and in step 7.</summary>
@@ -228,6 +232,12 @@ namespace Statecraft.Sim
             if (Settlements.Count > 0)
                 Section("ctrl", '{', '}', Settlements.Select(kv => kv.Key + "=" + kv.Value.Canonical()));
             if (Score != 0) { Sep(); Nl(); sb.Append("score=").Append(Score.ToString(CultureInfo.InvariantCulture)); }
+            if (ScoreObjectivePoints != 0 || ScoreTimingBonuses != 0 || ScorePrisonerPoints != 0)
+            {
+                Sep(); Nl();
+                sb.Append("scoreparts=").Append(ScoreObjectivePoints.ToString(CultureInfo.InvariantCulture)).Append(',')
+                  .Append(ScoreTimingBonuses.ToString(CultureInfo.InvariantCulture)).Append(',').Append(ScorePrisonerPoints.ToString(CultureInfo.InvariantCulture));
+            }
             if (Food != 0 || FoodNeed != 0 || FoodUnmet != 0)
             {
                 Sep(); Nl();

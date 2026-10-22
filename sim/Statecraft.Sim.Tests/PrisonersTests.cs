@@ -210,6 +210,7 @@ options:
         Assert.Equal(0, r.State.Score);
         r = Simulation.Step(c, r.State, new Command[] { new ChooseEventOption("pow_egypt", "continue") });   // pow_jordan is delegated
         Assert.Equal(5 * points, r.State.Score);
+        Assert.Equal(5 * points, ScoreParts.For(r.State).PrisonerPoints);   // R-SCORE-001
         Assert.Equal(new[] { ("ala", 4) }, r.State.PrisonersHeld.Select(kv => (kv.Key, kv.Value)));
         Assert.Equal(new[] { ("egypt", 3), ("iraq", 2) }, r.State.PrisonersReturned.Select(kv => (kv.Key, kv.Value)));
         Assert.Contains(r.Why, x => x.Message == "Prisoners exchanged: 30 prisoners returned to Egypt");

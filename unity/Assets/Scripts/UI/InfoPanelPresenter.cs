@@ -49,6 +49,9 @@ namespace Statecraft.Game.UI
         readonly MapRegions? regions;
         readonly System.Func<string, (int q, int r)>? townHex;
         readonly IReadOnlyDictionary<string, string>? townNamesHe;
+        /// <summary>Whether the last press in the panel came from the keyboard: only then does a rebuilt GDD part give the
+        /// focus back (RenderLines).</summary>
+        readonly PressSource presses;
 
         /// <param name="localitiesAt">The 1948 localities that lie in a hex (null: the panel lists none); they are listed under the
         /// settlements with today's name where the shared rule (Localities.TodayName) allows (#245).</param>
@@ -101,6 +104,7 @@ namespace Statecraft.Game.UI
             onFortify = () => GiveOrder(Orders.Fortify); onHold = () => GiveOrder(Orders.Hold);
             fortifyButton.clicked += onFortify; holdButton.clicked += onHold;
             fortifyButton.text = text["unit.order.fortify"]; holdButton.text = text["unit.order.hold"];
+            presses = new PressSource(panel);
             this.unitName = unitName;
             attackButton = panel.Q<Button>("info-attack");
             onAttack = () => TogglePick(attack: true);
@@ -114,7 +118,7 @@ namespace Statecraft.Game.UI
         void OnHudGeometry(GeometryChangedEvent e) => panel.EnableInClassList(ShortClass, e.newRect.height < ShortBelowPx);
 
         /// <summary>Unsubscribes from the bridge and the buttons (the owner calls this when disabled).</summary>
-        public void Dispose() { bridge.Changed -= Render; panel.parent?.UnregisterCallback<GeometryChangedEvent>(OnHudGeometry); campButton.clicked -= onCamp; housingButton.clicked -= onHousing; defenceButton.clicked -= onDefence; moveButton.clicked -= onMove; fortifyButton.clicked -= onFortify; holdButton.clicked -= onHold; attackButton.clicked -= onAttack; EndPick(); }
+        public void Dispose() { presses.Dispose(); bridge.Changed -= Render; panel.parent?.UnregisterCallback<GeometryChangedEvent>(OnHudGeometry); campButton.clicked -= onCamp; housingButton.clicked -= onHousing; defenceButton.clicked -= onDefence; moveButton.clicked -= onMove; fortifyButton.clicked -= onFortify; holdButton.clicked -= onHold; attackButton.clicked -= onAttack; EndPick(); }
 
         /// <summary>Below this window height (logical px; 1366x657 is about 998) the panel gets ShortClass, and the city's own
         /// hex folds its projects behind their toggle as on a stacked bar (GddHexPanel.ToggleName): there the full list ran into
@@ -448,7 +452,21 @@ namespace Statecraft.Game.UI
             var owned = c.SettlementHexes.Where(x => x.Q == q && x.R == r).Select(x => TownName(x.Id)).ToList();   // strict: every settlement hex has a name (final review M4)
             title.text = owned.Count > 0 ? owned[0] : hex == null ? text["info.off_map"] : text["info.biome." + hex.Biome];
             // The GDD loop's city or designated site (#381); a site's hex has no settlement, so its name is the title.
+            // GddHexPanel rebuilds its part on every render, so a button pressed from the keyboard (Train, Assign, Build) went
+            // with the focus and the next Tab started again at Cabinet (#41, the keyboard-only turn): the rebuilt button of
+            // the same name takes it back. A pointer press leaves no focus (PointerBlur), so it gets none. PressSource reads
+            // "keyboard" until the first pointer press in the panel; here that only means a focus nobody pressed stays put.
+            // A hex with two sites (the Hula swamp and its field) or two corridor segments gives each part buttons of the same
+            // names (site-build-<unit>, site-stop), so the button is looked up inside the part it was in.
+            var focused = presses.ByKeyboard ? panel.focusController?.focusedElement as VisualElement : null;
+            var keep = focused != null && (gdd.Contains(focused) || projects.Contains(focused)) ? focused.name : null;
+            var part = keep == null ? null : focused!.parent;
+            while (part != null && !(part.name is { } pn && (pn.StartsWith("site-part-", System.StringComparison.Ordinal) || pn.StartsWith("corridor-part-", System.StringComparison.Ordinal))))
+                part = part.parent;
+            var partName = part?.name;
             var siteName = GddHexPanel.Render(gdd, projects, bridge, text, q, r, TownName);
+            if (!string.IsNullOrEmpty(keep))
+                FocusReturn.To(partName != null ? gdd.Q(partName)?.Q(keep) : gdd.Q(keep) ?? projects.Q(keep));
             if (siteName != null && owned.Count == 0) title.text = siteName;
             subtitle.text = hex == null ? "" : text.Format("info.hex", text["info.biome." + hex.Biome], hex.ElevM);   // no debug coordinates in player text (playtest 2, P2-6)
             // The armistice zone in force, else the sub-district on 15 May 1948, and any armistice line in force through the

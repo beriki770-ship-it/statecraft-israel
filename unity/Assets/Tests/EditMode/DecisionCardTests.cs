@@ -369,7 +369,7 @@ public class DecisionCardTests
 
     /// <summary>A mouse press as the player makes it: pointer down (which also gives the button the focus), then the
     /// button's Clickable fires `clicked` on pointer up. UiTestKit.Press is the keyboard's Submit instead.</summary>
-    static void PressWithPointer(Button b)
+    internal static void PressWithPointer(Button b)
     {
         b.Focus();
         using (var down = PointerDownEvent.GetPooled()) { down.target = b; b.SendEvent(down); }
