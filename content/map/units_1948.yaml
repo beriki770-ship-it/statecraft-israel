@@ -215,7 +215,7 @@ units:
       sources:
       - {url: 'https://he.wikipedia.org/wiki/%D7%9E%D7%91%D7%A6%D7%A2_%D7%91%D7%A8%D7%95%D7%A9', checked: '2026-10-15'}
       - {url: 'https://en.wikipedia.org/wiki/Rosh_Pinna', checked: '2026-10-15'}
-    place_hex: [12, 6]
+    place_hex: [13, 7]
     sources:
     # Organisation of Haganah Heritage, Lexicon, "Brigade 2 Carmeli": the brigade's HQ and most of its forces in Operation Brosh (July 1948) against the Syrian bridgehead at Mishmar HaYarden.
     - {url: 'https://hahagana.org.il/lexicon/lexiconpage/?itemId=47620', checked: '2026-10-15'}
@@ -637,7 +637,7 @@ units:
     end_basis: source
     end_note: Operation Horev, from 22 December 1948, in the south; no place is given for the brigade there.
     note: "One place picked from the sector: the source names the Jerusalem corridor as the sector and Sha'ar HaGai as the end of the road the brigade opened (and as a battalion's name). The Ministry of Defence memorial site (Izkor, Harel memorial rock): the brigade was the mobile strike force of the Jerusalem area, and the rock stands on the narrow stretch between Sha'ar HaGai and Saris where convoys to Jerusalem passed under its battalions' escort."
-    place_hex: [-2, 23]
+    place_hex: [-2, 26]
     toward:
       place: Saris
       lon: 35.07389
