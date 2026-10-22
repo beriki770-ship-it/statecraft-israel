@@ -30,8 +30,9 @@ differently if the owner prefers another line.**
   "שנת ייסוד" (year of founding) is 1952 to 1956: 21 rows; (2) every row of Haim Gvati's list of rural settlements whose
   "תאריך הקמה" (date of founding) falls in 1952-1956 and whose name matches a district-4 row of the CBS file: 15 rows,
   14 of them already in list 1, adding Einat; (3) the Hebrew Wikipedia categories "יישובים שהוקמו ב-1952" to
-  "יישובים שהוקמו ב-1956" intersected with "יישובים במחוז המרכז" (articles only; its four type subcategories,
-  "מושבים / קיבוצים / ערים / ישראל: מועצות מקומיות במחוז המרכז", were also read and add no article): 24 pages. Three of
+  "יישובים שהוקמו ב-1956" intersected with "יישובים במחוז המרכז" (articles only). Its five type subcategories (moshavim, kibbutzim, cities, local councils and regional councils of the
+  Central District; the regional-councils one has 0 articles) and 93 per-locality subcategories were also swept;
+  the 24 pages exclude Mevo'ot Yam, which was found only through a locality subcategory and is already row 22. Three of
   them are regional councils (Gan Raveh, Sdot Dan, Gederot), not localities, and are left out; the other 21 include 16
   already in list 1 and add 5 that the CBS file dates outside the window or does not list (Givat Haim (Ihud), Nehalim,
   Neve Monosson, Ganot Hadar, Yeshivat Kerem B'Yavneh), each kept with **[C]**. That gives **27 rows**.
@@ -54,8 +55,8 @@ differently if the owner prefers another line.**
   and a cross-check: a fact resting on Wikipedia alone is tagged **[S, Wikipedia]**, and where it cites a newspaper or
   book the citation is given as Wikipedia gives it and not counted as read. Quotes from Wikipedia are from the
   wikitext with link, footnote and bold/italic markup removed (a piped link shows its display text); nothing else is
-  changed. Where a sentence is reworded, it says "paraphrase". Where a quote stops before the end of the sentence, it
-  ends at a word of the original.
+  changed except that Hebrew vowel points are normalised (NFC). Where a sentence is reworded, it says "paraphrase".
+  Where a quote stops before the end of the sentence, it ends at a word of the original.
 - **Founding group** in Gvati is the affiliation (the settlement movement), not the people. The people (country of
   origin, garin) come from Wikipedia and are tagged as such.
 - Hebrew dates were converted with the `convertdate` library.
@@ -77,7 +78,7 @@ gives the same day.
 ### Sources not reached
 
 - **Regional council sites** (Hefer Valley, Drom HaSharon, Lev HaSharon, Gezer, Hevel Modi'in, Gederot, Hevel Yavne,
-  Brenner) were not tried. The Wikipedia footnotes that point to them were not followed.
+  Nahal Sorek and Sdot Dan) were not tried. The Wikipedia footnotes that point to them were not followed.
 - **Not tried, known blocked** (`settlements-1949-51.md`): the NLI historical press (JPress) and the Israel State
   Archives. So **no contemporaneous newspaper was read for any row**. Hebrew Wikipedia cites papers of the time for
   many rows (Davar, HaTzofe, HaBoker, Haaretz, Al HaMishmar); they are given as cited.
@@ -95,7 +96,7 @@ gives the same day.
   https://en.wikipedia.org/w/index.php?oldid=1374530848 ; Hebrew https://he.wikipedia.org/w/index.php?oldid=43696761 ;
   checked 2026-10-22). It is the original kibbutz that stayed after the 1952 split; the new one is row 2.
 - **Sdei Trumot**: Gvati gives "שְדֵי-תְּרוּמוֹת", region "השרון הדרומי", 16.9.52, but the CBS file has it in district
-  2 (code 2057, subdistrict 23, founding year 1951), in the Beit She'an Valley. It is outside this boundary and was not
+  2 (code 2057, subdistrict 23 (Jezreel), founding year 1951), in the Emek HaMa'ayanot Regional Council (CBS). It is outside this boundary and was not
   researched further.
 - **CBS district-4 rows just outside the window**, not researched further: 1951, Ahituv, Beit Arif, Elishama, Azriel,
   Ga'ash, Harutzim, Kfar Aviv, Neve Yarak, Nitzanei Oz, Pedaya, Petahya, Savyon, Sha'alvim and Shoshanat HaAmakim;
@@ -117,7 +118,7 @@ Coordinates: CBS 2024, lat N, lon E, today's site. "Founded" is the best-support
 | 8 | Ben Shemen (moshav) / בן שמן (מושב) | Moshav (new, beside the 1905 moshav) | Dec 1952 **[S, Wikipedia]**; 1952 **[V]** | 31.95266, 34.92285 | None found |
 | 9 | Ganot Hadar / גנות הדר | Rural locality | 1952 first houses (Hebrew Wikipedia), 1954 (English Wikipedia) or 1964 (CBS) **[C]** | 32.32067, 34.90057 | None found |
 | 10 | Beit Hilkia / בית חלקיה | Moshav | 6 Jan 1953 **[V]** | 31.79229, 34.81166 | None found |
-| 11 | Gan HaDarom / גן הדרום | Moshav | Jan 1953 (Gvati; CBS 1953) or 1951 (both Wikipedias) **[C]** | 31.80433, 34.70085 | None found |
+| 11 | Gan HaDarom / גן הדרום | Moshav | Jan 1953 (Gvati; CBS 1953) or 1951 (both Wikipedias) **[C]** | 31.80433, 34.70085 | None; the authorities' proposed "משולם" was rejected (Hebrew Wikipedia) |
 | 12 | Bahan / בחן | Nahal outpost (1953), kibbutz | Apr 1953 (CBS 1953; Gvati 23 Apr; Hebrew Wikipedia 15 Apr) or 1954 (English Wikipedia) **[C]** | 32.35209, 35.02005 | None found |
 | 13 | Gannot / גנות | Moshav | 1950 (failed), 15 May 1953 (Gvati; CBS 1953) or 26 Oct 1955 (Hebrew Wikipedia) **[C]** | 32.01794, 34.82853 | None found |
 | 14 | Sha'ar Efraim / שער אפרים | Moshav | 25 Aug 1953 **[S]**; Aug 1953 **[V]** | 32.28900, 34.99717 | None found |
@@ -125,12 +126,12 @@ Coordinates: CBS 2024, lat N, lon E, today's site. "Founded" is the best-support
 | 16 | Hadassah Neurim / הדסה נעורים | Youth village | 1948 (both Wikipedias) or 1953 (CBS) **[C]** | 32.37407, 34.86204 | CBS name "נעורים" |
 | 17 | Neve Monosson / נווה מונוסון | Cooperative society, later local council | 1953 **[S, Wikipedia]**; no own CBS row | 32.01667, 34.86667 (English Wikipedia, minute precision) | Also Neve Efraim Monosson |
 | 18 | Yeshivat Kerem B'Yavneh / ישיבת כרם ביבנה | Yeshiva (institution) | Oct/Nov 1953 (Hebrew Wikipedia), 1954 (English Wikipedia) or 1963 (CBS) **[C]** | 31.81840, 34.72236 | CBS name "כרם ביבנה (ישיבה)" |
-| 19 | Nir Zvi / ניר צבי | Moshav | 2 May 1954 **[S]**; 1954 **[V]** | 31.95247, 34.86297 | First "כפר ארגנטינה", renamed 1955 |
+| 19 | Nir Zvi / ניר צבי | Moshav | 2 May 1954 **[S]**; 1954 **[V]** | 31.95247, 34.86297 | First "כפר ארגנטינה", renamed 1955 **[S, Wikipedia]** |
 | 20 | Aseret / עשרת | Rural centre of Gederot, community settlement | 1954 **[V]**; day **[GAP]** | 31.82464, 34.74726 | Also "מרכז גדרות" |
-| 21 | Shedema / שדמה | Moshav | Oct 1954 **[S]**; 1954 **[V]** | 31.83205, 34.74141 | None found |
+| 21 | Shedema / שדמה | Moshav | Oct 1954 **[S]**; 1954 **[V]** | 31.83205, 34.74141 | First "יפה ענף" (Hebrew Wikipedia) or "Yefe Nof" (English Wikipedia) **[C]** |
 | 22 | Mevo'ot Yam / מבואות ים | Youth village (institution) | 1951 (English Wikipedia), 1954 (CBS) or 1955 (Hebrew Wikipedia) **[C]** | 32.40326, 34.86824 | None found |
 | 23 | Horeshim / חורשים | Kibbutz | Jan 1955 **[V]**; 6 Jan (Gvati) or 13 Jan (Hebrew Wikipedia) **[C]** | 32.13765, 34.97109 | First "החורשים" |
-| 24 | Hofit / חופית | Community settlement | 1952 first families, 1953 or 1955 recognised **[C]** | 32.38499, 34.87412 | None found |
+| 24 | Hofit / חופית | Community settlement | 1952 first families; founded 1953 (Hebrew Wikipedia); recognised 1955 **[C]** | 32.38499, 34.87412 | None found |
 | 25 | Yad Rambam / יד רמב"ם | Moshav | 30 Oct 1955 (Gvati, English Wikipedia) or 6 Nov 1955 (Hebrew Wikipedia) **[C]**; 1955 **[V]** | 31.90013, 34.90066 | None found |
 | 26 | Beit Uziel / בית עוזיאל | Moshav | 14 Oct 1956 **[V]** | 31.87052, 34.90523 | None found |
 | 27 | Tzukei Yam / צוקי ים | Community settlement | 1956 (CBS, English Wikipedia) or 1968 (Hebrew Wikipedia) **[C]** | 32.36133, 34.85892 | None found |
@@ -139,8 +140,9 @@ Rows: 27. By type: 14 moshavim (Nehalim, Tenuvot, Kfar Bin Nun, Sdei Hemed, Bare
 HaDarom, Gannot, Sha'ar Efraim, Nir Zvi, Shedema, Yad Rambam, Beit Uziel), 4 kibbutzim (Einat, Givat Haim (Ihud),
 Bahan, Horeshim), 5 other civil localities (Ganot Hadar, Neve Monosson, Aseret, Hofit, Tzukei Yam), 1 town (Ganei
 Tikva, founded 1949 by the Wikipedias), 3 institutions (Hadassah Neurim, Yeshivat Kerem B'Yavneh, Mevo'ot Yam). By the
-best-supported date, 2 rows fall before the window (Ganei Tikva, Hadassah Neurim) and 2 are open between a date inside
-it and one outside (Nehalim, Tzukei Yam); they are kept so the owner can see the disagreement. Rows are ordered roughly by date.
+best-supported date, 2 rows fall before the window (Ganei Tikva, Hadassah Neurim) and 5 are open between a date inside
+it and one outside (Nehalim, Ganot Hadar, Gannot, Mevo'ot Yam, Tzukei Yam; Gan HaDarom and Yeshivat Kerem B'Yavneh also conflict but lean
+inside the window); they are kept so the owner can see the disagreement. Rows are ordered roughly by date.
 
 ## Rows
 
@@ -241,7 +243,7 @@ Common sources, cited by short name in every row:
   owner's sensitivity review.
 - **Renames. [C]** Hebrew Wikipedia: "הכפר נקרא בתחילה "משמר אילון א'"" (first called Mishmar Ayalon A); English
   Wikipedia: "It was initially  named Mishmar Ayalon Bet" (B; two spaces as in the wikitext). Then Kfar Bin Nun, after
-  Operation Bin Nun B of 1948 (both). No date for the change.
+  Operation Bin Nun B (both name the operation; 1948 is Hebrew Wikipedia). No date for the change.
 - **Coordinates.** CBS 31.86177, 34.94732 (code 2010).
 - **Sources.** CBS; Gvati; https://he.wikipedia.org/w/index.php?oldid=43688521 ;
   https://en.wikipedia.org/w/index.php?oldid=1374532363 . All checked 2026-10-22.
@@ -287,8 +289,10 @@ Common sources, cited by short name in every row:
   [S, Wikipedia].**
 - **Framing. [C]** English Wikipedia treats Ben Shemen as one moshav: "The moshav was founded in 1905", and
   "Immigrants from Romania joined the moshav in 1952." Gvati has only the old moshav: "בֶּן-שֶמֶן", region "שפלת
-  לוד", 11.9.22. The CBS file has the old moshav's successor as a separate row, Kerem Ben Shemen (code 88, 1958), and
-  the youth village as another (code 1084, 1921). **We follow CBS and Hebrew Wikipedia**: a new moshav in 1952.
+  לוד", 11.9.22. The CBS file has Kerem Ben Shemen (code 88, 1958) as a separate row, and
+  the youth village as another (code 1084, 1921). Hebrew Wikipedia says the old moshav "later became" Kerem Ben Shemen (paraphrase of "שהפך לימים");
+  English Wikipedia says that in 1923 the moshav was split in two and part became Kerem Ben Shemen (paraphrase); the
+  framings differ. **We follow CBS and Hebrew Wikipedia**: a new moshav in 1952.
 - **Founders. [S, Wikipedia]** Immigrants from Romania (both Wikipedias).
 - **Renames.** None found.
 - **Coordinates.** CBS 31.95266, 34.92285 (code 2013).
@@ -336,7 +340,8 @@ Common sources, cited by short name in every row:
   (paraphrase).
 - **Site note. [S, Wikipedia]** English Wikipedia: on land near the Arab village of Isdud, depopulated in 1948
   (paraphrase). For the owner's sensitivity review.
-- **Renames.** None found. Name origin, Gvati: "סמלי".
+- **Renames. [S, Wikipedia]** No rename. Hebrew Wikipedia: representatives of the authorities proposed the name "משולם",
+  the settlers objected and proposed the present one (paraphrase). Name origin, Gvati: "סמלי".
 - **Coordinates.** CBS 31.80433, 34.70085 (code 1072).
 - **Sources.** CBS; Gvati; https://he.wikipedia.org/w/index.php?oldid=43685494 ;
   https://en.wikipedia.org/w/index.php?oldid=1374530183 . All checked 2026-10-22.
@@ -427,7 +432,7 @@ Common sources, cited by short name in every row:
   מועצה אזורית.", "אבן הפינה של היישוב הונחה בדצמבר 1953" (cornerstone December 1953) and "המשפחות הראשונות נכנסו
   לבתיהן בתחילת 1955." (first families early 1955). English Wikipedia: "Neve Monosson was founded in 1953 by a group of
   families supported by Fred (Efraim) Monosson". The two articles may copy each other. **No own CBS row**: since 2003
-  it is part of Yehud-Monosson (CBS code 9400, founding year 1948), so the CBS gives it no year. Not in Gvati.
+  it is part of Yehud-Monosson (CBS code 9400, founding year 1948), so the CBS gives it no year (our reading). Not in Gvati.
 - **Founders. [S, Wikipedia]** Fred (Efraim) Monosson, a Zionist donor from Boston, for workers of the Lod airport
   (Hebrew Wikipedia, paraphrase).
 - **Site note. [S, Wikipedia]** English Wikipedia: on the land of the depopulated Arab village of Kafr 'Ana, "on or
@@ -464,7 +469,7 @@ Common sources, cited by short name in every row:
   הנחת אבן הפינה" (cornerstone 25 September 1952), "ראשוני המתיישבים בכפר עלו לישראל בדצמבר 1953 והתיישבו בכפר בתחילת
   1954." and "הכפר נחנך בתחילת 1955 כשנה לאחר הקמתו."
 - **Founders. [S, Wikipedia]** Middle-class Jews from Argentina, settled by Rassco (Hebrew Wikipedia, paraphrase).
-- **Renames. [V]** Hebrew Wikipedia: "היישוב נקרא בהתחלה כפר ארגנטינה, ובשנת 1955 השתנה שמו לניר צבי"; English
+- **Renames. [S, Wikipedia]** Hebrew Wikipedia: "היישוב נקרא בהתחלה כפר ארגנטינה, ובשנת 1955 השתנה שמו לניר צבי"; English
   Wikipedia: first Kfar Argentina. Named after Baron Maurice (Zvi) de Hirsch (Gvati and both Wikipedias). The two
   Wikipedias were not checked for independence.
 - **Coordinates.** CBS 31.95247, 34.86297 (code 331).
@@ -495,10 +500,12 @@ Common sources, cited by short name in every row:
   **Year [V]**: CBS 1954 (code 555); Hebrew Wikipedia: "היישוב הוקם בשנת 1954 לקליטת עולים מאיראן."; English
   Wikipedia: "The moshav was founded in 1954 to absorb immigrants to Israel from Iran".
 - **Founders. [S, Wikipedia]** Planned for immigrants from Iran (both); English Wikipedia: that group refused to live
-  there, and urban residents of the "From the city to the village" movement settled instead (paraphrase).
+  there, and urban residents of a "from city to village" movement settled instead (paraphrase).
 - **Site note. [S, Wikipedia]** English Wikipedia: on lands near the depopulated Arab village of Bashshit
   (paraphrase), as for Aseret (row 20). For the owner's sensitivity review.
-- **Renames.** None found. Name origin, Gvati: "סמלי".
+- **Renames. [C]** Hebrew Wikipedia: "שמו הראשון של המושב היה "יפה ענף". עם זאת, קיימים מקורות שמייחסים לו את
+  השם "יפה נוף" או "שדה נוף"." (footnotes removed). English Wikipedia: "The original name was "Yefe Nof"". The two
+  articles disagree on the first name; no date for the change. Name origin, Gvati: "סמלי".
 - **Coordinates.** CBS 31.83205, 34.74141 (code 555).
 - **Sources.** CBS; Gvati; https://he.wikipedia.org/w/index.php?oldid=42989473 ;
   https://en.wikipedia.org/w/index.php?oldid=1374536978 . All checked 2026-10-22.
@@ -537,8 +544,8 @@ Common sources, cited by short name in every row:
 ### 24. Hofit (חופית), community settlement
 
 - **Founded: [C].** CBS: 1955 (code 115). Hebrew Wikipedia: "חופית הוקם בשנת 1953 עבור עובדי ציבור, שנתנו שירותים
-  ליישובים החקלאיים של עמק חפר." and, in the same article, "המשפחות הראשונות עלו על הקרקע בשנת 1952 ובשנת 1955 הוכר
-  היישוב רשמית כ"חופית"." English Wikipedia: "The first residents moved in 1952, and the village was officially
+  ליישובים החקלאיים של עמק חפר." and, in the same article, "המשפחות הראשונות עלו על הקרקע בשנת 1952" and, in 1955, the
+  locality was recognised as "חופית" (Hebrew: הוכר היישוב רשמית כ"חופית"; paraphrase). English Wikipedia: "The first residents moved in 1952, and the village was officially
   recognised in 1955." Hebrew Wikipedia's category says 1955, English Wikipedia's 1952. **We prefer 1952 for the first
   settlement** (both Wikipedias); the CBS 1955 fits the official recognition (our reading). Not in Gvati.
 - **Founders. [S, Wikipedia]** Public servants working for the farm villages of Hefer Valley (Hebrew Wikipedia);
@@ -557,7 +564,7 @@ Common sources, cited by short name in every row:
   article's two forms agree with each other. **We prefer 30 October** (Gvati and English Wikipedia), but whether
   English Wikipedia's source draws on Gvati is not known.
 - **Founders. [S, Wikipedia]** English Wikipedia: "Most of the founders were Jewish immigrants from Fes in Morocco."
-- **Renames.** None found. Named for the 750th anniversary of Maimonides' death (Gvati and both Wikipedias).
+- **Renames.** None found. Named for the 750th anniversary of Maimonides' death (Gvati and Hebrew Wikipedia; English Wikipedia says only: named after Maimonides).
 - **Coordinates.** CBS 31.90013, 34.90066 (code 64).
 - **Sources.** CBS; Gvati; https://he.wikipedia.org/w/index.php?oldid=44001045 ;
   https://en.wikipedia.org/w/index.php?oldid=1374538019 . All checked 2026-10-22.
@@ -594,8 +601,8 @@ Common sources, cited by short name in every row:
   The district's big wave came in 1949-1951 (`settlements-1949-51.md` and the 42 CBS district-4 rows dated 1950-51);
   1952-56 is mostly moshavim filling gaps in the Sharon and the Lod-Ayalon area.
 - **Many CBS years disagree with the other sources** (rows 1, 2, 3, 9, 11, 13, 15, 16, 18, 22, 24, 27). In several
-  the CBS year matches a later step (local council, official recognition) or a parent settlement (our reading in each
-  row). The CBS year alone is not a safe founding date for this district.
+  the CBS year matches a later step (local council, official recognition) or a parent settlement (our reading in rows 1, 2, 15
+  and 24). The CBS year alone is not a safe founding date for this district.
 - **Institutions.** Three rows are a youth village, a yeshiva and a nautical youth village. They are CBS localities,
   but whether the map wants them is the owner's call.
 - **Relocated or split settlements.** Nehalim (row 3) came from Upper Galilee; Einat and Givat Haim (Ihud) (rows 1
@@ -608,7 +615,8 @@ Common sources, cited by short name in every row:
   Sdei Hemed, Bareket, Sha'ar Efraim, Nir Zvi and Einat have Gvati's day only; Bahan, Horeshim and Yad Rambam have two
   different days; Gannot has three dates; the rest have a month or a year.
 - **Site notes** are recorded for twelve rows (Tenuvot, Kfar Bin Nun, Sdei Hemed, Bareket, Beit Hilkia, Gan HaDarom,
-  Bahan, Gannot, Ganei Tikva, Neve Monosson, Aseret, Shedema; Kfar Bin Nun and Aseret from both Wikipedias, the others
-  from one, many of the English ones citing Khalidi, *All That Remains*, 1992, not read). Horeshim's name origin (row
+  Bahan, Gannot, Ganei Tikva, Neve Monosson, Aseret, Shedema; Kfar Bin Nun and Aseret from both Wikipedias; Bahan and Ganei Tikva cite both, but the Hebrew side is not about
+  depopulation; the others from one (Tenuvot, Sdei Hemed and Gannot Hebrew; Bareket, Beit Hilkia, Gan HaDarom, Neve
+  Monosson and Shedema English), many of the English ones citing Khalidi, *All That Remains*, 1992, not read). Horeshim's name origin (row
   23) also names an Arab village. Hexes and armistice-line flags were not computed; they belong to the paused
   data-file step.
