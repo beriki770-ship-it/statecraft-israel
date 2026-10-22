@@ -231,7 +231,7 @@ public class CaptureTests
             return new[] { (1, 0), (-1, 0), (0, 1), (0, -1), (1, -1), (-1, 1) }.Any(d =>
             {
                 var s = With(c, new Unit(900, type, q + d.Item1, r + d.Item2, side: "israel", strength: 2));
-                foreach (var id in s.Units.Where(x => (x.Value.Q, x.Value.R) == (q, r)).Select(x => x.Key).ToList()) s.Units.Remove(id);   // an enemy unit's hex is refused first
+                foreach (var uid in s.Units.Where(x => (x.Value.Q, x.Value.R) == (q, r)).Select(x => x.Key).ToList()) s.Units.Remove(uid);   // an enemy unit's hex is refused first
                 return Movement.Reachable(c, s, 900).ContainsKey((q, r));
             });
         }
