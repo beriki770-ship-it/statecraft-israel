@@ -971,6 +971,17 @@ public class UnitsInPlayTests
         StringAssert.DoesNotContain("March", body);
     }
 
+    /// <summary>#1292, the issue's example: the Negev Brigade's Hebrew card shows its first commander and sector in Hebrew.</summary>
+    [Test]
+    public void TheNegevBrigadesHebrewCardShowsItsCommanderAndSectorInHebrew()
+    {
+        var body = ProseCard(Units.Single(x => x.Id == "negev"), He).Body;
+        StringAssert.Contains("מפקד ראשון: נחום שריג\n", body);
+        StringAssert.Contains("\nהנגב, בשתי גזרות שכביש באר שבע-עזה מפריד ביניהן; מטה החטיבה במחנה מקורות שליד ניר עם.", body);
+        StringAssert.DoesNotContain("Nahum Sarig", body);
+        StringAssert.DoesNotContain("Beersheba", body);
+    }
+
     // hidden: the rows with "anchors: []" reach the source checks, which run after the anchors'.
     const string ProseRow = "units:\n- {id: a, name: A, number: '1', service: army, side: israel, sector: s, status: draft, wikipedia_only: true, hidden: h, ";
     const string ProseAnchor = "anchors: [{place: P, lon: 34.8, lat: 32.0, from: '1948-05-15', to: '1948-06-01', end_basis: source, end_note: n, sources: [{url: 'https://x.org', checked: '2026-10-11'}], ";
