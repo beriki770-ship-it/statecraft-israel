@@ -53,6 +53,36 @@ namespace Statecraft.Sim
         /// <summary>R-COMBAT-007, R-COMBAT-008: the percent of its strength a unit fights at, its type's combat_percent or 100.</summary>
         static long Factor(Content c, Unit u) => TypeOf(c, u)?.CombatPercent ?? 100;
 
+        /// <summary>R-COMBAT-009: the truce cards and the ends of their windows, half-open like R-ENEMY-006's (Q-WAR-3;
+        /// owner, 22 October 2026, #750): from accepting first_truce to 8 July 1948, and from accepting second_truce to
+        /// 15 October 1948, the sourced dates of first_truce.yaml, ten_days.yaml, second_truce.yaml and
+        /// operation_yoav.yaml. The player's side is bound from accepting the card, not by date alone: a refused or
+        /// defied card binds nothing.</summary>
+        internal static readonly (string Event, string Option, DateTime Until)[] PlayerTruces =
+        {
+            ("first_truce", "accept", new DateTime(1948, 7, 8)),
+            ("second_truce", "comply", new DateTime(1948, 10, 15)),
+        };
+
+        /// <summary>R-COMBAT-009: whether a truce the player accepted is in force on <see cref="GameState.Date"/> (the
+        /// turn's first day, the date the HUD shows): until the turn that covers the window's end, so a complying
+        /// player attacks again from the 15 October 1948 turn (owner ruling 1, 22 October 2026, #750).</summary>
+        internal static bool TruceInForce(GameState s) =>
+            PlayerTruces.Any(t => s.Date < t.Until && s.ChosenOptions.TryGetValue(t.Event, out var o) && o == t.Option);
+
+        /// <summary>R-COMBAT-009: accepting a truce ends and clears every standing attack of the player's, with a
+        /// line, the same as the enemy side's (owner ruling 2, 22 October 2026, #750; R-ENEMY-006).</summary>
+        internal static void EndAttacksForTruce(GameState s, List<Cause> why)
+        {
+            foreach (var id in s.Units.Keys.ToList())
+            {
+                var u = s.Units[id];
+                if (!Player(u) || u.Order != Attack) continue;
+                s.Units[id] = new Unit(u.Id, u.Type, u.Q, u.R, u.Service, u.Side, u.Strength, "", "");
+                why.Add(new Cause("map", id.ToString(CultureInfo.InvariantCulture), 0, $"Unit {id}'s attack on hex {u.OrderTarget} ends: a truce is on"));
+            }
+        }
+
         /// <summary>The enemy military units on (q, r), seen from <paramref name="attacker"/>'s team, in id order.</summary>
         static List<Unit> Defenders(GameState s, Unit attacker, int q, int r) =>
             s.Units.Values.Where(x => x.Q == q && x.R == r && Military(x) && Player(x) != Player(attacker)).ToList();
@@ -60,8 +90,8 @@ namespace Statecraft.Sim
         /// <summary>R-COMBAT-001's refusals: null when <see cref="Give"/> takes the attack on (q, r), else the reason shown to
         /// the player. Changes nothing: the unit card asks it for each enemy hex before it offers that hex (#754). Refused for
         /// an unknown unit, a halutz, an enemy unit, no hex, the attack it already has, a hex not next to it (artillery: beyond
-        /// its range) or with no enemy unit, or fewer Arms than one attack takes on top of the player's other attacks already
-        /// ordered (Q-COMBAT-4). With <paramref name="enemy"/> the enemy AI orders its own unit through the same checks, the
+        /// its range) or with no enemy unit, a truce the player accepted (R-COMBAT-009), or fewer Arms than one attack takes
+        /// on top of the player's other attacks already ordered (Q-COMBAT-4). With <paramref name="enemy"/> the enemy AI orders its own unit through the same checks, the
         /// sides swapped, and pays no Arms (R-ENEMY-001; Q-ENEMY-4).</summary>
         public static string? Check(Content c, GameState s, int unitId, int? q, int? r, bool enemy = false)
         {
@@ -69,6 +99,7 @@ namespace Statecraft.Sim
             if (!Military(u)) return "Only a military unit takes that order";
             if (Player(u) == enemy) return "That unit is not yours";
             if (q == null || r == null) return "An attack names a hex";
+            if (!enemy && TruceInForce(s)) return "A truce is in force";   // R-COMBAT-009
             var target = Hex(q.Value, r.Value);
             if (u.Order == Attack && u.OrderTarget == target) return "That unit already has that order";
             if (!InReach(c, u, q.Value, r.Value)) return Guns(c, u) ? "That hex is beyond the unit's range" : "That hex is not next to the unit";
