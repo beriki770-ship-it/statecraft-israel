@@ -104,6 +104,22 @@ public class DeportTests
         Assert.Equal(0.5, EffectsSystem.Shift(c, CombatTests.With(c), "intl_standing", 1.0), 9);   // no Deport, no ceiling: 0.5 to 1
     }
 
+    // R-CTRL-018: the ceiling holds on the effects step too, where the level is recomputed (EffectsSystem.Level), not only
+    // where a shift writes it. A fixture effect lifts International Support by 1.0 in one turn (inertia 1). The turn's drag
+    // (step 10) comes first, 0.39 to 0.38; the effects step then stops the level at the ceiling, 0.7, not at 0.88.
+    [Fact]
+    public void TheCeilingHoldsWhenAnEffectLiftsSupport()
+    {
+        var c = Load(files => files["model.yaml"] = files["model.yaml"].Replace("effects:\n",
+            "effects:\n  - id: support_lift\n    source: rationing\n    target: intl_standing\n    k: 1.0\n    inertia: 1\n    name: Support lift\n"));
+        var s = Step(c, Awaiting(c, Soldier(1, 1, 0)), Answer(SettlementControl.Deport)).State;
+        Assert.Equal(0.4 - 0.01, Support(s), 9);
+        s.Policies["rationing"] = 1.0;
+        var next = Step(c, s);
+        Assert.Equal(0.7 - 0.38, next.Why.Single(x => x.System == "effects" && x.Target == "intl_standing").Delta, 9);
+        Assert.Equal(0.7, Support(next.State), 9);
+    }
+
     // R-CTRL-019 (Q-DEP-2 (a), Q-DEP-3 (a)): the residents become the DisplacedByPlayer count only, outside the player's
     // control. No city's refugees, civilians or other people, no cohort, no unit and no prisoner count grows: the turn ends
     // as Raid's does in all of them.
@@ -118,6 +134,8 @@ public class DeportTests
         Assert.Equal(raid.Units.Values.Select(x => x.Canonical()), deport.Units.Values.Select(x => x.Canonical()));
         Assert.Equal(raid.Cohorts.Values.Select(x => x.Canonical()), deport.Cohorts.Values.Select(x => x.Canonical()));
         Assert.Equal(raid.PrisonersHeld, deport.PrisonersHeld);
+        Assert.Equal(raid.PrisonersReturned, deport.PrisonersReturned);
+        Assert.Equal(raid.SoldiersHeld, deport.SoldiersHeld);
         Assert.Equal(raid.Population, deport.Population);
         Assert.Equal(raid.TotalPopulation, deport.TotalPopulation);
     }
