@@ -23,8 +23,8 @@ Soviet aliyah total and for Operation Yachin.
 - **Derived** marks a number this note computed. The arithmetic is shown next to it.
 - "Page" is the printed page number of the source; "PDF p." is the page in the PDF file when it differs.
 - No quote is invented. The short quotes below are copied from the cited page. Translations from Hebrew are marked
-  "our translation". Readings of a misprint or an unclear cell are marked "our reading". Bachi prints year ranges
-  with a long dash; in quotes they are written here with a hyphen.
+  "our translation". Readings of a misprint or an unclear cell are marked "our reading". Dashes in quotes (Bachi's
+  year ranges, Tolts's en dashes) are written here as hyphens.
 
 ## Sources
 
@@ -189,8 +189,8 @@ immigrants, 1948-1979). "Potential immigrants" are listed from 1969 on.
   gives 82,244.
 - 1969-74: "out of 280,000 immigrants who arrived in Israel during that period (approximately 45,000 per year), over
   50% were from the former USSR, and approximately 30% were from Western Europe, America and Australia." Check,
-  derived: 1a for 1969-1974 is 116,791 + 142,753 = 259,544, not 280,000. CBS's round number is about 20,000 higher
-  than its own table. [C] Preferred: the table.
+  derived: 1a for 1969-1974 is 116,791 + 142,753 = 259,544, not 280,000. Our reading: CBS's round number is about
+  20,000 higher than its own table. [C] Preferred: the table.
 - From 1975: "The longest decline in immigration in the country's history began in 1975."
 
 ---
@@ -284,7 +284,7 @@ estimate". Period totals are **derived** (average x years):
   which is a per-year rate for 1955-57, not a sourced 1957 figure.
 - 1976 and 1977 are [GAP]: Bachi's series ends in 1975, and no yearly CBS emigration series for the 1970s was
   reachable (see Sources).
-- What the columns measure, Bachi §9.1, page 116: the excess of departures over returns is "very exaggerated"; the
+- What the columns measure, Bachi §9.1, page 116: the excess of departures over returns is set 2, headed "Very exaggerated" in his summary table; the
   revised estimates come from following up "the number of residents who left in each year and did not return after a
   given span of time"; and "Almost always these estimates of set 3 are lower than those of set 2. However, they have
   also been found to be somewhat exaggerated".
@@ -424,8 +424,8 @@ the Census results "Arabs" also included "others"."
 - [C] The immigrants in this table do not match the immigrant tables. Total population: 414.7 thousand here against
   427,828 in T4.2 for 1961-1971 (derived from 1a; T4.4 prints the same 427,828 as its 1961-1971 grand total), a
   difference of 13.1 thousand. Jews: 411.8 thousand here against 424,220 in CBS 1365 Table 1 (derived), 12.4
-  thousand apart. T2.3 note 2 says it includes immigrating citizens, which would make it larger, not smaller. The
-  sources read do not explain the gap. [GAP] Preferred for the arrivals rows: T4.2 (1a); T2.3 is a calibration
+  thousand apart. T2.3 note 2 says it includes immigrating citizens, which would make it larger, not smaller. The potential immigrants (44,488 in 1969-71, derived from 1c) do not explain it either (our reading: T4.2 counts them, and
+  removing all 44,488 would overshoot the 13.1 thousand). The sources read do not explain the gap. [GAP] Preferred for the arrivals rows: T4.2 (1a); T2.3 is a calibration
   cross-check only.
 - The next CBS period, 1972-1982, runs past the era and is not used. Yearly sources of growth for 1957-1977 are
   [GAP]: the 2010 table gives long periods only.
@@ -441,7 +441,9 @@ Not a model, only the arithmetic the sources allow:
 - Jewish immigrants 1957-1977 (1c): 768,435.
 - Emigration: Bachi's revised estimate gives 161,726 for 1958-1975 (3a, derived), plus a 1957 share and 1976-77 that
   are [GAP].
-- Yearly Jewish change in 4a, derived: smallest +38.7 thousand (1967), largest +95.3 thousand (1957). The year-end
+- Yearly Jewish change in 4a, derived, on the census-basis rows: smallest +38.7 thousand (1967), largest +95.3
+  thousand (1957). The 1962 and 1973 changes depend on which 1961 and 1972 row is used (1973 is +95.6 from the
+  previous-census row, +92.3 from the census row). The year-end
   values give the content work one checkpoint per year; the design asks for 1961, 1972 and 1977, and the sources
   give 1961 and 1972 on two bases each and 1977 on the 1972 census basis only.
 
