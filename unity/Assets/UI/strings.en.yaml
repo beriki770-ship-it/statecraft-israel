@@ -493,3 +493,8 @@ site.build_swamp: "Drain the swamp with {0}: {1}, {2}"
 site.building_swamp: "Being drained by {0}: {1} left"
 site.stop_swamp: "Stop draining (the money spent is lost)"
 site.built_swamp: "Drained on {0}"
+# A corridor segment's part on its hexes (#792): {0} the corridor's name, {1} the segment's number from 1 (Q-SENS-1).
+corridor.segment: "{0}, segment {1}"
+corridor.build_road: "Build road with {0}: {1}, {2}"
+corridor.build_rail: "Build railway with {0}: {1}, {2}"
+corridor.built: "Built on {0}"
