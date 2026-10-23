@@ -40,6 +40,11 @@ The simulation must produce the same state, bit for bit, on .NET, Unity Mono and
   none moves. The `mvp-deport-cost` golden, paired with `mvp-occupy-cost`, waits for the same capture (#1304);
   `DeportNeverDominatesTests` plays both runs from the same fixture states.
 
+## Combat draws
+
+A player engagement draws `Combat.DrawsPerEngagement` (1) when its order runs in `RunOrders`, after the route step and any
+earlier committed order, before every waiting order. The enemy's engagements draw in resolver step 2, in ascending attacker id.
+
 ## Golden playthroughs
 
 `Statecraft.Sim.GoldenRun.Play(content, until)` starts `Simulation.NewGame(content, GoldenRun.Seed, Mode.Historical)`
