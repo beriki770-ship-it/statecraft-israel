@@ -1,6 +1,6 @@
 # Jewish localities founded in the Galilee before 15 May 1948 (research note, 2026-10-23)
 
-Status: research only, for the owner's choice. Nothing here is in `content/`, `sim/` or `unity/`.
+Status: research only, for the owner's choice. Every source was read by an agent (Claude Code) on 23 October 2026; a person's check is pending. Nothing here is in `content/`, `sim/` or `unity/`.
 Refs #97, its Galilee region (claimed in
 https://github.com/eyalgolan/statecraft-israel/issues/97#issuecomment-6360680637). The dated
 settlements file and `tools/settlement_hexes.py` stay with #61, and rows with a rename or an
@@ -60,8 +60,8 @@ here.
 
 There is no single boundary, so this note states its rule.
 
-Included: every locality that the CBS file codes as Jewish (`דת יישוב` = 1) with `שנת ייסוד` before
-1948 in the **Safed, Kinneret and Acre sub-districts** (61 rows; plus Safed and Tiberias, coded
+Included: every locality that the CBS file codes as Jewish (`דת יישוב` = 1) with `שנת ייסוד` founded before 15 May 1948 (CBS year before 1948, or CBS 1948 with a Gvati date before 15 May)
+in the **Safed, Kinneret and Acre sub-districts** (62 rows; plus Safed and Tiberias, coded
 `ותיק`), and places that stood in the same area before 15 May 1948 and were later abandoned, moved
 or merged into another locality (part 3).
 
@@ -69,8 +69,7 @@ Excluded, for a valleys note rather than this one: Menahemia (CBS 1902) and Gesh
 the **Jezreel** sub-district, and the rest of that sub-district. Kefar Masaryk, Ein HaMifratz and
 Afek are in the CBS Acre sub-district today. Kefar Masaryk and Ein HaMifratz appear in the Mandate
 **Haifa** sub-district's 1945 table, and Afek is not named in either table. They are kept here because
-the rule follows CBS, and flagged so a Haifa note does not count them twice. Kefar HaNasi (CBS 1948) and every CBS row of 1948 or later are out
-by date.
+the rule follows CBS, and flagged so a Haifa note does not count them twice. Bustan HaGalil (CBS 1948) is in, because Gvati dates it 1.2.48; the other CBS 1948 rows here are after 15 May in Gvati (Shamerat 28.5.48, Kefar HaNasi 2.7.48, Yiftah 19.8.48, Sa'ar 6.9.48, HaGosherim 26.9.48, Ga'ton 8.10.48), and later rows are out by date.
 
 Safed and Tiberias are pre-1882 towns with old Jewish communities. CBS gives them `ותיק` (long
 established) instead of a year, and no founding date is sought for them.
@@ -129,6 +128,7 @@ an earlier founding written out below.
 | עברון (Evron) | 376 | 1945 | 32.99187, 35.10049 | גליל מערבי, `8.10.45`, הקיבוץ הארצי | not listed by name | [V] year; group from 1936, part 2 |
 | יחיעם (Yehi'am) | 409 | 1946 | 32.99759, 35.22004 | הגליל המערבי, `27.11.46`, הקיבוץ הארצי | not listed by name | [V] |
 | רגבה (Regba) | 390 | 1946 | 32.97778, 35.09961 | הגליל המערבי, `15.8.46`, האיחוד | not listed by name | [V] |
+| בוסתן הגליל (Bustan HaGalil) | 559 | 1948 | 32.95134, 35.08214 | הגליל המערבי, `1.2.48`, האיחוד החקלאי | not listed by name | [V] year; Gvati day before 15 May 1948 |
 
 ### Kinneret sub-district
 
@@ -249,7 +249,7 @@ Hebrew Wikipedia pages below were read at the `oldid` given, checked 2026-10-23.
 - CBS **1934**. Not in Gvati's appendix (a town). [checked 2026-10-23: no row]
 - he.wiki `נהריה`, oldid **44103186**: "בשנת 1934 התאפשר לקנות אדמה בבעלות ערבית, שטח של 2,400
   דונמים צפונית לעכו". [S, Wikipedia] That is the land purchase, not the arrival of the first
-  settlers. **Day of founding: [GAP].**
+  settlers. The same article: "ב-10 בפברואר 1935 התיישבו במקום וכך נקבע תאריך זה כתאריך הרשמי לייסודה של נהריה". [S, Wikipedia] **[C]** CBS 1934 against the official founding date of 10 February 1935. **Our reading:** 1934 is the land purchase; use 10 February 1935 and keep CBS's year beside it.
 
 ### Biriya (CBS 368)
 - CBS **1945**. Not in Gvati's appendix. [checked 2026-10-23: no row]
@@ -282,7 +282,7 @@ Hebrew Wikipedia pages below were read at the `oldid` given, checked 2026-10-23.
 - he.wiki `אלומות`, oldid **42318917**: the group formed in 1937, and "בסתיו 1940, הקבוצה עלתה לפוריה
   והתמקמה בבניינים הישנים וההרוסים של האחוזה", a site the article calls temporary. [S, Wikipedia]
   **Our reading:** 20 March 1941 is the founding; autumn 1940 at the Poria estate is a preliminary
-  stage. The date of the move to the permanent site is a [GAP].
+  stage. The group moved to its permanent site near Bitaniya Illit in **November 1946** [S, Wikipedia, citing Davar 14 November 1946]; the day is a [GAP].
 
 ### Afek, founded as Mishmar HaYam (CBS 313)
 - CBS **1939**; Gvati `28.5.39`. [V]
@@ -311,7 +311,7 @@ only `חמרה` row, code 3609, 1971, is a different place in the Jordan Valley.
   הערבי ג'עוני"; "המתיישבים קראו ליישוב החדש בשם גיא אוני"; on 24 July 1882 David Shub bought the
   Gei Oni lands, and "המושבה נוסדה לקראת סוף 1882". [S, Wikipedia] Gvati `12.1882` and CBS 1882 date
   Rosh Pinna, not Gei Oni.
-- **Gei Oni 1878 [S, Wikipedia]; Rosh Pinna December 1882 [V] (CBS and Gvati date Rosh Pinna, not
+- **Gei Oni 1878 [S, Wikipedia]; Rosh Pinna 1882 [V] (CBS and Gvati), December 1882 [S] (Gvati only); both date Rosh Pinna, not
   the rename).** Abandonment:
   the article says only a few families stayed after two years; no date. [GAP]
 
@@ -349,8 +349,7 @@ only `חמרה` row, code 3609, 1971, is a different place in the Jordan Valley.
   from December 1947 and on 2 February 1948, and the settlers returned after the fighting; "לקראת סוף
   1951 עזבו רוב החברים". Its map template gives **32.9972, 35.485904**, the article's own figure.
   [S, Wikipedia]
-- Foundings **1891, 1925, 1932, 1946 (Tu BiShvat)**; abandonments in the 1936 to 1939 revolt (no
-  exact date) and **end of 1951**, after this era. [S, Wikipedia] Not in Gvati. [checked 2026-10-23: no row] Village Statistics 1945
+- Foundings **1891, 1925, 1932, 17 January 1946 (Tu BiShvat 5706, computed here)**; abandonments in the First World War (Ottoman expulsion, no exact date), in **1929** (attacked and burned on **4 September 1929**), in the 1936 to 1939 revolt (no exact date) and at the **end of 1951**, after this era. The 1929 event is another row for the owner's sensitivity review. [S, Wikipedia] Not in Gvati. [checked 2026-10-23: no row] Village Statistics 1945
   has a unit "‘Ein Zeitim" separate from the Arab village's unit, printed "‘Ein ez Zeitin" in the
   text layer; the figures of the "‘Ein Zeitim" line are not legible there.
 
