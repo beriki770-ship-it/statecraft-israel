@@ -17,7 +17,7 @@ person in §8.
 ## Conventions
 
 - [V] read this session in a primary source: the Knesset's position table (K) or the Knesset's government pages (W)
-  (see Sources). For Presidents and the Chief of Staff, "[V] years" means the primary source gives the year only.
+  (see Sources). Every [V] here is an agent read; a person's check is pending. For Presidents and the Chief of Staff, "[V] years" means the primary source gives the year only.
 - [S] secondary only: English or Hebrew Wikipedia, or Wikidata.
 - [C] two sources disagree; every value is given.
 - [GAP] not found in any source read. A gap stays a gap: no holder or date is filled in by inference.
@@ -597,7 +597,7 @@ May 1965).
 | chief_of_staff | Mordechai Gur | 16 April 1974 | 16 April 1978 | en.wiki and he.wiki agree (and offices-1977-93.md §4) | [S] |
 | intelligence_chief (Aman) | Yehoshafat Harkabi | 1955 (he.wiki May 1955) | 1959 (he.wiki April 1959) | en.wiki 1955-1959; he.wiki "מאי 1955 - אפריל 1959" | [S] |
 | intelligence_chief (Aman) | Chaim Herzog | 1959 (he.wiki April 1959) | 1962 (he.wiki January 1962) | en.wiki 1959-1962 | [S] |
-| intelligence_chief (Aman) | Meir Amit | 1962 (he.wiki January 1962) | 1963 (en.wiki) / January 1964 (he.wiki) | | [C] [S]; he.wiki's own Mossad list starts Amit at the Mossad on 26 March 1963, so he.wiki has him in both posts for nine months |
+| intelligence_chief (Aman) | Meir Amit | 1962 (he.wiki January 1962) | 1963 (en.wiki) / January 1964 (he.wiki) | | [C] [S]; he.wiki's own Mossad list starts Amit at the Mossad on 26 March 1963, our reading: he.wiki has him in both posts for nine months |
 | intelligence_chief (Aman) | Aharon Yariv | 1964 (he.wiki January 1964) | 1972 (he.wiki September 1972) | en.wiki 1964-1972 | [S] |
 | intelligence_chief (Aman) | Eli Zeira | October 1972 (en.wiki, he.wiki biography) / September 1972 (he.wiki Aman list) | April 1974 (he.wiki Aman list) | §5 | [C] [S]; days [GAP] |
 | intelligence_chief (Aman) | Shlomo Gazit | 1974 (he.wiki April 1974) | 1978 (en.wiki) / February 1979 (he.wiki) | | [C] [S] (as in offices-1977-93.md §4) |
@@ -667,6 +667,7 @@ spelling [V]:
 | 15th | Alignment; National Religious Party; Herut-Liberal Bloc (to 6 August 1970); Independent Liberals |
 | 16th | Alignment; National Religious Party; Independent Liberals |
 | 17th | Alignment; National Religious Party (to 20 December 1976 in K, 22 December in W); Civil Rights Movement (Aloni, to 5 November 1974 in K) |
+| 18th | Likud; Shlomtzion; Democratic Movement for Change; National Religious Party; Single MK - Moshe Dayan |
 
 W leaves the faction blank on some rows (for example Dov Yosef and Eliyahu Sasson in the 10th to 12th governments,
 Moshe Kol in the 13th and 14th, Haim Gvati, Victor Shem-Tov, Yehoshua Rabinowitz and Haim Bar-Lev in the 16th). W's
