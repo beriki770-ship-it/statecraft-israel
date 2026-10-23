@@ -146,6 +146,8 @@ Common sources, cited by short name in every row:
   not read). English Wikipedia: "former soldiers".
 - **Renames.** None found. Name origin, Gvati: "מן השם הערבי של ההר הסמוך: שג’רת אל-בקר" (from the Arabic name of the
   nearby hill).
+- **Site note.** Hebrew Wikipedia: "בעת הקמת שדה בוקר הרחיק הממשל הצבאי על ערביי ישראל את שבטי הבדואים מהאזור". Given
+  as the source words it, for the owner's sensitivity review.
 - **Coordinates.** CBS 30.87327, 34.79317 (code 885).
 - **Sources.** CBS; Gvati; https://he.wikipedia.org/w/index.php?oldid=43911013 ;
   https://en.wikipedia.org/w/index.php?oldid=1376043964 . All checked 2026-10-22.
@@ -184,7 +186,7 @@ Common sources, cited by short name in every row:
   ב-1951"); Hebrew Wikipedia's opening section instead says school and youth village were both founded in 1952, so
   that page differs between its two sections. Not in Gvati.
 - **Type.** Agricultural school and youth village (both Wikipedias). It is not a moshav or kibbutz.
-- **Founders. [GAP]** No founding group found; Hebrew Wikipedia names the first director, Zalman Wilkomirski.
+- **Founders. [GAP]** No founding group found; Hebrew Wikipedia names the village's first director.
 - **Renames.** None found. Name: after the tamarisk (eshel) and President Chaim Weizmann (both Wikipedias).
 - **Coordinates.** CBS 31.32592, 34.69744 (code 2021).
 - **Sources.** CBS; https://he.wikipedia.org/w/index.php?oldid=44014217 ;
@@ -386,10 +388,13 @@ Common sources, cited by short name in every row:
   1955, not read); English Wikipedia infobox "established_date = 19 April 1955". **Year [V]**: CBS 1955. Not in Gvati.
 - **Type. [S, Wikipedia]** Hebrew Wikipedia: began as a tractor station for the Merhavim moshavim, meant to grow into a
   regional centre; English Wikipedia: "established as a development town in 1955". Local council from November 1957
-  (Hebrew Wikipedia, citing Kovetz HaTakanot 763, not reached).
+  or 1958: Hebrew Wikipedia gives November 1957 and also "בשנת 1958 קיבל היישוב מעמד של מועצה מקומית"; the Kovetz
+  HaTakanot 763 order it cites is dated 16 January 1958.
 - **Founders. [S, Wikipedia]** Hebrew Wikipedia: immigrants from Morocco and Tunisia. English Wikipedia: families
   "from mainly Morocco (seventeen families) and four families from Tunisia and Egypt".
 - **Renames.** None found.
+- **Site note.** English Wikipedia: "The Bedouin families living there fled to Al-Muharraqa, and from there they were
+  expelled to the Gaza Strip." Given as the source words it, for the owner's sensitivity review.
 - **Coordinates.** CBS 31.30652, 34.62082 (code 31).
 - **Sources.** CBS; https://he.wikipedia.org/w/index.php?oldid=44000999 ;
   https://en.wikipedia.org/w/index.php?oldid=1381331711 . All checked 2026-10-22.
@@ -415,6 +420,8 @@ Common sources, cited by short name in every row:
   Wikipedia "כהיאחזות הנח"ל ה-15"; English Wikipedia "one of the first Nahal settlements"). Hebrew Wikipedia: the
   permanent garin arrived in April 1957.
 - **Renames.** None found. Hebrew Wikipedia places the first site at "ביר גרא" opposite Khan Yunis.
+- **Site note.** English Wikipedia: "the land belonged to the Palestinian village of Ma'in Abu Sitta". Given as the
+  source words it, for the owner's sensitivity review.
 - **Coordinates.** CBS 31.31079, 34.40175 (code 69).
 - **Sources.** CBS; Gvati; https://he.wikipedia.org/w/index.php?oldid=42997498 ;
   https://en.wikipedia.org/w/index.php?oldid=1376004736 . All checked 2026-10-22.
@@ -472,4 +479,5 @@ Common sources, cited by short name in every row:
 - **Today's site vs the first camp**: Ein Gedi (moved 1959) and Kerem Shalom (moved 1971) are known to have moved; the
   CBS point is today's site. For the others no source read says the site moved.
 - **Hexes and sensitivity flags** (armistice lines, depopulated localities) were not computed here; they belong to the
-  paused data-file step. One site note is recorded where the sources state it (Nir Akiva, row 7).
+  paused data-file step. Four site notes are recorded where the sources state them (Sde Boker, row 2; Nir Akiva, row 7;
+  Ofakim, row 20; Nir Oz, row 22).
