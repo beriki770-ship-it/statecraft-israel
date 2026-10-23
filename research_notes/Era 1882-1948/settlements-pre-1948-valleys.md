@@ -166,7 +166,7 @@ disagreement, a rename, a move, a day that differs or an earlier founding writte
 | בית שערים (Bet She'arim) | 248 | 1936 | 32.69662, 35.17824 | עמק יזרעאל, `27.3.31`, תנועת המושבים | Haifa: "Beit She‘arim" | [C] Gvati 1931, he.wiki 1926 and 1936; part 2 |
 | הזורע (HaZorea) | 250 | 1936 | 32.64401, 35.11944 | עמק יזרעאל, `15.4.36`, הקיבוץ הארצי | Haifa: "Haz Zorea‘ (previously" | [V] |
 | אלונים (Allonim) | 285 | 1938 | 32.71998, 35.14529 | עמק יזרעאל, `20.6.38`, הקיבוץ המאוחד | Haifa: "Tiv'on (Alonim) (previously Qusqus..." [sic, cut off] | [V]; earlier camps 1936 to 1937, part 2 |
-| בית זיד (Bet Zeid) | 353 | 1943 | 32.70130, 35.12993 | [GAP] no row | Haifa: "Giv‘ot Zeid (previously part of Esh Sheikh Bureik)", see part 2 | [C] he.wiki: Zeid family from 1926, Giv'ot Zeid named after July 1938, Bet Zeid after 1951; part 2 |
+| בית זיד (Bet Zeid) | 353 | 1943 | 32.70130, 35.12993 | [GAP] no row | Haifa: "Giv‘ot Zeid (previously part of Esh Sheikh Bureik)", see part 2 | [C] he.wiki: Zeid family from 1926, Giv'ot Zeid named for Zeid, Bet Zeid founded in 1951; part 2 |
 
 ### Jezreel sub-district, natural region 236 (Gvati: Ramat Menashe)
 
@@ -281,7 +281,7 @@ Hebrew Wikipedia pages below were read at the `oldid` given, checked 2026-10-23.
 - he.wiki `בית השיטה`, oldid **44080374**: "ב-1931, לאחר תקופת מעבר במחנה עבודה בכפר יחזקאל, החליטה
   קבוצת החוגים להצטרף לקיבוץ המאוחד והתיישבה במחנה זמני ליד מעין חרוד"; "ב-1935 נרכשו אדמות שטה,
   והקיבוץ הקים עליהן את נקודת הקבע שלו, החל מט"ז כסלו תרצ"ז, 12 בדצמבר 1935". [S, Wikipedia]
-- The day agrees with Gvati. The group existed from **1931** at a temporary camp; the place CBS and
+- The civil day agrees with Gvati. The article's Hebrew date does not match it: ט"ז בכסלו תרצ"ז is 30 November 1936, and 12 December 1935 is ט"ז בכסלו תרצ"ו (**computed here**). The group existed from **1931** at a temporary camp; the place CBS and
   Gvati date is the permanent site of 12 December 1935.
 
 ### Mishmar HaEmeq (CBS 130)
@@ -336,10 +336,8 @@ Hebrew Wikipedia pages below were read at the `oldid` given, checked 2026-10-23.
   והקימו את בית זייד במקום בו התגוררו לפני כן". [S, Wikipedia]
 - he.wiki, same article: "ב-11 ביולי 1938, בדרכו לפגישה עם אנשי אלונים, נרצח אלכסנדר זייד"; the
   place Giv'ot Zeid is named for him.
-- **[C]** 1943 (CBS) against a Zeid family settling in 1926, a Giv'ot Zeid named after 11 July 1938
-  and a Bet Zeid that the article puts after 1951. **Our reading:** the family lived on the hills from
-  1926; a place named Giv'ot Zeid exists after Zeid's death in 1938 and is in the 1945 table; the
-  year of Bet Zeid itself is not settled by what was read. The 1943 rests on CBS alone. Coordinate for
+- **[C]** 1943 (CBS) against a Zeid family settling in 1926, a Giv'ot Zeid named for Zeid (the article gives no year; it comes straight after his killing on 11 July 1938) and a Bet Zeid that the article puts in 1951. **Our reading:** the family lived on the hills from 1926; Giv'ot Zeid was most likely named after his death, and it is in the 1945 table; the
+  year of Bet Zeid itself is not settled by what was read. The 1943 rests on CBS alone (the article's category "יישובים שהוקמו ב-1943" probably follows CBS). Coordinate for
   Giv'ot Zeid: [GAP].
 
 ### Alonim (CBS 285)
@@ -394,7 +392,7 @@ is proposed about how it appears in the game. [checked 2026-10-23: no CBS row ma
 (part 2).]
 
 ### Giv'ot Zeid (the place of Bet Zeid)
-- See Bet Zeid in part 2: the Zeid family settled the hills in **1926**, the place Giv'ot Zeid was named after his death on 11 July 1938 and is in the 1945 Haifa table as "Giv‘ot
+- See Bet Zeid in part 2: the Zeid family settled the hills in **1926**, the place Giv'ot Zeid is named for Alexander Zeid (killed 11 July 1938; the article gives no naming year) and is in the 1945 Haifa table as "Giv‘ot
   Zeid (previously part of Esh Sheikh Bureik)"; the family left in **1951** and founded Bet Zeid
   (he.wiki `בית זייד`, oldid **42326268**). [S, Wikipedia] Coordinate: [GAP].
 
