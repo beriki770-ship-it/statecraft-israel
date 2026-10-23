@@ -30,9 +30,9 @@ The simulation must produce the same state, bit for bit, on .NET, Unity Mono and
 - **Occupation timers (resolver step 10):** after step 9's arrivals and before objectives and score, each occupied place
   in ordinal id order pays its upkeep and counts its `turns=` down, or ends as a Raid when no Israeli military unit holds
   its hex, with no RNG draw (R-CTRL-011 to R-CTRL-013; `OccupyTests.TheTimerCountsDownInStepTen` and
-  `OccupationDrawsNothing`). No golden occupies a place, so none moves. The `mvp-occupy-cost` golden waits for a capture
-  the real content can reach (#1304: until then R-MOVE-005 keeps player units off every enemy-held target, and a manifest
-  golden plays the real content); `OccupyTests` plays the same run on fixture content.
+  `OccupationDrawsNothing`). No golden occupies a place, so none moves. The `mvp-occupy-cost` golden is deferred by the
+  owner's ruling of 22 October 2026 (#1324), and it is the next step now that a capture can be reached in play (#1314; a
+  manifest golden plays the real content); `OccupyTests` plays the same run on fixture content.
 
 ## Golden playthroughs
 
