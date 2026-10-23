@@ -71,6 +71,26 @@ public class ReplacementTests
         Assert.Equal(before, t.Hash());
     }
 
+    // R-TRAIN-004: a partial refill keeps the unit's Full; in one turn a cancelled cohort and a finishing one both resolve.
+    [Fact]
+    public void APartialRefillKeepsFullBesideACancelledCohort()
+    {
+        var (s, id) = Game(strength: 2, full: 5);
+        Assert.Null(Reinforce(s, id, 1));
+        var h = Hex(City);
+        var other = s.NextId++;
+        s.Units.Add(other, new Unit(other, "recruit", h.Q, h.R, side: "israel", strength: 1, homeCity: City, full: 3));
+        Assert.Null(Reinforce(s, other, 2));
+        Turns(s, Turns("recruit") - 1);
+        s.Units.Remove(other);
+        var why = new List<Cause>();
+        Training.Progress(Mvp, s, why);
+        Assert.Empty(s.Cohorts);
+        Assert.Equal((3, 5), (s.Units[id].Strength, s.Units[id].Full));
+        Assert.Equal(100, s.Arms + Mvp.RulesAt(s.Date).Mvp!.ArmsPerRecruitGroup!.Value);   // the cancelled cohort's Arms came back
+        Assert.Contains(why, x => x.Message.Contains($"joined unit {id}"));
+    }
+
     // R-TRAIN-004 (owner, 23 October 2026, "Default"): a gun crew pays its own type's course and training_arms (R-UNIT-008).
     [Fact]
     public void ArtilleryReplacementsPayTheGunsCourse()
