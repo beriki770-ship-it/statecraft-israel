@@ -28,7 +28,7 @@ for R-TURN-003 if the historical run is in that situation on that turn. This not
 
 - Every URL below was opened on **2026-10-16** (the check date for all of them). Two research helpers read the pages
   first; every quotation tagged [V] below was then re-fetched and matched verbatim in the page text by the note's
-  author, the same day. JTA bulletin dates are the pages' own `datePublished`. The seamen's strike sources added for issue #1425 (section 2a) were read on **2026-10-23** by an AI agent; a person's check is pending.
+  author, the same day. JTA bulletin dates are the pages' own `datePublished`. The Suez complaint sources added for issue #1426 (section 1d) were read on **2026-10-23** by an AI agent; a person's check is pending. The seamen's strike sources added for issue #1425 (section 2a) were read on **2026-10-23** by an AI agent; a person's check is pending.
 - Tags, as in the #135 note:
   - **[V] verified**: read in a primary or official record (FRUS, UN resolution text) or in the period press (JTA
     Daily News Bulletin), quoted verbatim.
@@ -56,7 +56,9 @@ Primary and official:
 | FRUS 1950 V d309 | Secretary of State to the Embassy in Israel, 4 January 1950, on Jerusalem | https://history.state.gov/historicaldocuments/frus1950v05/d309 |
 | UNGA 303 (IV) | General Assembly resolution 303 (IV), 9 December 1949, "Palestine: question of an international regime for the Jerusalem area" (UN PDF, text layer) | https://documents.un.org/api/symbol/access?s=A/RES/303(IV)&l=en&t=pdf |
 | UNSC 93 (1951) | Security Council resolution 93, 18 May 1951 (UN compilation PDF, text layer) | https://documents.un.org/api/symbol/access?s=S/RES/93(1951)&l=en&t=pdf |
-| UNSC 95 (1951) | Security Council resolution 95, 1 September 1951 (UN compilation PDF, text layer) | https://documents.un.org/api/symbol/access?s=S/RES/95(1951)&l=en&t=pdf |
+| UNSC 95 (1951) | Security Council resolution 95, 1 September 1951 (UN compilation PDF, text layer; its page images re-read 2026-10-23 for #1426) | https://documents.un.org/api/symbol/access?s=S/RES/95(1951)&l=en&t=pdf |
+| S/2241 | Israel's complaint: letter dated 11 July 1951 from the permanent representative of Israel to the President of the Security Council, as reprinted in the Council's Official Records (printed pp. 9-10); read as page images 2026-10-23 (#1426) | https://digitallibrary.un.org/record/480045 (scan: https://digitallibrary.un.org/record/480045/files/S_2241-EN.pdf) |
+| S/PV.549 to S/PV.558 | Security Council Official Records, Sixth Year, 549th to 558th meetings (26 July to 1 September 1951); cover pages and agenda read 2026-10-23 (#1426) | https://documents.un.org/api/symbol/access?s=S/PV.549&l=en&t=pdf (same pattern for 550 to 558) |
 
 Period press (JTA Daily News Bulletin, by bulletin date):
 
@@ -158,11 +160,32 @@ window's last day. A card here would be the arc's second step, or folded into `h
   own text was not opened. Mostly support up, not down. Not recommended.
 - **Korea, June to July 1950.** The cabinet's decision to back the Security Council (said to be 2 July 1950) is a
   **lead** only: the pages carrying it (an NLI blog, a Detroit Jewish News scan) returned 403. Support up, not down.
-- **Security Council resolution 95, 1 September 1951** (turn 15 August 1951, inside the 1951 stretch). [V] UNSC 95
-  (1951) finds Egypt's practice "an abuse of the exercise of the right of visit, search and seizure" and "Calls upon
-  Egypt to terminate the restrictions"; adopted by 8 votes to none with 3 abstentions (China, India, the Soviet Union;
-  the text layer reads "Adopted at the 668th meeting"; not checked against the scan). It answers Israel's own complaint, so it is support **up**; the
-  date Israel filed the complaint was not found. A fit for a card on its own merits, not for a "low support" gate.
+- **Security Council resolution 95, 1 September 1951** (turn 15 August 1951, inside the 1951 stretch). Three dated
+  steps, kept apart (all read 2026-10-23 for #1426 as page images; [V, agent read; a person's check pending]):
+  1. **The complaint, S/2241.** A letter "dated 11 July 1951" from Abba Eban, "Permanent Representative of Israel to
+     the United Nations", to the President of the Council, asking "that the following item be placed on the agenda of
+     the Security Council for urgent discussion"; the item is "Restrictions imposed by Egypt on the passage of ships
+     through the Suez Canal." Under the heading, the reprint carries "[Original text: English]" and "[12 July 1951]".
+     The UN Digital Library record (480045) gives the letter date as 1951-07-11 and the document date as 1951-07-12. So:
+     written and dated **11 July 1951**; issued as S/2241 under **12 July 1951**. Neither source uses the word
+     "circulated" or records the day of receipt: whether 12 July is the day it was circulated is **not found**. The scan
+     is the Official Records reprint (printed pp. 9-10), not the mimeographed original; resolution 95's own footnote
+     cites it as "Sixth Year, Supplement for July, August and September 1951, document S/2241".
+  2. **The Council's meetings.** The item, "(a) Restrictions imposed by Egypt on the passage of ships through the
+     Suez Canal (S/2241)", is on the agenda of the 549th meeting, **26 July 1951**; at that meeting the Council invited
+     the representatives of Israel, Egypt and Iraq to take part without vote (UNSC 95 compilation, "Decision"). The
+     meeting records that discuss it are the 549th (26 July), 550th and 551st (both 1 August), 552nd and 553rd (both 16
+     August), 555th (27 August), 556th (29 August) and 558th (1 September). The 554th (23 August) and 557th (31 August)
+     records hold only an official communiqué; their text layer does not mention Suez.
+  3. **The resolution, 1 September 1951.** [V] UNSC 95 (1951) finds Egypt's practice "an abuse of the exercise of the
+     right of visit, search and seizure" and "Calls upon Egypt to terminate the restrictions". The compilation heads it
+     "[S/2322]". The scan (printed p. 11) reads "Adopted at the 558th meeting by 8 votes to none, with 3 abstentions
+     (China, India, Union of Soviet Socialist Republics)"; the text layer's "668th" is an OCR error. The 558th meeting
+     record (1 September 1951) has the same count: "The draft resolution was adopted by 8 votes to none, with 3
+     abstentions", China, India and the Soviet Union abstaining.
+
+  It answers Israel's own complaint, so it is support **up**. A fit for a card on its own merits, not for a "low
+  support" gate.
 
 ## 2. Low social cohesion
 
@@ -288,7 +311,7 @@ Sourced candidates inside it, by turn:
 | 15 May 1951 | Resolution 93 and Israel's response (1c) | Low international support | UNSC 93 (1951); JTA 15 May, 13 Jun 1951 | 15 June 1951 (dated 18 May) | 1 + 5 months | Overlaps `hula_drainage` (ends 18 May) |
 | 15 May 1951 | The religious underground's plot (2b) | Low cohesion; sensitive | JTA 25 May, 1 Jun, 6 Jun 1951 | 15 June 1951, if the window opens after 15 May | 1 + 5 months | `terror` tag likely |
 | 15 July 1951 | The Second Knesset election (2d) | Civic anchor, not gated | JTA 1 Aug, 10 Aug 1951 | 15 August 1951 (end of July) | 3 + 3 months | |
-| 15 August 1951 | Resolution 95 on the Suez Canal (1d) | Support up | UNSC 95 (1951) | 15 September 1951 (dated 1 September) | 4 + 2 months | Complaint date not found |
+| 15 August 1951 | Resolution 95 on the Suez Canal (1d) | Support up | UNSC 95 (1951); S/2241; S/PV.549-558 | 15 September 1951 (dated 1 September) | 4 + 2 months | Complaint S/2241 dated 11 July 1951 (issued 12 July); on the agenda 26 July |
 
 The two May 1951 candidates would shorten the stretch to 5 months if their window opens after 15 May; a window opening
 on 15 May itself would share the turn on which `israel_bonds` already fires. A card at the end of July 1951 splits it
@@ -304,8 +327,7 @@ into 3 and 3 months; one dated 1 September 1951 into 4 and 2. In each case only 
 - **Detroit Jewish News scans (Bentley Library):** 403. Two leads rest on them (the Korea cabinet decision, the
   February 1951 vote).
 - **FRUS 1951 V** on the Hula after resolution 93: not opened (the site rate-limited a helper).
-- The day of the May 1951 arrests and the date Israel filed the Suez complaint: not
-  found.
+- The day of the May 1951 arrests: not found.
 
 ## Summary
 
