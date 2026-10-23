@@ -133,7 +133,7 @@ are land.
 | 25 | Re'im / רעים | Kibbutz | 20 Oct 1949 **[V]** | Western Negev | 31.38552, 34.45932 | (-12, 29) coastal plain | Pass | Yes / Yes / Yes | Next to 1950 Gaza lines |
 | 26 | Nahal Oz / נחל עוז | Nahal outpost, then kibbutz | 15, 25 or 26 Jul 1951 **[C]**; 25 Jul: Gvati; scroll (our reading); Frankel's arrival (as of 2026-10-23) | Gaza border | 31.47277, 34.49746 | (-11, 28) coastal plain | Pass | Yes / No / Yes | Next to Gaza lines; next to Gaza's hex |
 | 27 | Sderot / שדרות | Transit camp, then town | April 1951 **[S]** | Western Negev | 31.52901, 34.59434 | (-9, 27) coastal plain | Pass | Yes / No / No | On Gaza line hex; Najd (source) |
-| 28 | Beit Guvrin / בית גוברין | Kibbutz | 23 May or 2 Jun 1949 **[C]** | Lachish area | 31.61302, 34.89595 | (-5, 26) hills | Pass | Yes / No / No | On Jordan line hex; Bayt Jibrin 0.9 km |
+| 28 | Beit Guvrin / בית גוברין | Kibbutz | 23 May or 2 Jun 1949 **[C]**; 2 Jun has the kibbutz's own site | Lachish area | 31.61302, 34.89595 | (-5, 26) hills | Pass | Yes / No / No | On Jordan line hex; Bayt Jibrin 0.9 km |
 | 29 | Ahuzam / אחוזם | Moshav | 2 or 30 Oct 1950 **[C]** | Lachish area | 31.55340, 34.77020 | (-7, 26) coastal plain | Pass | Yes / No / See note | Abu Jabir (source); 'Iraq el Manshiya 5.8 km |
 | 30 | Yotvata / יטבתה | Nahal outpost, then kibbutz | 30 or 31 Oct 1951 **[C]**; Nahal association list adds 15 Oct 1951 (entry inconsistent: 14 Elul 5711 / 15 Oct 1951) | Arava | 29.89552, 35.05929 | (-16, 51) desert | Pass | Yes / No / Yes | On Jordan (Arava) line hex |
 
@@ -699,11 +699,41 @@ sources read, not a gazetteer check.
 
 ### 28. Beit Guvrin (בית גוברין), kibbutz
 
-- **Founded: [C].**
-  - 23 May 1949: Gvati (23.5.49, HaKibbutz HaMeuhad, region "Lachish"); Palmach database, Beit Guvrin entry.
-  - 2 June 1949: Palmach database, "Shalhevet" hachshara entry. English Wikipedia: founded "on the eve of Shavuot"
-    1949; Shavuot 5709 (6 Sivan) was 3 June 1949, so its eve is 2 June.
-  - CBS: 1949. The Palmach site gives both dates on two pages.
+- **Founded: [C].** Two dates, 23 May and 2 June 1949, each with its own sources; the sources give no way to choose between them.
+  Tag stays [C]; agent read 2026-10-23; a person's check pending.
+  - 23 May 1949: Gvati (23.5.49, HaKibbutz HaMeuhad, region "Lachish"); Palmach database, Beit Guvrin entry
+    (itemId 7976): "founded on 23 May 1949 by members of three hachsharot" (our translation), also headed "founded in May 1949" (our translation). The
+    database gives no ceremony and no source for the day. Our reading: 23 May 1949 was Monday, 24 Iyar 5709
+    (Hebcal converter).
+  - 2 June 1949: Palmach database, hachshara "Shalhevet, Apikim" (itemId 5401): after the war, "in March 1949 they went
+    out for a short reorganisation at Afikim and, together with the Yetzivim hachshara from Kinneret and the Bnei Horin
+    hachshara from Ein Harod, founded on 2 June 1949 kibbutz Beit Guvrin" (our translation). The kibbutz's own site (Wayback copies of
+    2015-08-18, betgovrin.org.il "About us" and "History"): "date of going onto the land: Thursday, eve of Shavuot, 5
+    Sivan 5709, 2 June 1949" (our translation), and "the ceremony of going onto the land was held on the eve of Shavuot 5709 (2 June 1949)
+    at ten in the morning" (our translation), with President Weizmann, Prime Minister Ben-Gurion and Lt Gen Yaakov Dori among the invited. English
+    Wikipedia (oldid 1375241236): founded "on the eve of Shavuot" 1949, no day, and its only citation (Morris) covers the depopulation, not the Shavuot date. It names only Yetzivim and Bnei Horin as first residents, not Shalhevet. Our reading:
+    2 June 1949 was Thursday, 5 Sivan 5709, "Erev Shavuot" in the Hebcal converter, so the kibbutz site's weekday,
+    Hebrew day and Gregorian day agree with each other; Shavuot (6 Sivan) was 3 June.
+  - Gvati's narrative chapter (same book as the table) lists Beit Guvrin in the paragraph that opens "Iyar (April 1949)" (our translation),
+    not in the one that opens "Sivan (May 1949)" (our translation). Our reading: 24 Iyar 5709 falls inside Iyar, 5 Sivan does not, so the
+    narrative sits with 23 May; Gvati's "(April)" gloss does not match Iyar 5709 (30 April to 28 May, from the Hebcal dates above), so
+    this is weak evidence.
+  - CBS and Hebrew Wikipedia (oldid 43555500): 1949 only.
+  - What each date marks, from the words: the kibbutz site calls 2 June the day of going onto the land and holds the
+    ceremony that morning. The Palmach database's 23 May entry has no event named. The Shalhevet entry is the only
+    place where the same hachshara founds the kibbutz on 2 June, whereas the kibbutz site says Shalhevet "joined the
+    Yetzivim kibbutz a few weeks after going onto the land" (our translation) and was released from the Palmach on 12 October 1949.
+    So the sources disagree on whether Shalhevet was there on the day. No source reached says 23 May was an earlier
+    arrival of one group; that remains a guess and is not recorded as a finding.
+  - The kibbutz site also says the group was sent "about eight months after the capture of the area" (our translation; the capture is
+    dated there 19 Tishrei 5709; our reading, Hebcal converts that to 22 October 1948, while Hebrew Wikipedia's article gives 27 October 1948) as part of a Kibbutz HaMeuhad operation to settle 11 places.
+- **Not read.** No contemporary newspaper: nli.org.il returns HTTP 403 from here and no Wayback copy of a JPress page
+  was found. Hebrew Wikipedia's kibbutz article gives no day and cites no newspaper. The Israel Land Authority's 2016
+  conservation survey of Beit Guvrin
+  (https://apps.land.gov.il/IturTabotData/nispachim/jerus/1052288/12.pdf) is said by a search summary to describe the
+  ceremony; the PDF was fetched through Wayback but not read (no PDF text tool here), so it is not counted. Yad
+  Ben-Zvi: no page for the kibbutz found. Gap: the Davar, Al HaMishmar or HaTzofe report of 2 or 3 June 1949, and
+  whoever wrote the Palmach database's 23 May date.
 - **Founders. [V]** Three Palmach hachsharot, "Yetzivim", "Shalhevet" and "Bnei Horin" (Palmach database, both
   entries); former Palmach members (English Wikipedia).
 - **Location and hex.** CBS 31.61302, 34.89595 (Hebrew Wikipedia 8 m). Hex (-5, 26), hills.
@@ -714,7 +744,10 @@ sources read, not a gazetteer check.
   fled the assault. `localities_1948.tsv`: Beit Jibrin 0.9 km, same hex, no `today`.
 - **Sources.** Gvati and CBS; https://palmach.org.il/history/database/?itemId=7976 ;
   https://palmach.org.il/history/database/?itemId=5401 ; https://he.wikipedia.org/w/index.php?oldid=43555500 ;
-  https://en.wikipedia.org/w/index.php?oldid=1375241236 . All checked 2026-10-14.
+  https://en.wikipedia.org/w/index.php?oldid=1375241236 . Checked 2026-10-14. Added 2026-10-23:
+  https://web.archive.org/web/20150818193517id_/http://www.betgovrin.org.il:80/%D7%90%D7%95%D7%93%D7%95%D7%AA%D7%99%D7%A0%D7%95/ ;
+  https://web.archive.org/web/20150818193523id_/http://www.betgovrin.org.il:80/%D7%90%D7%95%D7%93%D7%95%D7%AA%D7%99%D7%A0%D7%95/%D7%94%D7%99%D7%A1%D7%98%D7%95%D7%A8%D7%99%D7%94/ ;
+  https://www.hebcal.com/converter?cfg=json&gy=1949&gm=6&gd=2&g2h=1 (also gm=5&gd=23, gm=4&gd=30, gm=5&gd=28, and gy=1948&gm=10&gd=22). Page titles read: itemId 7976 "Beit Guvrin", itemId 5401 "Shalhevet, Apikim".
 
 ### 29. Ahuzam (אחוזם), moshav
 
