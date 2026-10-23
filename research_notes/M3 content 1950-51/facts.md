@@ -220,7 +220,7 @@ Researched 2026-10-10. All URLs were checked on that date unless noted.
 - **Parsing warning:** The JVL table is right-to-left and the row label sits *after* the data. A WebFetch summariser mis-shifted the rows, giving "1950 = 175,279". The figures above come from parsing the raw HTML. The row sums check exactly (57,565+26,162+81,195+1,954+3,687 = 170,563, and so on), and they match the existing 1948 and 1949 rows in `aliyah.yaml`.
 - **Totals cross-checks:**
   - https://www.jewishvirtuallibrary.org/total-immigration-to-israel-by-year : 1950 = 170,563; 1951 = 175,279. [V]
-  - CBS, *Immigration to Israel 2002–2006* (Publication 1365, 2009), Table 1 (1948–2006): 1950 = 170,215 immigrants + potential immigrants … total **170,563**; 1951 total **175,279**. [V] https://www.cbs.gov.il/he/publications/DocLib/2009/1365/pdf/e_print.pdf
+  - CBS, *Immigration to Israel 2002–2006* (Publication 1365, 2009), Table 1 (1948–2006): 1950 = 170,215 Jews … total **170,563**; 1951 total **175,279**. [V] https://www.cbs.gov.il/he/publications/DocLib/2009/1365/pdf/e_print.pdf
 - **1948–51 first wave:** **687,624** total. 48% Europe, 34% Asia, 14% Africa. Two-thirds of the Europeans came from Poland and Romania. Iraq supplied 52% of the Asian arrivals. [V] same CBS publication.
 
 ### 4b. Immigrants 15 May 1948 – 1951 by country of birth (CBS)
@@ -251,13 +251,13 @@ Read 2026-10-23 from the scanned page images of the two PDFs by Claude Code (an 
 - **1950:** CBS, *Statistical Abstract of Israel* No. 2 (1950/51), Table 6 "Jewish Immigrants, by Country of Origin or Birth (1919 – III 1951)", printed p. 27 (PDF p. 57), column "1950". https://www.cbs.gov.il/he/publications/DocLib/shnaton_saruk/shnaton1951_num2.pdf [V]
 - **1951:** CBS, *Statistical Abstract of Israel* No. 3 (1951/52), Table 6 "Jewish Immigrants, by Country of Origin (1919 – III 1952)", printed p. 26 (PDF p. 55), column "1951 I–XII". The same table's column "15 V 1948 – 31 XII 1951" is given for comparison with Publication 1365. https://www.cbs.gov.il/he/publications/DocLib/shnaton_saruk/shnaton1952_num3.pdf [V]
 
-| Country of birth (as printed) | 1950 (SA 2) | 1951 (SA 3) | 15 V 48 – 31 XII 51 (SA 3) | 1948–51 (Pub. 1365, above) |
+| Country of birth (as printed) | 1950, Jewish immigrants (SA 2) | 1951, Jewish immigrants (SA 3) | 15 V 48 – 31 XII 51, Jewish immigrants (SA 3) | 1948–51, all immigrants (Pub. 1365, above) |
 |---|---|---|---|---|
 | **All countries** | **169,405** | **173,901** | 684,275 | 687,624 |
 | Asia | 57,760 | 103,327 | 237,378 | |
 | Iraq | 32,453 | 89,088 | 123,265 | 123,371 |
 | Iran | 10,519 | 9,444 | 21,784 | 21,910 |
-| Yemen | 8,650 | 698 | 45,279 (Yemen and Aden) | 48,315 ("Yemen" in the 4b list; whether Aden is included was not checked) |
+| Yemen | 8,650 | 698 | 45,279 (Yemen and Aden) | 48,315 (Yemen, including the former Aden: Pub. 1365 Table 5 note 7, printed p. 39) |
 | Aden | 2,692 (Aden and other Asia) | 239 | see Yemen | |
 | Turkey | 2,439 | 1,198 | 34,294 | 34,547 |
 | Syria and Lebanon | 1,007 | 316 | 2,898 | |
@@ -284,12 +284,12 @@ Read 2026-10-23 from the scanned page images of the two PDFs by Claude Code (an 
   - 1951: 103,327 + 20,124 + 49,535 + 671 + 244 = 173,901, the printed total; the continents also equal their country rows. "Other Europe" above is our sum of Latvia/Lithuania, Yugoslavia, Greece, Austria, United Kingdom, Netherlands, France, Italy and "other countries", which the table prints one by one.
 - **Against the totals in 4a** [C]:
   - The annual totals of 169,405 and 173,901 leave out the travellers permitted to settle in 1950 and 1951: SA 2 Table 2 "Jewish Immigrants", note 1 (printed p. 25), and SA 3 Table 3, note 1 (printed p. 25), both say "except those permitted to stay in 1950 and 1951"; SA 2 Table 2 gives 169,405 for 1950 (its 1951 row covers January to March only) and SA 3 Table 3 gives 169,405 and 173,901. Table 6 itself says so only indirectly (its footnote 4 includes such travellers for 1948 and 1949 only). CBS *Statistical Abstract* No. 14 (1963), Table 3 "Immigrants and Tourists Settling, by Year (Jews)", printed p. 109 (PDF p. 134), adds them: **1950 = 170,249** (of which 844 tourists settling) and **1951 = 175,095** (of which 1,194). 169,405 + 844 = 170,249 and 173,901 + 1,194 = 175,095. https://www.cbs.gov.il/he/publications/DocLib/shnaton_saruk/shnaton1963_num14.pdf [V]
-  - Publication 1365 (2009) and the JVL table in 4a give 170,563 and 175,279: 314 more for 1950 and 184 more for 1951 than SA 14. The CBS volumes read here do not say where the later figures come from. [GAP]
-  - The continents differ as well: for 1950, 4a has Asia 57,565, Africa 26,162, Europe 81,195, unknown 3,687, against 57,760, 25,820, 83,337 and 1,482 in SA 2. Our reading, not a CBS statement: the later series re-sorted some arrivals, so the per-country rows above should not be mixed with the 4a continent rows.
-  - The 1948–51 period column of SA 3 and Publication 1365 disagree: the totals by 3,349 (684,275 against 687,624), most country rows by under 300, and Yemen by 3,036 (45,279 for Yemen and Aden in SA 3, against 48,315 in Publication 1365). [C]
+  - Publication 1365 Table 1 (printed p. 30) gives each year for all immigrants and for Jews: 1950 = 170,563 all, 170,215 Jews; 1951 = 175,279 all, 175,129 Jews. The 4a totals are the all-immigrant figures, so they do not compare with the Jewish-only tables here. Against Publication 1365's Jewish figures, SA 14 is 34 higher for 1950 (170,249 against 170,215) and 34 lower for 1951 (175,095 against 175,129); the volumes read do not explain this. [C]
+  - The 4a continent rows are all-immigrant figures too (they sum to 170,563), while SA 2 counts Jewish immigrants only, so the two series should not be compared row by row or mixed.
+  - The 1948–51 period column: SA 3's 684,275 counts Jewish immigrants and Publication 1365 Table 5's 687,624 counts all immigrants, so their 3,349 gap is not like for like. Against Publication 1365's Jewish rows in Table 1 (101,819 + 239,576 + 170,215 + 175,129 = 686,739), SA 3 is 2,464 lower. Most country rows differ by under 300, and Yemen by 3,036 (45,279 for Yemen and Aden in SA 3, against 48,315 in Publication 1365). [C]
 - **Definitions:**
   - Country of birth for these years; the tables use nationality only for 1919–34 and for the 1946 visa-less immigrants (footnote 1 of both tables).
-  - Tables 3 and 6 of both volumes have no "potential immigrants" category (the rest of each volume was not searched for one); Publication 1365's 1950 line (170,215 "immigrants + potential immigrants") uses a later definition. Which arrivals the later category added for 1950 is not stated in the volumes read. [GAP]
+  - Tables 3 and 6 of both volumes have no "potential immigrants" category (the rest of each volume was not searched for one). Publication 1365 Table 1 has that column, but it is empty for 1950 and 1951 (it starts in 1969); its 170,215 for 1950 is the Jews column.
 - **Not in these tables** [GAP]:
   - Morocco, Tunisia and Algeria separately for 1950 or 1951 (one combined row in SA 2, SA 3 and SA 4).
   - Egypt and Sudan for 1950 or 1951 (no row of their own; presumably inside "other countries" of Africa, not stated).
