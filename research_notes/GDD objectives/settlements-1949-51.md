@@ -135,7 +135,7 @@ are land.
 | 27 | Sderot / שדרות | Transit camp, then town | April 1951 **[S]** | Western Negev | 31.52901, 34.59434 | (-9, 27) coastal plain | Pass | Yes / No / No | On Gaza line hex; Najd (source) |
 | 28 | Beit Guvrin / בית גוברין | Kibbutz | 23 May or 2 Jun 1949 **[C]** | Lachish area | 31.61302, 34.89595 | (-5, 26) hills | Pass | Yes / No / No | On Jordan line hex; Bayt Jibrin 0.9 km |
 | 29 | Ahuzam / אחוזם | Moshav | 2 or 30 Oct 1950 **[C]** | Lachish area | 31.55340, 34.77020 | (-7, 26) coastal plain | Pass | Yes / No / See note | Abu Jabir (source); 'Iraq el Manshiya 5.8 km |
-| 30 | Yotvata / יטבתה | Nahal outpost, then kibbutz | 30 or 31 Oct 1951 **[C]** | Arava | 29.89552, 35.05929 | (-16, 51) desert | Pass | Yes / No / Yes | On Jordan (Arava) line hex |
+| 30 | Yotvata / יטבתה | Nahal outpost, then kibbutz | 30 or 31 Oct 1951 **[C]**; Nahal association list adds 15 Oct 1951 (month-level) | Arava | 29.89552, 35.05929 | (-16, 51) desert | Pass | Yes / No / Yes | On Jordan (Arava) line hex |
 
 "Crit. 4: Yes" means no source read places the settlement at or next to a depopulated locality and no
 `localities_1948.tsv` place without a `today` entry is in its hex or a neighbour. It is absence of evidence in the
@@ -636,6 +636,30 @@ sources read, not a gazetteer check.
   land was on 30 October 1951 (citing HaBoker, 1 November 1951, not read). The Hevel Eilot Regional Council page
   quotes Yehiel Bentov's memoir for 30 October 1951, but marks the passage as taken from Wikipedia, so it is not
   independent. CBS: 1951.
+  Searched again 2026-10-23 (agent read; a person's check pending); the day is still not settled:
+  - Hebrew Wikipedia (oldid 43944113): "טקס העלייה על הקרקע התקיים ב-30 באוקטובר 1951" ("the going-onto-the-land
+    ceremony took place on 30 October 1951"), cited to HaBoker, 1 November 1951, p. 53, headline "נח"ל התנחל בעין
+    ראדיאן" ("Nahal settled at Ein Radian"). We have the citation, not the item; the headline is Wikipedia's. [S]
+    The same article says the Jewish Agency and the Ministry of Agriculture took part in financing, citing the same
+    item. The date on the item itself and what its text says about the day were not seen.
+  - The Nahal association's outpost list (read through the Wayback Machine, snapshot of
+    https://www.nahal.co.il/%D7%94%D7%99%D7%90%D7%97%D7%96%D7%95%D7%99%D7%95%D7%AA/ ), entry "יוטבתה": "תאריך
+    הקמה: י"ד אלול תשי"א, 15 אוקטובר 1951" (date of founding: 14 Elul 5711, 15 October 1951), "ההיאחזות ה-3 של
+    הנח"ל", civilianisation "ט' טבת תשי"ח, 1 ינואר 1958". The two halves of the founding entry disagree: by `convertdate`
+    14 Elul 5711 is Saturday 15 September 1951 (our reading), not 15 October (15 Oct 1951 is 15 Tishrei 5712). The
+    same list gives Nahal Oz 15 July 1951, Gonen 15 August 1951 and Gonen's civilianisation 15 March 1953, so the
+    "15th" recurs in several entries; we note that and draw no conclusion about what it means. The list does not say
+    what its date marks. It also gives civilianisation in January 1958, where the section below says a civilian
+    kibbutz from 1957 (Hevel Eilot council page); that difference is not pursued here. [S, and itself inconsistent]
+  - A search-engine summary of the Hevel Eilot page (https://www.eilot.org.il/yotvata/) says the main group arrived on
+    28 October 1951 and a flag-raising ceremony took place on the 30th. We could not re-read the page (HTTP 403 from
+    here, Wayback also 403), so this is a lead, not a finding. If the page does say that, then 28 October (arrival),
+    30 October (ceremony) and 31 October (Gvati) would be three different events or readings.
+  - Calendar, our reading (`convertdate`): 30 October 1951 was Tuesday 30 Tishrei 5712; 31 October was Wednesday,
+    1 Heshvan 5712; HaBoker's 1 November was a Thursday. No source read gives a Hebrew date for the ceremony.
+  - **[GAP]** The HaBoker item (1 November 1951, p. 53) was not opened: NLI/Jpress return 403 / a Cloudflare page. No
+    other contemporary or IDF/Nahal-archive record was reached. A JTA search for November 1951 found nothing. The
+    one-day conflict stays [C], and which event each date marks stays open.
 - **Founders. [S]** The third Nahal outpost, near the well that supplied Eilat (Hebrew Wikipedia); the Moroccan garin
   of the Nahal platoon from Ein Harod as its advance force (council page); a civilian kibbutz from 1957 (council
   page).
