@@ -129,10 +129,13 @@ namespace Statecraft.Sim
         /// <summary>The city whose housing includes this formation (R-HOUSE-003, Q-HOUSE-5), independent of its current hex.
         /// Empty for units without a known home, including pioneers.</summary>
         public string HomeCity { get; }
+        /// <summary>The strength the formation had before its first loss, the most replacements refill it to (R-TRAIN-004), or
+        /// 0 while it has lost none: combat sets it (R-COMBAT-003) and a refill to full clears it.</summary>
+        public int Full { get; }
 
-        public Unit(int id, string type, int q, int r, int service = 0, string side = "", int strength = 0, string order = "", string orderTarget = "", string homeCity = "")
+        public Unit(int id, string type, int q, int r, int service = 0, string side = "", int strength = 0, string order = "", string orderTarget = "", string homeCity = "", int full = 0)
         {
-            Id = id; Type = type; Q = q; R = r; Service = service; Side = side; Strength = strength; Order = order; OrderTarget = orderTarget; HomeCity = homeCity;
+            Id = id; Type = type; Q = q; R = r; Service = service; Side = side; Strength = strength; Order = order; OrderTarget = orderTarget; HomeCity = homeCity; Full = full;
         }
 
         /// <summary>The record as the state hash writes it. Each field after the hex is written only when it is not at its
@@ -144,7 +147,8 @@ namespace Statecraft.Sim
             + (Strength == 0 ? "" : "|strength=" + Strength.ToString(CultureInfo.InvariantCulture))
             + (Order == "" ? "" : "|order=" + Order)
             + (OrderTarget == "" ? "" : "|target=" + OrderTarget)
-            + (HomeCity == "" ? "" : "|home=" + HomeCity);
+            + (HomeCity == "" ? "" : "|home=" + HomeCity)
+            + (Full == 0 ? "" : "|full=" + Full.ToString(CultureInfo.InvariantCulture));
     }
 
     /// <summary>A group of a city's people in training (GDD "Progression"; R-TRAIN-001): <see cref="Count"/> population units
@@ -159,16 +163,20 @@ namespace Statecraft.Sim
         public int Count { get; }
         public int TurnsLeft { get; }
         public int Arms { get; }
+        /// <summary>The formation these replacements join when they finish (R-TRAIN-004), or null for a cohort that becomes
+        /// something new (R-TRAIN-003).</summary>
+        public int? Unit { get; }
 
-        public Cohort(int id, string type, string city, int count, int turnsLeft, int arms = 0) { Id = id; Type = type; City = city; Count = count; TurnsLeft = turnsLeft; Arms = arms; }
+        public Cohort(int id, string type, string city, int count, int turnsLeft, int arms = 0, int? unit = null) { Id = id; Type = type; City = city; Count = count; TurnsLeft = turnsLeft; Arms = arms; Unit = unit; }
 
         /// <summary>The same cohort with <paramref name="turnsLeft"/> turns to go.</summary>
-        public Cohort WithTurnsLeft(int turnsLeft) => new Cohort(Id, Type, City, Count, turnsLeft, Arms);
+        public Cohort WithTurnsLeft(int turnsLeft) => new Cohort(Id, Type, City, Count, turnsLeft, Arms, Unit);
 
-        /// <summary>The record as the state hash writes it. Arms only when the cohort holds some, so cohorts without Arms hash as
-        /// before.</summary>
+        /// <summary>The record as the state hash writes it. Arms only when the cohort holds some, and the target unit only when
+        /// it has one, so other cohorts hash as before.</summary>
         public string Canonical() => string.Format(CultureInfo.InvariantCulture, "{0}:{1}@{2}x{3}/{4}", Id, Type, City, Count, TurnsLeft)
-            + (Arms == 0 ? "" : "|arms=" + Arms.ToString(CultureInfo.InvariantCulture));
+            + (Arms == 0 ? "" : "|arms=" + Arms.ToString(CultureInfo.InvariantCulture))
+            + (Unit is int u ? "|unit=" + u.ToString(CultureInfo.InvariantCulture) : "");
     }
 
     /// <summary>Pioneer work at a designated site (sites.yaml; R-SITE-001 to R-SITE-003): <see cref="Unit"/> building it with

@@ -143,6 +143,7 @@ namespace Statecraft.Sim
             AssignWorkers w => $"work {Esc(w.City)} {Esc(w.Role)} {Int(w.Count)}",
             Train t => $"train {Esc(t.City)} {Esc(t.Track)} {Int(t.Count)}",
             CancelTraining t => $"untrain {Int(t.Cohort)}",
+            Reinforce r => $"reinforce {Int(r.Unit)} {Esc(r.City)} {Int(r.Count)}",
             PioneerWork p => $"pioneer {Int(p.Unit)} {Esc(p.Action)} {Esc(p.Site)}",
             StopWork w => $"stop {Int(w.Unit)}",
             UnitOrder o => $"order {Int(o.Unit)} {Esc(o.Order)}" + (o.Q is int q && o.R is int r ? $" {Int(q)} {Int(r)}" : ""),
@@ -257,6 +258,7 @@ namespace Statecraft.Sim
                 case "work": Arity(4); return new AssignWorkers(Str(f[1]), Str(f[2]), I(f[3]));
                 case "train": Arity(4); return new Train(Str(f[1]), Str(f[2]), I(f[3]));
                 case "untrain": Arity(2); return new CancelTraining(I(f[1]));
+                case "reinforce": Arity(4); return new Reinforce(I(f[1]), Str(f[2]), I(f[3]));
                 case "pioneer": Arity(4); return new PioneerWork(I(f[1]), Str(f[2]), Str(f[3]));
                 case "stop": Arity(2); return new StopWork(I(f[1]));
                 case "order":   // an attack carries its hex (R-COMBAT-001); fortify and hold none
