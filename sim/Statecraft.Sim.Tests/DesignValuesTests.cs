@@ -189,7 +189,7 @@ public class DesignValuesTests
         ("rules.yaml", "mvp.prisoner_shortfall_cohesion"),
         ("rules.yaml", "mvp.points_per_prisoner_unit_returned"),
         ("rules.yaml", "mvp.held_soldier_cost_per_turn"),
-        // Occupation (Phase 6 PR 6, #798; Q-OCC-1 (a), Q-OCC-3 (a)): proposed on #798, for owner override.
+        // Occupation (Phase 6 PR 6, #798; Q-OCC-1 (a), Q-OCC-3 (a)): proposed on #798 and #1324, accepted by the owner on 22 October 2026 (#1324).
         ("rules.yaml", "mvp.occupation_turns"),
         ("rules.yaml", "mvp.occupation_upkeep_per_turn"),
     }.Concat(CombatTableCells()).ToArray();
