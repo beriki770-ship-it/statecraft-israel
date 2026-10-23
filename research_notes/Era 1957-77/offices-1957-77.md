@@ -633,8 +633,8 @@ the Chief of Staff days likewise, as the Knesset table does not cover the post.
 - **The unity government's date.** K and W start Begin (without portfolio, row 4067) and Yosef Sapir (row 3889) of
   Gahal, and Dayan of Rafi, on 5 June 1967, and W gives Galili's move to Information the same day. en.wiki *Thirteenth
   government of Israel*: "On 5 June 1967, the first day of the Six-Day War, Gahal and Rafi joined the government". The
-  design's 1 June (from en.wiki *Six-Day War*) is the day of the political agreement on he.wiki's account above, not
-  a day in either Knesset source. **Value: 5 June 1967** [V].
+  design's 1 June (from en.wiki *Six-Day War*) is the day he.wiki gives for Dayan's appointment above; the 1 June for
+  the whole unity government is in neither Knesset source. **Value: 5 June 1967** [V].
 - **Zeira's days.** No primary source read gives a day. en.wiki *Eli Zeira*: "In October 1972, Zeira was appointed as
   the director of Aman."; he.wiki *אלי זעירא*: "In September 1972 he returned to Israel, and in October was appointed
   head of Aman" ("בספטמבר 1972 שב ארצה, ובאוקטובר התמנה לראש אמ"ן", citing Yossi Goldstein, *Golda: Biography*, p.
@@ -701,7 +701,7 @@ No content is changed here. When the content part of #113 opens:
   - Chief of Staff, Aman and Mossad, and the Speaker: `offices.yaml` has `chief_of_staff` but no intelligence or
     Speaker office; the ids in §4 (`intelligence_chief`, `mossad_director`, `speaker`) are the same proposal as
     offices-1977-93.md §4.
-- **Mismatches with `content/people.yaml` on main** (`3c8f3098`), reported, not edited:
+- **Mismatches with `content/people.yaml` on main** (as of `3c8f3098`, unchanged at `af61f20d`), reported, not edited:
   - `ben_zvi` born 1884-12-06; Wikidata Q128894 gives 1884-11-24, en.wiki's list "24 November 1884". [C]. Our
     reading: 24 November (Julian) is 6 December (Gregorian), so both may be the same day in two calendars.
   - `shazar` born 1889-11-24, as en.wiki's list gives; Wikidata Q299100 gives 1889-12-22. [C], not explained by the
@@ -720,7 +720,7 @@ No content is changed here. When the content part of #113 opens:
 
 Every person who holds an office in §2 or §4. Born and died from Wikidata [S]; where an item holds two values, both
 are given and marked [C]. Wikidata's year-only or month-only values are shown as the year or month. "none" in the
-PersonID column: not in K. "(exists)" marks an id already in `people.yaml`. New ids reuse the ones offices-1977-93.md
+PersonID column: not in KNS_Person. "(exists)" marks an id already in `people.yaml`. New ids reuse the ones offices-1977-93.md
 §7 proposes for the same people (`begin`, `peres`, `rabin`, `shamir`, `hammer`, `uzan`, `yaacobi`, `ezer_weizman`,
 `mordechai_gur`, `hofi`, `gazit`, `chaim_herzog`, `amit`, `katzir`, `landau`, `bar_lev`, `aloni`), and
 avoid the existing `tzur` (Ze'ev Tzur), `shapira` (Haim-Moshe Shapira) and `rosen` (Pinchas Rosen).
@@ -733,7 +733,7 @@ Every person here has a death date in Wikidata, so `living` is `false` for all 7
 | allon | Yigal Allon | minister; interim Prime Minister 1969 | 2142 | 1918 / 1918-10-10 | 1980-02-29 | false | Q319015 |
 | almogi | Yosef Almogi | minister | 2150 | 1910 / 1910-05-05 | 1991-11-02 | false | Q74696 |
 | aloni | Shulamit Aloni | minister | 2143 | 1928-12-27 | 2014-01-24 | false | Q267335 |
-| amit | Meir Amit | Aman; Mossad | none | 1921-03-17 | 2009-07-17 | false | Q449095 |
+| amit | Meir Amit | Aman; Mossad | 2527 | 1921-03-17 | 2009-07-17 | false | Q449095 |
 | aran (exists) | Zalman Aran | minister | 2171 | 1899-03-01 | 1970-09-06 | false | Q145162 |
 | bar_lev | Haim Bar-Lev | minister (Chief of Staff 1968-1972) | 2216 | 1924-11-16 | 1994-05-07 | false | Q467150 |
 | bar_yehuda (exists) | Yisrael Bar-Yehuda | minister | 2215 | 1895-11-15 | 1965-05-04 | false | Q2079765 |
@@ -743,11 +743,11 @@ Every person here has a death date in Wikidata, so `living` is `false` for all 7
 | begin | Menachem Begin | minister | 2179 | 1913-08-16 | 1992-03-09 | false | Q130873 |
 | ben_aharon | Yitzhak Ben-Aharon | minister | 2194 | 1906-07-17 | 2006-05-19 | false | Q2226775 |
 | ben_gurion (exists) | David Ben-Gurion | minister; Prime Minister | 2198 | 1886-10-16 | 1973-12-01 | false | Q37610 |
-| ben_zvi (exists) | Yitzhak Ben-Zvi | President | none | 1884-11-24 | 1963-04-23 | false | Q128894 |
+| ben_zvi (exists) | Yitzhak Ben-Zvi | President | 2207 | 1884-11-24 | 1963-04-23 | false | Q128894 |
 | bentov (exists) | Mordechai Bentov | minister | 2210 | 1900-03-28 | 1985-01-18 | false | Q2091327 |
 | burg (exists) | Yosef Burg | minister | 2187 | 1909-01-31 | 1999-10-15 | false | Q216021 |
 | carmel (exists) | Moshe Carmel | minister | 2415 | 1911-01-17 | 2003-08-14 | false | Q2660910 |
-| chaim_herzog | Chaim Herzog | Aman | none | 1918-09-17 | 1997-04-17 | false | Q295141 |
+| chaim_herzog | Chaim Herzog | Aman | 2312 | 1918-09-17 | 1997-04-17 | false | Q295141 |
 | dayan (exists) | Moshe Dayan | minister (Chief of Staff to 29 January 1958) | 2277 | 1915-05-20 | 1981-10-16 | false | Q188783 |
 | dov_yosef (exists) | Dov Yosef | minister | 2375 | 1899-05-27 | 1980-01-07 | false | Q936528 |
 | dulzin | Arieh Dulzin | minister | 3257 | 1913-03-31 | 1989-09-13 | false | Q4790361 |
@@ -761,7 +761,7 @@ Every person here has a death date in Wikidata, so `living` is `false` for all 7
 | govrin | Akiva Govrin | minister | 2235 | 1902-08-12 | 1980-06-26 | false | Q2906720 |
 | gvati | Haim Gvati | minister | 2233 | 1901-01-29 | 1990-10-19 | false | Q2904362 |
 | hammer | Zevulun Hammer | minister | 2300 | 1936-05-31 | 1998-01-20 | false | Q2910400 |
-| harel | Isser Harel | Mossad | none | 1912-01 / 1912 | 2003-02-18 | false | Q350744 |
+| harel | Isser Harel | Mossad | 2305 | 1912-01 / 1912 | 2003-02-18 | false | Q350744 |
 | harkabi | Yehoshafat Harkabi | Aman | none | 1921 / 1921-09-21 | 1994-08-26 | false | Q2561928 |
 | hasani | Michael Hasani | minister | 2349 | 1913-06-27 | 1975-07-02 | false | Q2046022 |
 | hausner | Gideon Hausner | minister | 2292 | 1915-09-26 | 1990-11-15 | false | Q1391626 |
@@ -773,7 +773,7 @@ Every person here has a death date in Wikidata, so `living` is `false` for all 7
 | laskov | Haim Laskov | Chief of Staff | none | 1919 / 1919-04 | 1982-12-08 | false | Q1058998 |
 | luz (exists) | Kadish Luz | minister, Speaker, acting President 1963 | 2423 | 1895-01-10 | 1972-12-04 | false | Q1720966 |
 | mintz | Binyamin Mintz | minister | 2462 | 1903-01-12 | 1961-05-30 | false | Q2904692 |
-| mordechai_gur | Mordechai Gur | Chief of Staff | none | 1930-05-06 | 1995-07-16 | false | Q1335169 |
+| mordechai_gur | Mordechai Gur | Chief of Staff | 2247 | 1930-05-06 | 1995-07-16 | false | Q1335169 |
 | naftali (exists) | Peretz Naftali | minister | 2493 | 1888-03-19 / 1888-03-29 | 1961-04-30 | false [C] | Q72124 |
 | namir (exists) | Mordechai Namir | minister | 2488 | 1897-02-23 | 1975-02-22 | false | Q2909456 |
 | nir | Nahum Nir | Speaker | 2486 | 1884-03-17 | 1968-07-10 | false | Q519963 |
@@ -789,14 +789,14 @@ Every person here has a death date in Wikidata, so `living` is `false` for all 7
 | sasson | Eliyahu Sasson | minister | 2669 | 1902-02-02 | 1978-10-08 | false | Q674248 |
 | shamir | Yitzhak Shamir | Speaker | 2652 | 1915-10-22 | 2012-06-30 | false | Q184351 |
 | shapira (exists) | Haim-Moshe Shapira | minister | 2661 | 1902-03-26 | 1970-07-16 | false | Q2079775 |
-| shazar (exists) | Zalman Shazar | President | none | 1889-12-22 | 1974-10-05 | false | Q299100 |
+| shazar (exists) | Zalman Shazar | President | 2631 | 1889-12-22 | 1974-10-05 | false | Q299100 |
 | sheetrit (exists) | Bechor-Shalom Sheetrit | minister | 2639 | 1895-01-20 | 1967-01-28 | false | Q2909380 |
 | shem_tov | Victor Shem-Tov | minister | 2648 | 1915-02-01 | 2014-03-07 | false | Q2891007 |
 | sherf | Ze'ev Sherf | minister | 2668 | 1906-04-21 | 1984-04-18 | false | Q184431 |
 | shlomo_rosen | Shlomo Rosen | minister | 2601 | 1905-06-21 | 1985-12-07 | false | Q2904443 |
 | sprinzak | Yosef Sprinzak | Speaker | 2665 | 1885-12-08 | 1959-01-28 | false | Q974766 |
 | toledano | Ya'akov Moshe Toledano | minister | 3258 | 1880-08-18 | 1960-10-15 | false | Q2906690 |
-| tzvi_tzur | Tzvi Tzur | Chief of Staff | none | 1923-04-17 | 2004-12-28 | false | Q1385464 |
+| tzvi_tzur | Tzvi Tzur | Chief of Staff | 2569 | 1923-04-17 | 2004-12-28 | false | Q1385464 |
 | uzan | Aharon Uzan | minister | 2129 | 1924-11-01 | 2007-01-23 | false | Q2906629 |
 | warhaftig (exists) | Zorach Warhaftig | minister | 2325 | 1906-02-02 | 2002-09-26 | false | Q2890045 |
 | yaacobi | Gad Yaacobi | minister | 2380 | 1935-01-18 | 2007-08-27 | false | Q612860 |
