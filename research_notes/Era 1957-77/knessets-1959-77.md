@@ -325,6 +325,7 @@ are not moves.
 | 18 Mar 1975 | Benjamin Halevi leaves the Likud and sits alone | Likud 38 | [V] K-MS, OD-F |
 | 29 Apr 1975 | Arie Lova Eliav leaves the Alignment and sits alone | - | [V] K-MS |
 | 3 Jun 1975 | Ratz and Eliav form Ya'ad - Movement for Civil Rights | Ya'ad 4, Alignment 53 | [V] K-MS, OD-F, OD-P |
+| 21 Oct 1975 | Moked - Maki and Tchelet Adom renamed Moked - for Peace and Social Compensation | 1 | [V] K-MS |
 | 27 Jan 1976 | Eliav and Marcia Freedman leave Ya'ad as the Social-Democratic Faction, renamed the Independent Socialist Faction on 3 Feb 1976; Aloni and Moav go back to the name Ratz | 2 and 2 | [V] K-MS, OD-F, OD-P |
 | 8 Jun 1976 | Seif-El-Din El-Zubi and Jabr Moade leave the Alignment as Kidma Vepituah | Kidma 2 | [V] K-MS, OD-F |
 | 26 Oct 1976 | Shmuel Tamir and Akiva Nof leave the Likud as the Free Center; K-MS: "The Free Center resigned from the Knesset" on 25 Jan 1977 | Free Center 2, Likud 36 | [V] K-MS, OD-F, OD-P |
@@ -342,7 +343,7 @@ are not moves.
 Every annual budget of the era was a Budget Law passed by the Knesset plenum: OD-B lists each as passed third reading
 (StatusID 118), and OD-I lists each on the agenda for first-reading debate, then for second-third and third reading,
 the procedure `budget-approval-1948-56.md` read in the protocols for 1949 to 1957 [V, single source: OData, read through
-the mirror]. The fiscal year ran April to March up to 1971/72 by the laws' names (for example "חוק התקציב לשנת 1960/61").
+the mirror]. Our reading from the laws' names: the fiscal year ran April to March up to 1971/72 (for example "חוק התקציב לשנת 1960/61").
 From 1972 the laws are named for one year ("חוק התקציב לשנת הכספים 1972", Budget Law for the fiscal year 1972); an
 interim law passed on 21 Mar 1972 suggests the 1972 year still began on 1 April (our reading; the law's section 1 was
 not read [GAP]).
