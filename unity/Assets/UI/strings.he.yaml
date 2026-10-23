@@ -243,8 +243,7 @@ defence.mob: "{0} מכוחות המילואים גויסו (דרגה {1} דור�
 defence.mob_cost: "עלות שנתית של {0} בשכר ובאובדן עבודה"
 defence.ceasefire_stops: "הספירה להפסקת אש של האו״ם נעצרת אם מורידים את הדרגה"
 defence.ceasefire_starts: "הפסקת אש של האו״ם: {0} שבועות מההגעה לדרגה 5"
-# The GDD Defence screen (#755): agent-drafted Hebrew, not yet read by a native speaker. "הפוגה" as in the truce
-# events' title_he. Plain counts, nothing celebratory. For the native reviewer (#564).
+# The GDD Defence screen (#755). Approved by Beri, a native speaker, on #755 (23 Oct 2026). Plain counts, nothing celebratory.
 defence.war_state: "מצב המלחמה: דרגה {0}, נקבעת לפי אירועי המלחמה"
 defence.truce: "הפוגה בתוקף: היחידות שלנו אינן יכולות לתקוף עד {0}"
 defence.section_prisoners: "שבויים"
