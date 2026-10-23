@@ -225,7 +225,7 @@ Researched 2026-10-10. All URLs were checked on that date unless noted.
 
 ### 4b. Immigrants 15 May 1948 – 1951 by country of birth (CBS)
 - **Source:** Publication 1365, the period table. The 1948–51 column was extracted from the PDF text. [V, parsed]
-- Annual 1950 vs 1951 splits by country were **not found** [GAP].
+- Annual 1950 vs 1951 splits: now found in the CBS Statistical Abstracts of the time, see "Annual 1950 and 1951" below. Morocco, Tunisia and Algeria are only given together there, and Egypt and Sudan not at all.
 - **Figures:**
   - Iraq **123,371**
   - Romania **117,950**
@@ -245,6 +245,56 @@ Researched 2026-10-10. All URLs were checked on that date unless noted.
 - **Cross-checks:**
   - These match a Jewish Agency archive summary found in search: Iraq 123.3k, Rumania 118.0k, Poland 106.4k, Yemen and Aden 48.3k, Morocco/Tunisia/Algeria 45.4k. Morocco + Tunisia + Algeria = 45,366 ✓.
   - The page itself (https://archive.jewishagency.org/society-and-politics/content/36566) now returns 404.
+
+#### Annual 1950 and 1951 by country of birth (CBS Statistical Abstracts, issue #1419)
+Read 2026-10-23 from the scanned page images of the two PDFs by Claude Code (an AI), not yet by a person; every column below was checked against the printed subtotals.
+- **1950:** CBS, *Statistical Abstract of Israel* No. 2 (1950/51), Table 6 "Jewish Immigrants, by Country of Origin or Birth (1919 – III 1951)", printed p. 27 (PDF p. 57), column "1950". https://www.cbs.gov.il/he/publications/DocLib/shnaton_saruk/shnaton1951_num2.pdf [V]
+- **1951:** CBS, *Statistical Abstract of Israel* No. 3 (1951/52), Table 6 "Jewish Immigrants, by Country of Origin (1919 – III 1952)", printed p. 26 (PDF p. 55), column "1951 I–XII". The same table's column "15 V 1948 – 31 XII 1951" is given for comparison with Publication 1365. https://www.cbs.gov.il/he/publications/DocLib/shnaton_saruk/shnaton1952_num3.pdf [V]
+
+| Country of birth (as printed) | 1950 (SA 2) | 1951 (SA 3) | 15 V 48 – 31 XII 51 (SA 3) | 1948–51 (Pub. 1365, above) |
+|---|---|---|---|---|
+| **All countries** | **169,405** | **173,901** | 684,275 | 687,624 |
+| Asia | 57,760 | 103,327 | 237,378 | |
+| Iraq | 32,453 | 89,088 | 123,265 | 123,371 |
+| Iran | 10,519 | 9,444 | 21,784 | 21,910 |
+| Yemen | 8,650 | 698 | 45,279 (Yemen and Aden) | 48,315 (Yemen) |
+| Aden | 2,692 (Aden and other Asia) | 239 | see Yemen | |
+| Turkey | 2,439 | 1,198 | 34,294 | 34,547 |
+| Syria and Lebanon | 1,007 | 316 | 2,898 | |
+| Other Asia | see Aden | 2,344 | 9,858 | |
+| Africa | 25,820 | 20,124 | 93,295 | |
+| Morocco, Algeria, Tunisia (one row) | 9,567 | 11,369 | 45,111 | 45,366 (28,263 + 13,293 + 3,810) |
+| Libya | 9,189 | 6,570 | 31,175 | 30,972 |
+| Union of South Africa | 183 | 43 | 621 | |
+| Other Africa (Egypt and Sudan are inside this row) | 6,881 | 2,142 | 16,388 | Egypt and Sudan 16,028 |
+| Europe | 83,337 | 49,535 | 331,299 | |
+| Romania | 46,178 | 40,208 | 117,660 | 117,950 |
+| Poland | 26,499 | 3,505 | 106,136 | 106,414 |
+| Hungary | 2,721 | 1,273 | 14,301 | 14,324 |
+| U.S.S.R. | 2,286 | 566 | 6,201 | |
+| Bulgaria | 960 | 1,161 | 37,210 | 37,260 |
+| Germany | 932 | 463 | 8,150 | 8,210 |
+| Czechoslovakia | 632 | 295 | 18,731 | 18,788 |
+| Other Europe (the 9 smaller rows) | 3,129 | 2,064 | | |
+| America and Oceania | 1,006 | 671 | 3,516 | |
+| Not stated | 1,482 | 244 | 18,787 | |
+
+- **Checksums** (our arithmetic on the printed rows):
+  - 1950: 57,760 + 25,820 + 83,337 + 1,006 + 1,482 = 169,405, the printed total. Asia, Africa, Europe and America each equal the sum of their country rows.
+  - 1951: 103,327 + 20,124 + 49,535 + 671 + 244 = 173,901, the printed total; the continents also equal their country rows. "Other Europe" above is our sum of Latvia/Lithuania, Yugoslavia, Greece, Austria, United Kingdom, Netherlands, France, Italy and "other countries", which the table prints one by one.
+- **Against the totals in 4a** [C]:
+  - These tables leave out the travellers permitted to settle in 1950 and 1951 (footnote to SA 2 Table 6, and SA 3 Table 3 note 1, printed p. 25). CBS *Statistical Abstract* No. 14 (1963), Table 3 "Immigrants and Tourists Settling, by Year (Jews)", printed p. 109 (PDF p. 134), adds them: **1950 = 170,249** (of which 844 tourists settling) and **1951 = 175,095** (of which 1,194). 169,405 + 844 = 170,249 and 173,901 + 1,194 = 175,095. https://www.cbs.gov.il/he/publications/DocLib/shnaton_saruk/shnaton1963_num14.pdf [V]
+  - Publication 1365 (2009) and the JVL table in 4a give 170,563 and 175,279: 314 more for 1950 and 184 more for 1951 than SA 14. The CBS volumes read here do not say where the later figures come from. [GAP]
+  - The continents differ as well: for 1950, 4a has Asia 57,565, Africa 26,162, Europe 81,195, unknown 3,687, against 57,760, 25,820, 83,337 and 1,482 in SA 2. Our reading, not a CBS statement: the later series re-sorted some arrivals, so the per-country rows above should not be mixed with the 4a continent rows.
+  - The 1948–51 period column of SA 3 and Publication 1365 disagree by up to a few hundred per country; the largest gap is Yemen (45,279 for Yemen and Aden together in SA 3, against 48,315 for Yemen alone in Publication 1365). [C]
+- **Definitions:**
+  - Country of birth for these years; the tables use nationality only for 1919–34 and for the 1946 visa-less immigrants (footnote 1 of both tables).
+  - The tables have no "potential immigrants" category; Publication 1365's 1950 line (170,215 "immigrants + potential immigrants") uses a later definition. Which arrivals the later category added for 1950 is not stated in the volumes read. [GAP]
+- **Not in these tables** [GAP]:
+  - Morocco, Tunisia and Algeria separately for 1950 or 1951 (one combined row in SA 2, SA 3 and SA 4).
+  - Egypt and Sudan for 1950 or 1951 (inside "other countries" of Africa).
+  - Aden separately for 1950 (one cell with "other countries" of Asia).
+  - SA No. 4 (1952/53) Table 5 gives only the whole period 15 V 1948 – 31 XII 1952 and the year 1952, not 1950 or 1951 (printed p. 28). SA No. 14 Table 4 gives continents only. A later CBS series by year and country (for example a special-series volume on immigration 1948–72) was not found online.
 
 ### 4c. Operations
 - **On Wings of Eagles (Yemen and Aden):**
@@ -278,7 +328,7 @@ Researched 2026-10-10. All URLs were checked on that date unless noted.
   - **Pauker–Rubin understanding:** about 4,000 per month [S]. https://en.wikipedia.org/wiki/Jewish_emigration_from_Romania
   - **Exit closure:** [C] "orders of 1951" (1959 Detroit Jewish News) vs. "drastically reduced by 1952" (Ioanid via Wilson Center). https://www.wilsoncenter.org/event/book-launch-the-ransom-the-jews-the-story-the-extraordinary-secret-bargain-between-romania-and
   - The AJYB 1952 estimate has Romania's Jewish population falling from 335,000 (1950) to 280,000 (mid-1951). https://www.bjpa.org/content/upload/bjpa/1952/1952worldpop.pdf [S]
-- **Poland:** CBS 1948–51 Poland-born = 106,414. No reliable annual figures were found [GAP]. Exits were encouraged roughly 1949–51 [S].
+- **Poland:** CBS 1948–51 Poland-born = 106,414. Annual: **26,499 in 1950** (SA No. 2, Table 6, p. 27) and **3,505 in 1951** (SA No. 3, Table 6, p. 26), without travellers permitted to settle; see 4b. [V] Exits were encouraged roughly 1949–51 [S].
 - **North Africa and Libya:**
   - CBS 1948–51: Morocco 28,263, Tunisia 13,293, Algeria 3,810, Libya 30,972.
   - **Selective immigration:** In **November 1951** the Jewish Agency (via the Coordinating Committee) adopted selection guidelines for North African aliyah: young, healthy, working-age people. This held at least to 1956. [S] Secondary sources only: Avi Picard, *Olim Bemesorah* (2013); Daniel Ben Simon; jewishrefugees.org.uk https://www.jewishrefugees.org.uk/2013/10/israels-painful-selection-of-moroccan.html . Disputed by Shifra Shvarts. Primary document not seen.
