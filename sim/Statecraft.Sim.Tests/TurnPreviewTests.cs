@@ -67,6 +67,7 @@ public class TurnPreviewTests
         Assert.False(Simulation.IsInstant(new UnitOrder(1, Demobilization.SendHome)));
         Assert.False(Simulation.IsInstant(new BuyArms(1)));
         Assert.False(Simulation.IsInstant(new ResolveCapture("lod", SettlementControl.Raid)));
+        Assert.False(Simulation.IsInstant(new EndOccupation("nazareth", SettlementControl.Annex)));   // R-CTRL-014: deferred
         Assert.False(Simulation.IsInstant(new SetPolicy("rationing", 0.5)));
     }
 

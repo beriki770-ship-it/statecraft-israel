@@ -184,6 +184,8 @@ public class DeportTests
             [typeof(Move)] = new Command[] { new Move(1, 1, 0), new Move(2, 1, 0) },
             [typeof(UnitOrder)] = new Command[] { new UnitOrder(1, Combat.Attack, 1, 0) },
             [typeof(ResolveCapture)] = new Command[] { Answer(SettlementControl.Raid), Answer(SettlementControl.Occupy), Answer(SettlementControl.Deport) },
+            // R-CTRL-017 (Q-ANNEX-2 (a)): a depopulated place is never annexed nor withdrawn from.
+            [typeof(EndOccupation)] = new Command[] { new EndOccupation("town_a", SettlementControl.Annex), new EndOccupation("town_a", SettlementControl.WithdrawOutcome) },
             // These name no place or hex: a city, a cohort, a unit's own work, a policy, a budget, an event, an office or a count.
             [typeof(SetPolicy)] = null, [typeof(AllocateBudget)] = null, [typeof(ChooseEventOption)] = null, [typeof(SetMobilization)] = null,
             [typeof(SecurityOrder)] = null, [typeof(Appoint)] = null, [typeof(AssignWorkers)] = null, [typeof(Train)] = null,

@@ -25,6 +25,21 @@ namespace Statecraft.Sim
 
         /// <summary>R-CITY-007: a city's start people in units: the nearest unit (a half rounds up), and at least 1 for a city
         /// with people (Q-START-2, owner, 15 October 2026), so a small town is not left empty.</summary>
+        /// <summary>R-CTRL-016 (OWNER QUESTION 1 (a) on #799, the starting-city rule): a stayed target joins the player's
+        /// population as one new city: its approved people in units (R-CITY-007), homes equal to them, jobs equal to the
+        /// employed (people times employed_share to the nearest unit), the usual start condition, and no refugees, recruits or
+        /// craftsmen. Null when added, else the reason with the state unchanged (the id is already a city).</summary>
+        internal static string? Annex(Content c, GameState s, SettlementTarget t)
+        {
+            if (s.Cities.ContainsKey(t.Id)) return $"{c.SettlementNames[t.Id]} is already a city";
+            var r = c.RulesAt(s.Date).Mvp!;
+            var people = t.Annexation!.People!.Value;   // the loader requires both values on a stayed row
+            var units = StartUnits(people, r.PeoplePerUnit);
+            var employed = NearestUnit(people * t.Annexation.EmployedShare!.Value, r.PeoplePerUnit);
+            s.Cities[t.Id] = new City(t.Id, units, employed, units, employed, 0, 0, r.HousingStartCondition!.Value);
+            return null;
+        }
+
         public static int StartUnits(decimal people, int peoplePerUnit) => people > 0 ? Math.Max(1, NearestUnit(people, peoplePerUnit)) : 0;
 
         /// <summary>R-CITY-007: people in units to the nearest unit, a half rounding up. Decimal, so it is exact on every runtime.</summary>

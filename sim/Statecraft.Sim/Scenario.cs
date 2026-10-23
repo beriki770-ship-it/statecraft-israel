@@ -69,6 +69,7 @@ namespace Statecraft.Sim
             ["start_project"] = new[] { "project", "city", "q", "r" }, ["cancel_project"] = new[] { "project" },
             ["move"] = new[] { "unit", "q", "r" },
             ["buy_arms"] = new[] { "count" }, ["resolve_capture"] = new[] { "settlement", "outcome" },
+            ["end_occupation"] = new[] { "settlement", "outcome" },
         };
 
         public static IReadOnlyCollection<string> Kinds => Allowed.Keys;
@@ -104,6 +105,7 @@ namespace Statecraft.Sim
                 case "move": return new Move(Whole(c, "unit"), Whole(c, "q"), Whole(c, "r"));
                 case "buy_arms": return new BuyArms(Whole(c, "count"));
                 case "resolve_capture": return new ResolveCapture(Str(c, "settlement"), Str(c, "outcome"));
+                case "end_occupation": return new EndOccupation(Str(c, "settlement"), Str(c, "outcome"));
                 default: throw new InvalidDataException($"command kind '{kind}' has no builder");
             }
         }
@@ -147,6 +149,7 @@ namespace Statecraft.Sim
             StartProject p => FormattableString.Invariant($"{p.ProjectKind} {p.City} {p.Q},{p.R}"), CancelProject p => p.Project.ToString(CultureInfo.InvariantCulture),
             Move m => FormattableString.Invariant($"{m.Unit} {m.Q},{m.R}"),
             BuyArms a => a.Count.ToString(CultureInfo.InvariantCulture), ResolveCapture r => $"{r.Settlement} {r.Outcome}",
+            EndOccupation e => $"{e.Settlement} {e.Outcome}",
             _ => c.Kind,
         };
     }
