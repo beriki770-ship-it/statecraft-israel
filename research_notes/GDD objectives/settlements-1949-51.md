@@ -129,7 +129,7 @@ are land.
 | 21 | Or Akiva / אור עקיבא | Transit camp, then town | 17 Apr 1951 **[S, Wikipedia]** | Carmel coast | 32.50776, 34.91984 | (2, 12) coastal plain | Pass | Yes / No / **[C]** | Barrat Qisarya (contested in source); hex shared with Ma'agan Michael |
 | 22 | Beit Kama / בית קמה | Kibbutz | 18 Apr 1949 **[V]** | Northern Negev | 31.44853, 34.76108 | (-8, 28) hills | Pass | Yes / Yes / Yes | None |
 | 23 | Gilat / גילת | Moshav | 4 Dec 1949 **[V]** | Northern Negev | 31.32798, 34.65203 | (-10, 30) lowland | Pass | Yes / Yes / Yes | None; hex shared with Tifrah |
-| 24 | Patish / פטיש | Moshav | 3 or 4 Mar 1950 **[C]** | Northern Negev | 31.32739, 34.56004 | (-11, 30) lowland | Pass | Yes / No / Yes | None |
+| 24 | Patish / פטיש | Moshav | 3 or 4 Mar 1950 **[C]**; no day-level source found | Northern Negev | 31.32739, 34.56004 | (-11, 30) lowland | Pass | Yes / No / Yes | None |
 | 25 | Re'im / רעים | Kibbutz | 20 Oct 1949 **[V]** | Western Negev | 31.38552, 34.45932 | (-12, 29) coastal plain | Pass | Yes / Yes / Yes | Next to 1950 Gaza lines |
 | 26 | Nahal Oz / נחל עוז | Nahal outpost, then kibbutz | 15, 25 or 26 Jul 1951 **[C]** | Gaza border | 31.47277, 34.49746 | (-11, 28) coastal plain | Pass | Yes / No / Yes | Next to Gaza lines; next to Gaza's hex |
 | 27 | Sderot / שדרות | Transit camp, then town | April 1951 **[S]** | Western Negev | 31.52901, 34.59434 | (-9, 27) coastal plain | Pass | Yes / No / No | On Gaza line hex; Najd (source) |
@@ -529,6 +529,24 @@ sources read, not a gazetteer check.
 ### 24. Patish (פטיש), moshav
 
 - **Founded: [C, one day].** Gvati: 4.3.50, Tnuat HaMoshavim. English Wikipedia: 3 March 1950. CBS: 1950.
+  Searched again 2026-10-23 (agent read; a person's check pending); the day is not settled:
+  - Hebrew Wikipedia (oldid 43958443): "the moshav was established on 3 March 1950" (המושב הוקם ב-3 במרץ 1950); the
+    article cites no source for it. English Wikipedia (oldid 1376022818): "established on 3 March 1950", no source
+    for the day either; its only reference is Dayan, on the 1955 attack. [S] each, and the two are not independent
+    of each other as evidence.
+  - Merhavim Regional Council's page for Patish (read through the Wayback Machine, snapshot of
+    https://www.merchavim.org.il/%D7%A4%D7%98%D7%99%D7%A9/ ; the live page returns 403 from here): "מושב פטיש הוקם
+    בשנת 1950 על ידי עולים ממצרים" ("founded in 1950 by immigrants from Egypt"), then "after a month and a half the
+    Egyptians left the site and immigrants from Tunis settled there for a week", then immigrants from Kurdistan sent
+    by the Jewish Agency. Year only, no day. So the founding the day would mark is, in this account, the Egyptian
+    group's arrival; English Wikipedia says the Kurdish group settled "in May that year". The sources do not say
+    whether 3/4 March is the arrival of the first group or the Kurdish settlement. [S]
+  - Calendar facts, our reading (`convertdate`): 3 March 1950 was a Friday, 14 Adar 5710 (Purim); 4 March 1950 was
+    a Saturday, 15 Adar 5710 (Shushan Purim). This does not favour either day and is not used to choose.
+  - **[GAP]** No newspaper item, Tnuat HaMoshavim or Jewish Agency record was reached: nli.org.il / Jpress return
+    403, news1.co.il archive and hamichlol return 403, and no site of the moshav itself was found. The Or movement
+    page (https://or1.org.il/settlments/%D7%A4%D7%98%D7%99%D7%A9/) returned HTML with no readable text about the
+    moshav (no "1950" in it); the Moshavim of Israel site (Wayback snapshot) says only "founded in 1950".
 - **Founders. [S]** Hebrew Wikipedia: the site was first called Imara C; immigrants from Egypt, then from Tunisia,
   left; the Jewish Agency then settled immigrants from Kurdistan.
 - **Location and hex.** CBS 31.32739, 34.56004 (Hebrew Wikipedia 19 m). Hex (-11, 30), lowland.
