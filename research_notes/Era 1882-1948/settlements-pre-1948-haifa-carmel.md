@@ -158,7 +158,7 @@ Hebrew Wikipedia pages below were read at the `oldid` given, checked 2026-10-23.
 - **[C]** CBS 1923 against he.wiki 1891. **Our reading:** two different things. 1891 is the colony,
   1923 the children's home that became the present youth village; CBS most likely dates the
   youth village, but no source read here says so.
-  The colony's farmers left **between 1939 and 1945** (no single date). A row for the owner's
+  Most of the colony's farmers left **between 1939 and 1945** (no single date). A row for the owner's
   sensitivity review.
 
 ### Ma'yan Zvi (CBS 290)
@@ -196,7 +196,7 @@ Hebrew Wikipedia pages below were read at the `oldid` given, checked 2026-10-23.
 
 ### Usha (CBS 278) and Ramat Yohanan (CBS 178)
 - Usha: CBS **1937**; Gvati `8.36`. he.wiki `אושה`, oldid **42228936**: "קיבוץ אושה נוסד בקיץ 1937
-  בשם 'אושא' ..."; "באוגוסט 1937 נמצאה פשרה ... ושני הפלגים עלו להתיישבות במרחק של כמה מאות מטרים זה
+  בשם אושא ..."; "באוגוסט 1937 נמצאה פשרה ... ושני הפלגים עלו להתיישבות במרחק של כמה מאות מטרים זה
   מזה"; and of the name, "תחילה, בראשית שנות השלושים, ניתן השם לקיבוץ הנקרא היום רמת יוחנן".
   [S, Wikipedia]
 - **[C] Usha:** Gvati August 1936 (`8.36` read as month.year, like `6.1889` and `10.24`) against CBS 1937 and he.wiki August 1937. **Our reading:** use
@@ -243,7 +243,7 @@ Hebrew Wikipedia pages below were read at the `oldid` given, checked 2026-10-23.
   בשנת 1930 חזרו אליה התושבים וחידשו את היישוב במקום"; "ולכן שונה שם המושבה ל'כפר אתא'"; "בשנת
   1965 הוחלט על איחודה של קריית אתא עם המועצה המקומית קריית בנימין הסמוכה. היישוב המאוחד נקרא
   'קריית אתא'". [S, Wikipedia] Village Statistics 1945 names the unit "Kefar ‘Atta (Kufritta)".
-- **[S]** year 1925: CBS, with he.wiki agreeing. **Abandoned** in the 1929 riots (no exact date in
+- **[S]** year 1925: CBS, with he.wiki agreeing. **Almost entirely abandoned** in the 1929 riots (no exact date in
   the passage) and **resettled 1930**. **Renames:** כפר עטא to כפר אתא (after the textile works of
   1934; year of the rename not given) [GAP], and to קריית אתא at the merger decided in 1965. Rows for
   the owner's sensitivity review.
@@ -357,7 +357,7 @@ is proposed about how it appears in the game. None is a CBS locality under its o
   Kiryat Bialik are not in the passages read.
 - **Gvati day versus CBS year.** Where they agree on the year the row is [V]; the day rests on Gvati
   alone, and as `settlements-1949-51.md` notes, it can be a day or more off other sources. Eight of
-  the 22 rows (Haifa, outside the 22, has none either) (Nesher, the Krayot, Kiryat Tiv'on, Meir Shefeya and Kfar HaNo'ar HaDati) have no Gvati
-  row, so their year rests on CBS with Wikipedia beside it.
+  the 22 rows (Nesher, the Krayot, Kiryat Tiv'on, Meir Shefeya and Kfar HaNo'ar HaDati) have no Gvati
+  row, so their year rests on CBS with Wikipedia beside it. Haifa, outside the 22, has none either.
 - **Not done:** no hex, no game date, no rule for which of two dates the game should use. Those
   belong to #61 and to the owner's sensitivity review.
