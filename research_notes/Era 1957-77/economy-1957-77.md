@@ -227,7 +227,7 @@ BoI 1975, Table III-5, p. 52, also gives "Total official reserve assets" (Bank o
 | 1962 | 806.2 | Same table. Long- and medium-term alone: 758.9 |
 | 1965 | 1,225 | "Foreign currency indebtedness". BoI 1966, pp. 72 and 74 (text) |
 | 1966 | 1,320 | Same text: "Foreign currency indebtedness reached $ 1,320 million at the end of 1966, as against $ 1,225 million the year before"; short-term about $110 million, medium- and long-term $1,210 million |
-| 1967 | [GAP] | BoI 1968, p. 71, gives only changes: the State's long- and medium-term foreign debt rose by $229 million in 1968, "$74 million less than in the previous year" (computed here: a rise of $303 million in 1967), and total indebtedness on the Development Loan, $895 million (the date is not stated), "constituted nearly half the State's total foreign currency debt" |
+| 1967 | 1,556 | "Foreign currency debt". BoI 1975, Table V-10, p. 115, Total row (its 1971-75 totals are the BoI 1977 figures below, so the same series). BoI 1968, p. 71, gives only changes: the State's long- and medium-term foreign debt rose by $229 million in 1968, "$74 million less than in the previous year" (computed here: a rise of $303 million in 1967), and total indebtedness on the Development Loan, $895 million (the date is not stated), "constituted nearly half the State's total foreign currency debt" |
 | 1971 | 3,430 | "Foreign currency debt". BoI 1977, Table I-1, p. 4 |
 | 1972 | 4,081 | Same table |
 | 1973 | 5,093 | Same table. BoI 1975, p. 111: "$5.1 billion" |
@@ -260,19 +260,21 @@ The era design (§5.3) names a calibration test on "foreign-currency reserves, d
 |---|---|---|---|
 | 1962 | GNP 12 (BoI 1962) | 496.9 gross, 369.5 net (BoI 1962); 506 and 406 (BoI 1966) [C] | 806.2 (foreign currency liabilities incl. short-term, BoI 1962) |
 | 1966 | GNP 0.6 (BoI 1966), 1.5 (BoI 1968), 1.6 (BoI 1971); GDP 1.4 (BoI 1975) [C] | 730 gross, 576 net (BoI 1966) | 1,320 (BoI 1966) |
-| 1967 | GNP 1.1 (BoI 1968), 2.7 (BoI 1971); GDP 2.5 (BoI 1975) [C] | 968 gross, 777 net (BoI 1968) | [GAP] |
+| 1967 | GNP 1.1 (BoI 1968), 2.7 (BoI 1971); GDP 2.5 (BoI 1975) [C] | 968 gross, 777 net (BoI 1968) | 1,556 (BoI 1975) |
 | 1972 | GDP 12.0 (BoI 1975), 12.1 (BoI 1977) [C] | 1,230 gross, 1,070 net, at the Bank of Israel (BoI 1975, BoI 1977) | 4,081 (BoI 1977) |
 | 1975 | GDP 1.0 (BoI 1975), 3.8 (BoI 1977) [C] | 1,184 gross, 1,040 net, at the Bank of Israel (BoI 1975, BoI 1977) | 7,617 (BoI 1977); "$7.6 billion" (BoI 1975) |
 
 Suggestion for step 2:
-- The reserve figures for 1962-67 cover deposits abroad of the whole banking system, and those for 1970-77 the Bank of Israel alone (section 5.3). A test that compares levels across the era needs one definition; the net Bank of Israel series (BoI 1977, Table I-1) covers only 1971-77.
+- The reserve figures for 1962-66 are "Deposits abroad (incl. gold and I.M.F.)" (BoI 1966, Table III-19, p. 77); the
+  1967 figure adds Treasury deposits abroad to the Bank of Israel and commercial bank balances (BoI 1968, Table III-24,
+  p. 73); those for 1970-77 are the Bank of Israel alone (section 5.3). A test that compares levels across the era
+  needs one definition; the net Bank of Israel series (BoI 1977, Table I-1) covers only 1971-77.
 - For growth, the latest opened report's value for each year (BoI 1977 for 1971-77, BoI 1975 for 1966-70) is, in our reading, the most revised figure; the values printed at the time are the second value.
 - Defence (section 4.1) and the dated rate steps (section 3.1) are the other anchors §5.3 names; both are tabled above.
 
 ## 8. Open items
 
 1. Open the capital-imports chapters of BoI 1976 and BoI 1977 for US aid by year and its grant/loan split (section 5.2 gap).
-2. Find the end-1967 foreign currency debt level: the balance-of-payments chapters of BoI 1969 and BoI 1970 (section 5.4 gap).
-3. Annual defence shares of GNP for 1957-68 (section 4.2 gap), and reserve levels for 1957-60 and 1969 (section 5.3 gap).
-4. The exact day of the October 1977 float.
-5. Check the Bank of Israel series against the CBS *Statistical Abstract* volumes the tables cite, and against Ben-Porath (ed.) and Halevi and Klinov-Malul, none of which was opened here.
+2. Annual defence shares of GNP for 1957-68 (section 4.2 gap), and reserve levels for 1957-60 and 1969 (section 5.3 gap).
+3. The exact day of the October 1977 float.
+4. Check the Bank of Israel series against the CBS *Statistical Abstract* volumes the tables cite, and against Ben-Porath (ed.) and Halevi and Klinov-Malul, none of which was opened here.
