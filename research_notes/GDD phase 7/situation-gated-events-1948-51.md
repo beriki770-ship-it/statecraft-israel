@@ -28,7 +28,7 @@ for R-TURN-003 if the historical run is in that situation on that turn. This not
 
 - Every URL below was opened on **2026-10-16** (the check date for all of them). Two research helpers read the pages
   first; every quotation tagged [V] below was then re-fetched and matched verbatim in the page text by the note's
-  author, the same day. JTA bulletin dates are the pages' own `datePublished`.
+  author, the same day. JTA bulletin dates are the pages' own `datePublished`. The Suez complaint sources added for issue #1426 (section 1d) were read on **2026-10-23** by an AI agent; a person's check is pending.
 - Tags, as in the #135 note:
   - **[V] verified**: read in a primary or official record (FRUS, UN resolution text) or in the period press (JTA
     Daily News Bulletin), quoted verbatim.
@@ -279,8 +279,7 @@ into 3 and 3 months; one dated 1 September 1951 into 4 and 2. In each case only 
 - **Detroit Jewish News scans (Bentley Library):** 403. Two leads rest on them (the Korea cabinet decision, the
   February 1951 vote).
 - **FRUS 1951 V** on the Hula after resolution 93: not opened (the site rate-limited a helper).
-- The end of the seamen's strike, the day of the May 1951 arrests and the date Israel filed the Suez complaint: not
-  found.
+- The end of the seamen's strike and the day of the May 1951 arrests: not found.
 
 ## Summary
 
