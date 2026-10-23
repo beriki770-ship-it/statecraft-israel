@@ -653,6 +653,12 @@ namespace Statecraft.Sim
         /// <summary>IL millions the Treasury pays a turn for each population unit of the player's soldiers held (R-POW-005;
         /// Q-POW-4). Required in the GDD loop, &gt;= 0.</summary>
         public double? HeldSoldierCostPerTurn { get; set; }
+        /// <summary>X, the turns every occupation lasts before the place awaits EndOccupation (R-CTRL-012; Q-OCC-3 (a), one X
+        /// for every place). Required in the GDD loop, &gt;= 1.</summary>
+        public int? OccupationTurns { get; set; }
+        /// <summary>IL millions the Treasury pays a turn for each occupied place (R-CTRL-011; Q-OCC-1 (a)). Required in the GDD
+        /// loop, &gt;= 0.</summary>
+        public double? OccupationUpkeepPerTurn { get; set; }
     }
 
     /// <summary>One row of rules.yaml mvp.combat_table (R-COMBAT-002, R-COMBAT-003): it applies from an attack : defence
