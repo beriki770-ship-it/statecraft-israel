@@ -315,10 +315,11 @@ the Spitfire `from: '1948-10-15'`, the first sourced sortie. 27 September 1948 a
   They formed a company of the 82nd Battalion, 8th Brigade, and fought in Operation Danny (Lydda airport, July 1948).
   [V] en.wiki Hotchkiss H35 ("Ten H39s were clandestinely sold to Israel ... shipped from Marseille to Haifa in 1948";
   oldid 1380585757); Tank Encyclopedia, H39 (citing Eshel 1989, Ilan 1996).
-  **[C] the port:** the "Haifa" of en.wiki is not borne out by the two accounts that name a port. Mass (below) says the
-  tanks were sent to **Tel Aviv** "because the Haifa port still served the evacuating British army", and Tank
-  Encyclopedia (archived 20 July 2024) says Haifa was still partly British-run and the ship was unloaded at Tel Aviv by
-  the crane of another ship. Neither names Marseille. [V/S, agent read 2026-10-23; a person's check pending]
+  **[C] the port:** the "Haifa" of en.wiki is not borne out by the one account that names the port. Mass (below)
+  says the tanks were sent to **Tel Aviv** "because the Haifa port still served the evacuating British army".
+  Tank Encyclopedia (archived 20 July 2024) says only that the port of Haifa was still partly run by the British, that
+  no dock with a crane able to lift the vehicles existed in Tel Aviv, and that the ship was unloaded by another ship's
+  crane; it names no unloading port. Neither names Marseille. [V/S, agent read 2026-10-23; a person's check pending]
 - **The ship and the day, three versions (the issue's question):**
   - **Mass, 15 June 1948.** Lt-Col (res) Michael Mass, "The IDF's tanks in the War of Independence: the Hotchkiss
     tanks", Yad LaShiryon, 19 March 2018 (republished as a PDF on the Palyam procurement site,
@@ -326,10 +327,11 @@ the Spitfire `from: '1948-10-15'`, the first sourced sortie. 27 September 1948 a
     ammunition figures cite Brezner, *Nitzanei Shiryon*, which was not opened): the ten H39s "arrived in the country on 15 June 1948, four days after the start of
     the truce, on the second voyage of the procurement ship **Boria** [as spelled there; the Hebrew reads
     "בוריאה"] on the France-Israel line", the ship that on its first voyage reached Tel Aviv on 15 May 1948. Unloading
-    was hard (no floating crane; a crane from another ship was used) and the UN observers were drawn off to watch cars
+    was hard (the floating crane meant to come from Haifa was caught in a storm and its upper part broke, so a crane
+    from another ship was used) and the UN observers were drawn off to watch cars
     being unloaded from another ship. [V/S, agent read 2026-10-23; a person's check pending]
-  - **Ben-Gurion's diary, 13 June 1948 (two days before Mass's date).** The entry of 11 June (Ben-Gurion
-    Archive, English text, https://bengurionarchive.bgu.ac.il/en/node/14496) says Arazi ("Alon") reported that a ship
+  - **Ben-Gurion's diary, 13 June 1948 (two days before Mass's date).** The entry of 11 June (which names neither the ship nor the tank make; reading it as the same ship is an inference;
+    Ben-Gurion Archive, English text, https://bengurionarchive.bgu.ac.il/en/node/14496) says Arazi ("Alon") reported that a ship
     "will arrive here Sunday evening" (13 June 1948 was a Sunday) carrying "10 12-ton tanks (each tank with a 37 mm
     cannon, two 7.5 mm machine guns)", ten 75 mm guns and four 20 mm anti-aircraft guns. The entry of 15 June
     (https://bengurionarchive.bgu.ac.il/en/node/14244) says: "Alon's ship [Borea II - a procurement ship sent by Yehuda
@@ -352,8 +354,8 @@ the Spitfire `from: '1948-10-15'`, the first sourced sortie. 27 September 1948 a
   - **Result.** The ship is named **Boria / Borea II** by Mass and (in the archive's gloss) the diary, a name that was
     used on the May voyage of the *Santa Chiara*; whether the June ship is the same hull is **not shown by any source
     read**. The day is **13 June** (diary, two entries) or **15 June** (Mass; the Hebrew Wikipedia page for the H39 and
-    the existing note's Lehi Museum blog also say 15 June, both [S], not re-opened here). The port is Tel Aviv on the
-    one account that names it with reasons. No customs, shipping-register or IDF Archives record was reached.
+    the existing note's Lehi Museum blog also say 15 June, both [S], not re-opened here). The port is Tel Aviv on Mass's
+    account alone. No customs, shipping-register or IDF Archives record was reached.
     [GAP] IDF Archives, Brezner, Eshel (1989, pp. 13-18) and Ilan (1996, pp. 187, 238) are cited by others and were not
     opened; the Hebrew diary original was not reached.
 - **Three separate facts (the issue asks to keep them apart):**
@@ -364,18 +366,20 @@ the Spitfire `from: '1948-10-15'`, the first sourced sortie. 27 September 1948 a
     (p. 3); Tank Encyclopedia: "only five of the original ten tanks could be made to be operational at the beginning
     of Operation Danny, and six in total during the war". Mass adds that the 8th Brigade workshop at Tel Litvinsky
     found low compression in every engine, and that engine and cooling work went on through the first truce. [V/S]
-  - **First combat use: Operation Danny, the Lydda (Lod) airport, 10 July 1948.** Mass's photo caption dates the
+  - **First combat use: Operation Danny (9 to 19 July 1948); Hotchkiss tanks photographed at Lod airport on 10 July.**
+    Mass's photo caption dates the
     Hotchkiss at Lydda airport "after the capture of Lod airport by Battalion 82 on 10 July 1948" (p. 4), and the
     text puts the Hotchkiss and captured R-35 in the Lod airport and Yehud fighting; Tank Encyclopedia says Danny was
     the unit's first major engagement and that the H39s were only lightly engaged. Operation Danny began on
     9 July. A day-by-day first shot is not stated in either source. [S]
 - **Condition:** the tanks arrived in poor technical condition (low engine compression, cooling unfit for the climate,
-  and all 10,000 rounds that came with them were high explosive, later fitted with armour-piercing heads); Tank
+  and the shells that came with them were high explosive; Mass says armour-piercing heads from American 37 mm rounds
+  were fitted into some of the cases, about 400 rounds by the end of Danny per Tank Encyclopedia); Tank
   Encyclopedia says only five of the ten could be made to run by the start of Operation Danny. [V/S]
 - **Note for the wording:** 15 June 1948 is inside the first truce (11 June to 8 July 1948), when arms imports breached
   the truce terms (the #135 note, section 5, has the US record of that). A card on this arrival would sit with the
   existing `first_truce` event.
-- **Fit:** still weak as a dated grant. The month (June 1948) is [V]; the day is 13 or 15 June and no archive record
+- **Fit:** still weak as a dated grant. The month (June 1948) is [V]; the day is 13 or 15 June (unless the 8 June entry is a different cargo) and no archive record
   settles it. Either day falls inside the first truce (11 June to 8 July 1948).
 
 ### 4d. The Spitfires from Czechoslovakia: Operation Velvetta, 27 September and 22-30 December 1948
