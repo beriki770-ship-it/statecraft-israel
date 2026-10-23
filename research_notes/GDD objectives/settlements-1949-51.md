@@ -572,7 +572,7 @@ sources read, not a gazetteer check.
       settlement on the country's border"). `convertdate`: 21 Tammuz 5711 is Wednesday 25 July 1951, 22 Tammuz is
       Thursday 26 July 1951, 11 Tammuz is Sunday 15 July 1951 (our reading; the Nahal list's pair "11 Tammuz /
       15 July" is consistent). The passage read names no archive for the scroll; it is a quotation, not an image. [S]
-    - **Yad Ben-Zvi, Et-Mol blog, Nadav Frankel (doctoral research on the Nahal outposts, Bar-Ilan),**
+    - **Yad Ben-Zvi, Et-Mol 273, web version, Nadav Frankel (doctoral research on the Nahal outposts, Bar-Ilan),**
       https://ybz.org.il/%D7%A0%D7%97%D7%9C-%D7%A2%D7%95%D7%96/ (blog entry dated 29.10.23): "בצוהרי 25 ביולי 1951
       הגיעה פלוגת חיילים ... לנקודה הנמצאת כשני קילומטרים מגבול ישראל מצרים" ("at noon on 25 July 1951 a company
       of soldiers reached the point about two kilometres from the Israel-Egypt border"); the same entry says the
@@ -601,8 +601,11 @@ sources read, not a gazetteer check.
     - **[GAP]** HaBoker 17 January 1952 p. 31 (the HaBoker item Hebrew Wikipedia cites at oldid 44023010; issue #1472 also asks for a HaBoker item of 26 July 1951, which that revision does not cite, and none was located) and Sha'arim 26 July 1951 p. 37 not opened (nli.org.il /
       Jpress 403); no image or catalogue record of the 21 Tammuz scroll found (a search for one returned nothing);
       the IDF archive photo "העליה לקרקע נחלאים א, יולי 1951" is not dated to a day on the page; Et-Mol 273 PDF
-      (https://files.ybz.org.il/periodicals/Etmol/273/273.5.pdf) returns 403, so the printed article and its footnotes
-      were not read. `objective-cards.md:347` still says 26 July and is not changed here, since the day is not settled.
+      (https://files.ybz.org.il/periodicals/Etmol/273/273.5.pdf) returns 403 from our fetcher (Cloudflare), so we
+      did not read it ourselves. The repository owner's 23 Oct review reports that it opens for him (HTTP 200, 4 pages), and that it has the same
+      "בצוהרי 25 ביולי 1951" arrival line; that the ceremony line reads "בטקס הוקראה מגילת העלייה" (the scroll of going up was read aloud),
+      where the web page quoted above has "הוכרזה"; that one clipping is credited "שערים, 26.7.1951"; and that there are no footnotes,
+      only a two-item "לעיון נוסף" (further reading) list. That is his reading, relayed, not ours, and it does not settle the day. `objective-cards.md:347` still says 26 July and is not changed here, since the day is not settled.
 - **Founders. [V]** The first Nahal outpost, "Nahala'im A", facing Gaza (Nahal association; Kibbutz Story; English
   Wikipedia); turned over to a civilian garin on 16 September 1953 (Nahal association) **[S]**.
 - **Location and hex.** CBS 31.47277, 34.49746 (Hebrew Wikipedia 7 m). Hex (-11, 28), coastal plain. Gaza's hex is a
