@@ -165,7 +165,7 @@ Common sources, cited by short name in every row:
 - **Site note. [S, Wikipedia]** English Wikipedia: on land that had belonged to the depopulated village of Khirbat
   al-Sarkas, on a site east of the village (paraphrase, citing Khalidi, p. 189, not read). Hebrew Wikipedia does not
   mention it. For the owner's sensitivity review.
-- **Renames.** None found. Name origin, Gvati: "ע"ש אלעזר וורמסר, ממנהלי פיק"א" (Elazar Wormser, a PICA director; both
+- **Renames.** None found. Name origin, Gvati: named after one of PICA's directors ("ממנהלי פיק"א"; both
   Wikipedias say the same).
 - **Coordinates.** CBS 32.44527, 34.97743 (code 2003).
 - **Sources.** CBS; Gvati; https://he.wikipedia.org/w/index.php?oldid=42494434 ;
@@ -284,12 +284,14 @@ Common sources, cited by short name in every row:
   Ramat Gan founded in 1950, and is not this row.
 - **Founded: [C].** CBS: 1953. English Wikipedia: "The village was established in 1953 as a professional religious
   school". Hebrew Wikipedia text: "כפר סיטרין נוסד בשנת 1952 כבית ספר מקצועי דתי" (founded 1952), citing Hareuveni,
-  not read; its category is "יישובים שהוקמו ב-1953". **No preference**; both years are in the window. Not in Gvati.
+  not read, and HaTzofe, 23 April 1952, not read; its category is "יישובים שהוקמו ב-1953". **No preference**; both
+  years are in the window. Not in Gvati.
 - **Type.** A religious vocational school and boarding school, later a technological college, today Chabad
   institutions (Hebrew Wikipedia). Not a residential settlement.
-- **Founders. [C, minor]** Named after Zvi (Howard) Sitrin. Hebrew Wikipedia: his family, active in HaPoel HaMizrachi
-  in the United States, paid for the building; English Wikipedia: Zvi Sitrin himself was "a leader of Hapoel HaMizrachi
-  in the United States". No founding group of residents named.
+- **Founders. [C, minor]** Named after the son of a HaPoel HaMizrachi leader in the United States. Hebrew Wikipedia: "נוסד בשנת 1952 ונקרא
+  על שם [הבן], בנו של [האב], ממנהיגי הפועל המזרחי בארצות הברית אשר יסד את הכפר לזכרו" (his father, a HaPoel
+  HaMizrachi leader in the United States, founded the village in his son's memory). English Wikipedia instead says
+  the namesake himself was "a leader of Hapoel HaMizrachi in the United States". No founding group of residents named.
 - **Renames. [S, Wikipedia]** Also called "בית צבי" (the CBS name).
 - **Coordinates.** CBS 32.71972, 34.96968 (code 212).
 - **Sources.** CBS; https://he.wikipedia.org/w/index.php?oldid=43957068 ;
@@ -315,8 +317,12 @@ Common sources, cited by short name in every row:
 - **Site note. [S, Wikipedia]** Both Wikipedias: the village stands on the site and in the houses of the Arab village of
   Ein Hawd (עין חוד), whose inhabitants left in the 1948 war (Hebrew Wikipedia: fled; English Wikipedia: most were
   expelled); some stayed nearby and founded the present village of the same name (paraphrase). That village is a CBS
-  row today, "עין חוד" (code 1320, no founding year). English Wikipedia cites Khalidi, *All That Remains*, not read.
-  For the owner's sensitivity review.
+  row today, "עין חוד" (code 1320, no founding year). Hebrew Wikipedia: "ממנו ברחו תושביו במהלך מלחמת העצמאות. לאחר
+  המלחמה הופקעו האדמות והבתים"; "רוב תושבי הכפר הערבי שלא נמנו עם בני אותו השבט אכן עזבוהו, חלקם לאזורי אירביד
+  שבירדן וג'נין שביהודה ושומרון". English Wikipedia: "Most of the 700 ... Arab villagers of Ein Hod from before the
+  1948 ... War resettled in the West Bank, many in the refugee camp in Jenin"; "Attempts to dispossess them by legal
+  means did not succeed." English Wikipedia cites Khalidi, *All That Remains*, not read. For the owner's sensitivity
+  review.
 - **Renames.** None in the window; English Wikipedia says the 1949 settlers renamed the village Ein Hod.
 - **Coordinates.** CBS 32.69979, 34.98309 (code 74).
 - **Sources.** CBS; https://he.wikipedia.org/w/index.php?oldid=43960470 ;
@@ -378,6 +384,7 @@ Common sources, cited by short name in every row:
   English Wikipedia gives Mezer's day too); Talmei Elazar, Ma'or and Givat Nili have Gvati's day only; Ein Hod has
   Hebrew Wikipedia's day only; the rest have a year.
 - **Site notes** are recorded for six rows: four on, near or next to the lands of a village depopulated in 1948 (Ein
-  Hod from both Wikipedias; Givat Nili from both; Talmei Elazar and HaHotrim from English Wikipedia citing Khalidi, not
-  read), and two on land tied to Arab neighbours (Maggal, Mezer, Hebrew Wikipedia). Hexes and armistice-line flags were
-  not computed; they belong to the paused data-file step.
+  Hod from both Wikipedias, including the postwar expropriation and where residents went; Givat Nili from both; Talmei
+  Elazar and HaHotrim from English Wikipedia citing Khalidi, not read), and two on land tied to Arab neighbours
+  (Maggal, Mezer, Hebrew Wikipedia). Hexes and armistice-line flags were not computed; they belong to the paused
+  data-file step.
