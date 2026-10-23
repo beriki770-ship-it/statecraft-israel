@@ -136,7 +136,7 @@ Africa, Europe-America):
 - Notes 2 and 3 of the table: the Asian republics of the USSR are in Asia, and the European republics and "USSR
   (former)" with the republic not known in Europe-America, "As of 1995". Before 1995 the table does not say where
   Soviet-born immigrants with a known Asian republic were put. [GAP]
-- [C] Residence and birth differ by continent. For 1977-1993, derived: Africa 58,283 by residence against 66,922 by
+- Residence and birth are different measures and differ by continent. For 1977-1993, derived: Africa 58,283 by residence against 66,922 by
   birth; Asia 27,387 against 29,337; Europe plus America and Oceania 604,651 + 76,688 = 681,339 against 670,954.
   `content/aliyah.yaml` uses the residence split (see the 1957-77 sibling note, 1b), so 1a is the consistent one for
   the rows. Preferred: 1a.
@@ -174,7 +174,7 @@ immigrants).
   immigrants whose religion was not stated or was not known, but are included in the total."
 - From 1985 the split by religion is not printed. Note (5): "In 1985, the registration of religion at the time of
   immigration ceased." So **the Jewish share of the immigrants is [GAP] for 1985-1993** in the tables read; the
-  table points to "Table D in the Introduction" of the same publication, which was not read.
+  table points to "Table D in the Introduction" of the same publication, which is not in the English edition.
 - **A misprint on page 31**: the Jewish potential immigrants of 1979 are printed 4,715 (page image). Derived: Jews
   35,662 - Jewish immigrants 20,947 = 14,715, and grand-total potential 15,062 - other religions' potential 347 =
   14,715. Our reading: 4,715 should read 14,715.
@@ -231,9 +231,10 @@ thousands":
   333.0.
 - Tolts, page 3: "By 1979 only one-third of these emigrants were arriving in Israel." Derived for 1979: 17.3 / (17.3 +
   34.1) = 33.7%.
-- Cross-check against CBS by residence, [V] CBS 1365 Table 2, page 34, "USSR (former)" European republics and not
-  known: 1980-1984 10,888 and 1985-1989 17,875. Tolts, derived: 7.4 + 1.8 + 0.7 + 0.4 + 0.3 = 10.6 thousand and 0.35 +
-  0.2 + 2.1 + 2.2 + 12.9 = 17.75 thousand. Within 300 and 130 of CBS.
+- Cross-check against CBS by residence, [V] CBS 1365 Table 2, page 34, "USSR (former)": 1980-1984 10,888 and
+  1985-1989 17,875. Note 3 limits that row to the European republics and an unknown republic only "As of 1990", and
+  the Asian-republics row is empty before 1990, so these two cells are the whole USSR. Tolts, derived: 7.4 + 1.8 +
+  0.7 + 0.4 + 0.3 = 10.6 thousand and 0.35 + 0.2 + 2.1 + 2.2 + 12.9 = 17.75 thousand. Within 300 and 130 of CBS.
 - [V] CBS SA 2010 T4.4, page 233, immigrants born in "USSR (former)" European republics and not stated: 1972-1979
   137,134; 1980-1989 29,754; 1990-1999 772,239. Asian republics (a separate row, filled only from 1990-1999): 49,524.
   The periods do not match the era's bounds, so these are context only.
@@ -329,8 +330,8 @@ inside it, the immigrants. The difference is **derived**, not a CBS emigration f
 
 - What the difference holds, from the table's notes (page 91): note 2, the immigrants column is "Here also incl. immigrating
   citizens"; note 1, "Until 1995, the balance of migration also included the balance of changes and corrections of
-  religion." So the derived column is residents leaving net of residents returning, plus the net effect of religion
-  corrections (for the Jewish rows). Our reading: it is the closest CBS-based net emigration figure for these years,
+  religion." So the derived column is residents leaving net of residents returning, minus the group's net gain from changes and corrections of religion (for the Jewish rows; the table does not
+  separate it). Our reading: it is the closest CBS-based net emigration figure for these years,
   but it is not labelled as emigration anywhere, and none of the three periods matches the era's bounds (the first
   starts in 1972, the last ends in 1995).
 - Cross-check, derived, that the immigrants here are larger than T4.2 by the immigrating citizens, as note 2 says:
@@ -374,14 +375,15 @@ table (page 86): "Until 1995, before publication of the Census results "Arabs" a
 | **1993** | **5,327.6** | **4,335.2** | **992.5** | +92.7 |
 
 - The table prints two rows for 1983. Its notes (page 86): "3. Based on the previous Census." and "4. Based on the Census of
-  that year." [C] Preferred: the census-based row (bold), which is the base of every later year. For a chained run
+  that year." These are different measures, not a [C]. Preferred: the census-based row (bold), which is the base of every later year. For a chained run
   started before the census, the previous-census row is the like-for-like one. Derived differences, census basis
   minus previous basis: Jews -23.6 thousand, Arabs -6.4, total -29.9. The 1984 change is taken from the census row.
-- Checks, derived: Jews + Arabs = grand total in every row to within 0.1 thousand of rounding (0.1 off in 1978, 1980,
-  1981, the previous-basis 1983 row, 1984, 1988 and 1993).
+- Checks, derived: Jews + Arabs = grand total in every row to within 0.1 thousand of rounding (0.1 off in 1976, 1978,
+  1980, 1981, the previous-basis 1983 row, 1984, 1988 and 1993).
 - The Arab column rises 32.9 thousand in 1982 against 18.6 to 21.5 in each of 1978-1981 (derived). [V] CBS SA 2010
   T2.3 note 9 (page 91): "Excl. the addition of the Arab residents from East Jerusalem in 1967 and from the Golan Sub-District
-  in 1982." Our reading: the 1982 jump is the Golan. The Jewish column has no such break.
+  in 1982." Our reading: the 1982 jump includes the Golan addition on top of ordinary growth; the excess over 1978-1981,
+  derived 32.9 - 21.5 = 11.4 to 32.9 - 18.6 = 14.3 thousand, is the order of its size. The Jewish column has no such break.
 - Jewish population, end of 1977 to end of 1993, derived: 4,335.2 - 3,077.3 = 1,257.9 thousand, with the 1983 census
   break (-23.6) inside. 1990 and 1991 together, derived: 229.6 + 197.9 = 427.5 thousand.
 - For `content/population.yaml` (which counts Jews, design §5.4), the values convert as the file already does (for
@@ -433,14 +435,14 @@ Not a model, only the arithmetic the sources allow:
   3,436.1 on the previous basis); end of 1993, 4,335.2 (1983 census basis). 1993 is not a census year (4b).
 - Arrivals 1977-1993 (1a): 768,356, of which 529,478 in 1990-1993 (derived from 1a: 199,516 + 176,100 + 77,057 +
   76,805). The rows include non-Jews; the Jewish count is printed only to 1984 (1c).
-- Emigration: no yearly figure (3a). The derived Jewish net outflow is about 12 thousand a year in 1972-1989 and
-  about 20 thousand a year in 1990-1995 (3b), period averages only.
+- Emigration: no yearly figure (3a). The derived Jewish figure in 3b (net outflow less the religion balance) is about
+  12 thousand a year in 1972-1989 and about 20 thousand a year in 1990-1995, period averages only.
 - The 1983 census break: -23.6 thousand Jews (4a, 5).
 
 ## 7. Gaps
 
 - Yearly emigration for any year of 1977-1993; a labelled CBS emigration estimate for the period.
-- Jewish immigrants for 1985-1993 (religion not registered from 1985; Table D of CBS 1365 not read), and the Jewish
+- Jewish immigrants for 1985-1993 (religion not registered from 1985; Table D of CBS 1365 not in the English edition), and the Jewish
   split by continent for any year.
 - Yearly immigrants from Ethiopia and from the USSR in CBS (only periods); the CBS birth-table placement of Asian-
   republic Soviet immigrants before 1995.
