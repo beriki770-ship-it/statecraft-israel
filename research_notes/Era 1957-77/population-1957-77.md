@@ -356,9 +356,11 @@ the Census results "Arabs" also included "others"."
   the end of 1972, 2,749.4 against 2,752.7, derived difference -3.3 thousand.
 - Checks, derived: Jews + Arabs = grand total in every row, to within 0.1 thousand of rounding (the 1972 census row,
   1975 and 1976 are 0.1 short).
-- The Arab jump at the end of 1967 (312.5 to 392.7, derived +80.2 thousand) is East Jerusalem. [V] CBS SA 2010 T2.3
-  note 9: "Excl. the addition of the Arab residents from East Jerusalem in 1967 and from the Golan Sub-District in
-  1982." The Jewish column has no such break.
+- The Arab jump at the end of 1967 (312.5 to 392.7, derived +80.2 thousand) includes the addition of East Jerusalem's
+  Arab residents. [V] CBS SA 2010 T2.3 note 9: "Excl. the addition of the Arab residents from East Jerusalem in 1967
+  and from the Golan Sub-District in 1982." The table shows ordinary yearly growth of 13.2 thousand from 1965 to 1966
+  and 13.6 thousand from 1967 to 1968. Our reading: the full 80.2 thousand cannot be assigned to East Jerusalem, and
+  the source read does not split the jump. The Jewish column has no such break.
 - For `content/population.yaml` (which counts Jews, design §5.4), the Jewish values in thousands convert as the file
   already does for 1948-51 (for example 1,762.8 thousand to 1762800). Not written here.
 
@@ -381,9 +383,10 @@ the Census results "Arabs" also included "others"."
 
 - Bachi, on the same page: "reliability of demographic official statistics has been found to be satisfactory",
   and "there was no need ... to correct or recast the official data for 1948-75" (quote shortened at the dots).
-- So the census count of Jews fell short of the running estimate by 0.30% in 1961 and 0.33% in 1972. These are the
-  sizes of the two census breaks the calibration has to allow for. The census-day counts are mid-year (May); the
-  checkpoints in 4a are year-end.
+- Bachi's census-day check shows that the census count of Jews fell short of the running estimate by 0.30% on 22 May
+  1961 and 0.33% on 20 May 1972. These check the estimates but are not the year-end breaks in Table 2.1. The breaks the
+  calibration has to allow for are those derived in section 4a: the Jewish year-end row is 3.8 thousand lower on the
+  1961 census basis and 3.3 thousand higher on the 1972 census basis.
 
 ---
 
