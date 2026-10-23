@@ -636,9 +636,9 @@ Western, British and "new historians":
   Cambridge, 2007. Rogan's chapter, p. 112, read in full in the open scan:
   https://archive.org/details/the-war-for-palestine-rewriting-the-history-of-1948-eugene-l.-rogan-avi-shlaim ;
   lending copy (snippets only): https://archive.org/details/warforpalestiner0000unse_t0u0
-- Davis, John H. *The Evasive Peace*. 1968. Full-text search snippet; Internet Archive copies:
+- Davis, John H. *The Evasive Peace*. 1968. Full-text search snippet (the snippet's copy was not recorded); Internet Archive copies:
   https://archive.org/details/evasivepeacestud00davi , https://archive.org/details/thenevasivepeace0000john
-- Usmani. *Glimpses of Palestine: Past and Present*. 1973. Read in an open copy:
+- Usmani, Shaukat. *Glimpses of Palestine: Past and Present*. 1973. Read in an open copy:
   https://archive.org/details/glimpses-of-palestine-past-and-present
 - Shlaim, Avi. "Israel and the Arab Coalition in 1948", chapter 4 of Rogan and Shlaim (eds.), p. 81 (2007 edition,
   from the snippet's running head). Also his Oxford seminar page based on that chapter, archived copy:
