@@ -598,8 +598,8 @@ sources read, not a gazetteer check.
 
 ### 28. Beit Guvrin (בית גוברין), kibbutz
 
-- **Founded: [C].** Two days, 23 May and 2 June 1949, each in sources that cannot be told apart from the other's.
-  Tagged [V/S, agent read 2026-10-23; a person's check pending].
+- **Founded: [C].** Two dates, 23 May and 2 June 1949, each with its own sources; the sources give no way to choose between them.
+  Tag stays [C]; [V/S, agent read 2026-10-23; a person's check pending].
   - 23 May 1949: Gvati (23.5.49, HaKibbutz HaMeuhad, region "Lachish"); Palmach database, Beit Guvrin entry
     (itemId 7976): "founded on 23 May 1949 by members of three hachsharot", also headed "founded in May 1949". The
     database gives no ceremony and no source for the day. Our reading: 23 May 1949 was Monday, 24 Iyar 5709
@@ -609,12 +609,12 @@ sources read, not a gazetteer check.
     hachshara from Ein Harod, founded on 2 June 1949 kibbutz Beit Guvrin". The kibbutz's own site (Wayback copies of
     2015-08-18, betgovrin.org.il "About us" and "History"): "date of going onto the land: Thursday, eve of Shavuot, 5
     Sivan 5709, 2 June 1949", and "the ceremony of going onto the land was held on the eve of Shavuot 5709 (2 June 1949)
-    at ten in the morning", with the President, the Prime Minister and the Chief of Staff among the invited. English
-    Wikipedia (oldid 1375241236): founded "on the eve of Shavuot" 1949, no day and no citation for it. Our reading:
+    at ten in the morning", with President Weizmann, Prime Minister Ben-Gurion and Lt Gen Yaakov Dori among the invited. English
+    Wikipedia (oldid 1375241236): founded "on the eve of Shavuot" 1949, no day, and its only citation (Morris) covers the depopulation, not the Shavuot date. It names only Yetzivim and Bnei Horin as first residents, not Shalhevet. Our reading:
     2 June 1949 was Thursday, 5 Sivan 5709, "Erev Shavuot" in the Hebcal converter, so the kibbutz site's weekday,
     Hebrew day and Gregorian day agree with each other; Shavuot (6 Sivan) was 3 June.
-  - Gvati's narrative chapter (same book as the table) lists Beit Guvrin in the paragraph headed "Iyar (April 1949)",
-    not in the one headed "Sivan (May 1949)". Our reading: 24 Iyar 5709 falls inside Iyar, 5 Sivan does not, so the
+  - Gvati's narrative chapter (same book as the table) lists Beit Guvrin in the paragraph that opens "Iyar (April 1949)",
+    not in the one that opens "Sivan (May 1949)". Our reading: 24 Iyar 5709 falls inside Iyar, 5 Sivan does not, so the
     narrative sits with 23 May; Gvati's "(April)" gloss does not match Iyar 5709 (30 April to 28 May, from the Hebcal dates above), so
     this is weak evidence.
   - CBS and Hebrew Wikipedia (oldid 43555500): 1949 only.
@@ -625,7 +625,7 @@ sources read, not a gazetteer check.
     So the sources disagree on whether Shalhevet was there on the day. No source reached says 23 May was an earlier
     arrival of one group; that remains a guess and is not recorded as a finding.
   - The kibbutz site also says the group was sent "about eight months after the capture of the area" (the capture is
-    dated there 19 Tishrei 5709, 23 October 1948) as part of a Kibbutz HaMeuhad operation to settle 11 places.
+    dated there 19 Tishrei 5709; our reading, Hebcal converts that to 22 October 1948, while Hebrew Wikipedia's article gives 27 October 1948) as part of a Kibbutz HaMeuhad operation to settle 11 places.
 - **Not read.** No contemporary newspaper: nli.org.il returns HTTP 403 from here and no Wayback copy of a JPress page
   was found. Hebrew Wikipedia's kibbutz article gives no day and cites no newspaper. The Israel Land Authority's 2016
   conservation survey of Beit Guvrin
@@ -646,7 +646,7 @@ sources read, not a gazetteer check.
   https://en.wikipedia.org/w/index.php?oldid=1375241236 . Checked 2026-10-14. Added 2026-10-23:
   https://web.archive.org/web/20150818193517id_/http://www.betgovrin.org.il:80/%D7%90%D7%95%D7%93%D7%95%D7%AA%D7%99%D7%A0%D7%95/ ;
   https://web.archive.org/web/20150818193523id_/http://www.betgovrin.org.il:80/%D7%90%D7%95%D7%93%D7%95%D7%AA%D7%99%D7%A0%D7%95/%D7%94%D7%99%D7%A1%D7%98%D7%95%D7%A8%D7%99%D7%94/ ;
-  https://www.hebcal.com/converter?cfg=json&gy=1949&gm=6&gd=2&g2h=1 (also gm=5&gd=23). Page titles read: itemId 7976 "Beit Guvrin", itemId 5401 "Shalhevet, Apikim".
+  https://www.hebcal.com/converter?cfg=json&gy=1949&gm=6&gd=2&g2h=1 (also gm=5&gd=23, gm=4&gd=30, gm=5&gd=28, and gy=1948&gm=10&gd=22). Page titles read: itemId 7976 "Beit Guvrin", itemId 5401 "Shalhevet, Apikim".
 
 ### 29. Ahuzam (אחוזם), moshav
 
