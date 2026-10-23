@@ -72,7 +72,7 @@ The player can choose ministers. TBD: minister roles, available candidates, appo
 | Arab Legionnaire | Unit representing an Arab Legion soldier. | Equipment, movement, strength and behavior. |
 | Palestinian militia | Palestinian militia unit. | Equipment, movement, strength and behavior. |
 
-**Then decided (owner, 23 Oct 2026, "Two-way, keep training"; [#1511](https://github.com/eyalgolan/statecraft-israel/issues/1511#issuecomment-6372356482)):** craftsmen, halutzim and veteran pioneers can return to civilian life and keep their qualification, and a qualified civilian can be reassigned to the trained role without training again; the rule is built under #1511.
+**Then decided (owner, 23 Oct 2026, "Two-way, keep training"; [#1511](https://github.com/eyalgolan/statecraft-israel/issues/1511#issuecomment-6372356482)):** craftsmen, halutzim and veteran pioneers can return to civilian life and keep their qualification, and a qualified civilian can be reassigned to the trained role without training again; the rule is built under #1511 (R-QUAL-001 to R-QUAL-007).
 
 ### Movement and civilian actions
 
@@ -84,7 +84,8 @@ A civilian can be employed in an available city employment slot. A civilian can 
 
 Two transitions are defined:
 - civilian to recruit, through basic training;
-- civilian to Halutz, through pioneer training.
+- civilian to Halutz, through pioneer training;
+- craftsman, halutz and veteran pioneer back to civilian life, and a qualified civilian back into the trained role without training again (#1511, R-QUAL-001 to R-QUAL-007).
 
 These transitions are open:
 - refugee to civilian;

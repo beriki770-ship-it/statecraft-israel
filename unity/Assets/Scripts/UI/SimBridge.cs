@@ -57,6 +57,9 @@ namespace Statecraft.Game.UI
             AssignWorkers w => "work:" + w.City,
             Train t => "train:" + t.City + ":" + t.Track,
             CancelTraining x => FormattableString.Invariant($"untrain:{x.Cohort}"),
+            ReturnCraftsmen r => "retcraft:" + r.City,
+            ReassignCraftsmen r => "regcraft:" + r.City,
+            ReassignPioneers r => "regpioneer:" + r.City + ":" + r.Track,
             PioneerWork w => FormattableString.Invariant($"unit:{w.Unit}"),
             StopWork w => FormattableString.Invariant($"unit:{w.Unit}"),
             UnitOrder o => FormattableString.Invariant($"order:{o.Unit}"),
@@ -127,6 +130,10 @@ namespace Statecraft.Game.UI
                 case Train t:
                     return Unknown("city", t.City, Content.Cities.Select(x => x.Id))
                         ?? Unknown("training", t.Track, Content.UnitTypes.Where(x => !string.IsNullOrEmpty(x.Facility)).Select(x => x.Id));
+                // Return and reassignment (#1511): the city id only; the sim refuses a count, a track or a busy civilian with its own reason.
+                case ReturnCraftsmen r: return Unknown("city", r.City, Content.Cities.Select(x => x.Id));
+                case ReassignCraftsmen r: return Unknown("city", r.City, Content.Cities.Select(x => x.Id));
+                case ReassignPioneers r: return Unknown("city", r.City, Content.Cities.Select(x => x.Id));
                 case CancelTraining x:
                     return Unknown("cohort", x.Cohort.ToString(System.Globalization.CultureInfo.InvariantCulture), State.Cohorts.Keys.Select(k => k.ToString(System.Globalization.CultureInfo.InvariantCulture)));
                 // Pioneer work (#378, camp/field/swamp #1124, corridors #786): ids only; the sim refuses a busy unit, a built site or segment, a kind
