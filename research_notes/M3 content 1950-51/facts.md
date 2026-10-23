@@ -257,7 +257,7 @@ Read 2026-10-23 from the scanned page images of the two PDFs by Claude Code (an 
 | Asia | 57,760 | 103,327 | 237,378 | |
 | Iraq | 32,453 | 89,088 | 123,265 | 123,371 |
 | Iran | 10,519 | 9,444 | 21,784 | 21,910 |
-| Yemen | 8,650 | 698 | 45,279 (Yemen and Aden) | 48,315 (Yemen) |
+| Yemen | 8,650 | 698 | 45,279 (Yemen and Aden) | 48,315 ("Yemen" in the 4b list; whether Aden is included was not checked) |
 | Aden | 2,692 (Aden and other Asia) | 239 | see Yemen | |
 | Turkey | 2,439 | 1,198 | 34,294 | 34,547 |
 | Syria and Lebanon | 1,007 | 316 | 2,898 | |
@@ -266,7 +266,7 @@ Read 2026-10-23 from the scanned page images of the two PDFs by Claude Code (an 
 | Morocco, Algeria, Tunisia (one row) | 9,567 | 11,369 | 45,111 | 45,366 (28,263 + 13,293 + 3,810) |
 | Libya | 9,189 | 6,570 | 31,175 | 30,972 |
 | Union of South Africa | 183 | 43 | 621 | |
-| Other Africa (Egypt and Sudan are inside this row) | 6,881 | 2,142 | 16,388 | Egypt and Sudan 16,028 |
+| Other Africa (no Egypt or Sudan row is printed; that they fall here is our reading, not stated) | 6,881 | 2,142 | 16,388 | Egypt and Sudan 16,028 |
 | Europe | 83,337 | 49,535 | 331,299 | |
 | Romania | 46,178 | 40,208 | 117,660 | 117,950 |
 | Poland | 26,499 | 3,505 | 106,136 | 106,414 |
@@ -274,7 +274,7 @@ Read 2026-10-23 from the scanned page images of the two PDFs by Claude Code (an 
 | U.S.S.R. | 2,286 | 566 | 6,201 | |
 | Bulgaria | 960 | 1,161 | 37,210 | 37,260 |
 | Germany | 932 | 463 | 8,150 | 8,210 |
-| Czechoslovakia | 632 | 295 | 18,731 | 18,788 |
+| Czechoslovakia | 632 | 295 | 18,731 | 18,788 (parse slightly ambiguous, see the list above) |
 | Other Europe (the 9 smaller rows) | 3,129 | 2,064 | | |
 | America and Oceania | 1,006 | 671 | 3,516 | |
 | Not stated | 1,482 | 244 | 18,787 | |
@@ -283,16 +283,16 @@ Read 2026-10-23 from the scanned page images of the two PDFs by Claude Code (an 
   - 1950: 57,760 + 25,820 + 83,337 + 1,006 + 1,482 = 169,405, the printed total. Asia, Africa, Europe and America each equal the sum of their country rows.
   - 1951: 103,327 + 20,124 + 49,535 + 671 + 244 = 173,901, the printed total; the continents also equal their country rows. "Other Europe" above is our sum of Latvia/Lithuania, Yugoslavia, Greece, Austria, United Kingdom, Netherlands, France, Italy and "other countries", which the table prints one by one.
 - **Against the totals in 4a** [C]:
-  - These tables leave out the travellers permitted to settle in 1950 and 1951 (footnote to SA 2 Table 6, and SA 3 Table 3 note 1, printed p. 25). CBS *Statistical Abstract* No. 14 (1963), Table 3 "Immigrants and Tourists Settling, by Year (Jews)", printed p. 109 (PDF p. 134), adds them: **1950 = 170,249** (of which 844 tourists settling) and **1951 = 175,095** (of which 1,194). 169,405 + 844 = 170,249 and 173,901 + 1,194 = 175,095. https://www.cbs.gov.il/he/publications/DocLib/shnaton_saruk/shnaton1963_num14.pdf [V]
+  - The annual totals of 169,405 and 173,901 leave out the travellers permitted to settle in 1950 and 1951: SA 2 Table 2 "Jewish Immigrants", note 1 (printed p. 25), and SA 3 Table 3, note 1 (printed p. 25), both say "except those permitted to stay in 1950 and 1951"; SA 2 Table 2 gives 169,405 for 1950 (its 1951 row covers January to March only) and SA 3 Table 3 gives 169,405 and 173,901. Table 6 itself says so only indirectly (its footnote 4 includes such travellers for 1948 and 1949 only). CBS *Statistical Abstract* No. 14 (1963), Table 3 "Immigrants and Tourists Settling, by Year (Jews)", printed p. 109 (PDF p. 134), adds them: **1950 = 170,249** (of which 844 tourists settling) and **1951 = 175,095** (of which 1,194). 169,405 + 844 = 170,249 and 173,901 + 1,194 = 175,095. https://www.cbs.gov.il/he/publications/DocLib/shnaton_saruk/shnaton1963_num14.pdf [V]
   - Publication 1365 (2009) and the JVL table in 4a give 170,563 and 175,279: 314 more for 1950 and 184 more for 1951 than SA 14. The CBS volumes read here do not say where the later figures come from. [GAP]
   - The continents differ as well: for 1950, 4a has Asia 57,565, Africa 26,162, Europe 81,195, unknown 3,687, against 57,760, 25,820, 83,337 and 1,482 in SA 2. Our reading, not a CBS statement: the later series re-sorted some arrivals, so the per-country rows above should not be mixed with the 4a continent rows.
-  - The 1948–51 period column of SA 3 and Publication 1365 disagree by up to a few hundred per country; the largest gap is Yemen (45,279 for Yemen and Aden together in SA 3, against 48,315 for Yemen alone in Publication 1365). [C]
+  - The 1948–51 period column of SA 3 and Publication 1365 disagree: the totals by 3,349 (684,275 against 687,624), most country rows by under 300, and Yemen by 3,036 (45,279 for Yemen and Aden in SA 3, against 48,315 in Publication 1365). [C]
 - **Definitions:**
   - Country of birth for these years; the tables use nationality only for 1919–34 and for the 1946 visa-less immigrants (footnote 1 of both tables).
-  - The tables have no "potential immigrants" category; Publication 1365's 1950 line (170,215 "immigrants + potential immigrants") uses a later definition. Which arrivals the later category added for 1950 is not stated in the volumes read. [GAP]
+  - Tables 3 and 6 of both volumes have no "potential immigrants" category (the rest of each volume was not searched for one); Publication 1365's 1950 line (170,215 "immigrants + potential immigrants") uses a later definition. Which arrivals the later category added for 1950 is not stated in the volumes read. [GAP]
 - **Not in these tables** [GAP]:
   - Morocco, Tunisia and Algeria separately for 1950 or 1951 (one combined row in SA 2, SA 3 and SA 4).
-  - Egypt and Sudan for 1950 or 1951 (inside "other countries" of Africa).
+  - Egypt and Sudan for 1950 or 1951 (no row of their own; presumably inside "other countries" of Africa, not stated).
   - Aden separately for 1950 (one cell with "other countries" of Asia).
   - SA No. 4 (1952/53) Table 5 gives only the whole period 15 V 1948 – 31 XII 1952 and the year 1952, not 1950 or 1951 (printed p. 28). SA No. 14 Table 4 gives continents only. A later CBS series by year and country (for example a special-series volume on immigration 1948–72) was not found online.
 
