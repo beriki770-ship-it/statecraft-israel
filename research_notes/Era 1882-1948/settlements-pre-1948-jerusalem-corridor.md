@@ -27,7 +27,8 @@ here. Method, sources and tags are those of the Galilee note (#1429), the Haifa 
   chapter on the War of Independence in the same edition is used for the dates of 12 to 21 May
   1948 and is cited as "Gvati, narrative".
 - **Village Statistics 1945** (Government of Palestine), the archive.org scan
-  `Village Statistics 1945_djvu.txt` (checked 2026-10-23), Table I "Population and total land
+  https://archive.org/details/palestine-village-statistics-1945 and its text layer
+  (checked 2026-10-23), Table I "Population and total land
   areas" for the **Jerusalem sub-district**, which in 1945 also covered Bethlehem and Jericho. It is
   used only as a **presence check**: a Jewish locality named in a 1945 land unit existed by then. It
   is not a founding source, and it lists land units, so several localities are not named at all;
@@ -90,7 +91,7 @@ rename written out below.
 | מוצא עילית (Moza Illit) | 208 | 1933 | 31.79381, 35.15762 | הרי ירושלים, `1933`, מועצה מקומית | not listed by name (see Moza, part 3) | [V]; evacuated 1948, part 2 |
 | מעלה החמישה (Ma'ale HaHamisha) | 286 | 1938 | 31.81773, 35.11054 | הרי יהודה, `19.7.38`, האיחוד | not listed by name (our reading: possibly the Qiryat Anavim unit above) | [V]; part 2 |
 | כפר אוריה (Kefar Uriyya) | 364 | 1944 | 31.79261, 34.94732 | שפלת יהודה, `2.8.44`, תנועת המושבים | Ramle: "Kefar Uriya" (a Ramle sub-district table, not Jerusalem) | [V]; founded 1913, left 1929, part 2 |
-| נווה אילן (Newe Ilan) | 405 | 1946 | 31.80828, 35.08093 | הרי יהודה, `27.10.46`, האיחוד | not applicable, founded after 1945 | [V]; kibbutz 1946, present locality 1971, part 2 |
+| נווה אילן (Newe Ilan) | 405 | 1946 | 31.80828, 35.08093 | הרי יהודה, `27.10.46`, האיחוד | not applicable, founded after 1945 | [V]; kibbutz 1946, present village 1971-72, part 2 |
 | ירושלים (Jerusalem) | 3000 | ותיק | 31.78381, 35.22047 | [GAP] no row | Jerusalem: "Jerusalem (Urban)" | pre-1882 city; no founding date sought |
 
 All six CBS rows have a Gvati row (6 of 6), and CBS and Gvati give the same year in every one.
@@ -161,7 +162,7 @@ Hebrew Wikipedia pages below were read at the `oldid` given, checked 2026-10-23.
 - **Our reading:** CBS's 1946 and Gvati's day are the kibbutz that was dissolved in 1956; the locality
   on CBS's coordinate is the cooperative village of the 1970s on a neighbouring hill ("על גבעה בכניסה
   לנווה אילן" is how the article places the historic site). No coordinate for the 1946 site here.
-  [GAP] For the later settlement the article gives the first members arriving in 1970, living on site from 1972, and the cornerstone on 27 September 1971.
+  [GAP] For the later settlement the article gives the first members arriving in Israel in 1970, six families living on the site from 1972, and the cornerstone on 27 September 1971.
 
 ## 3. Places that stood before 15 May 1948 and are not CBS localities today
 
@@ -232,7 +233,7 @@ rows with later years for `בית הערבה` (code 3645, 1980, Jordan-Jericho s
 - Gvati, narrative, names it among the nine places "שפונו מיושביהם ונכבשו על־ידי האויב". Not in the
   appendix. [checked 2026-10-23: no row] **Our reading:** the Jerusalem sub-district table also
   lists Jericho, but no source read here puts Beit HaArava's land unit in it, and the table does not
-  name it. Sub-district [GAP]. **Evacuated 17 to 20 May 1948.** Coordinate: [GAP].
+  name it. Sub-district [GAP]. **Non-combatants ordered out 15 May 1948** ("ב-15 במאי 1948 ניתנת הוראה להוציא את האוכלוסייה הבלתי-לוחמת מבית הערבה"); **evacuation decided 17 May and complete by 20 May 1948.** [S, Wikipedia] Coordinate: [GAP].
 
 ### Gush Etzion: Kefar Etzion, Masuot Yitzhak, Ein Tzurim and Revadim
 - Four kibbutzim (Gvati, narrative: "ארבעה קיבוצים היו בגוש: כפר־עציון, משׂוּאוֹת, עין־צורים
