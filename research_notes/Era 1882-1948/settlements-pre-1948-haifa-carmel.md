@@ -40,7 +40,8 @@ here. Method, sources and tags are those of the Galilee note (#1429) and the Neg
   cited by `oldid`. It is a lead and a cross-check, not an authority; a fact resting on it alone is
   marked **[S, Wikipedia]**. Where an article cites a newspaper item that was not opened here, the
   note says so. Quotes keep the source's wording; double quote marks inside a Hebrew quote are
-  printed as single quotes.
+  printed as single quotes; gershayim in Hebrew dates and abbreviations (for example
+  תרפ"ד) are kept as printed.
 
 **Tags**, as in `settlements-1949-51.md`:
 - **[V] verified**: two independent sources agree. For a founding year that is CBS and Gvati;
@@ -72,9 +73,10 @@ Excluded:
 - The rest of the Hadera sub-district (natural regions 323 and 324: Hadera, Binyamina-Giv'at Ada,
   Pardes Hanna-Karkur, Gan Shemu'el, Ein Shemer and others), left for a coastal plain and Sharon
   note.
-- Kefar Masaryk, Ein HaMifratz and Afek, which the 1945 table places in the Haifa sub-district but
-  CBS places in the Acre sub-district. They are in the Galilee note (#1429) and are not counted
-  again.
+- Kefar Masaryk, Ein HaMifratz and Afek, which CBS places in the Acre sub-district. The 1945 Haifa
+  table names the first two (in the unit "‘Emeq Zevulun (Jidru Ghawarina), Kefar Masaryk and ‘Ein
+  ham Mifrats"); Afek is not named in it. All three are in the Galilee note (#1429) and are not
+  counted again.
 - The Ramot Menashe kibbutzim that Gvati files under `רמת מנשה` (for example Ein HaShofet, 1937,
   and Ramat HaShofet, 1941), which CBS places in the **Jezreel** sub-district; they are for a valleys
   note.
@@ -194,10 +196,10 @@ Hebrew Wikipedia pages below were read at the `oldid` given, checked 2026-10-23.
 
 ### Usha (CBS 278) and Ramat Yohanan (CBS 178)
 - Usha: CBS **1937**; Gvati `8.36`. he.wiki `אושה`, oldid **42228936**: "קיבוץ אושה נוסד בקיץ 1937
-  בשם 'אושא'"; "באוגוסט 1937 נמצאה פשרה ... ושני הפלגים עלו להתיישבות במרחק של כמה מאות מטרים זה
+  בשם 'אושא' ..."; "באוגוסט 1937 נמצאה פשרה ... ושני הפלגים עלו להתיישבות במרחק של כמה מאות מטרים זה
   מזה"; and of the name, "תחילה, בראשית שנות השלושים, ניתן השם לקיבוץ הנקרא היום רמת יוחנן".
   [S, Wikipedia]
-- **[C] Usha:** Gvati August 1936 against CBS 1937 and he.wiki August 1937. **Our reading:** use
+- **[C] Usha:** Gvati August 1936 (`8.36` read as month.year, like `6.1889` and `10.24`) against CBS 1937 and he.wiki August 1937. **Our reading:** use
   August 1937; CBS and the article agree on the year, and Gvati's month matches the article's month
   a year earlier, which may be a misprint, but no source read here says so.
 - Ramat Yohanan: CBS **1932**; Gvati `7.11.32`. he.wiki `רמת יוחנן`, oldid **42229041**: "בשמחת תורה
@@ -347,15 +349,15 @@ is proposed about how it appears in the game. None is a CBS locality under its o
 - [GAP] **Completeness of part 3.** Part 3 lists the abandoned and merged places found from the CBS
   rows' own histories and the 1945 land units. It is not shown to be complete. Village Statistics
   1945 also names "Ya‘arot hak Karmel (previously Khirbat Shallala)" and "Giv‘ot Zeid (previously
-  part of Esh Sheikh Bureik)"; the first may be Bet Oren's first site (part 2), the second is likely
-  in the Jezreel sub-district today; neither was checked further.
+  part of Esh Sheikh Bureik)"; the first may be Bet Oren's first site (part 2), for the second, CBS has no
+  row of that name; neither was checked further.
 - [GAP] **Census of Palestine 1931**: not used (no usable text layer, see #1429).
 - [GAP] **Coordinates of abandoned, moved and merged places**: none has one here.
 - [GAP] **Rename years** for Zamarin, Kfar Ata, Ma'apilim, Ramat HaTzafon and the first name of
   Kiryat Bialik are not in the passages read.
 - **Gvati day versus CBS year.** Where they agree on the year the row is [V]; the day rests on Gvati
   alone, and as `settlements-1949-51.md` notes, it can be a day or more off other sources. Eight of
-  the 22 rows (Nesher, the Krayot, Kiryat Tiv'on, Meir Shefeya and Kfar HaNo'ar HaDati) have no Gvati
+  the 22 rows (Haifa, outside the 22, has none either) (Nesher, the Krayot, Kiryat Tiv'on, Meir Shefeya and Kfar HaNo'ar HaDati) have no Gvati
   row, so their year rests on CBS with Wikipedia beside it.
 - **Not done:** no hex, no game date, no rule for which of two dates the game should use. Those
   belong to #61 and to the owner's sensitivity review.
