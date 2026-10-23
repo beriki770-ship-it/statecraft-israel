@@ -12,6 +12,10 @@ namespace Statecraft.Sim
     {
         /// <summary>The <see cref="State"/> of a target the player has captured and has not yet chosen an outcome for.</summary>
         public const string AwaitingChoice = "awaiting_choice";
+        /// <summary>The <see cref="State"/> of a place the player occupies while its timer runs (R-CTRL-011, R-CTRL-012).</summary>
+        public const string Occupied = "occupied";
+        /// <summary>The <see cref="State"/> of an occupied place whose timer has ended: it awaits EndOccupation (Phase 6 PR 7).</summary>
+        public const string AwaitingEnd = "awaiting_end";
 
         /// <summary>Resolver step 3 (R-CTRL-004, R-CTRL-005), after combat, in ordinal settlement id. A curated target that
         /// starts under enemy control (on mvp.enemy_held_localities, owner, 21 October 2026, #796) is captured when the
@@ -75,14 +79,14 @@ namespace Statecraft.Sim
         static double Indicator(GameState s, string id) => s.Indicators.TryGetValue(id, out var v) ? v : 0;
 
         /// <summary>R-CTRL-007: carries out ResolveCapture. Null when done, else the reason, with the state unchanged: the place
-        /// is not awaiting the choice, the outcome is not known, or it is not built yet (Occupy is PR 6, Deport PR 8).</summary>
+        /// is not awaiting the choice, the outcome is not known, or it is not built yet (Deport is PR 8).</summary>
         internal static string? Resolve(Content c, GameState s, string id, string outcome, List<Cause> why)
         {
             if (NotAwaiting(s, id) is string no) return no;
             switch (outcome)
             {
                 case Raid: return Withdraw(c, s, id, why, false);
-                case Occupy: return "Occupy is not built yet";
+                case Occupy: return StartOccupation(c, s, id, why);
                 case Deport: return "Deport is not built yet";
                 default: return "That outcome is not known";
             }
@@ -124,6 +128,25 @@ namespace Statecraft.Sim
             return null;
         }
 
+        /// <summary>R-CTRL-011, R-CTRL-012 (Q-OCC-1 (a), Q-OCC-3 (a)): Occupy keeps the place under the player's control and
+        /// starts its timer at mvp.occupation_turns, the one X for every place. It needs an Israeli military unit on the hex,
+        /// the one unit that stays (a halutz holds nothing, #796), and is refused with the state unchanged otherwise. It moves
+        /// no unit, and it changes no resident field (R-CTRL-003): only the record's state and timer.</summary>
+        static string? StartOccupation(Content c, GameState s, string id, List<Cause> why)
+        {
+            var t = c.SettlementTargets.First(x => x.Id == id);   // only a target gets a record (R-CTRL-004)
+            var name = c.SettlementNames[id];
+            if (!Garrisoned(s, t)) return $"Occupy needs an Israeli military unit on {name}";
+            var x = s.Settlements[id];
+            var turns = c.RulesAt(s.Date).Mvp!.OccupationTurns!.Value;
+            s.Settlements[id] = new SettlementControl(x.Owner, Occupied, x.Since, x.Depopulated, x.Combatants, x.Buildings, turns);
+            why.Add(new Cause("map", id, turns, FormattableString.Invariant($"{name} is occupied for {turns} turns: an Israeli unit stays there. Its residents are unchanged")));
+            return null;
+        }
+
+        /// <summary>Whether an Israeli military unit is on <paramref name="t"/>'s hex (a halutz has no side, R-UNIT-001).</summary>
+        static bool Garrisoned(GameState s, SettlementTarget t) => s.Units.Values.Any(u => u.Q == t.Q && u.R == t.R && u.Side == Movement.PlayerSide);
+
         static bool IsEnemy(Unit u) => u.Side != "" && u.Side != Movement.PlayerSide;
 
         static bool Free(Content c, GameState s, Unit u, int q, int r) =>
@@ -140,6 +163,34 @@ namespace Statecraft.Sim
             {
                 why.Add(new Cause("map", id, 0, $"{c.SettlementNames[id]}: no decision was made before the end, so it counts as a raid"));
                 Withdraw(c, s, id, why, true);   // at the end it never refuses
+            }
+        }
+
+        /// <summary>Resolver step 10, the occupation timers, in ordinal id order (R-CTRL-011 to R-CTRL-013). An occupied place
+        /// with no Israeli military unit left on its hex has been withdrawn from before the timer ended, which is a Raid
+        /// (Q-OCC-2 (a)): its record goes, so it is under enemy control again, its residents unchanged, and nothing is paid.
+        /// Every other occupation pays mvp.occupation_upkeep_per_turn (Q-OCC-1 (a)), the wait for EndOccupation included, and a
+        /// running timer counts one turn down; at 0 the place awaits EndOccupation (Phase 6 PR 7). It draws nothing from the
+        /// RNG.</summary>
+        internal static void Tick(Content c, GameState s, MvpRules r, List<Cause> why)
+        {
+            foreach (var id in s.Settlements.Where(kv => kv.Value.State == Occupied || kv.Value.State == AwaitingEnd).Select(kv => kv.Key).ToList())   // ordinal
+            {
+                var x = s.Settlements[id];
+                var name = c.SettlementNames[id];
+                if (!Garrisoned(s, c.SettlementTargets.First(t => t.Id == id)))
+                {
+                    s.Settlements.Remove(id);
+                    why.Add(new Cause("map", id, 0, $"{name}: no Israeli unit holds it any more, so the occupation ended as a raid. It is under enemy control again. Its residents are unchanged"));
+                    continue;
+                }
+                EconomySystem.PayOrBorrow(c, s, r.OccupationUpkeepPerTurn!.Value, $"for the occupation of {name}", why);
+                if (x.State == AwaitingEnd) continue;
+                var left = x.Turns - 1;
+                s.Settlements[id] = new SettlementControl(x.Owner, left == 0 ? AwaitingEnd : Occupied, x.Since, x.Depopulated, x.Combatants, x.Buildings, left);
+                why.Add(new Cause("map", id, left, left == 0
+                    ? $"{name}: the occupation period has ended. It awaits a decision"
+                    : FormattableString.Invariant($"{name}: {left} turns of occupation left")));
             }
         }
 

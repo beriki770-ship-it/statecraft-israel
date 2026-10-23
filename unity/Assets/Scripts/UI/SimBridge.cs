@@ -84,6 +84,10 @@ namespace Statecraft.Game.UI
         /// side menu's Cabinet badge (#1109).</summary>
         public IReadOnlyList<Office> Vacancies => Cabinet.Vacancies(Content, State, queue);
 
+        /// <summary>Whether the Budget screen's <paramref name="draft"/> is not what End turn will apply and Submit can apply it
+        /// (EconomySystem.Unsubmitted): the side menu's Budget badge (#1109).</summary>
+        public bool BudgetUnsubmitted(IReadOnlyDictionary<string, double> draft) => EconomySystem.Unsubmitted(Content, State, draft, queue);
+
         /// <summary>Attention left after paying for the queued orders at this turn's prices.</summary>
         public double AttentionLeft => AttentionSystem.Left(Content, State, queue);
 

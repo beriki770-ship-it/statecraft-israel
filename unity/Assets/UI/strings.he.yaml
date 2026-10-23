@@ -31,6 +31,9 @@ hud.nav.cabinet: "ממשלה"
 # The Cabinet disc's tip while a seat is vacant that the player can fill (#1109). For the native reviewer (#564).
 hud.nav.cabinet_vacant: "ממשלה: יש תפקיד פנוי. אפשר למנות אליו מישהו."
 hud.nav.budget: "תקציב"
+# The Budget disc's tip while the Budget screen has changes that are not submitted and could be (#1109). For the native reviewer (#564).
+# Approved by Beri, a native speaker, on #1352 (22 Oct 2026).
+hud.nav.budget_unsubmitted: "תקציב: השינויים עוד לא הוגשו. בלי הגשה, סיום התור לא יחיל אותם."
 hud.nav.defence: "ביטחון"
 hud.nav.why: "למה?"
 hud.nav.how_to_play: "איך משחקים"

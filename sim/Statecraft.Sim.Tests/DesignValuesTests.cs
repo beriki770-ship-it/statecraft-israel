@@ -189,6 +189,9 @@ public class DesignValuesTests
         ("rules.yaml", "mvp.prisoner_shortfall_cohesion"),
         ("rules.yaml", "mvp.points_per_prisoner_unit_returned"),
         ("rules.yaml", "mvp.held_soldier_cost_per_turn"),
+        // Occupation (Phase 6 PR 6, #798; Q-OCC-1 (a), Q-OCC-3 (a)): proposed on #798 and #1324, accepted by the owner on 22 October 2026 (#1324).
+        ("rules.yaml", "mvp.occupation_turns"),
+        ("rules.yaml", "mvp.occupation_upkeep_per_turn"),
     }.Concat(CombatTableCells()).ToArray();
 
     /// <summary>rules.yaml mvp.combat_table, every cell: its five rows (below 1:2, 1:2, 1:1, 2:1, 3:1) with their start ratio
@@ -295,6 +298,7 @@ public class DesignValuesTests
         Assert.Equal((0.05, 6), (m.MilitaryUpkeepPerTurn, m.VeteranSoldierService)); // Q-GEN-1: owner-accepted initial design values (19 October 2026), not history.
         Assert.Equal((1, 5, 6), (m.ArmsPerAttack, m.CombatTable.Count, m.CombatTable[0].AttackerLoss.Count));   // #747 (D-G6, D-G3), accepted by the owner 20 Oct 2026
         Assert.Equal((1, 0.01, 10, 0.005), (m.FoodPerPrisonerUnit, m.PrisonerShortfallCohesion, m.PointsPerPrisonerUnitReturned, m.HeldSoldierCostPerTurn));   // #751 (Q-POW-2, Q-POW-4, Q-POW-5), accepted by the owner (owner, 21 October 2026, #751)
+        Assert.Equal((6, 0.005), (m.OccupationTurns, m.OccupationUpkeepPerTurn));   // #798 (Q-OCC-1 (a), Q-OCC-3 (a)): proposed, for owner override
         Assert.Equal(12, c.Cities.Count);
         foreach (var x in c.Cities)   // the listed housing and job values are the ones Cities.Init starts from
             Assert.Equal(((int)x.Housing!.Value, (int)x.Jobs!.Value), (x.HousingCapacity, x.JobSlots));
