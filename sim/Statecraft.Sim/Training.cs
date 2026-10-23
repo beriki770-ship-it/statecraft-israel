@@ -95,11 +95,17 @@ namespace Statecraft.Sim
             var type = c.UnitTypes.First(t => t.Id == u.Type);
             var course = c.UnitTypes.FirstOrDefault(t => t.Side == type.Side && t.Class == type.Class && t.Facility != "");
             if (course == null) return FormattableString.Invariant($"Unit {unit} cannot take replacements");
-            var room = (u.Full == 0 ? u.Strength : u.Full) - u.Strength - s.Cohorts.Values.Where(k => k.Unit == unit).Sum(k => k.Count);
+            var room = Room(s, u);
             if (room <= 0) return FormattableString.Invariant($"Unit {unit} has no losses to replace");
             if (count > room) return FormattableString.Invariant($"Unit {unit} can take {Groups(room)} more").Replace(" groups more", " more groups").Replace(" group more", " more group");
             return Start(c, s, city, course.Id, count, why, unit);
         }
+
+        /// <summary>R-TRAIN-004: the groups <paramref name="u"/> can still take: the strength it had before its first loss, less
+        /// its strength and the replacements already training for it (0 for a unit that has lost nobody). The unit card reads
+        /// it for the Reinforce button's count.</summary>
+        public static int Room(GameState s, Unit u) =>
+            (u.Full == 0 ? u.Strength : u.Full) - u.Strength - s.Cohorts.Values.Where(k => k.Unit == u.Id).Sum(k => k.Count);
 
         static string? Start(Content c, GameState s, string city, string track, int count, List<Cause> why, int? unit)
         {
