@@ -167,10 +167,12 @@ page does not say which.
   organisation and propaganda of the Keren Hayesod Head Office") against £P 19,977,000 (Survey II, Keren Hayesod,
   1921-1945). The scopes are not the same; neither is preferred. The Survey's split: agricultural settlement 5,892,000,
   urban development 1,364,000, education 2,269,000, immigration 3,604,000, public works 2,823,000.
-- Kaplan's spending table (p. 114) has one printed total that does not add: the immigration and settlement total for
+- Kaplan's spending table (p. 114) has two printed totals that do not add. The immigration and settlement total for
   the whole period is printed 12,586,000, but its four items (3,590,000 + 5,917,000 + 2,005,000 + 1,374,000) and its two
   period columns (5,367,000 + 7,519,000) both give 12,886,000 (derived), which also matches its 64.8 per cent. The
-  other totals check.
+  "Social Welfare and Health" total for the whole period is printed 447,000, but 375,000 + 52,000 = 427,000 (derived).
+  With 427,000 the Public Services total (6,998,000) adds up and the 2.1 per cent fits; with 447,000 it would be
+  7,018,000 (derived).
 
 ### 1d. Security inside the Jewish Agency's own accounts
 
@@ -234,8 +236,8 @@ content work needs a value that this note does not have: [GAP].
 - [C] founding dates: Survey I p. 376 says the JNF "was established in 1901" and Keren Hayesod "in 1920" (p. 377);
   Survey II p. 912 says "Keren Kayemeth Leisrael Ltd. ... established in 1907" and "Keren Hayesod Ltd. ... established
   in 1921". My reading: Survey II dates the limited companies. Prefer 1901 and 1920 for the funds.
-- Survey II p. 914: the image reads 4,888,179 for Keren Hayesod's agricultural settlement 1921-1944, which does not
-  make the printed column total. Only 4,388,179 makes the printed column total of 9,944,241 (derived: 2,710,524 +
+- Survey II p. 914: the image reads 4,388,179 for Keren Hayesod's agricultural settlement 1921-1944; the text layer
+  reads 4,888,179. The image value makes the printed column total of 9,944,241 (derived: 2,710,524 +
   4,388,179 + 1,605,439 + 1,240,099 = 9,944,241). Keren Kayemeth's column checks. The table's "Total" column is not
   the sum of its six fund columns (for contributions the six give 29,178,245, derived, and the column prints
   29,892,961), so this note uses only the single-fund columns.
@@ -272,7 +274,7 @@ content work needs a value that this note does not have: [GAP].
 |---|---|---|
 | 1939 | a budget proposal to Ben-Gurion of 610,000 £P [FTS] | Slutsky |
 | 1946 | [C] **"less than £400,000"** (Perlmutter 1969) [FTS] / £400,000 (en.wiki Haganah, "Research by Amos Perlmutter") [S] | |
-| October 1947 | £3.3 million [S], not confirmed in any source opened: [GAP] for a primary or scholarly source | en.wiki Haganah |
+| October 1947 | £3.3 million [FTS] | Perlmutter 1969 |
 | A year not given | "Haganah's total budget of £230,000", of which the Palmach got £23,000 [FTS] | Perlmutter 1969 |
 | Any other year | [GAP] | |
 
@@ -282,9 +284,12 @@ content work needs a value that this note does not have: [GAP].
 - en.wiki Haganah (revision 1381414127): "Research by Amos Perlmutter estimated that the Haganah budget in 1946 was
   £400,000, and by October 1947 its budget had reached £3.3 million. The same source estimated that the membership of
   the Haganah was 7% of the Jewish population in Palestine." Its footnote does not cite Perlmutter: it cites
-  "*Middle East International* No 5, August 1971, Publishers Lord Mayhew; Quoted by John Richmond p. 33". So the
-  design's anchor reaches Perlmutter only through a magazine quoted in a third book. The full-text search found no
-  "£3.3 million" or "3,300,000" beside the Haganah in Perlmutter 1969.
+  "*Middle East International* No 5, August 1971, Publishers Lord Mayhew; Quoted by John Richmond p. 33".
+- Perlmutter 1969, as indexed in three copies (militarypolitics0000perl_q2d0, militarypolitics0000unse,
+  bwb_T5-CRO-549): "By October 1947, only six months after Ben Gurion had taken charge of defence matters, Haganah's
+  budget had risen to £3-3 million, the highest in Haganah history" [FTS]. The OCR prints the decimal as "£3:3" or
+  "£3-3". The indexed snippet has a stray mark after "million", probably a footnote number; the page and footnote were
+  not seen. Search: https://archive.org/search?query=%22highest+in+Haganah+history%22&sin=TXT
 - The Perlmutter "£230,000" snippet: "meagre Haganah support (out of Haganah's total budget of £230,000, Palmach was
   alloted only £23,000" (spelling as indexed). The year is not in the snippet: [GAP].
 - The Slutsky snippet for 1939 comes from the source notes: after citing the budget text in Ben-Gurion's archive, file
@@ -360,8 +365,8 @@ Not values for the game, only which sourced numbers bear on which key in §5.3 a
   (1a); Survey II's 1944-45 Keren Hayesod expenditure.
 - The levy (`levy_policy: voluntary_levy`): Kofer HaYishuv's 5699 and 5700 income exists only as [FTS]; every later
   year is a gap.
-- `mobilization_cost_per_year`: the 1946 Haganah figure is "less than £400,000" [FTS]; the October 1947 figure is
-  unconfirmed. The security lines in 1d are an upper context, not the Haganah budget.
+- `mobilization_cost_per_year`: the 1946 Haganah figure is "less than £400,000" [FTS]; the October 1947 figure is £3.3
+  million [FTS]. The security lines in 1d are an upper context, not the Haganah budget.
 - Land held against the JNF figure for 1948 (§9): Survey I Table 4 stops at 1944 (758,200 dunums); 1948 is a gap.
 - `currency.yaml` (#66): the dates in §5.
 
@@ -376,7 +381,7 @@ Population per head for any of these is in the population note
 - A yearly JNF land-spending series, and JNF land held in 1948.
 - Kofer HaYishuv income after 5700, and the emergency tax and mobilisation appeal yields; a primary source for their
   1940 and 1942 start dates.
-- Any Haganah budget other than the 1946 figure; a primary or scholarly source for £3.3 million by October 1947.
+- Any Haganah budget other than the 1946 and October 1947 figures.
 - The date the Ottoman lira stopped being legal tender outright.
 - A primary statement of the 1952 exchange rate between the Palestine pound and the Israeli pound.
 
