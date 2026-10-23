@@ -142,7 +142,7 @@ namespace Statecraft.Sim
             if (count > idle) return FormattableString.Invariant($"{name} has {idle} civilians without work");
             var hex = c.SettlementHexes.First(h => h.Id == city);   // every settlement has one (ValidateMap)
             var q = x.Qualified;
-            // R-QUAL-005: the most service first (proposed, the ruling names no order). A veteran comes back with the service
+            // R-QUAL-005: the most service first (owner, 24 October 2026: "Accept all as built", https://github.com/eyalgolan/statecraft-israel/issues/1511#issuecomment-6375597377). A veteran comes back with the service
             // that made it one (R-VET-001).
             var served = veteran ? new int[count] : q.Halutzim.Skip(q.Halutzim.Count - count).Reverse().ToArray();
             for (int i = 0; i < count; i++)
