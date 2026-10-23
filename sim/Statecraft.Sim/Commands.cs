@@ -85,6 +85,34 @@ namespace Statecraft.Sim
         public CancelTraining(int cohort) { Cohort = cohort; }
     }
 
+    /// <summary>Returns <see cref="Count"/> of <see cref="City"/>'s craftsmen to civilian life, keeping their qualification
+    /// (Qualification.ReturnCraftsmen, R-QUAL-002). GDD v0.1 loop only.</summary>
+    public sealed class ReturnCraftsmen : Command
+    {
+        public override string Kind => Qualification.ReturnCraftsmenKind;
+        public string City { get; } public int Count { get; }
+        public ReturnCraftsmen(string city, int count) { City = city; Count = count; }
+    }
+
+    /// <summary>Puts <see cref="Count"/> of <see cref="City"/>'s qualified craftsmen back among its craftsmen, with no
+    /// training (Qualification.ReassignCraftsmen, R-QUAL-004). GDD v0.1 loop only.</summary>
+    public sealed class ReassignCraftsmen : Command
+    {
+        public override string Kind => Qualification.ReassignCraftsmenKind;
+        public string City { get; } public int Count { get; }
+        public ReassignCraftsmen(string city, int count) { City = city; Count = count; }
+    }
+
+    /// <summary>Puts <see cref="Count"/> of <see cref="City"/>'s qualified halutzim (<see cref="Track"/> `halutz`) or veteran
+    /// pioneers (`veteran_halutz`) back on the map as units, with no training (Qualification.ReassignPioneers, R-QUAL-005).
+    /// GDD v0.1 loop only.</summary>
+    public sealed class ReassignPioneers : Command
+    {
+        public override string Kind => Qualification.ReassignPioneersKind;
+        public string City { get; } public string Track { get; } public int Count { get; }
+        public ReassignPioneers(string city, string track, int count) { City = city; Track = track; Count = count; }
+    }
+
     /// <summary>Sends halutz unit <see cref="Unit"/> to do pioneer work <see cref="Action"/> (build_yishuv) at designated site
     /// <see cref="Site"/> (Projects.Start, R-SITE-001). GDD v0.1 loop only.</summary>
     public sealed class PioneerWork : Command
@@ -205,6 +233,9 @@ namespace Statecraft.Sim
                     case AssignWorkers w: Text(w.City, "City"); Text(w.Role, "Role"); break;
                     case Train t: Text(t.City, "City"); Text(t.Track, "Track"); break;
                     case CancelTraining _: break;
+                    case ReturnCraftsmen r: Text(r.City, "City"); break;
+                    case ReassignCraftsmen r: Text(r.City, "City"); break;
+                    case ReassignPioneers r: Text(r.City, "City"); Text(r.Track, "Track"); break;
                     case PioneerWork p: Text(p.Action, "Action"); Text(p.Site, "Site"); break;
                     case StopWork _: break;
                     case UnitOrder o: Text(o.Order, "Order"); break;

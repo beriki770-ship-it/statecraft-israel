@@ -66,28 +66,34 @@ namespace Statecraft.Sim
         /// <summary>The city's housing condition, 0 to 1, an average over the city (GDD "Housing condition"; D-D2, Q-HOUSE-2;
         /// R-HOUSE-001). Null only on a record made without one (a test's hand-built city); every GDD game's cities have one.</summary>
         public double? Condition { get; }
+        /// <summary>The civilians who keep a pioneer's or craftsman's qualification (R-QUAL-001): part of <see cref="Civilians"/>,
+        /// not in addition to them. <see cref="Qualified.None"/> in every city until someone returns to civilian life.</summary>
+        public Qualified Qualified { get; }
 
         public City(string id, int housingCapacity, int jobSlots, int civilians, int employed, int refugees, int recruits = 0,
-            double? condition = null, int craftsmen = 0, bool jobsDefault = true)
+            double? condition = null, int craftsmen = 0, bool jobsDefault = true, Qualified? qualified = null)
         {
             Id = id; HousingCapacity = housingCapacity; JobSlots = jobSlots; Civilians = civilians; Employed = employed; Refugees = refugees;
-            Recruits = recruits; Condition = condition; Craftsmen = craftsmen; JobsDefault = jobsDefault;
+            Recruits = recruits; Condition = condition; Craftsmen = craftsmen; JobsDefault = jobsDefault; Qualified = qualified ?? Qualified.None;
         }
 
         /// <summary>The same city with new population counts.</summary>
-        public City WithCounts(int civilians, int employed, int refugees) => new City(Id, HousingCapacity, JobSlots, civilians, employed, refugees, Recruits, Condition, Craftsmen, JobsDefault);
+        public City WithCounts(int civilians, int employed, int refugees) => new City(Id, HousingCapacity, JobSlots, civilians, employed, refugees, Recruits, Condition, Craftsmen, JobsDefault, Qualified);
 
         /// <summary>The same city with a new number of recruits.</summary>
-        public City WithRecruits(int recruits) => new City(Id, HousingCapacity, JobSlots, Civilians, Employed, Refugees, recruits, Condition, Craftsmen, JobsDefault);
+        public City WithRecruits(int recruits) => new City(Id, HousingCapacity, JobSlots, Civilians, Employed, Refugees, recruits, Condition, Craftsmen, JobsDefault, Qualified);
 
         /// <summary>The same city with a new number of craftsmen.</summary>
-        public City WithCraftsmen(int craftsmen) => new City(Id, HousingCapacity, JobSlots, Civilians, Employed, Refugees, Recruits, Condition, craftsmen, JobsDefault);
+        public City WithCraftsmen(int craftsmen) => new City(Id, HousingCapacity, JobSlots, Civilians, Employed, Refugees, Recruits, Condition, craftsmen, JobsDefault, Qualified);
 
         /// <summary>The same city with its job default on or off.</summary>
-        public City WithJobsDefault(bool enabled) => new City(Id, HousingCapacity, JobSlots, Civilians, Employed, Refugees, Recruits, Condition, Craftsmen, enabled);
+        public City WithJobsDefault(bool enabled) => new City(Id, HousingCapacity, JobSlots, Civilians, Employed, Refugees, Recruits, Condition, Craftsmen, enabled, Qualified);
 
         /// <summary>The same city with a new housing condition.</summary>
-        public City WithCondition(double condition) => new City(Id, HousingCapacity, JobSlots, Civilians, Employed, Refugees, Recruits, condition, Craftsmen, JobsDefault);
+        public City WithCondition(double condition) => new City(Id, HousingCapacity, JobSlots, Civilians, Employed, Refugees, Recruits, condition, Craftsmen, JobsDefault, Qualified);
+
+        /// <summary>The same city with new qualified civilians (R-QUAL-001).</summary>
+        public City WithQualified(Qualified qualified) => new City(Id, HousingCapacity, JobSlots, Civilians, Employed, Refugees, Recruits, Condition, Craftsmen, JobsDefault, qualified);
 
         /// <summary>The record as the state hash writes it. The recruits are written only when there are some, the condition
         /// only when it is set (",c" and its 64 bits in hex; readable, the value and then the bits), the craftsmen only when
@@ -105,7 +111,7 @@ namespace Statecraft.Sim
             }
             if (Craftsmen != 0) text += ",craftsmen=" + Craftsmen.ToString(CultureInfo.InvariantCulture);
             if (!JobsDefault) text += ",jobs=manual";
-            return text;
+            return text + Qualified.Canonical();
         }
     }
 
