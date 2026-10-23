@@ -109,8 +109,9 @@ namespace Statecraft.Game.UI
             return lines;
         }
 
-        /// <summary>#1293: every order the enemy AI gave in the last turn, as the sim names it on its cause (Cause.EnemyOrder,
-        /// R-ENEMY-001), in the sim's order, in the player's language: Message is English only. The unit is named by its row
+        /// <summary>#1293: every order the enemy AI gave in the last turn, and every attack its units made, a standing one too
+        /// (#1297), as the sim names it on its cause (Cause.EnemyOrder, R-ENEMY-001), in the sim's order, in the player's
+        /// language: Message is English only. The unit is named by its row
         /// (unit i of a new game is StartingForces[i], R-UNIT-006), in Hebrew by its name_he where it has one.</summary>
         static IReadOnlyList<string> EnemyOrders(SimBridge bridge, UiText text, IReadOnlyList<UnitEntry>? units)
         {
@@ -123,8 +124,11 @@ namespace Statecraft.Game.UI
                 if (row == null) return text.Format("report.unit", id);
                 return hebrew && !string.IsNullOrEmpty(row.NameHe) ? row.NameHe : row.Name;
             }
+            // An engagement (#1297) names its enemy attackers, one line each, and gives no line if it names none: its Target is
+            // a hex, not a unit. An order names its unit, Target.
             return turn.Why.Where(w => w.EnemyOrder != "")
-                .Select(w => text.Format("report.enemy_" + w.EnemyOrder, Name(int.Parse(w.Target, CultureInfo.InvariantCulture)))).ToList();
+                .SelectMany(w => (w.EnemyOrder == Combat.Attack ? w.EnemyAttackers : new[] { int.Parse(w.Target, CultureInfo.InvariantCulture) })
+                    .Select(id => text.Format("report.enemy_" + w.EnemyOrder, Name(id)))).ToList();
         }
 
         void Show()

@@ -113,6 +113,44 @@ public class TurnReportTests
         }
     }
 
+    /// <summary>#1297: a standing enemy attack (R-ENEMY-003) is reported on every turn it engages, not only on the turn it is
+    /// ordered. The opening turn is set up as a later one: the Arab Liberation Army already attacks Golani's hex, which it keeps
+    /// (no order is given this turn) and which engages in step 2 (R-COMBAT-002).</summary>
+    [Test]
+    public void AStandingEnemyAttackIsReportedOnATurnItIsNotOrdered()
+    {
+        var rows = UnitData.Parse(File.ReadAllText(Path.Combine(Paths.Content, "map", UnitData.DefaultFileName)));
+        int golani = C.StartingForces.ToList().FindIndex(f => f.Row == "golani"), ala = C.StartingForces.ToList().FindIndex(f => f.Row == "arab_liberation_army");
+        foreach (var hebrew in new[] { false, true })
+        {
+            var text = hebrew ? He : En;
+            using var k = new Kit(text);
+            k.Report.Units = rows;
+            var s = k.Bridge.Session.State; var g = s.Units[golani]; var a = s.Units[ala];
+            s.Units[golani] = new Unit(g.Id, g.Type, a.Q, a.R - 1, g.Service, g.Side, 1);   // next to the ALA, weak enough to attack
+            s.Units[ala] = new Unit(a.Id, a.Type, a.Q, a.R, a.Service, a.Side, a.Strength, Combat.Attack, $"{a.Q},{a.R - 1}");
+            var turn = k.Bridge.EndTurn();
+            Assert.IsFalse(turn.Why.Any(w => w.Message.StartsWith($"Unit {ala} will attack")), "the attack stands: no order this turn");
+            Assert.IsTrue(turn.Why.Any(w => w.Message.StartsWith($"The attack on hex {a.Q},{a.R - 1}")), "and it engages");
+            var lines = k.Ui.Q<Label>("turn-report-causes-" + TurnReportPresenter.EnemyRow).text.Split('\n');
+            CollectionAssert.Contains(lines, hebrew ? "צבא ההצלה פתח בהתקפה על אחת היחידות שלכם" : "Arab Liberation Army launched an attack on one of your units");
+        }
+    }
+
+    /// <summary>#1297 review: an attack cause's Target is a hex ("q,r"), not a unit, so one that names no attackers gives no
+    /// line rather than a parse that throws. Combat fills the attackers for every enemy engagement today, so the turn is
+    /// replaced with one such cause through Session.Last's private setter.</summary>
+    [Test]
+    public void AnAttackThatNamesNoAttackersGivesNoLine()
+    {
+        using var k = new Kit(En);
+        k.Bridge.EndTurn();
+        var last = k.Bridge.Session.Last!;
+        typeof(GameSession).GetProperty(nameof(GameSession.Last))!.SetValue(k.Bridge.Session,
+            new StepResult(last.State, new[] { new Cause("map", "3,0", 0, "The attack on hex 3,0", Combat.Attack) }, last.Rejected));
+        Assert.IsFalse(TurnReportPresenter.Lines(k.Bridge, En).Any(l => l.Meter == TurnReportPresenter.EnemyRow));
+    }
+
     [Test]
     public void ItCoversTheHudUntilClosedAndThenTheCardIsBack()
     {
