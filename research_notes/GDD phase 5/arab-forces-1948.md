@@ -52,8 +52,8 @@ map tokens; this note narrows to the two dates and adds strength figures and Ara
   bulletins of 10 to 17 June 1948 (pdfs.jta.org scans, OCR'd locally 2026-10-17; URLs in the Sources list).
 - **Search snippets only.** Internet Archive full-text search returns a few lines around each hit for lending-library
   books. It was used for Glubb, *A Soldier with the Arabs* (1957); Netanel Lorch, *The Edge of the Sword* (1961);
-  Benny Morris, *1948* (2008); Kenneth Pollack, *Arabs at War* (2002); and Rogan and Shlaim (eds.), *The War for
-  Palestine* (2nd ed., 2007). Snippets carry no page numbers. Where a page is given for these books it is carried from
+  Benny Morris, *1948* (2008); and Kenneth Pollack, *Arabs at War* (2002). Rogan's chapter in Rogan and Shlaim (eds.),
+  *The War for Palestine* (2nd ed., 2007), p. 112, was read in full in an open scan (see the #1412 block). Snippets carry no page numbers. Where a page is given for these books it is carried from
   the branch note.
 - **Not reached.** Google Books (HTTP 429 for the whole session). The IPS full text of Walid Khalidi, "Selected
   Documents on the 1948 Palestine War" (*JPS* 27(3), 1998) (HTTP 403). David Tal, *War in Palestine 1948* (not on the
@@ -68,7 +68,7 @@ map tokens; this note narrows to the two dates and adds strength figures and Ara
 |---|---|---|
 | 15 May | Arab troops "which took the field on May 15th, 1948": Egypt 10,000, Arab Legion 4,500, Syria 3,000, Lebanon 1,000, Iraq 3,000; total 21,500 | [V] Glubb 1957, snippet |
 | Mid-May | Arab troops, regular and irregular, in the Palestine theatre: under 25,000 | [V] Shlaim, "Israel and the Arab coalition in 1948", in Rogan and Shlaim, p. 81 (snippet; page from the running head), and his Oxford seminar page |
-| 15 May | The Arab states did not commit enough troops "to shift the balance in their favor: 10,000 Egyptian troops, 3,000 Syrians, 3,000 Iraqis, and 1,000 Lebanese" | [V] Rogan and Shlaim (2007), snippet; chapter not identified in the snippet. Same figures as Glubb |
+| 15 May | The Arab states did not commit enough troops "to shift the balance in their favor: 10,000 Egyptian troops, 3,000 Syrians, 3,000 Iraqis, and 1,000 Lebanese" | [V] Rogan, "Jordan and 1948", in Rogan and Shlaim (2007), p. 112 (open scan). Same figures as Glubb, cited to his p. 94 |
 | 15 May to the truce | Arab regular forces in the field in Palestine rose during the first truce "from about 25,000 to perhaps about 45,000" | [V] O'Ballance p. 138 |
 | 19 May | 10,000 Egyptian troops near the border (some already in Palestine); 8,000 Iraqi, Syrian and Lebanese troops for Galilee | [V] CIA weekly summary, week ending 19 May 1948 |
 | 27 July (after the truce) | In Palestine 27,000, near Palestine 19,800, total 46,800 (table by army below) | [V] CIA report, FRUS 1948 v5p2 d486 |
@@ -387,26 +387,25 @@ pending.] Tags as in the conventions above.
   1,000 Lebanese in addition to the 4,500 Legionnaires, or an estimated total of 21,500 Arab troops in May 1948." The
   sentence just before it says the Legion's "6,000 troops in May 1948" were insufficient against "the estimated
   35,000 Jewish regulars and irregulars"; the 4,500 in the sum is therefore not the 6,000 of the line above. [V]
-- **Is it independent of Glubb? No.** The footnote at the end of that sentence (the marker in the text is 34; its text
+- **Is it independent of Glubb? Not shown.** The footnote at the end of that sentence (the marker in the text is 34; its text
   is matched by counting the endnotes, because the scan's note-number column is garbled) reads: "Glubb, *Soldier with
   the Arabs*, p. 94; Madi and Musa, *Tarikh al-urdunn*, p. 472. British sources set the relative strength of Israeli
   and Arab forces on the eve of Britain's withdrawal at 74,000 and 19,200, respectively. Wilson, *King 'Abdullah*,
   p. 170." So the figures are Glubb's, cited to his p. 94 of the 1957 London edition; the second cited work, Madi and
-  Musa's Arabic history of Jordan (p. 472), was not opened and its own source is not known. The "Lebanese 1,000" does
-  not come from a second counting. [V]
-- **Glubb, *A Soldier with the Arabs* (1957): printed page not read [GAP].** Every Internet Archive copy is lending-only
-  and its text could not be opened from this box; only the full-text search snippet was read: "Thus the total Arab
-  forces which took the field on May 15th, 1948, may be estimated as follows: Egypt 10,000 Arab Legion ..." (the
-  sentence is the same in the 1957 and 1959 copies; the Lebanon line, 1,000, and the total, 21,500, are repeated
-  with the same layout by later books that copy it: John H. Davis, *The Evasive Peace* (1968), snippet; Tessier,
-  *Gaza* (1971), snippet; and Usmani, *Glimpses of Palestine* (1973), read in an open copy, which says "Brig-General
-  Glubb, known to history as Glubb Pasha estimated the man-power strength of the Arab forces ready for field combat on
-  May, 15, 1948 as follows: ... Lebanon 1,000"). Rogan's footnote puts the table at p. 94 of the London edition; that
+  Musa's Arabic history of Jordan (p. 472), was not opened and its own source is not known. Whether Madi and Musa is a second count or repeats Glubb is not known until p. 472 is read. [GAP]
+- **Glubb, *A Soldier with the Arabs* (1957): printed page not read [GAP].** The Internet Archive copies checked are lending-only
+  and their text could not be opened from this box; only the full-text search snippets were read: "Thus the total Arab
+  forces which took the field on May 15th, 1948, may be estimated as follows: Egypt 10,000 Arab Legion ..." (joined
+  from two search snippets; the sentence is the same in the 1957 and 1959 copies). Two later books repeat the figures:
+  John H. Davis, *The Evasive Peace* (1968), snippet, shows the Lebanon line, 1,000, and the total, 21,500; and Usmani,
+  *Glimpses of Palestine* (1973), read in an open copy, says "Brig-General Glubb, known to history as Glubb Pasha
+  estimated the man-power strength of the Arab forces ready for field combat on May, 15, 1948 as follows: ...
+  Lebanon 1,000". The 21,500 total was seen only in Davis. Rogan's footnote puts the table at p. 94 of the London edition; that
   page number is Rogan's, not read by me. Glubb counts what "took the field", not the whole army. [S]
 - **What each figure counts.** Glubb and Rogan: the troops that took the field in May 1948, 1,000 for Lebanon.
   O'Ballance (p. 82, as the note above carries it, not re-read here): about 3,500 in five infantry battalions plus about
   2,000 gendarmes, that is the army on paper. Morris (p. 258, carried, not re-read here): about 3,500 in four
-  battalions. The 1,000 and the 3,500 do not conflict as counts of the same thing: one is the part that crossed into
+  battalions. The 1,000 and the 3,500 do not conflict as counts of the same thing: one is the part that took
   the field, the other the whole army; the sources do not say how the 1,000 was reached. [S]
 - **Not reached [GAP]:** the printed Glubb page; Madi and Musa; O'Ballance and Morris pages (lending copies); whether
   any other work counts the Lebanese in the field on 15 May independently of Glubb.
@@ -547,7 +546,7 @@ blown up [V] Munayyer p. 86. Before the game's window.
 - No source found gives the Arab armies' strengths dated 11 June. The nearest are O'Ballance's truce-period figures and
   the CIA's 27 July table.
 - Lorch, Morris and Pollack were read only through short search snippets, without page numbers. The printed pages
-  should be checked before any figure is used. Rogan and Shlaim's 1,000 Lebanese is now read on p. 112 (Rogan's chapter)
+  should be checked before any figure is used. Rogan's 1,000 Lebanese is now read on p. 112 (Rogan's chapter)
   and rests on Glubb p. 94 (section 5, #1412); the Glubb page itself is still unread.
 - Al-Tall's two tables (13 May and 15 May) need the printed page: the OCR mixes the columns. The 1st Brigade's 13 May
   stations are unreadable.
@@ -634,7 +633,13 @@ Western, British and "new historians":
 - Pollack, Kenneth M. *Arabs at War: Military Effectiveness, 1948-1991*. University of Nebraska Press, 2002.
   Full-text search snippets: https://archive.org/details/arabsatwarmilita0000poll
 - Rogan, Eugene L., and Avi Shlaim (eds.). *The War for Palestine: Rewriting the History of 1948*. 2nd ed.,
-  Cambridge, 2007. Full-text search snippets: https://archive.org/details/warforpalestiner0000unse_t0u0
+  Cambridge, 2007. Rogan's chapter, p. 112, read in full in the open scan:
+  https://archive.org/details/the-war-for-palestine-rewriting-the-history-of-1948-eugene-l.-rogan-avi-shlaim ;
+  lending copy (snippets only): https://archive.org/details/warforpalestiner0000unse_t0u0
+- Davis, John H. *The Evasive Peace*. 1968. Full-text search snippet; Internet Archive copies:
+  https://archive.org/details/evasivepeacestud00davi , https://archive.org/details/thenevasivepeace0000john
+- Usmani. *Glimpses of Palestine: Past and Present*. 1973. Read in an open copy:
+  https://archive.org/details/glimpses-of-palestine-past-and-present
 - Shlaim, Avi. "Israel and the Arab Coalition in 1948", chapter 4 of Rogan and Shlaim (eds.), p. 81 (2007 edition,
   from the snippet's running head). Also his Oxford seminar page based on that chapter, archived copy:
   http://web.archive.org/web/2015/http://users.ox.ac.uk/~ssfc0005/Session%201%20-%20Introduction.html (the live page
