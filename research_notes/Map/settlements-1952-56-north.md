@@ -98,15 +98,15 @@ Coordinates: CBS 2024, lat N, lon E, today's site. "Founded" is the best-support
 | 5 | Midrakh Oz / מדרך עוז | 23 | Moshav (after a 1951 ma'abara) | 12 Nov 1952 (Gvati) or 12 Dec 1952 (both Wikipedias) **[C]** | 32.59507, 35.15863 | First "Mansi" |
 | 6 | Yardena / ירדנה | 23 | Moshav | 4 Dec 1952 **[S]**; 1952 **[V]** | 32.56527, 35.56468 | None found |
 | 7 | Migdal HaEmek / מגדל העמק | 23 | Ma'abara, then development town | 1952 (CBS) or 1953 (both Wikipedias) **[C]** | 32.67799, 35.24282 | First "Mujdal" |
-| 8 | Avital / אביטל | 23 | Moshav | 2 Jun 1953 **[S]**; 1953 **[V]** | 32.55750, 35.30711 | None found |
-| 9 | Perazon / פרזון | 23 | Moshav | 25 Jun 1953 **[S]**; 1953 **[V]** | 32.54577, 35.31077 | None found |
+| 8 | Avital / אביטל | 23 | Moshav | 2 Jun 1953 **[S]**; 1953 **[V]** | 32.55750, 35.30711 | Earlier "Ta'anakh A" |
+| 9 | Perazon / פרזון | 23 | Moshav | 25 Jun 1953 **[S]**; 1953 **[V]** | 32.54577, 35.31077 | Earlier "Ta'anakh B" |
 | 10 | Dishon / דישון | 21 | Moshav | 6 Jul 1953 **[S]**; 1953 **[V]** | 33.08216, 35.51898 | None found |
 | 11 | Atsmon Segev / עצמון שגב | 24 | Nahal outpost (1953), village, re-founded 1979 | Aug 1953 **[S, Wikipedia]**; 1953 **[V]** | 32.86576, 35.25177 | "Nahala'im H Mi'ar", "Segev" (Oct 1953), later Atzmon |
 | 12 | Shezor / שזור | 24 | Nahal outpost, then moshav | 31 Aug 1953 **[S]**; 1953 **[V]** | 32.93317, 35.35273 | None found |
 | 13 | Hazor HaGelilit / חצור הגלילית | 21 | Ma'abarot, then development town | 1953 **[V]**; English Wikipedia 1952 to 1953 | 32.98321, 35.54393 | None found |
-| 14 | Metav / מיטב | 23 | Moshav | 21 Jul 1954 **[S]**; 1954 **[V]** | 32.54586, 35.30081 | None found |
+| 14 | Metav / מיטב | 23 | Moshav | 21 Jul 1954 **[S]**; 1954 **[V]** | 32.54586, 35.30081 | Earlier "Ta'anakh C" |
 | 15 | Peqi'in HaHadasha / פקיעין החדשה | 24 | Moshav (first cooperative) | 6 Feb 1955 **[S]**; Feb 1955 **[V]** | 32.98395, 35.32256 | None found |
-| 16 | Poriyya Illit / פוריה עילית | 22 | Re-settled 1955; separate locality 1991 | 1955 **[V]** | 32.73048, 35.54659 | None found |
+| 16 | Poriyya Illit / פוריה עילית | 22 | Re-settled 1955; separate locality 1991 | 1955 **[V]** | 32.73048, 35.54659 | Earlier "Poria-Alumot" |
 | 17 | Mele'a / מלאה | 23 | Moshav | 1 Jan 1956 **[S]**; 1956 **[V]** | 32.56354, 35.23756 | None found |
 | 18 | Nir Yafe / ניר יפה | 23 | Moshav | 27 Jan 1956 **[S]**; 1956 **[V]** | 32.56911, 35.24519 | None found |
 | 19 | Addirim / אדירים | 23 | Moshav | 20 Feb 1956 **[V]**; Gvati year 1950 **[C]** | 32.54901, 35.27197 | None found |
@@ -114,11 +114,11 @@ Coordinates: CBS 2024, lat N, lon E, today's site. "Founded" is the best-support
 | 21 | Devora / דבורה | 23 | Moshav | 14 Mar 1956 **[S]**; 1956 **[V]** | 32.55280, 35.26401 | None found |
 | 22 | Baraq / ברק | 23 | Moshav | 19 Aug 1956 **[S]**; 1956 **[V]** | 32.54280, 35.26485 | None found |
 | 23 | Sde Terumot / שדי תרומות | 23 | Moshav | 1951 (CBS, English Wikipedia) or spring / 16 Sep 1952 (Hebrew Wikipedia, Gvati) **[C]** | 32.44050, 35.48588 | First "Farwana C" (Hebrew Wikipedia) |
-| 24 | Yif'at / יפעת | 23 | Kibbutz (on a new site) | 15 or 18 Jul 1954 **[C]**; CBS 1926 **[C]** | 32.67681, 35.22479 | None found |
-| 25 | Lehavot HaBashan / להבות הבשן | 21 | Kibbutz | 2 Nov 1945 (preferred) or 7 Aug 1952 (Gvati) **[C]** | 33.14149, 35.64734 | None found |
-| 26 | Ma'ale Gilboa / מעלה גלבוע | 23 | Nahal outpost, kibbutz | 29 Nov 1962 (preferred) or 25 Jan 1952 (Gvati) **[C]** | 32.47695, 35.41875 | None found |
+| 24 | Yif'at / יפעת | 23 | Kibbutz (on a new site) | 15 or 18 Jul 1954 **[C]**; CBS 1926 **[C]** | 32.67681, 35.22479 | Temporary "Ihud HaSharon-Gevat" |
+| 25 | Lehavot HaBashan / להבות הבשן | 21 | Kibbutz | 2 Nov 1945 (preferred) or 7 Aug 1952 (Gvati) **[C]** | 33.14149, 35.64734 | First "Lehavot"; "HaBashan" added later |
+| 26 | Ma'ale Gilboa / מעלה גלבוע | 23 | Nahal outpost, kibbutz | 29 Nov 1962 (preferred) or 25 Jan 1952 (Gvati) **[C]** | 32.47695, 35.41875 | Nahal name "Mitzpor HaGilboa" |
 | 27 | Ram-On / רם און | 23 | Moshav | 1960 (preferred) or 1953 (English Wikipedia) **[C]** | 32.52690, 35.25971 | None found |
-| 28 | Nof HaGalil / נוף הגליל | 25 | Development town | 1957 (preferred) or Dec 1956 (start of building) **[C]** | 32.70860, 35.32337 | "Kiryat Natzrat", "Natzrat Illit" (1959), Nof HaGalil |
+| 28 | Nof HaGalil / נוף הגליל | 25 | Development town | 1957 (preferred), Sep 1956 (first dwellings) or Dec 1956 (start of building) **[C]** | 32.70860, 35.32337 | "Kiryat Natzrat", "Natzrat Illit" (1959), Nof HaGalil |
 
 Rows: 28. Rows 1 to 22 have a CBS year in 1952-1956. Rows 23 to 28 are kept because a source puts them in the window
 and another does not; on my reading, rows 23 and 24 belong in the window and rows 25 to 28 do not (each row says why).
@@ -207,7 +207,8 @@ Common sources, cited by short name in every row:
 - **Renames. [S, Wikipedia]** First "Mansi", after the Arab village (both Wikipedias). Name from the Song of Deborah,
   "תדרכי נפשי עוז": Gvati cites "(שופטים ה', י"א)", Hebrew Wikipedia Judges 5:21 (כא).
 - **Site note. [S, Wikipedia]** Hebrew Wikipedia: the ma'abara stood on the lands of the Arab village al-Mansi,
-  "שננטש במלחמת העצמאות". Given as worded.
+  "שננטש במלחמת העצמאות". English Wikipedia places it "near the former depopulated Palestinian villages of Al-Mansi
+  and Al-Ghubayya al-Tahta". Given as worded.
 - **Coordinates.** CBS 32.59507, 35.15863 (code 2029).
 - **Sources.** CBS; Gvati; https://he.wikipedia.org/w/index.php?oldid=43128000 ("מדרך עוז");
   https://en.wikipedia.org/w/index.php?oldid=1374534278 ("Midrakh Oz"). All checked 2026-10-22.
@@ -236,9 +237,13 @@ Common sources, cited by short name in every row:
 - **Renames. [S, Wikipedia]** Hebrew Wikipedia: "בחודשיו הראשונים נקרא היישוב מוג'דל כשם הכפר הערבי שעל אדמותיו
   הוקם" (first called Mujdal, after the Arab village on whose lands it was built); "Migdal Haim" was proposed and
   turned down; the government names committee chose Migdal HaEmek (citing Davar, 21 Apr 1953, not read).
-- **Site note. [S, Wikipedia]** Hebrew Wikipedia: "בשטח הכפר הערבי הנטוש אל-מוג'ידל, שתושביו ברחו לנצרת"; English
-  Wikipedia: "the former Arab Palestinian village of al-Mujaydil". Given as worded.
-- **Coordinates.** CBS 32.67799, 35.24282 (code 874).
+- **Site note. [S, Wikipedia]** Hebrew Wikipedia: "בשטח הכפר הערבי הנטוש אל-מוג'ידל, שתושביו ברחו לנצרת" and "הכפר
+  הוכרז כנכסי נפקדים ועבר לחזקת רשות הפיתוח. חלק מתושבי הכפר היו נוצרים קתולים ובעת שהוקם ביקש נציג הכס הקדוש
+  שיותר להם לחזור לכפר, אך הוא נענה בסרוב". English Wikipedia: "In July 1948 al-Mujaydil was completely destroyed due
+  to aerial bombing during the operations conducted by the Golani Brigade, when the villagers fled, resulting in its
+  depopulation." Given as worded.
+- **Coordinates.** CBS 32.67799, 35.24282 (code 874), today's site. English Wikipedia: "The original site of the
+  ma'abara was west of the current site, at Shimron hill."
 - **Sources.** CBS; https://he.wikipedia.org/w/index.php?oldid=44027576 ("מגדל העמק");
   https://en.wikipedia.org/w/index.php?oldid=1380255216 ("Migdal HaEmek"). All checked 2026-10-22.
 
@@ -249,7 +254,9 @@ Common sources, cited by short name in every row:
 - **Founders. [S, Wikipedia]** Hebrew Wikipedia: immigrants from Persia and Turkey, joined by immigrants from
   Kurdistan from the Zar'in ma'abara. English Wikipedia: "immigrants from Iran and Turkey". Hebrew Wikipedia: "אביטל
   היה היישוב הראשון שהוקם בחבל תענך" (the first settlement of the Ta'anakh area).
-- **Renames.** None found.
+- **Renames. [S, Wikipedia]** Hebrew Wikipedia: "המושב נקרא בעבר "תענך א'"" (earlier Ta'anakh A).
+- **Site note. [S, Wikipedia]** English Wikipedia: "Avital is located on land near the former Palestinian village of
+  Zir'in." Given as worded.
 - **Coordinates.** CBS 32.55750, 35.30711 (code 2052).
 - **Sources.** CBS; Gvati; https://he.wikipedia.org/w/index.php?oldid=44026492 ("אביטל");
   https://en.wikipedia.org/w/index.php?oldid=1374528153 ("Avital (moshav)"). All checked 2026-10-22.
@@ -260,7 +267,7 @@ Common sources, cited by short name in every row:
   Hebrew Wikipedia "היישוב הוקם בשנת 1953 (תשי"ג)"; English Wikipedia "Prazon was founded in 1953".
 - **Founders. [S, Wikipedia]** Both Wikipedias: Jewish immigrants from Kurdistan. Hebrew Wikipedia: the second
   settlement of the Ta'anakh area after Avital; with Avital and Metav it formed "גוש יעל".
-- **Renames.** None found. Name from Judges 5:7 (Gvati).
+- **Renames. [S, Wikipedia]** Hebrew Wikipedia: "נקרא "תענך ב'"" (called Ta'anakh B). Name from Judges 5:7 (Gvati).
 - **Site note. [S, Wikipedia]** English Wikipedia: "established on the lands of the former Palestinian village of
   Al-Mazar, which was depopulated during the 1948 Arab-Israeli War". Given as worded.
 - **Coordinates.** CBS 32.54577, 35.31077 (code 2053).
@@ -276,7 +283,8 @@ Common sources, cited by short name in every row:
   no preference.
 - **Renames.** None found. Gvati: the name echoes the nearby Arab village "דישום".
 - **Site note. [S, Wikipedia]** English Wikipedia: "at the location of the former Palestinian village of Dayshum which
-  was depopulated during the 1948 Arab-Israeli War". Given as worded.
+  was depopulated during the 1948 Arab-Israeli War". Hebrew Wikipedia: "שננטש במלחמת העצמאות ושחורבותיו סמוכות
+  ליישוב". Given as worded.
 - **Coordinates.** CBS 33.08216, 35.51898 (code 2063).
 - **Sources.** CBS; Gvati; https://he.wikipedia.org/w/index.php?oldid=43055475 ("דישון (מושב)");
   https://en.wikipedia.org/w/index.php?oldid=1377971927 ("Dishon"). All checked 2026-10-22.
@@ -296,9 +304,10 @@ Common sources, cited by short name in every row:
 - **Renames. [S, Wikipedia]** Hebrew Wikipedia: "בתחילה נקראה נחלאים ח' מיאר"; named "Segev" by the names committee
   in October 1953; later Atzmon (Atsmon Segev in CBS).
 - **Site note. [S, Wikipedia]** English Wikipedia: "on land near the former Palestinian village of Mi'ar, which had
-  been depopulated in the 1948 Arab-Israeli War". Given as worded.
-- **Coordinates.** CBS 32.86576, 35.25177 (code 917). Today's site; whether the 1953 outpost stood on the same spot is
-  **[GAP]**.
+  been depopulated in the 1948 Arab-Israeli War"; "Atzmon/Segev was established east of the village site." Hebrew
+  Wikipedia: "במקום בו נמצא היישוב עצמון שגב שכן לפני מלחמת העצמאות כפר ערבי בשם מִעאר". Given as worded.
+- **Coordinates.** CBS 32.86576, 35.25177 (code 917), today's site. Hebrew Wikipedia says the Atzmon garin "עלה לאתר
+  הקבוע בשגב בשנת 1983" (moved to the permanent Segev site in 1983).
 - **Sources.** CBS; https://he.wikipedia.org/w/index.php?oldid=43873569 ("עצמון שגב");
   https://en.wikipedia.org/w/index.php?oldid=1374528071 ("Atzmon"). All checked 2026-10-22.
 
@@ -326,6 +335,8 @@ Common sources, cited by short name in every row:
 - **Later dates. [V]** Local council in 1956 (both Wikipedias).
 - **Founders. [S, Wikipedia]** Hebrew Wikipedia: "מייסדי חצור הגלילית היו עולים מצפון אפריקה".
 - **Renames.** None found. Named after Tel Hazor (both Wikipedias).
+- **Site note. [S, Wikipedia]** English Wikipedia: "The new camp was located at a site near the former depopulated
+  Palestinian village of Mughr al-Khayt". Given as worded.
 - **Coordinates.** CBS 32.98321, 35.54393 (code 2034).
 - **Sources.** CBS; https://he.wikipedia.org/w/index.php?oldid=43678098 ("חצור הגלילית");
   https://en.wikipedia.org/w/index.php?oldid=1380256976 ("Hatzor HaGlilit"). All checked 2026-10-22.
@@ -336,7 +347,7 @@ Common sources, cited by short name in every row:
   Hebrew Wikipedia "מיטב הוקם בשנת 1954"; English Wikipedia "established in 1954".
 - **Founders. [S, Wikipedia]** Hebrew Wikipedia: immigrants from Iraq and Iraqi Kurdistan; English Wikipedia:
   "immigrants from Kurdistan and Iraq".
-- **Renames.** None found.
+- **Renames. [S, Wikipedia]** Hebrew Wikipedia: "הוא נקרא "תענך ג'"" (called Ta'anakh C).
 - **Site note. [S, Wikipedia]** English Wikipedia: "on the land of the Palestinian village of Al-Mazar, which had been
   depopulated in the 1948 Arab-Israeli War". Given as worded.
 - **Coordinates.** CBS 32.54586, 35.30081 (code 2054).
@@ -367,7 +378,7 @@ Common sources, cited by short name in every row:
   gives "1912 (original)", "1940 (first re-establishment)" and "1955 (second re-establishment)".
 - **Founders. [S, Wikipedia]** Hebrew Wikipedia: in 1955 "הגיעה קבוצת פועלים להתיישב במקום" (a group of workers came
   to settle).
-- **Renames.** None found.
+- **Renames. [S, Wikipedia]** Hebrew Wikipedia: "שם היישוב היה פוריה-אלומות"; English Wikipedia: "Poria Alumot".
 - **Coordinates.** CBS 32.73048, 35.54659 (code 1313).
 - **Sources.** CBS; https://he.wikipedia.org/w/index.php?oldid=43177261 ("פוריה עילית");
   https://en.wikipedia.org/w/index.php?oldid=1374535939 ("Poria Illit"). All checked 2026-10-22.
@@ -392,7 +403,7 @@ Common sources, cited by short name in every row:
   1956; Hebrew Wikipedia "המושב הוקם בשנת 1956"; English Wikipedia "It was founded in 1956".
 - **Founders. [V]** Immigrants from Tunisia (both Wikipedias). Hebrew Wikipedia: organised for settlement while still
   in Tunisia, they skipped the ma'abara stage.
-- **Renames.** None found. Gvati: named after M. Yafe, a Jewish donor from South Africa.
+- **Renames.** None found. Gvati: named after a Jewish donor from South Africa.
 - **Coordinates.** CBS 32.56911, 35.24519 (code 165).
 - **Sources.** CBS; Gvati; https://he.wikipedia.org/w/index.php?oldid=43165996 ("ניר יפה");
   https://en.wikipedia.org/w/index.php?oldid=1374535456 ("Nir Yafeh"). All checked 2026-10-22.
@@ -471,11 +482,14 @@ Common sources, cited by short name in every row:
   מקבוצת השרון וגבת ליפעת" (on 15 July 1954 all members and children of Kvutzat HaSharon and Gevat moved to Yif'at),
   citing the kibbutz site (not read); the name approved on 27 December 1954. English Wikipedia: "The kibbutz was
   established in 1954 by members of Kvutzat HaSharon who previously lived in Ramat David, as well as former residents
-  of Gevat". **I prefer 1954 for this locality**; CBS's 1926 is probably the founding year of the group that moved
-  (my inference: no source read says so). The day is [C] between 15 July (Hebrew Wikipedia) and 18 July (Gvati).
+  of Gevat". **I prefer 1954 for this locality**; CBS's 1926 is the founding year of the group that moved
+  there: Hebrew Wikipedia says "מאז היו ליפעת שני שעוני זמן: האחד ... לפי הקמת "בית ראשון", העלייה להתיישבות בגבת
+  ובקבוצת השרון בדצמבר 1926". The day is [C] between 15 July (Hebrew Wikipedia) and 18 July (Gvati).
 - **Founders. [V]** Members of Kvutzat HaSharon and of Gevat (Hebrew and English Wikipedia; Gvati's affiliation
   HaIhud fits the Ihud side of the 1951 split, my reading).
-- **Renames.** None found.
+- **Renames. [S, Wikipedia]** Hebrew Wikipedia: "נקרא תחילה הקיבוץ החדש בשם הזמני "איחוד השרון-גבת"".
+- **Site note. [S, Wikipedia]** English Wikipedia: "It was located on land near the former depopulated Arab village
+  of Al-Mujaydil." Given as worded.
 - **Coordinates.** CBS 32.67681, 35.22479 (code 134).
 - **Sources.** CBS; Gvati; https://he.wikipedia.org/w/index.php?oldid=44079115 ("יפעת");
   https://en.wikipedia.org/w/index.php?oldid=1374538263 ("Yifat, Israel"). All checked 2026-10-22.
@@ -490,6 +504,9 @@ Common sources, cited by short name in every row:
   slip is possible, but that is my inference.
 - **Founders. [S, Wikipedia]** Hebrew Wikipedia: Youth Aliyah immigrants from Germany and Poland and HaShomer HaTzair
   graduates, the "Lehavot" garin founded in 1940.
+- **Renames. [S, Wikipedia]** Hebrew Wikipedia: "נוספה לשם הקיבוץ המילה "הבשן"".
+- **Site note. [S, Wikipedia]** Hebrew Wikipedia: the kibbutz moved "למיקומו הנוכחי, על אדמות הכפר הערבי ח'יאם
+  אל-וליד". Given as worded.
 - **Coordinates.** CBS 33.14149, 35.64734 (code 380).
 - **Sources.** CBS; Gvati; https://he.wikipedia.org/w/index.php?oldid=44054315 ("להבות הבשן");
   https://en.wikipedia.org/w/index.php?oldid=1374884806 ("Lehavot HaBashan"). All checked 2026-10-22.
@@ -501,6 +518,7 @@ Common sources, cited by short name in every row:
   "The kibbutz was founded in 1962 as a Nahal settlement", infobox "founded = 1963". **I prefer 29 November 1962**
   (CBS and both Wikipedias), so the row is out of the window. Whether Gvati's 1952 date marks an earlier attempt on the
   site is **[GAP]**.
+- **Renames. [S, Wikipedia]** Hebrew Wikipedia: the Nahal called it "מצפור הגלבוע".
 - **Site note. [S, Wikipedia]** English Wikipedia: "on land near the former depopulated Palestinian village of
   Khirbat al-Jawfa". Given as worded.
 - **Coordinates.** CBS 32.47695, 35.41875 (code 1127).
@@ -513,7 +531,7 @@ Common sources, cited by short name in every row:
   Israel. They originally settled in Nurit on the Gilboa mountain, but in 1961, the community moved". CBS: 1960. Gvati:
   14.5.60, region "עמק יזרעאל", affiliation Tnuat HaMoshavim. Hebrew Wikipedia: the founding garin went up
   temporarily to Nurit "ביוני 1958" (June 1958, citing Davar, not read). English Wikipedia also names the moshav after
-  Ram On Paldi, "killed in battle near Kerem Shalom in 1957", which a 1953 founding name could not commemorate (my
+  a man "killed in battle near Kerem Shalom in 1957", which a 1953 founding name could not commemorate (my
   inference). **I prefer 1960** (CBS, Gvati), so the row is out of the window.
 - **Coordinates.** CBS 32.52690, 35.25971 (code 1069).
 - **Sources.** CBS; Gvati; https://he.wikipedia.org/w/index.php?oldid=43786935 ("רם און");
@@ -523,11 +541,17 @@ Common sources, cited by short name in every row:
 
 - **Founded: [C].** CBS: 1957. Hebrew Wikipedia: "הקמתה של העיר החלה בדצמבר 1956" (building began in December 1956,
   citing Haaretz, 25 Dec 1956, not read); its page is in the category "יישובים שהוקמו ב-1957". English Wikipedia:
-  infobox "established_date = 1957". **I prefer 1957** for the settlement; the December 1956 start of building is
-  given so the owner can see it. Kept as the north's counterpart of Ami'oz in the Negev note.
+  infobox "established_date = 1957", and "The first dwellings were completed in September 1956 and the first residents
+  moved in later that year". **I prefer 1957** for the settlement; the September 1956 dwellings and the December 1956
+  start of building are given so the owner can see them. Kept as the north's counterpart of Ami'oz in the Negev note.
 - **Renames. [S, Wikipedia]** Hebrew Wikipedia: "שנקראה בתחילה "קריית נצרת", והחל מ-1959 "נצרת עילית"" (first
   Kiryat Natzrat, from 1959 Natzrat Illit). **[C] on the year**: English Wikipedia: "The name Nazareth Illit (Upper
-  Nazareth) was adopted in 1958." The present name is Nof HaGalil (both Wikipedias).
+  Nazareth) was adopted in 1958." English Wikipedia also has "then as Kiryat Natzeret". The present name is Nof
+  HaGalil (both Wikipedias).
+- **Site note. [S, Wikipedia]** Hebrew Wikipedia: "העיר נבנתה ברובה על אדמות שהופקעו מערביי הסביבה, ביוזמתו של
+  מרדכי שטנר שהיה אחראי על נכסי הנפקדים, דבר שגרם לחיכוכים." English Wikipedia describes the 1954 expropriation of
+  1,200 dunams, "relying on a law that permitted expropriations for public purposes", and the Supreme Court case.
+  Given as worded.
 - **Coordinates.** CBS 32.70860, 35.32337 (code 1061, subdistrict 25).
 - **Sources.** CBS; https://he.wikipedia.org/w/index.php?oldid=43945199 ("נוף הגליל");
   https://en.wikipedia.org/w/index.php?oldid=1380255559 ("Nof HaGalil"). All checked 2026-10-22.
@@ -579,10 +603,11 @@ Common sources, cited by short name in every row:
 - **Gvati year slips.** Three Gvati dates disagree with every other source read by six to ten years (Addirim 1950,
   Lehavot HaBashan 1952, Ma'ale Gilboa 1952). The Negev note found the same kind of disagreement (Sde Tzvi, Ein
   Gedi). For the dated file, Gvati is best used for the day only where CBS agrees on the year.
-- **Today's site vs the first camp**: Yif'at (moved from Ramat David and Gevat in 1954), Ram-On (from Nurit in 1961),
+- **Today's site vs the first camp**: Migdal HaEmek (the original ma'abara was west at Shimron hill), Yif'at (moved
+  from Ramat David and Gevat in 1954), Ram-On (from Nurit in 1961),
   Atsmon Segev (re-founded 1979) and Lehavot HaBashan (Hebrew Wikipedia: "בשנת 1947 העתיק את מיקומו מגבעה שכנה למיקומו
   הנוכחי", moved in 1947 from a nearby hill) are known to differ from the first settlement; the CBS point is today's
   site. For the others no source read says the site moved.
 - **Hexes and sensitivity flags** (armistice lines, depopulated localities) were not computed here; they belong to the
-  paused data-file step. Site notes are recorded where the sources state them (rows 1, 3, 5, 7, 9, 10, 11, 14, 23,
-  26), as worded, for the owner's sensitivity review.
+  paused data-file step. Site notes are recorded where the sources state them (rows 1, 3, 5, 7 to 11, 13, 14, 23 to
+  26, and 28), as worded, for the owner's sensitivity review.
