@@ -131,7 +131,7 @@ are land.
 | 23 | Gilat / גילת | Moshav | 4 Dec 1949 **[V]** | Northern Negev | 31.32798, 34.65203 | (-10, 30) lowland | Pass | Yes / Yes / Yes | None; hex shared with Tifrah |
 | 24 | Patish / פטיש | Moshav | 3 or 4 Mar 1950 **[C]** | Northern Negev | 31.32739, 34.56004 | (-11, 30) lowland | Pass | Yes / No / Yes | None |
 | 25 | Re'im / רעים | Kibbutz | 20 Oct 1949 **[V]** | Western Negev | 31.38552, 34.45932 | (-12, 29) coastal plain | Pass | Yes / Yes / Yes | Next to 1950 Gaza lines |
-| 26 | Nahal Oz / נחל עוז | Nahal outpost, then kibbutz | 15, 25 or 26 Jul 1951 **[C]** | Gaza border | 31.47277, 34.49746 | (-11, 28) coastal plain | Pass | Yes / No / Yes | Next to Gaza lines; next to Gaza's hex |
+| 26 | Nahal Oz / נחל עוז | Nahal outpost, then kibbutz | 15, 25 or 26 Jul 1951 **[C]**; 25 Jul: Gvati; scroll (our reading); Frankel's arrival (as of 2026-10-23) | Gaza border | 31.47277, 34.49746 | (-11, 28) coastal plain | Pass | Yes / No / Yes | Next to Gaza lines; next to Gaza's hex |
 | 27 | Sderot / שדרות | Transit camp, then town | April 1951 **[S]** | Western Negev | 31.52901, 34.59434 | (-9, 27) coastal plain | Pass | Yes / No / No | On Gaza line hex; Najd (source) |
 | 28 | Beit Guvrin / בית גוברין | Kibbutz | 23 May or 2 Jun 1949 **[C]** | Lachish area | 31.61302, 34.89595 | (-5, 26) hills | Pass | Yes / No / No | On Jordan line hex; Bayt Jibrin 0.9 km |
 | 29 | Ahuzam / אחוזם | Moshav | 2 or 30 Oct 1950 **[C]** | Lachish area | 31.55340, 34.77020 | (-7, 26) coastal plain | Pass | Yes / No / See note | Abu Jabir (source); 'Iraq el Manshiya 5.8 km |
@@ -565,6 +565,44 @@ sources read, not a gazetteer check.
   - 26 July 1951: Hebrew Wikipedia ("founded on 26 July 1951 as the first Nahal outpost", citing HaBoker; it also
     cites a Sha'arim report of 26 July 1951 on the ceremony; neither read).
   - CBS and English Wikipedia: 1951. 25 July has two lines of evidence (Gvati; the scroll as quoted).
+  - Searched again 2026-10-23 (agent read; a person's check pending):
+    - **Kibbutz Story, checked word for word:** the scroll text is quoted as "היום, כ"א לירח תמוז שנת ה' אלפים
+      התשי"א, שנה רביעית לעצמאות ישראל, אנו תוקעים יתד ראשונה להקמת ישוב חיילים בגבול הארץ" ("Today, the 21st of
+      the month of Tammuz, 5711, the fourth year of Israel's independence, we drive the first stake for a soldiers'
+      settlement on the country's border"). `convertdate`: 21 Tammuz 5711 is Wednesday 25 July 1951, 22 Tammuz is
+      Thursday 26 July 1951, 11 Tammuz is Sunday 15 July 1951 (our reading; the Nahal list's pair "11 Tammuz /
+      15 July" is consistent). The passage read names no archive for the scroll; it is a quotation, not an image. [S]
+    - **Yad Ben-Zvi, Et-Mol blog, Nadav Frankel (doctoral research on the Nahal outposts, Bar-Ilan),**
+      https://ybz.org.il/%D7%A0%D7%97%D7%9C-%D7%A2%D7%95%D7%96/ (blog entry dated 29.10.23): "בצוהרי 25 ביולי 1951
+      הגיעה פלוגת חיילים ... לנקודה הנמצאת כשני קילומטרים מגבול ישראל מצרים" ("at noon on 25 July 1951 a company
+      of soldiers reached the point about two kilometres from the Israel-Egypt border"); the same entry says the
+      company mustered at Kibbutz Saad "ביום העלייה אל הקרקע" and that "היו ליום העלייה גם חלקים חגיגיים יותר, וטקס
+      נערך בנקודת ההתיישבות" with Shomroni, Moshe Dayan and Avraham Herzfeld, where "הוכרזה מגילת העלייה" (the scroll of going up
+      was proclaimed; his excerpt of it omits the Tammuz date). It prints a caption "עיתון שערים, 26 ביולי 1951"
+      between the arrival paragraph and the ceremony paragraph (the entry does not say what it illustrates, so it is
+      not counted as support for either), and a photo caption "העליה לקרקע נחלאים א,
+      יולי 1951 (ארכיון צה"ל)". The entry gives no footnote tying a given sentence to a given source; it says it relies
+      mainly on archive sources, the outpost's bulletin and interviews. This is the first source read that dates the
+      arrival to a day. The article never writes "25 July" next to "יום העלייה"; that the ceremony fell on the same
+      day rests on "ביום העלייה אל הקרקע" (the Saad muster) and "היו ליום העלייה גם חלקים חגיגיים", and 25 July
+      for that day is our reading from the noon-arrival sentence. A modern article, so [S].
+    - **Hebrew Wikipedia (oldid 44023010), as cited:** "היישוב הוקם ב-26 ביולי 1951" cited to HaBoker, 17 January
+      1952, p. 31, "יום הולדת בערבות הנגב" ("birthday in the Negev plains"); the ceremony participants cited to Sha'arim,
+      26 July 1951, p. 37, "נח"ל התנחל בגבול מצרים" ("Nahal settled on the Egyptian border"). Citations only; neither item
+      was seen, so we do not know whether either states the day. The Sha'arim item's date (26 July) is the paper's
+      date, not a stated founding day. [S]
+    - **Israel Defense and Security Forum (idsf.org.il), 26 July 2025:** "ב-26 ביולי 1951 ירדו כמה צעירים מהמשאית"
+      ("on 26 July 1951 a few young people got off the truck"), no source given, and it is an anniversary piece dated
+      the 26th. [S, no source given]
+    - Gvati's 25.7.51 and the scroll's 21 Tammuz both give 25 July; Frankel's noon arrival on 25 July is the first
+      source read that gives the arrival day. The 26 July sources read are Wikipedia's and the anniversary
+      piece. We do not call it settled because the Sha'arim and HaBoker items are unread and the scroll itself was
+      not seen. Which sources are independent of which is not stated by any of them.
+    - **[GAP]** HaBoker 17 January 1952 p. 31 (the HaBoker item Hebrew Wikipedia cites at oldid 44023010; issue #1472 also asks for a HaBoker item of 26 July 1951, which that revision does not cite, and none was located) and Sha'arim 26 July 1951 p. 37 not opened (nli.org.il /
+      Jpress 403); no image or catalogue record of the 21 Tammuz scroll found (a search for one returned nothing);
+      the IDF archive photo "העליה לקרקע נחלאים א, יולי 1951" is not dated to a day on the page; Et-Mol 273 PDF
+      (https://files.ybz.org.il/periodicals/Etmol/273/273.5.pdf) returns 403, so the printed article and its footnotes
+      were not read. `objective-cards.md:347` still says 26 July and is not changed here, since the day is not settled.
 - **Founders. [V]** The first Nahal outpost, "Nahala'im A", facing Gaza (Nahal association; Kibbutz Story; English
   Wikipedia); turned over to a civilian garin on 16 September 1953 (Nahal association) **[S]**.
 - **Location and hex.** CBS 31.47277, 34.49746 (Hebrew Wikipedia 7 m). Hex (-11, 28), coastal plain. Gaza's hex is a
@@ -576,7 +614,8 @@ sources read, not a gazetteer check.
   of the kibbutz on 7 October 2023.
 - **Sources.** Gvati and CBS; https://www.nahal.co.il/%D7%94%D7%99%D7%90%D7%97%D7%96%D7%95%D7%99%D7%95%D7%AA/ ;
   https://www.kibbutz-story.com/post/nahal-oz ; https://he.wikipedia.org/w/index.php?oldid=44023010 ;
-  https://en.wikipedia.org/w/index.php?oldid=1379237702 . All checked 2026-10-14.
+  https://en.wikipedia.org/w/index.php?oldid=1379237702 . All checked 2026-10-14. Added 2026-10-23: the Yad Ben-Zvi
+  Et-Mol entry and https://idsf.org.il/history/nahal-oz/ , both agent read.
 
 ### 27. Sderot (שדרות), transit camp, then town
 
