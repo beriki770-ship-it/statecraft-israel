@@ -218,6 +218,19 @@ public class OccupyTests
         Assert.Equal(rng, s.RngState);
     }
 
+    // The mvp-occupy-cost golden (#798) pins the real content's run: the scenario must really occupy Nazareth, and the run
+    // must end the turn its timer does, or the golden would pin a no-op.
+    [Fact]
+    public void TheOccupyCostScenarioOccupiesNazarethToTheTimersEnd()
+    {
+        var real = ContentLoader.Load(RealContentTests.ContentRoot());
+        var sc = Scenario.Parse(System.IO.File.ReadAllText(System.IO.Path.Combine(ScenarioTests.Dir(), "mvp-occupy-cost.yaml")));
+        var s = sc.Play(real);
+        Assert.Equal(new DateTime(1948, 12, 15), s.Date);
+        var ctrl = s.Settlements["nazareth"];
+        Assert.Equal((Movement.PlayerSide, SettlementControl.AwaitingEnd, 0, new DateTime(1948, 6, 15)), (ctrl.Owner, ctrl.State, ctrl.Turns, ctrl.Since));
+    }
+
     [Theory]
     [InlineData("occupation_turns: 3", "", "mvp.occupation_turns", "required")]
     [InlineData("occupation_turns: 3", "occupation_turns: 0", "mvp.occupation_turns", "must be >= 1")]
