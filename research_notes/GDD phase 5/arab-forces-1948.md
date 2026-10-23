@@ -376,6 +376,41 @@ Jenin battle (31 May to 4 June): 4th Brigade north, 1st Brigade west with two Pa
 - 1,000 in the field [V] Glubb, snippet.
 - "Negligible" [V] FRUS d270 (British estimate). "A token one" [V] UP, 15 May (press).
 
+**The 1,000 on 15 May, checked against the printed sources (#1412).** [V/S, agent read 2026-10-23; a person's check
+pending.] Tags as in the conventions above.
+- **Rogan and Shlaim (eds.), *The War for Palestine* (2nd ed., Cambridge, 2007): the chapter is Eugene L. Rogan, "Jordan
+  and 1948: the persistence of an official history", p. 112** (the running head "112 Eugene L. Rogan" opens the page
+  that carries the sentence). Read in a full-text scan of the book on the Internet Archive that is open to download
+  (https://archive.org/details/the-war-for-palestine-rewriting-the-history-of-1948-eugene-l.-rogan-avi-shlaim; the
+  lending copy, warforpalestiner0000unse_t0u0, was not openable). The sentence, as printed: "Nor did the Arab states
+  commit enough troops to shift the balance in their favor: 10,000 Egyptian troops, 3,000 Syrians, 3,000 Iraqis, and
+  1,000 Lebanese in addition to the 4,500 Legionnaires, or an estimated total of 21,500 Arab troops in May 1948." The
+  sentence just before it says the Legion's "6,000 troops in May 1948" were insufficient against "the estimated
+  35,000 Jewish regulars and irregulars"; the 4,500 in the sum is therefore not the 6,000 of the line above. [V]
+- **Is it independent of Glubb? No.** The footnote at the end of that sentence (the marker in the text is 34; its text
+  is matched by counting the endnotes, because the scan's note-number column is garbled) reads: "Glubb, *Soldier with
+  the Arabs*, p. 94; Madi and Musa, *Tarikh al-urdunn*, p. 472. British sources set the relative strength of Israeli
+  and Arab forces on the eve of Britain's withdrawal at 74,000 and 19,200, respectively. Wilson, *King 'Abdullah*,
+  p. 170." So the figures are Glubb's, cited to his p. 94 of the 1957 London edition; the second cited work, Madi and
+  Musa's Arabic history of Jordan (p. 472), was not opened and its own source is not known. The "Lebanese 1,000" does
+  not come from a second counting. [V]
+- **Glubb, *A Soldier with the Arabs* (1957): printed page not read [GAP].** Every Internet Archive copy is lending-only
+  and its text could not be opened from this box; only the full-text search snippet was read: "Thus the total Arab
+  forces which took the field on May 15th, 1948, may be estimated as follows: Egypt 10,000 Arab Legion ..." (the
+  sentence is the same in the 1957 and 1959 copies; the Lebanon line, 1,000, and the total, 21,500, are repeated
+  with the same layout by later books that copy it: John H. Davis, *The Evasive Peace* (1968), snippet; Tessier,
+  *Gaza* (1971), snippet; and Usmani, *Glimpses of Palestine* (1973), read in an open copy, which says "Brig-General
+  Glubb, known to history as Glubb Pasha estimated the man-power strength of the Arab forces ready for field combat on
+  May, 15, 1948 as follows: ... Lebanon 1,000"). Rogan's footnote puts the table at p. 94 of the London edition; that
+  page number is Rogan's, not read by me. Glubb counts what "took the field", not the whole army. [S]
+- **What each figure counts.** Glubb and Rogan: the troops that took the field in May 1948, 1,000 for Lebanon.
+  O'Ballance (p. 82, as the note above carries it, not re-read here): about 3,500 in five infantry battalions plus about
+  2,000 gendarmes, that is the army on paper. Morris (p. 258, carried, not re-read here): about 3,500 in four
+  battalions. The 1,000 and the 3,500 do not conflict as counts of the same thing: one is the part that crossed into
+  the field, the other the whole army; the sources do not say how the 1,000 was reached. [S]
+- **Not reached [GAP]:** the printed Glubb page; Madi and Musa; O'Ballance and Morris pages (lending copies); whether
+  any other work counts the Lebanese in the field on 15 May independently of Glubb.
+
 **Positions on 15 May** [C]
 - At the border on the al-Malikiyya route [V] Lorch, snippet ("The Lebanese army selected the central one, the Malkya
   route"). Al-Malikiyya 33.1053, 35.5081.
@@ -511,8 +546,9 @@ blown up [V] Munayyer p. 86. Before the game's window.
 
 - No source found gives the Arab armies' strengths dated 11 June. The nearest are O'Ballance's truce-period figures and
   the CIA's 27 July table.
-- Lorch, Morris, Pollack and Rogan and Shlaim were read only through short search snippets, without page numbers. The
-  printed pages should be checked before any figure is used.
+- Lorch, Morris and Pollack were read only through short search snippets, without page numbers. The printed pages
+  should be checked before any figure is used. Rogan and Shlaim's 1,000 Lebanese is now read on p. 112 (Rogan's chapter)
+  and rests on Glubb p. 94 (section 5, #1412); the Glubb page itself is still unread.
 - Al-Tall's two tables (13 May and 15 May) need the printed page: the OCR mixes the columns. The 1st Brigade's 13 May
   stations are unreadable.
 - Lebanese, Syrian and Egyptian brigade and battalion numbers on 11 June are mostly missing. The JTA daily
