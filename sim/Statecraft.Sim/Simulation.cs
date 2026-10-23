@@ -200,6 +200,8 @@ namespace Statecraft.Sim
                     return Training.Start(c, s, t.City, t.Track, t.Count, why);
                 case CancelTraining t:
                     return Training.Cancel(c, s, t.Cohort, why);
+                case Reinforce r:
+                    return Training.Reinforce(c, s, r.Unit, r.City, r.Count, why);
                 case PioneerWork p:
                     return Projects.Start(c, s, p.Unit, p.Action, p.Site, why);
                 case StopWork w:
