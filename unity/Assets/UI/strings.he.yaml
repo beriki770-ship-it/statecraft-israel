@@ -528,7 +528,8 @@ city.jobs: "משרות: {0} מתוך {1} מאוישות"
 # native reviewer (#564).
 city.craftsmen: "בעלי מלאכה: {0}"
 city.refugees: "פליטים ממתינים: {0}"
-# #1345: every Israeli formation the city houses. Awaits Beri's approval as a native speaker (#564).
+# #1345: every Israeli formation the city houses.
+# Approved by Beri, a native speaker, on #1345 (23 Oct 2026).
 city.soldiers: "חיילים בעיר: {0}"
 city.workers: "בעבודה: {0}"
 city.train_recruit: "אימון מגויסים: קבוצה אחת, {0}, {1}"
