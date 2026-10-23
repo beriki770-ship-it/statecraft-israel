@@ -21,7 +21,7 @@ here. Method, sources and tags are those of the Galilee note (#1429), the Haifa 
   here** from the CBS string, not printed by CBS.
 - **Founding dates.** Haim Gvati, *100 Years of Settlement*, vol. 2, appendix, Ben-Yehuda Project
   edition, https://benyehuda.org/read/14684 (checked 2026-10-23). Each row gives name, geographic
-  region, date of founding, affiliation (kibbutzim and moshavim only) and the origin of the name.
+  region, date of founding, affiliation (a movement for kibbutzim and moshavim, `מועצה מקומית` for the Moza rows) and the origin of the name.
   The column does not say whether a date is the day of going onto the land or a later
   recognition. Dates are quoted exactly as printed, for example `19.5.26` or `4.20`. The narrative
   chapter on the War of Independence in the same edition is used for the dates of 12 to 21 May
@@ -85,10 +85,10 @@ rename written out below.
 
 | Locality | CBS code | CBS year | lat, lon (computed here) | Gvati: region, date, affiliation | Village Statistics 1945 | Tag |
 |---|---|---|---|---|---|---|
-| קריית ענבים (Qiryat Anavim) | 78 | 1920 | 31.81055, 35.11946 | הרי יהודה, `4.20`, האיחוד | Jerusalem: "Qiryat ‘Anavim and" (the name continues on the next line, which ends "Ma‘ale") | [V] |
+| קריית ענבים (Qiryat Anavim) | 78 | 1920 | 31.81055, 35.11946 | הרי יהודה, `4.20`, האיחוד | Jerusalem: "Qiryat ‘Anavim and" (the name continues on the next line, which begins "Ma‘ale") | [V] |
 | רמת רחל (Ramat Rahel) | 127 | 1926 | 31.73954, 35.21865 | הרי יהודה, `19.5.26`, האיחוד | Jerusalem: "Ramat Rahel" | [V]; left 1929, part 2 |
 | מוצא עילית (Moza Illit) | 208 | 1933 | 31.79381, 35.15762 | הרי ירושלים, `1933`, מועצה מקומית | not listed by name (see Moza, part 3) | [V]; evacuated 1948, part 2 |
-| מעלה החמישה (Ma'ale HaHamisha) | 286 | 1938 | 31.81773, 35.11054 | הרי יהודה, `19.7.38`, האיחוד | not listed by name (see the Qiryat Anavim unit above) | [V]; part 2 |
+| מעלה החמישה (Ma'ale HaHamisha) | 286 | 1938 | 31.81773, 35.11054 | הרי יהודה, `19.7.38`, האיחוד | not listed by name (our reading: possibly the Qiryat Anavim unit above) | [V]; part 2 |
 | כפר אוריה (Kefar Uriyya) | 364 | 1944 | 31.79261, 34.94732 | שפלת יהודה, `2.8.44`, תנועת המושבים | Ramle: "Kefar Uriya" (a Ramle sub-district table, not Jerusalem) | [V]; founded 1913, left 1929, part 2 |
 | נווה אילן (Newe Ilan) | 405 | 1946 | 31.80828, 35.08093 | הרי יהודה, `27.10.46`, האיחוד | not applicable, founded after 1945 | [V]; kibbutz 1946, present locality 1971, part 2 |
 | ירושלים (Jerusalem) | 3000 | ותיק | 31.78381, 35.22047 | [GAP] no row | Jerusalem: "Jerusalem (Urban)" | pre-1882 city; no founding date sought |
@@ -104,7 +104,7 @@ Hebrew Wikipedia pages below were read at the `oldid` given, checked 2026-10-23.
 - he.wiki `קריית ענבים`, oldid **44006051**: "הקיבוץ נוסד בשנת 1920 על ידי עולים מאוקראינה"; "על
   חלקה זו הוקם בשנת 1920 קיבוץ קריית ענבים". [S, Wikipedia] Gvati's origin of the name:
   "בעקבות הכפר הערבי קריית אל-ענב".
-- The 1945 unit named "Qiryat ‘Anavim and" plus a line ending "Ma‘ale". **Our reading:** the second
+- The 1945 unit named "Qiryat ‘Anavim and" plus a next line beginning "Ma‘ale". **Our reading:** the second
   name is Ma'ale HaHamisha, whose land came from Qiryat Anavim (below); the text layer does not
   show the rest of the name.
 
@@ -113,7 +113,7 @@ Hebrew Wikipedia pages below were read at the `oldid` given, checked 2026-10-23.
 - he.wiki `מעלה החמישה`, oldid **44069073**: "הקיבוץ נוסד רשמית ב-19 ביולי 1938"; of the name,
   "באספת ועדת השמות של קק"ל מ-27 באוגוסט 1938 נקבע השם הרשמי 'מעלה החמישה'", after a temporary
   name "גבעת החמישה". [S, Wikipedia]
-- he.wiki `קריית ענבים`, oldid **44006051**: the land "דילב ב" "בתחילה הייתה שייכת לקיבוץ קריית
+- he.wiki `קריית ענבים`, oldid **44006051**: the land "דילב ב" "שבתחילה היו שייכות לקיבוץ קריית
   ענבים אך ב-1938 הוקם עליהן קיבוץ מעלה החמישה". [S, Wikipedia]
 
 ### Ramat Rahel (CBS 127)
@@ -124,7 +124,7 @@ Hebrew Wikipedia pages below were read at the `oldid` given, checked 2026-10-23.
 - **Left in 1929** (no single day in the passages read), **returned in the early 1930s**. [S, Wikipedia]
   For May 1948, Gvati, narrative: "ב־21.5 הם פתחו באש תותחים על רמת־רחל וכבשוה. המגינים נסוגו, אולם
   באותו לילה, כאשר הגיעה תגבורת, שבו וכבשו את המקום"; the place then changed hands several times and
-  was held by the Haganah at the end. Gvati's list of the nine localities lost in the war does not
+  was taken finally "על ידינו" (Gvati's wording). Gvati's list of the nine localities lost in the war does not
   include it (see part 3).
 
 ### Moza Illit (CBS 208)
@@ -161,15 +161,17 @@ Hebrew Wikipedia pages below were read at the `oldid` given, checked 2026-10-23.
 - **Our reading:** CBS's 1946 and Gvati's day are the kibbutz that was dissolved in 1956; the locality
   on CBS's coordinate is the cooperative village of the 1970s on a neighbouring hill ("על גבעה בכניסה
   לנווה אילן" is how the article places the historic site). No coordinate for the 1946 site here.
-  [GAP] The 1971 cornerstone is the only date the article gives for the later settlement.
+  [GAP] For the later settlement the article gives the first members arriving in 1970, living on site from 1972, and the cornerstone on 27 September 1971.
 
 ## 3. Places that stood before 15 May 1948 and are not CBS localities today
 
 These are the rows the issue calls renames and abandonment. Each is recorded with its source; nothing
-is proposed about how it appears in the game. None is a CBS locality under its own name.
-[checked 2026-10-23: no CBS row matches `עטרות`, `נווה יעקב`, `הר טוב`, `הר-טוב`, `בית הערבה`,
-`מוצא תחתית`, `כפר עציון`, `משואות יצחק`, `עין צורים`, `רבדים` or `מגדל עדר`; the CBS rows for
-Moza Illit, Ma'ale HaHamisha and Qiryat Anavim are the only ones near them.]
+is proposed about how it appears in the game. None is a CBS row for its pre-1948 site.
+[checked 2026-10-23: CBS has no row for `נווה יעקב`, `הר טוב`, `מוצא תחתית` or `מגדל עדר`. It has
+rows with later years for `בית הערבה` (code 3645, 1980, Jordan-Jericho sub-district), `כפר עציון`
+(3488, 1967, Bethlehem sub-district), `משואות יצחק` (620, 1949), `עין צורים` (622, 1949) and `רבדים`
+(564, 1948), the last three in the Ashkelon sub-district; `בני עטרות` (448, 1948) and `אזור תעשייה
+הר-טוב` (1701, no year) are other localities.]
 
 ### Moza (Moza Tahtit, annexed to Jerusalem)
 - he.wiki `מוצא`, oldid **43885172**: infobox `תאריך ייסוד = 1894`; "המושבה נוסדה בשנת 1894 על ידי
@@ -180,7 +182,7 @@ Moza Illit, Ma'ale HaHamisha and Qiryat Anavim are the only ones near them.]
   misprint of 1894, because he.wiki gives 1894 and the colony's own article says it was annexed to Jerusalem in
   1993; no source read here says it is a misprint. Use 1894 and label it "our reading".
 - Village Statistics 1945: "Qaliniya and Motsa" in the Jerusalem sub-district table; the unit also
-  includes the neighbouring Arab village. **Renamed 1933, annexed 1993.** [S, Wikipedia]
+  includes the neighbouring Arab village (our reading). **Renamed 1933, annexed 1993.** [S, Wikipedia]
 
 ### Atarot
 - he.wiki `עטרות`, oldid **43943172**: "היישוב הוקם ב-1912, ופונה והוחרב במלחמת העצמאות"; "התיישבה
@@ -194,7 +196,7 @@ Moza Illit, Ma'ale HaHamisha and Qiryat Anavim are the only ones near them.]
   no row] Village Statistics 1945 names "‘Atarot" in the Jerusalem sub-district table.
 - **1948:** he.wiki: "באפריל 1948 פונו מהיישוב הילדים והנשים"; Gvati, narrative: "ב־14.5 הותקפה
   עטרות. בלילה פונו תושביה לנוה־יעקב (שכונה חצי־חקלאית בצפון ירושלים)". **Evacuated the night of
-  14 May 1948.** [S, Wikipedia] and Gvati agree on 14 May. Gvati has a row for Bnei Atarot, `7.8.48`,
+  14 May 1948.** This rests on Gvati; he.wiki gives April for the women and children and puts the order to leave on the day of the High Commissioner's departure, 14 May, which is consistent with Gvati (our reading). Gvati has a row for Bnei Atarot, `7.8.48`,
   "ע"ש הישוב עטרות שננטש במלחמת השחרור ועבר לכאן", which is after the cut-off and in another
   region. Coordinate: [GAP].
 
@@ -217,7 +219,7 @@ Moza Illit, Ma'ale HaHamisha and Qiryat Anavim are the only ones near them.]
   colony dates from December 1895 (Bulgarian Jews, same article). Not in Gvati's appendix.
   [checked 2026-10-23: no row] Village Statistics 1945 names "Har Tuv" in the Jerusalem sub-district
   table.
-- **[C]** on the evacuation: Gvati, narrative: "הרטוב: ... פונה ב־15 במאי" and "אנשיו הועברו
+- **[C]** on the evacuation: Gvati, narrative: "עוד ישוב יהודי אחד פונה ב־15 במאי: הרטוב" and "אנשיו הועברו
   לכפר־אוריה", against he.wiki "בליל 16 במאי 1948". **Our reading:** the two can describe one night
   that spans the date; keep both. Gvati lists it among seven places "פונו או נכבשו זמנית וחזרו
   לשליטתנו", and he.wiki says "מספר מתיישבים שבו, אך היישוב לא הוקם מחדש". Coordinate: [GAP].
@@ -243,10 +245,11 @@ Moza Illit, Ma'ale HaHamisha and Qiryat Anavim are the only ones near them.]
   Kefar Etzion is the 1967 refounding: `25.9.67`, הר חברון, הפועל המזרחי.
 - **Masuot Yitzhak**: he.wiki `משואות יצחק`, oldid **44069163**: "הוקם באוגוסט 1945". **[C]** inside
   Wikipedia: August 1945 here, 4 November 1945 in the Gush article. **Our reading:** keep both; the
-  month is not settled. Gvati's row `6.7.49` is the refounding in the south.
+  month is not settled. Gvati's row `6.7.49` (region דרום) is, our reading, the refounding in the south.
 - **Ein Tzurim**: he.wiki `עין צורים`, oldid **43279921**: "הוקם כנקודת היאחזות בגוש עציון" on
   "23 באוקטובר 1946", against 22 October in the Gush article. [C] by one day; keep both. Gvati's row
-  `6.5.49` is the refounding in the south.
+  `6.5.49` (region שפלת יהודה; name origin "כשם הקיבוץ בגוש עציון שנחרב במלחמת השחרור") is, our reading,
+  the refounding.
 - **Revadim**: he.wiki `רבדים`, oldid **44069086**: "הוקם ב-11 בפברואר 1947 בגוש עציון". [S,
   Wikipedia] Gvati's row `17.11.48` is the refounding, and the narrative says it went up "אחרי שחבריו
   שוחררו מהשבי".
@@ -256,7 +259,8 @@ Moza Illit, Ma'ale HaHamisha and Qiryat Anavim are the only ones near them.]
   עציון", "ב־13 במאי פרצו הערבים לכפר־עציון" (the sentence goes on to the deaths of those found
   there; not repeated here), the other three surrendered the next day, and "גוש עציון נכנע ביום
   הכרזת המדינה: 14 במאי 1948". **Kefar Etzion fell 13 May; the other three on 14 May 1948.**
-- None of the four is a Gvati founding row for the pre-1948 site, and none is a CBS row. Village
+- None of the four is a Gvati founding row for the pre-1948 site, and none is a CBS row for its pre-1948 site (CBS has rows for the refounded Kefar Etzion, Masuot
+  Yitzhak, Ein Tzurim and Revadim, with the later years above). Village
   Statistics 1945: [GAP], see part 4. Coordinates: [GAP].
 
 ## 4. Gaps and what was not done
@@ -267,8 +271,8 @@ Moza Illit, Ma'ale HaHamisha and Qiryat Anavim are the only ones near them.]
   unnamed land units; "not listed by name" proves nothing.
 - [GAP] **Kalya.** Gvati has a row `קליה`, בקעת הירדן, `1.2.68`, האיחוד (a 1968 Nahal outpost, "קם
   לתחיה ים המוות"), and a narrative line that places it next to "מלון 'קליה' הזכור לרבים מתקופת
-  המנדט". Whether a Jewish settlement stood there before 15 May 1948 is not established by anything
-  read here; he.wiki `קליה`, oldid **38683480**, is a disambiguation page of 553 bytes. No row.
+  המאנדט". Whether a Jewish settlement stood there before 15 May 1948 is not established by anything
+  read here; he.wiki `קליה`, oldid **38683480**, is a short disambiguation page. No row.
 - [GAP] **Completeness of part 3.** Part 3 lists the abandoned and merged places named in Gvati's
   list of nine, in the 1945 table and in the articles read. It is not shown to be complete: Gvati's
   other places lost in the war (Kefar Darom, Mishmar HaYarden) are outside this region.
