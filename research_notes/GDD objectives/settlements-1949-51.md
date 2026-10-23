@@ -264,19 +264,19 @@ sources read, not a gazetteer check.
 ### 8. Megiddo (מגידו), kibbutz
 
 - **Founded: [C, one day; the kibbutz's own quoted line may be internally inconsistent, on our reading].** Tags below are [S] unless stated;
-  "agent read 2026-10-23; a person's check pending" applies to every web page named here.
+  "agent read 2026-10-23; a person's check pending" applies to every page added here that was opened.
   - Gvati: 1.2.49, HaKibbutz HaArtzi (the appendix list, as the note already cites it); his prose, on the
     benyehuda.org page above, says four kibbutzim "went onto the land in Shvat 5709 (February 1949)" and names
-    Megiddo first, which is list order, not a day. [S]
+    Megiddo first but gives no day. [S]
   - The kibbutz's own pages. (a) An excerpt of its founding scroll, shown on the settlement list at ofra.org.il
     (page "אודות קיבוץ מגידו"): "היום, יום ב' בשבט תש"ט (02.02.1949), שנה ראשונה למדינת ישראל, עלינו כאן חברי הקיבוץ
     'השומר הצעיר' על שם יוסף קפלן ואנו מניחים יסוד לישוב חדש במולדת" ("Today, 'yom bet' of Shvat 5709 (02.02.1949),
     the first year of the State of Israel, we members of the kibbutz 'HaShomer HaTza'ir' named after Yosef Kaplan
     came up here and lay the foundation of a new settlement in the homeland"), marked "(from the founding scroll)".
     The scroll itself was not seen, only this quotation on a third-party list. [S]
-    (b) Two member memorial pages on megiddo.co.il (Yehuda Fishler, objDoc OID 889907; Yosef Shpigel, OID 889911)
-    carry the line "2.2.1949 יום העלייה על הקרקע" (2.2.1949, the day of going onto the land); Fishler's life story
-    says he "עלה ב-2 בפברואר 1949 עם קבוצת המייסדים על הקרקע במגידו", Shpigel's "בשניים בפברואר 1949 עלה עם חברי
+    (b) Two member memorial pages on megiddo.co.il (objDoc OID 889907 and OID 889911)
+    carry the line "2.2.1949 יום העלייה על הקרקע" (2.2.1949, the day of going onto the land); the first page's life story
+    says he "עלה ב-2 בפברואר 1949 עם קבוצת המייסדים על הקרקע במגידו", the second's "בשניים בפברואר 1949 עלה עם חברי
     הגרעין להקים את מגידו". These were written decades later; they show what the kibbutz records, not an event
     report. [S]
   - **Our reading of the scroll's Hebrew date.** The quotation has no day-of-month number: "יום ב' בשבט" can
