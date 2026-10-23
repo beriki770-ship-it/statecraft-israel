@@ -28,7 +28,7 @@ for R-TURN-003 if the historical run is in that situation on that turn. This not
 
 - Every URL below was opened on **2026-10-16** (the check date for all of them). Two research helpers read the pages
   first; every quotation tagged [V] below was then re-fetched and matched verbatim in the page text by the note's
-  author, the same day. JTA bulletin dates are the pages' own `datePublished`.
+  author, the same day. JTA bulletin dates are the pages' own `datePublished`. The seamen's strike sources added for issue #1425 (section 2a) were read on **2026-10-23** by an AI agent; a person's check is pending.
 - Tags, as in the #135 note:
   - **[V] verified**: read in a primary or official record (FRUS, UN resolution text) or in the period press (JTA
     Daily News Bulletin), quoted verbatim.
@@ -200,7 +200,7 @@ Turn: 15 November 1951 (the same turn as `forex_crisis_1951`; just **after** the
     13 November and an open strike call only after 21 November, citing the Hebrew press, which is not readable here.
   - Checks: 12 Nov to 4 Dec is the 23rd day, inside the fourth week, as JTA says on 4 Dec; 12 Nov to 17 Dec is the 36th
     day, so "second month" on 17 Dec also fits. (Our arithmetic.)
-- **End, return to work voted 25 December 1951** (JTA date):
+- **End, return to work voted 23, 24 or 25 December 1951** ([C], below):
   - [V] JTA Daily News Bulletin, 26 Dec 1951 (No. 248), p. 2, "Israeli Seamen End Strike; First Vessel Leaves for
     Trieste", dateline "TEL AVIV, Dec. 25": "A general meeting of Israel's striking seamen today ratified decisions of
     their representative group to call off the strike and return to work immediately. The vote was 400-3." Terms as
@@ -212,6 +212,7 @@ Turn: 15 November 1951 (the same turn as `forex_crisis_1951`; just **after** the
     שביתתם" (not readable here: NLI returns 403). A cable written on 25 December may report a meeting held the night
     before; that is our reading, not a source. Only one contemporary report was read for the end, so the day stays
     open between 24 and 25 December.
+  - [C] [S] The Israel Democracy Institute's survey "כאן שביתה! על תרבות השביתות הישראלית" gives the end as "23 בדצמבר 1951" and the length as 43 days, citing the Knesset's "הכנסת השנייה" page. https://www.idi.org.il/parliaments/11092/11096. The day stays open between 23, 24 and 25 December.
 - **Parties, ports, ships and the path to a settlement, as the sources give them:**
   - The Seamen's Association (its secretariat elected at the seamen's convention in early November) against the
     Histadrut (secretary-general Mordecai Namir) and the shipping companies Shoham and M. Dizengoff (*Jerusalem Post* 13 and 14 Nov;
