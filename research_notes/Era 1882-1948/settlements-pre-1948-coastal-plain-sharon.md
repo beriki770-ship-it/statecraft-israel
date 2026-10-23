@@ -49,8 +49,7 @@ here. Method, sources and tags are those of the Galilee note (#1429), the Haifa 
 
 **Tags**, as in `settlements-1949-51.md`:
 - **[V] verified**: two or more independent sources agree, or one authoritative primary source. For
-  a founding year that is CBS and Gvati, or CBS and an article that does not cite CBS; CBS's
-  coordinates are **computed here** (see above).
+  a founding year that is CBS and Gvati; CBS's coordinates are **computed here** (see above).
 - **[S] single source**: one source, or several that plainly copy one another. A fact resting only
   on Hebrew Wikipedia is **[S, Wikipedia]**.
 - **[C] conflicting**: sources disagree. Both values are given, each with its source, and
@@ -105,7 +104,7 @@ have a disagreement, a rename, a move, an abandonment or a single source written
 | אביחיל (Avihayil) | 175 | 1932 | 32.35084, 34.87119 | עמק חפר, `19.7.32`, תנועת המושבים | Tulkarm: "Avihayil" | [V]; merged with Ein HaOved 1946, part 2 |
 | אבן יהודה (Even Yehuda) | 182 | 1932 | 32.27106, 34.88578 | השרון הדרומי, `12.32`, (no affiliation column) | Tulkarm: "Even Yehuda" | [V] |
 | גבעת חיים (איחוד) (Giv'at Hayyim (Ihud)) | 2018 | 1932 | 32.39941, 34.93216 | עמק חפר, `14.7.32`, האיחוד | Tulkarm: "Giv‘at Haiyim" | [C] he.wiki 1952; part 2 |
-| גבעת חיים (מאוחד) (Giv'at Hayyim(Me'uhad)) | 173 | 1932 | 32.39144, 34.93077 | עמק חפר, `14.7.32`, הקיבוץ המאוחד | Tulkarm: "Giv‘at Haiyim" | [V] |
+| גבעת חיים (מאוחד) (Giv'at Hayyim(Me'uhad)) | 173 | 1932 | 32.39144, 34.93077 | עמק חפר, `14.7.32`, הקיבוץ המאוחד | Tulkarm: "Giv‘at Haiyim" | [V]; part 2 |
 | כפר יונה (Kefar Yona) | 168 | 1932 | 32.31541, 34.93330 | השרון, `23.1.32`, (no affiliation column) | Tulkarm: "Kefar Yona" | [V] |
 | כפר יעבץ (Kefar Ya'bez) | 170 | 1932 | 32.27456, 34.96550 | השרון הדרומי, `11.32`, הפועל המזרחי | Tulkarm: a unit ending "Khirbat Takla and Kefar Ya‘vetz" | [V]; evacuated 1948, part 2 |
 | אלישיב (Elyashiv) | 204 | 1933 | 32.38087, 34.90967 | עמק חפר, `14.11.33`, התאחדות האכרים | Tulkarm: "Elyashiv" | [V] |
@@ -214,7 +213,7 @@ have a disagreement, a rename, a move, an abandonment or a single source written
 | באר יעקב (Be'er Ya'aqov) | 2530 | 1907 | 31.94202, 34.83904 | שפלת יהודה, `2.12.1907`, (no affiliation column) | Ramle: "Beer Ya‘aqov" | [V]; first named Be'er Shalom, part 2 |
 | בן שמן (כפר נוער) (Ben Shemen(K.No'ar)) | 1084 | 1921 | 31.95944, 34.92739 | [GAP] no row | Ramle: "Ben Shemen", see part 2 | [C] he.wiki 1927; part 2 |
 | חולדה (Hulda) | 160 | 1930 | 31.83139, 34.88255 | שפלת יהודה, `1930`, האיחוד | Ramle: "Hulda" | [V] |
-| נען (Na'an) | 158 | 1930 | 31.88392, 34.85774 | שפלת יהודה, `10.3`, הקיבוץ המאוחד | not listed by name | [V] with he.wiki; Gvati prints no year, part 2 |
+| נען (Na'an) | 158 | 1930 | 31.88392, 34.85774 | שפלת יהודה, `10.3`, הקיבוץ המאוחד | not listed by name | [S] CBS only for the year; Gvati prints no year, part 2 |
 | גזר (Gezer) | 370 | 1945 | 31.87672, 34.91983 | שפלת יהודה, `13.3.45`, האיחוד | not listed by name | [V] |
 
 ### Rehovot sub-district
@@ -321,7 +320,8 @@ by sub-district, in the order of part 1.
   במקור בשנת 1937 על אדמות הקרן הקיימת ליד קיבוץ גבת"; "המוסד פונה, עבר זמנית לחדרה, ובהמשך שנת
   1942 התמקם באופן קבוע באזור תל מונד סמוך לכפר הס". [S, Wikipedia]
 - **[S]** year 1942, CBS, with he.wiki agreeing. **Move:** the institution began in 1937 near Gvat
-  (Jezreel valley) and came to its present site in 1942; the 1937 site is outside this region.
+  and came to its present site in 1942. **Our reading:** Gvat is in the Jezreel valley, so the 1937
+  site is outside this region.
 
 #### Pardesiya (CBS 171)
 - CBS **1942**. Not in Gvati's appendix. [checked 2026-10-23: no row]
@@ -409,7 +409,8 @@ by sub-district, in the order of part 1.
   הכובש"; "בתחילה נקרא הקיבוץ גבעת השלושה של איחוד הקבוצות והקיבוצים". [S, Wikipedia]
 - **[C]** CBS 1925 against Gvati and he.wiki 1952. **Our reading:** two sources against one; use
   1952, after this era. CBS's 1925 is the year of Givat HaShlosha (CBS 870, Gvati `1.5.25`), the
-  kibbutz Einat split from. The row should not enter a pre-1948 list as a place of its own.
+  one of the two kibbutzim whose members founded Einat. The row should not enter a pre-1948 list as a
+  place of its own.
 
 #### Gat Rimon, first named HaTehiya (CBS 128)
 - CBS **1926**; Gvati `2.7.26`. [V]
@@ -420,8 +421,8 @@ by sub-district, in the order of part 1.
 #### Yarkona, first named Irgun Jidru (CBS 183)
 - CBS **1932**; Gvati `1932`. [V]
 - he.wiki `ירקונה`, oldid **42877051**: "בתחילה נקרא המקום 'ארגון ג'ידרו', כשם הארגון שהתיישב
-  במושב". [S, Wikipedia]
-- **Rename** to Yarkona; year not given. [GAP]
+  במושב"; "בתחילת 1933 ניתן למושב השם 'ירקונה'". [S, Wikipedia]
+- **Rename** Irgun Jidru to Yarkona in **early 1933** [S, Wikipedia].
 
 #### Kfar Sirkin (CBS 249)
 - CBS **1936**; Gvati `1.4.46`.
@@ -468,11 +469,12 @@ by sub-district, in the order of part 1.
 #### Tel Aviv-Yafo (CBS 5000)
 - CBS **1909**, `דת יישוב` = 4. Not in Gvati's appendix (a city). [checked 2026-10-23: no row]
 - he.wiki `תל אביב-יפו`, oldid **44079227**: "תל אביב נוסדה רשמית ב-11 באפריל 1909 כשכונת אחוזת
-  בית, כשם האגודה שייסדה אותה"; and of 1949, "אוחדו מוניציפלית שתי הערים". [S, Wikipedia] Village
+  בית, כשם האגודה שייסדה אותה"; "ב-21 במאי 1910 שונה שם השכונה ל'תל אביב'"; and of 1949, "אוחדו
+  מוניציפלית שתי הערים". [S, Wikipedia] Village
   Statistics 1945 (Jaffa) has "Tel Aviv (Urban)" (Arabs 660, Jews 166,000, Total 166,660) and Jaffa
   as a separate unit.
 - **[S]** year 1909, CBS, with he.wiki agreeing; day 11 April 1909 [S, Wikipedia]. **Rename**
-  Ahuzat Bayit to Tel Aviv; year not in the passages read. [GAP] The union with Jaffa (1949) is
+  Ahuzat Bayit to Tel Aviv on **21 May 1910** [S, Wikipedia]. The union with Jaffa (1949) is
   after this era.
 
 #### Ramat Gan (CBS 8600)
@@ -497,9 +499,11 @@ by sub-district, in the order of part 1.
 #### Bat Yam, first named Bayit VaGan (CBS 6200)
 - CBS **1926**. Not in Gvati's appendix. [checked 2026-10-23: no row]
 - he.wiki `בת ים`, oldid **43939074**: "היא הוקמה בשנת 1926 כ'בית וגן' בחולות שמדרום ליפו"; "במאורעות
-  תרפ"ט פונו התושבים על ידי הצבא הבריטי"; "במאי 1932 חזרו התושבים לבית וגן". [S, Wikipedia]
+  תרפ"ט פונו התושבים על ידי הצבא הבריטי"; "במאי 1932 חזרו התושבים לבית וגן"; "במאי 1937 החליטה
+  המועצה המקומית לשנות את שם המקום לבת ים". [S, Wikipedia]
 - **[S]** year 1926, CBS, with he.wiki agreeing. **Abandoned** in the 1929 riots (no exact date in
-  the passage) and **resettled May 1932**. **Rename** Bayit VaGan to Bat Yam; year not given. [GAP]
+  the passage) and **resettled May 1932**. **Rename** Bayit VaGan to Bat Yam, decided **May 1937** [S,
+  Wikipedia].
   Rows for the owner's sensitivity review.
 
 #### Kiryat Ono (CBS 2620)
@@ -512,7 +516,11 @@ by sub-district, in the order of part 1.
 - he.wiki `חולון`, oldid **43987452**: "חולון כמועצה מקומית הוקמה לאחר איחוד חמש השכונות שהיו במרחב
   ב-26 ביוני 1940 (שכונת גרין, מולדת, אגרובנק, קריית עבודה ושכונת עם)". [S, Wikipedia]
 - **[S]** year 1940, CBS, with he.wiki agreeing. **Our reading:** 1940 is the union of five older
-  neighbourhoods; their own founding dates are not given here. [GAP]
+  neighbourhoods. The article's section headings date them: שכונת גרין (1924), שכונת מולדת (1930),
+  שכונת אגרובנק (1934), שכונת קריית עבודה (1936) and שכונת עם (1937). [S, Wikipedia] In the Moledet
+  section it says the neighbourhood "נפגעה ... וננטשה כמעט לחלוטין" in 1936 (the Arab Revolt), its
+  residents taking shelter at Mikve Israel: an **abandonment** in 1936, with no day given. A row for
+  the owner's sensitivity review.
 
 ### Ramla sub-district
 
@@ -535,7 +543,7 @@ by sub-district, in the order of part 1.
 #### Na'an (CBS 158)
 - CBS **1930**; Gvati `10.3` as printed, a day and month with no year, `הקיבוץ המאוחד`.
 - he.wiki `נען`, oldid **43556152**: "הקיבוץ נוסד בסוכות, תרצ"א, אוקטובר 1930". [S, Wikipedia]
-- **[V]** year 1930 (CBS and he.wiki). **Our reading:** Gvati's `10.3` may be October 1930 with the
+- **[S]** year 1930, CBS, with he.wiki agreeing. **Our reading:** Gvati's `10.3` may be October 1930 with the
   year cut off; no source read here says so.
 
 ### Rehovot sub-district
@@ -543,11 +551,12 @@ by sub-district, in the order of part 1.
 #### Mazkeret Batya, first named Ekron (CBS 28)
 - CBS **1883**; Gvati `7.11.1889`, in the section with no affiliation column.
 - he.wiki `מזכרת בתיה`, oldid **43685177**: "נוסדה כמושבה בשלהי שנת 1883, ביוזמתו של הרב שמואל
-  מוהליבר"; "שמה המקורי היה 'עקרון'". [S, Wikipedia] Village Statistics 1945 (Ramle) still prints
+  מוהליבר"; "שמה המקורי היה 'עקרון'"; "לבקשת הברון, במהלך ביקורו במקום באפריל 1887, הוחלף שמה של
+  המושבה ל'מזכרת בתיה'". [S, Wikipedia] Village Statistics 1945 (Ramle) still prints
   "Mazkeret Batyah (‘Eqron)".
 - **[C]** CBS and he.wiki 1883 against Gvati 1889. **Our reading:** two sources against one; use
   late 1883 and record Gvati's 7 November 1889, which no source read here explains. **Rename** Ekron
-  to Mazkeret Batya; year not given. [GAP]
+  to Mazkeret Batya in **April 1887** [S, Wikipedia].
 
 #### Ness Ziona, first named Nahalat Reuven (CBS 7200)
 - CBS **1883**; Gvati `1880` (status column `מועצה מקומית`).
@@ -621,7 +630,10 @@ where a later CBS row of the same name is noted. Coordinates: [GAP] for all of t
 - he.wiki `נחלת יצחק (מזרח תל אביב)`, oldid **44012388**: "שכונה במזרח תל אביב שהוקמה בשנת 1925
   מזרחית לנחל איילון". [S, Wikipedia] Village Statistics 1945 (Jaffa) names "Nahalat Yits-haq".
   Not in Gvati. [checked 2026-10-23: no row]
-- Founded **1925**; the year it joined Tel Aviv is not in the passage read. [GAP]
+- he.wiki, same article: "בתחילת שנת 1946 סופחו 550 דונם מאדמות השכונה לתל אביב"; "סופחה השכונה על
+  ידי הבריטים במרץ 1948 לתל אביב". [S, Wikipedia]
+- Founded **1925**; part of its land annexed to Tel Aviv early **1946**, the whole neighbourhood in
+  **March 1948**, before 15 May 1948. [S, Wikipedia]
 
 ### Tel Litwinsky (merged into Ramat Gan)
 - he.wiki `תל ליטוינסקי`, oldid **43678012**: "תל ליטוינסקי הייתה מושבה שהוקמה ב־1934"; "ב-1961 סופחה
@@ -638,13 +650,15 @@ where a later CBS row of the same name is noted. Coordinates: [GAP] for all of t
 
 ### Tirat Shalom, Kfar Aharon and Kfar Marmorek (now neighbourhoods of Ness Ziona and Rehovot)
 - Tirat Shalom: he.wiki `טירת שלום`, oldid **43738322**: "מושב עובדים של יוצאי תימן שהוקם בשנת 1930".
-  Village Statistics 1945 (Ramle) names "Tirat Shalom". [S, Wikipedia]
+  "בשנת 1959 הפך המושב לשכונה חקלאית בתחומה של נס ציונה". Village Statistics 1945 (Ramle) names
+  "Tirat Shalom". [S, Wikipedia]
 - Kfar Aharon: he.wiki `כפר אהרון`, oldid **43845665**: "הכפר הוקם ליד נס ציונה ... ביום 2 ביולי שנת
   1926". Village Statistics 1945 (Ramle) names "Kefar Aharon". [S, Wikipedia]
 - Kfar Marmorek: he.wiki `כפר מרמורק`, oldid **43737609**: "השכונה הוקמה בשנת 1929 כמושב העובדים
   הראשון של עולי תימן". Village Statistics 1945 (Ramle) names "Kefar Marmorek". [S, Wikipedia]
-- None is in Gvati. [checked 2026-10-23: no row] The year each joined its town is not in the
-  passages read. [GAP]
+- None is in Gvati. [checked 2026-10-23: no row] Tirat Shalom joined Ness Ziona in **1959** [S,
+  Wikipedia]; the year Kfar Aharon and Kfar Marmorek joined their towns is not in the passages read.
+  [GAP]
 
 ### Kfar Brandeis (merged into Hadera)
 - he.wiki `ברנדייס (שכונה)`, oldid **41706076**: "שכונה בעיר חדרה שהוקמה ככפר ברנדייס בשנת 1927
@@ -672,16 +686,16 @@ where a later CBS row of the same name is noted. Coordinates: [GAP] for all of t
 
 - [GAP] **Completeness of part 3.** Part 3 lists the abandoned and merged places found from the CBS
   rows' own histories and the 1945 land units. It is not shown to be complete. Village Statistics
-  1945 also names "Qiryat Shaul" (Jaffa), and "Tel Tsur" and "Benei Binyamin" (Tulkarm); the
-  Holon article says one of the neighbourhoods before 1940 "נפגעה ... וננטשה
-  כמעט לחלוטין" in 1936 without that sentence naming it. None was checked further.
+  1945 also names "Qiryat Shaul" (Jaffa), and "Tel Tsur" and "Benei Binyamin" (Tulkarm); none was
+  checked further. The five neighbourhoods that formed Holon (part 2) have no rows of their own.
 - [GAP] **Census of Palestine 1931**: not used (no usable text layer, see #1429).
 - [GAP] **Coordinates of abandoned, moved and merged places**: none has one here.
-- [GAP] **Rename years** for Nahalat Yehoshua, Rishpona, HaTehiya, Irgun Jidru, Kfar Vatikim,
-  Ahuzat Bayit, Bayit VaGan, Ekron, Nahalat Reuven and the Borochov neighbourhood are not in the
+- [GAP] **Rename years** for Nahalat Yehoshua, Rishpona, HaTehiya, Kfar Vatikim, Nahalat Reuven
+  and the Borochov neighbourhood are not in the
   passages read.
 - [GAP] **Abandonment dates** for Petah Tikva before 1883, Mikve Israel in the First World War, Bat
-  Yam in 1929 and Kfar Yavetz in 1948 are not given to the day in the passages read.
+  Yam in 1929, Holon's Moledet neighbourhood in 1936 and Kfar Yavetz in 1948 are not given to the day
+  in the passages read.
 - **Gvati day versus CBS year.** Where they agree on the year the row is [V]; the day rests on Gvati
   alone, and as `settlements-1949-51.md` notes, it can be a day or more off other sources. Seventeen
   of the 116 rows (Tel Aviv-Yafo, Ramat Gan, Givatayim, Bnei Brak, Bat Yam, Kiryat Ono, Holon, Givat
