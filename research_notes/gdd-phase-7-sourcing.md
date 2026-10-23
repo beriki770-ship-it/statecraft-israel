@@ -361,11 +361,11 @@ the Spitfire `from: '1948-10-15'`, the first sourced sortie. 27 September 1948 a
     "13" stands apart (above). [V]
   - **Made to run: five at the start of Operation Danny, six in all.** Mass: at the opening of Danny only 5 usable Hotchkiss tanks were at Battalion 82's disposal, and during the Ten Days' fighting only one more was added (our translation)
     (p. 3); Tank Encyclopedia: "only five of the original ten tanks could be made to be operational at the beginning
-    of Operation Danny, and six in total during the war". Mass adds that the 8th Brigade workshop at Tel Litvinsky
-    found low compression in every engine, and that engine and cooling work went on through the first truce. [V]
+    of Operation Danny, and six in total during the war". [V] Mass adds that the 8th Brigade workshop at Tel Litvinsky
+    found low compression in every engine, and that engine and cooling work went on through the first truce. [S]
   - **First combat use found here: Operation Danny (9 to 19 July 1948); Hotchkiss tanks photographed at Lod airport on 10 July.**
     Mass's photo caption dates the
-    Hotchkiss at Lydda airport "after the capture of Lod airport by Battalion 82 on 10 July 1948" (p. 4), and the
+    Hotchkiss at Lydda airport after the capture of Lod airport by Battalion 82 on 10 July 1948 (our translation, p. 4), and the
     text puts the Hotchkiss and captured R-35 in the Lod airport and Yehud fighting; Tank Encyclopedia says Danny was
     the unit's first major engagement and that the H39s were only lightly engaged. Operation Danny began on
     9 July. A day-by-day first shot is not stated in either source. [S]
