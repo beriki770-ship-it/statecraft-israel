@@ -300,6 +300,13 @@ mvp:
   prisoner_shortfall_cohesion: 0.05
   points_per_prisoner_unit_returned: 7
   held_soldier_cost_per_turn: 0.5
+  occupation_turns: 3
+  occupation_upkeep_per_turn: 0.25
+  deport_cohesion_cost: 0.2
+  deport_support_cost: 0.1
+  deport_support_drag_per_turn: 0.01
+  deport_support_ceiling_drop: 0.3
+  deport_money_cost: 121   # >= occupation_upkeep_per_turn x the 449 turns to the end (112.25) + the dearest project (housing, 8)
   combat_terrain_percent: { coastal_plain: 100, hills: 150, desert: 100 }
   combat_table:
     - { min_ratio_percent: 0, attacker_loss: [1, 1], defender_loss: [1, 1], defender_retreats: [0, 0] }

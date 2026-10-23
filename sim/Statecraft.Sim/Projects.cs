@@ -269,6 +269,7 @@ namespace Statecraft.Sim
                 return new MapActionReason("no_resource", $"{PlayerText.Settlement(c, city)} has no {k.Requires} for {k.Name}", city, k.Requires, kind);
             var hex = c.HexAt(q, r);
             if (hex == null || !hex.Land) return new MapActionReason("not_land", "This hex is not land");
+            if (SettlementControl.DepopulatedAt(c, s, q, r)) return new MapActionReason("depopulated", "Nothing can be built on a depopulated place");   // R-CTRL-020
             var rules = c.RulesAt(s.Date);   // the era the turn starts in
             var max = rules.MapActionMaxDistance;
             var name = PlayerText.Settlement(c, city);

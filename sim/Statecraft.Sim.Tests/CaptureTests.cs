@@ -27,7 +27,11 @@ public class CaptureTests
 
     /// <summary>MovementTests' 6 x 3 coastal plain with the four places; <paramref name="targets"/> lists the targets in
     /// file order.</summary>
-    internal static Content Load(params string[] targets)
+    internal static Content Load(params string[] targets) => Load(null, targets);
+
+    /// <summary>As <see cref="Load(string[])"/>, with <paramref name="edit"/> run on the files before they load (DeportTests
+    /// turns Deport on with it, Q-TECH-3).</summary>
+    internal static Content Load(Action<Dictionary<string, string>>? edit, params string[] targets)
     {
         var files = Fixture.Gdd(new Dictionary<string, string>
         {
@@ -38,6 +42,7 @@ public class CaptureTests
             ["settlement_targets.yaml"] = targets.Length == 0 ? "targets: []\n" : "targets:\n" + string.Concat(targets.Select(id => { var p = Places.Single(x => x.Id == id); return Target(p.Id, p.Q, p.R); })),
         });
         files["rules.yaml"] = files["rules.yaml"].Replace("enemy_held_localities: []", "enemy_held_localities: [town_a, town_c, town_e]");
+        edit?.Invoke(files);
         return ContentLoader.Load(Fixture.Write(files));
     }
 

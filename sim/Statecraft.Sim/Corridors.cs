@@ -50,6 +50,8 @@ namespace Statecraft.Sim
             if ((def.Kind == Rail) != wantRail) return wantRail ? $"{def.Name} is not a railway" : $"{def.Name} is not a road";
             var index = n - 1;
             var name = SegmentName(def, index);
+            if (def.Segments[index].Hexes.Any(h => SettlementControl.DepopulatedAt(c, s, h[0], h[1])))   // R-CTRL-020 (Q-DEP-7 (c))
+                return $"{name} crosses a depopulated place, where nothing can be built";
             s.Corridors.TryGetValue(def.Id, out var work);
             if (work?.Segments[index] is SegmentWork seg)
                 return seg.BuiltOn == null ? $"{name} is already being built" : $"{name} is already built";
