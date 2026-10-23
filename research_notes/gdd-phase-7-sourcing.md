@@ -121,8 +121,7 @@ One official record dates the move of the ministry's services, and puts it in **
   במידה שהם פועלים בארץ. הביקורת עסקה גם בבדיקת תהליך ההעברה." ("The organisational and financial operations of the
   immigration and naturalisation services were audited up to the end of the year under review in the Ministry of
   Immigration. In March 1952 these services were transferred to the Ministry of the Interior, in so far as they operate
-  in the country. The audit also examined the transfer process.") [S, agent read 2026-10-23 from the page scan; a
-  person's check pending] Comptroller report 3. The Comptroller's wording suggests that a body it still calls "משרד
+  in the country. The audit also examined the transfer process.") [V, agent read 2026-10-23 from the page scan; a person's check pending] Comptroller report 3. The Comptroller's wording suggests that a body it still calls "משרד
   העלייה" held these services after 8 October 1951 until their move to Interior in March 1952 (no day given); the report
   does not say so in terms. The report names no instrument, no legal basis and no minister for the interval, and it says
   nothing of the services abroad ("במידה שהם פועלים בארץ"); none of that is inferred here. The report's table of
@@ -158,7 +157,7 @@ What the statutes show:
   its footnote gives the bill and its explanatory notes as "ה"ח 192, תשי"ד, עמ' 88". [V, agent read 2026-10-23; a
   person's check pending] That explanatory note is the likeliest place for the reason; it was **not reached** (Knesset
   site geo-blocked, no other copy found).
-- **Who exercised the Law of Return powers from 8 October 1951 to 23 August 1954: [GAP].** No source read names a
+- **Who exercised the Law of Return powers from 8 October 1951 to 23 August 1954: not found.** No source read names a
   minister for them in that interval. The Comptroller (above) has the immigration and naturalisation services
   inside "משרד העלייה" until March 1952 and inside the Ministry of the Interior after it, but says nothing of the
   statutory power itself. That Shapira, as Interior Minister, exercised it is a guess and is not stated here as
