@@ -57,8 +57,8 @@ founded inside the city in 1952-56 are not localities in the CBS sense and were 
   origin, garin) come from Wikipedia and are tagged as such.
 - Hebrew dates were converted with the `convertdate` library.
 - **Site notes.** Ten rows sit, by the Wikipedia articles, on or next to the lands of an Arab village depopulated in
-  1948. Each such row has a one-line **Site note** that names the village where the article does (row 4 names
-  none), in a neutral paraphrase, for the owner's sensitivity review. They are recorded, not weighed.
+  1948. Each such row has a **Site note** that names the village where the article does (both articles for row 4 name
+  Ein Kerem), for the owner's sensitivity review. They are recorded, not weighed.
 
 Tags, one per fact, as in `settlements-1949-51.md`:
 - **[V] verified**: two or more independent sources agree, or one authoritative primary source.
@@ -105,7 +105,7 @@ Coordinates: CBS 2024, lat N, lon E, today's site. "Founded" is the best-support
 | # | Name | Type | Founded | Lat, lon (CBS) | Renames |
 |---|---|---|---|---|---|
 | 1 | Eitanim / איתנים | Tuberculosis hospital, later psychiatric hospital | Oct 1950 (Hebrew Wikipedia), 1950 (English Wikipedia) or 1952 (CBS) **[C]** | 31.77852, 35.09574 | "בית חולים איתנים", now "המרכז לבריאות הנפש איתנים" |
-| 2 | Kesalon / כסלון | Transit camp (ma'abara), then moshav | 1952 moshav **[V]**, 4 Dec 1952 **[S]**; ma'abara 1950 **[S, Wikipedia]** | 31.77408, 35.04930 | None found |
+| 2 | Kesalon / כסלון | Transit camp (ma'abara), then moshav | 1952 moshav **[V]**, 4 Dec 1952 **[S]**; ma'abara 1950 **[S, Wikipedia]** | 31.77408, 35.04930 | Earlier "Shufa" or "Khirbat Shufa" |
 | 3 | Kiryat Ye'arim Youth Village / כפר הנוער קריית יערים | Youth village | 1952 **[V]** | 31.81161, 35.10412 | CBS name "קריית יערים (מוסד)" |
 | 4 | Ein Kerem agricultural school / בית ספר אזורי עין כרם | Agricultural school | Oct 1952 (Hebrew Wikipedia) or 1948 (English Wikipedia); no CBS year **[C]** | 31.77819, 35.15305 | First "בית הספר החקלאי עין כרם" |
 | 5 | Beko'a / בקוע | Moshav | 1951 (CBS; Gvati 4 Dec 1951) or 1952 (both Wikipedias) **[C]** | 31.82879, 34.92570 | None found |
@@ -161,8 +161,11 @@ Common sources, cited by short name in every row:
   (resettled in 1955 by immigrants from Tunisia and Morocco). English Wikipedia names only Moroccans as the
   newcomers.
 - **Site note. [S, Wikipedia]** Both Wikipedias: on the lands of the Arab village of Kasla, depopulated in 1948
-  (paraphrase; Hebrew Wikipedia adds it was taken in Operation Dani). For the owner's sensitivity review.
-- **Renames.** None found. Name origin, Gvati: "יישוב קדום בנחלת שבט יהודה (יהושע ט"ו, י')".
+  (paraphrase; Hebrew Wikipedia adds it was taken in Operation Dani). Hebrew Wikipedia: "שם היישוב הקדום השתמר בשם
+  הכפר הערבי "כסלא", שתושביו נמלטו ממנו בזמן מלחמת העצמאות, ולא הורשו לחזור אליו לאחריה". For the owner's
+  sensitivity review.
+- **Renames. [S, Wikipedia]** Hebrew Wikipedia: "הועבר השם למושב כסלון, שנקרא קודם "שופה" או "חורבת שופה""
+  (citing Yalkut HaPirsumim 277). Name origin, Gvati: "יישוב קדום בנחלת שבט יהודה (יהושע ט"ו, י')".
 - **Coordinates.** CBS 31.77408, 35.04930 (code 859).
 - **Sources.** CBS; Gvati; https://he.wikipedia.org/w/index.php?oldid=43982218 ;
   https://en.wikipedia.org/w/index.php?oldid=1374533185 . All checked 2026-10-22.
@@ -191,8 +194,12 @@ Common sources, cited by short name in every row:
 - **Type.** An agricultural boarding school, today a regional school of Mateh Yehuda (Hebrew Wikipedia). Not a
   residential settlement.
 - **Founders. [S, Wikipedia]** Hebrew Wikipedia names Nissim Mashiah among the founders.
-- **Site note. [S, Wikipedia]** Both Wikipedias: the boarding houses were buildings left by their Arab owners in 1948
-  (paraphrase). For the owner's sensitivity review.
+- **First site. [S, Wikipedia]** Hebrew Wikipedia: "הוקם בשנת 1952 במבנים אשר שימשו את חוות הלימוד שייסדה רחל ינאית
+  בן-צבי, בשכונת עין כרם שבירושלים ... בשנת 1960 עבר בית הספר אל משכנו הנוכחי מחוץ לעיר". The CBS point is the
+  present campus occupied from 1960, not the first site.
+- **Site note. [S, Wikipedia]** Hebrew Wikipedia calls the Ein Kerem buildings "שננטשו על ידי בעליהם הערבים". English
+  Wikipedia says the school was in "abandoned buildings in Ein Kerem that belonged to Palestinians after they fled
+  during the events of the Nakba of 1948". For the owner's sensitivity review.
 - **Renames. [S, Wikipedia]** Hebrew Wikipedia: earlier name "בית הספר החקלאי עין כרם".
 - **Coordinates.** CBS 31.77819, 35.15305 (code 1056).
 - **Sources.** CBS; https://he.wikipedia.org/w/index.php?oldid=43479684 ;
@@ -207,8 +214,9 @@ Common sources, cited by short name in every row:
   2) one year later; whether either is a misprint is not known (our observation, no source says so).
 - **Founders. [S, Wikipedia]** Immigrants from Yemen (both Wikipedias).
 - **Site note. [S, Wikipedia]** English Wikipedia: on land of the Arab village of Dayr Muhaysin, depopulated in April
-  1948 during Operation Nachshon (paraphrase). Hebrew Wikipedia does not mention it. For the owner's sensitivity
-  review.
+  1948 during Operation Nachshon (paraphrase); in its words, "which was completely depopulated by Jewish Haganah
+  forces on April 6, 1948 ... The surviving inhabitants had fled in fear of further Haganah attacks." Hebrew Wikipedia
+  does not mention it. For the owner's sensitivity review.
 - **Renames.** None found. Name origin, Gvati: "סמלי"; Hebrew Wikipedia: for the breaking of the siege of Jerusalem by
   the Burma Road, which began near the moshav.
 - **Coordinates.** CBS 31.82879, 34.92570 (code 864).
@@ -228,7 +236,8 @@ Common sources, cited by short name in every row:
   and the body text of Hebrew Wikipedia).
 - **Founders. [S, Wikipedia]** AKIM and the Welfare Ministry (Hebrew Wikipedia); 45 residents at the opening.
 - **Site note. [S, Wikipedia]** English Wikipedia: on the land of the Arab village of Dayr Rafat, depopulated in July
-  1948, just west of the village site (paraphrase). For the owner's sensitivity review.
+  1948, just west of the village site (paraphrase); in its words, "most of the inhabitants had already left the area
+  and the few who remained at each village were expelled." For the owner's sensitivity review.
 - **Renames.** None found.
 - **Coordinates.** CBS 31.77489, 34.95165 (code 566).
 - **Sources.** CBS; https://he.wikipedia.org/w/index.php?oldid=40909012 ;
@@ -266,7 +275,7 @@ Common sources, cited by short name in every row:
 - **Founded 27 October 1955. [S]** Gvati: "לוּזִית", region "שפלת יהודה", 27.10.55, affiliation Tnuat HaMoshavim.
   **Year [V]**: CBS 1955; Hebrew Wikipedia "היישוב הוקם בשנת 1955 על ידי עולים מצפון אפריקה"; English Wikipedia 1955.
 - **Founders. [S, Wikipedia]** Immigrants from North Africa, later joined by Algerian immigrants (Hebrew Wikipedia);
-  English Wikipedia names their leader, Shalom de Palenzuela Levi-Kahana.
+  English Wikipedia names the founding group's leader.
 - **Renames. [S, Wikipedia]** Hebrew Wikipedia: "ונקרא תחילה בשם "דיר דובן ב'"" (first called Dir Duban B); English
   Wikipedia: "It was initially named Dir Duban Bet". Then Luzit, after the almond (luz) groves (Gvati, both
   Wikipedias). No date for the change is given.
@@ -284,9 +293,10 @@ Common sources, cited by short name in every row:
   dot missing, but that is our reading. **Day [GAP].**
 - **Founders. [S, Wikipedia]** Immigrants from North Africa (both Wikipedias).
 - **Site note. [S, Wikipedia]** English Wikipedia: on land of the Arab village of 'Ajjur, depopulated in 1948
-  (paraphrase). Hebrew Wikipedia says the same in substance, but its link to the village page "עג'ור" displays the name
-  "מוע'ליס" (the village English Wikipedia gives for Gefen, row 7), so the Hebrew page is internally unclear. Not
-  resolved. For the owner's sensitivity review.
+  (paraphrase). Hebrew Wikipedia: "המושב הוקם על אדמות הכפר הערבי מוע'ליס, שתושביו עזבוהו במהלך מלחמת העצמאות ולא
+  הורשו לחזור אליו לאחריה"; its link to the village page "עג'ור" displays the name "מוע'ליס" (the village English
+  Wikipedia gives for Gefen, row 7), so the Hebrew page is internally unclear. Not resolved. For the owner's
+  sensitivity review.
 - **Renames.** None found. Name origin, Gvati: "סמלי"; Hebrew Wikipedia: the area's vineyards.
 - **Coordinates.** CBS 31.75066, 34.88598 (code 10).
 - **Sources.** CBS; Gvati; https://he.wikipedia.org/w/index.php?oldid=43546231 ;
