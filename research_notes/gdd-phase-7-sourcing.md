@@ -37,6 +37,8 @@ Primary and official:
 | Law of Return 1950 | חוק השבות, תש"י-1950, as published (Sefer HaHukim 51, 5710, p. 159), Knesset scan | https://fs.knesset.gov.il/1/law/1_lsr_209667.pdf |
 | Law of Return amendment 1954 | חוק השבות (תיקון), תשי"ד-1954 (Law No. 55), Knesset scan | https://fs.knesset.gov.il/2/law/2_lsr_209666.pdf |
 | Entry into Israel Law 1952 | Entry into Israel Law, 5712-1952, English translation on the UNODC legal library | https://www.unodc.org/cld/uploads/res/document/law-no--5712-1952--entry-into-israel-law_html/Entry_Into_Israel_1952.pdf |
+| Comptroller report 3 | דין וחשבון שנתי מס' 3, the State Comptroller's report for the 1951/52 financial year (Jerusalem, 31 December 1952): chapter ט "משרד הפנים", p. 75 (a one-page scan); read 2026-10-23 (#1423) | https://library.mevaker.gov.il/sites/DigitalLibrary/Documents/1950-2008/1952-3/1952-3-322-Pnim.pdf |
+| Comptroller report 3, front matter | The same report's title page and table of contents (pp. V-IX list the ministries audited; none is a Ministry of Immigration); read 2026-10-23 (#1423) | https://library.mevaker.gov.il/sites/DigitalLibrary/Documents/1950-2008/1952-3/1952-3-001.pdf |
 | FRUS 1950 V d364 | McDonald (Tel Aviv), 19 February 1950: Shiloah's account of the 17 February meeting | https://history.state.gov/historicaldocuments/frus1950v05/d364 |
 | FRUS 1950 V d365 | Fritzlan (Amman), 20 February 1950: the King's terms as told to the US Legation by Kirkbride, with an editorial footnote | https://history.state.gov/historicaldocuments/frus1950v05/d365 |
 | FRUS 1950 V d370 | McDonald (Tel Aviv), 26 February 1950: the 24 February meeting | https://history.state.gov/historicaldocuments/frus1950v05/d370 |
@@ -112,6 +114,33 @@ holder).**
   not a rename. The Knesset rows support he.wiki.
 
 **Where the functions went.** No source was found that records a transfer order in October 1951 (see "Not reached").
+One official record dates the move of the ministry's services, and puts it in **March 1952**, not October 1951:
+
+- The State Comptroller's report for the 1951/52 financial year, chapter "משרד הפנים", p. 75: "הפעולות הארגוניות
+  והכספיות של שירותי העלייה וההתאזרחות נבדקו עד סוף השנה הנסקרת במשרד העלייה. במארס 1952 הועברו שירותים אלה למשרד
+  הפנים, במידה שהם פועלים בארץ. הביקורת עסקה גם בבדיקת תהליך ההעברה." ("The organisational and financial operations
+  of the immigration and naturalisation services were audited up to the end of the year under review in the Ministry
+  of Immigration. In March 1952 these services were transferred to the Ministry of the Interior, in so far as they
+  operate in the country. The audit also examined the transfer process.") [S, agent read 2026-10-23 from the page
+  scan; a person's check pending] Comptroller report 3. Read plainly, a body the Comptroller still calls "משרד העלייה"
+  ran these services after 8 October 1951 and handed them to Interior in March 1952, with no day given. The report
+  names no instrument, no legal basis and no minister for the interval, and it says nothing of the services abroad
+  ("במידה שהם פועלים בארץ"); none of that is inferred here. The report's table of contents (pp. V-IX) has no chapter
+  for a Ministry of Immigration.
+- **[C] with the reading above that the ministry ended on 8 October 1951.** The Knesset rows end the minister's post
+  that day; the Comptroller has the ministry's services in place until March 1952. Both are recorded; the note does not
+  choose between "the office ended" and "the department ended".
+- Negative search for the instrument (2026-10-23), with what each returned:
+  - Reshumot / Yalkut HaPirsumim: the Nevo scans (`nevo.co.il/law_word/law10/yalkut-NNNN.pdf`) answer scripted
+    requests with a reCAPTCHA page, so no Yalkut issue of October 1951 to March 1952 was read; Hebrew web searches for
+    "העברת סמכויות" with "שר העליה" and "שר הפנים" returned only later transfers. **not reached.**
+  - Government protocols and the State Archives catalogue: catalog.archives.gov.il and archives.gov.il return HTTP
+    403. **not reached.**
+  - *Government Year-Book* 5712 (1951) and 5713 (1952): no online copy found (archive.org search: no hit; HathiTrust
+    returns 403; the Google Books API refused on quota). **not reached.**
+  - knesset.gov.il redirects to a geo-block page from this network, so the Knesset legislation page for the Law of
+    Return and its bill file were not read live.
+
 What the statutes show:
 
 - The Law of Return, as passed on 20 Tammuz 5710 (**5 July 1950**), put the Minister of Immigration in charge of the
@@ -122,8 +151,17 @@ What the statutes show:
   **Minister of the Interior**. [S] Entry into Israel Law 1952 (UNODC translation; the day of passage was not checked).
 - The Law of Return (Amendment), 5714-1954, passed on **23 August 1954**, replaced "שר העליה" with "שר הפנים" in
   sections 2 and 5 of the Law of Return. [V] Law of Return amendment 1954 (Knesset scan). So the statute itself still
-  named the Minister of Immigration for almost three years after the office ended; how those powers were exercised in
-  the gap (October 1951 to August 1954) is **not found** here.
+  named the Minister of Immigration for almost three years after the office ended. The same scan (Wayback copy of the
+  Knesset PDF, re-read 2026-10-23) is Sefer HaHukim 163, 3 Elul 5714 (1 September 1954), p. 174; it is signed by Moshe
+  Sharett as Prime Minister and Yosef Serlin as "שר הבריאות, ממלא מקום שר הפנים", and its footnote gives the bill and
+  its explanatory notes as "ה"ח 192, תשי"ד, עמ' 88". [V, agent read 2026-10-23; a person's check pending]. That
+  explanatory note is the likeliest place for the reason; it was **not reached** (Knesset site geo-blocked, no other
+  copy found).
+- **Who exercised the Law of Return powers from 8 October 1951 to 23 August 1954: [GAP].** No source read names a
+  minister for them in that interval. The Comptroller (above) has the immigration and naturalisation services
+  inside "משרד העלייה" until March 1952 and inside the Ministry of the Interior after it, but says nothing of the
+  statutory power itself. That Shapira, as Interior Minister, exercised it is a guess and is not stated here as
+  fact.
 - The Interior Minister from 8 October 1951 was the same person, Shapira, who had held Interior alongside Immigration
   since 10 March 1949 (Knesset OData: GovMinistryID 724 from 10 March 1949, 735 from 1 November 1950, 746 from
   8 October 1951; `people.yaml` has the same terms). [V] Knesset OData. The holder and the Interior portfolio both run
@@ -369,13 +407,17 @@ should state the arrival, not the fighting, or carry the `war-casualties` review
 ## Not reached, and gaps
 
 - **The October 1951 transfer of the Ministry of Immigration's functions.** No government decision, Reshumot notice or
-  Yalkut HaPirsumim entry was found. The Israel State Archives catalogue (catalog.archives.gov.il) returned HTTP 403 to
-  scripted requests, so its record-group description of the Ministry of Immigration was not read. The State Comptroller's
-  1951-2 report, Interior chapter (`library.mevaker.gov.il/.../1951-2-225-Pnim.pdf`), was downloaded but its OCR text is
-  unreadable. A reader with the printed *Government Year-Book* 5713 (1952) or the ISA files could settle where the
-  ministry's departments went.
+  Yalkut HaPirsumim entry was found. Re-searched for #1423 on 2026-10-23 (section 1 lists what each search returned):
+  the only dated record found is the State Comptroller's, which puts the transfer of the immigration and
+  naturalisation services to Interior in March 1952; the instrument behind it is still not found. The Israel State
+  Archives catalogue (catalog.archives.gov.il) returned HTTP 403 to scripted requests, so its record-group description
+  of the Ministry of Immigration was not read. The State Comptroller's 1951-2 report, Interior chapter
+  (`library.mevaker.gov.il/.../1951-2-225-Pnim.pdf`), was downloaded but its OCR text is unreadable. (Read as page
+  images for #1423 on 2026-10-23: the Interior chapter, pp. 96-98, covers the population registry, identity cards,
+  local-authority budgets and by-laws, and says nothing of immigration.) A reader with the printed *Government
+  Year-Book* 5713 (1952) or the ISA files could settle where the ministry's departments went.
 - **How the Law of Return's "Minister of Immigration" powers were exercised from October 1951 to August 1954**: not
-  found.
+  found (re-searched for #1423; the 1954 bill's explanatory notes, ה"ח 192, p. 88, were not reached).
 - ***Documents on the Foreign Policy of Israel*, vol. 5 (1950)** and the government's 1950 protocols at the ISA: not
   reached (no online text found; the ISA site returned 403). They would give the day of the cabinet's February 1950
   decision. Nevo 1984 cites the series (vol. 3) for 1949, not for this decision.
@@ -391,6 +433,7 @@ should state the arrival, not the fighting, or carry the `war-casualties` review
 | Item | Versions | Where |
 |---|---|---|
 | Successor to the Ministry of Immigration | Interior (statutes of 1952 and 1954; same holder) vs Prime Minister (`rules.yaml` assumption, no source) vs none until 1968 (he.wiki) | Section 1 |
+| End of the Ministry of Immigration | 8 October 1951, no Immigration row after the Second Government (Knesset OData) vs immigration and naturalisation services still in "משרד העלייה" to the end of 1951/52, moved to Interior in March 1952 (Comptroller report 3, p. 75) | Section 1 |
 | en.wiki "renamed" the ministry | rename (en.wiki) vs a new ministry in 1968 after a gap (he.wiki, Knesset rows) | Section 1 |
 | Day of the Israeli cabinet's agreement in principle | between 19 and 24 February 1950; not found | Section 2 |
 | FRUS d364 "February 1" | garbled; probably 17-19 February | Section 2 |
