@@ -678,9 +678,8 @@ sources read, not a gazetteer check.
     לכיש, ספטמבר 1954" (translation: Moroccan immigrants brought to the settlement of Ahuzam in the Lachish region,
     September 1954). Year only, in all three. [S]
   - Oral history, "זיכרונות החיים במעברה מושב אחוזם" (Ravdori / HaKesher HaRav-Dori, 10 March 2020; Wayback
-    snapshot of the story page): Yosef Avrageal, who arrived in Israel in 1950, describes the ma'abara "אבו ג'יבר" near
-    the moshav, 36 Moroccan families, "בהיותו בן 5" (when he was 5); on our reading that puts it around the mid-1950s,
-    and it gives no founding day. A 2020 retelling by the interviewer (Shalom Malka per Hebrew Wikipedia), so not a dating source. [S]
+    snapshot of the story page): the interviewee, who arrived in Israel in 1950, describes the ma'abara "אבו ג'יבר" near
+    the moshav, 36 Moroccan families, "בהיותו בן 5" (when he was 5), and it gives no founding day. A 2020 retelling by the interviewer, so not a dating source. [S]
   - What each date might mark is not stated by any source read: nothing read says whether 2 October or 30 October 1950
     is the ma'abara opening, the settlers' arrival, recognition or the renaming from Ma'agalim.
   - Calendar, our reading (`convertdate`): 2 October 1950 was a Monday, 21 Tishrei 5711; 30 October 1950 was a Monday,
