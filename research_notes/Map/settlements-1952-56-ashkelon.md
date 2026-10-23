@@ -123,7 +123,7 @@ Coordinates: CBS 2024, lat N, lon E, today's site. "Founded" is the best-support
 | 24 | Nehora / נהורה | Rural centre | 1955 (both Wikipedias) or 1956 (CBS) **[C]** | 31.62298, 34.70558 | None found |
 | 25 | Ashdod / אשדוד | Transit camp, then town | 1955 (CBS) or 1956 (both Wikipedias) **[C]**; first settlers 25 Nov 1956 **[S, Wikipedia]** | 31.79538, 34.64939 | First "Ashdod Yam" |
 | 26 | Zohar / זוהר | Moshav | 20 Feb 1956 **[S]**; 1956 **[V]** | 31.5954, 34.69262 | None found |
-| 27 | Kfar Silver / כפר סילבר | Youth village | Dedicated 29 Mar 1956 (he Wikipedia) or 1957 (CBS, en Wikipedia) **[C]** | 31.67315, 34.61176 | None found |
+| 27 | Kfar Silver / כפר סילבר | Youth village | Dedicated 29 Mar 1956 (he Wikipedia) or 1957 (CBS, en Wikipedia) **[C]** | 31.67315, 34.61176 | First "Abba Hillel" |
 | 28 | Sde Yoav / שדה יואב | Kibbutz | 10 May 1956 (Gvati) or 2 Jun 1966 (he Wikipedia) **[C]** | 31.64513, 34.67719 | None found |
 | 29 | Sde Moshe / שדה משה | Moshav | 17 Jun 1956 **[S]**; 1956 **[V]** | 31.61133, 34.80146 | "Sde Yeshayahu" or "Sde Eliyahu" **[C]** |
 | 30 | Even Shmuel / אבן שמואל | Rural centre | 1956 **[V]** | 31.5749, 34.76544 | First "Oman" |
@@ -261,7 +261,8 @@ Common sources, cited by short name in every row:
   Hungarian youth movement HaNoar HaTzioni "who survived the Holocaust".
 - **Renames. [S, Wikipedia]** Hebrew Wikipedia: "ונקרא בשנותיו הראשונות "זיכרון נתן"" (called Zikhron Natan in its
   first years). Named after Ottó Komoly (Natan) (Gvati and both Wikipedias).
-- **Site note. [S, Wikipedia]** Hebrew Wikipedia: "היישוב הוקם במקום בו שכן הכפר הערבי בית עפה". English Wikipedia
+- **Site note. [S, Wikipedia]** Hebrew Wikipedia: "היישוב הוקם במקום בו שכן הכפר הערבי בית עפה"; "תושביו, שנמלטו
+  במהלך הקרבות, לא הורשו לחזור אליו לאחריהם, ורכושם הוכרז נכסי נפקדים". English Wikipedia
   (paraphrased): built 800 m south of Bayt 'Affa and 1 km north-east of Iraq Suwaydan, both depopulated in 1948.
 - **Coordinates.** CBS 31.65238, 34.70557 (code 775).
 - **Sources.** CBS; Gvati; https://he.wikipedia.org/w/index.php?oldid=43771659 ;
@@ -277,6 +278,10 @@ Common sources, cited by short name in every row:
   1952-56 founding (my reading).
 - **Founders. [S, Wikipedia]** Both Wikipedias: a garin of HaShomer HaTzair graduates.
 - **Renames.** None found for the locality. English Wikipedia: the group was first "Kibbutz Eretz Israeli Gimel".
+- **Site note. [S, Wikipedia]** Hebrew Wikipedia: "במבצע ברק נכבשו הכפרים הערביים הסמוכים, ותושביהם הפכו לפליטים
+  ברצועת עזה. חלק מאדמותיהם, שהוכרזו כאדמות מדינה לפי חוק נכסי נפקדים, הוחכרו על ידי מינהל מקרקעי ישראל לקיבוץ";
+  English Wikipedia: "their residents became refugees in the Gaza Strip. Part of the land in the area was leased to
+  the kibbutz". Given as the sources word it, for the owner's sensitivity review.
 - **Coordinates.** CBS 31.77259, 34.72033 (code 406).
 - **Sources.** CBS; Gvati; https://he.wikipedia.org/w/index.php?oldid=43555841 ;
   https://en.wikipedia.org/w/index.php?oldid=1375038981 . All checked 2026-10-22.
@@ -326,7 +331,10 @@ Common sources, cited by short name in every row:
 - **Founders. [S, Wikipedia]** Hebrew Wikipedia: the camp was the first home of immigrants from North Africa, mainly
   Morocco.
 - **Renames.** None found.
-- **Site note. [S, Wikipedia]** Paraphrased: Hebrew Wikipedia places it on the land of al-Faluja and Iraq al-Manshiyya.
+- **Site note. [S, Wikipedia]** Hebrew Wikipedia: "העיר שוכנת על אדמות הכפרים הערביים אל-פאלוג'ה ועיראק אל-מנשייה,
+  שתושביהם נטשו לאחר הקמת מדינת ישראל". The same section: "בנספח של חילופי מכתבים שצורף להסכם, היא התחייבה להתיר
+  לאזרחים להישאר בכפרים אל-פלוג'ה ועיראק אל-מנשייה"; "מספר ימים לאחר חתימת הסכם שביתת הנשק, נסו כ-2,000 עד 3,000
+  תושבים משני הכפרים".
 - **Coordinates.** CBS 31.61118, 34.76615 (code 2630).
 - **Sources.** CBS; https://he.wikipedia.org/w/index.php?oldid=44075661 ;
   https://en.wikipedia.org/w/index.php?oldid=1381329989 . All checked 2026-10-22.
@@ -417,6 +425,8 @@ Common sources, cited by short name in every row:
   Iraq and Iran, mostly from the Agrobank transit camp); English Wikipedia: from Iraq and Iran.
 - **Renames. [S, Wikipedia]** Hebrew Wikipedia: "שמו הזמני היה לכיש 3", citing HaBoker, 11 Jul 1955, not read.
 - **Site note. [S, Wikipedia]** Paraphrased: both Wikipedias place it on part of the land of al-Faluja or near it.
+  Hebrew Wikipedia: "המושב הוקם על גבי חלק מאדמות העיירה אל-פאלוג'ה, שתושביה עזבו אותה במלחמת העצמאות ולא הורשו
+  לחזור לבתיהם".
 - **Coordinates.** CBS 31.62442, 34.69475 (code 55).
 - **Sources.** CBS; Gvati; https://he.wikipedia.org/w/index.php?oldid=44031874 ;
   https://en.wikipedia.org/w/index.php?oldid=1375072178 . All checked 2026-10-22.
@@ -465,7 +475,8 @@ Common sources, cited by short name in every row:
   North Africa". No third source read.
 - **Renames. [S, Wikipedia]** Hebrew Wikipedia: it was first meant to be called "הילה" (Hila); the final name, Nir Hen (ח"ן = 58), marks the 58
   passengers of the El Al plane shot down over Bulgaria on 27 July 1955 (also Gvati's name origin).
-- **Site note. [S, Wikipedia]** Paraphrased: Hebrew Wikipedia places it on part of the land of al-Faluja.
+- **Site note. [S, Wikipedia]** Hebrew Wikipedia: "היישוב הוקם על חלק מאדמות העיירה אל-פאלוג'ה, שתושביה נמלטו ממנה
+  במהלך מלחמת העצמאות".
 - **Coordinates.** CBS 31.60875, 34.71465 (code 11).
 - **Sources.** CBS; Gvati; https://he.wikipedia.org/w/index.php?oldid=42997651 ;
   https://en.wikipedia.org/w/index.php?oldid=1375071871 . All checked 2026-10-22.
@@ -494,6 +505,11 @@ Common sources, cited by short name in every row:
   **I prefer 25 November 1956** (first settlers) **[S, Wikipedia]**, year 1956 from both Wikipedias against CBS 1955.
   Not in Gvati.
 - **Renames. [S, Wikipedia]** Hebrew Wikipedia: "היישוב החדש שנקרא אז "אשדוד ים"" (then called Ashdod Yam).
+- **Site note. [S, Wikipedia]** English Wikipedia: "Egyptians defending Isdud withdrew in late 1948, causing most of
+  Isdud's roughly 5,000 residents to flee. The 300 townspeople who remained were driven southwards by the Israel
+  Defense Forces (IDF)." Hebrew Wikipedia: "ביישוב נותרו כ-300 תושבים שהניפו דגלים לבנים, אך הם גורשו לרצועת עזה זמן
+  קצר לאחר מכן". English Wikipedia places the new town 6 km north-west of Isdud. Given as the sources word it, for the
+  owner's sensitivity review.
 - **Coordinates.** CBS 31.79538, 34.64939 (code 70).
 - **Sources.** CBS; https://he.wikipedia.org/w/index.php?oldid=44075250 ;
   https://en.wikipedia.org/w/index.php?oldid=1380081863 . All checked 2026-10-22.
@@ -518,7 +534,8 @@ Common sources, cited by short name in every row:
   the owner can see the disagreement; drop it if the window is taken by the CBS year.
 - **Founders. [S, Wikipedia]** Hebrew Wikipedia: the General Zionists in Israel and the Zionist Organization of America;
   named after Abba Hillel Silver (English Wikipedia).
-- **Renames.** None found.
+- **Renames. [S, Wikipedia]** Hebrew Wikipedia: "בשנותיו הראשונות היה בשימוש שם היישוב 'אבא הלל' ובהמשך התקבע 'כפר
+  סילבר'".
 - **Coordinates.** CBS 31.67315, 34.61176 (code 107).
 - **Sources.** CBS; https://he.wikipedia.org/w/index.php?oldid=43883004 ;
   https://en.wikipedia.org/w/index.php?oldid=1375052747 . All checked 2026-10-22.
