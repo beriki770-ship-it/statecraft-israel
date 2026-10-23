@@ -192,7 +192,7 @@ public class DesignValuesTests
         // Occupation (Phase 6 PR 6, #798; Q-OCC-1 (a), Q-OCC-3 (a)): proposed on #798, for owner override.
         ("rules.yaml", "mvp.occupation_turns"),
         ("rules.yaml", "mvp.occupation_upkeep_per_turn"),
-        // Deport (Phase 6 PR 8, #800; Q-DEP-5 (c)): proposed on #800, for owner override.
+        // Deport (Phase 6 PR 8, #800; Q-DEP-5 (c)): proposed on #800 and #1327, accepted by the owner on 22 October 2026 (#1327).
         ("rules.yaml", "mvp.deport_cohesion_cost"),
         ("rules.yaml", "mvp.deport_support_cost"),
         ("rules.yaml", "mvp.deport_support_drag_per_turn"),
