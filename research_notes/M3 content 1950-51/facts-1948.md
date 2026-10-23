@@ -57,7 +57,7 @@ Where a fact traces to one of the named historians (Bar-Zohar via Lavid, for exa
   - **Shertok's reply on extending the truce is a separate text.** [V, agent read 2026-10-23; a person's check pending] UN doc S/872 (dated 8 July 1948, 2 pp.) is Bernadotte's telegram giving the "text of Jewish reply to proposals of Mediator handed to Mediator by Shertok Thursday afternoon, 7 July" (p. 1). Its point 1: "The Provisional Government of Israel agrees to a prolongation of the Truce for a period of thirty days from 6 a.m. G.M.T. on Friday, July 9th 1948". https://digitallibrary.un.org/record/470613
     - [C] The telegram's own day and date disagree. 7 July 1948 was a Wednesday; the Thursday was 8 July (by the calendar, and consistent with the telegram's own "Friday, July 9th"). The source does not say which is right.
   - The press trace stays: a contemporary report (NY Herald Tribune, 7 July 1948) says Israel would accept a longer truce and turn down the plan. [S] https://cojs.org/jews_to_accept_longer_truce-_bar_peace_plan-_ny_herald_tribune-_july_7-_1948/
-- **The internal Israeli debate on accepting** is a [GAP]. I found no online source naming ministers for and against. Checked again 2026-10-23: S/870, S/872, A/648 (Part One and Annex I) and FRUS d435/d436 give the Provisional Government's position (in Shertok's letter) but name no minister for or against inside the cabinet. FRUS d435 (Jessup, 6 July 1948) reports Eban relaying "telegrams he had received from Shertok" on "late Friday afternoon" (presumably 2 July, the Friday before by the calendar). That is the government line, not a cabinet debate. https://history.state.gov/historicaldocuments/frus1948v05p2/d435
+- **The internal Israeli debate on accepting** is a [GAP]. I found no online source naming ministers for and against. Checked again 2026-10-23 [agent read; a person's check pending]: S/870, S/872, A/648 (Part One and Annex I) and FRUS d435/d436 give the Provisional Government's position (in Shertok's letter) but name no minister for or against inside the cabinet. FRUS d435 (Jessup, 6 July 1948) reports Eban relaying "telegrams he had received from Shertok" on "late Friday afternoon" (presumably 2 July, the Friday before by the calendar). That is the government line, not a cabinet debate. https://history.state.gov/historicaldocuments/frus1948v05p2/d435
   - Yadin is quoted, via the Jewish Press, as calling the truce "dew falling from the heavens". [S, secondary, not used as a quote] https://jewishpress.com/shavuot-2/
 - **Proposed event** `first_truce`:
   - **Window:** `from: 1948-06-01`, `to: 1948-06-11`. Anchor: hard. Office: `prime_minister`.
@@ -400,7 +400,6 @@ Gaps remain in the second half of August and in early December.
 
 ## Open gaps to close with print sources (historian review)
 - Names of Israeli ministers or generals who argued for refusing the first truce, if any. Sources: Gelber, Bar-Zohar.
-- The date of Shertok's reply to the Bernadotte proposals of 28 June.
 - The date and terms of Israel's acceptance of the second truce.
 - The exact date of the British note under the 1936 treaty (late Dec 1948).
 - Exact days of the June–July Generals' Revolt events.
