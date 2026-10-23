@@ -191,7 +191,9 @@ Turn: 15 November 1951 (the same turn as `forex_crisis_1951`; just **after** the
     afternoon; "the rest of the seamen are to go ashore tomorrow morning" (13 November). Shoham said the 24-hour notice
     broke a labour agreement requiring one month's notice.
     https://archive.org/details/per_jerusalem-post_the-jerusalem-post_1951-11-13_27_7407
-  - [C] The ship count differs: three vessels tied up in Haifa (JTA) against eight ships in Haifa and Tel Aviv (Post).
+  - The ship count differs: three vessels tied up in Haifa (JTA) against crews signing off eight ships in Haifa and Tel
+    Aviv (Post). This may be a difference of scope (ships already idle on 12 November against crews that resigned) rather
+    than a conflict; not settled.
   - The form was a collective resignation, not a declared strike; the Post of 14 Nov (p. 1) quotes the Communications
     Minister, D. Z. Pinkas, that "they could not be considered strikers, but merely people who have resigned from their
     jobs". JTA calls it a strike from 15 Nov on. The [S] he.wiki article (שביתת הימאים (1951)) has the resignations on
@@ -206,25 +208,26 @@ Turn: 15 November 1951 (the same turn as `forex_crisis_1951`; just **after** the
     conscripted when they quit their jobs"; all questions in dispute go to the Histadrut Council, whose decisions the
     seamen accept; 120 seamen to return within days, the rest to wait for ships now abroad.
     http://pdfs.jta.org/1951/1951-12-26_248.pdf
-  - [C] he.wiki gives the general meeting as **24 December**, citing *HaBoker*, 25 Dec 1951, "הימאים הפסיקו את
+  - [C] he.wiki gives the general meeting as **24 December** and the vote as unanimous (JTA: 400-3), citing *HaBoker*, 25 Dec 1951, "הימאים הפסיקו את
     שביתתם" (not readable here: NLI returns 403). A cable written on 25 December may report a meeting held the night
     before; that is our reading, not a source. Only one contemporary report was read for the end, so the day stays
     open between 24 and 25 December.
-- **Parties, ports, ships and mediation, as the sources give them:**
+- **Parties, ports, ships and the path to a settlement, as the sources give them:**
   - The Seamen's Association (its secretariat elected at the seamen's convention in early November) against the
-    Histadrut (secretary-general Mordecai Namir) and the shipping companies Shoham and M. Dizengoff (JTA 13 and 21 Nov;
-    *Jerusalem Post* 13 Nov). The disputed points as JTA gives them: the union's own hiring offices, autonomy within the
-    Histadrut, and the right to strike in foreign ports (JTA 13 Nov, 21 Nov, 21 Dec).
+    Histadrut (secretary-general Mordecai Namir) and the shipping companies Shoham and M. Dizengoff (*Jerusalem Post* 13 and 14 Nov;
+    JTA 21 Nov). The disputed points as JTA gives them: the union's own hiring offices (JTA 13 Nov) and autonomy within the
+    Histadrut (JTA 21 Nov); the right to strike in foreign ports is the Histadrut representative Joseph Burstin's
+    account of the seamen's demands (JTA 21 Dec).
   - Ports: Haifa and Tel Aviv; abroad, New York and Baltimore, where 59 strikers on the *Yafo* and the *Haifa* were held
     on Ellis Island and deported to Israel (JTA 21 Dec 1951, https://www.jta.org/archive/striking-israeli-seamen-deported-from-u-s-to-israel-on-greek-ship ).
     Ships named: *Elath*, *Akko*, *Meir Dizengoff* (Post 13-14 Nov), *Kedma* (JTA 21 Nov), *Negba* (JTA 29 Nov).
-  - Mediation path: Pinkas convened officials on 14 Nov to end the tie-up (JTA 15 Nov 1951, No. 221, p. 3,
-    http://pdfs.jta.org/1951/1951-11-15_221.pdf ); the Histadrut manned ships with volunteer crews and planned a new
-    union (JTA 21 Nov, https://www.jta.org/archive/striking-israeli-seamen-agree-to-sail-ships-with-jews-from-libya );
-    talks with the Histadrut reopened in early December (JTA 4 Dec); the end came through an agreement with the
+  - Path to a settlement (no third-party mediator is named in the reports read): Pinkas convened officials on 14 Nov to end the tie-up (JTA 15 Nov 1951, No. 221, p. 3,
+    http://pdfs.jta.org/1951/1951-11-15_221.pdf ); the Histadrut was reported to be considering a separate seamen's union while other vessels prepared to
+    leave with volunteer crews it provided (JTA 21 Nov, https://www.jta.org/archive/striking-israeli-seamen-agree-to-sail-ships-with-jews-from-libya );
+    a "new approach for an agreement" with the Histadrut was reported on 4 December, with negotiations that "now appear near" (JTA 4 Dec); the end came through an agreement with the
     organising committee of the new Histadrut-sponsored union (JTA 26 Dec).
-  - [S] he.wiki also records an earlier, separate strike on the *Negba* and other Shoham ships in July 1951, ended after
-    a few days; it is not part of the November-December dispute and is not a start date for it.
+  - [S] he.wiki also records an earlier, separate dispute on the *Negba* that began in Marseille in June 1951 and spread
+    to other Shoham ships in July 1951; it is not part of the November-December dispute and is not a start date for it.
 - **Options on the record:** the government's line was police action, call-up notices and foreign crews; a negotiated
   settlement through the Histadrut was the other course being tried. Sensitivity: low; keep to the labour dispute.
 
