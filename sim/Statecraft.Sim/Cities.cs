@@ -25,6 +25,12 @@ namespace Statecraft.Sim
 
         /// <summary>R-CITY-007: a city's start people in units: the nearest unit (a half rounds up), and at least 1 for a city
         /// with people (Q-START-2, owner, 15 October 2026), so a small town is not left empty.</summary>
+        public static int StartUnits(decimal people, int peoplePerUnit) => people > 0 ? Math.Max(1, NearestUnit(people, peoplePerUnit)) : 0;
+
+        /// <summary>R-CITY-007: people in units to the nearest unit, a half rounding up. Decimal, so it is exact on every runtime.</summary>
+        public static int NearestUnit(decimal people, int peoplePerUnit) =>
+            (int)Math.Round(people / peoplePerUnit, MidpointRounding.AwayFromZero);
+
         /// <summary>R-CTRL-016 (OWNER QUESTION 1 (a) on #799, the starting-city rule): a stayed target joins the player's
         /// population as one new city: its approved people in units (R-CITY-007), homes equal to them, jobs equal to the
         /// employed (people times employed_share to the nearest unit), the usual start condition, and no refugees, recruits or
@@ -39,12 +45,6 @@ namespace Statecraft.Sim
             s.Cities[t.Id] = new City(t.Id, units, employed, units, employed, 0, 0, r.HousingStartCondition!.Value);
             return null;
         }
-
-        public static int StartUnits(decimal people, int peoplePerUnit) => people > 0 ? Math.Max(1, NearestUnit(people, peoplePerUnit)) : 0;
-
-        /// <summary>R-CITY-007: people in units to the nearest unit, a half rounding up. Decimal, so it is exact on every runtime.</summary>
-        public static int NearestUnit(decimal people, int peoplePerUnit) =>
-            (int)Math.Round(people / peoplePerUnit, MidpointRounding.AwayFromZero);
 
         /// <summary>Fills the state's cities from cities.yaml, with no refugees yet and the start housing condition (R-HOUSE-001). Does nothing in the legacy loop.</summary>
         public static void Init(Content c, GameState s)

@@ -59,6 +59,8 @@ namespace Statecraft.Sim
         public const string SettlementsFileName = "map/settlements_1948.yaml";
         public const string MapLocationsFileName = "map/locations_1948.yaml";
         public const string SettlementTargetsFileName = "settlement_targets.yaml";
+        /// <summary>The two values of a target row's <c>residents</c> (R-CTRL-016).</summary>
+        public const string Fled = "fled", Stayed = "stayed";
         /// <summary>The settlements_1948.yaml row type a settlement target must have (Q-TGT-1 (a)).</summary>
         public const string ArabTown = "arab_town";
 
@@ -1694,7 +1696,5 @@ namespace Statecraft.Sim
             var share = CityValueOf(f, at + ".annexation.employed_share", x.Annexation.EmployedShare);
             if (share.Value < 0 || share.Value > 1) throw new ContentException(f, at + ".annexation.employed_share.value", "must be a number from 0 to 1");
         }
-
-        public const string Fled = "fled", Stayed = "stayed";
     }
 }
