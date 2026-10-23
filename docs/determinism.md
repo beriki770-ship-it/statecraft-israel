@@ -27,6 +27,12 @@ The simulation must produce the same state, bit for bit, on .NET, Unity Mono and
 - **Answering a capture (Raid and withdraw):** the units on the place leave in ascending id, each to the first free hex in
   the fixed neighbour order, and the captures still waiting at the game's end resolve in ordinal id order, with no RNG
   draw (R-CTRL-008, R-CTRL-010; `RaidTests.RaidDrawsNothing`). No golden captures a place, so none answers one.
+- **Occupation timers (resolver step 10):** after step 9's arrivals and before objectives and score, each occupied place
+  in ordinal id order pays its upkeep and counts its `turns=` down, or ends as a Raid when no Israeli military unit holds
+  its hex, with no RNG draw (R-CTRL-011 to R-CTRL-013; `OccupyTests.TheTimerCountsDownInStepTen` and
+  `OccupationDrawsNothing`). No golden occupies a place, so none moves. The `mvp-occupy-cost` golden is deferred by the
+  owner's ruling of 22 October 2026 (#1324), and it is the next step now that a capture can be reached in play (#1314; a
+  manifest golden plays the real content); `OccupyTests` plays the same run on fixture content.
 
 ## Combat draws
 
