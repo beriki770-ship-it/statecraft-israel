@@ -237,11 +237,11 @@ See section 6.
     - **Para 1** rests the case on the UN: Israeli forces are fighting on Egyptian territory "notwithstanding the truce and the resolutions passed by the United Nations".
     - **Para 4:** Britain will move equipment into Transjordan and will no longer be able to refuse British arms contracts to the Arab countries.
     - In the same conversation, asked whether the treaty would be invoked by Britain or by Egypt, Franks "said that he could give no straight answer".
-    - Hansard records no Egyptian request: asked what requests Egypt made "for the implementation of the defence provisions of the Anglo-Egyptian Treaty of 1936", Mayhew answered "None." [V, agent read 2026-10-23] HC Deb 24 January 1949 vol 460 c75W, https://api.parliament.uk/historic-hansard/written-answers/1949/jan/24/anglo-egyptian-treaty-1936
+    - In a written answer, Mayhew (for the Foreign Secretary) reported no Egyptian request as of 24 Jan 1949. Asked what requests Egypt made "for the implementation of the defence provisions of the Anglo-Egyptian Treaty of 1936", Mayhew answered "None." [V, agent read 2026-10-23] HC Deb 24 January 1949 vol 460 c75W, https://api.parliament.uk/historic-hansard/written-answers/1949/jan/24/anglo-egyptian-treaty-1936
   - **How it reached Israel: through the US.** [V, agent read 2026-10-23; a person's check pending]
     - Deptel 281, Lovett to McDonald, 30 Dec 1948, 5 p.m. (FRUS 1948 v5p2 doc 858, https://history.state.gov/historicaldocuments/frus1948v05p2/d858). Para 2 paraphrases the note: "British Govt has officially notified this Govt that it regards situation with grave concern and that unless Israeli forces withdraw from Egyptian territory British Govt will be bound to take steps to fulfill their obligations under Treaty of 1936 with Egypt."
     - McDonald received it "at 1 p. m. December 31". At 2 p.m. he read a paraphrase to Shertok (doc 860, https://history.state.gov/historicaldocuments/frus1948v05p2/d860; [C] its header reads "December 31, 1948—1 p. m." although the text reports the 2 p.m. meeting, as printed). The footnote to doc 860 says Shiloah told him the same day "that orders had already been issued for the immediate withdrawal of small Israeli units from the Egyptian side of the frontier".
-    - He read it to Ben-Gurion in Tiberias on the night of 31 Dec-1 Jan. His report is FRUS 1949 doc 341, sent 1 Jan 9 a.m.: "Returned from Tiberias 3:15 a. m."
+    - He read it to Ben-Gurion in Tiberias, on the night of 31 Dec-1 Jan by the timings of doc 860 (leaving for Tiberias on 31 Dec) and FRUS 1949 doc 341 (sent 1 Jan, 9 a.m.: "Returned from Tiberias 3:15 a. m.").
   - **Chronology against the withdrawal.** The note (30 Dec) came before every Israeli withdrawal statement found:
     - Shiloah, 31 Dec: orders "already issued" (doc 860 footnote).
     - Ben-Gurion, night of 31 Dec-1 Jan: forces "have already received orders" (doc 341).
@@ -383,7 +383,7 @@ See section 3b. A real PM crisis: Ben-Gurion threatened to resign during the fir
 | 3 | `bernadotte_assassination` | 17–23 Sep 1948 | V; ordinance and ultimatum dates C (20 vs 23 Sep) | High |
 | 4 | `latrun_proposal` | 26 Sep 1948 | V primary (BG diary); vote count C (7–5 vs majority of one) | High; real cabinet vote |
 | 5 | `operation_yoav` | 6–15 Oct 1948 | V (cabinet 6 Oct) | Medium-high; real Hebron alternative |
-| 6 | `sinai_withdrawal` (Horev) | 31 Dec 1948 – 2 Jan 1949 | V (FRUS d341); British note date GAP; RAF date C (6/7 Jan) | High |
+| 6 | `sinai_withdrawal` (Horev) | 31 Dec 1948 – 2 Jan 1949 | V (FRUS d341); British note 30 Dec (FRUS 1948 d857, to the US); a direct note to Israel GAP; RAF date C (6/7 Jan) | High |
 | 7 | `second_truce` | 15–18 Jul 1948 | V (Res 54); Israeli acceptance GAP | Medium |
 | 8 | `ten_days` | 8–10 Jul 1948 | V; alternative weak (S) | Medium; sensitive |
 | 9 | `operation_hiram` | 24–29 Oct 1948 | V; start date C (28/29 Oct) | Medium; sensitive |
@@ -413,7 +413,7 @@ Gaps remain in the second half of August and in early December.
 - Names of Israeli ministers or generals who argued for refusing the first truce, if any. Sources: Gelber, Bar-Zohar.
 - The date of Shertok's reply to the Bernadotte proposals of 28 June.
 - The date and terms of Israel's acceptance of the second truce.
-- The exact date of the British note under the 1936 treaty (late Dec 1948).
+- Whether Britain also sent a note directly to Israel, and the FO 371 reference for the 30 Dec 1948 Note Verbale (section 9).
 - Exact days of the June–July Generals' Revolt events.
 - Who ran the 8 Nov registration (which ministry), and whether there was any debate.
 - Any recorded debate on holding the elections in wartime, and the dates of the two postponement decisions.
