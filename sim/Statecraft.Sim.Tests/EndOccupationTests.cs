@@ -190,4 +190,18 @@ public class EndOccupationTests
         Assert.NotEmpty(Assert.Single(next.Rejected).Reason);
         Assert.True(next.State.Cities.ContainsKey("town_c"));
     }
+
+    // R-CTRL-016, R-MOVE-005, R-ENEMY-001 (OWNER QUESTION 3 (a) on #799): an annexed target is an Israeli town for movement:
+    // no longer an enemy-held locality the player's withdrawal must avoid, and closed to enemy units.
+    [Fact]
+    public void AnAnnexedTargetIsAnIsraeliTownForMovement()
+    {
+        var c = CaptureTests.LoadFled(new[] { "town_a" }, CaptureTests.AllTargets);
+        var s = AwaitingEnd(c, true, Soldier(1, 1, 0));
+        Assert.Contains((1, 0), Movement.NoEntry(c, s));
+        Assert.DoesNotContain((1, 0), Movement.NoEntry(c, s, true));
+        Assert.Null(SettlementControl.End(c, s, "town_a", SettlementControl.Annex, new List<Cause>()));
+        Assert.DoesNotContain((1, 0), Movement.NoEntry(c, s));
+        Assert.Contains((1, 0), Movement.NoEntry(c, s, true));
+    }
 }
