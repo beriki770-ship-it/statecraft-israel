@@ -210,15 +210,14 @@ Turn: 15 November 1951 (the same turn as `forex_crisis_1951`; just **after** the
     http://pdfs.jta.org/1951/1951-12-26_248.pdf
   - [C] he.wiki gives the general meeting as **24 December** and the vote as unanimous (JTA: 400-3), citing *HaBoker*, 25 Dec 1951, "הימאים הפסיקו את
     שביתתם" (not readable here: NLI returns 403). A cable written on 25 December may report a meeting held the night
-    before; that is our reading, not a source. Only one contemporary report was read for the end, so the day stays
-    open between 24 and 25 December.
-  - [C] [S] The Israel Democracy Institute's survey "כאן שביתה! על תרבות השביתות הישראלית" gives the end as "23 בדצמבר 1951" and the length as 43 days, citing the Knesset's "הכנסת השנייה" page. https://www.idi.org.il/parliaments/11092/11096. The day stays open between 23, 24 and 25 December.
+    before; that is our reading, not a source. JTA of 27 Dec 1951 says the seamen "formally ended their strike against the Histadrut yesterday"; the item has no dateline, so the day it means is not shown. https://www.jta.org/archive/israeli-seamen-returning-to-ships-jobs-provided-for-all
+  - [C] [S] The Israel Democracy Institute's survey "כאן שביתה! על תרבות השביתות הישראלית" gives the end as "23 בדצמבר 1951" and the length as 43 days (12 November to 23 December is 42 days counting both ends; the source does not say how it counts), citing the Knesset's "הכנסת השנייה" page. https://www.idi.org.il/parliaments/11092/11096. The day stays open between 23, 24 and 25 December.
 - **Parties, ports, ships and the path to a settlement, as the sources give them:**
   - The Seamen's Association (its secretariat elected at the seamen's convention in early November) against the
     Histadrut (secretary-general Mordecai Namir) and the shipping companies Shoham and M. Dizengoff (*Jerusalem Post* 13 and 14 Nov;
     JTA 21 Nov). The disputed points as JTA gives them: the union's own hiring offices (JTA 13 Nov) and autonomy within the
-    Histadrut (JTA 21 Nov); the right to strike in foreign ports is the Histadrut representative Joseph Burstin's
-    account of the seamen's demands (JTA 21 Dec).
+    Histadrut (JTA 21 Nov); the right to strike in foreign ports is the account of the Histadrut's representative in the United States
+    of the seamen's demands (JTA 21 Dec).
   - Ports: Haifa and Tel Aviv; abroad, New York and Baltimore, where 59 strikers on the *Yafo* and the *Haifa* were held
     on Ellis Island and deported to Israel (JTA 21 Dec 1951, https://www.jta.org/archive/striking-israeli-seamen-deported-from-u-s-to-israel-on-greek-ship ).
     Ships named: *Elath*, *Akko*, *Meir Dizengoff* (Post 13-14 Nov), *Kedma* (JTA 21 Nov), *Negba* (JTA 29 Nov).
