@@ -60,6 +60,7 @@ namespace Statecraft.Game.UI
             ReturnCraftsmen r => "retcraft:" + r.City,
             ReassignCraftsmen r => "regcraft:" + r.City,
             ReassignPioneers r => "regpioneer:" + r.City + ":" + r.Track,
+            Reinforce x => FormattableString.Invariant($"reinforce:{x.Unit}"),
             PioneerWork w => FormattableString.Invariant($"unit:{w.Unit}"),
             StopWork w => FormattableString.Invariant($"unit:{w.Unit}"),
             UnitOrder o => FormattableString.Invariant($"order:{o.Unit}"),
@@ -136,6 +137,10 @@ namespace Statecraft.Game.UI
                 case ReassignPioneers r: return Unknown("city", r.City, Content.Cities.Select(x => x.Id));
                 case CancelTraining x:
                     return Unknown("cohort", x.Cohort.ToString(System.Globalization.CultureInfo.InvariantCulture), State.Cohorts.Keys.Select(k => k.ToString(System.Globalization.CultureInfo.InvariantCulture)));
+                // Replacements (#1510): ids only; the sim refuses a full, enemy or misplaced unit and the training checks itself.
+                case Reinforce x:
+                    return Unknown("unit", x.Unit.ToString(System.Globalization.CultureInfo.InvariantCulture), State.Units.Keys.Select(k => k.ToString(System.Globalization.CultureInfo.InvariantCulture)))
+                        ?? Unknown("city", x.City, Content.Cities.Select(k => k.Id));
                 // Pioneer work (#378, camp/field/swamp #1124, corridors #786): ids only; the sim refuses a busy unit, a built site or segment, a kind
                 // mismatch or a short Treasury with its own reason. A corridor action names "corridor:N", N from 1.
                 case PioneerWork w:

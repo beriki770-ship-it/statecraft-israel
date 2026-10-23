@@ -32,6 +32,7 @@ public class SimBridgeGuardTests
         [typeof(ReturnCraftsmen)] = new ReturnCraftsmen("tel_aviv", 1),
         [typeof(ReassignCraftsmen)] = new ReassignCraftsmen("tel_aviv", 1),
         [typeof(ReassignPioneers)] = new ReassignPioneers("tel_aviv", "halutz", 1),
+        [typeof(Reinforce)] = new Reinforce(1, "tel_aviv", 1),
         [typeof(PioneerWork)] = new PioneerWork(1, "build_yishuv", "mefalsim"),
         [typeof(StopWork)] = new StopWork(1),
         [typeof(UnitOrder)] = new UnitOrder(1, "fortify"),

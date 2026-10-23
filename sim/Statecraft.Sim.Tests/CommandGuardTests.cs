@@ -24,6 +24,7 @@ public class CommandGuardTests
         [typeof(ReturnCraftsmen)] = new ReturnCraftsmen("town_a", 1),   // refused (the fixture has no craftsmen), like BuyArms(0)
         [typeof(ReassignCraftsmen)] = new ReassignCraftsmen("town_a", 1),   // refused (no qualified craftsmen)
         [typeof(ReassignPioneers)] = new ReassignPioneers("town_a", "halutz", 1),   // refused (no qualified halutzim)
+        [typeof(Reinforce)] = new Reinforce(1, "tel_aviv", 1),
         [typeof(PioneerWork)] = new PioneerWork(1, "build_yishuv", "mefalsim"),
         [typeof(StopWork)] = new StopWork(1),
         [typeof(UnitOrder)] = new UnitOrder(1, "fortify"),

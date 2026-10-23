@@ -206,6 +206,8 @@ namespace Statecraft.Sim
                     return Qualification.ReassignCraftsmen(c, s, r.City, r.Count, why);
                 case ReassignPioneers r:
                     return Qualification.ReassignPioneers(c, s, r.City, r.Track, r.Count, why);
+                case Reinforce r:
+                    return Training.Reinforce(c, s, r.Unit, r.City, r.Count, why);
                 case PioneerWork p:
                     return Projects.Start(c, s, p.Unit, p.Action, p.Site, why);
                 case StopWork w:

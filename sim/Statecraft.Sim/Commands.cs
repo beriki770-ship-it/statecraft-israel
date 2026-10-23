@@ -113,6 +113,16 @@ namespace Statecraft.Sim
         public ReassignPioneers(string city, string track, int count) { City = city; Track = track; Count = count; }
     }
 
+    /// <summary>Starts <see cref="Count"/> groups of <see cref="City"/>'s civilians without work training as replacements for
+    /// damaged formation <see cref="Unit"/>, which stands on the city's settlement hex (Training.Reinforce, R-TRAIN-004; #1510).
+    /// GDD v0.1 loop only.</summary>
+    public sealed class Reinforce : Command
+    {
+        public override string Kind => Training.ReinforceKind;
+        public int Unit { get; } public string City { get; } public int Count { get; }
+        public Reinforce(int unit, string city, int count) { Unit = unit; City = city; Count = count; }
+    }
+
     /// <summary>Sends halutz unit <see cref="Unit"/> to do pioneer work <see cref="Action"/> (build_yishuv) at designated site
     /// <see cref="Site"/> (Projects.Start, R-SITE-001). GDD v0.1 loop only.</summary>
     public sealed class PioneerWork : Command
@@ -236,6 +246,7 @@ namespace Statecraft.Sim
                     case ReturnCraftsmen r: Text(r.City, "City"); break;
                     case ReassignCraftsmen r: Text(r.City, "City"); break;
                     case ReassignPioneers r: Text(r.City, "City"); Text(r.Track, "Track"); break;
+                    case Reinforce r: Text(r.City, "City"); break;
                     case PioneerWork p: Text(p.Action, "Action"); Text(p.Site, "Site"); break;
                     case StopWork _: break;
                     case UnitOrder o: Text(o.Order, "Order"); break;
