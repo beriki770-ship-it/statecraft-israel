@@ -350,8 +350,9 @@ by sub-district, in the order of part 1.
   in the section with no affiliation column. [V] for Giv'at Ada.
 - he.wiki `בנימינה`, oldid **43939072**: "מושבה שנוסדה דרומית לזכרון יעקב, מזרחית לאור עקיבא וצפונית
   לפרדס חנה ב־1922"; "בשנת 2003 אוחדו הרשויות המקומיות: בנימינה וגבעת עדה". [S, Wikipedia]
-- **Our reading:** CBS's 1903 is Giv'at Ada's year. Binyamina is October 1922, [V] by Gvati and the
-  article. The two were merged in 2003, after this era. Village Statistics 1945 (Haifa) has both,
+- **Our reading:** CBS's 1903 is Giv'at Ada's year. Binyamina is October 1922: Gvati `10.22`, with
+  he.wiki agreeing on 1922 [S]. The two were merged in 2003, after this era. Village Statistics 1945
+  (Haifa) has both,
   "Binyamina" (Arabs 270, Jews 1,250, Total 1,520) and "Giv‘at ‘Ada (El Marah)".
 
 #### Kfar Glickson, first named Lamakor (CBS 310)
@@ -691,8 +692,7 @@ where a later CBS row of the same name is noted. Coordinates: [GAP] for all of t
 - [GAP] **Census of Palestine 1931**: not used (no usable text layer, see #1429).
 - [GAP] **Coordinates of abandoned, moved and merged places**: none has one here.
 - [GAP] **Rename years** for Nahalat Yehoshua, Rishpona, HaTehiya, Kfar Vatikim, Nahalat Reuven
-  and the Borochov neighbourhood are not in the
-  passages read.
+  and the Borochov neighbourhood are not in the passages read.
 - [GAP] **Abandonment dates** for Petah Tikva before 1883, Mikve Israel in the First World War, Bat
   Yam in 1929, Holon's Moledet neighbourhood in 1936 and Kfar Yavetz in 1948 are not given to the day
   in the passages read.
