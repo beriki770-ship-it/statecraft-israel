@@ -640,17 +640,17 @@ sources read, not a gazetteer check.
 ### 28. Beit Guvrin (בית גוברין), kibbutz
 
 - **Founded: [C].** Two dates, 23 May and 2 June 1949, each with its own sources; the sources give no way to choose between them.
-  Tag stays [C]; [V/S, agent read 2026-10-23; a person's check pending].
+  Tag stays [C]; agent read 2026-10-23; a person's check pending.
   - 23 May 1949: Gvati (23.5.49, HaKibbutz HaMeuhad, region "Lachish"); Palmach database, Beit Guvrin entry
-    (itemId 7976): "founded on 23 May 1949 by members of three hachsharot", also headed "founded in May 1949". The
+    (itemId 7976): "founded on 23 May 1949 by members of three hachsharot" (our translation), also headed "founded in May 1949" (our translation). The
     database gives no ceremony and no source for the day. Our reading: 23 May 1949 was Monday, 24 Iyar 5709
     (Hebcal converter).
   - 2 June 1949: Palmach database, hachshara "Shalhevet, Apikim" (itemId 5401): after the war, "in March 1949 they went
     out for a short reorganisation at Afikim and, together with the Yetzivim hachshara from Kinneret and the Bnei Horin
-    hachshara from Ein Harod, founded on 2 June 1949 kibbutz Beit Guvrin". The kibbutz's own site (Wayback copies of
+    hachshara from Ein Harod, founded on 2 June 1949 kibbutz Beit Guvrin" (our translation). The kibbutz's own site (Wayback copies of
     2015-08-18, betgovrin.org.il "About us" and "History"): "date of going onto the land: Thursday, eve of Shavuot, 5
-    Sivan 5709, 2 June 1949", and "the ceremony of going onto the land was held on the eve of Shavuot 5709 (2 June 1949)
-    at ten in the morning", with President Weizmann, Prime Minister Ben-Gurion and Lt Gen Yaakov Dori among the invited. English
+    Sivan 5709, 2 June 1949" (our translation), and "the ceremony of going onto the land was held on the eve of Shavuot 5709 (2 June 1949)
+    at ten in the morning" (our translation), with President Weizmann, Prime Minister Ben-Gurion and Lt Gen Yaakov Dori among the invited. English
     Wikipedia (oldid 1375241236): founded "on the eve of Shavuot" 1949, no day, and its only citation (Morris) covers the depopulation, not the Shavuot date. It names only Yetzivim and Bnei Horin as first residents, not Shalhevet. Our reading:
     2 June 1949 was Thursday, 5 Sivan 5709, "Erev Shavuot" in the Hebcal converter, so the kibbutz site's weekday,
     Hebrew day and Gregorian day agree with each other; Shavuot (6 Sivan) was 3 June.
@@ -662,10 +662,10 @@ sources read, not a gazetteer check.
   - What each date marks, from the words: the kibbutz site calls 2 June the day of going onto the land and holds the
     ceremony that morning. The Palmach database's 23 May entry has no event named. The Shalhevet entry is the only
     place where the same hachshara founds the kibbutz on 2 June, whereas the kibbutz site says Shalhevet "joined the
-    Yetzivim kibbutz a few weeks after going onto the land" and was released from the Palmach on 12 October 1949.
+    Yetzivim kibbutz a few weeks after going onto the land" (our translation) and was released from the Palmach on 12 October 1949.
     So the sources disagree on whether Shalhevet was there on the day. No source reached says 23 May was an earlier
     arrival of one group; that remains a guess and is not recorded as a finding.
-  - The kibbutz site also says the group was sent "about eight months after the capture of the area" (the capture is
+  - The kibbutz site also says the group was sent "about eight months after the capture of the area" (our translation; the capture is
     dated there 19 Tishrei 5709; our reading, Hebcal converts that to 22 October 1948, while Hebrew Wikipedia's article gives 27 October 1948) as part of a Kibbutz HaMeuhad operation to settle 11 places.
 - **Not read.** No contemporary newspaper: nli.org.il returns HTTP 403 from here and no Wayback copy of a JPress page
   was found. Hebrew Wikipedia's kibbutz article gives no day and cites no newspaper. The Israel Land Authority's 2016
