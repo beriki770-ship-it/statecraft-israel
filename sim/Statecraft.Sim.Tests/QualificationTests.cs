@@ -280,6 +280,37 @@ public class QualificationTests
         Assert.Equal(("town_a", "halutz", 1), (((ReassignPioneers)built).City, ((ReassignPioneers)built).Track, ((ReassignPioneers)built).Count));
     }
 
+    // R-QUAL-002 and R-QUAL-004: Employed is untouched by a return and by a reassignment, and Idle stays as it was.
+    [Fact]
+    public void EmployedAndIdleAreUnchangedByReturnAndReassignment()
+    {
+        var c = Town();
+        var s = WithCity(c, new City("town_a", 12, 8, 4, 5, 0, craftsmen: 3, jobsDefault: false));   // 5 in work: 3 craftsmen and 2 civilians
+        var idle = Training.Idle(s.Cities["town_a"]);
+        var back = Step(c, s, new ReturnCraftsmen("town_a", 2)).State.Cities["town_a"];
+        Assert.Equal((5, idle), (back.Employed, Training.Idle(back)));
+        var again = Step(c, WithCity(c, back), new ReassignCraftsmen("town_a", 2));
+        Assert.Empty(again.Rejected);
+        var x = again.State.Cities["town_a"];
+        Assert.Equal((5, idle, 3, 0), (x.Employed, Training.Idle(x), x.Craftsmen, x.Qualified.Total));
+    }
+
+    // R-SAVE: a played session of the new orders replays to the live state, and the other scenario kinds build.
+    [Fact]
+    public void ASessionOfTheNewOrdersReplaysToTheSameHash()
+    {
+        var c = Town();
+        var g = GameSession.New(c, 1, Mode.Historical);
+        g.Step(new Command[] { new Train("town_a", "halutz", 1) });
+        var loaded = GameSession.Load(c, g.Save.Write(), out var warnings);
+        Assert.Empty(warnings);
+        Assert.Equal(g.State.Hash(), loaded.State.Hash());
+        var yaml = "name: q\nuntil: 1948-06-01\nsteps:\n  - on: 1948-05-15\n    commands:\n      - { kind: return_craftsmen, city: town_a, count: 1 }\n      - { kind: reassign_craftsmen, city: town_a, count: 2 }\n      - { kind: unit_order, unit: 3, order: return_civilian }\n";
+        var built = Scenario.Parse(yaml).Steps.Single().Built;
+        Assert.Equal(new[] { typeof(ReturnCraftsmen), typeof(ReassignCraftsmen), typeof(UnitOrder) }, built.Select(x => x.GetType()));
+        Assert.Equal(Qualification.ReturnOrder, ((UnitOrder)built[2]).Order);
+    }
+
     // Owner ruling 1: "the normal Attention of an order": a craftsman's is assign_workers' 0.5, a pioneer unit's is free.
     [Fact]
     public void TheOrdersCostTheNormalAttentionOfAnOrder()
