@@ -482,10 +482,31 @@ Researched 2026-10-10. All URLs were checked on that date unless noted.
   - First-year sales were over **$52m** against a $25m goal. The 3.5% "Independence Issue".
   - [V] https://en.wikipedia.org/wiki/Israel_Bonds ; https://www.jewishvirtuallibrary.org/state-of-israel-bonds
   - [C] en.wiki "1950 in Israel" says "6 Sep 1950: the first State of Israel Bond issue is launched in the United States". This conflicts with the Bonds article and JVL, which say May 1951. Treat **May 1951** as the launch.
-- **Unemployment:** [GAP]
-  - No rate found. The Falk Institute labour study has "Estimates of Unemployment, Jews: 1949–1959", but the PDF was too large to fetch: https://en.falk.huji.ac.il/sites/default/files/falk/files/laborhovne.pdf
-  - The ILO reported a +25% rise in Israeli unemployment (Sep 1951 JTA brief). [S] https://jta.org/archive/israel-was-one-of-five-countries-to-show
-  - Ma'abarot worst-case unemployment was 90–96% (Roby).
+- **Unemployment** (issue #1422; read 2026-10-23 from the page images by Claude Code, an AI, not yet by a person):
+  - **Falk Institute estimate, Jews, annual averages** [V]: Avner Hovne, *The Labor Force in Israel* (Maurice Falk Institute for Economic Research in Israel, Jerusalem, 1961; preface dated May 1961), Table 7 "Estimates of Unemployment, Jews: 1949–1959", Part A, printed p. 27 (PDF p. 43); the same figures are in the Summary Table, Part B "Jews", printed p. 13 (PDF p. 29). https://en.falk.huji.ac.il/sites/default/files/falk/files/laborhovne.pdf
+
+    | Year | Registered unemployed, daily average (thousands) | Estimated unemployed, labour-force definition (thousands) | Per cent of civilian labour force | Civilian labour force, Jews (thousands, Summary Table B) |
+    |---|---|---|---|---|
+    | 1949 | 6.4 | 29.6 | **9.5** | 310.0 |
+    | 1950 | 5.9 | 28.2 | **6.8** | 412.5 |
+    | 1951 | 6.3 | 29.3 | **5.8** | 505.8 |
+
+    - **What it is:** an estimate, not a count. Column 2 is computed from column 1 with a regression Hovne fitted on the 1954–58 weeks for which both the labour exchanges and the Labour Force Survey exist: Y = 11.7 + 2.8X (Table 7 sources). The survey only began in June 1954 (p. 26), so for 1949–51 every figure in columns 2 and 3 is a back-projection. Our check: 11.7 + 2.8 × 6.4 = 29.6, × 5.9 = 28.2, × 6.3 = 29.3; and 29.6 / 310.0 = 9.5%, 28.2 / 412.5 = 6.8%, 29.3 / 505.8 = 5.8%.
+    - **Definition and population:** the labour-force definition is a person aged 14 or over who did not work one hour in the survey week and was actively seeking work (p. 26). Jews only. Annual averages. The regression input (column 1) counts people aged 18 and over seeking wage or salaried work through the General Labour Exchanges, on a single day (p. 26).
+    - **Jews and non-Jews together** (Summary Table, Part A, printed p. 12, PDF p. 28): 1949 **32.6 thousand, 9.5%**; 1950 **31.0 thousand, 6.9%**; 1951 **33.2 thousand, 6.1%** of a civilian labour force of 342.9, 450.1 and 545.0 thousand. The non-Jewish part excludes the Negev Bedouin, about 13,000–14,000 people (footnote 1, p. 13). [V]
+    - Hovne's text (p. 28) sums it up as "very high in 1949 (9.5 per cent), decreased to about 7 per cent for 1950 through 1952"; that sentence describes Part A. The Jews-only column gives 6.8% and 5.8% for 1950 and 1951.
+  - **Registered unemployed, the official count** [V]: CBS, *Statistical Abstract of Israel* No. 10 (1958/59), Table 14 "Daily Average of Unemployed, by Sex, Month, Occupation, District and Sub-District (1949–1958)", printed p. 308 (PDF p. 349), the source Hovne cites for column 1. https://www.cbs.gov.il/he/publications/DocLib/shnaton_saruk/shnaton1959_num10.pdf
+    - Yearly daily average: **1949 6,351; 1950 5,908; 1951 6,337**.
+    - By sex: 1949 men 5,556, women 795; 1951 men 5,277, women 1,060; 1950 not given ("..").
+    - Monthly range: 1949 from 1,081 (January) to 10,007 (December); 1950 from 9,822 (January) down to 4,463 (September) and 4,032 (October; SA No. 4 prints 4,932, see below); 1951 from 4,980 (March) to 9,682 (December).
+    - Scope (footnote 1): up to the end of 1953, registrations at the labour exchanges affiliated to the "Centre of Labour Exchanges". The table does not say Jews only; Hovne uses it as his Jewish series.
+  - **Earlier print of the same series** [C]: CBS, *Statistical Abstract of Israel* No. 4 (1952/53), Table 5 "Daily Average of Unemployed, by Months (1949–1952)", printed p. 83 (PDF p. 97). https://www.cbs.gov.il/he/publications/DocLib/shnaton_saruk/shnaton1953_num4.pdf
+    - Yearly average 1949 **6,850**, 1950 **5,907**, 1951 **6,337**.
+    - It adds a rate: "Unemployed as percentage of total wage earners", 1949 **2.8**, 1950 **2.2**, 1951 **2.0**. This is registered unemployment against wage earners, not the labour-force rate above; the two must not be mixed.
+    - Differences from SA No. 10: June 1950 is 4,609 (SA 10: 4,809) and October 1950 is 4,932 (SA 10: 4,032). Our arithmetic: SA 4's twelve 1950 months average 5,908 and SA 10's average 5,850, so SA 4's months fit the yearly figure both volumes print. For 1949 the twelve months average 6,351 in both volumes, so SA 4's 6,850 does not match its own months. Which print is right was not settled from a third source.
+  - **ILO, September 1951:** a +25% rise in Israeli unemployment (JTA brief). [S] https://jta.org/archive/israel-was-one-of-five-countries-to-show . For comparison only: the CBS daily average was 5,384 in September 1951 against 4,463 in September 1950 (our arithmetic +21%). The brief does not say which months or which measure the ILO compared, so the two are not reconciled.
+  - **Ma'abarot, kept apart from the national series:** worst-case unemployment of 90–96% (Roby). This is a figure for the transit camps, not a national rate, and is not comparable with any of the series above.
+  - Still missing [GAP]: a direct count of unemployment in 1949–51 by the labour-force definition (none exists before the June 1954 survey), and the registered series for non-Jews.
 
 ---
 
