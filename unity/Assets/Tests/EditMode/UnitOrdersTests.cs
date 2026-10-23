@@ -284,7 +284,7 @@ public class UnitOrdersTests
     public void ReinforceQueuesTheMissingStrengthFromTheCityTheUnitStandsIn()
     {
         var he = UiText.Parse(AssetDatabase.LoadAssetAtPath<TextAsset>(UiPaths.StringsHebrew).text, "strings.he.yaml");
-        foreach (var (t, label) in new[] { (Text, "Reinforce +2"), (he, "תגבור +2") })
+        foreach (var (t, label) in new[] { (Text, "Reinforce +"), (he, "תגבור +") })
         {
             using var ui = new UiTestKit();
             var g = GameSession.New(C, GoldenRun.Seed, Mode.Historical);
@@ -308,7 +308,8 @@ public class UnitOrdersTests
             g.State.Arms = 100;
             info.ShowUnit();
             Assert.AreEqual(DisplayStyle.Flex, button.style.display.value, "damaged, in Tel Aviv, with Arms");
-            Assert.AreEqual(label, button.text);
+            Assert.AreEqual(t.Format("unit.order.reinforce", 2), button.text);
+            StringAssert.StartsWith(label, button.text);
             UiTestKit.Press(button);
             var queued = bridge.Queued.OfType<Reinforce>().Single();
             Assert.AreEqual((id, "tel_aviv", 2), (queued.Unit, queued.City, queued.Count));
