@@ -654,8 +654,8 @@ sources read, not a gazetteer check.
     Wikipedia (oldid 1375241236): founded "on the eve of Shavuot" 1949, no day, and its only citation (Morris) covers the depopulation, not the Shavuot date. It names only Yetzivim and Bnei Horin as first residents, not Shalhevet. Our reading:
     2 June 1949 was Thursday, 5 Sivan 5709, "Erev Shavuot" in the Hebcal converter, so the kibbutz site's weekday,
     Hebrew day and Gregorian day agree with each other; Shavuot (6 Sivan) was 3 June.
-  - Gvati's narrative chapter (same book as the table) lists Beit Guvrin in the paragraph that opens "Iyar (April 1949)",
-    not in the one that opens "Sivan (May 1949)". Our reading: 24 Iyar 5709 falls inside Iyar, 5 Sivan does not, so the
+  - Gvati's narrative chapter (same book as the table) lists Beit Guvrin in the paragraph that opens "Iyar (April 1949)" (our translation),
+    not in the one that opens "Sivan (May 1949)" (our translation). Our reading: 24 Iyar 5709 falls inside Iyar, 5 Sivan does not, so the
     narrative sits with 23 May; Gvati's "(April)" gloss does not match Iyar 5709 (30 April to 28 May, from the Hebcal dates above), so
     this is weak evidence.
   - CBS and Hebrew Wikipedia (oldid 43555500): 1949 only.
