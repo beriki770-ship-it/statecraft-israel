@@ -109,7 +109,7 @@ Coordinates: CBS 2024, lat N, lon E, today's site. "Founded" is the best-support
 | # | Name | Type | Founded | Lat, lon (CBS) | Renames |
 |---|---|---|---|---|---|
 | 1 | Einat / עינת | Kibbutz | 1952 (Gvati 1 May 1952, both Wikipedias) or 1925 (CBS) **[C]** | 32.08285, 34.93755 | First "גבעת השלושה של איחוד הקבוצות והקיבוצים" |
-| 2 | Givat Haim (Ihud) / גבעת חיים (איחוד) | Kibbutz | 1952 (both Wikipedias) or 1932 (CBS, Gvati) **[C]** | 32.39941, 34.93216 | None found |
+| 2 | Givat Haim (Ihud) / גבעת חיים (איחוד) | Kibbutz | 1951 or 1952 (Hebrew Wikipedia), 1952 (English Wikipedia) or 1932 (CBS, Gvati) **[C]** | 32.39941, 34.93216 | None found |
 | 3 | Nehalim / נחלים | Moshav, moved from Upper Galilee | 1948 (CBS; Gvati 9 Sep 1948), 1952 (Hebrew Wikipedia) or 1953 (English Wikipedia) at today's site **[C]** | 32.05907, 34.91230 | First "מצודת אוסישקין ד'" (in Galilee) |
 | 4 | Tenuvot / תנובות | Moshav | 10 Sep 1952 **[S]**; 1952 **[V]** | 32.30556, 34.96264 | None found |
 | 5 | Kfar Bin Nun / כפר בן נון | Moshav | 11 Sep 1952 **[S]**; 1952 **[V]** | 31.86177, 34.94732 | First "Mishmar Ayalon" A or B **[C]** |
@@ -122,13 +122,13 @@ Coordinates: CBS 2024, lat N, lon E, today's site. "Founded" is the best-support
 | 12 | Bahan / בחן | Nahal outpost (1953), kibbutz | Apr 1953 (CBS 1953; Gvati 23 Apr; Hebrew Wikipedia 15 Apr) or 1954 (English Wikipedia) **[C]** | 32.35209, 35.02005 | None found |
 | 13 | Gannot / גנות | Moshav | 1950 (failed), 15 May 1953 (Gvati; CBS 1953) or 26 Oct 1955 (Hebrew Wikipedia) **[C]** | 32.01794, 34.82853 | None found |
 | 14 | Sha'ar Efraim / שער אפרים | Moshav | 25 Aug 1953 **[S]**; Aug 1953 **[V]** | 32.28900, 34.99717 | None found |
-| 15 | Ganei Tikva / גני תקווה | Immigrant locality, local council 1953 (a town today) | 1949 (both Wikipedias) or 1953 (CBS) **[C]** | 32.06012, 34.87503 | None found |
+| 15 | Ganei Tikva / גני תקווה | Immigrant locality, local council 1953 (a town today) | 1949 (both Wikipedias) or 1953 (CBS and Hebrew Wikipedia's 70th anniversary) **[C]** | 32.06012, 34.87503 | First "Shikun Yovel" |
 | 16 | Hadassah Neurim / הדסה נעורים | Youth village | 1948 (both Wikipedias) or 1953 (CBS) **[C]** | 32.37407, 34.86204 | CBS name "נעורים" |
-| 17 | Neve Monosson / נווה מונוסון | Cooperative society, later local council | 1953 **[S, Wikipedia]**; no own CBS row | 32.01667, 34.86667 (English Wikipedia, minute precision) | Also Neve Efraim Monosson |
+| 17 | Neve Monosson / נווה מונוסון | Cooperative society, later local council | 1953 **[S, Wikipedia]**; no own CBS row | 32.01667, 34.86667 (English Wikipedia, minute precision) | Also Neve Efraim Monosson; earlier "Neve Efraim" |
 | 18 | Yeshivat Kerem B'Yavneh / ישיבת כרם ביבנה | Yeshiva (institution) | Oct/Nov 1953 (Hebrew Wikipedia), 1954 (English Wikipedia) or 1963 (CBS) **[C]** | 31.81840, 34.72236 | CBS name "כרם ביבנה (ישיבה)" |
 | 19 | Nir Zvi / ניר צבי | Moshav | 2 May 1954 **[S]**; 1954 **[V]** | 31.95247, 34.86297 | First "כפר ארגנטינה", renamed 1955 **[S, Wikipedia]** |
 | 20 | Aseret / עשרת | Rural centre of Gederot, community settlement | 1954 **[V]**; day **[GAP]** | 31.82464, 34.74726 | Also "מרכז גדרות" |
-| 21 | Shedema / שדמה | Moshav | Oct 1954 **[S]**; 1954 **[V]** | 31.83205, 34.74141 | First "יפה ענף" (Hebrew Wikipedia) or "Yefe Nof" (English Wikipedia) **[C]** |
+| 21 | Shedema / שדמה | Moshav | Oct 1954 **[S]**; 1954 **[V]** | 31.83205, 34.74141 | Earlier "יפה ענף", "בשיט 3"; English "Yefe Nof" **[C]** |
 | 22 | Mevo'ot Yam / מבואות ים | Youth village (institution) | 1951 (English Wikipedia), 1954 (CBS) or 1955 (Hebrew Wikipedia) **[C]** | 32.40326, 34.86824 | None found |
 | 23 | Horeshim / חורשים | Kibbutz | Jan 1955 **[V]**; 6 Jan (Gvati) or 13 Jan (Hebrew Wikipedia) **[C]** | 32.13765, 34.97109 | First "החורשים" |
 | 24 | Hofit / חופית | Community settlement | 1952 first families; founded 1953 (Hebrew Wikipedia); recognised 1955 **[C]** | 32.38499, 34.87412 | None found |
@@ -175,7 +175,8 @@ Common sources, cited by short name in every row:
 - **Founded: [C].** CBS: 1932 (row "גבעת חיים (איחוד)", code 2018). Gvati, section "קיבוצים": "גִבְעַת-חַיִים
   (איחוד)", region "עמק חפר", 14.7.32, affiliation "האיחוד", the same date as its row for Givat Haim (Meuhad). Hebrew
   Wikipedia: "הקיבוץ הוקם בשנת 1952 בעקבות הפילוג שחל בתנועת הקיבוץ המאוחד" (quote ends before the years of the
-  split). English Wikipedia: "It was formed in 1952 by an ideological split in kibbutz Givat Haim (founded 1932)".
+  split), but the same revision also says "בשנת 1951 עזבה קבוצת חברי מפא"י את הקיבוץ והקימה מעבר לכביש קיבוץ חדש".
+  English Wikipedia: "It was formed in 1952 by an ideological split in kibbutz Givat Haim (founded 1932)".
   **We prefer 1952 for this kibbutz as a separate settlement** (both Wikipedias); CBS and Gvati give the 1932 founding
   of the undivided kibbutz (our reading). Day **[GAP]**. Hebrew Wikipedia has a photograph captioned "טקס הנחת אבן
   הפינה ב-1952" (cornerstone ceremony in 1952).
@@ -273,7 +274,9 @@ Common sources, cited by short name in every row:
   the site near Lod (our observation).
 - **Founders. [S, Wikipedia]** Hapoel HaMizrachi members from Habban in Yemen (both Wikipedias).
 - **Site note. [S, Wikipedia]** English Wikipedia: on the site of the Arab village of al-Tira, depopulated on 10 July
-  1948, built on its ruins (paraphrase). Hebrew Wikipedia does not say so. For the owner's sensitivity review.
+  1948, built on its ruins (paraphrase). In its words: "However, the village was depopulated on 10 July 1948 after a
+  military assault by the Israeli army."; "On the same day, Operation Danny headquarters ordered the Yiftach Brigade
+  to blow up most of Innaba and al-Tira". Hebrew Wikipedia does not say so. For the owner's sensitivity review.
 - **Renames. [C], first name.** Hebrew Wikipedia: "תחילה נקרא המושב "כפר חוצבים" וכן "טירת יהודה ב'"" and "אך
   בשנת תשי"ג נבחר השם "ברקת"" (Bareket chosen in 5713, 1952-53). English Wikipedia: "It was initially named Kfar
   Halutzim (Pioneers' Village) and then Tirat Yehuda Bet". So the first name is Kfar Hotzvim or Kfar Halutzim.
@@ -307,8 +310,9 @@ Common sources, cited by short name in every row:
   the first building, 1954 has no event attached, and the CBS 1964 is unexplained by any source read.
 - **Type. [S, Wikipedia]** Hebrew Wikipedia: "יישוב כפרי"; farms set up by Yachin-Hakal, houses built by Yekutiel
   Federmann and Israel-Miami (paraphrase).
-- **Founders. [S, Wikipedia]** Planned for immigrants from South Africa (English Wikipedia); Hebrew Wikipedia says 17
-  houses were sold by 1958.
+- **Founders. [C]** English Wikipedia: planned for immigrants from South Africa. Hebrew Wikipedia: "היישוב יועד
+  בתחילת דרכו לעולים חדשים מאמריקה ואירופה, אך הגיעו רק שתי משפחות מאמריקה ... כן הגיעו ליישוב מספר משפחות מצפון
+  אפריקה". No preference. Hebrew Wikipedia says 17 houses were sold by 1958.
 - **Renames.** None found.
 - **Coordinates.** CBS 32.32067, 34.90057 (code 549).
 - **Sources.** CBS; https://he.wikipedia.org/w/index.php?oldid=43801235 ;
@@ -320,8 +324,9 @@ Common sources, cited by short name in every row:
   ישראל". Hebrew Wikipedia: "היישוב הוקם ביום י"ט טבת בשנת ה'תשי"ג, (6 בינואר 1953) על ידי עולים מהונגריה
   ורומניה."; 19 Tevet 5713 is 6 January 1953 (`convertdate`). CBS 1953 (code 2033); English Wikipedia 1953. The two
   day sources were not checked for independence.
-- **Founders. [C]** Hebrew Wikipedia: immigrants from Hungary and Romania (quote above). English Wikipedia: "former
-  residents of Jerusalem and ma'abarot who wanted to combine a Haredi and agricultural lifestyle".
+- **Founders. [S, Wikipedia]** Hebrew Wikipedia: immigrants from Hungary and Romania (quote above), of whom "חלקם
+  התגוררו באופן זמני במעברות וחלקם מירושלים". English Wikipedia agrees they were "former residents of Jerusalem and
+  ma'abarot who wanted to combine a Haredi and agricultural lifestyle".
 - **Site note. [S, Wikipedia]** English Wikipedia: on land near the depopulated Arab village of al-Mukhayzin
   (paraphrase). For the owner's sensitivity review.
 - **Renames.** None found. Name origin, Gvati: "סמלי. שם אביו של ירמיהו הנביא".
@@ -399,6 +404,7 @@ Common sources, cited by short name in every row:
 
 - **Founded: [C].** CBS: 1953 (code 229). Hebrew Wikipedia: "נוסדה כיישוב עולים בשנת 1949 והוכרזה כמועצה מקומית בשנת
   1953." English Wikipedia: "Ganei Tikva was formed in 1949" and "Ganei Tikva achieved local council status in 1953."
+  Hebrew Wikipedia also says it became a city on 1 May 2023 "במלאת 70 שנה להקמתה", which dates the founding to 1953.
   **We prefer 1949**, which puts it outside the window; the CBS 1953 matches the local council (our reading, the file
   does not say). Hebrew Wikipedia also says "בשנת 1954, עם הקמת המועצה המקומית", so it gives 1953 and 1954 for the
   council. Not in Gvati.
@@ -407,7 +413,8 @@ Common sources, cited by short name in every row:
 - **Site note. [S, Wikipedia]** English Wikipedia: on land near the Arab village of al-'Abbasiyya, depopulated in 1948
   (paraphrase). Hebrew Wikipedia: on land partly of the JNF and partly private (paraphrase). For the owner's
   sensitivity review.
-- **Renames.** None found.
+- **Renames. [S, Wikipedia]** Hebrew Wikipedia: "היישוב הוכר בשם שיכון היובל" and "שנתיים לאחר מכן שונה שם היישוב
+  לגני תקווה". English Wikipedia calls it "Shikun Yovel, built in 1949".
 - **Coordinates.** CBS 32.06012, 34.87503 (code 229).
 - **Sources.** CBS; https://he.wikipedia.org/w/index.php?oldid=44092580 ;
   https://en.wikipedia.org/w/index.php?oldid=1380318762 . All checked 2026-10-22.
@@ -419,7 +426,7 @@ Common sources, cited by short name in every row:
   **We prefer 1948** (both Wikipedias), which puts it outside the window; the CBS 1953 is unexplained by any source
   read. Not in Gvati.
 - **Type.** A youth village, an institution, not a residential settlement (both Wikipedias).
-- **Founders. [S, Wikipedia]** Chaya and Akiva Yishai of the Ben Shemen youth village staff, who took over the
+- **Founders. [S, Wikipedia]** A couple from the Ben Shemen youth village staff, who took over the
   British police building (Hebrew Wikipedia, paraphrase).
 - **Renames.** None found; the CBS name is "נעורים".
 - **Coordinates.** CBS 32.37407, 34.86204 (code 186).
@@ -438,7 +445,8 @@ Common sources, cited by short name in every row:
 - **Site note. [S, Wikipedia]** English Wikipedia: on the land of the depopulated Arab village of Kafr 'Ana, "on or
   very near" the village site (paraphrase around the quoted words). For the owner's sensitivity review.
 - **Renames. [S, Wikipedia]** Hebrew Wikipedia: also known as Neve Efraim Monosson (paraphrase; the lead gives it
-  with vowel points).
+  with vowel points). Earlier Neve Efraim: Hebrew Wikipedia "לאחר שהוחלף לבקשת התושבים מנוה אפרים"; English
+  Wikipedia "also known as Neve Efraim".
 - **Coordinates. [S, Wikipedia]** English Wikipedia infobox: 32°01′N 34°52′E, read as 32.01667, 34.86667 (rounded
   to the minute, so up to about 1 km off). The CBS point of Yehud-Monosson (32.03320, 34.88639) is the merged town, not this
   neighbourhood.
@@ -502,10 +510,12 @@ Common sources, cited by short name in every row:
 - **Founders. [S, Wikipedia]** Planned for immigrants from Iran (both); English Wikipedia: that group refused to live
   there, and urban residents of a "from city to village" movement settled instead (paraphrase).
 - **Site note. [S, Wikipedia]** English Wikipedia: on lands near the depopulated Arab village of Bashshit
-  (paraphrase), as for Aseret (row 20). For the owner's sensitivity review.
+  (paraphrase), as for Aseret (row 20). Hebrew Wikipedia's earlier name "בשיט 3" also ties the moshav to Bashshit.
+  For the owner's sensitivity review.
 - **Renames. [C]** Hebrew Wikipedia: "שמו הראשון של המושב היה "יפה ענף". עם זאת, קיימים מקורות שמייחסים לו את
-  השם "יפה נוף" או "שדה נוף"." (footnotes removed). English Wikipedia: "The original name was "Yefe Nof"". The two
-  articles disagree on the first name; no date for the change. Name origin, Gvati: "סמלי".
+  השם "יפה נוף" או "שדה נוף"." (footnotes removed). Its footnote quoting *Herut*, 16 August 1955, gives "שמות קודמים: יפה ענף, בשיט 3".
+  English Wikipedia: "The original name was "Yefe Nof"". The two articles disagree on the first name; no date for the
+  change. Name origin, Gvati: "סמלי".
 - **Coordinates.** CBS 31.83205, 34.74141 (code 555).
 - **Sources.** CBS; Gvati; https://he.wikipedia.org/w/index.php?oldid=42989473 ;
   https://en.wikipedia.org/w/index.php?oldid=1374536978 . All checked 2026-10-22.
