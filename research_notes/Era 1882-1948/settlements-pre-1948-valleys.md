@@ -30,7 +30,7 @@ here. Method, sources and tags are those of the Galilee note (#1429), the Haifa 
   areas". In 1945 the area of this note was spread over four sub-district tables: **Nazareth**
   (Jezreel valley), **Beisan** (Harod valley, Gilboa and the Beit She'an valley), **Haifa** (Ramot
   Menashe, Yokneam and the western valley) and **Tiberias** (Menahemia). The text layer prints page
-  numbers only in places (45 after the Beisan table, 62 and 63 around the Nazareth table, 49 and 50
+  numbers only in places (45 after the Beisan table, 62 to 64 around the Nazareth table, 49 and 50
   in the Haifa table, 73 after the first Tiberias page), so the table title is the locator. It is
   used only as a **presence check**: a Jewish locality named in a 1945 land unit existed by then. It
   is not a founding source, and it lists land units, so several kibbutzim are not named at all; "not
@@ -57,6 +57,8 @@ here. Method, sources and tags are those of the Galilee note (#1429), the Haifa 
 - **[GAP]** not found.
 - **computed here** is arithmetic or a conversion done for this note, not a printed figure.
 - **our reading** marks an interpretation and is not attributed to a source.
+- A row with an earlier group or camp but one agreed CBS and Gvati year is [V] and the earlier date is
+  written out in part 2; where he.wiki gives an earlier or later founding year for the same row it is [C].
 
 ## What counts as the valleys here
 
@@ -132,7 +134,7 @@ disagreement, a rename, a move, a day that differs or an earlier founding writte
 | מולדת (Moledet) | 269 | 1937 | 32.58635, 35.44047 | הגליל התחתון, `4.7.37`, תנועת המושבים | Beisan: "Taiyiba, Et and Benei Berit (Benei Berit was previously Moledet)" | [V]; renamed Benei Berit 1940, part 2 |
 | רמת צבי (Ramat Zevi) | 339 | 1942 | 32.59152, 35.41389 | גליל תחתון, `22.1.42`, תנועת המושבים | not listed by name | [V]; first on Moledet land, part 2 |
 
-### Jezreel sub-district, natural region 234 (Gvati: Jezreel valley)
+### Jezreel sub-district, natural region 234 (Gvati: Jezreel valley, except Daverat: Lower Galilee)
 
 | Locality | CBS code | CBS year | lat, lon (computed here) | Gvati: region, date, affiliation | Village Statistics 1945 | Tag |
 |---|---|---|---|---|---|---|
@@ -164,7 +166,7 @@ disagreement, a rename, a move, a day that differs or an earlier founding writte
 | בית שערים (Bet She'arim) | 248 | 1936 | 32.69662, 35.17824 | עמק יזרעאל, `27.3.31`, תנועת המושבים | Haifa: "Beit She‘arim" | [C] Gvati 1931, he.wiki 1926 and 1936; part 2 |
 | הזורע (HaZorea) | 250 | 1936 | 32.64401, 35.11944 | עמק יזרעאל, `15.4.36`, הקיבוץ הארצי | Haifa: "Haz Zorea‘ (previously" | [V] |
 | אלונים (Allonim) | 285 | 1938 | 32.71998, 35.14529 | עמק יזרעאל, `20.6.38`, הקיבוץ המאוחד | Haifa: "Tiv'on (Alonim) (previously Qusqus..." [sic, cut off] | [V]; earlier camps 1936 to 1937, part 2 |
-| בית זיד (Bet Zeid) | 353 | 1943 | 32.70130, 35.12993 | [GAP] no row | Haifa: "Giv‘ot Zeid (previously part of Esh Sheikh Bureik)", see part 2 | [C] he.wiki: Giv'ot Zeid from 1926, Bet Zeid after 1951; part 2 |
+| בית זיד (Bet Zeid) | 353 | 1943 | 32.70130, 35.12993 | [GAP] no row | Haifa: "Giv‘ot Zeid (previously part of Esh Sheikh Bureik)", see part 2 | [C] he.wiki: Zeid family from 1926, Giv'ot Zeid named after July 1938, Bet Zeid after 1951; part 2 |
 
 ### Jezreel sub-district, natural region 236 (Gvati: Ramat Menashe)
 
@@ -265,7 +267,7 @@ Hebrew Wikipedia pages below were read at the `oldid` given, checked 2026-10-23.
   הכפר"; "בשנת 1933 עזבה קבוצה זו את המקום על מנת לעבור למקום קבע משלה, ובמקומם הגיעו 40 מאנשי
   גורדוניה". [S, Wikipedia]
 - **[C]** 30 November 1930 (he.wiki, first group) against 1933 (CBS, Gvati). **Our reading:** keep
-  both; the first group left in 1933 and the Gordonia group, who are the later kibbutz, came then.
+  both; the first group left in 1933 and the Gordonia group came then (**our reading:** they are the later kibbutz).
 
 ### Tel Adashim (CBS 103)
 - CBS **1923**; Gvati `27.10.23`. The 1945 Nazareth table names "Tel ‘Adashim".
@@ -332,9 +334,12 @@ Hebrew Wikipedia pages below were read at the `oldid` given, checked 2026-10-23.
 - he.wiki `בית זייד`, oldid **42326268**: "ב-1926, לאחר שגורש עם משפחתו מכפר גלעדי, התיישב אלכסנדר
   זייד, מוותיקי ארגון השומר"; "על שמו הוקם היישוב גבעות זייד, בו חיו בני משפחתו עד שעזבו בשנת 1951
   והקימו את בית זייד במקום בו התגוררו לפני כן". [S, Wikipedia]
-- **[C]** 1943 (CBS) against a settling in 1926 (he.wiki) and a Bet Zeid that the article puts after
-  1951. **Our reading:** a place named Giv'ot Zeid stood from 1926 and is in the 1945 table; the year
-  of Bet Zeid itself is not settled by what was read. The 1943 rests on CBS alone. Coordinate for
+- he.wiki, same article: "ב-11 ביולי 1938, בדרכו לפגישה עם אנשי אלונים, נרצח אלכסנדר זייד"; the
+  place Giv'ot Zeid is named for him.
+- **[C]** 1943 (CBS) against a Zeid family settling in 1926, a Giv'ot Zeid named after 11 July 1938
+  and a Bet Zeid that the article puts after 1951. **Our reading:** the family lived on the hills from
+  1926; a place named Giv'ot Zeid exists after Zeid's death in 1938 and is in the 1945 table; the
+  year of Bet Zeid itself is not settled by what was read. The 1943 rests on CBS alone. Coordinate for
   Giv'ot Zeid: [GAP].
 
 ### Alonim (CBS 285)
@@ -360,7 +365,7 @@ Hebrew Wikipedia pages below were read at the `oldid` given, checked 2026-10-23.
   Wikipedia]
 - **[C]** CBS 1948 and Gvati 18 April 1948 for the Jewish moshav, he.wiki 1906 for the Templer
   colony on the same site. **Our reading:** the Jewish locality counted here begins on the Gvati
-  date, one day after the operation the article names; the 1906 colony was German, not a Jewish
+  date, one day after the operation the article names; the 1906 colony was founded by Templers ("הטמפלרים"), not a Jewish
   locality. Whether and how this row enters the game is for the owner's sensitivity review.
 
 ### Days that differ, year the same
@@ -389,7 +394,7 @@ is proposed about how it appears in the game. [checked 2026-10-23: no CBS row ma
 (part 2).]
 
 ### Giv'ot Zeid (the place of Bet Zeid)
-- See Bet Zeid in part 2: a Zeid family settling of **1926**, in the 1945 Haifa table as "Giv‘ot
+- See Bet Zeid in part 2: the Zeid family settled the hills in **1926**, the place Giv'ot Zeid was named after his death on 11 July 1938 and is in the 1945 Haifa table as "Giv‘ot
   Zeid (previously part of Esh Sheikh Bureik)"; the family left in **1951** and founded Bet Zeid
   (he.wiki `בית זייד`, oldid **42326268**). [S, Wikipedia] Coordinate: [GAP].
 
