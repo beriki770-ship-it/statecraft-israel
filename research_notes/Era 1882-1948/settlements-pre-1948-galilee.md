@@ -42,7 +42,8 @@ here.
 - **Hebrew Wikipedia** was read through the MediaWiki API as the wikitext of the current revision,
   cited by `oldid`. It is a lead and a cross-check, not an authority; a fact resting on it alone is
   marked **[S, Wikipedia]**. Where an article cites a newspaper item that was not opened here, the
-  note says so.
+  note says so. Quotes keep the source's wording; double quote marks inside a Hebrew quote are
+  printed as single quotes.
 
 **Tags**, as in `settlements-1949-51.md`:
 - **[V] verified**: two independent sources agree. For a founding year that is CBS and Gvati;
@@ -237,39 +238,43 @@ Hebrew Wikipedia pages below were read at the `oldid` given, checked 2026-10-23.
   source read here says so.
 
 ### Kadoorie (CBS 371)
-- CBS **1931**. Not in Gvati's appendix (it is a school, not a settlement). [V, checked]
+- CBS **1931**. Not in Gvati's appendix (it is a school, not a settlement). [checked 2026-10-23: no row]
 - he.wiki `בית הספר החקלאי כדורי`, oldid **43963826**: "בית הספר נוסד ב-20 ביוני 1933 למרגלות הר
   תבור". [S, Wikipedia]
-- **[C]** CBS 1931 against he.wiki 20 June 1933. **Our reading:** no source here explains CBS's 1931;
+- **[C]** CBS 1931 against he.wiki 20 June 1933. The article's only 1931 is its category `יישובים שהוקמו ב-1931`, a Wikipedia category, not a dated
+  statement. **Our reading:** no source here explains CBS's 1931;
   use 1933 for the opening of the school and keep CBS's year beside it.
 
 ### Nahariya (CBS 9100)
-- CBS **1934**. Not in Gvati's appendix (a town). [V, checked]
+- CBS **1934**. Not in Gvati's appendix (a town). [checked 2026-10-23: no row]
 - he.wiki `נהריה`, oldid **44103186**: "בשנת 1934 התאפשר לקנות אדמה בבעלות ערבית, שטח של 2,400
   דונמים צפונית לעכו". [S, Wikipedia] That is the land purchase, not the arrival of the first
   settlers. **Day of founding: [GAP].**
 
 ### Biriya (CBS 368)
-- CBS **1945**. Not in Gvati's appendix. [V, checked]
+- CBS **1945**. Not in Gvati's appendix. [checked 2026-10-23: no row]
 - he.wiki `מצודת ביריה`, oldid **41257964**: "את ביריה יישב ב-8 בינואר 1945 גרעין של המחלקה הדתית של
   הפלמ"ח"; on 5 March 1946 "הודיע הצבא הבריטי כי הוא כובש את ביריה, גירש את הנוטרים, ואסר על
   המגורים במקום"; on 14 March 1946 "עלו אלפי בני נוער ... והקימו נקודת יישוב חדשה בסמוך לביריה א'";
-  the group left for Ein Tzurim in February 1947. [S, Wikipedia]
+  the settling group, "גרעין ה' של בני עקיבא", stayed "עד שעברו לעין צורים בפברואר 1947". [S, Wikipedia]
 - he.wiki `העלייה לביריה`, oldid **43838312**: the affair "החלה בסוף חודש פברואר 1946 ... והגיעה
   לשיאה בין 14 במרץ ל-17 במרץ 1946". he.wiki `ביריה`, oldid **43619175**: "במלחמת העצמאות נפגע
   היישוב קשות ונהרס. בשנת 1949 הוקם במקום מחנה עולים". [S, Wikipedia]
-- **[V]** year 1945 (CBS and he.wiki agree). **Our reading:** the present locality is the 1949
-  re-founding on the same site; CBS keeps the 1945 year. The eviction (5 March 1946), the second
+- **[S]** year 1945: CBS, with he.wiki's 8 January 1945 agreeing; not [V], which this note keeps for
+  CBS plus Gvati. he.wiki `ביריה` also says "בשנת 1949 הוקם במקום מחנה עולים. באוקטובר 1959 הוחלט
+  להפוך את היישוב לכפר יערנים"; **our reading:** the present community grew from that 1949 camp,
+  and CBS keeps the 1945 year. The eviction (5 March 1946), the second
   point (14 March 1946) and the 1948 destruction are each a separate dated event, and these are
   rows for the owner's sensitivity review.
 
 ### Ilaniya, formerly Sejera (CBS 49)
 - CBS **1902**; Gvati `1902, חודשה ב-1.7.53` (re-established 1 July 1953). [V] for 1902.
 - he.wiki `אילניה`, oldid **43952364**: it began as the Sejera farm, bought "בשנת 1899", "ובשנת 1902
-  הפכה למושבה"; "בשנת 1957 הפכה אילניה למושב". [S, Wikipedia] Village Statistics 1945 names the land
+  הפכה למושבה"; "בשנת 1957 הפכה אילניה למושב". Its category `יישובים שהוקמו ב-1899` follows the
+  purchase year. [S, Wikipedia] Village Statistics 1945 names the land
   unit "Sejera (Ilanya)". **Rename:** Sejera to Ilaniya; the year of the official name is a [GAP].
-  he.wiki also records that the neighbouring Arab village al-Shajara was taken on 6 May 1948 and its
-  inhabitants fled; that is outside this note's subject and is noted only as a pointer for the
+  The article also states that the neighbouring Arab village al-Shajara was captured on 6 May 1948 and
+  that its residents fled; that is outside this note's subject and is noted only as a pointer for the
   owner's sensitivity review.
 
 ### Alumot (CBS 330)
@@ -297,7 +302,7 @@ Hebrew Wikipedia pages below were read at the `oldid` given, checked 2026-10-23.
 
 These are the rows the issue calls renames and abandonment. Each is recorded with its source; nothing
 is proposed about how it appears in the game. None is a CBS locality under its own name.
-[V, checked: no CBS row matches `גיא אוני`, `חמארה`, `עין זיתים`, `בית גן`, `משמר השלושה`, `ביתניה` or
+[checked 2026-10-23: no CBS row matches `גיא אוני`, `חמארה`, `עין זיתים`, `בית גן`, `משמר השלושה`, `ביתניה` or
 `משמר הים`; the only `תל חי` row is `תל חי (מכללה)`, code 1707, a college with no founding year; the
 only `חמרה` row, code 3609, 1971, is a different place in the Jordan Valley.]
 
@@ -306,7 +311,8 @@ only `חמרה` row, code 3609, 1971, is a different place in the Jordan Valley.
   הערבי ג'עוני"; "המתיישבים קראו ליישוב החדש בשם גיא אוני"; on 24 July 1882 David Shub bought the
   Gei Oni lands, and "המושבה נוסדה לקראת סוף 1882". [S, Wikipedia] Gvati `12.1882` and CBS 1882 date
   Rosh Pinna, not Gei Oni.
-- **Founding 1878 [S, Wikipedia]; rename / re-founding as Rosh Pinna December 1882 [V].** Abandonment:
+- **Gei Oni 1878 [S, Wikipedia]; Rosh Pinna December 1882 [V] (CBS and Gvati date Rosh Pinna, not
+  the rename).** Abandonment:
   the article says only a few families stayed after two years; no date. [GAP]
 
 ### Mahanayim, the first two attempts
@@ -315,22 +321,27 @@ only `חמרה` row, code 3609, 1971, is a different place in the Jordan Valley.
   living there "נטשו בשנת 1912"; "בשנת 1922, מחניים הפך למושב עובדים וכעבור שש שנים נעזב שוב"; the
   present kibbutz on "23 במאי 1939", which matches Gvati `23.5.39`. [S, Wikipedia]
 - First colony **1898 to 1903** (vacated, families compensated), a later group left **1912**, a moshav
-  **1922 to about 1928** (computed here: 1922 plus "six years"). No coordinate of the old sites. [GAP]
+  **1922 to about 1928** (computed here: 1922 plus "six years"). [S, Wikipedia] No coordinate of the
+  old sites. [GAP]
 
 ### Tel Hai
 - he.wiki `תל חי`, oldid **43882634**: "ב-1916 נאחזה במקום קבוצה מאנשי 'הרועה' לזמן קצר"; "בספטמבר
   1918 התיישבה במקום קבוצת פועלים"; the battle of "1 במרץ 1920"; "היישוב תל חי אוחד ב-1926 עם כפר
   גלעדי, ואנשיו עברו לשם". [S, Wikipedia] Village Statistics 1945 names the land unit "Kefar Gil‘adi
   (Tel Hai)" (text layer "Tel Hat").
-- Founded **September 1918** (after a short stay in 1916), abandoned after **1 March 1920**, merged into
-  Kfar Giladi **1926**. The date of the return after 1920 is a [GAP] in the passage read. Coordinate:
+- The same article: after quiet was restored "בחודש יולי 1920", "ב-5 באוקטובר חזרו המתיישבים היהודיים
+  אל שלושת היישובים שננטשו ויישבו אותם מחדש". [S, Wikipedia] **Our reading:** the three are Kfar
+  Giladi, Metula and Tel Hai, since the article says Hamara was not re-founded; the year 1920 is
+  from context.
+- Founded **September 1918** (after a short stay in 1916), abandoned after **1 March 1920** (exact day
+  [GAP]), resettled **5 October 1920**, merged into Kfar Giladi **1926**. [S, Wikipedia] Coordinate:
   [GAP].
 
 ### Hamara
 - he.wiki `חמארה (כפר)`, oldid **43174476**: "נוסד באוקטובר 1919 ... באתר ממזרח לכפר גלעדי, ונעזב בשל
   קשיי המחיה והתקפות פורעים ב-1 בינואר 1920"; "חמארה לא הוקמה מחדש". The Tel Hai article says the
   same ("שננטשה על ידי מתיישביה בעקבות הפרעות באחד בינואר 1920"), but both are Wikipedia. [S, Wikipedia]
-- Founded **October 1919**, abandoned **1 January 1920**. Coordinate: [GAP].
+- Founded **October 1919**, abandoned **1 January 1920**. [S, Wikipedia] Coordinate: [GAP].
 
 ### Ein Zeitim
 - he.wiki `עין זיתים`, oldid **42229027**: founded "בשנת 1891"; "ב-1925 שבה והוקמה המושבה"; "ב-1932 שבה
@@ -339,7 +350,7 @@ only `חמרה` row, code 3609, 1971, is a different place in the Jordan Valley.
   1951 עזבו רוב החברים". Its map template gives **32.9972, 35.485904**, the article's own figure.
   [S, Wikipedia]
 - Foundings **1891, 1925, 1932, 1946 (Tu BiShvat)**; abandonments in the 1936 to 1939 revolt (no
-  exact date) and **end of 1951**, after this era. Not in Gvati. [V, checked] Village Statistics 1945
+  exact date) and **end of 1951**, after this era. [S, Wikipedia] Not in Gvati. [checked 2026-10-23: no row] Village Statistics 1945
   has a unit "‘Ein Zeitim" separate from the Arab village's unit, printed "‘Ein ez Zeitin" in the
   text layer; the figures of the "‘Ein Zeitim" line are not legible there.
 
@@ -347,7 +358,7 @@ only `חמרה` row, code 3609, 1971, is a different place in the Jordan Valley.
 - he.wiki `משמר הירדן (מושבה)`, oldid **43882330**: infobox `סוג יישוב=יישוב לשעבר`, `תאריך
   ייסוד=1890`, `סיבת נטישה=כיבוש והרס על ידי כוחות סוריה`, `תאריך נטישה=10 ביוני 1948`, successors
   `גדות` and `משמר הירדן (מושב)`, and **33.01380, 35.62084** in the infobox. Body: "המושבה משמר הירדן
-  נוסדה בתחילת ה'תרנ"א (1890)". [S, Wikipedia] Village Statistics 1945 names it "Mishmar hay Yarden".
+  נוסדה בתחיל [sic] ה'תרנ"א (1890)". [S, Wikipedia] Village Statistics 1945 names it "Mishmar hay Yarden".
 - CBS row 732 `משמר הירדן` is the moshav, year **1949**, and Gvati's `6.12.49` row is the same moshav;
   neither dates the colony. Founded **1890** [S, Wikipedia; presence in 1945 from Village Statistics];
   abandoned **10 June 1948**, after 15 May. A row for the owner's sensitivity review.
@@ -356,20 +367,20 @@ only `חמרה` row, code 3609, 1971, is a different place in the Jordan Valley.
 - he.wiki `בית-גן`, oldid **43838436**: land bought "בשנת 1903"; "בשנת 1905 נבנה הרחוב העליון של
   המושבה"; one of seven ICA colonies of 1902 to 1908; "צורפה למועצה המקומית יבנאל בשנת 1953". Village
   Statistics 1945 lists "Beit Gan" as its own land unit in Tiberias. [S, Wikipedia]
-- **Founding year: [GAP]**, between 1903 (land) and 1905 (first street). Merged **1953**.
+- **Founding year: [GAP]**, between 1903 (land) and 1905 (first street). Merged **1953**. [S, Wikipedia]
 
 ### Mishmar HaShlosha (merged into Yavne'el)
 - he.wiki `משמר השלושה`, oldid **43737620**: "המושב הוקם ביום 13 באפריל 1937 על אדמת פיק"א כיישוב
   חומה ומגדל", named for three Yavne'el residents killed on 14 March 1937, and attached to the Yavne'el
   local council in 1953. Village Statistics 1945: "Yavneel and Mishmar hash Shelosha". [S, Wikipedia;
   presence in 1945 from Village Statistics]
-- Founded **13 April 1937**, merged **1953**. Coordinate: [GAP].
+- Founded **13 April 1937**, merged **1953**. [S, Wikipedia] Coordinate: [GAP].
 
 ### Bitaniya Illit
 - he.wiki `ביתניה עילית`, oldid **43555562**: "בא' באלול תר"ף (15 באוגוסט 1920) התיישבה על הרכס מעל
   חוות ביתניה ... קבוצה של בוגרי תנועת השומר הצעיר"; "בפסח תרפ"א (אפריל 1921) הם עזבו את המקום".
   [S, Wikipedia]
-- Founded **15 August 1920**, left **April 1921**. A work camp more than a locality; included because
+- Founded **15 August 1920**, left **April 1921**. [S, Wikipedia] A work camp more than a locality; included because
   the issue asks for places abandoned before 1948. Coordinate: [GAP].
 
 ## 4. Gaps and what was not done
