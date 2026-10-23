@@ -31,6 +31,9 @@ hud.nav.cabinet: "ממשלה"
 # The Cabinet disc's tip while a seat is vacant that the player can fill (#1109). For the native reviewer (#564).
 hud.nav.cabinet_vacant: "ממשלה: יש תפקיד פנוי. אפשר למנות אליו מישהו."
 hud.nav.budget: "תקציב"
+# The Budget disc's tip while the Budget screen has changes that are not submitted and could be (#1109). For the native reviewer (#564).
+# Approved by Beri, a native speaker, on #1352 (22 Oct 2026).
+hud.nav.budget_unsubmitted: "תקציב: השינויים עוד לא הוגשו. בלי הגשה, סיום התור לא יחיל אותם."
 hud.nav.defence: "ביטחון"
 hud.nav.why: "למה?"
 hud.nav.how_to_play: "איך משחקים"
@@ -452,6 +455,10 @@ unit.subtitle: "{0} · {1}"
 unit.service.army: "צבא היבשה"
 unit.service.air: "חיל האוויר"
 unit.service.navy: "חיל הים"
+# טיוטות לכרטיס של יחידה שהוקמה במהלך המשחק (#1396); agent-checked, native review pending (#564).
+unit.type.veteran_soldier: "חיילים ותיקים"
+unit.strength: "כוח: {0}"
+unit.home_city: "עיר הבית: {0}"
 unit.position: "מיקום: {0}, מאז {1}"
 unit.position_plain: "מיקום: {0}"
 unit.formed: "הוקמה: {0}"
