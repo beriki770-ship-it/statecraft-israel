@@ -506,7 +506,7 @@ Researched 2026-10-10. All URLs were checked on that date unless noted.
     - Differences from SA No. 10: June 1950 is 4,609 (SA 10: 4,809) and October 1950 is 4,932 (SA 10: 4,032). Our arithmetic: SA 4's twelve 1950 months average 5,908 and SA 10's average 5,850, so SA 4's months fit the yearly figure both volumes print. For 1949 the twelve months average 6,351 in both volumes, so SA 4's 6,850 does not match its own months. Which print is right was not settled from a third source.
   - **ILO, via a JTA brief dated 19 September 1951:** Israel was one of five countries "to show an increase in unemployment in June of this year as compared with June, 1951", a 25 percent increase. [S] https://jta.org/archive/israel-was-one-of-five-countries-to-show . The brief's date and its "June, 1951" cannot both be right, so which two Junes the ILO compared is not settled. For comparison only (our arithmetic): the CBS daily average for June 1951, 5,765, is 25% above SA No. 4's June 1950 (4,609) and 20% above SA No. 10's (4,809).
   - **Ma'abarot, kept apart from the national series:** worst-case unemployment of 90–96% (Roby). This is a figure for the transit camps, not a national rate, and is not comparable with any of the series above.
-  - Still missing [GAP]: a 1949–51 estimate of unemployment by the labour-force definition (the survey only began in June 1954), and the registered series for non-Jews.
+  - Still missing [GAP]: a 1949–51 labour-force-survey estimate made at the time (the survey only began in June 1954; Hovne's figures above are back-projections), and the registered series for non-Jews.
 
 ---
 
