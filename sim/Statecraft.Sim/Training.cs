@@ -97,7 +97,7 @@ namespace Statecraft.Sim
             if (course == null) return FormattableString.Invariant($"Unit {unit} cannot take replacements");
             var room = Room(s, u);
             if (room <= 0) return FormattableString.Invariant($"Unit {unit} has no losses to replace");
-            if (count > room) return FormattableString.Invariant($"Unit {unit} can take {Groups(room)} more").Replace(" groups more", " more groups").Replace(" group more", " more group");
+            if (count > room) return FormattableString.Invariant($"Unit {unit} can take {room} more {(room == 1 ? "group" : "groups")}");
             return Start(c, s, city, course.Id, count, why, unit);
         }
 
