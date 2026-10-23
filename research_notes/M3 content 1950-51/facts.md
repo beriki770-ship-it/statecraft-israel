@@ -289,7 +289,7 @@ Read 2026-10-23 from the scanned page images of the two PDFs by Claude Code (an 
   - The 1948–51 period column: SA 3's 684,275 counts Jewish immigrants and Publication 1365 Table 5's 687,624 counts all immigrants, so their 3,349 gap is not like for like. Against Publication 1365's Jewish rows in Table 1 (101,819 + 239,576 + 170,215 + 175,129 = 686,739), SA 3 is 2,464 lower. Most country rows differ by under 300, and Yemen by 3,036 (45,279 for Yemen and Aden in SA 3, against 48,315 in Publication 1365). [C]
 - **Definitions:**
   - Country of birth for these years; the tables use nationality only for 1919–34 and for the 1946 visa-less immigrants (footnote 1 of both tables).
-  - Tables 3 and 6 of both volumes have no "potential immigrants" category (the rest of each volume was not searched for one). Publication 1365 Table 1 has that column, but it is empty for 1950 and 1951 (it starts in 1969); its 170,215 for 1950 is the Jews column.
+  - SA No. 2 Tables 2 and 6 and SA No. 3 Tables 3 and 6 have no "potential immigrants" category (the rest of each volume was not searched for one). Publication 1365 Table 1 has that column, but it is empty for 1950 and 1951 (it starts in 1969); its 170,215 for 1950 is the Jews column.
 - **Not in these tables** [GAP]:
   - Morocco, Tunisia and Algeria separately for 1950 or 1951 (one combined row in SA 2, SA 3 and SA 4).
   - Egypt and Sudan for 1950 or 1951 (no row of their own; presumably inside "other countries" of Africa, not stated).
