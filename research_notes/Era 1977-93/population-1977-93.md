@@ -33,7 +33,7 @@ value is given and one is named. The design also asks how CBS classifies the Asi
 |---|---|---|
 | CBS SA 2010 T4.2 | Central Bureau of Statistics, *Statistical Abstract of Israel 2010*, Table 4.2 "Immigrants, by period of immigration and last continent of residence", pages 230-231 (PDF p. 1-2); 1977-1993 are on page 231 | https://www.cbs.gov.il/he/publications/doclib/2010/4.%20shnatonimmigration/st04_02.pdf |
 | CBS SA 2010 T4.4 | same volume, Table 4.4 "Immigrants, by period of immigration, country of birth and last country of residence", pages 233-234 (PDF p. 1-2) | https://www.cbs.gov.il/he/publications/doclib/2010/4.%20shnatonimmigration/st04_04.pdf |
-| CBS SA 2010 T2.1 | same volume, Table 2.1 "Population, by population group", page 85 (PDF p. 1) for 1977-1993 | https://www.cbs.gov.il/he/publications/doclib/2010/2.%20shnatonpopulation/st02_01.pdf |
+| CBS SA 2010 T2.1 | same volume, Table 2.1 "Population, by population group", page 85 (PDF p. 1) for 1977-1993; notes on page 86 (PDF p. 2) | https://www.cbs.gov.il/he/publications/doclib/2010/2.%20shnatonpopulation/st02_01.pdf |
 | CBS SA 2023 T2.1 | *Statistical Abstract of Israel 2023*, Table 2.1, the same title, page 1. The file `content/population.yaml` already cites it | https://www.cbs.gov.il/he/publications/doclib/2023/2.shnatonpopulation/st02_01.pdf |
 | CBS SA 2010 T2.3 | *Statistical Abstract of Israel 2010*, Table 2.3 "Sources of population growth", pages 89-91 (PDF p. 1-3) | https://www.cbs.gov.il/he/publications/doclib/2010/2.%20shnatonpopulation/st02_03.pdf |
 | CBS 1365 | CBS Publication 1365, *Immigration to Israel 2002-2006* (2009): introduction pages XVII-XVIII (PDF p. 8-9); Table 1 "Immigrants, by year of immigration, immigration status and religion", pages 30-33 (PDF p. 21-24); Table 2 "Immigrants, by period and year of immigration, last continent and country of residence", page 34 (PDF p. 25); Table 4 "Immigrants, by year of immigration and continent of birth", pages 36-37 (PDF p. 27-28) | https://www.cbs.gov.il/he/publications/DocLib/2009/1365/pdf/e_print.pdf |
@@ -238,7 +238,7 @@ thousands":
   137,134; 1980-1989 29,754; 1990-1999 772,239. Asian republics (a separate row, filled only from 1990-1999): 49,524.
   The periods do not match the era's bounds, so these are context only.
 - [C] The design's §2.5 quotes the Wikipedia article on the 1990s aliyah for 1990 185,227, 1992 65,093 and 1993
-  66,145. These are Tolts's 185.2, 65.1 and 66.1 thousand to the unit, so they count FSU emigrants to Israel; CBS's
+  66,145. They agree with Tolts's 185.2, 65.1 and 66.1 thousand to his rounding; our reading: they count FSU emigrants to Israel, as Tolts does; CBS's
   `europe` column (189,650, 68,962, 70,315) also holds every other European country. Preferred, as the design says
   (§5.4): the CBS series for the rows; Tolts for any event text on the Soviet wave.
 
@@ -266,7 +266,7 @@ CBS does not date the operations. What it counts:
 | Why it stopped | Peres's press conference confirming the airlift | [S] wiki Moses, cited there to a source Wikipedia itself tags as needing a better one |
 
 - [C] The end date: two sources say 5 January 1985; JA's "November 1985" cannot be right, since the follow-up airlift
-  it describes next is dated March 1985 (below). Preferred: **5 January 1985**.
+  it describes next is dated March 1985 by Wikipedia (below; JA itself gives it no date). Preferred: **5 January 1985**.
 - [C] The start: 18 or 21 November 1984, neither from a primary source. Not settled here. [GAP] for a primary source.
 - The number: about 8,000, and CBS's own "over 8,000" agrees. It fits inside CBS's 12,579 Ethiopian arrivals of
   1980-1984.
@@ -327,7 +327,7 @@ inside it, the immigrants. The difference is **derived**, not a CBS emigration f
 | 1983-1989 | Total population | 119.6 | 31.1 | 88.5 |
 | 1990-1995 | Total population | 702.5 | 593.5 | 109.0 |
 
-- What the difference holds, from the table's notes: note 2, the immigrants column is "Here also incl. immigrating
+- What the difference holds, from the table's notes (page 91): note 2, the immigrants column is "Here also incl. immigrating
   citizens"; note 1, "Until 1995, the balance of migration also included the balance of changes and corrections of
   religion." So the derived column is residents leaving net of residents returning, plus the net effect of religion
   corrections (for the Jewish rows). Our reading: it is the closest CBS-based net emigration figure for these years,
@@ -349,7 +349,7 @@ inside it, the immigrants. The difference is **derived**, not a CBS emigration f
 
 [V] CBS SA 2010 T2.1, page 85, thousands. CBS SA 2023 T2.1 (page 1) carries the same values for every one of these
 years, both 1983 rows included (checked cell by cell, total, Jews and Arabs, end of year and average). Note 1 of the
-table: "Until 1995, before publication of the Census results "Arabs" also included "others"."
+table (page 86): "Until 1995, before publication of the Census results "Arabs" also included "others"."
 
 | End of year | Grand total | Jews | Arabs (incl. others) | Jewish change on the year, derived |
 |---|---|---|---|---|
@@ -373,14 +373,14 @@ table: "Until 1995, before publication of the Census results "Arabs" also includ
 | 1992 | 5,195.9 | 4,242.5 | 953.4 | +97.9 |
 | **1993** | **5,327.6** | **4,335.2** | **992.5** | +92.7 |
 
-- The table prints two rows for 1983. Its notes: "3. Based on the previous Census." and "4. Based on the Census of
+- The table prints two rows for 1983. Its notes (page 86): "3. Based on the previous Census." and "4. Based on the Census of
   that year." [C] Preferred: the census-based row (bold), which is the base of every later year. For a chained run
   started before the census, the previous-census row is the like-for-like one. Derived differences, census basis
   minus previous basis: Jews -23.6 thousand, Arabs -6.4, total -29.9. The 1984 change is taken from the census row.
 - Checks, derived: Jews + Arabs = grand total in every row to within 0.1 thousand of rounding (0.1 off in 1978, 1980,
   1981, the previous-basis 1983 row, 1984, 1988 and 1993).
 - The Arab column rises 32.9 thousand in 1982 against 18.6 to 21.5 in each of 1978-1981 (derived). [V] CBS SA 2010
-  T2.3 note 9: "Excl. the addition of the Arab residents from East Jerusalem in 1967 and from the Golan Sub-District
+  T2.3 note 9 (page 91): "Excl. the addition of the Arab residents from East Jerusalem in 1967 and from the Golan Sub-District
   in 1982." Our reading: the 1982 jump is the Golan. The Jewish column has no such break.
 - Jewish population, end of 1977 to end of 1993, derived: 4,335.2 - 3,077.3 = 1,257.9 thousand, with the 1983 census
   break (-23.6) inside. 1990 and 1991 together, derived: 229.6 + 197.9 = 427.5 thousand.
@@ -411,7 +411,7 @@ table: "Until 1995, before publication of the Census results "Arabs" also includ
 | 1983-1989 | Total | 4,033.7 (note 8) | 494.8 | 31.1 | 119.6 | 525.9 | 4,559.6 | 1.8 | 5.9 |
 | 1990-1995 | Total | 4,559.6 | 465.9 | 593.5 | 702.5 | 1,059.4 | 5,619.0 | 3.5 | 56.0 |
 
-- The notes: 8, "Discontinuity is due to census results"; 9, "Excl. the addition of the Arab residents from East
+- The notes (page 91): 8, "Discontinuity is due to census results"; 9, "Excl. the addition of the Arab residents from East
   Jerusalem in 1967 and from the Golan Sub-District in 1982"; 10, "Incl. census adjustments. The Arab population
   includes the addition of the Arab population in East Jerusalem and in the Golan"; 11, "Based on 1983 Census".
 - Checks, derived: natural + migration = total growth in every row, except Jews 1972-1982 (532.5 + 178.6 = 711.1,
