@@ -187,8 +187,8 @@ Changes of office that K and W fix, in date order (all [V] unless marked):
 - **What the second pass closed in §1's four vacancies (24 Oct).** Nothing about the holders: no contemporary source
   read (JTA; K) names an acting minister for 15-24 October 1960, 30 May-2 November 1961, 23 August-29 October 1962
   or 4-30 May 1965, and K, which does record the Prime Minister as holder of other vacated offices (rows 22293,
-  22295, 22364), has no row for these four. All four stay [GAP] on the holder. It confirmed the four death dates and
-  both Carmel dates are consistent with JTA. What is not tried: the Divrei HaKnesset, the Government's decisions and
+  22295, 22364), has no row for these four. All four stay [GAP] on the holder. JTA confirms the four death dates and
+  gives 30 May for Carmel, with W against K. What is not tried: the Divrei HaKnesset, the Government's decisions and
   Yalkut HaPirsumim (knesset.gov.il and the State Archives catalogue were not reachable), and Davar / Hatzofe on JPress
   (403 from this machine). A person with access to those is the next step.
 - **5 June 1967.** Gahal (Begin, Yosef Sapir) and Rafi (Dayan) enter the 13th government: §5.
