@@ -382,7 +382,8 @@ Hebrew Wikipedia pages below were read at the `oldid` given, checked 2026-10-23.
 - (24 Oct) Searched again and not found: the year or day the 1939 site was abandoned, and its
   coordinate. Read: the he.wiki `חמדיה` wikitext (oldid 43555833), whose coordinate parameter is the
   present kibbutz (the API gives 32.52036847, 35.51990715; the en.wiki API gives 32.52027778,
-  35.51972222; **computed here:** 7 m from CBS's point, 2 m north-south and 6 m east-west); the
+  35.51972222; **computed here:** the he.wiki point is 7 m from CBS's point, 2 m north-south and 6 m
+  east-west, and the en.wiki point is 17 m, 12 m and 11 m); the
   tower-and-stockade table above; the he.wiki chronology `כרונולוגיית ההתיישבות היהודית בארץ ישראל
   בעת החדשה` (oldid 43572242), which names Hamadya in two lists with no year of leaving; the Gvati
   page, where `חמדיה` occurs only in the name-origin cell of the `1.9.42` row. he.wiki has no
@@ -489,8 +490,8 @@ column of Gvati's dates does not say what event a date records (see above).
   עפולה נוסדה בשנת 1925 על ידי חברה ציונית מיישבת בשם קהילת ציון אמריקאית". [S, Wikipedia] Both
   years stay [S] (CBS and he.wiki).
 - Search log, Gvati page https://benyehuda.org/read/14684, fetched 2026-10-24, tags stripped with a
-  python script (651,622 characters). A name cell reading exactly `גבע`: 0 matches (the only
-  `גבע`-initial name cell is `גבע הכרמל`, a different place); `הגבעה`: 0; `עפולה`: 5 lines, all running
+  python script (651,622 characters). A name cell reading exactly `גבע`: 0 matches (other cells begin with
+  `גבע`, for example `גבע הכרמל` and `גבעתי`, different places); `הגבעה`: 0; `עפולה`: 5 lines, all running
   text, none a name cell; `זייד` or `זיד` in any form: the one sentence on Or HaNer quoted above. The
   no-row finding stands for Geva, Afula and Bet Zeid. [GAP]
 - Census of Palestine 1931, Beisan sub-district, printed p. 78: a Jewish unit "Giv'a, Hag" (Hebrew
@@ -585,8 +586,8 @@ is proposed about how it appears in the game. [checked 2026-10-23: no CBS row ma
   Moslems (17 + 21). Village Statistics 1945, printed p. 62: no population; land Arabs 390, Jews
   3,497, public 140, total 4,027. **Our reading:** a land unit with Jewish-owned land and no Jewish
   residents in 1945, and Moslem residents in 1931; not a Jewish locality of this note. Both it and
-  Kefar Yeladim are in the Nazareth table, so they are not for the Kinneret sub-district of the
-  Galilee note.
+  Kefar Yeladim are in the Nazareth table, so the Galilee note, which the first pass thought
+  might cover them, does not need to.
 
 ### Irgun Borokhov (24 Oct)
 - Village Statistics 1945, Beisan, printed p. 44 (pdf page 44): "Tira, Et and Irgun Borokhov",
