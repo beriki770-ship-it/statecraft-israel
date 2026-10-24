@@ -293,7 +293,7 @@ rows with later years for `בית הערבה` (code 3645, 1980, Jordan-Jericho s
   Coordinate (24 Oct): he.wiki oldid 44067999 prints 31.834269, 35.232499 [S, Wikipedia]; Wikidata
   Q30527673 ("מושבה יהודית ... וחרבה במלחמת העצמאות") prints the same pair [S, Wikidata]. The 1970
   neighbourhood's items (Wikidata Q2918013, 31.841111, 35.2425) are a different place, about 1 km
-  away (0.0068 degrees of latitude = 0.77 km; 0.0100 degrees of longitude = 0.95 km; 1.2 km,
+  away (0.0068 degrees of latitude = 0.76 km; 0.0100 degrees of longitude = 0.95 km; 1.2 km,
   computed here), and are not used.
 - (24 Oct) 1931 and 1945 counts: 101 Jews (census p. 42) and 190 Jews (Village Statistics p. 57), part 1b.
 
@@ -357,7 +357,9 @@ rows with later years for `בית הערבה` (code 3645, 1980, Jordan-Jericho s
   תרפ"ז, 1927"; "חרב בימי מאורעות תרפ"ט". [S, Wikipedia] (24 Oct) Census 1931, Bethlehem
   sub-district p. 36: "Migdal ‘Eder", 4 houses, 23 persons, no Jews (part 1b). Coordinate: he.wiki
   oldid 42481770 prints 31.640232, 35.142458 [S, Wikipedia]; Wikidata Q12408820 ("former Jewish
-  settlement in Mandatory Palestine") prints the same [S, Wikidata].
+  settlement in Mandatory Palestine") prints the same [S, Wikidata]. The same oldid's location-map parameters
+  (`רוחב=31.645833|אורך=35.131178`) put the pin about 1.2 km from that pair; "the same" covers the
+  coordinate display only, not the map pin.
 - **12 to 14 May 1948**, Gvati, narrative: "ב־12.5.1948 הסתער הלגיון הערבי ... על הישובים בגוש
   עציון", "ב־13 במאי פרצו הערבים לכפר־עציון" (the sentence goes on to the deaths of those found
   there; not repeated here), the other three surrendered the next day, and "גוש עציון נכנע ביום
@@ -368,7 +370,7 @@ rows with later years for `בית הערבה` (code 3645, 1980, Jordan-Jericho s
   pages 50 and 51 (images). No unit is named Etzion, Masuot, Ein Tzurim or Revadim, and the only row
   with a Jewish population is "Beit Ummar", Jews 80, Jewish land 567 dunums; the table's totals give
   Jews 80 and Jewish land 6,132 dunums for the whole sub-district. Wikidata Q2893117 puts Beit Ummar
-  at 31.621389, 35.102222 [S, Wikidata], about 3.5 km from the Kefar Etzion point below (0.0286
+  at 31.621389, 35.102222 [S, Wikidata], about 3.5 km from the Kefar Etzion point below, the Wikidata pair 31.65, 35.116667 (0.0286
   degrees of latitude = 3.2 km; 0.0145 degrees of longitude = 1.4 km; computed here). **Our reading:**
   the Gush Etzion land lay in the Hebron sub-district's units and Beit Ummar's 80 Jews are the
   only candidate for its Jewish population in that table; no source read says so, so the question
@@ -389,8 +391,8 @@ rows with later years for `בית הערבה` (code 3645, 1980, Jordan-Jericho s
 ### Kalya (Palestine Potash Company works and housing, north shore of the Dead Sea)
 - (24 Oct) en.wiki `Kalya`, oldid **1374532040**: infobox `founded = 1929 (original) 1968 (current)`;
   "It was originally established in 1929 but was occupied and destroyed by the Jordanians in 1948; it
-  was later rebuilt in 1968 after the Six-Day War"; the company "was chartered in 1929" and "set up
-  its first plant on the north shore of the Dead Sea at Kalya", and "housing was built to accommodate
+  was later rebuilt in 1968 after the Six-Day War"; "The company, chartered in 1929, set up its first
+  plant on the north shore of the Dead Sea at Kalya", and "housing was built to accommodate
   employees of the Palestine Potash Company", which "employed both Arabs and Jews". [S, Wikipedia]
   Coordinate: 31.74861111, 35.46611111 [S, Wikipedia] (en.wiki; the page's infobox gives it as
   31 44 55 N, 35 27 58 E).
