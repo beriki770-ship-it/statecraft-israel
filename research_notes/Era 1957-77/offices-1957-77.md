@@ -146,7 +146,9 @@ Changes of office that K and W fix, in date order (all [V] unless marked):
   Prime Minister; K does not record it).
   (24 Oct) JTA, 17 October 1960: Toledano "died suddenly yesterday, at his home here, aged 79", and the funeral was
   attended by "President Izhak Ben-Zvi and Prime Minister David Ben-Gurion"; 15 October 1960 was a Saturday, so the
-  date agrees with W [S]. JTA, 25 October 1960, the day after K starts Ben-Gurion: Rabbi Eliahu Pardess "was reported
+  date is consistent with W's 15 October if the bulletin runs a day or two behind (read literally, "yesterday" in a 17
+  October bulletin is 16 October; the "customary Sunday session" and the funeral in the same text fit a death on the
+  Saturday) [S]. JTA, 25 October 1960, the day after K starts Ben-Gurion: Rabbi Eliahu Pardess "was reported
   today to be the most likely candidate for the office of the Minister for Religious Affairs ... The office was vacated
   earlier this month by the death of Rabbi Yaacov Toledano." It names no acting minister. Searched in the K mirror: no
   row of any person at the Ministry of Religions between 15 and 24 October 1960 (rows with a ministry name or a
@@ -155,11 +157,12 @@ Changes of office that K and W fix, in date order (all [V] unless marked):
   office until another is named.
 - **Mintz's death, 30 May 1961.** W: "30/05/1961 (Died)". Neither K nor W names a Minister of Posts from 30 May to 2
   November 1961. [GAP] on the holder; vacant on both sources' rows.
-  (24 Oct) JTA, 1 June 1961: Mintz "died in Tel Aviv last night at the age of 58"; with the bulletin running a day or
-  two behind, this fits W's 30 May [S]. It names no one for the Posts. The K mirror has no row at the Ministry of Posts
+  (24 Oct) JTA, 1 June 1961: Mintz "died in Tel Aviv last night at the age of 58"; read literally, "last night" in a 1 June bulletin is 31 May;
+  it fits W's 30 May only if the bulletin runs a day or two behind [S]. It names no one for the Posts. The K mirror has no row at the Ministry of Posts
   (משרד הדואר) between Mintz's end (30 May) and Sasson (2 November 1961), and no `DutyDesc` of an acting minister over
   the window. Our reading, from he.wiki *ממשלת ישראל התשיעית*, which says the government "collapsed after" Ben-Gurion's
-  resignation of 31 January 1961: the 9th government may have sat as a continuing government through the vacancy (K
+  resignation of 31 January 1961: the 9th government may have sat as a continuing government through the vacancy (he.wiki, same page, "והממשלה הוסיפה לכהן כממשלת מעבר במשך כ-10 חודשים": "and the government continued to serve as a
+  transitional government for about 10 months"; K
   carries its ministers again from 4 September to 2 November 1961, rows such as 22347 to 22372). This is a reading,
   not a source on the Posts.
   Still [GAP] on the holder.
@@ -174,11 +177,13 @@ Changes of office that K and W fix, in date order (all [V] unless marked):
 - **Bar-Yehuda's death, 4 May 1965.** W: "22/12/1964 - 04/05/1965 (Died)" at Transportation. No holder in either
   source until Carmel (K 31 May, W 30 May 1965). [GAP] on the holder.
   (24 Oct) JTA, 6 May 1965: Bar-Yehuda, "Minister of Transport and Communications", "died here last night after a
-  brief illness", which fits 4 May [S]. JTA, 1 June 1965: "The Cabinet yesterday decided to coopt Moshe Carmel,
+  brief illness", which on a literal reading is 5 May and fits W's 4 May only if the bulletin
+  runs a day or two behind [S]. JTA, 1 June 1965: "The Cabinet yesterday decided to coopt Moshe Carmel,
   Achdut Avoda member of the Knesset, to serve as Minister of Transport, in place of Israel Bar-Yehuda who died earlier
   this month". Our reading: with the bulletin one to two days behind, "yesterday" is 30 or 31 May, so JTA does not
   separate K's 31 May from W's 30 May (item 8 of §3 stays [C]). The same bulletin: Zadok takes Development and
-  Eshkol takes Housing, as K and W have them. The K mirror has no row at the Ministry of Transport (משרד התחבורה)
+  Eshkol takes Housing; the persons match K and W, the dates are those of §1 (K Zadok at Development from 25 May and
+  Eshkol at Housing from 31 May, W Zadok at Development from 31 May). The K mirror has no row at the Ministry of Transport (משרד התחבורה)
   between Bar-Yehuda's end (4 May) and Carmel (row 3916, 31 May 1965). Still [GAP] on the holder.
 - **What the second pass closed in §1's four vacancies (24 Oct).** Nothing about the holders: no contemporary source
   read (JTA; K) names an acting minister for 15-24 October 1960, 30 May-2 November 1961, 23 August-29 October 1962
@@ -669,7 +674,7 @@ May 1965).
 | intelligence_chief (Aman) | Chaim Herzog | 1959 (he.wiki April 1959) | 1962 (he.wiki January 1962) | en.wiki 1959-1962 | [S] |
 | intelligence_chief (Aman) | Meir Amit | 1962 (he.wiki January 1962) | 1963 (en.wiki) / January 1964 (he.wiki) | | [C] [S]; he.wiki's own Mossad list starts Amit at the Mossad on 26 March 1963, our reading: he.wiki has him in both posts for nine months |
 | intelligence_chief (Aman) | Aharon Yariv | 1964 (he.wiki January 1964) | 1972 (he.wiki September 1972) | en.wiki 1964-1972 | [S] |
-| intelligence_chief (Aman) | Eli Zeira | 15 October 1972 (Maariv, 24 Oct) / October 1972 (en.wiki, he.wiki biography) / September 1972 (he.wiki Aman list) | April 1974 (he.wiki Aman list); between 1 and 4 April 1974 (Knesset lexicon, JTA, 24 Oct) | §5 | [C] [S]; start day one press source, end day [GAP] |
+| intelligence_chief (Aman) | Eli Zeira | 15 October 1972 (Maariv, 24 Oct) / 1 October 1972 (Jewish Chronicle, 24 Oct) / October 1972 (en.wiki, he.wiki biography) / September 1972 (he.wiki Aman list) | April 1974 (he.wiki Aman list); between 1 and 4 April 1974 (Knesset lexicon, JTA, 24 Oct) | §5 | [C] [S]; start day [C] between two press sources, end day [GAP] |
 | intelligence_chief (Aman) | Shlomo Gazit | 1974 (he.wiki April 1974) | 1978 (en.wiki) / February 1979 (he.wiki) | | [C] [S] (as in offices-1977-93.md §4) |
 | mossad_director | Isser Harel | 22 September 1952 (he.wiki) | 25 March 1963 (he.wiki) | en.wiki 1953-1963 | [C] [S] on the start |
 | mossad_director | Meir Amit | 26 March 1963 (he.wiki) | 1 September 1968 (he.wiki) | en.wiki 1963-1968 | [S] |
@@ -718,7 +723,11 @@ the Chief of Staff days likewise, as the Knesset table does not cover the post.
   assessor") [S]; a newspaper article; the sentence cites no source for the day. The page was read through a summarising fetch tool
   and this sentence is quoted as it returned; a person's check of the original text is pending. It agrees with the October of en.wiki and the
   he.wiki biography, not with the September of the he.wiki Aman list. JTA's archive search returned no 1972 bulletin on
-  the appointment. **Value: 15 October 1972** [S], one source, with September 1972 [C] from the he.wiki list.
+  the appointment. The Jewish Chronicle's obituary of Zeira
+  (`https://www.thejc.com/news/obituaries/obituary-major-general-eli-zeira-dv7dccma`, read 24 October 2026): "On
+  October 1, 1972 he was appointed IDF Intelligence Chief." [S]. Two retrospective press sources, two different days.
+  **Value: 15 October 1972 (Maariv) [C] 1 October 1972 (Jewish Chronicle) [C] September 1972 (he.wiki Aman list)**,
+  all [S]; the day is unsettled and needs a contemporary or IDF source.
   **End.** The Knesset's lexicon [V]: "Its Intermediate Report was published on April 1st 1974 ... Its other
   recommendations included the dismissal of Eliahu Zeira, Head of the Intelligence Directorate". JTA 4 April 1974:
   "Maj. Gen. Shlomo Gazit ... was appointed chief of the army's intelligence branch, replacing Gen. Eliahu Zeira who
