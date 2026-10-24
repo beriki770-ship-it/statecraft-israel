@@ -23,6 +23,7 @@ sections 4, 6 and 8.
   The page is named. A [S] value is a lead, not a settled fact.
 - [C] two sources disagree. Every value is given, and the preferred one, if any, is named.
 - [GAP] not found in any source read. No value is filled in by inference.
+- [FTS] read only as a snippet in the Internet Archive full-text search, as defined in the national-funds note; a lead, not a value.
 - **Derived** marks a number this note computed. The arithmetic is shown next to it.
 - **My reading** marks an interpretation the source does not state itself.
 - "p." is the printed page number; "PDF p." is the position in the file when it differs. Quotes are copied from the
@@ -150,7 +151,7 @@ Transfers from Arabs to non-Arabs that the High Commissioner approved, in dunums
   purchase was is the JNF series on main and the land-held table. [GAP] for private-purchase flows by year, for the
   Land Transfer Ordinance of 1920 and its 1933 amendment (named in Survey I, ch. VIII, but not read for this note), and
   for the Hope-Simpson Report's land findings.
-- [GAP] JNF land in 1948 (also a gap in the national-funds note).
+- [GAP] JNF land in 1948 (also a gap in the national-funds note; open under #91).
 
 ## 3. `settlement_drive`
 
@@ -186,7 +187,7 @@ wording.
 | Contemporary description | the Redemption Fund (Kofer Hayishuv), "which was instituted under the auspices of the Vaad Leumi to provide funds to assist in the care of Jewish outlying settlements"; collections "were actively opposed by the Revisionists, on the grounds that members of their organization had not been allowed to co-operate in the measures taken for the defence of Jewish settlements" | [V] text | AR 1938, p. 33, para 50 |
 | Who proposed the name | David Remez | [S] | Srugim (as extracted) |
 | How it was raised | indirect taxes "on imported goods, cigarettes, oil, wine, radios and public transport" (Srugim, as extracted); "a tax on luxuries, cigarettes, restaurant bills and so on" (en.wiki, as extracted) | [S] | both |
-| [C] voluntary or a levy | a search snippet described it as voluntary with a stamp given to donors, another as "an actual levy imposed on the Jewish residents"; the two pages opened do not say | [C] [S] | not opened; [GAP] for a primary description |
+| Voluntary or a levy | en.wiki: "a tax imposed by the Jewish National Council" and "formally introduced on 24 June 1938" (as extracted); Srugim: "המיִסים הוטלו בצורה עקיפה על סחורות מיובאות", receipts "ניתנו בבולים שהודבקו או כתווים שקיבל העוסק בפנקסים", and of the separate "כופר נפש" project, "אחד הגילויים המרגשים להתנדבות היישוב היהודי לשלם מס מרצון" (as extracted; the voluntary phrase is about that project, and the page is a popular article). The two pages thus call it a tax, collected indirectly, with voluntary payment stressed on the Hebrew side | [S] | en.wiki Community ransom; Srugim (both as extracted, 24 October 2026). [GAP] for a primary description |
 | Emergency tax and mobilisation appeal | Srugim says that "during and after the Second World War direct taxes were imposed on the Jewish community", named the emergency tax and the mobilisation and rescue campaign | [S] | Srugim (as extracted). The 1940 and 1942 years come from he.wiki, in the national-funds note, section 3 |
 | Income | 152,000 £P (5699, 1938/39) and 57,000 £P (5700, 1939/40) | [FTS] (a search-index snippet only; see the national-funds note) | national-funds note, section 3 |
 
@@ -194,7 +195,7 @@ wording.
   and the existing note's Davar report of 25 July). The English Wikipedia's 24 June may be a one-month slip, but that is a
   guess, not a finding. Both values stay.
 - [GAP] primary text of the Vaad Leumi's decision, the Mandate's own mention of the 1940 and 1942 direct taxes, and any
-  yield after 5700.
+  yield after 5700 (open under #91).
 
 ## 5. `hebrew_labour`
 
@@ -213,7 +214,7 @@ quoted as they stand.
 | Orange groves, 1935 | "In February, 1935, an enquiry showed that in the Jewish-owned orange groves 40 per cent. of the labour was Jewish and 60 per cent. Arab. The position is now reversed and 60 per cent. of the labour is Jewish and 40 per cent. Arab" (Peel, 1937) | [V] image | Peel, ch. IX para 62, p. 240 (PDF p. 251) |
 | Same paragraph | "the Jews, in their policy of creating an agricultural Jewish population, have restricted the employment of Arab labour on lands held by them" | [V] image | Peel, ch. IX para 62, p. 240 |
 | Picketing | "a movement to intimidate those Jewish farmers who employ Arab labour. Picketing in the post-war settlements in the Sharon was on such a scale as to require legislation - the Prevention of Intimidation Ordinance of 1927 (amended in 1936)" | [V] text | Peel, ch. IX para 62, p. 241 (PDF p. 252) |
-| Peel's effect finding | the policy "this policy has not increased the number of landless Arabs, [it] has reduced the field of employment for labourers" | [V] text | Peel, ch. IX para 62, p. 241 |
+| Peel's effect finding | "Though this policy has not increased the number of landless Arabs, it has reduced the field of employment for labourers and the means of livelihood of those cultivators who depend on work outside their holdings to obtain an adequate income." | [V] text | Peel, ch. IX para 62, p. 241 |
 | Listed as an Arab grievance | "the refusal of Jews to employ Arab labourers" | [V] text | Peel, ch. XIX para 8, p. 365 (PDF p. 376) |
 | Royal Commission's finding | "Owing to Jewish development and enterprise the employment of Arab labour has increased in urban areas, particularly in the ports" | [V] text | Peel, ch. V para 32, p. 129 (PDF p. 140) |
 | Histadrut and Arab workers | "The Histadruth's attempt to form an Arab labour organization under its own direction has, on the whole, worsened rather than improved relations"; the Palestine Labour League "has now declined in influence and membership" | [V] text | Survey II, ch. XVII para 71, pp. 766-767 (PDF p. 242-243; the quoted sentence is on p. 767) |
