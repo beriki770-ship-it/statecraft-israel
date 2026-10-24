@@ -42,7 +42,7 @@ still pending, and no row below was moved to [V] by this update. New tag used on
   (`https://archive.org/download/palestine-village-statistics-1945/page/n46_w1400.jpg`, `n47` and
   `n48`, printed pages 47 to 49 of the Haifa sub-district table), and the columns were read directly
   for the rows in section 1b. The editor's notes of the 1970 edition were not used.
-- **Census of Palestine 1931**: (24 Oct) the PDF of the archive.org item (124 pages, 29.6 MB) was
+- **Census of Palestine 1931**: (24 Oct) the PDF of the archive.org item (https://archive.org/details/CensusOfPalestine1931.PopulationOfVillagesTownsAndAdministrativeAreas, file `PalestineCensus1931.pdf`; 124 pages, 29.6 MB) was
   downloaded and read. Its embedded OCR is still unusable for the figures, but the pages render
   legibly as images (Ghostscript `-sDEVICE=pnggray -r220`), so the Haifa sub-district table
   ("Sub-District Haifa", PDF pages 98 to 109, printed pages 87 to 98; printed number = PDF page minus
@@ -239,9 +239,14 @@ Hebrew Wikipedia pages below were read at the `oldid` given, checked 2026-10-23.
   hill was bought in 1934 by a group of Haifa Jews for a planned settlement named Ya'arot HaCarmel,
   and that a religious pioneer group, Mishmar HaCarmel, went up on 4 October 1935 ("בערב שבת שובה
   תחילת שנת תרצ"ו (4 באוקטובר 1935)"), so Ya'arot HaCarmel is an earlier Jewish settlement on the
-  same hill, not Bet Oren itself. [S, Wikipedia] Its end: the he.wiki disambiguation page
-  `יערות הכרמל`, oldid **42620318**, says only that it was a Jewish settlement "שפונה בתחילת מלחמת
-  העצמאות" (evacuated at the start of the War of Independence); no day. [S, Wikipedia] The farm's
+  same hill, not Bet Oren itself. [S, Wikipedia] Its end, two he.wiki passages that
+  differ. The farm article (oldid **42420180**) says in its lead: "היישוב נעזב אחרי מאורעות
+  תרצ"ו-תרצ"ט בעקבות החלטת המוסדות המיישבים" (the settlement was abandoned after the 1936 to 1939
+  events, following a decision of the settling bodies). The disambiguation page `יערות הכרמל`, oldid
+  **42620318**, says it was a Jewish settlement "שפונה בתחילת מלחמת העצמאות" (evacuated at the start of
+  the War of Independence). **[C]** after 1936 to 1939 against the start of 1948; no day in either.
+  Village Statistics 1945, which post-dates the first end, still lists 360 Jews at "Ya‘arot hak Karmel".
+  [S, Wikipedia] The farm's
   coordinate is Wikidata Q16132058, 32.72594722, 35.01347222 (read 2026-10-24, [S, Wikidata]).
   **Computed here:** against CBS's Bet Oren point (32.73091, 35.00490) that is 0.55 km south and 0.80 km
   east (0.00496 degrees of latitude at 111.2 km, 0.00857 degrees of longitude at 93.6 km, 32.7 N),
@@ -337,8 +342,8 @@ Hebrew Wikipedia pages below were read at the `oldid` given, checked 2026-10-23.
 - **[S]** year 1934, day 18 July 1934 [S, Wikipedia]. **Rename** from שכונת עולי גרמניה; year not
   given. [GAP]
 - (24 Oct) he.wiki, same revision: "משנפטר חיים נחמן ביאליק הוחלט לקרוא על שמו את שני היישובים
-  הסמוכים, קריית ביאליק וכפר ביאליק". Bialik died on 4 July 1934 (he.wiki `חיים נחמן ביאליק`, page
-  read 2026-10-24, infobox `תאריך פטירה = 4 ביולי 1934`). So the name Bialik dates from after 4 July
+  הסמוכים, קריית ביאליק וכפר ביאליק". Bialik died on 4 July 1934 (he.wiki `חיים נחמן ביאליק`, oldid **43995182**, read
+  2026-10-24; the same revision says "ביאליק נפטר בווינה ב-4 ביולי 1934"; infobox `תאריך פטירה = 4 ביולי 1934`). So the name Bialik dates from after 4 July
   1934, and the article's founding day, 18 July 1934, is 14 days later (18 minus 4); which name the
   neighbourhood carried on the day it was founded is not stated. [S, Wikipedia] **Our reading:** CBS's
   1934 holds under either name. The year of the first name's replacement stays [GAP].
@@ -462,7 +467,8 @@ is proposed about how it appears in the game. None is a CBS locality under its o
   row of that name; neither was checked further. (24 Oct) Both were read in the 1945 page images (printed pp. 47 and 49,
   section 1b). "Giv‘ot Zeid" (Jews 110; Jewish land 1,581 dunums): he.wiki `גבעות זייד`, oldid **43158155**,
   calls it a kibbutz "באזור עמק יזרעאל, ליד בית זייד" that "הוקם ב-1940" and "פורק סופית ב-1957", so it
-  belongs to a valleys note, not here (Wikidata Q5565575, property P571, gives 1940, the same year, read 2026-10-24). "Ya‘arot hak Karmel" is in part 2 under Bet Oren. The part 3 list is
+  belongs to the valleys note, not here (already in `settlements-pre-1948-valleys.md`, under Bet Zeid) [S, Wikipedia]
+  (Wikidata Q5565575, property P571, gives 1940, the same year, read 2026-10-24 [S, Wikidata]). "Ya‘arot hak Karmel" is in part 2 under Bet Oren. The part 3 list is
   still not shown to be complete.
 - [GAP] **Census of Palestine 1931**: (24 Oct) read for nine rows only (section 1b); the other rows of
   its Haifa sub-district table, and the Census as a source of founding dates, are not used.
