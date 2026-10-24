@@ -74,7 +74,7 @@ emergency regulations of 1952 and 1984, and the BoI orders under the Bank of Isr
 | 7 | 20 Aug 1952 (published) | In any law, "mil" is read as "prutah" unless the text says mil and not prutah. L52 s. 13 was repealed from 1 Jan 1960 by A59 s. 3 (the new s. 4(2) of the Ordinance) and s. 4 | L52 s. 13; A59 ss. 3, 4 | 1 mil = 1 prutah | [V] |
 | 8 | 1 Jan 1960 | The pound is divided into 100 agorot in place of 1,000 prutot (the words "divided into a thousand mils" are deleted from s. 1) | A59 ss. 1, 2, 4: commences 1 Tevet 5720 (1 January 1960); BoI ag and BoI sys give the same start | 1 pound = 100 agorot (s. 1 adds "החלק המאה של הלירה יהיה אגורה"); a sum "in mils or prutot" is read as agorot equal to **one tenth** of the sum of prutot or mils (s. 2), so 1 agora = 10 prutot | [V] |
 | 9 | 4 Jun 1969 | The Knesset passes an amendment (No. 4) making "the sheqel" the unit, the agora its hundredth part. It never took effect | Amendment No. 4 to the Currency Ordinance, 5729-1969, S.H. 5729, p. 136 (not opened) | none | [S]; see §4 |
-| 10 | 22 Feb 1980 (the regulations and the law commence); notes in circulation 24 Feb 1980 | The sheqel replaces the Israeli pound; the "new agora" is its hundredth part. The Emergency Regulations of 22 Feb 1980 make it the unit and treat any "pound" as ten new agorot; they also repeal the Currency Ordinance (reg. 8) | KT4095 regs. 1, 2, 8 (signed 22 Feb 1980, printed 24 Feb 1980); then L80 ss. 1, 2, 12, which repeals the regulations (s. 10(b)) | **1 sheqel = 10 Israeli pounds** (L80 s. 2(a); KT4095 reg. 2(a): a pound is ten new agorot); **1 new agora = 10 agorot** (L80 s. 2(b); KT4095 reg. 2(b)) | [V] |
+| 10 | 22 Feb 1980 (the law's commencement, L80 s. 12; the regulations, signed that day, carry no commencement provision, and BoI sh gives 22 Feb as the day the sheqel was "declared legal tender" [S]); notes in circulation 24 Feb 1980 | The sheqel replaces the Israeli pound; the "new agora" is its hundredth part. The Emergency Regulations of 22 Feb 1980 make it the unit and treat any "pound" as ten new agorot; they also repeal the Currency Ordinance (reg. 8) | KT4095 regs. 1, 2, 8 (signed 22 Feb 1980, printed 24 Feb 1980); then L80 ss. 1, 2, 12, which repeals the regulations (s. 10(b)) | **1 sheqel = 10 Israeli pounds** (L80 s. 2(a); KT4095 reg. 2(a): a pound is ten new agorot); **1 new agora = 10 agorot** (L80 s. 2(b); KT4095 reg. 2(b)) | [V] |
 | 11 | 30 Sep 1980 | The "fixed day" for cheques (L80 s. 4); BoI AR00 p. 64 says prices and exchange rates were quoted in sheqalim from this date | L80 s. 4; BoI AR00 | none | [V] |
 | 12 | 31 Mar 1984 | The pound ceases to be legal tender | BoI AR00 p. 64 and BoI ag; the regulations fixing the day under L80 s. 6 were not found | none | [S] for the date; [GAP] for the instrument |
 | 13 | 4 Sep 1985 | The new sheqel (NIS) replaces the sheqel; its hundredth part is the agora | L85 ss. 1, 2, 11 | **1 new sheqel = 1,000 sheqalim** (s. 2(a)); **1 agora = 10 sheqalim** (s. 2(b)) | [V] |
@@ -187,16 +187,19 @@ K.T. 4095 of 7 Adar 5740 (24.2.1980), pp. 1080-1081, "made under s. 9(a) of the 
 5708-1948"; signed by Finance Minister Hurvitz, "ה' באדר תש"ם (22 בפברואר 1980)", the day the law later made its
 commencement.
 - reg. 1: the unit of currency is the sheqel; its hundredth part is the new agora.
-- reg. 2(a): wherever "פונט ... לירה ישראלית או לירה" is said, it is read as if "עשר אגורות חדשות" were said: one
+- reg. 2(a): "לירה ישראלית, לירה או ל"י, יראו כאילו נאמר בו עשר אגורות חדשות": one
   pound is ten new agorot, a tenth of a sheqel. Reg. 2(b) reads a sum in agorot as new agorot equal to a tenth of it.
-- reg. 3: coins issued before the regulations' commencement in 25, 5 or 1 agora and in prutot cease to be legal tender;
+- reg. 3: coins issued before the regulations' commencement (their own wording; they give no date for it) in 25, 5 or
+  1 agora and in prutot cease to be legal tender;
   reg. 3(b) lets the Bank of Israel exchange them for twenty years.
 - reg. 5: until a day the Minister fixes, whoever hands in notes and coins in pounds and agorot is entitled to sheqel
   ones free of charge. Reg. 8: "פקודת המטבע, תש"ח-1948 - בטלה". Reg. 4 sets the "fixed day" for cheques as the day
   the regulations commence.
-- So the Emergency Regulations of 22 February 1980, not the law of 13 May, are what put the sheqel into force; our reading: the law
-  of 13 May 1980 restates them from the same date. The regulations repealed the Ordinance on 22 February 1980; L80
-  s. 10(a) repeats the repeal. The regulation fixing the end of the pound's legal tender (31 March 1984) is a later
+- The regulations end at reg. 9 with the signature of 22 February 1980 and have no commencement provision; K.T. 4095 is
+  dated 24 February 1980. That they took effect on 22 February is our reading, matching BoI sh ("On February 22, 1980
+  the sheqel was declared legal tender") [S]. So, on that reading, the Emergency Regulations, not the law of 13 May, are
+  what put the sheqel into force, and the law of 13 May 1980 restates them from the same date (our reading). The
+  regulations repeal the Ordinance (reg. 8); L80 s. 10(a) repeats the repeal. The regulation fixing the end of the pound's legal tender (31 March 1984) is a later
   instrument and was not found.
 
 ### 2.4 The New Sheqel Currency Law, 1985 (L85) [V]
