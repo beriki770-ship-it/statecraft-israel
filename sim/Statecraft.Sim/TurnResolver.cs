@@ -34,6 +34,7 @@ namespace Statecraft.Sim
             Cities.Arrive(c, s, r, next, why);            // 9. arrivals
             StartingForces.Arrive(c, s, next);            //    and the brigades dated after the start (R-UNIT-009)
             SettlementControl.Tick(c, s, r, why);         // 10. occupation timers, in ordinal settlement id (R-CTRL-011 to R-CTRL-013)
+            SettlementControl.Drag(c, s, r, why);         //     then the International Support drag of the places deported (R-CTRL-018)
             if (next >= c.End) SettlementControl.EndPending(c, s, why);   //     and on the turn that reaches the game's end, a capture still awaiting the choice counts as Raid (R-CTRL-008, #797)
             Objectives.Complete(c, s, r, next, why);      // 11. objectives and score
             Defeat(s, r, why);                            //     then the economic defeat (D-B5, R-END-002)
