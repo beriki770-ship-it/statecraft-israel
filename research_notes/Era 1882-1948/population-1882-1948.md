@@ -108,7 +108,7 @@ Jewish population and total population (all religions). The preferred value is i
   (24 Oct) "Searched again and not found." Read: Bachi Table 1.1 and Appendix 4; McCarthy Table A10-1 (page 219),
   which gives for Jerusalem alone 13,920 in 1881 (Luncz) and has no row dated 1882 or near it with a split by origin (its community classification columns are 1845, 1916-1918 and a 1928 estimate, below);
   Survey Vol. I chapter VI. No source read splits the 1882 population by origin. What does exist, kept unmerged:
-  - [S] McCarthy Table A10-1, "Classification by Communities" (also a 1928 Palestine Zionist Executive estimate, Ashkenazic 114,000, 71%, total 160,000): 1845 (Schwarz) Ashkenazic 3,800 (32%), Sephardic and
+  - [S] McCarthy Table A10-1, lower block "Classification by Communities" (also a 1928 Palestine Zionist Executive estimate, Ashkenazic 114,000, 71%, total 160,000): 1845 (Schwarz) Ashkenazic 3,800 (32%), Sephardic and
     Oriental 8,000 (68%), total 11,800; 1916-1918 census Ashkenazic 33,029 (59%), Sephardic (Spanioli) 12,575, Yemenite
     4,356, Persian 1,786, Bukharian 790, other Oriental 3,464, total 56,000. Check, derived: 12,575 + 4,356 + 1,786 +
     790 + 3,464 = 22,971, and 33,029 + 22,971 = 56,000; 33,029 / 56,000 = 59.0%. The table cites "Handbook" as its source.
@@ -241,7 +241,7 @@ Check, derived: 528,702 - 83,790 = 444,912, and 117,226 + 327,686 = 444,912. Bot
 - Bachi's prose (§8.4, page 87) gives "during 1880-1914 some 55,000-65,000 persons", again a range.
 - 1915-1918 arrivals: [GAP]. CBS shows no figure. A derived zero is a design decision, not a sourced value.
   (24 Oct) Searched again and not found as a number. Read: Bachi §8.3, Table 8.1 (no 1915-1918 row), McCarthy Table 2.1
-  (starts in 1919), the Survey chapter VII, the JVL period table (starts in 1919). What is sourced is qualitative:
+  (starts in 1919), the Survey chapter VII, the JVL period table (has a 1915-1918 row with no figures). What is sourced is qualitative:
   [V] Bachi, page 81, "Only during 1915-1918 there has been an almost complete standstill, due to the First World
   War." "Almost complete" is not zero, so a derived zero stays a design decision. McCarthy Table 2.1 (his source,
   the Jewish Agency) gives 1919 as 1,806 [S], the first sourced year.
