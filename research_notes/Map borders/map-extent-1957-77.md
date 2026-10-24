@@ -28,7 +28,8 @@ may be short; Sharm el-Sheikh and Ras Muhammad fit inside 27.7 N with 17 to 24 k
 
 ## Conventions
 
-The same as [forces-1967-73.md](../Era%201957-77/forces-1967-73.md):
+The same as [procurement-1957-77.md](../Era%201957-77/procurement-1957-77.md) and
+[forces-1967-73.md](../Era%201957-77/forces-1967-73.md):
 
 - **[V, agent read 2026-10-24; a person's check pending]** read this session on a primary source opened: FRUS and UN
   documents. A US document is [V] for what the US government was told or wrote, not for the fact behind it. Written in
