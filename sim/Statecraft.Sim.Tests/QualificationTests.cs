@@ -356,21 +356,25 @@ public class QualificationTests
         Assert.Single(Step(c, s, Orders(3)).Rejected);
     }
 
-    // R-CITY-001 with R-QUAL-004, R-QUAL-005 (#1548): a reassigned craftsman stays in the city, so MaxWorkers does not drop for it;
-    // a reassigned pioneer leaves as a unit, so it does. Pinned with the orders that must all be accepted.
-    [Fact]
-    public void MaxWorkersWithAQueuedReassignDropsForPioneersOnly()
+    // R-CITY-001 with R-QUAL-004, R-QUAL-005 (#1548): every queued reassignment counts against MaxWorkers in full, so the job
+    // order up to it is accepted with the reassignments whether it runs first or last (the bound is safe, not tight).
+    [Theory]
+    [InlineData(false)]
+    [InlineData(true)]
+    public void MaxWorkersCountsEveryQueuedReassignInAnyOrder(bool jobsFirst)
     {
         var c = Town();
         var s = WithCity(c, new City("town_a", 12, 8, 6, 0, 0, craftsmen: 0, jobsDefault: false, qualified: new Qualified(2, 0, new[] { 1 })));
         Assert.Equal(6, Cities.MaxWorkers(s, "town_a", new Command[0]));
-        Assert.Equal(6, Cities.MaxWorkers(s, "town_a", new Command[] { new ReassignCraftsmen("town_a", 2) }));
+        Assert.Equal(4, Cities.MaxWorkers(s, "town_a", new Command[] { new ReassignCraftsmen("town_a", 2) }));
         Assert.Equal(5, Cities.MaxWorkers(s, "town_a", new Command[] { new ReassignPioneers("town_a", "halutz", 1) }));
         var queue = new Command[] { new ReassignCraftsmen("town_a", 2), new ReassignPioneers("town_a", "halutz", 1) };
         var max = Cities.MaxWorkers(s, "town_a", queue);
-        Assert.Equal(5, max);
+        Assert.Equal(3, max);
         s.Attention = 100;
-        Assert.Empty(Step(c, s, queue.Append(new AssignWorkers("town_a", "job", max)).ToArray()).Rejected);
-        Assert.Single(Step(c, s, queue.Append(new AssignWorkers("town_a", "job", max + 1)).ToArray()).Rejected);
+        Command[] Orders(int jobs) => jobsFirst
+            ? new Command[] { new AssignWorkers("town_a", "job", jobs) }.Concat(queue).ToArray()
+            : queue.Append(new AssignWorkers("town_a", "job", jobs)).ToArray();
+        Assert.Empty(Step(c, s, Orders(max)).Rejected);
     }
 }
