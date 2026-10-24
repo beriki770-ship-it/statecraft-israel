@@ -28,8 +28,7 @@ may be short; Sharm el-Sheikh and Ras Muhammad fit inside 27.7 N with 17 to 24 k
 
 ## Conventions
 
-The same as [procurement-1957-77.md](../Era%201957-77/procurement-1957-77.md) and
-[forces-1967-73.md](../Era%201957-77/forces-1967-73.md):
+The same as [forces-1967-73.md](../Era%201957-77/forces-1967-73.md):
 
 - **[V, agent read 2026-10-24; a person's check pending]** read this session on a primary source opened: FRUS and UN
   documents. A US document is [V] for what the US government was told or wrote, not for the fact behind it. Written in
@@ -70,7 +69,7 @@ The same as [procurement-1957-77.md](../Era%201957-77/procurement-1957-77.md) an
 |---|---|
 | The name and the road. Kissinger to Ismail: "at 2200 hours Cairo local time today at Kilometer 101 of the Cairo–Suez Road they would be met by Israeli representatives, and that the meeting place would be under the supervision of the United Nations peacekeeping force" | [V, agent read 2026-10-24; a person's check pending] FRUS 69-76 v25 d294 (Washington, undated; its footnotes refer to Sadat's message of 27 Oct) |
 | The six-point text: "they will hold a meeting under the auspices of the United Nations Commander at the usual place (kilometer 101 on the Suez–Cairo road) to sign this agreement" | [V, agent read 2026-10-24; a person's check pending] FRUS 69-76 v25 d334 (Washington, 9 Nov 1973, a White House press release) |
-| Where the talks were held: "At Kilometer 101 on the Cairo–Suez Road, Israeli and Egyptian military officials negotiated between October 28 and November 29, 1973" (editors' footnote) | [V, agent read 2026-10-24; a person's check pending] FRUS 69-76 v26 d31, footnote (Washington, 8 Mar 1974); the same sentence in d5 |
+| Where the talks were held: "At Kilometer 101 on the Cairo–Suez Road, Israeli and Egyptian military officials negotiated between October 28 and November 29, 1973" (editors' footnote) | [V, agent read 2026-10-24; a person's check pending] FRUS 69-76 v26 d31, footnote (Washington, 8 Mar 1974); the same dates in d5, worded "the chief Israeli negotiator at Kilometer 101 on the Cairo-Suez Road, where Israeli and Egyptian military officials negotiated between October 28 and November 29, 1973" |
 | The Israeli end of the road: Israel interprets the six points so that the road "remains under “Israeli control” from KM 102 to the entrance to town" | [V, agent read 2026-10-24; a person's check pending] FRUS 69-76 v25 d329 (Washington, 9 Nov 1973), for Israel's stated reading |
 | A different number: Ismail's message proposes a meeting "at the kilometer 110 of the Cairo–Suez road" | [C] with the 101 above. [V, agent read 2026-10-24; a person's check pending] FRUS 69-76 v25 d291 (Cairo, 27 Oct 1973). Nothing read explains the difference; the meeting that followed is called Kilometer 101 in d296 and later |
 | "an improvised shed near the 101 kilometer marker on the Suez-Cairo road, an area held by Israeli forces on the west bank of the Suez Canal" | [S] JTA, bulletin of 29 Oct 1973, "Israelis, Egyptians Meet Face to Face for First Time Since 1956" (https://www.jta.org/archive/israelis-egyptians-meet-face-to-face-for-first-time-since-1956). The item's dateline in the bulletin PDF (http://pdfs.jta.org/1973/1973-10-29_205.pdf) reads "TEL AVIV, Oct. 28 (JTA)", so "shortly after midnight today" is the night of 27 to 28 Oct, which agrees with FRUS d31's "October 28" |
