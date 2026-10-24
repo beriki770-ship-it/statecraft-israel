@@ -64,10 +64,12 @@ archived (see §7).
 | WP-1959 ... WP-1973 | English Wikipedia, raw wikitext: "1959 Israeli legislative election" (oldid 1375053307), "1961 ..." (oldid 1335062269), "1965 ..." (oldid 1375053652), "1969 ..." (oldid 1333315559), "1973 ..." (oldid 1379863385) | [S], comparison only. Their results tables cite the Israel Democracy Institute and Nohlen *et al.*; they add the lists that won no seat and the invalid votes |
 | WP-PARTY | English Wikipedia, raw wikitext: "Alignment (Israel)" (oldid 1377159825), "Gahal" (oldid 1363140906), "Israeli Labor Party" (oldid 1375841534), "Likud" (oldid 1380058620), "Israeli Liberal Party" (oldid 1350957487), "Independent Liberals (Israel)" (oldid 1350104342), "Rafi (political party)" (oldid 1367367974) | [S], founding dates and components |
 | L-PP-6 (second pass) | Knesset Elections (Temporary Provisions) Law, 5730-1969 (חוק הבחירות לכנסת (הוראות שעה), התש"ל-1969), Sefer HaHukim 576, p. 2, [archive copy of 4 Mar 2016 of the Knesset file](https://web.archive.org/web/20160304234821id_/http://fs.knesset.gov.il/6/law/6_lsr_208038.pdf), read in its text layer and as a rendered page image (file id from OD-DOC, bill 147026) | Special provisions for the Sixth Knesset's election |
+| L-PP-73 (second pass) | Knesset and Local Authorities Elections (Temporary Provision) Law, 5733-1973 (חוק הבחירות לכנסת ולרשויות המקומיות (הוראות שעה), התשל"ג-1973), Sefer HaHukim 678, p. 41, [archive copy of 19 Jun 2022](https://web.archive.org/web/20220619210402/https://fs.knesset.gov.il/7/law/7_lsr_208006.pdf) of the Knesset file (OD-DOC, bill 146988), page image read | Register dates for the 1973 election |
+| L-BUD-77 (second pass) | Budget Law for the fiscal year 1977 (חוק התקציב לשנת הכספים 1977, תשל"ז-1977), Hukei Taktziv 72, p. 3, [archive copy of 9 May 2022](https://web.archive.org/web/20220509100127id_/http://fs.knesset.gov.il/9/law/9_lsr_562689.pdf), first page read as an image | Its own adoption footnote (see §5) |
 | JTA-610329 (second pass) | Jewish Telegraphic Agency, Daily News Bulletin, Vol. XXVIII, No. 61, Wednesday 29 March 1961, p. 1, item "Knesset Votes to Dissolve Itself; Sets New Elections for August 15". Page image read from the [Internet Archive copy](https://web.archive.org/web/2020id_/https://pdfs.jta.org/1961/1961-03-29_061.pdf) of the JTA's PDF; text also at https://www.jta.org/archive/knesset-votes-to-dissolve-itself-sets-new-elections-for-august-15 | Contemporary report of the 1961 dissolution vote. A news agency, not the law |
 | JTA-650520 (second pass) | JTA Daily News Bulletin, Vol. XXXII, No. 98, Thursday 20 May 1965, p. 1, item "Mapai and Achdut Sign Formal Alignment Pact; Ben-Gurion Absent". Page image read from the [Internet Archive copy](https://web.archive.org/web/2020id_/https://pdfs.jta.org/1965/1965-05-20_098.pdf); text also at https://www.jta.org/archive/mapai-and-achdut-sign-formal-alignment-pact-ben-gurion-absent | Contemporary report of the signing of the first Alignment agreement |
 | JTA-730912 (second pass) | JTA Daily News Bulletin, Vol. XL, No. 175, Wednesday 12 September 1973, p. 3, item "Likud Limps into Political Arena". Page image read from the [Internet Archive copy](https://web.archive.org/web/2020id_/https://pdfs.jta.org/1973/1973-09-12_175.pdf); text also at https://www.jta.org/archive/likud-limps-into-political-arena | Contemporary report of the Likud's launch |
-| JTA-73 (second pass) | JTA archive articles, web text only (the bulletin pages were not opened): [2 Aug 1973, "Herut Approves Non-Labor Alignment"](https://www.jta.org/archive/herut-approves-non-labor-alignment) (bulletin 1973-08-02_147); [31 Aug 1973, "Non-Labor Alignment Finds That Adjustment is Impossible"](https://www.jta.org/archive/non-labor-alignment-finds-that-adjustment-is-impossible) (bulletin 1973-08-31_168); [15 May 1974, "Sharon Trying to Revamp Likud"](https://www.jta.org/archive/sharon-trying-to-revamp-likud) | Steps before the Likud, and its components as reported in May 1974 |
+| JTA-73 (second pass) | JTA archive articles, web text only except where noted (bulletin page opened for the 2 Aug item only): [2 Aug 1973, "Herut Approves Non-Labor Alignment"](https://www.jta.org/archive/herut-approves-non-labor-alignment) (bulletin 1973-08-02_147); [31 Aug 1973, "Non-Labor Alignment Finds That Adjustment is Impossible"](https://www.jta.org/archive/non-labor-alignment-finds-that-adjustment-is-impossible) (bulletin 1973-08-31_168); [15 May 1974, "Sharon Trying to Revamp Likud"](https://www.jta.org/archive/sharon-trying-to-revamp-likud) | Steps before the Likud, and its components as reported in May 1974 |
 
 Not used: the Israel Government Year Book and the Encyclopaedia Judaica were not needed for any figure here, because
 the Knesset's own tables cover every election and faction; they were not opened. The Central Elections Committee's
@@ -130,14 +132,22 @@ Arithmetic, computed here from K-RES-n:
   if) a new section 70A gives the Central Elections Committee's chairman and deputies power, on or the eve of polling
   day, to delay the opening of a polling station, halt voting and resume it, and add time (never more than 24 hours past
   the closing hour of section 72); section 91 gets a new subsection (d) letting the Interior Minister, after consulting the
-  Defence Minister and with the committee chairman's consent, give instructions on identifying soldiers who vote in areas
+  Defence Minister and with the consent of the committee's chairman and deputies, give instructions on identifying soldiers who vote in areas
   so fixed; and section 95A is amended to strike out the words about the list submitted by the Chief of the General Staff
-  [V; the last two items read from the text layer, whose line order is scrambled, so a person should re-read them]. The footnote:
+  [V]. The footnote:
   "נתקבל בכנסת ביום י"ב בתשרי תש"ל (25 בספטמבר 1969)" (passed by the Knesset on 25 September 1969), which matches OD-I
   (sitting 431, 25 Sep 1969) [V]. So the 1969 election was in Cheshvan 5730 by the law's own words; the day (28 Oct
-  1969 in K-RES-7) is from the Knesset's results page, not from this law. The 1973 law (Sefer HaHukim 678) is still
-  unread [GAP]; its bill is among the files OD-DOC lists (`7_lsr_208006.PDF`), none archived. Whether it fixed an
-  election date is open.
+  1969 in K-RES-7) is from the Knesset's results page, not from this law. The 1973 law (L-PP-73, one page, Sefer
+  HaHukim 678, p. 41, 18 Jan 1973; the first-pass note wrongly called its file "not archived": the lower-case name is) also
+  fixes no election date [V, page image read]. Section 1: "לשנת הפנקס שלגביה היום הקובע הוא א' בניסן תשל"ג יחולו הוראות
+  חוק הבחירות לכנסת [נוסח משולב], תשכ"ט-1969, בשינויים אלה" (for the register year whose qualifying day is 1 Nisan 5733
+  the Knesset Elections Law applies with these changes): in section 1, in the definition of "היום הקובע" (the qualifying
+  day), "א' בניסן" is replaced by "א' באייר" (1 Iyar), and in sections 28 and 54 "ט"ו באב" (15 Av) by "ט"ו באלול"
+  (15 Elul). Section 2 makes the same changes to the Local Authorities (Elections) Law, 5725-1965. Section 3: "פנקס הבוחרים
+  לשנת הפנקס שלגביה היום הקובע הוא א' בניסן תשל"ב יעמוד בתקפו עד יום י"ד באלול תשל"ג" (the register whose qualifying
+  day was 1 Nisan 5732 stays in force until 14 Elul 5733). So it moves register dates, not the election day. The footnote:
+  "נתקבל בכנסת ביום ה' בשבט תשל"ג (8 בינואר 1973)" (passed by the Knesset on 8 January 1973), which matches OD-I (sitting
+  376, 8 Jan 1973).
 - 1973: L-PP-8, section 1: the elections to the Eighth Knesset set for "(30 באוקטובר 1973)" (30 October 1973) "נדחות"
   (are postponed) and are held "(31 בדצמבר 1973)" [V]. Section 2 extends the Seventh Knesset's term to the Eighth's
   first sitting. Section 3: for the length of the Eighth Knesset's term and the Ninth Knesset's election, the Eighth
@@ -376,10 +386,15 @@ interim law passed on 21 Mar 1972 suggests the 1972 year still began on 1 April 
 not read [GAP]).
 
 What is open for every year: the vote tallies, and the adoption footnote in each law. The law texts and the protocols
-are on fs.knesset.gov.il, which this machine could not reach, and none is in the Internet Archive (checked for every
-file listed below) [GAP]. The "passed" date below is the sitting at which OD-I lists the bill for third reading (status
-117); that this is the day of adoption is our reading. For the one law of this era whose text was read (L-PP-8, an
-election law) the same method gives the day in the law's own footnote.
+are on fs.knesset.gov.il, which this machine could not reach, and, of the annual laws, only the 1977 one is in the Internet
+Archive (availability checked 24 Oct 2026 for each file listed below, lower-case names; the first pass said none, which was wrong) [GAP for the other 20]. The "passed" date below is the sitting at which OD-I lists the bill for third reading (status
+117); that this is the day of adoption is our reading. For the laws of this era whose text was read (L-PP-8, L-PP-6 and L-PP-73, election laws, and the 1977 Budget Law, L-BUD-77) the same method
+gives the day in the law's own footnote. L-BUD-77 is `9_lsr_562689.pdf`, [archive copy of 9 May 2022](https://web.archive.org/web/20220509100127id_/http://fs.knesset.gov.il/9/law/9_lsr_562689.pdf),
+Hukei Taktziv 72, 10 Oct 1977, first page read as an image [V]: section 1 defines "שנת הכספים 1977" as the year "המתחילה
+ביום י"ג בניסן תשל"ז (1 באפריל 1977) והמסתיימת ביום כ"ב באדר ב' תשל"ח (31 במרס 1978)" (beginning 1 April 1977 and ending
+31 March 1978); section 2 allows spending of "123,960,000 אלפי לירות" (IL 123,960,000 thousand); the footnote reads
+"נתקבל בכנסת ביום י' באלול תשל"ז (24 באוגוסט 1977)" (passed by the Knesset on 24 August 1977), which matches OD-I (9th
+Knesset, sitting 23, 24 Aug 1977). That settles the adoption day for 1977 only; no vote tally is on that page.
 
 | Fiscal year | Annual Budget Law (Hebrew name as in OD-B) | Passed (OD-I, third reading) | Knesset, sitting | Published (OD-B: *Hukei Taktziv* issue, page, date) | Interim and supplementary laws in that year (OD-B, OD-I: third-reading date) |
 |---|---|---|---|---|---|
@@ -427,7 +442,7 @@ the 20 Jun listing is not a second adoption (the law was published on 25 May 196
 1974 budget bill is listed that day in OD-I; the law was published on 25 Aug 1974. Nothing in OD-I explains it, and the
 protocol is not reachable, so the 1974 listing stays [GAP].
 
-Files that would close the gaps (OD-DOC; all on fs.knesset.gov.il, none archived): the annual laws are
+Files that would close the gaps (OD-DOC; all on fs.knesset.gov.il; only the 1977 law is archived): the annual laws are
 `3/law/3_lsr_562410.pdf` (1957/58), `3_lsr_562443` (1958/59), `3_lsr_562444` (1959/60), `4/law/4_lsr_562447` (1960/61),
 `4_lsr_562464` (1961/62), `5/law/5_lsr_562501` (1962/63), `5_lsr_562515` (1963/64), `5_lsr_562548` (1964/65),
 `5_lsr_562549` (1965/66), `6/law/6_lsr_562754` (1966/67), `6_lsr_562757` (1967/68), `6_lsr_562756` (1968/69),
@@ -477,8 +492,9 @@ Files that would close the gaps (OD-DOC; all on fs.knesset.gov.il, none archived
   WP-PARTY (Likud): "formed on 13 September 1973", citing *Davar* of 14 Sep 1973 (not read). No preference: 11 Sep is the
   day the agreement was announced to the press (JTA), 12 Sep the day the Free Center was to sign, 13 Sep is Wikipedia's.
   JTA's own web page for the item is dated 12 Sep, the bulletin date, not the dateline's. Earlier steps, from JTA
-  web text only: Herut approved the "non-Labor alignment" on the night of 1 Aug 1973 "by a vote of 119-18 and 8
-  abstentions", and the Liberal Party approved it unanimously the same day (JTA, 2 Aug 1973); on 31 Aug 1973 JTA
+  web text only for most items: Herut "last night" approved the "non-Labor alignment" "by a vote of 119-18 and 8
+  abstentions", and the Liberal Party, in a session "yesterday", approved it unanimously (JTA bulletin No. 147, 2 Aug 1973,
+  p. 1, page image read, dateline "TEL AVIV, Aug. 1", so both were on 31 July 1973); in its bulletin of 31 Aug 1973 JTA
   reported the talks "appeared to have collapsed" over the Free Center's places on the list, yet the launch followed on
   11 Sep.
 
@@ -488,12 +504,12 @@ Files that would close the gaps (OD-DOC; all on fs.knesset.gov.il, none archived
   [S], WP-n).
 - The text of Basic Law: The Knesset (1958) and of the Dissolution of the Fourth Knesset Law (1961): which date each
   fixed. For 1961 the date is now sourced to a contemporary report (JTA-610329), not to the law; the 1969 temporary
-  provisions law is read and fixes no day (§1.1); the 1973 temporary-provision law (Sefer HaHukim 678) is unread.
+  provisions law is read and fixes no day (§1.1); the 1973 temporary-provision law is read and fixes no day (§1.1).
 - A primary date for the 1965 election (C1). The Alignment's signing (19 May 1965) and the Likud's launch (announced to the press
   on 11 Sep 1973 per JTA; C8 prefers none of 11, 12 and 13 Sep) rest on JTA reports, not on a Knesset or party document: a primary record of each (the Alignment agreement, the
   Likud's articles of agreement of September 1973) is not read.
 - Every budget vote tally and every budget law's adoption footnote, 1957 to 1977 (§5): fs.knesset.gov.il is blocked
-  from this machine and the files are not archived. A contributor inside Israel can read them from the list in §5.
+  from this machine and, apart from the 1977 law, the files are not archived. A contributor inside Israel can read them from the list in §5.
 - What the 1972 to 1977 fiscal years covered, from the laws' section 1.
 - Why OD-I lists the 1974 law for second-third reading on 1 Jul 1974, after its third-reading sitting (1967/68 is
   explained in §5 as an inference).
