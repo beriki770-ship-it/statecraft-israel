@@ -143,7 +143,7 @@ Each was read on its file page on 2026-10-24. [V]
   not counted as qualifying.** It is the only in-period frame of him I found.
 - **Dayan on Nationaal Archief and US files.** The CC0 Anefo files are from 18 June 1962 (a group in a church) and 25 July
   1979 (arrival at Schiphol, with a minister and bodyguards). `Moshe_Dayan_1967.jpg` is `{{PD-US-no notice}}` but shows Dayan
-  with Major J. Thomas Pearlman, a two-person frame of 909x987. The `PD-USGov` files are a four-person group at a rally on 27 April 1958 (NARA, with
+  with a US officer, a two-person frame of 909x987. The `PD-USGov` files are a four-person group at a rally on 27 April 1958 (NARA, with
   Eleanor Roosevelt) and frames from 1970 to 1979. None is a usable portrait of the period.
 - **Dan Hadani / IPPA collection (CC BY 4.0, National Library of Israel):** many frames of Dayan, Pinchas Sapir, Luz, Aran
   and others, but all are events or later than 1960 (for example Luz at an exhibition in 1969). None was kept.
