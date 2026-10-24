@@ -65,7 +65,7 @@ The same as [forces-1967-73.md](forces-1967-73.md) and [events-1957-67.md](event
 
 ### 1.4 `deep_strikes`
 
-- Cross-reference, not re-read here: `events-1967-70.md` B18 gives the first deep raid as 7 January 1970 [S] (JTA bulletin of 8 January 1970, "winged deep into Egyptian territory"), and FRUS 1969-76 vol. XXIII d93 (23 Feb 1970) and d106 (23 Mar 1970) [V] for the effect. forces-1967-73.md section 7.2 gives the window as 7 January to 13 April 1970 (118 sorties) [S] (en.wiki).
+- Cross-reference, not re-read here: `events-1967-70.md` B18 gives the first deep raid as 7 January 1970 [S] (JTA bulletin of 8 January 1970, "winged deep into Egyptian territory"), and FRUS 1969-76 vol. XXIII d93 (23 Feb 1970) and d106 (23 Mar 1970) (tagged V there) for the effect. forces-1967-73.md section 7.2 gives the window as 7 January to 13 April 1970 (118 sorties) [S] (en.wiki).
 - The design's window "1969-1970" starts a year before the first raid those notes give. [GAP] a source for deep raids in 1969; the Cabinet decision to begin and its date are a [GAP] in B18.
 
 ### 1.5 `open_bridges` (the start the design marks "to verify")
@@ -88,7 +88,7 @@ All JTA items below are [S]; the dateline of each was read from the original bul
 
 ### 1.6 `territories_settlement`
 
-- Cross-reference, not re-read here: `events-1967-70.md` B1 (the Allon Plan: FRUS 1964-68 v20 d213 and d217 [V]; the plan was "not endorsed by govt" in July 1968; the 27 and 30 July 1967 dates are [GAP]) and B3 (Kfar Etzion re-established 27 September 1967 [S] JTA; on 28 September the Government told the US it had "not taken any general decision on establishing settlements in the occupied west bank areas" [S]). The Cabinet decision and its date are a [GAP] there.
+- Cross-reference, not re-read here: `events-1967-70.md` B1 (the Allon Plan: FRUS 1964-68 v20 d213 and d217 (tagged V there); the plan was "not endorsed by govt" in July 1968; the 27 and 30 July 1967 dates are [GAP]) and B3 (Kfar Etzion re-established 27 September 1967 [S] JTA; on 28 September the Government told the US it had "not taken any general decision on establishing settlements in the occupied west bank areas" [S]). The Cabinet decision and its date are a [GAP] there.
 - Administration, which the pace of settlement sits under: on 8 June 1967 the Government named military governors for the West Bank and for Gaza-Northern Sinai (section 3, row `territories_residents`).
 - So the first dated settlement act in the notes is 27 September 1967; `from 1967-06-05` is the design's choice.
 
@@ -107,7 +107,7 @@ All JTA items below are [S]; the dateline of each was read from the original bul
 
 | Id | What the sources give | Status |
 |---|---|---|
-| `employment` | The Bank's unemployment series: economy-1957-77.md section 2.2 (3.6 percent in 1963; 7.4 in 1966, 10.3 in the fourth quarter; 10.4 in 1967; 6.1 in 1968) | cross-reference, [V] there |
+| `employment` | The Bank's unemployment series: economy-1957-77.md section 2.2 (3.6 percent in 1963; 7.4 in 1966, 10.3 in the fourth quarter; 10.4 in 1967; 6.1 in 1968) | cross-reference, (tagged V there) there |
 | `recession` | The Bank describes a recession in 1966-67 (1.1). No source defines a level at which it "switches on"; the thresholds and the hysteresis are design values | [GAP] by nature: a calibration choice, not a fact |
 | `social_cohesion` | No statistic was read. The events behind it are sourced elsewhere: Wadi Salib, 8 to 20 July 1959 (events-1957-67.md A6, [S]); the Black Panthers, March and May 1971 (`events-1970-77.md` A4, not re-read here); the Agranat findings of April 1974 for trust in government (forces-1967-73.md section 5.3) | cross-reference; the indicator itself has no measured series [GAP] |
 | `development_towns_residents` | The 1977 election was read in the press as the vote of the development towns against the old establishment (below) | [S]; town-level figures [GAP] |
@@ -120,8 +120,8 @@ All JTA items below are [S]; the dateline of each was read from the original bul
 | Actor id | Design window | What the sources give | Status |
 |---|---|---|---|
 | `france` | windowless; main supplier to 1967; the embargo | procurement-1957-77.md sections 1 and 2 (#1607, not re-read here); the embargo's start day is a [GAP] in `events-1967-70.md` A10 | cross-reference |
-| `usa` | windowless; Hawk 1962, Phantom 1968, Nickel Grass, the 1975 reassessment | Hawk: events-1957-67.md A15 ([V] FRUS, 19 Aug to 26 Sep 1962); the rest: procurement-1957-77.md section 4 and `events-1970-77.md` B3, B12 (not re-read here) | cross-reference |
-| `ussr` | windowless; relations severed June 1967; Soviet personnel in Egypt | The break was announced in the Security Council on 10 June 1967: `events-1967-70.md` A10, FRUS v19 d259 [V] (not re-read here); Soviet pilots in Egypt from 18 April 1970: B21; emigration: section 1.7 | cross-reference |
+| `usa` | windowless; Hawk 1962, Phantom 1968, Nickel Grass, the 1975 reassessment | Hawk: events-1957-67.md A15 ((tagged V there) FRUS, 19 Aug to 26 Sep 1962); the rest: procurement-1957-77.md section 4 and `events-1970-77.md` B3, B12 (not re-read here) | cross-reference |
+| `ussr` | windowless; relations severed June 1967; Soviet personnel in Egypt | The break was announced in the Security Council on 10 June 1967: `events-1967-70.md` A10, FRUS v19 d259 (tagged V there) (not re-read here); Soviet pilots in Egypt from 18 April 1970: B21; emigration: section 1.7 | cross-reference |
 | `west_germany` | windowless; relations from 12 May 1965 | events-1957-67.md B7: JTA bulletins of 17 March 1965 (the Knesset's vote, 66 for, 29 against, 10 abstaining) and 13 May 1965 (an exchange of notes) [S]. A search of FRUS vol. XVIII for the relations found nothing (section 6) | [S]; [GAP] primary |
 | `un` | UNEF to 1967; resolutions 242 and 338; UNDOF "to verify" | UNEF: events-1957-67.md A2 (UNEF in Gaza from 7 March 1957, [V]) and `events-1967-70.md` A2 (asked to leave from 16 May 1967, not re-read here). Resolutions 242 and 338: `events-1967-70.md` B5 and forces-1967-73.md section 2. **UNDOF: below** | UNDOF [V, agent read 2026-10-24; a person's check pending] |
 | `egypt`, `jordan`, `syria`, `lebanon`, `iraq` | windowless; the disengagement agreements | `events-1970-77.md` B8 (Sinai I, 18 Jan 1974), B11 (Syria, 29-31 May 1974), B13 (Sinai II, 1 and 4 Sep 1975), not re-read here | cross-reference |
@@ -162,7 +162,7 @@ All JTA items below are [S]; the dateline of each was read from the original bul
 | Item | Result | Status |
 |---|---|---|
 | The Law of Return amendment of 1970 ("to verify", 5.2) | Passed 10 March 1970, 51 to 14 (below) | [S] |
-| German reparations end (5.3) | 1966: BoI 1966 p. 72, "the complete cessation of receipts on account of German reparations": economy-1957-77.md section 5.1 | cross-reference, [V] there |
+| German reparations end (5.3) | 1966: BoI 1966 p. 72, "the complete cessation of receipts on account of German reparations": economy-1957-77.md section 5.1 | cross-reference, (tagged V there) there |
 | Devaluations of 1962, 1967, 1974 (5.3) | 10 Feb 1962, 19 Nov 1967, 10 Nov 1974 in the BoI rates table; the reports' own text says 9 Feb 1962 and 9 Nov 1974 [C] on the day: economy-1957-77.md section 3 | cross-reference, [C] there |
 | Census years 1961, 1972 (5.4) | Both census years are in the CBS table in population-1957-77.md, with the previous-census and census-based rows both kept [C] | cross-reference |
 
