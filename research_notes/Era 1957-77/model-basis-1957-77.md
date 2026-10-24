@@ -58,7 +58,7 @@ The same as [forces-1967-73.md](forces-1967-73.md) and [events-1957-67.md](event
 
 ### 1.3 `reserve_posture`
 
-- FRUS 1964-68 vol. XIX, d72, memorandum for the record of a meeting with the President, Washington, 26 May 1967 (drafted 27 May), https://history.state.gov/historicaldocuments/frus1964-68v19/d72: "In response to the President's question, he believed that Israel could maintain the present level of mobilization for two months without causing serious economic trouble. Full mobilization, however, would cut into the economy." The speaker is not named in the sentences read. [V, agent read 2026-10-24; a person's check pending]
+- FRUS 1964-68 vol. XIX, d72, memorandum for the record of a meeting with the President, Washington, 26 May 1967 (drafted 27 May), https://history.state.gov/historicaldocuments/frus1964-68v19/d72: "In response to the President's question, he believed that Israel could maintain the present level of mobilization for two months without causing serious economic trouble. Full mobilization, however, would cut into the economy." The paragraph is General Wheeler's summary (the record opens "The President began the meeting by asking General Wheeler to summarize the military picture"), so this is Wheeler's estimate in a US record. [V, agent read 2026-10-24; a person's check pending]
 - FRUS v19 d130, memorandum of conversation, Washington, 2 June 1967, https://history.state.gov/historicaldocuments/frus1964-68v19/d130: "Secretary McNamara said that the Israelis felt that they could not keep up their mobilization for more than a week or two. He believed that they could sustain it for a longer time economically (it is costing them about $1 million a day)". It is McNamara's belief, in a US record. [V, agent read 2026-10-24; a person's check pending]
 - The waiting period's own dates and strengths: forces-1967-73.md section 1 and `events-1967-70.md` A1 (not re-read here). The spring 1973 alert: `events-1970-77.md` A11 (not re-read here), where its dates and cost are a [GAP].
 - **Open:** [GAP] the statute under which the reserves are called (the Defense Service Law): the Knesset site is geo-blocked (see the source caveat) and no other copy was opened. [GAP] the cost of the 1973 alert (also open in forces-1967-73.md).
@@ -107,7 +107,7 @@ All JTA items below are [S]; the dateline of each was read from the original bul
 
 | Id | What the sources give | Status |
 |---|---|---|
-| `employment` | The Bank's unemployment series: economy-1957-77.md section 2.2 (3.6 percent in 1963; 7.4 in 1966, 10.3 in the fourth quarter; 10.4 in 1967; 6.1 in 1968) | cross-reference, (tagged V there) there |
+| `employment` | The Bank's unemployment series: economy-1957-77.md section 2.2 (3.6 percent in 1963; 7.4 in 1966, 10.3 in the fourth quarter; 10.4 in 1967; 6.1 in 1968) | cross-reference, tagged V there |
 | `recession` | The Bank describes a recession in 1966-67 (1.1). No source defines a level at which it "switches on"; the thresholds and the hysteresis are design values | [GAP] by nature: a calibration choice, not a fact |
 | `social_cohesion` | No statistic was read. The events behind it are sourced elsewhere: Wadi Salib, 8 to 20 July 1959 (events-1957-67.md A6, [S]); the Black Panthers, March and May 1971 (`events-1970-77.md` A4, not re-read here); the Agranat findings of April 1974 for trust in government (forces-1967-73.md section 5.3) | cross-reference; the indicator itself has no measured series [GAP] |
 | `development_towns_residents` | The 1977 election was read in the press as the vote of the development towns against the old establishment (below) | [S]; town-level figures [GAP] |
@@ -120,10 +120,10 @@ All JTA items below are [S]; the dateline of each was read from the original bul
 | Actor id | Design window | What the sources give | Status |
 |---|---|---|---|
 | `france` | windowless; main supplier to 1967; the embargo | procurement-1957-77.md sections 1 and 2 (#1607, not re-read here); the embargo's start day is a [GAP] in `events-1967-70.md` A10 | cross-reference |
-| `usa` | windowless; Hawk 1962, Phantom 1968, Nickel Grass, the 1975 reassessment | Hawk: events-1957-67.md A15 ((tagged V there) FRUS, 19 Aug to 26 Sep 1962); the rest: procurement-1957-77.md section 4 and `events-1970-77.md` B3, B12 (not re-read here) | cross-reference |
+| `usa` | windowless; Hawk 1962, Phantom 1968, Nickel Grass, the 1975 reassessment | Hawk: events-1957-67.md A15 (FRUS, 19 Aug to 26 Sep 1962, tagged V there); the rest: procurement-1957-77.md section 4 and `events-1970-77.md` B3, B12 (not re-read here) | cross-reference |
 | `ussr` | windowless; relations severed June 1967; Soviet personnel in Egypt | The break was announced in the Security Council on 10 June 1967: `events-1967-70.md` A10, FRUS v19 d259 (tagged V there) (not re-read here); Soviet pilots in Egypt from 18 April 1970: B21; emigration: section 1.7 | cross-reference |
 | `west_germany` | windowless; relations from 12 May 1965 | events-1957-67.md B7: JTA bulletins of 17 March 1965 (the Knesset's vote, 66 for, 29 against, 10 abstaining) and 13 May 1965 (an exchange of notes) [S]. A search of FRUS vol. XVIII for the relations found nothing (section 6) | [S]; [GAP] primary |
-| `un` | UNEF to 1967; resolutions 242 and 338; UNDOF "to verify" | UNEF: events-1957-67.md A2 (UNEF in Gaza from 7 March 1957, [V]) and `events-1967-70.md` A2 (asked to leave from 16 May 1967, not re-read here). Resolutions 242 and 338: `events-1967-70.md` B5 and forces-1967-73.md section 2. **UNDOF: below** | UNDOF [V, agent read 2026-10-24; a person's check pending] |
+| `un` | UNEF to 1967; resolutions 242 and 338; UNDOF "to verify" | UNEF: events-1957-67.md A2 (UNEF in Gaza from 7 March 1957, tagged V there) and `events-1967-70.md` A2 (asked to leave from 16 May 1967, not re-read here). Resolutions 242 and 338: `events-1967-70.md` B5 and forces-1967-73.md section 2. **UNDOF: below** | UNDOF [V, agent read 2026-10-24; a person's check pending] |
 | `egypt`, `jordan`, `syria`, `lebanon`, `iraq` | windowless; the disengagement agreements | `events-1970-77.md` B8 (Sinai I, 18 Jan 1974), B11 (Syria, 29-31 May 1974), B13 (Sinai II, 1 and 4 Sep 1975), not re-read here | cross-reference |
 | `plo` | from its founding (1964, "to verify") | **Below** | [V, agent read 2026-10-24; a person's check pending] |
 | `territories_residents` | from 1967-06-05 | **Below** | [S] |
@@ -162,7 +162,7 @@ All JTA items below are [S]; the dateline of each was read from the original bul
 | Item | Result | Status |
 |---|---|---|
 | The Law of Return amendment of 1970 ("to verify", 5.2) | Passed 10 March 1970, 51 to 14 (below) | [S] |
-| German reparations end (5.3) | 1966: BoI 1966 p. 72, "the complete cessation of receipts on account of German reparations": economy-1957-77.md section 5.1 | cross-reference, (tagged V there) there |
+| German reparations end (5.3) | 1966: BoI 1966 p. 72, "the complete cessation of receipts on account of German reparations": economy-1957-77.md section 5.1 | cross-reference, tagged V there |
 | Devaluations of 1962, 1967, 1974 (5.3) | 10 Feb 1962, 19 Nov 1967, 10 Nov 1974 in the BoI rates table; the reports' own text says 9 Feb 1962 and 9 Nov 1974 [C] on the day: economy-1957-77.md section 3 | cross-reference, [C] there |
 | Census years 1961, 1972 (5.4) | Both census years are in the CBS table in population-1957-77.md, with the previous-census and census-based rows both kept [C] | cross-reference |
 
