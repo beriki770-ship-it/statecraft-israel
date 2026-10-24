@@ -499,8 +499,8 @@ public class HebrewUiTests
         }
     }
 
-    /// <summary>The Hebrew plural of a game turn is "תורים" (#1589); "תורות" is the wrong form and mixed with the
-    /// legacy defence.turn_* strings.</summary>
+    /// <summary>The Hebrew plural of a game turn is "תורים" (#1589). The defence.turn_* strings already use it; these three
+    /// strings were the odd ones out, with "תורות".</summary>
     [Test]
     public void TheHebrewPluralOfATurnIsTorimInTheThreeStringsThatCountThem()
     {
