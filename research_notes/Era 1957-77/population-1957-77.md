@@ -504,8 +504,8 @@ Also opened: the Jewish Virtual Library table "Total Immigration to Israel from 
 
 ### 8a. Jewish immigrants by continent of birth, 1957-1970 (24 Oct)
 
-Closes the last bullet of 1c for 1957-1970. [V] SA17 Table D/4 (1957-1963), SA19 Table D/4 (1964-1966), SA21 Table D/4
-(1967-1969). The CBS table prints two columns only, "Asia-Africa" and "Europe-America", plus "Not known". It counts
+Closes the last bullet of 1c for 1957-1970. [V] SA17 Table D/4 (1957-1960 and 1962), SA19 Table D/4, page 91
+(1961 and 1963-1966), SA21 Table D/4 (1967-1969). The CBS table prints two columns only, "Asia-Africa" and "Europe-America", plus "Not known". It counts
 "immigrants" and leaves tourists who settled out of the row: the Jewish total in 1c is this total plus the tourists
 settling (1957: 69,733 + 1,491 = 71,224, SA14 Table 3, page 109).
 
@@ -661,7 +661,7 @@ so, our reading, it is not emigration; our reading: the "did not return after 4 
 
 Closes the last bullet of section 5b. Jewish population, thousands except where marked. 1957-1961 are [V] SA14 Table 2,
 pages 16-17 (units); 1962-1967 [V] SA19 Table B/2 (page 18); 1968 [V] SA21 Table B/2 (page 24); 1969-1971 [V] SA26
-Table ii/2 (page 20); 1972-1977 [V] SA29 Table ii/2 (page 32), the same rows as SA28. "Immigrants" in the CBS table
+Table ii/2 (page 20); 1972-1977 [V] SA29 Table ii/2 (page 32), the same rows as SA28 for 1972-1976 (1977 from SA29 alone). "Immigrants" in the CBS table
 leaves out tourists settling, which the table counts under the net movement of travellers.
 
 | Year | Natural increase | Migration balance | Immigrants (where printed) | Total increase | Population at end |
@@ -712,7 +712,7 @@ tables (427,828; Jews 424,220) and could not explain it. Arithmetic from the Sta
 
 - [V] From 1969 CBS splits the tourists who settled into those who "changed their status to immigrants" and those who
   "changed their status to potential immigrants": 1969 5,125 in all, 1,558 of them as immigrants (SA21 Table D/4, page
-  113, note 2), so 3,567 as potential immigrants (derived); 1970 6,789 tourists settling (SA23 Table V/1) of which
+  113), so 3,567 as potential immigrants (derived); 1970 6,789 tourists settling (SA23 Table V/1) of which
   1,583 as immigrants (SA22 Table E/9), so 5,206 (derived; this mixes two bases: SA22's own Jewish split of 1970 is 1,583 + 5,047 = 6,630, and the 159 between it and 6,789 is unexplained); 1971 4,229 as potential immigrants (SA23 Table V/9, page 135).
 - Derived: 3,567 + 5,206 + 4,229 = 13,002. T4.2's 1961-1971 total 427,828 minus 13,002 is 414,826, against T2.3's 414.7
   thousand (0.1 thousand apart). With SA22's own 1970 figure of 5,047 the sum is 12,843 and the result 414,985. For Jews,
@@ -735,13 +735,13 @@ tables (427,828; Jews 424,220) and could not explain it. Arithmetic from the Sta
 ### 8g. Morocco 1961-1964 alone and Romania by year (24 Oct)
 
 - Searched: the table lists of SA No. 8 to No. 29 (1957 to 1978 editions). Until 1964 the Abstracts print country of birth
-  only cumulatively (SA No. 10, Table 6, page 63: 15 V 1948 to 1958, "Tunisia, Algeria, Morocco and Libya" together) or
+  only cumulatively (SA No. 10, Table 6, page 63: 15 V 1948 to 1958, "Tunisia, Algeria, Morocco & Libya" together) or
   for the population by period of immigration, which counts survivors, not arrivals (SA14 Table 23; SA No. 13 Table
   18). From SA24 (1973) the tables give country of birth for 1969-1971 and 1972, with Morocco, Algeria, Tunisia, Libya
   and Rumania printed as "..". A yearly Moroccan or Romanian series for 1961-1964 is not in the volumes read.
 - [S] The page "Data on immigration to Israel from Morocco" on moroccanjews.org, under "Jewish emigration from Morocco"
   (opened 2026-10-24; the full URL is not written out because the repo's home-path check rejects its first path segment)
-  lists Moroccan immigrants by year and attributes them to "the Jewish Agency", with no table or page:
+  lists Moroccan immigrants by year and attributes them to the "Jewish Agency", with no table or page:
   1957 8,578; 1958 1,803; 1959 3,325; 1960 4,108; 1961 11,476; 1962 35,748; 1963 36,874 (1948/49-1963 total 210,347).
   Derived: 1961 + 1962 + 1963 = 84,098. It has nothing for 1964. A lead, not a source: not used for the rows, and no
   figure here is preferred.
