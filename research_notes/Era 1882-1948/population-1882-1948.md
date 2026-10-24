@@ -46,7 +46,7 @@ verify* mark on the Jewish Virtual Library (JVL) total of 482,857 for 1919-1948,
 | JVL period table | JVL, "Total Immigration to Israel, by Continent per Year" (the table `content/aliyah.yaml` cites) | https://jewishvirtuallibrary.org/jsource/Immigration/Immigration_by_Period_and_Continent.html |
 | JVL population table | JVL, "Jewish and Non-Jewish Population of Israel/Palestine (1517-Present)" (the design's §2 source) | https://www.jewishvirtuallibrary.org/jewish-and-non-jewish-population-of-israel-palestine-1517-present |
 | McCarthy (24 Oct) | Justin McCarthy, *The Population of Palestine: Population History and Statistics of the Late Ottoman Period and the Mandate* (Columbia University Press, 1990), a modern scholarly work, so [S]. Read on 24 Oct 2026: Table 2.1, 2.2, 2.3 (page 26), Table 2.18 (page 37), Table A9-14 and A9-15 (page 179), Table A10-1 (page 219). Tables read from the page image | https://yplus.ps/wp-content/uploads/2021/01/McCarthy-Justin-The-Population-of-Palestine.pdf |
-| Bachi, pages re-read (24 Oct) | Bachi §8.3 (page 81) and Appendix 4A (pages 367-368), re-opened on 24 Oct 2026 in the same file as the Bachi row above | https://web.archive.org/web/2015/http://www.cicred.org/Eng/Publications/pdf/c-c26.pdf |
+| Bachi, pages re-read (24 Oct) | Bachi page 77, §8.3 (page 81) and Appendix 4A (pages 367-368), re-opened on 24 Oct 2026 in the same file as the Bachi row above | https://web.archive.org/web/2015/http://www.cicred.org/Eng/Publications/pdf/c-c26.pdf |
 | JTA 1924 (24 Oct) | Jewish Telegraphic Agency, "Palestine Immigration Figures Published", 30 November 1924 (contemporaneous press, relaying official figures) | https://www.jta.org/archive/palestine-immigration-figures-published |
 | JTA 1927 (24 Oct) | Jewish Telegraphic Agency, "Palestine Immigration Figures for December", 1 February 1927 | https://www.jta.org/archive/palestine-immigration-figures-for-december |
 | JTA 1930 (24 Oct) | Jewish Telegraphic Agency, "521 Jews Entered Palestine in April", 4 June 1930 | https://www.jta.org/archive/521-jews-entered-palestine-in-april |
@@ -66,7 +66,7 @@ Jewish population and total population (all religions). The preferred value is i
 
 | Date | Jews | Total | Basis |
 |---|---|---|---|
-| 1882 | **24,000** [V] | [C] 468,089 [S] (1882-83, McCarthy) / 450,000 [S] (1880, Hirschberg via Bachi) | Survey p. 144; see 1b |
+| 1882 | **24,000** [V] | [C] 468,089 [S] (1882-83, McCarthy) / 450,000 [S] (1880, Hirschberg via Bachi) / 300,000 [S] (JVL population table) | Survey p. 144; see 1b |
 | around 1890 | 42,900 [V] | 532,060 [V] | Bachi Table 1.1 |
 | 1914 | [C] **94,000** (Bachi) / 84,660 (Barron, Survey text) / 85,000 (Survey table) | [C] **689,275** (Barron) / 689,300 (Bachi) / 689,000 (Survey) | see 1c |
 | end of 1918 | **56,000** [V] | [C] 748,128 [S] (McCarthy) / 648,000 [V] (March 1919, Bachi) | Bachi p. 36; Survey p. 144 ("1916-1918"); see 2b |
@@ -213,10 +213,10 @@ Check, derived: 528,702 - 83,790 = 444,912, and 117,226 + 327,686 = 444,912. Bot
     Census Figures, As Corrected", page 26: Muslim 611,098, Jewish 58,728, Christian 70,429, Druze 7,268, Shii 162,
     Other 443. Check, derived: 611,098 + 58,728 + 70,429 + 7,268 + 162 + 443 = 748,128. His method: project the
     corrected 1922 population back at the 1922-1931 growth rate (.0186189 per year) and subtract the immigrants of
-    1919-1922 (his Table 2.1: 1,806 + 8,223 + 8,294 + 8,685 = 27,008).
+    1919-1922 (his Table 2.1: 1,806 + 8,223 + 8,294 + 8,685 = 27,008; his footnote to Table 2.1, page 26, first multiplies the 27,008 by the 1922 correction factor 1.114164, which gives 30,091).
   - [C] The two differ by 100,128 (748,128 - 648,000). The reason is the base: McCarthy's 1914 total is 798,389 (his
     Table 2.3, corrected for undercount), Bachi's is 689,300 (the uncorrected Ottoman figure, Barron). Both show a
-    war loss of about 6%: McCarthy 798,389 to 748,128 is 50,261 (6.3%, his table prints (.063)); Bachi 689,275 to
+    war loss of about 6%: McCarthy 798,389 to 748,128 is 50,261 (6.3%, his table prints (.063)); Barron's 689,275 (Bachi's base) to
     648,000 is 41,275, derived, 6.0%. Choose by the 1914 anchor used: with 689,300 use 648,000, with 798,389 use
     748,128. McCarthy's Jewish 58,728 sits near the preferred 56,000 above (a difference of 2,728).
 
@@ -386,7 +386,8 @@ totals are **derived** (average x years):
     they are of the same order as Bachi's yearly averages (360 for 1932-35, 5,712 for 1936-38), but no match
     is claimed, because the periods differ.
   - [S] Same book, Table A9-14 "Arrivals and Departures, 1923 to 1946", page 179: all religions together, with
-    travellers (tourists) included in the departures. Not usable as Jewish emigration.
+    no split by religion. Only 1923-1925 is a combined column; from 1926 on the table has separate "Residents Departing" and
+    "Travellers Departing" columns. Not usable as Jewish emigration, because there is no split by religion.
   - [S] contemporaneous press, partial (the tag is [S] because the Conventions list no press source as [V]): JTA 30 Nov 1924: "8,191 Jews enterer [sic] Palestine in the first nine months of the
     year 1924 ... During the same period 1,701 emigrated." JTA 1 Feb 1927: "During last month 513 Jews immigrated to
     Palestine, while 642 left the country" (December 1926). JTA 4 Jun 1930: "Of the 118 who left, 57 were Moslems, 50
