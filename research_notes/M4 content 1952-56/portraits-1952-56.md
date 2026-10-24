@@ -16,7 +16,7 @@ The ids are those of `content/people.yaml`; none of the 20 has a `portrait:` ent
   Bar-Yehuda, Carmel, Namir, Warhaftig, Ben-Meir, Susayeff, Tzur, Unna, Assaf and Dayan.
 - **2 of 20 have none: Haim Cohn and Israel Rokach.** Their only single-person portraits are Government Press Office (GPO)
   files under PD-Israel alone, and the CC BY 4.0 frames I found of them are group shots or do not name them (details below).
-- Sixteen of the 18 rest on Knesset Archives portraits (CC BY-SA 4.0). Those are **member portraits with no photograph
+- Sixteen of the 18 rest only on Knesset Archives portraits (CC BY-SA 4.0); Nurock has both kinds and Maklef only a Meitar frame. Those are **member portraits with no photograph
   date**: Commons gives only the span of the person's Knesset membership. For Carmel (member from 1958), Pinchas Sapir and
   Dayan (both from 1959) the photograph is probably later than 1956 [S]. Maklef and Nurock have dated Meitar frames
   (November 1950 and December 1952).
@@ -102,6 +102,8 @@ record. Whether the face is the right man is the likeness check a person does.
   (997009326707205171)` and `...(997009326707305171)` are CC BY 4.0 but name three men; five more frames titled "Meitar
   Collection (997009452288305171", "...288405171", "...288505171", "...288905171" and "...289005171" carry only the subject heading
   "Judges Israel". **Group shots, or no name: do not qualify.** They are also June 1965.
+- Four IPPA frames (CC BY 4.0, 5 March 1980, FL45815251, FL45815269, FL45815294, FL62833475) show new Supreme Court judges; two
+  name him with Moshe Landau, one is a group, one names nobody, and all are 1980. Do not qualify.
 - He was not a Knesset member (so there is no Knesset Archives file) and I found no Nationaal Archief, US-government or
   other explicit-US-status photograph of him. [GAP: the IDF archive catalogue and Europeana were not searched.]
 
@@ -132,9 +134,9 @@ Each was read on its file page on 2026-10-24. [V]
   page) and `Mordechai_Maklef,_Chief_of_General_Staff.jpg` (1560x2014, "circa 1952", VRTS 2020020310000194) carry
   `{{cc-by-sa-3.0}}`. Version 3.0 is not one of the four licences, so they do not qualify, although they fit the period
   best. The Maklef one is the better photograph than the qualifying Meitar frame in size; the licence decides.
-- **Meitar group shots.** `Mordechai_Namir,_Jerusalem_(997009857447005171).jpg` (1947-1949, several men, 1285x2000),
-  `Moshe_Carmel,_Wadi_Ara_(997008137551105171).jpg` (May 1949, two men), `Moshe_Dayan_(997008136760605171).jpg`
-  (October 1951, men at a meal table, 1930x1322). All CC BY 4.0; all fail "no group shots".
+- **Meitar group shots.** `Mordechai_Namir,_Jerusalem_(997009857447005171).jpg` (1947-1949, 1285x2000; its title is about the Tel Aviv-Jerusalem railway and does not name him as the subject, and the thumbnail shows a group),
+  `Moshe_Carmel,_Wadi_Ara_(997008137551105171).jpg` (May 1949, 1889x1297; the title says he is in conversation, and the thumbnail shows two men), `Moshe_Dayan_(997008136760605171).jpg`
+  (October 1951, 1930x1322; a farewell party, men at a meal table in the thumbnail). All CC BY 4.0; all fail "no group shots".
 - **Dayan, 13 November 1956** (`Moshe_Dayan_(997009157311805171).jpg`, Benno Rothenberg, CC BY 4.0, 4983x5064): the NLI
   title is "עיתונאים עם הרמטכ"ל משה דיין" (journalists with the Chief of Staff Moshe Dayan). The frame shows one man at a
   wall map, small in the picture; the title does not say which person is Dayan. **[C] likeness and identity need a person;
