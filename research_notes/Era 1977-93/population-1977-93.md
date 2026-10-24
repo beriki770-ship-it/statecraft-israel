@@ -7,9 +7,9 @@ checkpoints stay paused.
 
 Gaps revisited 24 October 2026, after the owner's "Research part open" comment on #147 of that day. Every source added
 on 24 October was opened that day and is marked "(opened 24 Oct)" in the Sources table. Of the five rows the owner
-listed, two are closed (1c-bis, 2b-bis), one is closed for the natural-increase half and open for the migration half
+listed, two are closed (1c-bis, and the Ethiopia yearly arrivals series inside 2b), one is closed for the natural-increase half and open for the migration half
 (5b), and two stay [GAP] with what was read this time (the start of Operation Moses in 2b, yearly emigration in 3a).
-Where this pass added a derived series, the arithmetic is shown.
+Where this pass added a derived series, the arithmetic is shown. An agent opened these sources; a person's check of them is still pending.
 
 ## Purpose
 
@@ -68,6 +68,15 @@ value is given and one is named. The design also asks how CBS classifies the Asi
 | JTA 1980-12-31 | JTA, 31 December 1980, "The Urgent Problem of Yordim" (opened 24 Oct) | https://www.jta.org/archive/the-urgent-problem-of-yordim (PDF: http://pdfs.jta.org/1980/1980-12-31_249.pdf) |
 | JTA 1985-12-12 | JTA, 12 December 1985, "News Brief" on the CBS report to the Cabinet (opened 24 Oct) | https://www.jta.org/archive/three-hundred-and-thirty-thousand-jews-have-emigrated (PDF: http://pdfs.jta.org/1985/1985-12-12_231.pdf) |
 | JTA 1988-11-21 | JTA, 21 November 1988, "Israel's Population at 4.46 Million; Arabs Still Growing Twice As Fast", on the *Statistical Abstract of Israel 1988* (opened 24 Oct) | https://www.jta.org/archive/israels-population-at-4-46-million-arabs-still-growing-twice-as-fast (PDF: http://pdfs.jta.org/1988/1988-11-21_212.pdf) |
+| CBS SA 2012 T2.3 | *Statistical Abstract of Israel 2012*, Table 2.3 "Sources of population growth" (opened 24 Oct; periods only, none starting in 1977 or ending in 1993) | https://www.cbs.gov.il/he/publications/doclib/2012/2.%20shnatonpopulation/st02_03.pdf |
+| CBS SA 2012 T4.13 | same volume, Table 4.13 "Israelis" (departures and returns of Israelis staying abroad continuously for one year or more, 2007-2010) (opened 24 Oct) | https://www.cbs.gov.il/he/publications/doclib/2012/4.%20shnatonimmigration/st04_13.pdf |
+| CBS SA 2018 T4.10 | *Statistical Abstract of Israel 2018*, Table 4.10, the same title for 2013-2016 (opened 24 Oct) | https://www.cbs.gov.il/he/publications/doclib/2018/4.%20shnatonimmigration/st04_10.pdf |
+| CBS SA 2012 ch. 4 list | *Statistical Abstract of Israel 2012*, chapter 4 "Immigration and emigration" table list (opened 24 Oct) | https://www.cbs.gov.il/he/publications/doclib/2012/4.%20shnatonimmigration/st04_00.pdf |
+| CBS SA 2018 ch. 4 list | *Statistical Abstract of Israel 2018*, chapter 4 table list (opened 24 Oct) | https://www.cbs.gov.il/he/publications/doclib/2018/4.%20shnatonimmigration/st04_00.pdf |
+| JPR Staetsky | Daniel Staetsky, *Israelis abroad: The transformation of the Jewish Diaspora?*, Jewish Policy Research, March 2025, 35 pages (opened 24 Oct) | https://www.jpr.org.uk/sites/default/files/attachments/Israelis%20abrod%20-%20transformation%20of%20the%20Jewish%20Diaspora_0.pdf |
+| CIA Reading Room | "In Ethiopians' Exodus, Moses Was American" (a reprint of a Los Angeles Times piece of 30 March 1985; record CIA-RDP90-00965R000605190003-1) (tried, not readable: the site returned a maintenance page on 24 Oct) | https://www.cia.gov/readingroom/node/1868581 |
+| JVL Operation Moses | Jewish Virtual Library, "Operation Moses" (tried, not readable: the text loads by script and the page returned no body on 24 Oct) | https://www.jewishvirtuallibrary.org/operation-moses |
+| ISA catalogue | Israel State Archives, "The immigration of the Jews of Ethiopia to Israel, 1948-1985" (tried, not readable: HTTP 403 on 24 Oct) | https://catalog.archives.gov.il/site/en/publication/the-immigration-of-the-jews-of-ethiopia-to-israel-1948-1985/ |
 
 Also opened, not usable for this era: *Statistical Abstract of Israel 2010*, Table 4.10, "Departures and returns of
 Israelis staying abroad continuously for one year or more" (st04_10.pdf in the same folder as T4.2); it covers 2005-2008
@@ -380,10 +389,10 @@ Last country of residence, persons:
 | Start | 21 November 1984 | [S] wiki Moses, "Beginning November 21, 1984" (no citation on the sentence) |
 | Start | 18 November 1984 | [S] WJC: "On 18 November 1984, the State of Israel launched Operation Moses, a seven-week covert operation" |
 | Start | "Mid-1984" | [S] JA |
-| First flight | 20 November 1984, "The first flight under Operation Moses leaves Khartoum airport, bound for Europe and then Israel." | [V] LAT 1985, a chronology printed 8 July 1985 (contemporaneous press, not a government record) |
+| First flight | 20 November 1984, "The first flight under Operation Moses leaves Khartoum airport, bound for Europe and then Israel." | [V] LAT 1985, a chronology compiled in July 1985 and printed 8 July 1985 (a 1985 press chronology, not a government record) |
 | End | 5 January 1985 | [S] wiki Moses ("ending January 5, 1985"); [S] WJC ("The operation came to a halt on 5 January 1985, when news of the activity leaked to the international media") |
 | End | 6 January 1985 | [V] LAT 1985 ("Jan. 4, 1985--The Israeli government announces that it has been receiving Ethiopian Jews through a secret airlift from Sudan. Two days later, Sudanese officials halt the flights"); [V] JTA 1985-03-26 ("Operation Moses was halted January 6 due to premature disclosure of its details") |
-| End | last flight left Brussels "at midnight Saturday" | [V] JTA 1985-01-08 ("The last flight, before TEA withdrew from the operation yesterday, left Brussels at midnight Saturday"); the bulletin is dated Tuesday 8 January 1985, so the Saturday is 5 January |
+| End | last flight left Brussels "at midnight Saturday" | [V] JTA 1985-01-08 ("The last flight, before TEA withdrew from the operation yesterday, left Brussels at midnight Saturday"); the item is datelined Brussels, Monday 7 January 1985 (printed in the bulletin of Tuesday 8 January), so the Saturday is 5 January and TEA's "yesterday" is Sunday 6 January, which also backs the 6 January halt in the row above |
 | End | "November 1985" (the leak) | [S] JA: "News of the rescue leaked out to the foreign media in November 1985" |
 | Number | about 10,000, 35 flights | [V] JTA 1985-01-04 (Levinsky, Jewish Agency: "about 10,000 Ethiopian Jews arrived in Israel recently"); JTA 1985-01-07 ("There were 35 flights since last November, by a Belgian charter airline") |
 | Number | 40 flights, some 10,000 | [V] JTA 1985-01-08 ("TEA made 40 flights in that period, bringing some 10,000 Ethiopian Jewish refugees from Khartoum, Sudan to Tel Aviv") |
@@ -420,7 +429,7 @@ Last country of residence, persons:
   Kaplan and Salamon, 2004).
 - [S] JA, undated: "After mediation by the US, Numeiri allowed six American Hercules planes to airlift the last
   remaining Ethiopian Jews in Sudan".
-- [V] JTA 1985-03-26: a "three-day evacuation" "over the weekend" before Tuesday 26 March, with the operation, reported
+- [V] JTA 1985-03-26: a "three-day evacuation" "over the weekend" before Monday 25 March (the item's dateline; printed in the bulletin of Tuesday 26 March), with the operation, reported
   from the LAT, beginning "at dawn last Friday" (22 March 1985); "there are no precise figures"; "about 900 Ethiopian
   Jews lived as refugees in Sudan for about a year". LAT 1985's chronology: "March 22, 1985--Under CIA direction, the
   last of the Ethiopian Jews in Sudan are airlifted to Israel."
@@ -444,7 +453,7 @@ Last country of residence, persons:
 - [C] Preferred for event text, all [S]: **24-25 May 1991, 14,325 people in 36 hours, $35 million**. The exact
   count and the 36 hours come with a contemporary newspaper citation on Wikipedia; JA's 14,000 is a round number, and
   its 48 hours and $40 million carry no source.
-- [C] JTA 1991-05-28, a bulletin of four days after the airlift began: "14,087 Ethiopian Jews, comprising over 3,000 families,
+- [C] JTA 1991-05-28, an item datelined Tel Aviv, 27 May 1991, three days after the airlift began: "14,087 Ethiopian Jews, comprising over 3,000 families,
   were airlifted from Addis Ababa to Israel over the weekend within some 30 hours", "accomplished in a mere 40 flights",
   "The first flight reportedly arrived in Israel around 6 p.m. Friday local time" (Friday 24 May 1991). That is a third
   count (14,087, against 14,325 and 14,000), 30 hours against 36 and 48, and 40 flights against 35 aircraft. The
@@ -667,7 +676,7 @@ plus corrections; it is not a CBS figure.
 | 1993 | 49,149 | +92.7 | +43.6 | 79,303 | +131.7 | +52.4 |
 
 - T3.1 notes (page 177): note 1, "Excl. soldiers killed in war"; note 5, "Incl. births and deaths in East Jerusalem as of
-  1970, and in the Golan as of 1982"; note 6, "Incl. religion unknown". The total-population column has the Golan
+  1970, and in the Golan as of 1982 ..."; note 6, "Incl. religion unknown". The total-population column has the Golan
   Arab addition in 1982 inside its population change (4a), so the 1982 residual is inflated; the Jewish column has no
   such break.
 - 1983 and 1984: as in 3a-bis. The 1983 row uses the previous-census populations, the 1984 row starts from the census
