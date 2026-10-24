@@ -134,7 +134,7 @@ namespace Statecraft.Game.UI
             // Return and Reassign (#1511, R-QUAL-002 to R-QUAL-005): one group a press, like Train, shown only where the city has
             // the people. The sim keeps the qualification and rules on each order; a button is off only where it would refuse it
             // (more than the craftsmen or qualified groups, or than the civilians without work, Training.Idle, with this
-            // turn's reassignments counted). The Ordered/Available counts are not changed here.
+            // turn's orders counted by Training.Available).
             if (city.Craftsmen > 0)
             {
                 var back = (bridge.QueuedLike(new ReturnCraftsmen(id, 1)) as ReturnCraftsmen)?.Count ?? 0;
@@ -142,14 +142,14 @@ namespace Statecraft.Game.UI
                 Button(row, "city-return-craftsmen", text["city.return_craftsmen"], () => bridge.Queue(new ReturnCraftsmen(id, back + 1))).SetEnabled(back < city.Craftsmen);
                 if (back > 0) Line(row, "city-return-craftsmen-ordered", text.Format("city.train_ordered", back));
             }
-            // Training.Available already takes this turn's Train, Reinforce and Assign orders off the idle civilians.
-            var idleLeft = Training.Available(s, id, bridge.Queued)
-                - ((bridge.QueuedLike(new ReassignCraftsmen(id, 1)) as ReassignCraftsmen)?.Count ?? 0)
-                - bridge.Queued.OfType<ReassignPioneers>().Where(x => x.City == id).Sum(x => x.Count);
+            // Training.Available already takes this turn's Train, Reinforce, Assign and Reassign orders off the idle civilians.
+            var idleLeft = Training.Available(s, id, bridge.Queued);
             var q = city.Qualified;
             // A queued Train or Reinforce that leaves fewer civilians than the city has qualified costs it qualifications first
             // (R-QUAL-006, craftsmen first) and runs before the reassignment, so only what survives it can be reassigned.
-            var kept = q.Lose(Math.Max(0, q.Total - (city.Civilians - Training.Ordered(id, bridge.Queued))));
+            // Training.Ordered now includes the reassignments themselves, which leave the civilians where they are, so only Train and Reinforce count here.
+            var trained = bridge.Queued.OfType<Train>().Where(x => x.City == id).Sum(x => x.Count) + bridge.Queued.OfType<Reinforce>().Where(x => x.City == id).Sum(x => x.Count);
+            var kept = q.Lose(Math.Max(0, q.Total - (city.Civilians - trained)));
             foreach (var (role, have, left) in new[] { ("craftsmen", q.Craftsmen, kept.Craftsmen), ("halutz", q.Halutzim.Count, kept.Halutzim.Count), (Projects.VeteranType, q.Veterans, kept.Veterans) })
             {
                 if (have == 0) continue;
