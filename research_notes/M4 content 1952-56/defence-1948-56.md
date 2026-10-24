@@ -272,7 +272,7 @@ say for which years). Neither matches the 1949 text (men 24, women 12) or the 19
   - **1954**: Lavon, as Defence Minister, issued an order to draft those who had studied four years; Chief Rabbi Herzog
     objected (9 Mar 1954); Sharett told Herzog it aimed at abuse, then set the order aside, and a government decision
     (no. 324, 15 Mar 1954) set up a ministerial committee. Ben-Gurion to Lavon, 16 Mar 1954: "never an agreement between me
-    and any religious party" on the exemption; "I did it of my own free will [\"התנדבות\"]" (the source puts the Hebrew word in quote marks); the rise in numbers, if artificial or not,
+    and any religious party" on the exemption; "I did it of my own free will ["התנדבות"]" (the source puts the Hebrew word in quote marks); the rise in numbers, if artificial or not,
     "requires, in my opinion, changing the system".
   - **1958**: Peres, with Ben-Gurion's approval, reaches a new arrangement with the yeshiva heads (annual deferral to 25, then
     29): outside the period but it marks the end of this phase.
