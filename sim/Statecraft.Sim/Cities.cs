@@ -14,13 +14,15 @@ namespace Statecraft.Sim
         /// civilians and craftsmen (a craftsman fills an ordinary job slot, R-CRAFT-002). R-CITY-009's default fills to it.</summary>
         public static int MaxWorkers(City city) => Math.Min(city.JobSlots, city.Civilians + city.Craftsmen);
 
-        /// <summary>R-CITY-001 with R-TRAIN-001: <see cref="MaxWorkers(City)"/> once the city's Train orders in
-        /// <paramref name="pending"/> (this turn's queue) have taken their civilians, so a count up to it keeps every one of
-        /// them accepted, whatever order they run in. Other orders do not count.</summary>
+        /// <summary>R-CITY-001 with R-TRAIN-001: <see cref="MaxWorkers(City)"/> once the city's Train, Reinforce and
+        /// ReassignPioneers orders in <paramref name="pending"/> (this turn's queue) have taken their civilians, so a count up to
+        /// it keeps every one of them accepted, whatever order they run in. A queued ReassignCraftsmen does not count: its
+        /// craftsmen leave the civilians but stay in the city, so civilians plus craftsmen do not change (#1548).</summary>
         public static int MaxWorkers(GameState s, string city, IEnumerable<Command> pending)
         {
             var x = s.Cities[city];
-            return Math.Max(0, Math.Min(x.JobSlots, x.Civilians + x.Craftsmen - Training.Ordered(city, pending)));
+            return Math.Max(0, Math.Min(x.JobSlots, x.Civilians + x.Craftsmen - Training.Ordered(city, pending)
+                + pending.OfType<ReassignCraftsmen>().Where(r => r.City == city).Sum(r => r.Count)));
         }
 
         /// <summary>R-CITY-007: a city's start people in units: the nearest unit (a half rounds up), and at least 1 for a city
