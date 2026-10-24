@@ -293,7 +293,7 @@ by sub-district, in the order of part 1.
   and the village "was rebuilt as a moshav in 1951" [S, Wikipedia]. **[C]** 1951 (en.wiki) against 1953
   (EJ) for the new moshav, after this era. JTA, bulletin of Friday 20 February 1948
   (https://www.jta.org/archive/british-ships-intercept-blockade-runner-with-700-jews-aboard-trail-second-vessel,
-  PDF https://pdfs.jta.org/1948/1948-02-20_043.pdf, OCR read by me): under the dateline "JERUSALEM,
+  PDF http://pdfs.jta.org/1948/1948-02-20_043.pdf, OCR read by me): under the dateline "JERUSALEM,
   Feb. 19. (JTA)", so the event day is **19 February 1948**, "Another band was beaten off when it
   attempted to overwhelm the Jewish settlement of Kfar Yavetz" [S, JTA]. The settlement was therefore
   still held on 19 February 1948; the evacuation day stays a [GAP]. (24 Oct) Searched again and not
