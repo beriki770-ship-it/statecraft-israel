@@ -5,7 +5,7 @@ the research part only, opened by the owner's ruling of 22 October 2026 on #49).
 drafted for the game, and no file in `content/` is changed. `content/offices.yaml`, `content/people.yaml` and
 `content/governments.yaml` stay paused.
 
-Second pass 24 October 2026, on the [GAP] rows the owner lists in his "Research part open" comment on #113 (the
+Second pass 24 October 2026, on the [GAP] rows the owner lists in their "Research part open" comment on #113 (the
 vacancies of 1960, 1961, 1962 and 1965, Zeira's days, the blank party cells). What it opened and what it found is in
 "Second pass" under Sources and in the bullets it adds to §1, §4, §5 and §6, each marked "(24 Oct)". Every page named
 there was read by an agent on 24 October 2026; a person's check is pending.
@@ -73,8 +73,10 @@ Katzir, Ben-Zvi, Zeira, Yariv, Amit and Harel were not found at the encyclopedia
 
 Second pass, read on 24 October 2026 (agent read; a person's check pending). JTA = the Jewish Telegraphic Agency's
 daily bulletins, `https://www.jta.org/archive/<slug>`, contemporary press, [S]. The bulletin date is the date JTA
-printed (the page's `datePublished`); its "yesterday" and "last night" run one to two days behind the event (see the
-checks in §1, for example Toledano and Mintz):
+printed (the page's `datePublished`). A bulletin's items carry their own dateline ("JERUSALEM, Oct. 16. (JTA)"), which
+is one day before the bulletin date, and the items' "yesterday" and "last night" are read against that dateline, not
+against the bulletin date. The datelines were read on the bulletin pages (the "See Original Daily Bulletin" PDFs on
+`pdfs.jta.org`, scanned images), 24 October 2026:
 
 - JTA `israel-mourns-death-of-rabbi-toledano-minister-for-religious-affairs` (17 October 1960),
   `ramat-gan-chief-rabbi-advanced-as-successor-to-religious-ministry-post` (25 October 1960),
@@ -145,20 +147,18 @@ Changes of office that K and W fix, in date order (all [V] unless marked):
   1960, then Ben-Gurion (row 22360). [V]; the holder for those nine days is a [GAP] (W's note would give it to the
   Prime Minister; K does not record it).
   (24 Oct) JTA, 17 October 1960: Toledano "died suddenly yesterday, at his home here, aged 79", and the funeral was
-  attended by "President Izhak Ben-Zvi and Prime Minister David Ben-Gurion"; 15 October 1960 was a Saturday, so the
-  date is consistent with W's 15 October if the bulletin runs a day or two behind (read literally, "yesterday" in a 17
-  October bulletin is 16 October; the "customary Sunday session" and the funeral in the same text fit a death on the
-  Saturday) [S]. JTA, 25 October 1960, the day after K starts Ben-Gurion: Rabbi Eliahu Pardess "was reported
+  attended by "President Izhak Ben-Zvi and Prime Minister David Ben-Gurion"; 15 October 1960 was a Saturday, and
+  the item is datelined "JERUSALEM, Oct. 16. (JTA)", so "yesterday" is 15 October, which is W's date [S]. JTA, bulletin of 25 October 1960, item datelined "JERUSALEM, Oct. 24. (JTA)", the day K starts Ben-Gurion: Rabbi Eliahu Pardess "was reported
   today to be the most likely candidate for the office of the Minister for Religious Affairs ... The office was vacated
   earlier this month by the death of Rabbi Yaacov Toledano." It names no acting minister. Searched in the K mirror: no
   row of any person at the Ministry of Religions between 15 and 24 October 1960 (rows with a ministry name or a
   `DutyDesc` over the window, Knessets 3 to 6). Still [GAP] on the holder; K's Ben-Gurion row 22360 starts the day
-  before JTA still speaks of a vacancy, which does not contradict W's note, since the Prime Minister holds a vacated
+  JTA still speaks of a vacancy, which does not contradict W's note, since the Prime Minister holds a vacated
   office until another is named.
 - **Mintz's death, 30 May 1961.** W: "30/05/1961 (Died)". Neither K nor W names a Minister of Posts from 30 May to 2
   November 1961. [GAP] on the holder; vacant on both sources' rows.
-  (24 Oct) JTA, 1 June 1961: Mintz "died in Tel Aviv last night at the age of 58"; read literally, "last night" in a 1 June bulletin is 31 May;
-  it fits W's 30 May only if the bulletin runs a day or two behind [S]. It names no one for the Posts. The K mirror has no row at the Ministry of Posts
+  (24 Oct) JTA, 1 June 1961: Mintz "died in Tel Aviv last night at the age of 58"; the item is datelined "JERUSALEM, May 31. (JTA)", so "last night" is
+  30 May, which is W's date [S]. It names no one for the Posts. The K mirror has no row at the Ministry of Posts
   (משרד הדואר) between Mintz's end (30 May) and Sasson (2 November 1961), and no `DutyDesc` of an acting minister over
   the window. Our reading, from he.wiki *ממשלת ישראל התשיעית*, which says the government "collapsed after" Ben-Gurion's
   resignation of 31 January 1961: the 9th government may have sat as a continuing government through the vacancy (he.wiki, same page, "והממשלה הוסיפה לכהן כממשלת מעבר במשך כ-10 חודשים": "and the government continued to serve as a
@@ -177,11 +177,10 @@ Changes of office that K and W fix, in date order (all [V] unless marked):
 - **Bar-Yehuda's death, 4 May 1965.** W: "22/12/1964 - 04/05/1965 (Died)" at Transportation. No holder in either
   source until Carmel (K 31 May, W 30 May 1965). [GAP] on the holder.
   (24 Oct) JTA, 6 May 1965: Bar-Yehuda, "Minister of Transport and Communications", "died here last night after a
-  brief illness", which on a literal reading is 5 May and fits W's 4 May only if the bulletin
-  runs a day or two behind [S]. JTA, 1 June 1965: "The Cabinet yesterday decided to coopt Moshe Carmel,
+  brief illness", the item is datelined "JERUSALEM, May 5. (JTA)", so "last night" is 4 May, which is W's date [S]. JTA, 1 June 1965: "The Cabinet yesterday decided to coopt Moshe Carmel,
   Achdut Avoda member of the Knesset, to serve as Minister of Transport, in place of Israel Bar-Yehuda who died earlier
-  this month". Our reading: with the bulletin one to two days behind, "yesterday" is 30 or 31 May, so JTA does not
-  separate K's 31 May from W's 30 May (item 8 of §3 stays [C]). The same bulletin: Zadok takes Development and
+  this month". The item is datelined "JERUSALEM, May 31. (JTA)", so "yesterday" is 30 May: JTA gives 30 May [S],
+  W's date, against K's 31 May (item 8 of §3 stays [C], with JTA added on W's side). The same bulletin: Zadok takes Development and
   Eshkol takes Housing; the persons match K and W, the dates are those of §1 (K Zadok at Development from 25 May and
   Eshkol at Housing from 31 May, W Zadok at Development from 31 May). The K mirror has no row at the Ministry of Transport (משרד התחבורה)
   between Bar-Yehuda's end (4 May) and Carmel (row 3916, 31 May 1965). Still [GAP] on the holder.
@@ -608,7 +607,7 @@ K against W:
 6. Govrin, 11th government: K "שר במשרד ראש הממשלה" (minister in the Prime Minister's Office) from 2 December 1963;
    W "Minister Without Portfolio" from 1 December 1963.
 7. Agriculture, November 1964: K Dayan to 9 November; W to 4 November (Gvati from 9 November in both).
-8. Transportation, May 1965: K Carmel from 31 May; W 30 May 1965.
+8. Transportation, May 1965: K Carmel from 31 May; W 30 May 1965; JTA (24 Oct) "The Cabinet yesterday decided" under a 31 May dateline, so 30 May, with W.
 9. Housing and Development, May 1965: K Almogi to 25 May at both, Zadok at Development from 25 May, Eshkol at
    Housing from 31 May; W Almogi to 25 May at Development and to 23 May at Housing, Zadok at Development from 31 May.
    (W's Zadok row at Trade starts 25 May, K's too.)
@@ -674,7 +673,7 @@ May 1965).
 | intelligence_chief (Aman) | Chaim Herzog | 1959 (he.wiki April 1959) | 1962 (he.wiki January 1962) | en.wiki 1959-1962 | [S] |
 | intelligence_chief (Aman) | Meir Amit | 1962 (he.wiki January 1962) | 1963 (en.wiki) / January 1964 (he.wiki) | | [C] [S]; he.wiki's own Mossad list starts Amit at the Mossad on 26 March 1963, our reading: he.wiki has him in both posts for nine months |
 | intelligence_chief (Aman) | Aharon Yariv | 1964 (he.wiki January 1964) | 1972 (he.wiki September 1972) | en.wiki 1964-1972 | [S] |
-| intelligence_chief (Aman) | Eli Zeira | 15 October 1972 (Maariv, 24 Oct) / 1 October 1972 (Jewish Chronicle, 24 Oct) / October 1972 (en.wiki, he.wiki biography) / September 1972 (he.wiki Aman list) | April 1974 (he.wiki Aman list); between 1 and 4 April 1974 (Knesset lexicon, JTA, 24 Oct) | §5 | [C] [S]; start day [C] between two press sources, end day [GAP] |
+| intelligence_chief (Aman) | Eli Zeira | 15 October 1972 (Maariv, 24 Oct) / 1 October 1972 (Jewish Chronicle, 24 Oct) / October 1972 (en.wiki, he.wiki biography) / September 1972 (he.wiki Aman list) | April 1974 (he.wiki Aman list); between 1 and 3 April 1974 (our reading from the Knesset lexicon and JTA, 24 Oct) | §5 | [C] [S]; start day [C] between two press sources, end day [GAP] |
 | intelligence_chief (Aman) | Shlomo Gazit | 1974 (he.wiki April 1974) | 1978 (en.wiki) / February 1979 (he.wiki) | | [C] [S] (as in offices-1977-93.md §4) |
 | mossad_director | Isser Harel | 22 September 1952 (he.wiki) | 25 March 1963 (he.wiki) | en.wiki 1953-1963 | [C] [S] on the start |
 | mossad_director | Meir Amit | 26 March 1963 (he.wiki) | 1 September 1968 (he.wiki) | en.wiki 1963-1968 | [S] |
@@ -720,8 +719,7 @@ the Chief of Staff days likewise, as the Knesset table does not cover the post.
   or the JTA archive) is the likely place to find both days; none was read here.
   (24 Oct) **Start.** Maariv, 1 October 2022 (Ran Edelist): "ב־15 באוקטובר 1972 החליף אלי זעירא את אהרון יריב כראש
   אמ"ן וכמעריך הלאומי" ("on 15 October 1972 Eli Zeira replaced Aharon Yariv as head of Aman and as the national
-  assessor") [S]; a newspaper article; the sentence cites no source for the day. The page was read through a summarising fetch tool
-  and this sentence is quoted as it returned; a person's check of the original text is pending. It agrees with the October of en.wiki and the
+  assessor") [S]; a newspaper article; the sentence cites no source for the day. It agrees with the October of en.wiki and the
   he.wiki biography, not with the September of the he.wiki Aman list. JTA's archive search returned no 1972 bulletin on
   the appointment. The Jewish Chronicle's obituary of Zeira
   (`https://www.thejc.com/news/obituaries/obituary-major-general-eli-zeira-dv7dccma`, read 24 October 2026): "On
@@ -731,10 +729,11 @@ the Chief of Staff days likewise, as the Knesset table does not cover the post.
   **End.** The Knesset's lexicon [V]: "Its Intermediate Report was published on April 1st 1974 ... Its other
   recommendations included the dismissal of Eliahu Zeira, Head of the Intelligence Directorate". JTA 4 April 1974:
   "Maj. Gen. Shlomo Gazit ... was appointed chief of the army's intelligence branch, replacing Gen. Eliahu Zeira who
-  also resigned in the aftermath of the Agranat report" (the same bulletin says Dayan named Hofi acting Chief of
-  Staff "last night"; this note's §4 has 3 April for Hofi from en.wiki and he.wiki). JTA's own date for the report
-  (3 April) is two days after the Knesset's 1 April, so its dates lag. **Value: Zeira's term ended between 1 and 4
-  April 1974; the day is [GAP]** (neither a resignation letter nor a Gazit appointment date in a primary source was
+  also resigned in the aftermath of the Agranat report" (the item is datelined "TEL AVIV, April 3. (JTA)" and says Dayan named Hofi acting Chief of
+  Staff "last night", that is the night of 2 April; this note's §4 has 3 April for Hofi from en.wiki and he.wiki). The
+  3 April bulletin's Agranat item is datelined "JERUSALEM, April 2. (JTA)" and says the report was "released late
+  tonight" and Elazar "resigned late tonight", so JTA puts the release on the night of 2 April where the Knesset's
+  lexicon says 1 April [C]. **Value, our reading: Zeira's term ended between 1 and 3 April 1974; the day is [GAP]** (neither a resignation letter nor a Gazit appointment date in a primary source was
   read). The design's 1 April anchor is the day of the report, not the day he left.
 - **Presidents' days** (design §2.1: "years only, days *to verify*"): §4. Ben-Zvi 16 December 1952 to 23 April 1963,
   Shazar 21 May 1963 to 24 May 1973, Katzir from 24 May 1973; the MFA page confirms the years [V], the days are
