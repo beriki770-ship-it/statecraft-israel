@@ -293,7 +293,7 @@ by sub-district, in the order of part 1.
   and the village "was rebuilt as a moshav in 1951" [S, Wikipedia]. **[C]** 1951 (en.wiki) against 1953
   (EJ) for the new moshav, after this era. JTA, bulletin of Friday 20 February 1948
   (https://www.jta.org/archive/british-ships-intercept-blockade-runner-with-700-jews-aboard-trail-second-vessel,
-  PDF http://pdfs.jta.org/1948/1948-02-20_043.pdf, OCR read by me): under the dateline "JERUSALEM,
+  PDF https://pdfs.jta.org/1948/1948-02-20_043.pdf, OCR read by me): under the dateline "JERUSALEM,
   Feb. 19. (JTA)", so the event day is **19 February 1948**, "Another band was beaten off when it
   attempted to overwhelm the Jewish settlement of Kfar Yavetz" [S, JTA]. The settlement was therefore
   still held on 19 February 1948; the evacuation day stays a [GAP]. (24 Oct) Searched again and not
@@ -520,9 +520,9 @@ by sub-district, in the order of part 1.
   Virtual Library, timeline (https://jewishvirtuallibrary.org/jsource/History/modtimeline.html, opened
   2026-10-24): "it was abandoned in 1881 after Arab attacks, it was reestablished in 1883", [S] against
   EJ, which has the place counted in 1882 and left after that; the causes also differ (JVL "Arab
-  attacks", EJ malaria, quarrels and "health conditions"). **Our reading:** the first village was
-  left in 1881 or 1882 and renewed in 1883; no day for the leaving is in either source. The exact
-  date stays a [GAP]. A row for the owner's sensitivity review.
+  attacks", EJ malaria, quarrels and "health conditions"). **Our reading:** JVL gives 1881 for the
+  leaving; EJ puts the move after the 1882 count and before the 1883 renewal, with no year; both
+  sources agree on the renewal in 1883 and neither gives a day. The exact date stays a [GAP]. A row for the owner's sensitivity review.
 
 ### Tel Aviv district
 
@@ -536,8 +536,9 @@ by sub-district, in the order of part 1.
   `mikveh-israel`): says nothing of the war years except that Eliyahu Krause directed the school "from
   1914 to 1955". en.wikipedia `1917 Jaffa deportation`, oldid 1381412055: the deportation of April 1917
   left out "the teachers and students of the Mikveh Israel school and the Latrun estate" [S, Wikipedia].
-  **[C]** he.wiki "ננטש" against this exclusion; neither gives a day, and an exclusion from the
-  deportation does not show the school kept working. The date stays a [GAP]. Query: built-in
+  The two passages do not conflict: he.wiki says the school was abandoned during the war, en.wiki
+  that its teachers and students were left out of the April 1917 deportation. Neither gives a day,
+  and the 1917 passage does not close the gap. The date stays a [GAP]. Query: built-in
   WebSearch, `Mikve Israel agricultural school abandoned First World War 1917 Turks Jaffa evacuation
   Jewish settlements`, no date filter, run 2026-10-24: 9 results, I opened the two above only.
 
@@ -820,9 +821,9 @@ where a later CBS row of the same name is noted. Coordinates: [GAP] for all of t
   the 1890s [S]; Rishpona to Rishpon (no later than the 1945 table), HaTehiya to Gat Rimon (no later
   than 18 November 1931), Nahalat Yehoshua to Havatzelet HaSharon and Kfar Vatikim to Netaim still
   have no year.
-- [GAP] **Abandonment dates** after the second pass: Petah Tikva left in 1881 or 1882 [C] (no day),
+- [GAP] **Abandonment dates** after the second pass: Petah Tikva left in 1881 (JVL) against after the 1882 count and before the 1883 renewal (EJ) [C] (no day),
   Bat Yam left in the 1929 riots and returned in 1931 or May 1932 [C] (no day), Kfar Brandeis
-  evacuated in the 1929 riots (no day) and annexed 1951 [S]; Mikve Israel in the First World War,
+  in the 1929 riots the settlers were called to evacuate to Hadera and the men returned to guard the farms (no day), annexed 1951 [S]; Mikve Israel in the First World War,
   Holon's Moledet neighbourhood in 1936 and Kfar Yavetz in 1948 have no date. For Moledet (24 Oct)
   searched again and not found: the Encyclopaedia Judaica slug `holon` on encyclopedia.com is the
   biblical Holon only; the he.wiki `חולון` revision is the only source for 1936.
@@ -864,7 +865,13 @@ opened" or "did not open" gave no fact to this note.
   has no mention of Kfar Yavetz) (the Kfar Yavetz row). For 20
   February 1948 the bulletin PDF has no text layer; I read it with OCR, and the dateline "JERUSALEM,
   Feb. 19. (JTA)" heads the story. The other three items were read on the jta.org page only and are not
-  used for a date.
+  used for a date: "35 Arabs Killed in Haifa Bombing, 7 Jews Slain" (26 July 1938,
+  https://www.jta.org/archive/35-arabs-killed-in-haifa-bombing-7-jews-slain); "Killed As Haganah Seeks
+  to Uncover Headquarters of Band Terrorizing Old City" (29 December 1947,
+  https://www.jta.org/archive/killed-as-haganah-seeks-to-uncover-headquarters-of-band-terrorizing-old-city);
+  "Vanguard of Young Settlers Arrives at Etzion for Settlement" (28 September 1967,
+  https://www.jta.org/archive/vanguard-of-young-settlers-arrives-at-etzion-for-settlement). Titles and
+  URLs found through jta.org/wp-json/wp/v2/archive by date, each URL returned HTTP 200 on 2026-10-24.
 - Did not open: the CBS file of changes since 1948 (dead link, see Kfar Brandeis); Davar and the NLI
   press archive (HTTP 403 from this box); `pdfs.jta.org` index. Queries for the CBS file: built-in
   WebSearch, `הלשכה המרכזית לסטטיסטיקה שינויים ביישובים מאז 1948 איחוד יישובים קובץ changes`, domain
