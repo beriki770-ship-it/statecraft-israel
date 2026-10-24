@@ -67,7 +67,7 @@ archived (see §7).
 | JTA-610329 (second pass) | Jewish Telegraphic Agency, Daily News Bulletin, Vol. XXVIII, No. 61, Wednesday 29 March 1961, p. 1, item "Knesset Votes to Dissolve Itself; Sets New Elections for August 15". Page image read from the [Internet Archive copy](https://web.archive.org/web/2020id_/https://pdfs.jta.org/1961/1961-03-29_061.pdf) of the JTA's PDF; text also at https://www.jta.org/archive/knesset-votes-to-dissolve-itself-sets-new-elections-for-august-15 | Contemporary report of the 1961 dissolution vote. A news agency, not the law |
 | JTA-650520 (second pass) | JTA Daily News Bulletin, Vol. XXXII, No. 98, Thursday 20 May 1965, p. 1, item "Mapai and Achdut Sign Formal Alignment Pact; Ben-Gurion Absent". Page image read from the [Internet Archive copy](https://web.archive.org/web/2020id_/https://pdfs.jta.org/1965/1965-05-20_098.pdf); text also at https://www.jta.org/archive/mapai-and-achdut-sign-formal-alignment-pact-ben-gurion-absent | Contemporary report of the signing of the first Alignment agreement |
 | JTA-730912 (second pass) | JTA Daily News Bulletin, Vol. XL, No. 175, Wednesday 12 September 1973, p. 3, item "Likud Limps into Political Arena". Page image read from the [Internet Archive copy](https://web.archive.org/web/2020id_/https://pdfs.jta.org/1973/1973-09-12_175.pdf); text also at https://www.jta.org/archive/likud-limps-into-political-arena | Contemporary report of the Likud's launch |
-| JTA-73 (second pass) | JTA archive articles, web text only (the bulletin pages were not opened): [2 Aug 1973, "Herut Approves Non-Labor Alignment"](https://www.jta.org/archive/herut-approves-non-labor-alignment) (bulletin 1973-08-02_147); [31 Aug 1973, "Non-Labor Alignment Finds That Adjustment is Impossible"](https://www.jta.org/archive/non-labor-alignment-finds-that-adjustment-is-impossible) (bulletin 1973-08-31_168); [15 May 1974, "Sharon Trying to Revamp Likud"](https://www.jta.org/archive/sharon-trying-to-revamp-likud) | Steps before the Likud, and its components as reported a year later |
+| JTA-73 (second pass) | JTA archive articles, web text only (the bulletin pages were not opened): [2 Aug 1973, "Herut Approves Non-Labor Alignment"](https://www.jta.org/archive/herut-approves-non-labor-alignment) (bulletin 1973-08-02_147); [31 Aug 1973, "Non-Labor Alignment Finds That Adjustment is Impossible"](https://www.jta.org/archive/non-labor-alignment-finds-that-adjustment-is-impossible) (bulletin 1973-08-31_168); [15 May 1974, "Sharon Trying to Revamp Likud"](https://www.jta.org/archive/sharon-trying-to-revamp-likud) | Steps before the Likud, and its components as reported in May 1974 |
 
 Not used: the Israel Government Year Book and the Encyclopaedia Judaica were not needed for any figure here, because
 the Knesset's own tables cover every election and faction; they were not opened. The Central Elections Committee's
@@ -417,7 +417,7 @@ reading ran over many sittings in the early years (28 sittings from 26 Feb to 31
 to 29 Jun 1960 for 1960/61) and over one sitting from 1975 (computed here from OD-I). That the long runs are ministry
 by ministry debates is our reading, from the 1948-56 note's description of the same procedure.
 
-The two late listings (second pass, computed here from OD-I, 24 Oct 2026). Of the 21 annual laws, 1957/58 to 1977, only these two
+The two late listings (second pass, computed here from OD-I, 24 Oct 2026). Of the 21 annual laws in the table above (1957/58 to 1977; the 1977 law is a Ninth Knesset bill), only these two
 are listed (status 114, second-third reading) at a sitting after the sitting where status 117 (third reading) is listed;
 the other 19 have no later listing. 1967/68: at sitting 185 (20 Jun 1967, 16:02 to 19:00) the annual law is item 18,
 and item 19 is "חוק התקציב (מס' 2) לשנת 1967/68" (Budget (No. 2) Law for 1967/68), also status 114; the amendment and (No.
@@ -489,8 +489,8 @@ Files that would close the gaps (OD-DOC; all on fs.knesset.gov.il, none archived
 - The text of Basic Law: The Knesset (1958) and of the Dissolution of the Fourth Knesset Law (1961): which date each
   fixed. For 1961 the date is now sourced to a contemporary report (JTA-610329), not to the law; the 1969 temporary
   provisions law is read and fixes no day (§1.1); the 1973 temporary-provision law (Sefer HaHukim 678) is unread.
-- A primary date for the 1965 election (C1). The Alignment's signing (19 May 1965) and the Likud's launch (11 Sep 1973,
-  C8) rest on JTA reports, not on a Knesset or party document: a primary record of each (the Alignment agreement, the
+- A primary date for the 1965 election (C1). The Alignment's signing (19 May 1965) and the Likud's launch (announced to the press
+  on 11 Sep 1973 per JTA; C8 prefers none of 11, 12 and 13 Sep) rest on JTA reports, not on a Knesset or party document: a primary record of each (the Alignment agreement, the
   Likud's articles of agreement of September 1973) is not read.
 - Every budget vote tally and every budget law's adoption footnote, 1957 to 1977 (§5): fs.knesset.gov.il is blocked
   from this machine and the files are not archived. A contributor inside Israel can read them from the list in §5.
