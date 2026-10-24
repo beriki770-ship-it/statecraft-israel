@@ -263,10 +263,15 @@ Hebrew Wikipedia pages below were read at the `oldid` given, checked 2026-10-23.
 - **[C]** 1922 (CBS, he.wiki) against 1927 (Gvati). **Our reading:** 1922, two sources against one;
   Gvati's `21.10.27` is not explained by anything read here.
 - (24 Oct) Census of Palestine 1931, printed pp. 73 to 76 (Nazareth sub-district, all four pages
-  read): no row named Ginegar or Ginnegar. The 1931 run of names there goes "Gvat (Qevutsa)", "Gvat
-  (Experimental Station)", "Hash Sharon", "Iksal". Not shown to be absent under another spelling or
-  inside another unit; the 1945 table lists "Ginneigar" with population Jews 330 (printed p. 62).
-  The census says nothing for or against 1922 or 1927. [GAP]
+  read): no row named Ginegar or Ginnegar, but printed p. 73 (pdf p. 84) has the row "Jinuj'ar"
+  (Hebrew column ג'נג'ר, pointed), the row just before "Gvat (Qevutsa)": 17 houses, 109 persons
+  (57 male, 52 female), Jews 57 + 52, no other religion (read on the 150 dpi page image). The he.wiki
+  article above gives ג'ינג'אר as the Arabic name of the place. **Our reading:** this row is the
+  kibbutz (an all-Jewish unit on the land of the Arabic name Jinjar); the census does not say so.
+  The 1931 run of names there goes "Jinuj'ar", "Gvat (Qevutsa)", "Gvat (Experimental Station)",
+  "Hash Sharon", "Iksal". An all-Jewish unit of 109 persons in 1931 bears on the 1922 against 1927
+  [C] (it fits 1922 and does not fit a first settling in 1927), but it does not date the founding.
+  The 1945 table lists "Ginneigar" with population Jews 330 (printed p. 62). [GAP]
 
 ### Kfar Gid'on (CBS 106)
 - CBS **1923**; Gvati `16.11.28` (moshav section). The 1945 Nazareth table names "Kefar Gid‘on".
@@ -385,7 +390,7 @@ Hebrew Wikipedia pages below were read at the `oldid` given, checked 2026-10-23.
   35.51972222; **computed here:** the he.wiki point is 7 m from CBS's point, 2 m north-south and 6 m
   east-west, and the en.wiki point is 17 m, 12 m and 11 m); the
   tower-and-stockade table above; the he.wiki chronology `כרונולוגיית ההתיישבות היהודית בארץ ישראל
-  בעת החדשה` (oldid 43572242), which names Hamadya in two lists with no year of leaving; the Gvati
+  בעת החדשה` (oldid 43572242), which names Hamadya three times (under 1939, under 1942, and in the 1949 kibbutzim row "... שעלבים, חמדיה, לביא ..."), with no year of leaving; the Gvati
   page, where `חמדיה` occurs only in the name-origin cell of the `1.9.42` row. he.wiki has no
   article `חרמונים` (API: missing page, 2026-10-24). [GAP]
 
@@ -490,7 +495,7 @@ column of Gvati's dates does not say what event a date records (see above).
   עפולה נוסדה בשנת 1925 על ידי חברה ציונית מיישבת בשם קהילת ציון אמריקאית". [S, Wikipedia] Both
   years stay [S] (CBS and he.wiki).
 - Search log, Gvati page https://benyehuda.org/read/14684, fetched 2026-10-24, tags stripped with a
-  python script (651,622 characters). A name cell reading exactly `גבע`: 0 matches (other cells begin with
+  python script. A name cell reading exactly `גבע`: 0 matches (other cells begin with
   `גבע`, for example `גבע הכרמל` and `גבעתי`, different places); `הגבעה`: 0; `עפולה`: 5 lines, all running
   text, none a name cell; `זייד` or `זיד` in any form: the one sentence on Or HaNer quoted above. The
   no-row finding stands for Geva, Afula and Bet Zeid. [GAP]
@@ -510,6 +515,7 @@ also holds the few non-Jews of the unit.
 |---|---|---|---|---|---|
 | Afula | 'Affula | 73 | 874 | 393 + 393 = 786 | 236 houses; Moslems 45 + 31, Christians 9, no religion 3 |
 | Balfurya | Balfuriya | 73 | 238 | 114 + 124 = 238 | |
+| Ginegar (our reading) | Jinuj'ar | 73 | 109 | 57 + 52 = 109 | 17 houses |
 | Gevat | Gvat (Qevutsa) | 73 | 76 | 36 + 38 = 74 | and "Gvat (Experimental Station)", 30 persons |
 | Yifat, the Sharon group (our reading) | Hash Sharon | 73 | 56 | not copied | |
 | Kefar Barukh | Kefar Barukh | 74 | 175 | 84 + 90 = 174 | |
@@ -533,7 +539,7 @@ also holds the few non-Jews of the unit.
 | Bet She'arim, Ramat Yishay (our reading) | Jeida, with sub-entries Beit She'arim and Stock Farm | 92 | 115 | 52 + 25 = 77 | 29 houses |
 | Sede Ya'aqov, Giv'ot Zeid or El Ro-i (not shown) | Sheikh Bureik, Esh (sub-entry Sheikh Bureik Mizrahi) | 96 | 37 | 22 + 15 = 37 | 10 houses; the 1945 table calls all three "previously part of Esh Sheikh Bureik" |
 
-Rows with no 1931 entry in the pages read: Ginegar (see above), Yokne'am (Haifa p. 97), HaZorea
+Rows with no 1931 entry in the pages read: Yokne'am (Haifa p. 97), HaZorea
 (between "Haifa Suburbs" and "Hosha", p. 91), Sede Ya'aqov by its own name (between "Sarkas" and
 "Shafa 'Amr", p. 95), and on the Beisan pages 77 to 81 Gesher, Nir David, Tirat Zevi and Sede Nahum. "Mahane Yisrael" (Nazareth,
 printed p. 74) is in the census with 38 persons, all Moslems (17 + 21). The Jezreel rows of the
@@ -600,7 +606,9 @@ is proposed about how it appears in the game. [checked 2026-10-23: no CBS row ma
   (current revisions, no date range): 8 and 4 results. The first returned `ניר דוד (תל-עמל)`, `רחל
   ינאית בן-צבי`, `צבי הירש קלישר`, `מלחמת העצמאות`, two local-elections articles, `רעננה` and
   `כרונולוגיית ההתיישבות היהודית בארץ ישראל בעת החדשה`. Opened: the wikitext of `ניר דוד (תל-עמל)`
-  (oldid 44069100) and of the chronology (oldid 43572242): no occurrence of `בורוכוב` in either;
+  (oldid 44069100) and of the chronology (oldid 43572242): `בורוכוב` occurs once in the first, in the founders
+  paragraph ("בשנת 1932 הם הקימו בין שכונת בורוכוב בגבעתיים לשכונת נחלת יצחק את קיבוץ ארצישראלי א'"), a
+  neighbourhood of Givatayim and not Irgun Borokhov, and not at all in the chronology;
   the `רחל ינאית בן-צבי` article (oldid 43739439) has the word in a biography line about Ber
   Borochov, not about a locality, and was not read further. [GAP]
 
