@@ -75,6 +75,19 @@ public class EndOccupationTests
         Assert.Equal(before, s.Describe());
     }
 
+    // R-CTRL-014: withdrawing needs the unit that holds the place too; with none there it is refused, the state unchanged.
+    [Fact]
+    public void WithdrawNeedsAnIsraeliUnitOnThePlace()
+    {
+        var c = CaptureTests.Load(CaptureTests.AllTargets);
+        var s = AwaitingEnd(c, false, Soldier(1, 2, 0));
+        var before = s.Describe();
+        var why = new List<Cause>();
+        Assert.Equal("Withdraw needs an Israeli military unit on TOWN A", SettlementControl.End(c, s, "town_a", SettlementControl.WithdrawOutcome, why));
+        Assert.Empty(why);
+        Assert.Equal(before, s.Describe());
+    }
+
     // R-CTRL-017 (Q-ANNEX-2 (a)): a depopulated place (no state) is never answered.
     [Fact]
     public void ADepopulatedPlaceIsNeverAnnexed()

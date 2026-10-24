@@ -3,4 +3,5 @@
   stays after a Raid or any other return to enemy control; the town can be captured again. `EndOccupation` offers Annex
   and Withdraw; there is no puppet regime. Annexing a fled town adds land only; annexing Acre or Nazareth adds one city
   from its census-day count (proposed, awaiting the owner's approval). An annexed town stays Israeli with no upkeep. New
-  golden `mvp-annex-nazareth`; no other golden moves. Deport of a fled town waits for an owner ruling.
+  golden `mvp-annex-nazareth`; no other golden moves. Deport of a fled town is refused with its reason (the owner's
+  ruling), and `EndOccupation` needs an Israeli military unit on the town for Withdraw as for Annex.

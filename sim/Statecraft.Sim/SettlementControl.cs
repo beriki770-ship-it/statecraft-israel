@@ -104,10 +104,17 @@ namespace Statecraft.Sim
             {
                 case Raid: return Withdraw(c, s, id, why, false);
                 case Occupy: return StartOccupation(c, s, id, why);
-                case Deport: return c.RulesAt(s.Date).Mvp!.DeportInPlay ? Depopulate(c, s, id, why) : "Deport is not built yet";
+                case Deport:
+                    if (!c.RulesAt(s.Date).Mvp!.DeportInPlay) return "Deport is not built yet";
+                    // R-CTRL-018, OWNER QUESTION 4 (a) on #799: a fled town has no one left to deport, so Deport stays listed
+                    // third but is refused with this reason, which the options helper shows on its button.
+                    return s.Settlements[id].Fled ? NoOneToDeport : Depopulate(c, s, id, why);
                 default: return "That outcome is not known";
             }
         }
+
+        /// <summary>Deport's refusal for a fled town (OWNER QUESTION 4 (a) on #799; in the owner's sensitivity packet).</summary>
+        const string NoOneToDeport = "Its residents fled when it was captured, so there is no one to deport";
 
         /// <summary>The kind of <see cref="EndOccupation"/>, with one attention_cost key (R-CTRL-014).</summary>
         public const string EndKind = "end_occupation";
@@ -138,14 +145,17 @@ namespace Statecraft.Sim
 
         /// <summary>R-CTRL-014 to R-CTRL-017: carries out EndOccupation. Null when done, else the reason, with the state
         /// unchanged: the place is not awaiting the end (a depopulated place never is, R-CTRL-017), the outcome is not known,
-        /// or annexing finds no Israeli military unit on the place. Withdraw is the Raid withdrawal (R-CTRL-010).</summary>
+        /// or no Israeli military unit is on the place, for either outcome. Withdraw is the Raid withdrawal (R-CTRL-010).</summary>
         internal static string? End(Content c, GameState s, string id, string outcome, List<Cause> why)
         {
             if (NotEnding(s, id) is string no) return no;
             switch (outcome)
             {
                 case Annex: return AnnexPlace(c, s, id, why);
-                case WithdrawOutcome: return Withdraw(c, s, id, why, false);
+                case WithdrawOutcome:
+                    // R-CTRL-014: withdrawing needs the unit that holds the place too, as annexing does.
+                    if (!Garrisoned(s, c.SettlementTargets.First(x => x.Id == id))) return $"Withdraw needs an Israeli military unit on {c.SettlementNames[id]}";
+                    return Withdraw(c, s, id, why, false);
                 default: return "That outcome is not known";
             }
         }

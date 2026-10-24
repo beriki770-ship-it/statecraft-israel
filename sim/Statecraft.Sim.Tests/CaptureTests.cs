@@ -43,7 +43,7 @@ public class CaptureTests
     /// and no annexation block (Q-ANNEX-1; OWNER QUESTION 2 (b) on #799).</summary>
     internal static Content LoadFled(string[] fled, params string[] targets) => Load(null, fled, targets);
 
-    static Content Load(Action<Dictionary<string, string>>? edit, string[] fled, string[] targets)
+    internal static Content Load(Action<Dictionary<string, string>>? edit, string[] fled, string[] targets)
     {
         var files = Fixture.Gdd(new Dictionary<string, string>
         {
