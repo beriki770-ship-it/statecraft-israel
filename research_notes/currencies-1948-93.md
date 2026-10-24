@@ -36,9 +36,11 @@ as an image. The Bank of Israel (BoI) pages returned a browser check to scripts;
 | L52 | *Hok LeHachlafat Shitrei Bank UMilve Hova* (Law for the Exchange of Bank Notes and Compulsory Loan), 5712-1952, S.H. 105, 29 Av 5712 (20.8.1952), pp. 272-275 (printed as law No. 52 of that issue). Passed 21 Av 5712 (12 August 1952); bill H.H. 122, 1 Tammuz 5712 (24.6.52), p. 254. Signed Ben-Gurion, Eshkol, Sprinzak (acting President) | `fs.knesset.gov.il/2/law/2_lsr_209527.PDF`, Wayback copy http://web.archive.org/web/20230610115956id_/http://fs.knesset.gov.il//2/law/2_lsr_209527.PDF |
 | L80 | *Hok Matbea HaSheqel* (Sheqel Currency Law), 5740-1980, S.H. 970, 8 Sivan 5740 (23.5.1980), pp. 128-130. Passed 27 Iyar 5740 (13 May 1980); bill H.H. 1437, p. 120. Signed Begin, Navon, Hurvitz | `fs.knesset.gov.il/9/law/9_lsr_208942.pdf`, Wayback copy http://web.archive.org/web/20240205053538id_/https://fs.knesset.gov.il/9/law/9_lsr_208942.pdf |
 | L85 | *Hok Matbea HaSheqel HeHadash* (New Sheqel Currency Law), 5745-1985, S.H. 1157, 3.9.1985, p. 216 (the footnote's citation). Four pages. Signed Peres, Modai, Herzog | The Bank of Israel's copy of the law: https://www.boi.org.il/media/l5abksks/newshekellaw1985.pdf (the page footer says the document was prepared for the Bank by Hotsaat HaHalacha). The Knesset copy named in the issue (`11_lsr_210449.PDF`) returned the block page and its Wayback URL gave 404 |
+| A59 | *Hok LeTikun Pkudat HaMatbea* (Law to Amend the Currency Ordinance), 5719-1959, S.H. 289, 10 Av 5719 (14.8.1959), p. 193 (the page footer prints "ספר החוקים 289"). Passed 29 Tammuz 5719 (4 August 1959); bill H.H. 371, p. 140. Signed Ben-Gurion, Eshkol, Ben-Zvi. One page, read as an image | `fs.knesset.gov.il/3/law/3_lsr_208936.pdf`, Wayback copy http://web.archive.org/web/20260928193601id_/https://fs.knesset.gov.il/3/law/3_lsr_208936.pdf |
+| KT4095 | *Takanot Sha'at Hirum (Matbea HaSheqel)* (Emergency Regulations, Sheqel Currency), 5740-1980, K.T. 4095, 7 Adar 5740 (24.2.1980), pp. 1080-1081, signed by the Minister of Finance Hurvitz on 5 Adar 5740 (22 February 1980). A Ministry of Justice scan, five PDF pages, pp. 1080-1081 are PDF pp. 2-3 | https://olaw.org.il/takanot/takanot-4095.pdf |
 | Wikisource | Hebrew Wikisource, "פקודת המטבע", revision 2992879: the Ordinance with its amendments marked in the text, and the Knesset database's amendment list (database id 2000879). A volunteer transcription | https://he.wikisource.org/w/index.php?title=פקודת_המטבע&oldid=2992879 |
 | BoI sys | BoI, "The Israeli Currency System" (Wayback copy of 14 Feb 2026) | https://web.archive.org/web/20260214233524/https://www.boi.org.il/en/economic-roles/coins/currency-system/ |
-| BoI APB | BoI, "Anglo Palestine Bank Series" (Wayback copy of 10 Apr 2026; page last updated 18/07/2024 as printed) | https://web.archive.org/web/20260410160014/https://boi.org.il/en/economic-roles/banknotes-and-coins/anglo-palestine-bank-series/ |
+| BoI APB | BoI, "Anglo Palestine Bank Series" (Wayback copy of 10 Apr 2026; page last updated 21/05/2023 as printed) | https://web.archive.org/web/20260410160014/https://boi.org.il/en/economic-roles/banknotes-and-coins/anglo-palestine-bank-series/ |
 | BoI BL | BoI, "Bank Leumi Le-Israel Series" (Wayback copy of 15 Aug 2026; last updated 21/05/2023) | https://web.archive.org/web/20260815120948/https://boi.org.il/en/economic-roles/banknotes-and-coins/bank-leumi-le-israel-series/ |
 | BoI 25m | BoI, "25 mil coin - the State of Israel's first coin" (Wayback copy of 21 Jan 2026) | https://web.archive.org/web/20260121004016/https://boi.org.il/en/economic-roles/coins/25-mil-coin-the-state-of-israels-first-coin/ |
 | BoI ag | BoI, "Agora and Pound Series" (Wayback copy of 16 Apr 2026) | https://web.archive.org/web/20260416135447/https://www.boi.org.il/en/economic-roles/coins/agora-and-pound-series/ |
@@ -53,9 +55,9 @@ as an image. The Bank of Israel (BoI) pages returned a browser check to scripts;
 Opened and not cited for a fact: the BoI Currency Department's 2008 annual review (`boi.org.il/media/1jwct0iy/skira08.pdf`),
 which has no dated history of these changes.
 
-Not opened, so cited nowhere as read: the Knesset database page for the Ordinance (id 2000879, block page), the
-Knesset PDFs of the 1959, 1960 and 1969 amendments (not in the Internet Archive), the *Reshumot* issues themselves, the
-emergency regulations of 1952, 1980 and 1984, and the BoI orders under the Bank of Israel Law that cancelled coins.
+Not opened, so cited nowhere as read: the Knesset database page for the Ordinance (id 2000879, block page), the Knesset
+PDFs of the 1960 and 1969 amendments (no snapshot in the Internet Archive), the *Reshumot* issues themselves, the
+emergency regulations of 1952 and 1984, and the BoI orders under the Bank of Israel Law that cancelled coins.
 
 ---
 
@@ -69,10 +71,10 @@ emergency regulations of 1952, 1980 and 1984, and the BoI orders under the Bank 
 | 4 | 17 Aug 1948 | Mandate coins of 1927 stay legal tender: each mil on them counts as 1/1,000 of an Israeli pound | CO48 s. 6 | 1 mil = 1/1,000 pound | [V] |
 | 5 | 24 Dec 1948 [S] | The thousandth part of the pound is called the prutah, in place of the mil | not found | 1 pound = 1,000 prutot | [GAP] for the instrument; [S] for the date (BoI sys); see §3 |
 | 6 | 9 Jun 1952 (notes); exchange to 23 Jun 1952 | New notes in "Israeli pounds or prutot", issued by Bank Leumi, replace the Anglo-Palestine Bank notes. A 10 per cent compulsory loan is taken on the notes of 5, 10 and 50 pounds and on bank balances | First the Emergency Regulations (Exchange of Bank Notes and Compulsory Loan), 5712-1952 (K.T. 277, 15 Sivan 5712 = 9.6.52, p. 1028, cited by L52, not read); then L52, which replaced them (s. 17) | **Amount on the new note in Israeli pounds or prutot equals the amount on the old note in Eretz-Israel pounds or mils: 1 : 1** (L52 s. 3(a)). The 10 per cent is a loan, not a conversion discount (L52 ss. 4, 5, 8) | [V] |
-| 7 | 20 Aug 1952 (published) | In any law, "mil" is read as "prutah" unless the text says mil and not prutah | L52 s. 13 | 1 mil = 1 prutah | [V] |
-| 8 | 1 Jan 1960 | The pound is divided into 100 agorot in place of 1,000 prutot | Amendment to the Currency Ordinance, S.H. 5719, p. 193 (named in the Wikisource list; not opened); BoI ag gives the 1 Jan 1960 start | 1 pound = 100 agorot; a sum "in mils or prutot" is read as agorot equal to **one tenth** of the prutot or mils sum, so 1 agora = 10 prutot (Ordinance s. 2(b) as amended, read in Wikisource; not on a page of the amendment) | [S] |
+| 7 | 20 Aug 1952 (published) | In any law, "mil" is read as "prutah" unless the text says mil and not prutah. L52 s. 13 was repealed from 1 Jan 1960 by A59 s. 3 (the new s. 4(2) of the Ordinance) and s. 4 | L52 s. 13; A59 ss. 3, 4 | 1 mil = 1 prutah | [V] |
+| 8 | 1 Jan 1960 | The pound is divided into 100 agorot in place of 1,000 prutot (the words "divided into a thousand mils" are deleted from s. 1) | A59 ss. 1, 2, 4: commences 1 Tevet 5720 (1 January 1960); BoI ag and BoI sys give the same start | 1 pound = 100 agorot (s. 1 adds "החלק המאה של הלירה יהיה אגורה"); a sum "in mils or prutot" is read as agorot equal to **one tenth** of the sum of prutot or mils (s. 2), so 1 agora = 10 prutot | [V] |
 | 9 | 4 Jun 1969 | The Knesset passes an amendment (No. 4) making "the sheqel" the unit, the agora its hundredth part. It never took effect | Amendment No. 4 to the Currency Ordinance, 5729-1969, S.H. 5729, p. 136 (not opened) | none | [S]; see §4 |
-| 10 | 22 Feb 1980 (law commences); notes in circulation 24 Feb 1980 | The sheqel replaces the Israeli pound; the "new agora" is its hundredth part | L80 ss. 1, 2, 12; the Emergency Regulations (Sheqel Currency), 5740-1980 (K.T. 5740, p. 1080) are repealed by L80 s. 10(b), not read; our reading: they are what declared the sheqel legal tender on 22 Feb 1980, which L80 itself does not say | **1 sheqel = 10 Israeli pounds** (s. 2(a)); **1 new agora = 10 agorot** (s. 2(b)) | [V] |
+| 10 | 22 Feb 1980 (the regulations and the law commence); notes in circulation 24 Feb 1980 | The sheqel replaces the Israeli pound; the "new agora" is its hundredth part. The Emergency Regulations of 22 Feb 1980 make it the unit and treat any "pound" as ten new agorot; they also repeal the Currency Ordinance (reg. 8) | KT4095 regs. 1, 2, 8 (signed 22 Feb 1980, printed 24 Feb 1980); then L80 ss. 1, 2, 12, which repeals the regulations (s. 10(b)) | **1 sheqel = 10 Israeli pounds** (L80 s. 2(a); KT4095 reg. 2(a): a pound is ten new agorot); **1 new agora = 10 agorot** (L80 s. 2(b); KT4095 reg. 2(b)) | [V] |
 | 11 | 30 Sep 1980 | The "fixed day" for cheques (L80 s. 4); BoI AR00 p. 64 says prices and exchange rates were quoted in sheqalim from this date | L80 s. 4; BoI AR00 | none | [V] |
 | 12 | 31 Mar 1984 | The pound ceases to be legal tender | BoI AR00 p. 64 and BoI ag; the regulations fixing the day under L80 s. 6 were not found | none | [S] for the date; [GAP] for the instrument |
 | 13 | 4 Sep 1985 | The new sheqel (NIS) replaces the sheqel; its hundredth part is the agora | L85 ss. 1, 2, 11 | **1 new sheqel = 1,000 sheqalim** (s. 2(a)); **1 agora = 10 sheqalim** (s. 2(b)) | [V] |
@@ -115,8 +117,8 @@ law that regulated the exchange.
 - s. 1 defines the two kinds of note. "שטר בנק ישן": an Anglo-Palestine Bank note, "בערבון מוגבל" (limited), "בלירות
   ארץ ישראליות או במילים" (denominated in Eretz-Israel pounds or mils). "שטר בנק חדש": a note of Bank Leumi LeIsrael,
   "בלירות ישראליות או בפרוטות" (in Israeli pounds or prutot).
-- s. 2: despite s. 3 of the Currency Ordinance, an old note "לא תהיה עוד הצעת מטבע חוקית" (is no longer legal
-  tender).
+- s. 2: despite s. 3 of the Currency Ordinance, an old note "לא תהיה עוד הצעת שטר בנק ישן הצעת מטבע חוקית" (an old bank note is no
+  longer legal tender).
 - s. 3(a): the Issue Department of Bank Leumi exchanges new notes for old notes, "והסכום הנקוב בשטרי הבנק החדשים
   בלירות ישראליות או בפרוטות יהא שווה לסכום של לירות ארץ ישראליות או מילים הנקוב בשטרי הבנק הישנים שנמסרו לה". In
   English: the sum on the new notes in Israeli pounds or prutot is equal to the sum in Eretz-Israel pounds or mils on
@@ -127,13 +129,15 @@ law that regulated the exchange.
 - ss. 4 and 5: the compulsory loan. Whoever hands in an old note of 5, 10 or 50 Eretz-Israel pounds gets a new note and
   is lent to the State an amount equal to ten per cent of the face value of the old note; a bank balance of 50
   pounds or more at close of business on 15 Sivan 5712 (8 June 1952) carries a loan of ten per cent of the credit.
-  The statute is not consistent on that day: s. 15 and K.T. 277 print 15 Sivan as 9 June 1952, s. 5 as 8 June
-  1952. BoI BL gives the issue date of the new notes as 9 June 1952.
+  Section 15 prints the next day, "ט"ז בסיון תשי"ב (9 ביוני 1952)" (16 Sivan = 9 June), so it agrees with ss. 4 and 5.
+  Only the K.T. 277 footnote on p. 274 pairs 15 Sivan with 9.6.52. BoI BL gives the issue date of the new notes as
+  9 June 1952.
 - s. 8: the loan bears interest of four per cent a year and is repayable by the Government in instalments from 11
   Tammuz 5715 (1 July 1955) up to 13 Tammuz 5726 (1 July 1966), the dates the page prints. (The loan's terms are not
   needed for the currency's par; they are here so nobody reads the 10 per cent as a rate of conversion.)
-- s. 13: "כל מקום, מחוץ לחוק זה, שבו מדובר במיל, לכל מטרה שהיא, יחשב כאילו מדובר בפרוטה, אם לא נאמר במפורש שהכוונה
-  היא למיל ולא לפרוטה." (Wherever outside this law a mil is mentioned, it is read as a prutah.)
+- s. 13: "כל מקום, מחוץ לחוק זה, שבו מדובר או ידובר במיל, לכל מטרה שהיא, ייחשב כאילו מדובר בפרוטה, אם לא נאמר
+  במפורש שהכוונה היא למיל ולא לפרוטה." (Wherever outside this law a mil is or will be mentioned, it is read as a
+  prutah.) A59 s. 3 and s. 4 repealed this section from 1 January 1960.
 - s. 17: the law takes the place of the Emergency Regulations (Exchange of Bank Notes and Compulsory Loan), 5712-1952.
   K.T. 277 of 15 Sivan 5712 (9.6.52), p. 1028, is the citation in footnote 2; K.T. 260 of 19 Nisan 5712 (14.4.52), p.
   754, in footnote 1, is for the Emergency Regulations (Compulsory Payments), 5712-1952 (not read).
@@ -151,7 +155,7 @@ law that regulated the exchange.
 ### 2.3 The Sheqel Currency Law, 1980 (L80) [V]
 
 - s. 1: "(א) יחידת המטבע תהיה השקל. (ב) חלק המאה של השקל יהיה האגורה החדשה."
-- s. 2: "(א) שקל אחד יהיה שווה ערך לעשר לירות ישראליות, ויבוא במקומן. (ב) אגורה חדשה אחת תהיה שווה ערך לעשר
+- s. 2: "(א) שקל אחד יהיה שווה ערך לעשר לירות ישראליות, ויבוא במקומן. (ב) אגורה חדשה אחת תהיה שוות ערך לעשר
   אגורות, ותבוא במקומן." (c) A sum said "in pounds or agorot" anywhere is read as if an equal-value sum "בשקלים או באגורות
   חדשות" (in sheqalim or new agorot) were stated (the page's s. 2(c)), and (d) a payment ending in less than half a new agora is dropped, half or more is
   rounded to a whole new agora.
@@ -169,12 +173,31 @@ law that regulated the exchange.
 - s. 10: "(א) פקודת המטבע, תש"ח-1948 - בטלה. (ב) תקנות שעת חירום (מטבע השקל), תש"ם-1980 - בטלות." Footnote 5 gives
   O.R. 5708, Supplement A, p. 39; footnote 6 gives K.T. 5740, p. 1080.
 - s. 12: "תחילתו של חוק זה ביום ה' באדר תש"ם (22 בפברואר 1980)". It was passed on 13 May 1980 and commences nearly
-  three months earlier. Our reading: the emergency regulations covered the interval.
+  three months earlier. The Emergency Regulations (Sheqel Currency), signed the same day, covered the interval (§2.3a).
 - The BoI sheqel page agrees: "On February 22, 1980 the sheqel was declared legal tender, and the first notes went into
   circulation on February 24, 1980"; BoI nag: "With the introduction of the sheqel on February 24, 1980 ... One new
   agora was equal to ten (old) agorot."
-- Wikisource's amendment list prints K.T. 5740 as p. **1081**; the law's own footnote prints **1080**. **[C]** on the
-  page; the regulation was not read, so neither is checked.
+- Wikisource's amendment list prints K.T. 5740 as p. **1081**; the law's own footnote prints **1080**. Resolved by
+  KT4095: the regulations begin on p. 1080 and end, with the signature, on p. 1081, so both citations point at the
+  same instrument (§2.3a).
+
+### 2.3a The Emergency Regulations (Sheqel Currency), 1980 (KT4095) [V]
+
+K.T. 4095 of 7 Adar 5740 (24.2.1980), pp. 1080-1081, "made under s. 9(a) of the Law and Administration Ordinance,
+5708-1948"; signed by Finance Minister Hurvitz, "ה' באדר תש"ם (22 בפברואר 1980)", the day the law later made its
+commencement.
+- reg. 1: the unit of currency is the sheqel; its hundredth part is the new agora.
+- reg. 2(a): wherever "פונט ... לירה ישראלית או לירה" is said, it is read as if "עשר אגורות חדשות" were said: one
+  pound is ten new agorot, a tenth of a sheqel. Reg. 2(b) reads a sum in agorot as new agorot equal to a tenth of it.
+- reg. 3: coins issued before the regulations' commencement in 25, 5 or 1 agora and in prutot cease to be legal tender;
+  reg. 3(b) lets the Bank of Israel exchange them for twenty years.
+- reg. 5: until a day the Minister fixes, whoever hands in notes and coins in pounds and agorot is entitled to sheqel
+  ones free of charge. Reg. 8: "פקודת המטבע, תש"ח-1948 - בטלה". Reg. 4 sets the "fixed day" for cheques as the day
+  the regulations commence.
+- So the Emergency Regulations of 22 February 1980, not the law of 13 May, are what put the sheqel into force; our reading: the law
+  of 13 May 1980 restates them from the same date. The regulations repealed the Ordinance on 22 February 1980; L80
+  s. 10(a) repeats the repeal. The regulation fixing the end of the pound's legal tender (31 March 1984) is a later
+  instrument and was not found.
 
 ### 2.4 The New Sheqel Currency Law, 1985 (L85) [V]
 
@@ -182,12 +205,12 @@ Read from the Bank of Israel's copy, a four-page file; the Knesset copy named in
 
 - Title and publication: "חוק מטבע השקל החדש, התשמ"ה-1985", footnote 1: "ס"ח 1157, התשמ"ה (3.9.1985), עמ' 216."
 - s. 1: "(א) המטבע של ישראל יהיה שקל חדש. (ב) החלק המאה של השקל החדש יהיה האגורה."
-- s. 2: "(א) שקל חדש אחד יהיה שווה ערך לאלף שקלים ויבוא במקומם. (ב) אגורה אחת תהיה שווה ערך לעשרה שקלים ותבוא
+- s. 2: "(א) שקל חדש אחד יהיה שווה ערך לאלף שקלים ויבוא במקומם. (ב) אגורה אחת תהיה שוות ערך לעשרה שקלים ותבוא
   במקומם." (c) a sum in pounds or sheqalim is read as if an equal-value sum in new sheqalim were stated.
 - s. 3: on commencement, coins of one new agora and coins and notes of 1 sheqel and of 5 sheqalim cease to be legal
   tender; other coins and notes that were legal tender continue so for one year from commencement (s. 3(b)), and the
   Bank of Israel exchanges them for two years (s. 3(d), our reading).
-- s. 4: the "fixed day" is "20 בטבת התשמ"ו (1 בינואר 1986)". The Treasury Minister may fix a later day by a notice
+- s. 4: the "fixed day" is "כ' בטבת התשמ"ו (1 בינואר 1986)". The Treasury Minister may fix a later day by a notice
   in *Reshumot* (s. 4(b)).
 - s. 9: the Sheqel Currency Law 5740-1980 is repealed; s. 10 amends the Bank of Israel Law's definition of "currency";
   s. 11: "תחילתו של חוק זה ביום י"ח באלול התשמ"ה (4 בספטמבר 1985)".
@@ -217,19 +240,22 @@ Read from the Bank of Israel's copy, a four-page file; the Knesset copy named in
   that first treats the two as one, among the documents read, is L52 s. 13; the 1948 date has no instrument in hand.
 - The factor does not depend on the name: a thousandth part either way. 1 pound = 1,000 mils = 1,000 prutot [V] (CO48 s.
   1 and L52 s. 3(a)).
-- The Wikisource text of s. 2(b) reads "סכום כלשהו במילים או בפרוטות" ("any sum in mils or prutot"). Our reading:
-  this is the wording of one of the amendments Wikisource marks on s. 2 (5719, 5720 or 5729); which one is not shown
-  (§1, row 8).
+- A59 s. 2 is the source of that wording: it adds s. 2(b) to the Ordinance, "כל מקום בו נאמר ... סכום כלשהו במילים או
+  בפרוטות, יראו כאילו נאמר בו סכום אגורות השווה לחלק העשירי של סכום הפרוטות או המילים" [V]. The Wikisource text
+  matches it.
 
 ## 4. The 1969 law and the 1959 and 1960 amendments
 
-- **1959 amendment (the agora)** [S]: the Wikisource list gives "ס״ח תשי״ט, 193" for it, and marks 5719 amendments
-  at ss. 1 (unit and agora), 2, 3 and 4. A Knesset-site search
-  result named a file `4_lsr_208937.pdf` as the 1960 amendment ("Law to Amend the Currency Ordinance (No. 2), 5720-1960"; Wikisource flags the "No. 2" as wrong and says
-  No. 3), rounding at half an agora; S.H. 5720, p. 46 in the Wikisource list). Neither file could be opened.
-  The title, issue number and date of the 1959 amendment: **[GAP]**. BoI ag gives the practical start: "the new coins
-  were put into circulation starting January 1, 1960" and the first coin issue dates (1 agora 12 May 1960, 10 agorot 6
-  May 1960, 25 agorot 17 May 1960, 5 agorot 20 October 1960, as the page prints them).
+- **1959 amendment (the agora)** [V], A59, read on the page: "חוק לתיקון פקודת המטבע, תשי"ט-1959", S.H. 289, 10 Av
+  5719 (14.8.1959), p. 193, passed 29 Tammuz 5719 (4 August 1959). Section 1 deletes "מחולקת לאלף מילים" from s. 1 of
+  the Ordinance and adds "(ב) החלק המאה של הלירה יהיה אגורה". Section 2 adds s. 2(b), the one-tenth rule (§1, row 8).
+  Section 3 adds ss. 3 (forged coins) and 4 (repeals the Currency Notes Ordinance, "פקודת שטרי הכסף", and s.
+  13 of the 1952 law). Section 4: commencement "ביום א' בטבת תש"ך (1 בינואר 1960)". BoI ag gives the practical start
+  and the coin issue dates (1 agora 12 May 1960, 10 agorot 6 May 1960, 25 agorot 17 May 1960, 5 agorot 20 October
+  1960, as the page prints them). Wikisource's "ס״ח תשי״ט, 193" is this page.
+- **1960 amendment** [S]: a Knesset-site search result named a file `4_lsr_208937.pdf` as "Law to Amend the Currency
+  Ordinance (No. 2), 5720-1960" (Wikisource flags the "No. 2" as wrong and says No. 3), rounding at half an agora; S.H.
+  5720, p. 46 in the Wikisource list. The file has no Internet Archive snapshot and was not opened.
 - **1969 amendment (No. 4)** [S]: BoI sh says "On June 4, 1969 the Knesset passed a law providing for the sheqel to
   become the currency of Israel at a date to be determined on the recommendation of the Governor of the Bank of
   Israel"; BoI NIS calls it "the Sheqel Currency Law, 5729-1969". Wikisource says it was to commence on a date the
@@ -248,8 +274,8 @@ the owner's decision (chapters design §11, D5); this table only supplies the so
 | 1 Palestine pound (to 15 Sep 1948) | Israeli pound | 1 | CO48 s. 4, [V] |
 | 1 Anglo-Palestine "pound" note (to 23 Jun 1952) | 1 Bank Leumi Israeli pound note | 1 | L52 s. 3(a), [V] |
 | 1 Israeli pound | prutot (to 1960) | 1,000 | CO48 s. 1, L52 s. 3(a) |
-| 1 Israeli pound | agorot (from 1960) | 100 | BoI sys, BoI ag [S]; the Ordinance as amended in 1959, [S] |
-| 1 prutah | agorot | 0.1 (1 agora = 10 prutot) | Ordinance s. 2(b) as amended, [S]; 100 / 1,000 |
+| 1 Israeli pound | agorot (from 1960) | 100 | A59 s. 1, [V]; BoI sys, BoI ag |
+| 1 prutah | agorot | 0.1 (1 agora = 10 prutot) | A59 s. 2, [V]; 100 / 1,000 |
 | 1 sheqel (24 Feb 1980) | Israeli pounds | 10 | L80 s. 2(a), [V] |
 | 1 new agora (1980) | agorot of 1960 to 1980 | 10 | L80 s. 2(b), [V]; consistent with 100 new agorot = 1 sheqel = 1,000 agorot |
 | 1 new sheqel (4 Sep 1985) | sheqalim | 1,000 | L85 s. 2(a), [V] |
@@ -288,15 +314,17 @@ citation and was not checked here: [S].
 
 1. **The instrument for 24 December 1948** (mil to prutah). BoI sys is the only source of the date. A person with the
    Reshumot index could look for an order or notice of December 1948 or early 1949.
-2. **The 1959 amendment** (S.H. 5719, p. 193) that made the pound 100 agorot: its title, issue number and date. The
-   Knesset PDFs for it and for the 1960 and 1969 amendments were not in the Internet Archive and the live server blocks
-   this box. Ask for them from Israel or from the Knesset's legislation database (Ordinance id 2000879).
-3. **The three emergency regulations** (1952, K.T. 277; 1980, K.T. 5740 p. 1080 or 1081; the regulation fixing the end
-   of the pound's legal tender under L80 s. 6) and the Treasury notice, if any, that ended the pound on 31 March 1984.
+2. **The 1960 and 1969 amendments** (S.H. 5720 p. 46; S.H. 5729 p. 136; the 1969 one never took effect per
+   Wikisource): their Knesset PDFs have no Internet Archive snapshot and the live server blocks this box. The 1959
+   amendment, which made the agora, is read (A59).
+3. **The 1952 emergency regulations** (K.T. 277, p. 1028) and the regulation that fixed the end of the pound's legal
+   tender under L80 s. 6 and reg. 5 (31 March 1984), with any Treasury notice. The 1980 regulations are read (KT4095).
 4. **The Knesset copy of the 1985 law** (`11_lsr_210449.PDF`). The text read is the Bank of Israel's copy; a person
    should compare it with S.H. 1157 p. 216.
-5. **The Israel Mint "900 prutah" claim** (§2.2) was only seen in a search summary. A person who can open the page
-   should read what it cites.
-6. **Whether the 10 per cent compulsory loan of 1952 reduced the amount a holder of an old note received.** The law says
-   it was withheld as a loan (L52 ss. 4, 6): the new note's amount was still the par amount, with the loan taken in
-   addition, our reading; s. 15 (a rule against dodging the loan by moving money held on 15 Sivan) was not read for its effect.
+5. **The Israel Mint "900 prutah" claim** (§2.2) was only seen in a search summary. L52 s. 15 shows how a 90 per cent
+   cash and 10 per cent loan-claim split reached the holder: a person holding money for another is discharged even
+   if he gave "90 אחוז מן הסכום במזומנים בצירוף 10 אחוזים מאותו סכום בזכות למילווה". Our reading: the claim describes
+   the loan, not an exchange rate; a person who can open the Mint page should read what it cites.
+6. **How the 10 per cent loan reached the holder of an old note.** L52 ss. 4, 6 say it was withheld as a loan: the
+   new note's amount was the par amount, with the loan retained. Our reading, supported by s. 15 (a holder of money
+   for another is discharged if he handed over 90 per cent in cash plus a 10 per cent claim on the loan).
