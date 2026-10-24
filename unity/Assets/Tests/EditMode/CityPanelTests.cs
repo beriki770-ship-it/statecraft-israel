@@ -1040,6 +1040,50 @@ public class CityPanelTests
     }
 
     [Test]
+    public void AGroupWithAReturnOrderedCannotBeSentToBuildToo()
+    {
+        // Return runs first at End turn, so the unit has left when Build runs and the sim refuses it (Projects.cs, "no such unit").
+        using var ui = new UiTestKit();
+        int idle = 0;
+        var bridge = Bridge(En, s => idle = AddHalutz(s));
+        using var panel = Panel(ui, bridge, En);
+        panel.Show(SiteDef.Q, SiteDef.R);
+        Assert.IsTrue(ui.Q<Button>($"site-build-{idle}").enabledSelf, "precondition: an idle group can build");
+        UiTestKit.Press(ui.Q<Button>($"pioneer-return-{idle}"));
+        Assert.IsFalse(ui.Q<Button>($"site-build-{idle}").enabledSelf);
+    }
+
+    [Test]
+    public void ACorridorGroupWithAReturnOrderedCannotBeSentToBuildToo()
+    {
+        using var ui = new UiTestKit();
+        int idle = 0;
+        var bridge = Bridge(En, s => idle = AddHalutz(s));
+        using var panel = Panel(ui, bridge, En);
+        var (q, r) = SegmentHex("burma_road", 1);
+        panel.Show(q, r);
+        var box = SegmentBox(ui, "burma_road", 1);
+        Assert.IsTrue(box.Q<Button>($"corridor-build-{idle}").enabledSelf, "precondition: an idle group can build");
+        UiTestKit.Press(box.Q<Button>($"pioneer-return-{idle}"));
+        Assert.IsFalse(SegmentBox(ui, "burma_road", 1).Q<Button>($"corridor-build-{idle}").enabledSelf);
+    }
+
+    [Test]
+    public void ReassignCountsTheQualificationAQueuedTrainTakesFirst()
+    {
+        // R-QUAL-006: a Train that leaves fewer civilians than the city has qualified costs craftsmen first. 3 civilians, all
+        // qualified (1 craftsman, 2 halutz groups): after Train recruits the craftsman is gone when Reassign would run.
+        using var ui = new UiTestKit();
+        var bridge = Bridge(En, s => { Counts(3, 0)(s); Qualify(1, 0, 3, 5)(s); });
+        using var panel = Panel(ui, bridge, En);
+        panel.Show(CityHex.q, CityHex.r);
+        Assert.IsTrue(ui.Q<Button>("city-reassign-craftsmen").enabledSelf, "precondition: a craftsman can be reassigned");
+        UiTestKit.Press(ui.Q<Button>("city-train-recruit"));
+        Assert.IsFalse(ui.Q<Button>("city-reassign-craftsmen").enabledSelf, "the sim would refuse it: no qualified craftsman is left");
+        Assert.IsTrue(ui.Q<Button>("city-reassign-halutz").enabledSelf, "the halutz groups are still qualified");
+    }
+
+    [Test]
     public void AnIdlePioneerGroupOnTheCityHexOffersReturnAndTheOrderIsTheSims()
     {
         foreach (var t in new[] { En, He })
