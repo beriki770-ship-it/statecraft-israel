@@ -1,8 +1,8 @@
 # Annexation: the resident counts for Acre and Nazareth (research note, 2026-10-23)
 
-Status: research and a proposal for #799 (OWNER QUESTION 1 (a) of plan #1520, "the same rule as the 12 starting cities:
-a sourced resident count you approve"). The two counts are in `content/settlement_targets.yaml` as `annexation.people`,
-marked PROPOSED, until the owner approves them on #799.
+Status: research for #799 (OWNER QUESTION 1 (a) of plan #1520, "the same rule as the 12 starting cities:
+a sourced resident count you approve"). The two counts are in `content/settlement_targets.yaml` as `annexation.people`.
+The owner approved both on 24 Oct 2026 ("Approve both", https://github.com/eyalgolan/statecraft-israel/issues/799#issuecomment-6379785979).
 
 ## The rule they follow
 
@@ -30,13 +30,13 @@ gives Netanya 11,589, which matches SA 14 and `cities.yaml`, so the column is th
 - They count everyone present on the census day. The research packet for #793 (`settlement-targets.md`) lists
   "residents and refugees not separable" as a gap for Nazareth, so the 16,994 may include people who were not residents
   before July 1948. Not checked further here.
-- Acre's figure is taken six months after its surrender (17-18 May 1948). The #793 packet records about 5,000 remaining
+- Acre's figure is taken nearly six months after its surrender (17-18 May 1948). The #793 packet records about 5,000 remaining
   after the surrender, many of them refugees from Haifa and non-local workers (Morris pp. 228-232). Whether the 4,016 also
   includes new Jewish residents settled in Acre by November 1948 was not checked [G].
 - Jobs: no per-town working share was found; the national share 0.439 (SA No. 2, as for seven of the starting cities) is
   used as a design value, as the owner's answer says.
 
-## For the owner
+## Owner decision
 
-Approve 16,994 for Nazareth and 4,016 for Acre, or name other figures. Until then the PR stays a draft, and the
-`mvp-annex-nazareth` golden pins the proposed Nazareth count.
+The owner approved 16,994 for Nazareth and 4,016 for Acre on 24 Oct 2026 ("Approve both", https://github.com/eyalgolan/statecraft-israel/issues/799#issuecomment-6379785979).
+The `mvp-annex-nazareth` golden pins the approved Nazareth count.

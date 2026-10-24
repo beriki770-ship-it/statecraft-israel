@@ -37,7 +37,7 @@ targets:
     residents_sources:
       - { url: "https://github.com/eyalgolan/statecraft-israel/issues/793#issuecomment-6252718065", checked: 2026-10-23 }
       - { url: "https://www.cambridge.org/core/books/birth-of-the-palestinian-refugee-problem-revisited/8AE72A6813CEA7DDDE8F9386313F0D97", checked: 2026-10-18 }
-    # PROPOSED, awaiting the owner's approval on #799 (OWNER QUESTION 1 (a), the starting-city rule): the census-day count,
+    # Approved by the owner on #799, 24 Oct 2026 (OWNER QUESTION 1 (a), the starting-city rule): the census-day count,
     # 8 November 1948, CBS Statistical Abstract No. 3 (1951/52), list of settlements, p. 142, row "עכו (עיר)": 4,016. It counts
     # everyone present on the day, so it may include people displaced from elsewhere (research_notes/GDD phase 6/
     # annexation-residents.md).
@@ -57,7 +57,7 @@ targets:
     residents_sources:
       - { url: "https://github.com/eyalgolan/statecraft-israel/issues/793#issuecomment-6252718065", checked: 2026-10-23 }
       - { url: "https://www.cambridge.org/core/books/birth-of-the-palestinian-refugee-problem-revisited/8AE72A6813CEA7DDDE8F9386313F0D97", checked: 2026-10-18 }
-    # PROPOSED, awaiting the owner's approval on #799 (OWNER QUESTION 1 (a), the starting-city rule): the census-day count,
+    # Approved by the owner on #799, 24 Oct 2026 (OWNER QUESTION 1 (a), the starting-city rule): the census-day count,
     # 8 November 1948, CBS Statistical Abstract No. 3 (1951/52), list of settlements, p. 141, row "נצרת (עיר)": 16,994. It counts
     # everyone present on the day, so it may include people displaced from elsewhere (research_notes/GDD phase 6/
     # annexation-residents.md).
