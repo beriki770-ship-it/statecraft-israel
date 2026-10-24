@@ -6,6 +6,8 @@
 id: first_new_yishuv
 title: Six new yishuvim
 text: 'Six designated yishuvim were founded in 1949 and 1950: Beit Kama, Mefalsim, Kiryat Shmona, Re’im, Gilat and Beit Shemesh. The last required founding was Beit Shemesh in December 1950.'
+# For the native reviewer (#564): the Hebrew below (#1541) is an AI translation of the English, not yet read by a
+# person. The six names are content/sites.yaml's name_he for each site.
 title_he: שישה יישובים חדשים
 text_he: 'שישה יישובים שנקבעו מראש הוקמו ב־1949 וב־1950: בית קמה, מפלסים, קריית שמונה, רעים, גילת ובית שמש. היישוב האחרון שנדרש להקמה היה בית שמש, בדצמבר 1950.'
 text_he_review: agent-checked
