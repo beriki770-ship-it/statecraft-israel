@@ -265,7 +265,7 @@ by sub-district, in the order of part 1.
 - **Merger** with Ein HaOved in **1946** [S, Wikipedia]. Encyclopaedia Judaica, entry Avihayil
   (https://www.encyclopedia.com/religion/encyclopedias-almanacs-transcripts-and-maps/avihayil, opened
   2026-10-24): "In 1946 Avi?ayil merged with the neighboring moshav, Ein ha-Oved" (the site prints
-  the diacritic as "?"). Two sources agree on 1946. [V, agent read 2026-10-24; a person's check pending]
+  the diacritic as "?"). Two secondary sources agree on 1946 [S].
 - Ein HaOved's founding date stays a [GAP]. (24 Oct) Searched again and not found. Read: no Gvati row
   (the Gvati page was re-fetched 2026-10-24 and searched for `עין העובד`, 0 matches); no CBS row of that
   name in the 2024 file read on 23 October; Village Statistics 1945 text layer names "‘Ein ha ‘Oved"
@@ -588,7 +588,7 @@ by sub-district, in the order of part 1.
   1929 Arab riots, this isolated group found refuge in Tel Aviv, returning to their homes in 1931";
   "In 1937 the quarter received the status of a local council and changed its name to Bat Yam" [S,
   Encyclopaedia Judaica]. **[C]** return in 1931 (EJ) against May 1932 (he.wiki); keep both. The
-  rename year 1937 is given by both: [V, agent read 2026-10-24; a person's check pending] The day of leaving in 1929 stays a [GAP]. Query: built-in
+  rename year 1937 is given by both [S]. The day of leaving in 1929 stays a [GAP]. Query: built-in
   WebSearch, `Bayit Vegan Bat Yam 1929 riots Jewish colony south of Jaffa evacuated residents`, domains
   jta.org, archive.org and pdfs.jta.org, run 2026-10-24: 6 results, none about Bat Yam, none opened.
 
@@ -816,7 +816,7 @@ where a later CBS row of the same name is noted. Coordinates: [GAP] for all of t
   GovMap and the Survey of Palestine maps were not opened (no map reading was made), so no "Our
   reading" coordinate is given.
 - [GAP] **Rename years** after the second pass: Borochov neighbourhood to Givatayim: the municipal unit of that name from 1942
-  [S], first use of the name open and Bayit VaGan to Bat Yam at 1937 [V, agent read 2026-10-24; a person's check pending]; Nahalat Reuven and Wadi Hanin to Ness Ziona narrowed to
+  [S], first use of the name open and Bayit VaGan to Bat Yam at 1937 [S]; Nahalat Reuven and Wadi Hanin to Ness Ziona narrowed to
   the 1890s [S]; Rishpona to Rishpon (no later than the 1945 table), HaTehiya to Gat Rimon (no later
   than 18 November 1931), Nahalat Yehoshua to Havatzelet HaSharon and Kfar Vatikim to Netaim still
   have no year.
