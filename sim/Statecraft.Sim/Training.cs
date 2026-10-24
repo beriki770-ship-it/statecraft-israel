@@ -127,7 +127,10 @@ namespace Statecraft.Sim
             EconomySystem.PayOrBorrow(c, s, cost, "for training", why);
             // R-HOUSE-003: trainees remain housed as a cohort, and recruits keep their home city's housing as formations.
             // A pioneer unit leaves city housing; a craftsman remains. The employed share also reads the new counts.
-            s.Cities[city] = x.WithCounts(x.Civilians - count, x.Employed, x.Refugees);
+            // R-QUAL-006: the trainees are taken from the unqualified civilians first; a qualified one taken loses its
+            // qualification, which is part of the civilians that remain.
+            var lost = Math.Max(0, x.Qualified.Total - (x.Civilians - count));
+            s.Cities[city] = x.WithCounts(x.Civilians - count, x.Employed, x.Refugees).WithQualified(lost == 0 ? x.Qualified : x.Qualified.Lose(lost));
             var id = s.NextId++;
             // The plan's reading of D-A6, not part of the owner's ruling: the turn of the order is the first training turn, so
             // with training_turns 3 an order on turn T is done at the end of T+2 (TrainingTests.ACohortOrderedOnTurnTWithThreeTurnsFinishesAtTheEndOfTurnTPlusTwo). For "done at the end of
