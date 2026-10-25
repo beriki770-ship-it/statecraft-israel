@@ -5,7 +5,7 @@ paused until after the MVP. Refs #165 (1977-93 21), the "settlements founded 197
 design](../../docs/superpowers/specs/2026-10-10-era-1977-1993-design.md) section 7.4. One topic of #165 only: **new
 localities founded 1977-1993 inside Israel's pre-1967 lines** (kibbutzim, moshavim, community settlements including
 the Galilee lookouts (mitzpim), and towns). **The territories (Judea and Samaria, Gaza, the Golan, Sinai), caravan
-sites and the lines are not in it** (the lines are PR #1640). Which rows enter the game, and their names, wait for the
+sites and the lines are not in it** (the lines are in [`lines-1977-93.md`](lines-1977-93.md), PR #1640). Which rows enter the game, and their names, wait for the
 owner's sensitivity list (#150); this note makes no include or omit choice and no naming choice.
 
 It follows the format of [`settlements-1949-51.md`](../GDD%20objectives/settlements-1949-51.md) and the conventions of
@@ -19,10 +19,10 @@ lines, and for each: the founding date (and what the date marks), coordinates fr
 ## Short answer
 
 - **The list.** The Central Bureau of Statistics (CBS) localities file 2024 has 215 rows with a year of founding of 1977
-  to 1993. 92 are in the Judea and Samaria district and 11 in the Golan subdistrict and are outside this note's topic (other parts of #165). The file has no Gaza Strip or Sinai rows. **112 remain**: 40 community settlement, 25 moshav, 21 kibbutz, 13 urban-size band (codes 140-190), 7 other rural settlement, 4 moshav shitufi, 2 institutional settlement.
+  to 1993. 92 are in the Judea and Samaria district and 11 in the Golan subdistrict and are outside this note's topic (other parts of #165). The file has no Gaza Strip or Sinai rows. **112 remain**, every one outside the CBS Judea and Samaria district and the Golan subdistrict (a CBS district test, not a Green Line test; see "Flags" for the rows whose sources place a site on or beyond the line): 40 community settlement, 25 moshav, 21 kibbutz, 13 urban-size band (codes 140-190), 7 other rural settlement, 4 moshav shitufi, 2 institutional settlement.
 - **Founding dates.** Every row has the CBS year. For the year, 73 rows agree across the sources read and 36 rows
   disagree [C] (listed in "Rows where the sources disagree"); 3 rows have only the CBS year behind them. A day or a
-  month is stated for 40 rows, always by Wikipedia ([S]); Hebrew Wikipedia gives the going-onto-the-land day, the
+  month is stated for 44 rows, always by Wikipedia ([S]); Hebrew Wikipedia gives the going-onto-the-land day, the
   dedication day or the cornerstone day without saying which one the CBS year follows.
 - **Contemporaneous records.** I found and read 9 Jewish Telegraphic Agency (JTA) Daily News Bulletin items (scanned PDFs)
   that bear on 14 rows (section "Contemporaneous records read"). Two of them place a founding in time: the 10 October
@@ -53,7 +53,7 @@ lines, and for each: the founding date (and what the date marks), coordinates fr
   column: every row of the window that survives the two exclusions is in the table, so towns and urban-size localities
   are in it too. **[V, agent read 2026-10-25; a person's check pending]** for what the file prints.
 - **What the CBS year is.** The CBS intro (https://www.cbs.gov.il/he/publications/doclib/2019/ishuvim/intro.pdf,
-  December 2025, opened 2026-10-25), section 12, "שנת ייסוד / שנת ההתיישבות היהודית": "לפי נסיבות המקרה, נרשמה שנת
+  December 2025, opened 2026-10-25), section 12, "שנת ההתיישבות היהודית/שנת ייסוד": "לפי נסיבות המקרה, נרשמה שנת
   הייסוד של היישוב או שנת אכלוסו בידי יהודים" (as the case requires, the year of founding of the locality or the year it
   was settled by Jews is recorded); for a locality settled more than once, the last settling year after a long break and
   the original year after a short one; "במקרה של איחוד יישובים צוינה שנת הייסוד של הוותיק מביניהם" (in a merger of
@@ -84,13 +84,13 @@ lines, and for each: the founding date (and what the date marks), coordinates fr
   Ben-Yehuda Project edition, https://benyehuda.org/read/14684 (opened 2026-10-25; 711 appendix rows parsed by script
   from the page). The appendix has no row dated after 1977 (its latest dates are "1977"; "מוצא (תחתית) 1984" is a row
   of the section on urban localities that began as colonies, not in this list). It covers 4 of the 112 rows by name and site (Moran, Nahal
-  Bet Rimmon, Kefar Rut, Shilat; all with a date of 1977). It covers a fifth row by name only: "נחל חולית" (region "פיתחת רפיח", 1977), which is the Sinai site of Holit, not the present kibbutz. It is cited only in the rows where it matters.
+  Bet Rimmon, Shilat, each printed "1977"; Kefar Rut, printed "77."). It covers a fifth row by name only: "נחל חולית" (region "פיתחת רפיח", 1977), which is the Sinai site of Holit, not the present kibbutz. It is cited only in the rows where it matters.
 - **JTA Daily News Bulletin.** Search: `https://www.jta.org/?s=<query>&post_type=archive` (the site's own archive
   search), run 2026-10-25 for the English name of every row, then the item page (`https://www.jta.org/archive/...`)
   opened for each result. The item page shows the bulletin date; the event date comes from the dateline in the original
   bulletin (the "See Original Daily Bulletin" PDF at `pdfs.jta.org`). The PDFs are scans with no text layer; I read
   them with OCR (`rapidocr-onnxruntime`) and checked the two key items (10 October 1977, pages 2 and 3) by looking at
-  the page image. The OCR text of the other items is not a verbatim source and is quoted below only where it is
+  the page image; after the owner's review I also read the datelines of J5, J6, J8 and J9 and the hyphen in J2 on the page images. The OCR text of the other items is not a verbatim source and is quoted below only where it is
   unambiguous. Every negative search is recorded in "Searches".
 - Hebrew dates were not converted; no row needed it.
 - All requests used the User-Agent `statecraft-israel-research/1.0 (+https://github.com/eyalgolan/statecraft-israel)`.
@@ -223,14 +223,14 @@ bulletin; "dateline" is what the item itself prints. JTA is press, so [S]. None 
 | # | Bulletin (PDF) | Dateline, page | What the item says (quoted) | Rows | Tag |
 |---|---|---|---|---|---|
 | J1 | 11 Oct 1977, no. 190, http://pdfs.jta.org/1977/1977-10-11_190.pdf | "TEL AVIV, Oct. 10 (JTA)", pages 2 to 3 | "A new settlement by members of the Labor Zionist Tnuat Hamoshavim was established recently in the Latrun area, a former no-man's-land on the main highway between Jerusalem and the coast. The settlement, named Ruth, established with no fanfare, is the second moshav in the Latrun region. Earlier, 25 families of the Independent Liberal Party moved into temporary dwellings in the region preparatory to establishing a moshav to be called Shilat." | Kefar Rut, Shilat | [S] page image read |
-| J2 | 28 Jul 1978, no. 146, http://pdfs.jta.org/1978/1978-07-28_146.pdf | "JERUSALEM (JTA)", page 4 (no date in the dateline) | "The Jewish National Fund afforestation department is planning tree planting for landscaping for the settlements of Shilat and Rut near the Latrun enclave and the new Tel Aviv Jerusalem highway." | Shilat, Kefar Rut | [S] OCR |
+| J2 | 28 Jul 1978, no. 146, http://pdfs.jta.org/1978/1978-07-28_146.pdf | "JERUSALEM (JTA)", page 4 (no date in the dateline) | "The Jewish National Fund afforestation department is planning tree planting for landscaping for the settlements of Shilat and Rut near the Latrun enclave and the new Tel Aviv-Jerusalem highway." | Shilat, Kefar Rut | [S] OCR |
 | J3 | 16 Jan 1978, no. 10, http://pdfs.jta.org/1978/1978-01-16_010.pdf | "TEL AVIV (JTA)", page 3 (no date in the dateline) | "Nahal Holit, a para-military settlement in the Rafah salient of northern Sinai, was turned over to civilian control Thursday. It has been re-named Kibbutz Holit ... Holit is the 13th settlement in the Rafah area." The bulletin is a Monday; "Thursday" is 12 January 1978 (derived). This is the Sinai site, not the present kibbutz. | Holit | [S] OCR |
 | J4 | 16 Sep 1977, no. 176, http://pdfs.jta.org/1977/1977-09-16_176.pdf | "JERUSALEM (JTA)", page 4 (no date in the dateline) | "The Jewish National Fund is currently preparing the first phase of the infrastructure for the new settlement of Iddan to be completed this year in the Arava near Ein Hatzeva. The JNF will also prepare the land for the establishment of three other settlements in the Arava region to be completed between 1978-1980. They are: Tsofar, Samar II, and Neot Ha-Kikkar II." A plan, not a founding. | Iddan | [S] OCR |
-| J5 | 22 Feb 1979, no. 37, http://pdfs.jta.org/1979/1979-02-22_037.pdf | page 2 (no dateline read) | "Two new kibbutzim are also scheduled to be established in the Negev before the end of the year, Telalim (dew) and Retamim (broom bushes)." A plan, not a founding. | Telalim, Retamim | [S] OCR, wording of the quoted sentence from the JTA web page of the same item |
-| J6 | 17 Jan 1980, no. 12, http://pdfs.jta.org/1980/1980-01-17_012.pdf | "JERUSALEM, ... 16 (JTA)" (the month is garbled in the OCR; the bulletin is 17 January 1980), page 3 | Headline "New Galilee Moshav to Be Established": "The proposed village of Gilon, one of seven villages slated to be built by the farmers' federation". A plan, not a founding; the household number printed in the OCR differs from the JTA web page ("350" on the web page), so no number is taken. | Gilon | [S] OCR |
+| J5 | 22 Feb 1979, no. 37, http://pdfs.jta.org/1979/1979-02-22_037.pdf | "TEL AVIV, Feb. 21 (JTA)", page 2 (item "Moshav in the Negev", whose text runs on into the next column) | "Two new kibbutzim are also scheduled to be established in the Negev before the end of the year, Telalim (dew) and Retamim (broom bushes)." A plan, not a founding. | Telalim, Retamim | [S] dateline read on the page image; OCR, wording of the quoted sentence from the JTA web page of the same item |
+| J6 | 17 Jan 1980, no. 12, http://pdfs.jta.org/1980/1980-01-17_012.pdf | "JERUSALEM, Jan. 16 (JTA)", page 3 | Headline "New Galilee Moshav to Be Established": "The proposed village of Gilon, one of seven villages slated to be built by the farmers' federation". A plan, not a founding. The page image prints "some 350 families" in the sentence "The first Galilee moshav since the State's establishment will house some 350 families in the Galilee's Segev area, Likud MK Pessach Grupper announced here."; the OCR had misread the number, and the JTA web page also gives 350. | Gilon | [S] dateline and number read on the page image; OCR for the quoted words |
 | J7 | 18 Jan 1982 report in the bulletin of 19 Jan 1982, no. 12, http://pdfs.jta.org/1982/1982-01-19_012.pdf | "NEW YORK, Jan. 18 (JTA)", page 2 | Headline "Development Underway of at Least 20 New Settlements in Western Negev": "He said that the first settlers have already moved into six moshavim and two kibbutzim in the western Negev. He listed the moshavim as Yesodot Hadarom, Yated, Pri Gan, Yevul, Dekel and Talmai Yafa and the Kibbutzim as Suffa and Holit. These settlements have already 160 families." (Menahem Perlmutter, Jewish Agency Settlement Department.) This shows the settlers were in place by 18 January 1982; it gives no day. "Dekel" and "Talmai Yafa" are JTA's spellings; I read them as Deqel and Talme Yosef (CBS name), which the item does not state. | Yated, Peri Gan, Yevul, Deqel, Talme Yosef, Holit | [S] OCR, names as read |
-| J8 | 21 Sep 1983, no. 179, http://pdfs.jta.org/1983/1983-09-21_179.pdf | page 4 (no dateline read) | Headline "First Conservative Kibbutz to Be Established in Israel": "The settlement group will spend a year in training at a nearby kibbutz before moving to their own 375-acre site, located in lower Galilee just northwest of Nazareth, to be called Kibbutz Hannaton." A plan; compare English Wikipedia's "On 1 September 1983, Gar'in Noam ... moved to Kfar HaHoresh for training" and "In September 1984, the founders moved into the new kibbutz". | Hannaton | [S] OCR |
-| J9 | 25 Sep 1986, no. 185, http://pdfs.jta.org/1986/1986-09-25_185.pdf | page 2 (no dateline read) | Headline "New Moshav Dedicated In The Galilee": "Stein and members of the President's Mission attended the dedication ceremony of Moshav Kahal in the mountains of lower Galilee, on the site overlooking the Sea of Galilee." A dedication, not a founding; compare Hebrew Wikipedia "נוסד באוקטובר 1980". | Kahal | [S] OCR |
+| J8 | 21 Sep 1983, no. 179, http://pdfs.jta.org/1983/1983-09-21_179.pdf | "NEW YORK, Sept. 20 (JTA)", page 4 | Headline "First Conservative Kibbutz to Be Established in Israel": "The settlement group will spend a year in training at a nearby kibbutz before moving to their own 375-acre site, located in lower Galilee just northwest of Nazareth, to be called Kibbutz Hannaton." A plan; compare English Wikipedia's "On 1 September 1983, Gar'in Noam ... moved to Kfar HaHoresh for training" and "In September 1984, the founders moved into the new kibbutz". | Hannaton | [S] dateline read on the page image; OCR for the quote |
+| J9 | 25 Sep 1986, no. 185, http://pdfs.jta.org/1986/1986-09-25_185.pdf | "JERUSALEM, Sept. 24 (JTA)", page 2; the text is under the subhead "New Moshav Dedicated In The Galilee", inside the item "1,500 American Jews Are in Israel on Five UJA Missions" by Yitzhak Rabi | Subhead "New Moshav Dedicated In The Galilee": "Stein and members of the President's Mission attended the dedication ceremony of Moshav Kahal in the mountains of lower Galilee, on the site overlooking the Sea of Galilee." A dedication, not a founding; compare Hebrew Wikipedia "נוסד באוקטובר 1980". | Kahal | [S] dateline, subhead and byline read on the page image; OCR for the quote |
 
 Other items that name a locality of the table in 1977-1993 and say nothing about its founding (read as web text of the item page; not opened as PDF): Avtalyon (22 Jan 1986: "a new settlement, Avtalyon, is to be completely surrounded by greenery", JNF tree planting; compare Hebrew Wikipedia "הממשלה החליטה על הקמת היישוב בדצמבר 1983"), Elifaz (21 Jul 1986, a fish farm "began in 1984 to breed the sea bream"), Telalim and Retamim (27 Feb 1984, swimming pools "in kibbutzim Telalim and Retamim"), Newe Shalom (26 Dec 1984, a Ford Foundation grant; 7 Apr 1987), Lotan (10 Aug 1989, an infiltration "of Kibbutz Lotan"). These show a place existed on the date; they are not founding records.
 
@@ -252,46 +252,58 @@ with wiki link markup removed.
 | Bet Rimmon | 28 Jun 1979 | civilianisation of the Nahal outpost | בית רימון אוזרח ב-28 ביוני 1979. | he.wikipedia oldid 43685462 |
 | Kefar Rut | Oct 1977 | settlers (about 20 families) moved into prefabricated houses | באוקטובר 1977, עלו המתיישבים, שכללו כ-20 משפחות מבני מושבי מועצה אזורית מטה יהודה, להתגורר בבתים טרומיים במושב. | he.wikipedia oldid 43968102 |
 | Kefar Rut | Dec 1977 | going-onto-the-land ceremony | במקביל הוקמו באזור גם שילת ומתתיהו טקס עלייה על הקרקע התקיים בדצמבר 1977. | he.wikipedia oldid 43968102 |
-| Shilat | 16 Aug 1977 | first settlers, 25 families, went onto the land | = העלייה לקרקע = ראשוני המתיישבים, 25 משפחות, עלו על הקרקע במקום ב-16 באוגוסט 1977. | he.wikipedia oldid 43725343 |
+| Shilat | 16 Aug 1977 | first settlers, 25 families, went onto the land | ראשוני המתיישבים, 25 משפחות, עלו על הקרקע במקום ב-16 באוגוסט 1977. | he.wikipedia oldid 43725343 |
 | Shilat | 11 Oct 1977 | dedication ceremony | טקס חנוכת היישוב נערך ב-11 באוקטובר 1977, בנוכחות נציגי הממשלה, התנועה המיישבת, הסוכנות היהודית ומשפחות החברים. | he.wikipedia oldid 43725343 |
+| Shilat | Jul 1977 | moshav established by 25 families (English); the Hebrew article gives 16 Aug 1977 for the first settlers | The moshav was established in July 1977 by 25 families on land located near the Palestinian village of Shilta, which was depopulated in 1948. | en.wikipedia oldid 1380467739 |
+| Moran | Sep 1977 | a pioneer unit arrived to finish the houses for the other founders | בספטמבר 1977 הגיעה יחידת חלוץ לקיבוץ להשלים את הכנת הבתים לשאר המייסדים. | he.wikipedia oldid 43761740 |
 | Lappidot | Jul 1978 | went up to the temporary site | לנקודה הזמנית הם עלו ביולי 1978. | he.wikipedia oldid 42326908 |
+| Lappidot | Sep 1980; 1981 | the moshav stood built but unoccupied; they went up to the permanent site in 1981 | בספטמבר 1980 עמד המושב בנוי אך טרם אוכלס והם עלו ליישוב הקבע בשנת 1981. | he.wikipedia oldid 42326908 |
 | Lotem | 9 Oct 1978 | going-onto-the-land ceremony | טקס עלייה על הקרקע התקיים ב-9 באוקטובר 1978. | he.wikipedia oldid 42977196 |
-| Eshbal | 30 Apr 1979 | Nahal outpost (first called Eshhar) went onto the land | היסטוריה ראשיתה של אשבל בהיאחזות נח"ל, שנקראה בתחילה "אשחר", שעלתה על הקרקע על ידי "גרעין עמק" ב-30 באפריל 1979. | he.wikipedia oldid 42761131 |
+| Eshbal | 30 Apr 1979 | Nahal outpost (first called Eshhar) went onto the land | ראשיתה של אשבל בהיאחזות נח"ל, שנקראה בתחילה "אשחר", שעלתה על הקרקע על ידי "גרעין עמק" ב-30 באפריל 1979. | he.wikipedia oldid 42761131 |
 | Eshbal | May 1979 | official going-onto-the-land ceremony | הטקס הרשמי של עלייה על הקרקע התקיים במאי 1979. | he.wikipedia oldid 42761131 |
-| Mahane Yattir | Aug 1979 | a Gush Emunim core group went up to temporary settlement at the camp | היסטוריה  = גרעיני הר חברון = באוגוסט 1979 עלה גרעין התיישבות של גוש אמונים שיועד להתיישב במשטרת לציפר להתיישבות זמנית במחנה יתיר, סמוך לאתר ההתיישבות הראשון שלו, מצודת היערנים. | he.wikipedia oldid 42799448 |
+| Mahane Yattir | Aug 1979 | a Gush Emunim core group went up to temporary settlement at the camp | באוגוסט 1979 עלה גרעין התיישבות של גוש אמונים שיועד להתיישב במשטרת לציפר להתיישבות זמנית במחנה יתיר, סמוך לאתר ההתיישבות הראשון שלו, מצודת היערנים. | he.wikipedia oldid 42799448 |
 | Mahane Yattir | Oct 1979 | dedication of the moshav that took the name "Bet Yatir" | באוקטובר 1979 נערך טקס חנוכת המושב הרשמי, והוא קיבל את השם "בית יתיר", שמו עד היום. | he.wikipedia oldid 42799448 |
-| Mizpe Netofa | Jun 1979 and Oct 1983 | Nahal settlement (English); the Hebrew article says 1981 and 1983 | History Mitzpe Netofa was established originally as a Nahal settlement in June 1979 and was civilianized later in October 1983. | en.wikipedia oldid 1374534534 |
+| Lavon | Sep 1980 | manned by its permanent core group | שמו הוסב ל"לבון" על שם פנחס לבון ובספטמבר 1980 הוא אויש על ידי גרעין הקבע שלו מאיחוד הקבוצות והקיבוצים שהתפרנס מטוויית צמר. | he.wikipedia oldid 43220738 |
+| Mizpe Netofa | Jun 1979 and Oct 1983 | Nahal settlement (English); the Hebrew article says 1981 and 1983 | Mitzpe Netofa was established originally as a Nahal settlement in June 1979 and was civilianized later in October 1983. | en.wikipedia oldid 1374534534 |
 | Gilon | Nov 1980 | went onto the land | היישוב עלה לקרקע בנובמבר 1980 במסגרת תוכנית המצפים בגליל, על ידי תנועת משקי חירות בית"ר, הסוכנות היהודית ושר החקלאות דאז אריאל שרון. | he.wikipedia oldid 35255108 |
 | Kahal | Oct 1980 | founded, as part of the lookouts programme | הוא נוסד באוקטובר 1980, במסגרת תוכנית המצפים בגליל, וב-1990 הפך למושב קהילתי. | he.wikipedia oldid 42465117 |
-| Kammon | Oct 1981 (land 1980) | founded as a lookout (mitzpe) | היסטוריה  היישוב נוסד כ'מצפה' באוקטובר 1981 (עלה לקרקע ב-1980) כחלק מתוכנית המצפים, שמטרתה העיקרית הוגדרה למען "יהוד הגליל". | he.wikipedia oldid 44028385 |
+| Kammon | Oct 1981 (land 1980) | founded as a lookout (mitzpe) | היישוב נוסד כ'מצפה' באוקטובר 1981 (עלה לקרקע ב-1980) כחלק מתוכנית המצפים, שמטרתה העיקרית הוגדרה למען "יהוד הגליל". | he.wikipedia oldid 44028385 |
 | Tuval | Feb 1980 | populated by a Nahal core group | הוא אוכלס בפברואר 1980 על ידי גרעין נח"ל, בגלל קשיים בגיבוש הגרעין המיישב. | he.wikipedia oldid 43835589 |
 | Tuval | Jan 1981 | civilianised | תובל אוזרח בינואר 1981 על ידי חברי תנועת הצופים ותנועת הבונים דרור מאנגליה שקיבלו הכשרה בבית העמק וקבוצה של הבונים מדרום אפריקה. | he.wikipedia oldid 43835589 |
 | Ziv'on | late Feb 1980 | Nahal outpost settled after an agreement on removing trespassers | בסוף פברואר 1980 הושג הסדר עם הפולשים על הפינוי, והיאחזות הנח"ל התמקמה במקום. | he.wikipedia oldid 43845456 |
-| Kallanit | 29 Oct 1981 | going-onto-the-land ceremony | היסטוריה  טקס עלייה על הקרקע התקיים ב-29 באוקטובר 1981. | he.wikipedia oldid 43737594 |
+| Ziv'on | Jan 1980 | decision to set up a Nahal outpost at the site (a decision, not a settling) | היישוב יועד להיות קיבוץ של השומר הצעיר, ועד התגבשות גרעין מיישב הוחלט להקים במקום היאחזות נח"ל בינואר 1980. | he.wikipedia oldid 43845456 |
+| Kallanit | 29 Oct 1981 | going-onto-the-land ceremony | טקס עלייה על הקרקע התקיים ב-29 באוקטובר 1981. | he.wikipedia oldid 43737594 |
 | Kallanit | Dec 1981 | moshav established | היישוב הוקם בדצמבר 1981 כמושב על ידי "הפועל המזרחי" עבור בני המושבים עלמה ודלתון יוצאי העדה הטריפולטאית. | he.wikipedia oldid 43737594 |
+| Kallanit | Jan 1978 | the founders settled temporarily, at Giv'at Hananya, from this month | מקימי המושב התיישבו באופן זמני החל מינואר 1978 בגבעת חנניה. | he.wikipedia oldid 43737594 |
 | Kokhav Ya'ir | Sep 1981 | founding group of 15 families went onto the land | גרעין המייסדים עלה על הקרקע בספטמבר 1981, מנה 15 משפחות שגרו במגורים זמניים ב"מצפה" ללא כל תשתית מוקדמת של חשמל או מים. | he.wikipedia oldid 43723358 |
 | Ravid | Jun 1981 | kibbutz founded | הקיבוץ הוקם על ידי התק"ם ביוני 1981 במסגרת תוכנית המצפים בגליל. | he.wikipedia oldid 43975664 |
 | Ravid | Oct 1982 | going-onto-the-land ceremony | באוקטובר 1982, עת התגוררו במקום 10 משפחות, התקיים טקס העלייה על הקרקע. | he.wikipedia oldid 43975664 |
-| Yated | 24 Apr 1980 | cornerstone ceremony | היסטוריה טקס הנחת אבן הפינה למושב נערך ב-24 באפריל 1980. | he.wikipedia oldid 42987730 |
+| Yated | 24 Apr 1980 | cornerstone ceremony | טקס הנחת אבן הפינה למושב נערך ב-24 באפריל 1980. | he.wikipedia oldid 42987730 |
 | Yevul | 22 Oct 1981 | moshav went onto the land in Hevel Shalom | המושב עלה על הקרקע בחבל שלום ב-22 באוקטובר 1981. | he.wikipedia oldid 42987726 |
+| Talme Yosef | May 1982 | after the evacuation of Sinai the new moshav in Hevel Shalom came into being | אחרי פינוי סיני במאי 1982 קם המושב החדש בחבל שלום, והחל בגידול עגבניות לייצוא. | he.wikipedia oldid 42987765 |
 | Zurit | Apr 1981 | founded as a lookout by 13 families | מקימי היישוב התגבשו במרכז הארץ ב-1979 במסגרת "גרעין סחלב", ו-13 משפחות הקימו את היישוב כמצפה באפריל 1981. | he.wikipedia oldid 43113132 |
 | Deqel | 25 Feb 1981 | cornerstone laid | ב-25 בפברואר 1981 הונחה אבן פינה ליישוב. | he.wikipedia oldid 44092373 |
 | Deqel | Apr 1982 | families went onto the land | באפריל 1982 עלו המשפחות על הקרקע. | he.wikipedia oldid 44092373 |
-| Elifaz | Apr 1982 and Jan 1983 | Nahal outpost; civilianised | היסטוריה  באפריל 1982 הוקמה במקום היאחזות נח"ל בשם "אליפז" על ידי גרעין קוצן של השומר הצעיר, והיישוב אוזרח בינואר 1983. | he.wikipedia oldid 42418520 |
+| Deqel | Apr 1982 | moshav founded by the Aguda Shitufit with the Jewish Agency (English) | The moshav was founded in April 1982 by the eponymous Aguda Shitufit (Co-operative Union) with the help of the Jewish Agency. | en.wikipedia oldid 1375608060 |
+| Elifaz | Apr 1982 and Jan 1983 | Nahal outpost; civilianised | באפריל 1982 הוקמה במקום היאחזות נח"ל בשם "אליפז" על ידי גרעין קוצן של השומר הצעיר, והיישוב אוזרח בינואר 1983. | he.wikipedia oldid 42418520 |
+| Elifaz | Jan 1983 | founded by a group of Nahal members (English) | Elifaz was founded in January 1983 by a group of Nahal members from Jerusalem, Bat Yam, Haifa and Nahariya. | en.wikipedia oldid 1378095573 |
 | En Tamar | Aug 1982 | founded by 24 families | היישוב הוקם באוגוסט 1982 על ידי 24 משפחות. | he.wikipedia oldid 42621616 |
-| Nirit | 19 Jan 1982 | founded | Etymology thumb/Nirit community center Nirit was founded on January 19, 1982 and was named after an indigenous plant, Ridolfia segetum, growing nearby. | en.wikipedia oldid 1374535486 |
-| Qazir | May 1982 | founded as a community settlement | היסטוריה  היישוב קציר הוקם במאי 1982 על קרקע של הסוכנות היהודית כיישוב קהילתי שתושביו מאוגדים באגודה שיתופית. | he.wikipedia oldid 42586436 |
+| En Tamar | Aug 1982 | established by 24 families (English) | Ein Tamar was established in August 1982 by 24 families. | en.wikipedia oldid 1376033485 |
+| Nirit | 19 Jan 1982 | founded | Nirit was founded on January 19, 1982 and was named after an indigenous plant, Ridolfia segetum, growing nearby. | en.wikipedia oldid 1374535486 |
+| Qazir | May 1982 | founded as a community settlement | היישוב קציר הוקם במאי 1982 על קרקע של הסוכנות היהודית כיישוב קהילתי שתושביו מאוגדים באגודה שיתופית. | he.wikipedia oldid 42586436 |
 | Qoranit | Sep 1978 | founded by a core group | היישוב נוסד בספטמבר 1978 על ידי גרעין של ישראלים מרחבי ישראל שאורגן על ידי האיחוד החקלאי. | he.wikipedia oldid 43714099 |
 | Yuvallim | Oct 1982 | going-onto-the-land ceremony | טקס העלייה על הקרקע התקיים באוקטובר 1982. | he.wikipedia oldid 43649498 |
-| Har Amasa | 30 Jun 1983 | founded as a kibbutz (English); the Hebrew article says it went onto the land in Aug 1983 | History The village was founded as a kibbutz of the United Kibbutz Movement on June 30, 1983. | en.wikipedia oldid 1376033751 |
+| Har Amasa | 30 Jun 1983 | founded as a kibbutz (English); the Hebrew article says it went onto the land in Aug 1983 | The village was founded as a kibbutz of the United Kibbutz Movement on June 30, 1983. | en.wikipedia oldid 1376033751 |
+| Har Amasa | Aug 1983 | went onto the land as a kibbutz of the United Kibbutz Movement (Hebrew) | היישוב עלה על הקרקע באוגוסט 1983 כקיבוץ של התק"ם, ונקרא על שם הר עמשא עליו הוא ממוקם. | he.wikipedia oldid 43901942 |
 | Retamim | Apr 1978; early 1980 | ministers' committee decision; core group moved to a temporary caravan camp | על הקמת היישוב הוחלט על ידי ועדת השרים להתיישבות באפריל 1978, ובעקבות זאת עלה גרעין מתיישבים שכלל עולים מאנגליה וישראלים בתחילת 1980 למחנה קרוואנים זמני ליד ביר עסלוג'. | he.wikipedia oldid 42605403 |
+| Telalim | Dec 1979 | Telalim moved to its permanent site (stated in the English article of Retamim, not Telalim) | The two groups merged in mid-1979 and moved to a caravan site opposite Park Golda after Tlalim had moved to its permanent site in December 1979. | en.wikipedia oldid 1376043086 |
 | Karme Yosef | 28 Jul 1980 | cornerstone ceremony | ב-28 ביולי 1980 הונחה אבן הפינה "לישוב נוסף במערכת המושבות בארץ ישראל", במעמד נציגי ממשלת ישראל והתאחדות האיכרים, נציגי הסוכנות היהודית וההנהלה הציונית, נציגי עיריית רחובות והמועצה האזורית גזר. | he.wikipedia oldid 43762471 |
 | Metar | 27 Aug 1979 | founding document | במסמך הייסוד מ-27 באוגוסט 1979 נאמר כי המטרה היא הקמת יישוב עירוני בנחל חברון בשם "עומר ב'". | he.wikipedia oldid 43793779 |
 | Metar | 7 Oct 1980 | cornerstone laid | אבן פינה ליישוב הונח בנוכחות השר אריאל שרון ב-7 באוקטובר 1980. | he.wikipedia oldid 43793779 |
-| Shomeriyya | Oct 1985 | kibbutz founded | היסטוריה שומריה הוקם באוקטובר 1985. | he.wikipedia oldid 42560622 |
+| Shomeriyya | Oct 1985 | kibbutz founded | שומריה הוקם באוקטובר 1985. | he.wikipedia oldid 42560622 |
 | Shorashim | Nov 1985 | core group went onto the land | בנובמבר 1985 עלה הגרעין על הקרקע באתר שורשים. | he.wikipedia oldid 43737857 |
-| Eshhar | 30 Apr 1979 | Nahal outpost "Eshhar" at the site of today's Eshbal | היסטוריה  היאחזות נח"ל בשם אשחר, הוקמה באתר בו נמצא היום קיבוץ אשבל, ב־30 באפריל 1979. | he.wikipedia oldid 43255437 |
-| Avtalyon | Dec 1983 | government decision to found it | היסטוריה  הממשלה החליטה על הקמת היישוב בדצמבר 1983, במסגרת תוכנית המצפים לייהוד הגליל. | he.wikipedia oldid 43528362 |
+| Eshhar | 30 Apr 1979 | Nahal outpost "Eshhar" at the site of today's Eshbal | היאחזות נח"ל בשם אשחר, הוקמה באתר בו נמצא היום קיבוץ אשבל, ב־30 באפריל 1979. | he.wikipedia oldid 43255437 |
+| Avtalyon | Dec 1983 | government decision to found it | הממשלה החליטה על הקמת היישוב בדצמבר 1983, במסגרת תוכנית המצפים לייהוד הגליל. | he.wikipedia oldid 43528362 |
 | Nofit | 9 Nov 1987 | occupancy ceremony for the first 179 families | בשנת 1984 החלו עבודות התשתית: פריצת דרכים והכנת תשתיות תת-קרקעיות (חשמל, מים, טלפון, טלוויזיה מרכזית), באפריל 1986 החלה בניית בתי המגורים וטקס האכלוס ל־179 המשפחות הראשונות התקיים ב־9 בנובמבר 1987. | he.wikipedia oldid 42088842 |
 | Tel Te'omim | May 1984 | going-onto-the-land ceremony | טקס העלייה על הקרקע התקיים במאי 1984 בנוכחות שר השיכון, דוד לוי ושר החקלאות, פסח גרופר. | he.wikipedia oldid 43771321 |
 | Giv'at Ela | Dec 1983 | government decision to found it | הממשלה החליטה על הקמת היישוב בדצמבר 1983, כיישוב קהילתי ביוזמה פרטית. | he.wikipedia oldid 43107117 |
@@ -338,12 +350,12 @@ the gaps; I did not check which case applies row by row. **No row is resolved he
 | Shomeriyya | 1984 | 1985 | 1985 | Both categories 1985; Hebrew text: "הוקם באוקטובר 1985". CBS 1984. |
 | Lehavim | 1985 | 1983 | - | Hebrew category 1983; English article not matched. Hebrew: declared a local council in 1988. CBS 1985. |
 | Modi'in-Makkabbim-Re'ut | 1986 | 1994 | 1985,1987,1993 | English infobox: 1985 (Maccabim), 1987 (Re'ut), 1993 (Modi'in); Hebrew category 1994. CBS 1986 follows the merger rule of the CBS intro, section 12 (oldest of the merged localities), which I did not trace to Maccabim or Re'ut. |
-| Nizzane Sinay | 1986 | 1986 | 1980 (infobox 1977) | Hebrew: "היישוב המקורי הוקם בשנת 1977 כהיאחזות נח"ל" (the original settlement was founded in 1977 as a Nahal outpost) and category 1986; English category 1980, infobox 1977. CBS 1986. |
+| Nizzane Sinay | 1986 | 1986 | 1980 (infobox 1977) | Hebrew: "היישוב המקורי הוקם בשנת 1977 כהיאחזות נח"ל" (the original settlement was founded in 1977 as a Nahal outpost) and category 1986; English category 1980, infobox 1977; English text: "moved to its present site in 1986". CBS 1986. |
 | Merav | 1987 | 1987 | 1982 (infobox 1982,1987) | Both: Nahal settlement on Mount Malkishua in 1982, moved to its present place in 1987. CBS 1987. |
 | Newe Harif | 1987 | 1987 | 1983 | English: founded 1983 by city dwellers; Hebrew: 1987. CBS 1987. |
 | Tel Te'omim | 1987 | 1982 | 1982 | Both 1982; Hebrew text: going-onto-the-land ceremony May 1984. CBS 1987. |
 | Karkom | 1988 | 1986 | 1986 | Both categories 1986. CBS 1988. |
-| Shani | 1989 | 1982 | 1982 | Hebrew category 1982; English article "Livne" (same place, 9 m from the CBS point) 1982. CBS 1989. |
+| Shani | 1989 | 1982 | 1982 | Hebrew category 1982; English article "Livne" (same place, 9 m from the CBS point) 1982; English text: "residents moving into permanent housing in 1989" (the English text's 1989 equals the CBS year). CBS 1989. |
 | Kefar Hananya | 1990 | 1977 | 1977 | Both articles: founded 1977 "as a moshav of the movement Hapoel HaMizrachi". CBS 1990. |
 | Ibbim | 1991 | 1992 | 1992 | Both articles: the student village 1992; Hebrew: a youth village opened in August 1979. CBS 1991. |
 
@@ -357,16 +369,23 @@ Recorded factually, for the owner's sensitivity review. No judgement is made her
   settlement along the Green Line), and stands where the Arab village of Shilta stood until 1948; English Wikipedia
   puts Kefar Rut in "an area that had become a no-man's land between Israel and Jordanian-controlled West Bank at the end of
   the 1948 Arab–Israeli War". I read no map source that says which side of the 1949 line the Kefar Rut or Shilat
-  site was on. **[GAP]** Newe Shalom (Wahat al-Salam) is in the same part of the Jerusalem sub-district in the CBS file;
-  I did not check its position against the line. **[GAP]**
+  site was on. **[GAP]** Four of the Wikipedia revisions this note already cites say more, all [S]. Hebrew Wikipedia on
+  Kefar Rut (oldid 43968102): "המושב הוקם על גבול הקו הירוק, במה שנחשב לשטח ההפקר בין ישראל לירדן עד 1967" (the moshav was set up on the Green Line border, in what was considered the no-man's-land
+  between Israel and Jordan until 1967). Hebrew Wikipedia on Shilat (oldid 43725343): "ב-2005 טענו חברי המושב שאזור התעשייה נמצא מעבר לקו הירוק, בקרקע שהייתה חלק משטח ההפקר של מובלעת לטרון עד 1967, ולכן חוקי הבנייה של מדינת ישראל לא חלים עליו." (in 2005 the moshav's members claimed
+  that the industrial zone is beyond the Green Line, on land that was part of the Latrun enclave's no-man's-land until 1967, so
+  Israeli building law does not apply). English Wikipedia on Shilat (oldid 1380467739): "According to the ARIJ, after the Six-Day War in 1967, Israel expropriated 781 dunams of land from the Palestinian village of Saffa for the construction of Shilat." Newe Shalom (Wahat al-Salam) is in the
+  same part of the Jerusalem sub-district in the CBS file; Hebrew Wikipedia (oldid 44104284), section "סטטוס טריטוריאלי": "נווה שלום ממוקם ב"שטח הפקר", שהיה אזור מפורז שלא בשליטתן של מדינת ישראל או ירדן טרם 1967. ישראל מעולם לא סיפחה רשמית שטח זה."
+  (Newe Shalom is located in "no-man's-land", a demilitarised area not under the control of Israel or Jordan before 1967;
+  Israel never formally annexed it). These are claims in Wikipedia text, not a map check, so the position of each site against
+  the 1949 line stays open. **[GAP]**
 - **Shani.** Hebrew Wikipedia: "בהחלטת ממשלה מאפריל 1984 נקבע כי היישוב יקבל שירותים ממועצה אזורית הר חברון, למרות שרק
   כ־100 דונם מתוך 430 עליהם הוא משתרע נמצאים מעבר לקו הירוק" (by a government decision of April 1984 the locality gets
   its services from the Mount Hebron regional council, although only about 100 of the 430 dunams on which it extends
-  are beyond the Green Line). The CBS file lists it in the Beer Sheva subdistrict. [S]
+  are beyond the Green Line). English Wikipedia on the same place, article "Livne" (oldid 1376045741): "Located in the southern Judaean Mountains, straddling the Green Line and therefore partly in Israel and partly in the West Bank". The CBS file lists it in the Beer Sheva subdistrict. [S]
 - **Mahane Yattir.** Hebrew Wikipedia ties its history to a Gush Emunim settlement core of August 1979 for the Mount
   Hebron area ("גרעיני הר חברון"); the CBS file lists the camp in the Beer Sheva subdistrict. [S]
-- **Modi'in-Maccabim-Re'ut.** Its CBS row (Ramla subdistrict, municipality) merges localities (CBS intro, section 12);
-  I did not check where Maccabim and Re'ut lie against the Green Line. **[GAP]**
+- **Modi'in-Maccabim-Re'ut.** Its CBS row (Ramla subdistrict, municipality) merges localities (CBS intro, section 12).
+  English Wikipedia (oldid 1381718361): "A small part of the city (the Maccabim neighborhood) is not recognized by the European Union (EU) as being in Israel, as it lies in what the 1949 Armistice Agreement with Jordan left as a no man's land". [S] I did not check where Maccabim and Re'ut lie against the Green Line on a map. **[GAP]**
 - **Sinai origin (CBS year may follow a re-settling inside the lines).** Holit (JTA J3 and J7; Gvati row "נחל חולית",
   region "פיתחת רפיח"); Netiv HaAsara (Hebrew: set up "כהתיישבות בחבל ימית" and rebuilt in 1982 at its present place);
   Talme Yosef (English: "established in 1982 by former residents of Talmei Yosef, an Israeli settlement in Sinai");
@@ -374,8 +393,9 @@ Recorded factually, for the owner's sensitivity review. No judgement is made her
   by "מפונים מחבל ימית שבסיני", evacuees from the Yamit area in Sinai, from named moshavim); Nizzane Sinay (Hebrew: the
   original settlement was a Nahal outpost of 1977); Amnun (English: "for evacuees of former Israeli settlements in
   Sinai ... and residents of neighboring moshavim"); Yated (English: a core group "who intended to settle in Sinai");
-  Deqel (Hebrew: after the peace treaty its core group asked to settle in Hevel Shalom). All [S]; the site of every one
-  in the table is inside the pre-1967 lines by the CBS district and subdistrict.
+  Deqel (Hebrew: after the peace treaty its core group asked to settle in Hevel Shalom). All [S]. Every row of the table, these
+  included, is outside the CBS Judea and Samaria district and the Golan subdistrict; that is a CBS district test, not a Green
+  Line test (see the Latrun area, Shani, Mahane Yattir and Modi'in-Maccabim-Re'ut flags above).
 - **Re-founded site.** Nehusha: English "re-established in 1981" after a 1955 founding (infobox 1955), Hebrew "הוקמה
   נחושה מחדש" in 1981; CBS 1982. [S]
 - **Arab locality named as a neighbour.** Several articles name a depopulated Arab village near the site (for example
@@ -422,12 +442,13 @@ All run 2026-10-25 UTC.
 | Row | Query / method | Where | Result |
 |---|---|---|---|
 | S1 | CBS file, column "שנת ייסוד" 1977 to 1993 | bycode2024.xlsx | 215 rows; minus district "אזור יהודה ושומרון" (92) and subdistrict "גולן" (11) = 112 |
-| S2 | Name of each of the 112 rows, nikud stripped, against the name column of the 711 appendix rows parsed from https://benyehuda.org/read/14684; and every appendix row with a date ending 77 to 93 | Gvati appendix | 4 of the 112 matched by name and site (Moran, Nahal Bet Rimmon, Kefar Rut, Shilat; all dated 1977), a fifth (Nahal Holit) by name only. Appendix rows dated 1977 that are not in the table: Migdal Oz, Nahal Almog, Naaran (Judea and Samaria rows), Nir Avraham (Rafah Approaches) and Nahal Holit (name match only, the Sinai site). No appendix row is dated 1978 to 1993 except the urban-colony row "מוצא (תחתית)" 1984; Degania Alef is printed "1.11.90", which I read as a misprint, not a row of this list. |
+| S2 | Name of each of the 112 rows, nikud stripped, against the name column of the 711 appendix rows parsed from https://benyehuda.org/read/14684; and every appendix row with a date ending 77 to 93 | Gvati appendix | 4 of the 112 matched by name and site (Moran, Nahal Bet Rimmon, Shilat, each printed "1977"; Kefar Rut, printed "77."), a fifth (Nahal Holit) by name only. Appendix rows dated 1977 that are not in the table: Migdal Oz, Nahal Almog, Naaran (Judea and Samaria rows), Nir Avraham (Rafah Approaches) and Nahal Holit (name match only, the Sinai site). No appendix row is dated 1978 to 1993 except the urban-colony row "מוצא (תחתית)" 1984; Degania Alef is printed "1.11.90", which I read as a misprint, not a row of this list. |
 | S3 | `titles=<Hebrew name>` with `redirects=1`, then the same with the suffixes "(מושב)", "(קיבוץ)", "(יישוב)", "(יישוב קהילתי)", "(עיר)" until the article carried the template for the CBS symbol | he.wikipedia.org MediaWiki API | 109 of 112 rows have an article carrying the CBS symbol (Shomeriyya was added by hand as "שומריה (קיבוץ)", the title the first search missed). No Hebrew article was found for Hilla, Haluz and Zviyya; none is read for them. |
 | S4 | `langlinks` to English from each Hebrew article | en.wikipedia.org | 105 of 112 rows have an English article by that link; the rest have none read. |
-
 | S5 | For each of the 112 rows, the JTA archive search with the English name (the CBS spelling, apostrophes removed) and, as a second query, a spelling variant (Kefar to Kfar, Newe to Neve, Q to K, Z to Tz); first results page each; every result dated 1977 to 1993 opened and its text searched for the name or a variant as a whole word | https://www.jta.org/?s=<query>&post_type=archive | 125 queries, 1139 result links, 261 of them dated 1977 to 1993, 51 of those containing a searched name. The containing items were read (section "Contemporaneous records read"); most were about a person or word with the same name (for example the Attorney General Yosef Harish, the Modiin research centre, the Tefahot mortgage bank). Per-row counts follow. |
-
+| S6 | Concept queries, first two results pages each: "Yamit evacuees new moshavim Negev", "Galilee lookout settlement first families moved", "Nahal settlement turned over to civilians", "new kibbutz established Negev Nahal", "Neve Shalom Arab Jewish village Latrun", "new settlement dedicated Galilee Misgav", "Harish new town Wadi Ara", "Caesarea new settlement", "new community settlement established Galilee mitzpe", "Misgav regional council new settlements" | JTA archive search, same URL form | Results dated 1977 to 1993: 0, 2, 3, 0, 0, 4, 6, 2, 0, 7. Read for the table: the 16 Jan 1978 Holit item (J3) and the 25 Sep 1986 Kahal item (J9). The rest were not about a locality of the table or named it without a founding. |
+| S7 | Reachability from this box with `curl` | fs.knesset.gov.il, knesset.gov.il, archive.org | HTTP 200; no locality search used. |
+| S8 | Reachability from this box with `curl` | gov.il, mfa.gov.il, nli.org.il, jpress.org.il, misgav.org.il | HTTP 403 for each. |
 
 S5 per row (query 1 / query 2: results returned, of which dated 1977-1993, of which containing the name). Search URL form: `https://www.jta.org/?s=<query with + for spaces>&post_type=archive`.
 
@@ -545,10 +566,6 @@ S5 per row (query 1 / query 2: results returned, of which dated 1977-1993, of wh
 | Giv'at Avni | "Givat Avni": 10 / 2 / 0 | - |
 | Ibbim | "Ibbim": 7 / 1 / 0 | - |
 | Shoham | "Shoham": 10 / 0 / 0 | - |
-
-| S6 | Concept queries, first two results pages each: "Yamit evacuees new moshavim Negev", "Galilee lookout settlement first families moved", "Nahal settlement turned over to civilians", "new kibbutz established Negev Nahal", "Neve Shalom Arab Jewish village Latrun", "new settlement dedicated Galilee Misgav", "Harish new town Wadi Ara", "Caesarea new settlement", "new community settlement established Galilee mitzpe", "Misgav regional council new settlements" | JTA archive search, same URL form | Results dated 1977 to 1993: 0, 2, 3, 0, 0, 4, 6, 2, 0, 7. Read for the table: the 16 Jan 1978 Holit item (J3) and the 25 Sep 1986 Kahal item (J9). The rest were not about a locality of the table or named it without a founding. |
-| S7 | Reachability from this box with `curl` | fs.knesset.gov.il, knesset.gov.il, archive.org | HTTP 200; no locality search used. |
-| S8 | Reachability from this box with `curl` | gov.il, mfa.gov.il, nli.org.il, jpress.org.il, misgav.org.il | HTTP 403 for each. |
 
 ## Sources and revisions
 
