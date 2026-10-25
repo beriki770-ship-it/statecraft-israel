@@ -302,8 +302,10 @@ Each row: what the sources say about the founding, in the order CBS, Gvati, Hebr
    the land on 9 July 1966; civilianised on 15 Av 5727 (21 August 1967, derived). English WP: 1966. 9 June against 9
    July; CBS 1970 is not explained by any source read.
 
-38. Paran (moshav, CBS 1972) [C]. CBS 1972. Gvati: 1971. Hebrew WP: November 1971, Nahal gar'ins of moshav sons; a
-   moshav of workers from 1975. English WP: 1971. CBS 1972 against 1971.
+38. Paran (moshav, CBS 1972) [C]. CBS 1972. Gvati's appendix: 1971; Gvati's narrative: "ב־1972 נוסף בערבה המושב
+   פארן" (in 1972 the moshav Paran was added in the Arava). Hebrew WP: November 1971, Nahal gar'ins of moshav sons; a
+   moshav of workers from 1975. English WP: 1971. CBS and Gvati's narrative 1972; Gvati's appendix, Hebrew and English
+   WP 1971.
 
 39. Sede Nizzan (moshav, CBS 1973) [S]. Gvati: 1973. Hebrew WP: 1973, immigrants from England and the US. English WP:
    1973. Agree.
@@ -362,7 +364,9 @@ held before June 1967. They stay in the table, flagged, and the owner decides.
 
 - **Kefar Rut (row in the table, 1977).** Hebrew and English Wikipedia both place it in the no-man's land between
   Israel and Jordan until 1967 (quoted in its row). English Wikipedia also cites ARIJ for dunams expropriated after
-  1967, which I did not weigh. [S]
+  1967, which I did not weigh. [S] Gvati's narrative chapter introduces its 1968-77 list as settlements built "בגבולות
+  הקו הירוק" (within the Green Line) and names Kefar Rut in it (founded in the Ayalon valley by sons of the moshavim of
+  the Jerusalem corridor). [S] I did not find Shilat in my text copy of that chapter.
 - **Senir (1967).** Hebrew Wikipedia places it on the Banias plateau, a demilitarised zone held in practice by Syria
   until June 1967; English Wikipedia says only that it was built in what had been a demilitarised zone until the Six-
   Day War (both in its row). [S]
