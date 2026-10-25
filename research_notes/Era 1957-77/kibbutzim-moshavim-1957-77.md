@@ -366,14 +366,18 @@ held before June 1967. They stay in the table, flagged, and the owner decides.
   Israel and Jordan until 1967 (quoted in its row). English Wikipedia also cites ARIJ for dunams expropriated after
   1967, which I did not weigh. [S] Gvati's narrative chapter introduces its 1968-77 list as settlements built "בגבולות
   הקו הירוק" (within the Green Line) and names Kefar Rut in it (founded in the Ayalon valley by sons of the moshavim of
-  the Jerusalem corridor). [S] I did not find Shilat in my text copy of that chapter.
+  the Jerusalem corridor). [S] The same list names Shilat, two
+  paragraphs before Kefar Rut: "בעמק אילון, דרומית־מזרחית למבוא־מודיעים, נוסד מושב שילת (חורון ב׳) על־ידי משפחות העובדים במפעלי־תעשייה באזור לוד־רמלה" (in the Ayalon valley,
+  south-east of Mevo Modi'im, the moshav Shilat (Horon B) was founded by families of workers in industrial plants in
+  the Lod-Ramla area). [S]
 - **Senir (1967).** Hebrew Wikipedia places it on the Banias plateau, a demilitarised zone held in practice by Syria
   until June 1967; English Wikipedia says only that it was built in what had been a demilitarised zone until the Six-
   Day War (both in its row). [S]
 - **Sufa (1975).** The CBS year follows an outpost in the Rafah Approaches (Gvati, Hebrew Wikipedia); English
   Wikipedia calls the old Sufa "an Israeli settlement in Sinai" and dates the present place to 1982. [C]
 - **Shilat (1977).** Hebrew Wikipedia says the settlement was meant to thicken the Green Line; I read no map source
-  that says which side of the 1949 line the site was on. **[GAP]**
+  that says which side of the 1949 line the site was on. **[GAP]** Gvati lists it among the settlements built within
+  the Green Line (quoted under Kefar Rut above). [S]
 
 ## Rows left out of this note
 
