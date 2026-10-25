@@ -317,7 +317,7 @@ or the OCR did not reach it, so no event date is claimed.
 | 9 Oct 1975 | pdfs.jta.org/1975/1975-10-09_193.pdf | JNF projects (Dikla), "JNF TACKLING NEW PROJECT", page 2 | JERUSALEM, Oct. 8 (JTA) | 8 Oct 1975 |
 
 The 26 Apr 1976 item adds (not a founding date): ten new settlements, "eight moshavim ... and two kibbutzim", "in the
-Raffah approaches in the Gaza Strip"; Dulzin said work is going on building large packing houses, and the item says they are being built at Dikla, Saddot, Kerem Shalom and Sdeh-Nitzha, "described as veteran settlements of the region" (the last two are inside the pre-1967 lines). That line is overstruck on the page; I read the names as printed above on the PDF image (overstruck) (the archive's text transcribes them "Dikia" and "Kerem Shelom"). The 17 Jan 1975 item also names "Dekel and
+Raffah approaches in the Gaza Strip"; Dulzin said work is going on building large packing houses, and the item says they are being built at Dikla, Saddot, Kerem Shalom and Sdeh-Nitzha, "described as veteran settlements of the region" (the last two are inside the pre-1967 lines). That line is overstruck on the page; the PDF image reads "Dikla" and "Kerem Shalom" (the archive's text transcribes them "Dikia" and "Kerem Shelom"). The 17 Jan 1975 item also names "Dekel and
 Eshel, sited near Ogda and at present only army camps"; neither name appears among Gvati's 11, so they are [GAP] and
 not rows.
 
