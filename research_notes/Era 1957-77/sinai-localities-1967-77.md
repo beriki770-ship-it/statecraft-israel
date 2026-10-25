@@ -398,6 +398,19 @@ Other negative searches, all on 2026-10-25:
   1956 and evacuated in 1957 (Hebrew WP oldid 42404149, not researched).
 - **The Gaza Strip proper**, which Gvati treats in the same section: Nahal outposts Kfar Darom (1970), Netzarim and Morag
   (1972), and the moshavim Netzer Hazani and Katif of the Katif area. Not in this note.
+- **Where the line between this note and the Gaza Strip note falls (same wording in `gaza-localities-1967-77.md`,
+  PR for #130 lane IK).** A locality is in the Gaza Strip note if the sources put it inside the Strip, the area Egypt
+  held between 1949 and June 1967 north and west of the Egyptian frontier that the armistice line of 24 February 1949
+  (Art. VI.1, "continuing thus to the Egyptian frontier"; `armistice-lines-1949.md`) stops at. It is in this note if
+  the sources put it in the Rafah approaches (Hebrew Pithat Rafiah), which Gvati describes as "פיתחת רפיח, המשתרעת בין
+  רפיח למבואות אלעריש לאורך חוף הים" and as "אזור חיץ בין רצועת עזה" ... "לבין מרחבי סיני" (a buffer zone between the Strip and the Sinai expanses) (Gvati, vol. 2,
+  Ben-Yehuda edition, https://benyehuda.org/read/14684, section "רצועת עזה ופיתחת רפיח", read 2026-10-25). By that
+  split the Gaza note has Kfar Darom, Netzarim, Morag, Netzer Hazani and Katif (the last two have an appendix region
+  label or a narrative that points to Pithat Rafiah or the Katif area: Netzer Hazani's appendix row says "פיתחת רפיח"
+  but Gvati's narrative puts it in the Katif area of the Strip, so it goes to the Gaza note); this note has the
+  Rafah-approaches and Sinai rows of the table above. Nearest to the line: Morag (the southernmost
+  locality of the Strip, "between Khan Yunis and Rafah" in the Gaza note's sources) and, on this side, Dikla, Sadot
+  and Netiv HaAsara. No locality is on both lists. This is a reading of the sources named, not a surveyed boundary.
 - **Bases and camps** (Etam air base, December 1976, Camp Nurit of the Yamit region; Hebrew WP oldid 43678026) are
   not localities in Gvati's list and are not rows.
 
