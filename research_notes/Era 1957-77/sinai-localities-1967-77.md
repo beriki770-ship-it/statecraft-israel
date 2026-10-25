@@ -4,8 +4,8 @@ Status: research only. Nothing here is in `content/`, `sim/`, `tools/` or `unity
 stays paused until after the MVP. Refs #130 (1957-77 18), the "Settlements" row of [the 1957-1977
 design](../../docs/superpowers/specs/2026-10-10-era-1957-1977-design.md) section 7.3: "settlements in the territories".
 One topic of #130 only: the localities and Nahal outposts founded in Sinai, including the Rafah approaches (Hebrew
-Pithat Rafiah), between June 1967 and 31 December 1977. **The Golan (PR #1655), the West Bank, the Gaza Strip proper,
-the localities inside the pre-1967 lines (PRs #1643, #1646, #1647) and the lines are not in this note.** Which rows
+Pithat Rafiah), between June 1967 and 31 December 1977. **The Golan (PR #1655), the West Bank, the Gaza Strip proper
+(note `gaza-localities-1967-77.md`, claimed on #130), the localities inside the pre-1967 lines (PRs #1643, #1646, #1647) and the lines are not in this note.** Which rows
 enter the game, and their names, wait for the owner's sensitivity list (#118); this note makes no include or omit
 choice, no naming choice and no statement on the status of any place beyond what a source says, quoted and tagged.
 
@@ -34,8 +34,8 @@ and for each: the founding date (and what it marks), coordinates from a named so
   12, 13, 17), and for those the day, where there is one, rests on Gvati or on one Wikipedia article. 3 rows rest on
   one Hebrew Wikipedia article only (Zaharon, Shalhevet, Kadesh Barnea) and 1 row has no founding day from any source
   (Ofira, [GAP]).
-- **Contemporaneous press was read for 13 of the 20 rows** (JTA Daily News Bulletin; 16 items opened as PDFs, 10 with a
-  dated dateline, 2 with a place only, 4 with none or not read; "JTA items and their datelines"). No government record, Knesset record, Official
+- **Contemporaneous press was read for 13 of the 20 rows** (JTA Daily News Bulletin; 16 items opened as PDFs, 13 with a
+  dated dateline, 2 with a place only, 1 with none (29 Aug 1973); "JTA items and their datelines"). No government record, Knesset record, Official
   Gazette item or Statistical Abstract was opened. Every founding date below is [S], [C] or [GAP]; the only verified items
   are what the CBS 2024 file prints. That is the main [GAP] of the note ("What was not done").
 - **Coordinates:** 5 rows have a coordinate from two or three sources that agree to under 2 km (rows 1, 3, 5, 7, 15); 2
@@ -118,7 +118,7 @@ date: [C] sources disagree, [S] they agree on the year (the day, where given, is
 | 7 | Netiv HaAsara (Sinai) | moshav | "נתיב העשרה", Rafah approaches, 1.7.73 | 1973 | Jul 1973 (he WP); 1 Jul 1973 (Gvati); 1973 as "Minyan" (en WP) | 31.21232, 34.21800 (he WP); 31.21333, 34.21861 (en WP), 0.13 km | [S] |
 | 8 | Ugda (Ogda) | moshav | "אוגדה", Rafah approaches, 3.6.75 | 1975 | 3 Jun 1975 (Gvati); Dec 1975 third moshav on the land, 5 families on "31 June" 1975, 3 more end Aug 1975 (he WP); land being prepared 16 Jan 1975 (JTA) | 31.18677, 34.21939 (he WP) | [C] |
 | 9 | Sufa (Nahal Sukkot) | kibbutz, from a Nahal outpost | "סופה", Rafah approaches, 1975 | 1974 | 1974 (Gvati text, he WP, en WP); 1975 (appendix); 17 Jan 1977 civil | 31.23639, 34.18944 (en WP) | [C] |
-| 10 | Holit (Nahal Holit) | kibbutz, from a Nahal outpost | "נחל חולית", Rafah approaches, 1977 | 1974 | 1974 (Gvati text, inferred from "the same"); Jul 1977 (he WP); 1978 (en WP, Nahal settlement) | 31.22624, 34.16380 (he WP); 31.23000, 34.32667 (en WP), 15.49 km | [C] |
+| 10 | Holit (Nahal Holit) | kibbutz, from a Nahal outpost | "נחל חולית", Rafah approaches, 1977 | 1974 | 1974 (Gvati text, inferred from "the same"); Jul 1977 (he WP); 1978 (en WP, Nahal settlement); civilian turnover about 12 Jan 1978 (JTA via #1647, derived) or 17 Jan 1978 (he WP) | 31.22624, 34.16380 (he WP); 31.23000, 34.32667 (en WP), 15.49 km; the en WP point is 0.12 km from the CBS point of present Holit, 31.23068, 34.32573 (derived) | [C] |
 | 11 | Haruvit (Tarsag) | Nahal outpost, then moshav | "תרסג (חרובית)", North Sinai, 1976 | 1975 | Dec 1975 outpost; 1976 (appendix); summer 1977 civil | 31.17000, 33.94600 (he WP) | [C] |
 | 12 | Nir Avraham | moshav | "ניר אברהם", Rafah approaches, 10.77 | 1977 | 1977 (he WP); Oct 1977 (Gvati) | none: [GAP] | [S] |
 | 13 | Talmei Yosef (Sinai) | moshav | - | 1977, in stages | 1977; cornerstone 27 Jul 1977 (he WP) | 31.21056, 34.24278 (en WP) | [S] |
@@ -161,9 +161,9 @@ where a source says. "Bulletin" is the JTA archive date.
    ceremony, new permanent site opened in September 1977 with Begin present. JTA: bulletin 8 Jan 1975, dateline
    "JERUSALEM, Jan. 7 (JTA)": the JNF is preparing the infrastructure of "Nahal Sinai at a site some five kilometers
    east of the Arab city of Al Arish in the Gaza Strip" (as printed; El Arish is in Sinai) for "the new moshav", 500
-   dunams; bulletin 17 Jan 1975, dateline "OGDA, Near Raflah (south of Gaza Strip), Jan. 16": "Nahal Sinai 40 kilometers down the coast near El
+   dunams; bulletin 17 Jan 1975, dateline "OGDA, Near Rafiah (south of Gaza Strip), Jan. 16": "Nahal Sinai 40 kilometers down the coast near El
    Arish". **[C]:** December 1967 (Hebrew WP) and the end of 1967 (Gvati's text) against 1969 (Gvati's appendix row for the
-   moshav name). The 1975 JTA items date the move to a permanent site, not the founding. English WP has no article.
+   moshav name). The 1975 JTA items date the move to a permanent site, not the founding. English WP has no article. Gvati's appendix lists it in its section "מושבים שיתופיים" (moshav shitufi), as it does Dikla and Di Zahav.
 
 3. **Dikla (Nahal Dikla) [C].** Gvati appendix: "דקלה", "פיתחת רפיח", "3.7.69", Herut moshavim, "עפ"י עצי הדקלים באזור".
    Hebrew WP (oldid 43737895): "הוקמה ב-2 ביוני 1969 ... על ידי גרעין של בני עקיבא",    civilianised 17 May 1971; it says the Government Names Committee first called the place "נח"ל דקלים" and
@@ -171,14 +171,13 @@ where a source says. "Bulletin" is the JTA archive date.
    it). English WP (oldid 1304841200): "established in May 1969 as a pioneer Nahal outpost known as Dekalim (palms)". JTA, existence only
    (bulletin dates, datelines not read): 28 Jan 1970 ("Several bazooka shells were fired today at Nahal Dikla in the
    northern Sinai"), 18 Feb, 15 Apr 1970; 6 Jan and 11 Mar 1971 ("Nahal Dikla, an Israeli settlement in the northern end
-   of the peninsula"); bulletin 9 Oct 1975: JNF "developed 300 dunams at Dikla in northern Sinai" (no dateline read on the
-   item). **[C]** on the month: May (English WP), 2 June (Hebrew WP) and 3 July (Gvati), all 1969.
+   of the peninsula"); bulletin 9 Oct 1975, dateline "JERUSALEM, Oct. 8 (JTA)", article "JNF tackling new project" (page 2, from the left column into the top of the right): JNF "developed 300 dunams at Dikla in northern Sinai". **[C]** on the month: May (English WP), 2 June (Hebrew WP) and 3 July (Gvati), all 1969. Gvati's appendix lists Dikla in its section "מושבים שיתופיים" (moshav shitufi), as it does Neot Sinai and Di Zahav.
 
 4. **Sadot [S].** Gvati's text: "ב־1971 הוקם המושב הראשון שדות, כשמונה ק״מ דרומית־מערבית לרפיח". Appendix: "שדות",
    "פיתחת רפיח", "3.1.71", Moshavim movement. Hebrew WP (oldid 43738231): the first civilian settlement of the Yamit
-   region, "בינואר 1971", first 18 families. JTA, bulletin 17 Jan 1975, dateline "OGDA, Near Raflah (south of Gaza Strip), Jan. 16":
+   region, "בינואר 1971", first 18 families. JTA, bulletin 17 Jan 1975, dateline "OGDA, Near Rafiah (south of Gaza Strip), Jan. 16":
    "neighboring Sadot did in 1971". Existence by September 1973: bulletins 4 and 19 Sep 1973 name Sadot and Netiv Haasara
-   (datelines not read). The year agrees across three sources; the day (3 January) rests on Gvati.
+   (4 Sep dateline not read; 19 Sep dateline Sept. 18, see the datelines table). The year agrees across three sources; the day (3 January) rests on Gvati.
 
 5. **Yamit [C].** Gvati's text: "ראשיתו כמרכז אזורי שנקרא - מרכז אבשלום, אולם מאוחר יותר הוחלט להקים במקום ישוב עירוני
    גדול", under "ב־1973 הישוב העירוני: ימית". No appendix row (it is not a rural settlement). Hebrew WP (oldid 43845355):
@@ -212,13 +211,13 @@ where a source says. "Bulletin" is the JTA archive date.
       named for the ten killed in the helicopter accident of 1971. English WP (oldid 1318255352): "founded in 1973 under the
    name Minyan", later renamed for the ten soldiers killed in 1971. JTA: existence by September 1973 (bulletins 4 and 19
    Sep 1973; the 19 Sep item: "Two settlements in the Pitach Raffah region agreed yesterday ... Netiv Haasara and Sadot",
-   dateline "TEL AVIV, Sept. 18 (JTA)" read on the PDF, so 18 Sep 1973). The year agrees; the day rests on Gvati. **Not to be confused with** the present Netiv HaAsara
+   dateline "TEL AVIV, Sept. 18 (JTA)" read on the PDF, so the hired-labour agreement of the two settlements with the Defense Ministry is 17 Sep 1973, derived from "yesterday"; it is not a founding date). The year agrees; the day rests on Gvati. **Not to be confused with** the present Netiv HaAsara
    (CBS 1982, Hof Ashkelon). Gvati's appendix also has Netzer Hazani (29.5.73) with the region label "פיתחת רפיח", but his
    narrative puts it in the Katif area of the Gaza Strip; it is outside this note's scope.
 
 8. **Ugda (Ogda) [C].** Gvati's text: "ב־1975 הוקם מושב שלישי של תנועת המושבים: אוגדה, במתכונת שני המושבים הקודמים".
    Appendix: "אוגדה", "פתחת רפיח", "3.6.75", named for the armoured division of the Six-Day War. Hebrew WP (oldid
-   43737869): infobox 1975; text: "אוגדה היה המושב השלישי שעלה על הקרקע בחבל ימית, בדצמבר 1975", and "ב-31 ביוני 1975 עלו חמש משפחות למרכז הגושי אבשלום" (as printed; June has no 31st), "בסוף אוגוסט 1975 הצטרפו עוד 3 משפחות". JTA, bulletin 17 Jan 1975, dateline "OGDA, Near Raflah (south of Gaza Strip), Jan. 16": "Today,
+   43737869): infobox 1975; text: "אוגדה היה המושב השלישי שעלה על הקרקע בחבל ימית, בדצמבר 1975", and "ב-31 ביוני 1975 עלו חמש משפחות למרכז הגושי אבשלום" (as printed; June has no 31st), "בסוף אוגוסט 1975 הצטרפו עוד 3 משפחות". JTA, bulletin 17 Jan 1975, dateline "OGDA, Near Rafiah (south of Gaza Strip), Jan. 16": "Today,
    Ogda is a tract of churned up sandy loam", and "By summer of next year, the first 50 families should be moving in".
    So in January 1975 the land was being prepared and the first families were expected in 1976. **[C]:** 3 June 1975 (Gvati), a "31 June" 1975 arrival of five families at the Avshalom centre, end of August 1975, and December 1975 for the moshav on its land (Hebrew WP); each marks something different (a first group, a centre, the moshav site), which neither source ranks.
 
@@ -231,10 +230,10 @@ where a source says. "Bulletin" is the JTA archive date.
 
 10. **Holit (Nahal Holit, first called Ahimar) [C].** Gvati's text: after Sufa, "הוא הדין לגבי היאחזות חולית"
     (the same; I read this as 1974, an inference from his sentence). Appendix: "נחל חולית", "פיתחת רפיח", "1977", Ihud. Hebrew WP (oldid 41170009): the outpost was
-    first called "אחימר" (it cites a Maariv item of 10 January 1975, not opened); Ihud decided on the settlement in December 1975; "וגרעין הנח"ל התיישב בו ביולי אותה השנה" (July 1977); civilianised 17 Jan 1978. English WP (oldid 1375608090): infobox "1978 (in
-    Sinai)". CBS 2024: Holit (successor), year 1980. **[C]:** 1974 (Gvati's text), July 1977 (Hebrew WP: the Nahal group settled), 1978 (English WP, Hebrew WP: civilianised 17 Jan 1978). The
+    first called "אחימר" (it cites a Maariv item of 10 January 1975, not opened); Ihud decided on the settlement in December 1975; "וגרעין הנח"ל התיישב בו ביולי אותה השנה" (July 1977); civilianised 17 Jan 1978. JTA, as read in #1647 (its item J3, bulletin of 16 Jan 1978, "TEL AVIV (JTA)", no day in the dateline; I did not open this PDF): Nahal Holit "was turned over to civilian control Thursday" and was re-named Kibbutz Holit. The bulletin is a Monday, so the Thursday is most likely 12 Jan 1978 (derived). English WP (oldid 1375608090): infobox "1978 (in
+    Sinai)". CBS 2024: Holit (successor), year 1980. **[C]:** 1974 (Gvati's text), July 1977 (Hebrew WP: the Nahal group settled), 1978 (English WP; Hebrew WP: civilianised 17 Jan 1978); and for the civilian turnover, about 12 Jan 1978 (JTA through #1647, derived) against 17 Jan 1978 (Hebrew WP). The
     English WP coordinate is 15.49 km from the Hebrew WP one; the English infobox also lists a "1982 (current location)",
-    which may be the reason: the English article describes the present kibbutz near Nir Yitzhak, so its point is probably the site inside Israel; I did not check the map.
+    which may be the reason: the English article describes the present kibbutz near Nir Yitzhak. The CBS 2024 point for present Holit, 31.23068, 34.32573 (row 27 of #1647's note), is 0.12 km from the English WP point (**derived**, haversine), so the English point is the present site inside Israel, not the Sinai site.
 
 11. **Haruvit (Tarsag) [C].** Gvati's text: "ב־1975 הוקמה היאחזות חרובית, כ־16 ק״מ צפונית־מזרחית לאל־עריש. ב־1977 הפכה
     ההיאחזות למושב של תנועת ״חירות״". Appendix: "תרסג (חרובית)", "צפון סיני", "1976", Herut moshavim, origin (my translation) the year in which Herzl proposed his plan to settle the El Arish area. Hebrew WP (oldid 43737904): Nahal outpost "בדצמבר 1975",
@@ -254,7 +253,7 @@ where a source says. "Bulletin" is the JTA archive date.
 14. **Pri'el [C].** Gvati's text lists it with rows 12 and 13 as in various stages in 1977. Hebrew WP (oldid 43738223):
     works continued under a government decision of January 1978; families entered in September 1978; its category says
     1978. English WP (oldid 1303822827): "established in early 1978 in the Yamit region of Sinai by a group of Jewish immigrants
-    from the Soviet Union". It has no coordinate in the fields I read. **[C]:** 1977 (Gvati, a stage of building) against
+    from the Soviet Union". It has no coordinate in the fields I read. The English "Pri Gan" article (oldid 1376006385) says the present Peri Gan "was founded in 1981 by former residents of Pri'el, an Israeli settlement in Sinai" (see "Later localities of Sinai origin" below). **[C]:** 1977 (Gvati, a stage of building) against
     1978 (both Wikipedias). No coordinate: [GAP]. The date is at the edge of the window
     and the row is kept because Gvati counts it among the 11.
 
@@ -263,14 +262,14 @@ where a source says. "Bulletin" is the JTA archive date.
     43417313): infobox 1969; "אופירה יושבה בין השנים 1969 – 1975"; the 1956 Nahal outpost Nahal Tarshish on the same
     coast (founded 16 Dec 1956, evacuated in 1957) is before the window and is not a row. JTA: bulletin 20 Apr 1971 (dateline not
     read): "civilian housing is being built at Sharm el-Sheikh", with "a new settlement to be called Hitnahalut" on the
-    Eilat road; bulletin 12 Aug 1971 (dateline not read): "The urban settlement at Sharm el-Sheikh has been named
-    Ophira after Ophir", names "to be published tomorrow in the official law journal"; bulletin 27 Feb 1973 (dateline not read; the OCR interleaves the columns): "Sharm el-Sheikh now appears on Israeli maps as Ofira". No source read gives a founding day. The
+    Eilat road; bulletin 12 Aug 1971, dateline "JERUSALEM, Aug. 11 (JTA)": "The urban settlement at Sharm el-Sheikh has been named
+    Ophira after Ophir", names "to be published tomorrow in the official law journal" (so 12 Aug 1971, derived); bulletin 27 Feb 1973, dateline "JERUSALEM, Feb. 26 (JTA)": "Sharm el-Sheikh now appears on Israeli maps as Ofira". No source read gives a founding day. The
     Official Gazette notice itself was not opened. English WP (oldid 1376952553): "Ofira was settled from 1969" and an airfield opened in 1968.
 
 16. **Neviot [C].** Gvati's text: "ב־1971 הוקמו שני ישובים באזור: מושב נביעות – 68 ק״מ דרומה מאילת ודי־זהב". Appendix:
     "נביעות", "חוף מפרץ אילת", "10.5.71", Moshavim movement. Hebrew WP (oldid 42301992): first settlers came "באמצע
     פברואר" 1971 and left after about six weeks; "ניסיון שני ... באוגוסט 1971"; cooperative status in early January 1972.
-    JTA, existence only: bulletin 27 Feb 1973 ("the existing settlements of Dahav and Neviot", dateline not read) and
+    JTA, existence only: bulletin 27 Feb 1973 ("the existing settlements of Dahav and Neviot", dateline "JERUSALEM, Feb. 26 (JTA)") and
     bulletin 15 Jul 1976 ("around the moshav of Neviot"). **[C]:** 10 May 1971 (Gvati) against two attempts, February and
     August 1971 (Hebrew WP). English WP "Neviot" is a mineral-water company, not the moshav, and is not used.
 
@@ -302,24 +301,23 @@ or the OCR did not reach it, so no event date is claimed.
 |---|---|---|---|---|
 | 1 Jul 1968 | pdfs.jta.org/1968/1968-07-01_125.pdf | Desalination plant for Nahal Yam | TEL AVIV, June 30 (JTA) | 30 Jun 1968 |
 | 23 Jul 1969 | pdfs.jta.org/1969/1969-07-23_138.pdf | Nahal Yam soldiers injured | TEL AVIV, July 22 (JTA) | 22 Jul 1969 |
-| 12 Aug 1971 | pdfs.jta.org/1971/1971-08-12_154.pdf | Settlements given Hebrew names (Ophira) | - | - |
-| 27 Feb 1973 | pdfs.jta.org/1973/1973-02-27_040.pdf | Sharm el-Sheikh plans (Ofira) | not read (OCR interleaves columns) | - |
+| 12 Aug 1971 | pdfs.jta.org/1971/1971-08-12_154.pdf | Settlements given Hebrew names (Ophira) | JERUSALEM, Aug. 11 (JTA) | 11 Aug 1971; the names were due in the law journal on 12 Aug 1971 ("tomorrow", derived) |
+| 27 Feb 1973 | pdfs.jta.org/1973/1973-02-27_040.pdf | Sharm el-Sheikh plans (Ofira) | JERUSALEM, Feb. 26 (JTA) | 26 Feb 1973 |
 | 9 Mar 1973 | pdfs.jta.org/1973/1973-03-09_048.pdf | Nahal Yam abandoned | JERUSALEM, March 8 (JTA) | 8 Mar 1973 |
-| 16 Aug 1973 | pdfs.jta.org/1973/1973-08-16_157.pdf | Road to Yamit | TEL AVIV, Aug. 15 (JTA) | 15 Aug 1973 |
-| 19 Sep 1973 | pdfs.jta.org/1973/1973-09-19_180.pdf | No hired labor in the Raffah region (Netiv Haasara, Sadot) | TEL AVIV, Sept. 18 (JTA) | 18 Sep 1973 |
+| 16 Aug 1973 | pdfs.jta.org/1973/1973-08-16_157.pdf | Road to Yamit | TEL AVIV, Aug. 15 (JTA) | "this week" before 15 Aug 1973; the day is not given |
+| 19 Sep 1973 | pdfs.jta.org/1973/1973-09-19_180.pdf | No hired labor in the Raffah region (Netiv Haasara, Sadot) | TEL AVIV, Sept. 18 (JTA) | 17 Sep 1973, the day the two settlements "agreed yesterday" with the Defense Ministry (derived) |
 | 29 Aug 1973 | pdfs.jta.org/1973/1973-08-29_166.pdf | First settlers in the urban centre | - | "this week" before 29 Aug 1973 |
 | 8 Jan 1975 | pdfs.jta.org/1975/1975-01-08_005.pdf | JNF at Nahal Sinai | JERUSALEM, Jan. 7 (JTA) | 7 Jan 1975 |
-| 17 Jan 1975 | pdfs.jta.org/1975/1975-01-17_012.pdf | JNF in the Rafiah program (Ogda) | OGDA, Near Raflah (south of Gaza Strip), Jan. 16 (JTA) | 16 Jan 1975 |
+| 17 Jan 1975 | pdfs.jta.org/1975/1975-01-17_012.pdf | JNF in the Rafiah program (Ogda) | OGDA, Near Rafiah (south of Gaza Strip), Jan. 16 (JTA) | 16 Jan 1975 |
 | 2 Jun 1975 | pdfs.jta.org/1975/1975-06-02_105.pdf | Yamit registration opens | JERUSALEM, June 1 (JTA) | 1 Jun 1975 |
 | 19 Mar 1976 | pdfs.jta.org/1976/1976-03-19_055.pdf | JNF working on Yamit | JERUSALEM, March 18 (JTA) | 18 Mar 1976 |
 | 26 Apr 1976 | pdfs.jta.org/1976/1976-04-26_080.pdf | 10 new settlements due (Rafiah approaches) | TEL AVIV, April 25 (JTA) | 25 Apr 1976 |
 | 15 Jul 1976 | pdfs.jta.org/1976/1976-07-15_136.pdf | JNF palms (Neviot, Di Zahav) | JERUSALEM (JTA), no day | - |
 | 2 Jun 1977 | pdfs.jta.org/1977/1977-06-02_105.pdf | JNF land for Talmei Yosef | JERUSALEM (JTA), no day | - |
-| 9 Oct 1975 | pdfs.jta.org/1975/1975-10-09_193.pdf | JNF projects (Dikla) | - | - |
+| 9 Oct 1975 | pdfs.jta.org/1975/1975-10-09_193.pdf | JNF projects (Dikla), "JNF TACKLING NEW PROJECT", page 2 | JERUSALEM, Oct. 8 (JTA) | 8 Oct 1975 |
 
 The 26 Apr 1976 item adds (not a founding date): ten new settlements, "eight moshavim ... and two kibbutzim", "in the
-Raffah approaches in the Gaza Strip"; Dulzin named "Dikia, Saddot, Kerem Shelom and Sdeh-Nitzha" (as printed; Dikia is Dikla) as veteran
-settlements of the region (the last two are inside the pre-1967 lines). The 17 Jan 1975 item also names "Dekel and
+Raffah approaches in the Gaza Strip"; Dulzin said work is going on building large packing houses, and the item says they are being built at Dikla, Saddot, Kerem Shalom and Sdeh-Nitzha, "described as veteran settlements of the region" (the last two are inside the pre-1967 lines). That line is overstruck on the page; I read the names as printed above on the PDF image (overstruck) (the archive's text transcribes them "Dikia" and "Kerem Shelom"). The 17 Jan 1975 item also names "Dekel and
 Eshel, sited near Ogda and at present only army camps"; neither name appears among Gvati's 11, so they are [GAP] and
 not rows.
 
@@ -394,6 +392,11 @@ Other negative searches, all on 2026-10-25:
 ## Outside the window and outside the scope
 
 - **After 1977 (Hebrew WP years, not researched beyond the infobox):** Pri Gan in Sinai (the Hebrew WP article for the Sinai moshav was not opened; the present Peri Gan has CBS year 1981), Atzmona (Sinai) 20 March 1979 (oldid 43279026), Hatzar Adar December 1981 (oldid 42805245), Maoz HaYam late 1981 or early 1982 (oldid 43365334; not in the Yamit-region list). Hebrew WP's list of the Yamit region has 16 localities (oldid 43082391); rows 5 to 14 here are 10 of them, and the other six are Atzmona, Pri Gan, Hatzar Adar and, from rows 2 to 4, Sadot, Dikla and Neot Sinai.
+- **Later localities of Sinai origin** are in [`localities-1977-93-pre67.md`](../Era%201977-93/localities-1977-93-pre67.md)
+  (#1647), which has the CBS rows of the later localities inside the pre-1967 lines. Those with the name of a row here, with
+  the CBS spellings: Holit (its row 27, our row 10), Peri Gan (50, our row 14, Pri'el), Netiv HaAsara (67, our row 7),
+  Talme Yosef (72, our row 13), Nizzane Sinay (96, our row 20) and Avshalom (108, our row 6). Amnun, En HaBesor, Deqel and Yated
+  are later localities of Sinai origin that note covers; they have no row here because they were founded after 1977.
 - **Before the window:** Nahal Tarshish (also called Nahal Ofir), a Nahal outpost at Sharm el-Sheikh founded 16 December
   1956 and evacuated in 1957 (Hebrew WP oldid 42404149, not researched).
 - **The Gaza Strip proper**, which Gvati treats in the same section: Nahal outposts Kfar Darom (1970), Netzarim and Morag
@@ -430,7 +433,7 @@ Other negative searches, all on 2026-10-25:
   days therefore rest on Gvati and Wikipedia, and the state's own record of each founding is the main gap.
 - **JTA coverage is thin before 1973** for the Rafah approaches, and the search is capped at 100 returned items per
   query (see Searches); items beyond the first 100 for "Sadot", "Neviot", "Holit", "Pri'el", "Nir Avraham" and "Zaharon"
-  were not read. Of the 16 items in the datelines table, 10 have a dated dateline, 2 a place without a day and 4 none or not read.
+  were not read. Of the 16 items in the datelines table, 13 have a dated dateline, 2 a place without a day and 1 none (29 Aug 1973).
 - **JTA items returned but not opened:** "Nahal Holit" (bulletin 16 Jan 1978), "Ophira" (19 May 1975, 200 housing units), "Talmei Yosef" (10 Jan 1978) and "Neot Sinai" (10 Jan 1978) each came back containing the term and were read only as search snippets, which this note does not use as sources.
 - **Maariv and Davar**, which Hebrew WP cites for several days (Nahal Sinai 28 Dec 1967, Ahimar 10 Jan 1975, Nir Avraham
   1981, Yamit and others), are not opened by me; the Historical Jewish Press and the National Library newspaper archive
