@@ -34,7 +34,7 @@ residents, the place (coordinates from a named source), and the sources.
   kept as [C]: the sources differ by one to three years on when each neighbourhood was "founded"; the ninth (Jewish Quarter)
   has a disagreement on the size of the 1968 order.
 - **Dated land-taking instruments found:** an order on 18 April 1968 (Jewish Quarter and the land of Kfar Ivri / Neve
-  Ya'akov), reported by JTA from the gazette publication of that day; an announcement on 2 September 1970 of about 2,700
+  Ya'akov), reported by JTA from the gazette publication of that day; a JTA report of 2 September 1970 of about 2,700
   acres; and a large order of 11 January 1968 that Hebrew Wikipedia gives as 3,345 dunams (not confirmed in a primary
   source here). No Israeli official gazette or Knesset text was reached; those stay [GAP].
 - **First-residents days:** one is dated by a contemporaneous report (Ramat Eshkol, 3 September 1969). For the others no
@@ -43,7 +43,7 @@ residents, the place (coordinates from a named source), and the sources.
 ## Conventions and tags
 
 - **[V, agent read 2026-10-25; a person's check pending]**: read today in a primary or official source (here only United
-  Nations document S/8667 and the text of its cover letter). A newspaper article reproduced inside it keeps its own tag.
+  Nations documents S/8667 (its cover letter) and S/8439). A newspaper article reproduced inside either keeps its own tag.
 - **[S]** secondary: one source, or several that plainly copy one another. Contemporaneous press (JTA daily bulletin, The
   New York Times) is [S]. **[S, Wikipedia]**: the fact rests on Hebrew or English Wikipedia, read as wikitext of the
   revision named (`oldid`). Where Wikipedia cites a newspaper, a book or an organisation (for example ARIJ), I give its
@@ -106,7 +106,7 @@ about 64 m, so about 96 m apart (derived: sqrt(72^2 + 64^2)). All other rows agr
 | Ma'alot Dafna | מעלות דפנה | between Shmuel HaNavi and Ammunition Hill | 31.79621, 35.22569 (same in both) | end of 1971 (he), 1972 (en) |
 | Neve Ya'akov | נווה יעקב | north, on the site of the 1924 village | 31.84111, 35.2425 (same in both) | 1970 (both), 1972 (en text) |
 | Ramot (Ramot Alon) | רמות אלון | north-west, north of Highway 1 | 31.81194, 35.2 (same in both) | 1972 (he infobox), 1974 (he text, en) |
-| Gilo | גילה | south-west, towards Bethlehem Road | 31.73139, 35.18639 (same in both) | 1971 (both text), 1973 (en category) |
+| Gilo | גילה | south-west, towards Bethlehem Road | 31.73139, 35.18639 (same in both) | 1971 (he; en Ring list), 1973 (en Gilo article text and category) |
 | East Talpiot | תלפיות מזרח | south-east, near the former Commissioner's palace | 31.75, 35.235 (same in both) | 1972 (he), 1973 (en) |
 | Jewish Quarter rebuild | הרובע היהודי | Old City, south-east quarter | 31.77611, 35.23222 (same in both) | 1968 order, 1969 company |
 
@@ -159,8 +159,10 @@ Each section below gives the dated facts. A value that only Wikipedia gives is [
 
 ### Ma'alot Dafna
 
-- **Land.** Hebrew Wikipedia: homes for new immigrants were built there, "partly on private land expropriated in 1968"
-  (our translation) [S, Wikipedia].
+- **Land.** Hebrew Wikipedia ties this to the Arzei HaBira compound in the southern part of the neighbourhood, named after
+  the company that built it, not to the neighbourhood as a whole: in that compound homes for new immigrants were built,
+  "partly on private land expropriated in 1968" (our translation; the sentence cites a Davar item of 30 June 1972, not
+  read) [S, Wikipedia].
 - **Start and year [C].** Hebrew: "built from the end of 1971" (our translation). English: "established in 1972". First
   residents: [GAP].
 - **Location note.** English Wikipedia says its sub-area Arzei HaBira lies on the Israeli side of the pre-1967 armistice
@@ -202,9 +204,10 @@ Each section below gives the dated facts. A value that only Wikipedia gives is [
 - **Land.** English Wikipedia: "In 1970, the Israeli government expropriated 12,300 dunams of land to build Ring
   Neighborhoods around Jerusalem" (no source named in the sentence as I read it) [S, Wikipedia]. See the August 1970
   announcement below for the other figure.
-- **Year [C].** Hebrew Wikipedia: "founded in 1971 as one of the Ring neighbourhoods" (our translation); English text
-  places it among the Ring Neighborhoods and the Ring list says "Established in 1971", while the article's category line
-  reads "Populated places established in 1973".
+- **Year [C].** Hebrew Wikipedia: "founded in 1971 as one of the Ring neighbourhoods" (our translation); The English
+  Gilo article (oldid 1357116840) says "Gilo was established in 1973" and its category line reads "Populated places
+  established in 1973"; it has no 1971. The 1971 on the English side is in the separate "Ring Neighborhoods, Jerusalem"
+  article (oldid 1357154222), whose list says "Established in 1971".
 - **Construction.** JTA 30 March 1971 (dateline 29 March): 700 units "in Giloh" in the first stage; JTA 6 July 1973 (dateline
   5 July): construction already begun. First residents: [GAP].
 
@@ -240,7 +243,7 @@ Each section below gives the dated facts. A value that only Wikipedia gives is [
 - **11 January 1968:** Hebrew Wikipedia (Givat HaMivtar) only, 3,345 dunams; a primary source for it was not reached [S,
   Wikipedia]. [GAP] for the order's text.
 - **18 April 1968:** see Neve Ya'akov and the Jewish Quarter above [S].
-- **2 September 1970** [S]: JTA bulletin of 3 September 1970 (page 2, headline "Government To Expropriate 2700 Acres In
+- **Reported 2 September 1970** [S]: JTA bulletin of 3 September 1970 (page 2, headline "Government To Expropriate 2700 Acres In
   Jerusalem For Housing, Parks"), dateline "JERUSALEM, Sept. 2 (JTA)": "The government has announced that it will
   expropriate about 2700 acres of land in Jerusalem for development purposes and promised 'liberal compensation' to the
   present owners. Most of the area concerned lies in the former Jordanian sector of Jerusalem and is sparsely inhabited.
@@ -250,7 +253,7 @@ Each section below gives the dated facts. A value that only Wikipedia gives is [
 - **[C] sizes for 1970.** JTA "about 2700 acres" = 2,700 x 4.04686 = about 10,927 dunams (derived). English Wikipedia (Gilo):
   12,300 dunams in 1970. English Wikipedia (Neve Yaakov): "In August 1970 3,500 acres ... was confiscated" = 3,500 x
   4.04686 = about 14,164 dunams (derived). Three figures; they may count different areas, and no source here says so.
-  Hebrew Wikipedia dates the Ramot and East Talpiot land-taking to August 1970; JTA's announcement is 2 September 1970.
+  Hebrew Wikipedia dates the Ramot and East Talpiot land-taking to August 1970; JTA's report is dated 2 September 1970.
 
 ### Contemporary reporting of 1968 (United Nations S/8667)
 
@@ -261,7 +264,9 @@ Each section below gives the dated facts. A value that only Wikipedia gives is [
   Times of today, 3 July 1968", and calls it "another piece of evidence of the persistence of the Israeli authorities in
   executing their systematic plans of expropriation of Arab property". That is Jordan's characterisation, quoted as a
   position, not a finding.
-- **[S]** The attached article (read on the page image, which is rotated), dateline "JERUSALEM, July 2": "A platoon of Israeli
+- **[S]** The attached article (read on the page image, which is rotated; it is the
+  second PDF page, printed "Page 3", re-read at 300 dpi on 2026-10-26, where the passages quoted here, including the
+  figures 800 and 30, are printed in full), dateline "JERUSALEM, July 2": "A platoon of Israeli
   bulldozers has been busy for a month rearranging the rocky landscape of northeastern Jerusalem, preparing the way for a
   vast housing project that is expected to accommodate 5,000 families by 1971." "The plan, devised by a committee working
   out of the Premier's office, is to establish a crescent-shaped periphery of Jewish housing around the northern and
@@ -277,9 +282,10 @@ Each section below gives the dated facts. A value that only Wikipedia gives is [
 
 - **[V, agent read 2026-10-25; a person's check pending]** United Nations document S/8439 (also A/7064), "Letter dated 5
   March 1968 from the Permanent Representative of Israel to the United Nations addressed to the Secretary-General", issued
-  6 March 1968, https://digitallibrary.un.org/record/516691/files/S_8439-EN.pdf (read from the text layer; the page image
-  was not read). It answers Jordan's letters of 23 and 28 February 1968 (A/7057 and Add.1, S/8427 and Add.1, A/7058,
-  S/8455) and says: "The Permanent Representative of Jordan complains of plans to construct new housing in the modern part
+  6 March 1968, https://digitallibrary.un.org/record/516691/files/S_8439-EN.pdf (read from the text layer, which prints
+  "S/8455" in the list of Jordan's letters; the first page image, read 2026-10-26, prints "S/8433" there, which is used
+  below; the rest of the page image was not read). It answers Jordan's letters of 23 and 28 February 1968 (A/7057 and Add.1, S/8427 and Add.1, A/7058,
+  S/8433) and says: "The Permanent Representative of Jordan complains of plans to construct new housing in the modern part
   of Jerusalem. This complaint refers to vacant land of which about two thirds is public domain or belongs to Jewish
   private persons or institutions. Only one third is owned by private Arab landlords. No person at all is being evicted and
   none of the land in question belongs to any ecclesiastical institution, or is Waqf property. The private owners of the
@@ -351,8 +357,8 @@ Each section below gives the dated facts. A value that only Wikipedia gives is [
 
 | Source | Day read | Used for |
 |---|---|---|
-| UN S/8439, `digitallibrary.un.org/record/516691/files/S_8439-EN.pdf` | 2026-10-25 | Israel's letter of 5 March 1968 |
-| UN S/8667, `digitallibrary.un.org/record/518464/files/A_7133--S_8667-EN.pdf` | 2026-10-25 | cover letter text; attached NYT article of 3 July 1968 |
+| UN S/8439, `digitallibrary.un.org/record/516691/files/S_8439-EN.pdf` | 2026-10-25 (text layer), 2026-10-26 (first page image) | Israel's letter of 5 March 1968 |
+| UN S/8667, `digitallibrary.un.org/record/518464/files/A_7133--S_8667-EN.pdf` | 2026-10-25, page image re-read 2026-10-26 | cover letter text; attached NYT article of 3 July 1968 |
 | JTA bulletins 1968-04-19 (No. 76), 1969-09-05 (No. 169), 1970-09-03 (No. 171), 1971-03-30 (No. 61), 1973-07-06 (No. 128), `pdfs.jta.org` page images | 2026-10-25 | datelines and quoted items above |
 | English and Hebrew Wikipedia articles listed in "Conventions", wikitext by `oldid` | 2026-10-25 | years, plans, coordinates |
 | English Wikipedia "East Jerusalem" oldid 1378661048 | 2026-10-25 | one context sentence |
