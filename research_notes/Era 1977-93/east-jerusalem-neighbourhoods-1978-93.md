@@ -15,7 +15,7 @@ rows are not redone here, only their 1978-93 later stages). East Jerusalem neigh
 are in none of the Judea and Samaria notes of 1978-93: not in
 `research_notes/Era 1977-93/jordan-valley-localities-1977-93.md` (PR #1665, merged) nor in the notes of the councils
 listed in it, so none of the 68 Judea and Samaria rows of 1978-1993 that #1665 lists as in no note yet is taken by this
-note; they are in this note. Arab neighbourhoods and villages, the lines, and localities outside the boundary
+note; they are not in this note. Arab neighbourhoods and villages, the lines, and localities outside the boundary
 (Ma'ale Adummim, Givat Ze'ev and the rest of the West Bank) are not in it.
 
 It follows the format of `research_notes/Era 1957-77/development-towns-1957-77.md` and of
@@ -174,8 +174,10 @@ x 111,320 x cos 31.7). The two values are about 48 m apart (sqrt(48^2 + 1^2)).
   headed "שכונה חדשה תוקם בשטח שהופקע בבירה" and a Kol HaIr item of 5 December 1980, neither read (the National Library's newspaper site returned HTTP
   403 to this box, see "Gaps and what was tried"). No source I opened gives the day independently.
 - **Start and first residents.** Hebrew Wikipedia: "בניית השכונה החלה ב-1982 וראשוני הבתים אוכלסו ב-1985" (construction
-  began in 1982 and the first houses were occupied in 1985; our translation); an infrastructure item of Davar of 15
-  November 1981 is cited for the preceding step and was not read [S, Wikipedia]. English Wikipedia: "established in
+  began in 1982 and the first houses were occupied in 1985; our translation); a Davar item of 15
+  November 1981 ("דנים בהתחלת עבודות התשתית לשכונה החדשה", on starting infrastructure work) is cited there for the
+  sentence on the aim of a Jewish "רצף אורבני" (urban continuity) between French Hill and Neve Yaakov, not for the 1982
+  start of building; it was not read [S, Wikipedia]. English Wikipedia: "established in
   1982", and "five districts: Center (1984), West (1988), East and North (1990), and South (1998)" [S, Wikipedia].
 - **[C] sub-neighbourhood years.** English: Center 1984, West 1988, East and North 1990, South 1998. Hebrew: Center
   "first populated (1985)", West 1990, East 1990, North 1994, South 1998 ("אוכלסה"; populated). The two articles differ
@@ -283,13 +285,14 @@ x 111,320 x cos 31.7). The two values are about 48 m apart (sqrt(48^2 + 1^2)).
   centre in this neighbourhood settled in it", and fell to about 30,000 in the early 1990s because of development at
   Efrat (our translation of the sentences) [S, Wikipedia]. No stage year for 1978-93 in either article. [GAP].
 - **East Talpiot.** Both articles say an ancient tomb was found in 1980 "when a housing project was being built" (English)
-  / "while blasting was being done to build new homes" (Hebrew, our translation) [S, Wikipedia]. That is the only
-  1978-93 date either article gives for the neighbourhood. No stage year: [GAP].
+  / "while blasting was being done to build new homes" (Hebrew, our translation) [S, Wikipedia]. English Wikipedia
+  (oldid 1356985868) also says "The Lili and Elejandro Shaltiel Community Center was inaugurated in 1980" [S, Wikipedia].
+  Those are the 1978-93 dates the articles give for the neighbourhood; neither is a stage year: [GAP].
 
 ## The plan of 14 October 1990 and the land policy of 1980-93
 
 - **14 October 1990** [S]: JTA daily bulletin of 16 October 1990 (No. 192, page 1, headline "Sharon Announces Plan To
-  Construct Thousands Of Homes In East Jerusalem"), dateline "JERUSALEM, Oct. 15 (JTA)": "Housing Minister Ariel Sharon
+  Construct Thousands Of Homes In East Jerusalem"), dateline "JERUSALEM, Oct 15 (JTA)" (printed without a period): "Housing Minister Ariel Sharon
   ... announced plans to build 17,000 new apartments for Soviet Jewish immigrants in Jerusalem, all but 2,000 of them in
   the Arab-populated eastern part of the city. The plan, adopted Sunday by the Ministerial Absorption Committee, which
   is headed by Sharon, is believed to have the tacit support of Prime Minister Yitzhak Shamir and will be presented to
