@@ -12,7 +12,7 @@ names, wait for the owner's sensitivity list (#118); this note makes no include,
 **Where this note sits among its siblings (the boundary sentence agreed on #130).** Every Judea and Samaria row of the
 CBS 2024 file with a founding year of 1967-1977 whose local authority is Arvot HaYarden or Megilot Yam HaMelah is in
 `jordan-valley-localities-1967-77.md`; every other such row, including Ma'ale Efrayim, Kokhav HaShahar, Rimmonim and
-Gvati's Mevo Shilo, is in `west-bank-localities-1967-77.md` (PR #1663, open when this note was written). East Jerusalem
+Gvati's Mevo Shilo, is in `research_notes/Era 1957-77/west-bank-localities-1967-77.md` (PR #1663, merged). East Jerusalem
 neighbourhoods inside the municipal boundary are in neither of those notes; they are in this note. Arab neighbourhoods
 and villages, the lines, and localities outside the boundary are not in it.
 
