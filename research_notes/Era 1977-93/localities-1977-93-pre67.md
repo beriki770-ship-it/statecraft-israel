@@ -239,9 +239,9 @@ Context only, not tied to a row: the JTA items of 16 Oct 1980 and 14 May 1980 de
 
 ## Day and month statements in Wikipedia
 
-Every row with a month or day in the Hebrew or English article's own text is here (a script searched both articles of
-all 112 rows for a month name next to a year of 1977-1993; rows whose only hit was an unrelated later event are left
-out). All [S]: I did not open the sources Wikipedia cites. Each statement marks a different step (a decision, a
+These are the founding-step statements the script found (it searched the Hebrew and English articles of all 112 rows
+for a month name next to a year of 1977-1993; rows whose only hit was an unrelated later event are left out). The
+script missed some, so the list is not complete. All [S]: I did not open the sources Wikipedia cites. Each statement marks a different step (a decision, a
 cornerstone, going onto the land, a ceremony, civilian status); the "what it marks" column is my reading of the
 sentence, and **none of them is shown to be the day the CBS year follows**. The sentence is copied from the article text
 with wiki link markup removed.
