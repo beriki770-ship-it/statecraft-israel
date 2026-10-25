@@ -202,7 +202,7 @@ fixed-calendar arithmetic in a short script; the script reproduced the five Hebr
 same Knesset page (20 Iyar 5747 = 19 May 1987, 13 Av 5745 = 31 July 1985, 26 Adar II 5741 = 1 April 1981,
 16 Tammuz 5719 = 22 July 1959, 22 Shevat 5718 = 12 February 1958). The result is derived, not printed in any source read.
 
-So 1 November 1988 is what sections 8, 9 and 36 give for a Knesset elected on 23 July 1984, which is consistent with the
+**[derived from sections 8, 9 and 36 as read; a person's check pending]** Basis: 1 Tishrei 5749 = 12 September 1988, 1 Cheshvan 5749 = Wednesday 12 October 1988, and the third Tuesday of Cheshvan is 1 November 1988. So 1 November 1988 is what sections 8, 9 and 36 give for a Knesset elected on 23 July 1984, which is consistent with the
 absence of a dissolution law in OD-B and with the Twelfth Knesset Elections (Temporary Provisions) Law naming that day [J3].
 
 ### C4 and G7: the date of the committee's decision against Kach
@@ -230,18 +230,22 @@ party's registration date stays **[GAP]**. This resolves, for the meeting only, 
 
 - **C3, 16 January 1992 (Tehiya and Moledet leaving the government).** (25 Oct) Searched again and not found. Read:
   nothing new that dates it. The JTA archive has no date-listing page for January 1992 that could be opened
-  (`https://www.jta.org/1992/01/16`, `/17`, `/20`, `/21`, `/22` each returned HTTP 404). Web searches limited to jta.org
-  (query: Moledet Tehiya quit Shamir government January 1992 peace talks Madrid JTA; and a second with "Ne'eman" "Zeevi" resign,
-  run 25 Oct 2026, 10 results each) returned results that were not the January 1992 bulletins; the search tool's
-  summaries are not a source and no figure is taken from them.
+  (`https://www.jta.org/1992/01/16`, `/17`, `/20`, `/21`, `/22` each returned HTTP 404). Two web searches, built-in
+  WebSearch tool (no URL), restricted to jta.org, no date-range filter applied. Query 1: `Moledet Tehiya quit Shamir government January 1992 peace talks Madrid JTA`.
+  Query 2: `Ne'eman Zeevi resign Shamir government Tehiya Moledet January 1992`. Both re-run 25 Oct 2026, 10 results each
+  (the strings of the earlier runs that day were not recorded in full; these are the strings run for this record); none was
+  a January 1992 bulletin dating the exit. The search tool's summaries are not a source and no figure is taken from them.
 - **22 March 1984 vote, facsimile (G7).** (25 Oct) Searched again and not found. The Knesset file server is blocked from
   the machine used (see access note), so the scan was not opened.
 - **Primary founding dates of Dash, Shlomzion, Tehiya, Tami, Telem, Shas, Meretz, Degel Hatorah, Tzomet, the Arab Democratic
-  Party.** (25 Oct) Searched again and not found. Read: the JTA page of 18 June 1981 on Tami [only its text; no date for
-  the party's founding or for Abu Hatzeira's leaving the NRP beyond "a month ago"]. Web searches limited to jta.org
-  (queries about Yadin and the Democratic Movement for Change, Tami and Abu Hatzeira, and the Arab Democratic Party, run
-  25 Oct 2026, 10 results each) did not return a bulletin dating those events; no date is taken from the search tool's
-  summaries.
+  Party.** Status per party. All searches: built-in WebSearch tool (no URL), restricted to jta.org, no date-range filter,
+  re-run 25 Oct 2026 for this record, 10 results each (the strings of the earlier runs that day were not recorded in full).
+  - Dash (Yadin, Democratic Movement for Change): searched. Query `Yadin Democratic Movement for Change founded 1976 Dash`; no bulletin dating the founding found.
+  - Tami: searched. Query `Tami party Abu Hatzeira leaves National Religious Party founded`; no dating bulletin found. Read: the JTA page of 18 June 1981 [only its text; no date for
+    the party's founding or for Abu Hatzeira's leaving the NRP beyond "a month ago"].
+  - Arab Democratic Party: searched. Query `Arab Democratic Party Darawshe founded Knesset`; no dating bulletin found.
+  - Shlomzion, Tehiya, Telem, Shas, Meretz, Degel Hatorah, Tzomet: not searched in this pass.
+  No date is taken from the search tool's summaries.
 
 ## Coverage and remaining work
 
@@ -267,7 +271,7 @@ they are research locators, not game-rule IDs or completion approvals.
 | G6: founding of Shas, Meretz, Moledet, Degel Hatorah, Tzomet | Additional contemporary milestones and parliamentary dates [P1–P5, K1]; second pass (25 Oct): Moledet inaugural meeting 23 August 1988 [S2-3] | The exact founding/registration instruments; see the five-party table for each limit. |
 | G7: 22 March 1984 reading | Official transcript records preliminary transfer/preparation for first reading [J5, K8] | Inspect the facsimile and resolve the DOC date-header error. |
 | G7: Kach date | Second pass (25 Oct): 5 October 1988 in the JTA bulletin of 6 Oct 1988 [S2-2] | Original Hebrew/committee record. |
-| G8: 1 November 1988 fixed by law | Explicit election-day reference read [J3]; second pass (25 Oct): sections 8, 9, 36 and the arithmetic give 1 November 1988 [S2-1] | Any amendment of those sections between 27 May 1987 and 1 Nov 1988 was not checked. |
+| G8: 1 November 1988 fixed by law | Explicit election-day reference read [J3]; second pass (25 Oct): answered provisionally, not closed; sections 8, 9, 36 and the arithmetic give 1 November 1988 [S2-1] | Any amendment of those sections between 27 May 1987 and 1 Nov 1988 was not checked. |
 
 Other secondary-only statements in the original note are not automatically upgraded by these targeted reads.
 No missing figure is filled from a search snippet, an inaccessible source or a calendar inference.

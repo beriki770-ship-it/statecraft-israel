@@ -60,7 +60,7 @@ Law texts (Reshumot, Sefer HaHukim, as scanned and typed on fs.knesset.gov.il):
 | L-THR | Knesset Elections Law (Amendment No. 23), 5752-1991: in section 81(a), "1%" becomes "1.5%" | 14 Oct 1991 | Sefer HaHukim 1369, 23 Oct 1991, p. 2 | https://fs.knesset.gov.il//12/law/12_lsr_214766.DOC ; bill and explanatory note (Hatza'ot Hok 2065, 8 Jul 1991, p. 270): https://fs.knesset.gov.il//12/law/12_ls1_287873.DOC |
 
 OD-B lists no dissolution law passed by the Eleventh Knesset, so the 1988 election was not brought forward by a
-dissolution law. Whether 1 November 1988 was the date the Basic Law fixed for the end of the term: second pass, 25 Oct 2026, sections 8, 9 and 36 of the Basic Law as printed on the Knesset's page, with the calendar arithmetic, give it, as a derived value, [V, agent read 25 Oct 2026; a person's check pending]. See the follow-up, "Second pass, 25 October 2026".
+dissolution law. Whether 1 November 1988 was the date the Basic Law fixed for the end of the term: second pass, 25 Oct 2026, sections 8, 9 and 36 of the Basic Law as printed on the Knesset's page, with the calendar arithmetic, give it, as a derived value [derived from sections 8, 9 and 36 as read; a person's check pending]. The sections themselves are [V, agent read 25 Oct 2026; a person's check pending]. See the follow-up, "Second pass, 25 October 2026".
 
 ## 1. The five Knessets at a glance
 
@@ -348,7 +348,7 @@ from Wikipedia [S], and their primary founding dates are [GAP].
   and Tehiya left on 16 Jan 1992, a few days after Tzomet. WP-1988: "late 1991/early 1992". The 16 January date may
   be the announcement and the 21st the day the resignations took effect; that is not confirmed [GAP].
 - **C4. Date of the committee's decision against Kach.** Second pass, 25 Oct 2026: 5 Oct 1988 in the JTA bulletin of 6 Oct 1988 and in the Versa PDF (see the follow-up). Values as first recorded: WP-1988: 4 Oct 1988. EA-1-88 (Versa text): unreadable,
-  ending "…5, 1988". Not settled.
+  ending "…5, 1988". Dated 5 Oct 1988 by the JTA bulletin [V, agent read 25 Oct 2026; a person's check pending]; the committee's own record is still [GAP].
 - **C5. Naming only, no numbers at stake.**
   - The 1984 Morasha list: K-RES-11 "Morasha-Po'aeli Agudat Yisrael"; K-HIST-11 "Morasha", with a note that it took the
     longer name later; WP-1984 "Morasha".
@@ -374,7 +374,7 @@ the government in October 1977 (24 Oct 1977, K-HIST-9).
   in KNS_Person. Members who left the Knesset and were replaced are not listed as moves.
 - Founding dates of Shas, Meretz (as an alliance), Moledet, Degel Hatorah and Tzomet in a primary source.
 - The date of the committee's decision against Kach (C4): dated 5 Oct 1988 by the JTA bulletin on the second pass, 25 Oct 2026; the committee's own record is still [GAP]. The reading voted on 22 Mar 1984 (10th Knesset) remains [GAP].
-- Whether 1 Nov 1988 was the end-of-term date fixed by law: closed on the second pass, 25 Oct 2026 (derived from the archived Basic Law text and calendar arithmetic, not printed in any source; amendments after 27 May 1987 not checked; see the paragraph after the law table above and the follow-up).
+- Whether 1 Nov 1988 was the end-of-term date fixed by law: answered provisionally on the second pass, 25 Oct 2026 (derived from the archived Basic Law text and calendar arithmetic, not printed in any source; amendments between 27 May 1987 and 1 Nov 1988 not checked, so still open; see the paragraph after the law table above and the follow-up).
 
 ## 8. What the records could look like
 
