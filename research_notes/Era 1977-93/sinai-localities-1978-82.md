@@ -5,7 +5,7 @@ stays paused until after the MVP. Refs #165 (1977-93 21), the settlements part o
 design](../../docs/superpowers/specs/2026-10-10-era-1977-1993-design.md) section 7.4. One topic of #165 only: the
 localities and outposts founded in Sinai, including the Rafah approaches (Hebrew Pithat Rafiah), between 1 January 1978
 and the hand-over of 25 April 1982. **The Golan (note `research_notes/Era 1977-93/golan-localities-1977-93.md`), the West Bank, the Jordan Valley,
-the Gaza Strip proper (the Gaza 1978-93 note, PR #1666), the localities inside the pre-1967 lines
+the Gaza Strip proper (the Gaza 1978-93 note, `research_notes/Era 1977-93/gaza-localities-1978-93.md`), the localities inside the pre-1967 lines
 and the lines are not in this note.** Which rows enter the game, and their names, wait for the owner's sensitivity list
 (#150); this note makes no include or omit choice, no naming choice and no statement on the status of any place beyond
 what a source says, quoted and tagged.
@@ -40,7 +40,7 @@ The question: which Israeli localities and Nahal outposts were founded in Sinai 
   Special Committee report A/33/356, p. 17, para 51, prints it; it cites the Jerusalem Post of 27 Aug 1978; [S]);
   "the 15 Jewish settlements in the Rafah salient, and one town-in-the-making (Yamit)" (JTA, 5 Jan 1979); in the State
   Comptroller's audit (data of November 1979, printed p. 803, item 2.1) clinics in "thirteen settlements in the Rafah
-  approaches" and two more settlements that get medical help from neighbouring ones, so 13 + 2 = 15 (**derived**),
+  approaches" (my translation) and two more settlements that get medical help from neighbouring ones, so 13 + 2 = 15 (**derived**),
   which matches JTA's 15; and, on p. 802, 11 settlements in the cooperative "Eitam" plus three that did not join,
   14 in all without Yamit (**my reading**: 11 + 3, the report prints no total; its item 3 says Yamit is run by a
   "founding team"). The sources do not name which two
@@ -104,7 +104,7 @@ source puts a window event on them.
 
 | # | Locality | Kind | Window event (what it marks) | Coordinates | Tag |
 |---|---|---|---|---|---|
-| A1 | Atzmona (also spelled Atzmonah, Azmona) | outpost (מאחז, he WP), near Haruvit | 20 Mar 1979, founding (he WP); a JTA item of the same day describes a camp near El Arish that is not named Atzmona (**derived** match, see A1); moved to a second site about four weeks later (he WP); successor Bnei Atzmon is row 14 of the Gaza 1978-93 note (PR #1666) | 31.18165, 33.9405 (Wikidata Q61125082); 1.4 km from the Wikidata point of Haruvit (**derived**) | [S] |
+| A1 | Atzmona (also spelled Atzmonah, Azmona) | outpost (מאחז, he WP), near Haruvit | 20 Mar 1979, founding (he WP); a JTA item of the same day describes a camp near El Arish that is not named Atzmona (**derived** match, see A1); moved to a second site about four weeks later (he WP); successor Bnei Atzmon is row 14 of the Gaza 1978-93 note, `research_notes/Era 1977-93/gaza-localities-1978-93.md` | 31.18165, 33.9405 (Wikidata Q61125082); 1.4 km from the Wikidata point of Haruvit (**derived**) | [S] |
 | A2 | Hatzar Adar | outpost (מאחז, he WP), near Haruvit | Dec 1981, founding (he WP, en WP); "at Hanukkah" (he WP Atzmona article), 21-28 Dec 1981 (**derived**); 24 Dec 1981 Torah scroll brought in (he WP, citing Davar) | 31.168, 33.953 (Wikidata Q7212415) | [S] |
 | A3 | Maoz HaYam | outpost (מאחז, he WP), fishing group, near Haruvit | late 1981 or early 1982 (he WP infobox); end of Dec 1981 (he WP Atzmona article); evacuated 4 Mar 1982 (JTA) | none | [S] |
 | A4 | Pri Gan (original, Sinai) | moshav | none found | none | [GAP] |
@@ -141,7 +141,7 @@ bulletin 4 Mar 1982 spells it "Azmona". Evacuation: Hebrew WP says 19 April 1982
 `research_notes/Era 1977-93/lines-1977-93.md` section 1.4 and are not redone. Coordinates: Wikidata Q61125082 (revision 2228378755) 31.18165, 33.9405;
 Haruvit's Wikidata point (Q7212421, revision 2521366182) is 31.17, 33.946, 1.4 km away (**derived**, haversine), which fits
 Hebrew WP's "near Haruvit". The English Wikipedia article `Bnei Atzmon` gives a point for the successor in the Gaza Strip, not
-for this place, and is not used; the successor is row 14 of the Gaza 1978-93 note (PR #1666).
+for this place, and is not used; the successor is row 14 of the Gaza 1978-93 note, `research_notes/Era 1977-93/gaza-localities-1978-93.md`.
 
 **A2. Hatzar Adar [S].** Hebrew WP (oldid 42805245): "הוקם בדצמבר 1981" by the Movement to Stop the Withdrawal from
 Sinai, "כחצי שנה לפני נסיגת צה"ל" (about half a year before the IDF withdrawal), next to the Haruvit junction, 12 km from
@@ -295,7 +295,7 @@ localities of the Israeli period in the Shalom Region (Ofira, Neviot, Di Zahav, 
 
 ## Outside the window and the boundary with the Gaza Strip note
 
-The next paragraph is copied word for word from `research_notes/Era 1957-77/sinai-localities-1967-77.md` (on main); there `armistice-lines-1949.md` is `research_notes/Map borders/armistice-lines-1949.md`, "this note" is the Sinai note of 1967-77 and "the Gaza Strip note" is `research_notes/Era 1957-77/gaza-localities-1967-77.md`, not the Gaza 1978-93 note (PR #1666).
+The next paragraph is copied word for word from `research_notes/Era 1957-77/sinai-localities-1967-77.md` (on main); there `armistice-lines-1949.md` is `research_notes/Map borders/armistice-lines-1949.md`, "this note" is the Sinai note of 1967-77 and "the Gaza Strip note" is `research_notes/Era 1957-77/gaza-localities-1967-77.md`, not the Gaza 1978-93 note (`research_notes/Era 1977-93/gaza-localities-1978-93.md`).
 
 - **Where the line between this note and the Gaza Strip note falls (same line as in `gaza-localities-1967-77.md`,
   the Gaza Strip note of #130, `gaza-localities-1967-77.md`).** A locality is in the Gaza Strip note if the sources put it inside the Strip, the area Egypt
@@ -309,7 +309,7 @@ The next paragraph is copied word for word from `research_notes/Era 1957-77/sina
   Rafah-approaches and Sinai rows of the table above. Nearest to the line: Morag (the southernmost
   locality of the Strip: "between Khan Yunis and Rafah" in Hebrew WP, "3 km south of Khan Yunis" in Gvati) and, on this side, Dikla, Sadot
   and Netiv HaAsara. No locality is on both lists. This is a reading of the sources named, not a surveyed boundary.
-- **This window:** Atzmona (A1) is a row here; its successor Bnei Atzmon is row 14 of the Gaza 1978-93 note (PR #1666).
+- **This window:** Atzmona (A1) is a row here; its successor Bnei Atzmon is row 14 of the Gaza 1978-93 note, `research_notes/Era 1977-93/gaza-localities-1978-93.md`.
 
 - **Before and after the window:** the rows to 1977 are in the 1967-77 note; the localities of Sinai origin that were re-founded inside the pre-1967 lines after 1982 are in `research_notes/Era 1977-93/localities-1977-93-pre67.md` (rows 27 Holit, 50 Peri Gan and 96 Nizzane Sinay are the ones with a row here). Bases and camps (Etam air base, Camp Nurit) are not covered by this note.
 
