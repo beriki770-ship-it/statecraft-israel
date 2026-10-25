@@ -231,7 +231,7 @@ All run 2026-10-25 between 08:54 and 08:57 UTC (the cache time stamps of the res
 | Tomer | "Tomer Jordan Valley" | 9 | 9 | 0 |  |
 | Tomer | "Tomer settlement" | 98 | 98 | 0 |  |
 
-**B. Generic queries.** Same endpoint and window; every result's text was searched for "Jordan Valley", "Jordan Rift", "Jordan basin", "Dead Sea" or "Jericho" (these terms are why many results are read and few matter). The count of items containing a key string was not tallied per query here; the scan in C covers the same items.
+**B. Generic queries.** Same endpoint and window; every result's text was searched for "Jordan Valley", "Jordan Rift", "Jordan basin", "Dead Sea" or "Jericho" (these terms are why many results are read and few matter). The count of items containing a key string was not tallied per query here; the scan in C covers other items.
 
 | Query | Results | Read |
 |---|---|---|
