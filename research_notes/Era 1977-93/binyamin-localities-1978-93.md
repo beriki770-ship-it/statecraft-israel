@@ -193,7 +193,7 @@ All run 2026-10-25 (UTC). Endpoint `https://www.jta.org/wp-json/wp/v2/archive?se
 | Kokhav Ya'akov | "Kochav Yaakov" | `Ko[ck]hav Ya.?akov\|Kochav Yaacov\|Kokhav Yaakov\|Avir Ya` | 12 | 12 | 0 |  |
 | Na'ale | "Naale" | `\bNa.?ale\b` | 598 | 598 | 0 |  |
 | Talmon | "Talmon" | `\bTalmon\b` | 263 | 263 | 13 | 13: the place on 9 Mar 1989 (T3, bulletin date; the item is datelined 8 Mar and the rally was Tuesday 7 Mar), 24 to 26 Apr 1991 (Talmon B, a different site), 7 May 1991, 17 Aug 1992; the rest are persons named Talmon (1978-1981) |
-| Shilo (window 1978-01-01 to 1979-12-31) | "Shilo" | `\bShilo(h)?\b` | 19 | 19 | 18 | the place and its dig: 6 Feb to 28 Mar 1978, 24 May 1978, 30 Jun 1978, 14 and 17 Aug 1978, 28 Dec 1978, 23 and 26 Apr 1979 (T1 is the 23 Apr one); the others are a person named Shiloh (9 Feb and 4 Sep 1979); two more place items of 24 Jan and 2 Feb 1978 (Gush marking Tu B'Shvat at Shiloh) were found by a review agent's check (agent read 2026-10-25) and not read item by item here |
+| Shilo (window 1978-01-01 to 1979-12-31) | "Shilo" | `\bShilo(h)?\b` | 19 | 19 | 18 | the place and its dig: 6 Feb to 28 Mar 1978, 24 May 1978, 30 Jun 1978, 14 and 17 Aug 1978, 28 Dec 1978, 23 and 26 Apr 1979 (T1 is the 23 Apr one); the others are a person named Shiloh (9 Feb and 4 Sep 1979); two more place items of 24 Jan and 2 Feb 1978 (Gush marking Tu B'Shvat at Shiloh) were found by a review agent's check (agent read 2026-10-25; a person's check pending) and not read item by item here |
 | Shilo (window 1978-01-01 to 1978-02-28) | "Shiloh Gush Emunim archaeological" | `Shilo` | 3 | 3 | 3 | 6, 7 and 9 Feb 1978: the cabinet's dig permit and the Gush's declared wish to settle there |
 
 ## Counts printed in the sources
