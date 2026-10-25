@@ -246,7 +246,7 @@ what each date marks where a source says. "Bulletin" is the JTA archive date.
 
 6. **Tel Or [GAP].** A/31/218, p. 19, para. 62 (rows 2 to 4) names a sixth place after "Gadish, between Deir Al Balah
    and Khan Yunis": "and Tel Or, near Deir Al Balah". I could not identify it. Nothing under Tel Or or Tal Or turned up in
-   Hebrew or English Wikipedia (by the owner's check) or in the JTA archive (the two searches in "Searches": the fuzzy
+   Hebrew or English Wikipedia (a reviewer's agent check on #1660; agent read 2026-10-25, a person's check pending) or in the JTA archive (the two searches in "Searches": the fuzzy
    search returned 100 items each and none contained the phrase), and Gvati has no such name. It is not a row; it is listed here
    so the name sits in this note. Whether it is a variant spelling of one of the five, or a place that was not set up, is
    not settled.
