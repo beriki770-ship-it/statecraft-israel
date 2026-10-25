@@ -128,7 +128,7 @@ Each row: the CBS facts are in the table; here Gvati, Hebrew and English Wikiped
 
 These are not in the table of 22; the note does not decide whether they belong.
 
-- **Jordan Valley rows (CBS authority Arvot HaYarden or Megilot Dead Sea).** They are in `jordan-valley-localities-1967-77.md` (PR #1658, open when this note was written; I did not edit or rely on its worktree) by the boundary sentence above.
+- **Jordan Valley rows (CBS authority Arvot HaYarden or Megilot Dead Sea).** They are in `jordan-valley-localities-1967-77.md` (PR #1658; I did not edit or rely on its worktree) by the boundary sentence above.
 - **CBS rows of the district with a founding year of 1978 to 1980 and an authority other than the two valley councils** (not researched; the CBS year may follow a civil settling that came after an earlier camp or outpost, as it does for Kokhav HaShahar, Rimmonim, Sal'it and Teqoa above): Ari'el 1978 (code 160), Kefar Tappuah 1978 (370), Mevo Dotan 1978 (370), Mizpe Yeriho 1978 (190), Qarne Shomeron 1978 (170), Elon More 1979 (190), Kefar Adummim 1979 (180), Shilo 1979 (180), Efrat 1980 (170), Giv'on HaHadasha 1980 (370). JTA J22 (bulletin of 2 December 1977), dateline "TEL AVIV, Dec. 1 (JTA)", names "Beth Horon and Givon" for the same day, so the CBS 1980 for Giv'on HaHadasha is not the first settling in that source. [GAP]
 - **Rows with no CBS year:** 26 rows of the district have no year: five localities (Avigayil 3869, Giv'ot HaRo'e 3862, Mishmar Yehuda 3865, Asa'el 3861, Shaharit 3868) and 21 others (three industrial areas, Shalom Zion, which the Jordan Valley note calls a regional centre, HaShomron, Darom Yehuda and 15 statistical-area rows): not researched. [GAP]
 
@@ -151,7 +151,7 @@ Reported as printed, not reconciled; each is a count of settlements by a source 
 - `golan-localities-1967-77.md` and `sinai-localities-1967-77.md` (both on main): the Golan and the Sinai, which this note leaves out. `gaza-localities-1967-77.md` (PR #1660, open): Gaza, likewise. The CBS localities file 2024 has no Sinai and no Gaza rows: its seven districts are North, Haifa, Central, Tel Aviv, Jerusalem, South and Judea and Samaria, and no district or subdistrict is named Gaza or Sinai (**derived**, checked by script today).
 - `../Era 1977-93/localities-1977-93-pre67.md` (on main): localities inside the pre-1967 lines for 1977-93; it flags Kefar Rut and Shilat for the Latrun area (see row 23).
 - `lines-1967-74.md` (on main): `grep -i -E "etzion|green line|hebron"` finds no hit in it; the 1967 lines are treated there as lines, not as settlement sites.
-- `jordan-valley-localities-1967-77.md` (PR #1658, open): the same boundary sentence; its "rows outside the filter" mention Ma'ale Efrayim, Kokhav HaShahar, Rimmonim and Gvati's "Mevo Shiloh", which are rows here.
+- `jordan-valley-localities-1967-77.md` (PR #1658): the same boundary sentence; its "rows outside the filter" mention Ma'ale Efrayim, Kokhav HaShahar, Rimmonim and Gvati's "Mevo Shiloh", which are rows here.
 
 ## What was not done
 
@@ -200,7 +200,7 @@ All JTA Daily News Bulletin items, opened as archive pages and as scanned PDFs o
 
 ## Searches (every negative record)
 
-All run 2026-10-25 between 09:38 and 10:00 UTC (the "run" stamps of the script log). Endpoint `https://www.jta.org/wp-json/wp/v2/archive?search=<term>&after=<from>T00:00:00&before=<to>T23:59:59&per_page=100&page=<n>`. "Results" is the count the endpoint reported (`x-wp-total`) for the query; "Read" is how many items of those I read (pages 1 to 5 at most); "contain the exact string" is how many of those items contain the term (case-insensitive substring) in title or text, by script. A term with 0 hits means: none of the items I read contained it; it says nothing about the other results. 108 queries: 92 run in the first pass and the last 16 rows re-run on 2026-10-25 at 11:27 UTC (a Sunday) for the owner's review, with the same endpoint and the window 1967-06-01 to 1978-12-31, pages read as needed, every result read (Kaddum 2 pages; Qiryat Arba and Kiriat Arba 4 pages each; the rest 1 page). Each of the last 16 rows is the URL form above with that `search=` term. The owner's counts for Kaddum, Gush Etzion and Shilo and the no-hit spellings were checked and equal mine.
+All run 2026-10-25 between 09:38 and 10:00 UTC (the "run" stamps of the script log). Endpoint `https://www.jta.org/wp-json/wp/v2/archive?search=<term>&after=<from>T00:00:00&before=<to>T23:59:59&per_page=100&page=<n>`. "Results" is the count the endpoint reported (`x-wp-total`) for the query; "Read" is how many items of those I read (pages 1 to 5 at most); "contain the exact string" is how many of those items contain the term (case-insensitive substring) in title or text, by script. A term with 0 hits means: none of the items I read contained it; it says nothing about the other results. 108 queries: 92 run in the first pass and the last 16 rows re-run on 2026-10-25 at 11:27 UTC (a Sunday) after a reviewer's agent check on #1663 (agent read 2026-10-25, a person's check pending), with the same endpoint and the window 1967-06-01 to 1978-12-31, pages read as needed, every result read (Kaddum 2 pages; Qiryat Arba and Kiriat Arba 4 pages each; the rest 1 page). Each of the last 16 rows is the URL form above with that `search=` term. That agent check's counts for Kaddum, Gush Etzion and Shilo and the no-hit spellings equal mine.
 
 | Query (term) | Window | Results | Read | Contain the exact string | What the hits are |
 |---|---|---|---|---|---|
@@ -298,7 +298,7 @@ All run 2026-10-25 between 09:38 and 10:00 UTC (the "run" stamps of the script l
 | "Shiloh" | 1976-08-01 to 1978-03-31 | 353 | 353 | 11 | 11 items: a diplomat named Shiloh (16 June 1977) and 10 about the Gush Emunim camp at Shiloh in Jan to Mar 1978 and a list of 8 Aug 1977; none opened on PDF |
 | "Kaddum" | 1967-06-01 to 1978-12-31 | 120 | 120 | 5 | 5 items (10 Sep 1975 to 1 Jun 1977): 2 are the place (14 Sep 1976 and 1 Jun 1977), 3 are a PLO official's name (10 Sep 1975, 11 Feb 1977, 28 Feb 1977) |
 | "Gush Etzion" | 1967-06-01 to 1978-12-31 | 23 | 23 | 9 | 9 items (31 Jul 1969 to 27 Nov 1978) naming the region, among them the 9 Jun 1976 item (see row 23) |
-| "Shilo" | 1967-06-01 to 1978-12-31 | 40 | 40 | 27 | 27 items (10 Aug 1967 to 28 Dec 1978): 6 are persons with the surname Shilo, Shiloh or Shilon, 1 is "Shiloah" (8 Aug 1977, a planned settlement site), 20 mention the biblical site or the Gush Emunim camp there; none opened on PDF |
+| "Shilo" | 1967-06-01 to 1978-12-31 | 40 | 40 | 27 | 27 items (10 Aug 1967 to 28 Dec 1978): 6 are persons with the surname Shilo, Shiloh or Shilon, 1 is the 8 Aug 1977 item, which has "Shiloah" as a planned settlement site and also lists "Shiloh" among the planned sites, 20 mention the biblical site or the Gush Emunim camp there; none opened on PDF |
 | "Qedumim" | 1967-06-01 to 1978-12-31 | 24 | 24 | 0 |  |
 | "Kedumin" | 1967-06-01 to 1978-12-31 | 14 | 14 | 0 |  |
 | "Ophra" | 1967-06-01 to 1978-12-31 | 69 | 69 | 0 |  |
