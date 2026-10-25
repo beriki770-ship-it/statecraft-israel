@@ -228,8 +228,9 @@ reread today, not copied.
   - What the dates mark: 1955 (2010 table, not explained there), September 1956 first dwellings, December 1956 start of
     building, 1957 CBS year and Wikipedia's "founded". I did not find a primary record that fixes the day.
 - **Names. [S, Wikipedia]** First "Kiryat Natzrat"; Hebrew Wikipedia: "נצרת עילית" from 1959 (citing Lamerhav, 28 January 1959, not read); **[C]** English Wikipedia: the name Nazareth Illit "was adopted in 1958". Renamed
-  Nof HaGalil in June 2019 (Hebrew Wikipedia lead: "שנקראה עד יוני 2019 בשם"). Local council 1961 (English Wikipedia,
-  citing Forman p. 351). City status 1974 (Galilee Development Authority page: "בשנת 1974 הוכרזה נצרת עילית כעיר").
+  Nof HaGalil in June 2019 (Hebrew Wikipedia lead: "שנקראה עד יוני 2019 בשם"). **[C]** Local council 1961 (English Wikipedia,
+  citing Forman p. 351: "In 1961, Nazareth Illit was recognized as a municipal local council") or 1963 (the same revision,
+  1380255559: "In 1963, it was declared a local council, and in 1974, it formally gained the status of a city"). City status 1974 (Galilee Development Authority page: "בשנת 1974 הוכרזה נצרת עילית כעיר").
 - **Site note. [S, Wikipedia]** As in the north note: English Wikipedia says 1,200 dunams were allocated in 1954 by an
   expropriation law and that the Supreme Court accepted the government's statement in 1955 (HCJ 30/55). Given as
   worded in the source, for the owner's sensitivity review (#118); no judgement is made here.
@@ -261,7 +262,8 @@ reread today, not copied.
     1962" and from the English "Arad was founded in November 1962".
   - The two Wikipedias are not independent of each other, and the 21 November day rests on them alone. **[S]**
 - **Names.** None needed.
-- **Later steps.** English Wikipedia: local council from the town's start, city council in 1995 **[S, Wikipedia]**;
+- **Later steps.** English Wikipedia: "since its inception in 1962, been under the governance of a regional council and local council,
+  before being designated as a city council in 1995" **[S, Wikipedia]**;
   CBS gives status city.
 - **Coordinates.** 31.25884, 35.21397 (derived from CBS, above).
 - **Search record.** JTA, bulletins of 19, 20, 21, 26 and 27 November 1962: see "Searches", row S3. No mention of Arad
