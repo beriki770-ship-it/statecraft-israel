@@ -29,12 +29,14 @@ December 1977, and for each: the founding date (and what it marks), coordinates 
 - **5 rows**: 3 Nahal outposts (Kfar Darom, Netzarim, Morag), 1 outpost that became the first civilian moshav (Nahal
   Gadish / Nahal Katif, later Netzer Hazani) and 1 moshav (Katif). Gvati's count of 3 + 2 matches if the
   outpost that became Netzer Hazani is counted once, as a moshav.
+- **One more name, Tel Or [GAP].** A/31/218 para. 62 lists a sixth place, "Tel Or, near Deir Al Balah", that I could not
+  identify (row note 6). It is not one of the 5 rows.
 - **Founding days.** Every date below is [S], [C] or [GAP]; no government record, Knesset record, Official Gazette item
   or Statistical Abstract was opened (Knesset and the National Library newspaper archive blocked this box, see "What
   was not done"). 3 rows are [C] (Netzarim, Morag, Katif: the sources give different days or mark different events), 1 row
   is [S] (Kfar Darom, year agreed, its two days mark two events) and 1 row is [S] on the date and [C] on the name
   (Netzer Hazani, 29 May 1973: four secondary sources that are not independent agree).
-- **Contemporaneous press** was read for all 5 rows (Morag only through the plan of 17 Jan 1975) (JTA, 8 bulletin PDFs opened and their datelines read; UN
+- **Contemporaneous press** was read for all 5 rows (Morag through the plan of 17 Jan 1975 and UN A/9148 para. 57) (JTA, 8 bulletin PDFs opened and their datelines read; UN
   reports quoting the Israeli press, 5 pages read as images). The one JTA item that names Morag, of 17 Jan 1975, is forward-looking and gives no founding date.
 - **Coordinates:** every row has a point from Hebrew Wikipedia, English Wikipedia and GeoNames; the sources agree to
   under 1.1 km for Kfar Darom and Katif, and disagree by 3.7 km (Netzarim), 11 km (Morag) and 7 km (Netzer Hazani,
@@ -43,17 +45,20 @@ December 1977, and for each: the founding date (and what it marks), coordinates 
 
 ## Where the line between this note and the Rafah approaches falls
 
-(Same wording in `sinai-localities-1967-77.md`, PR #1657.) A locality is in this note if the sources put it inside the
-Gaza Strip, the area Egypt held between 1949 and June 1967 north and west of the Egyptian frontier that the armistice
-line of 24 February 1949 stops at (Art. VI.1, "continuing thus to the Egyptian frontier";
-[`armistice-lines-1949.md`](../Map%20borders/armistice-lines-1949.md)). It is in the Sinai note if the sources put it
-in the Rafah approaches, which Gvati describes as "פיתחת רפיח, המשתרעת בין רפיח למבואות אלעריש לאורך חוף הים" and as
-"אזור חיץ בין רצועת עזה" ... "לבין מרחבי סיני" (a buffer zone between the Strip and the Sinai expanses) (Gvati, vol.
-2, https://benyehuda.org/read/14684, section "רצועת עזה ופיתחת רפיח", read 2026-10-25). Nearest to the line: Morag, the
-southernmost locality of the Strip ("between Khan Yunis and Rafah" in Hebrew WP; "3 km south of Khan Yunis" in Gvati);
-on the Sinai side Dikla, Sadot and Netiv HaAsara. Netzer Hazani's appendix row carries the region label "פיתחת רפיח"
-but Gvati's narrative and every other source put it in the Katif area of the Strip, so it is here and not in the
-Sinai note. No locality is on both lists. This is a reading of the sources named, not a surveyed boundary.
+The next paragraph is copied word for word from `sinai-localities-1967-77.md` (merged in PR #1657); there "this note" is the Sinai note.
+
+**Where the line between this note and the Gaza Strip note falls (same line as in `gaza-localities-1967-77.md`,
+the Gaza Strip note of #130, `gaza-localities-1967-77.md`).** A locality is in the Gaza Strip note if the sources put it inside the Strip, the area Egypt
+held between 1949 and June 1967 north and west of the Egyptian frontier that the armistice line of 24 February 1949
+(Art. VI.1, "continuing thus to the Egyptian frontier"; `armistice-lines-1949.md`) stops at. It is in this note if
+the sources put it in the Rafah approaches (Hebrew Pithat Rafiah), which Gvati describes as "פיתחת רפיח, המשתרעת בין
+רפיח למבואות אלעריש לאורך חוף הים" and as "אזור חיץ בין רצועת עזה" ... "לבין מרחבי סיני" (a buffer zone between the Strip and the Sinai expanses) (Gvati, vol. 2,
+Ben-Yehuda edition, https://benyehuda.org/read/14684, section "רצועת עזה ופיתחת רפיח", read 2026-10-25). By that
+split the Gaza note has Kfar Darom, Netzarim, Morag, Netzer Hazani and Katif (Netzer Hazani's appendix row says "פיתחת רפיח"
+but Gvati's narrative puts it in the Katif area of the Strip, so it goes to the Gaza note; Katif has no appendix row); this note has the
+Rafah-approaches and Sinai rows of the table above. Nearest to the line: Morag (the southernmost
+locality of the Strip: "between Khan Yunis and Rafah" in Hebrew WP, "3 km south of Khan Yunis" in Gvati) and, on this side, Dikla, Sadot
+and Netiv HaAsara. No locality is on both lists. This is a reading of the sources named, not a surveyed boundary.
 
 ## Conventions and tags
 
@@ -62,7 +67,7 @@ Sinai note. No locality is on both lists. This is a reading of the sources named
 - **[S]** secondary: one source, or several that plainly copy one another. Gvati, Wikipedia, the Gush Katif album,
   the Bilig and Huberman paper and the JTA bulletins are [S] (JTA is press, not a record). A UN report that quotes a
   newspaper is [S] with that chain stated; A/31/218 para. 62 (rows 2 to 4) is not a newspaper quote but a description
-  the report attributes to "Major and Mrs. Cooper", visitors to the Strip, also [S]. Where Wikipedia cites a newspaper (Davar, Maariv), I give the citation as
+  the report attributes to two visitors to the Strip who gave testimony before the Special Committee, also [S]. Where Wikipedia cites a newspaper (Davar, Maariv), I give the citation as
   Wikipedia gives it and **do not count that source as read**; I opened none of them.
 - **[C]** conflicting: sources disagree; every value is given and what each marks, as far as the source says.
 - **[GAP]** not closed, with what was tried.
@@ -124,9 +129,9 @@ GeoNames; the largest distance between them is **derived** (haversine, 6,371.008
 |---|---|---|---|---|---|---|
 | 1 | Kfar Darom (Nahal outpost, on the site of the Kfar Darom of 1946) | Nahal outpost | text: 1970; no appendix row | decision 13 Sep 1970; on the land 11 Oct 1970; official ceremony 30 Nov 1970 (album); Oct 1970 / Dec 1970 (he WP); 1970 (en WP); announced 3 Dec 1970 (UN A/8389) | he 31.40361, 34.35528; en 31.40139, 34.36000; GeoNames 31.40369, 34.35396; max 0.63 km | [S] |
 | 2 | Nahal Netzarim | Nahal outpost | text: 1972; no appendix row | 29 Feb 1972 on the land (he WP, album); 1 Mar 1972 "officially established today" (JTA); 6 Nov 1972 "officially established yesterday" (JTA); Nov 1972 houses (he WP) | he/en 31.48222, 34.41111; GeoNames 31.48333, 34.45000; 3.69 km | [C] |
-| 3 | Nahal Morag | Nahal outpost | text: 1972; no appendix row | 15 Sivan 5732 = 28 May 1972 (derived); "30.5.1972" (album); 29 May 1972 (en WP); ceremony 9 Nov 1972 (album, he WP caption); in a list of 19 Jul 1972 (UN A/8828) | he 31.30783, 34.28689; en 31.30833, 34.28806; GeoNames 31.21667, 34.33333; 11.06 km | [C] |
+| 3 | Nahal Morag | Nahal outpost | text: 1972; no appendix row | 15 Sivan 5732 = 28 May 1972 (derived); "30.5.1972" (album); 29 May 1972 (en WP); ceremony 9 Nov 1972 (album, he WP caption); in a list of 19 Jul 1972 (UN A/8828); inaugurated early Nov 1972 (UN A/9148 para. 57, as "Morg") | he 31.30783, 34.28689; en 31.30833, 34.28806; GeoNames 31.21667, 34.33333; 11.06 km | [C] |
 | 4 | Nahal Gadish, called Katif, later Netzer Hazani | Nahal outpost, then moshav | appendix "נצר חזני", region "פיתחת רפיח", 29.5.73; text: by mid-1977 | 29 May 1973 on the land (appendix, he WP, en WP, album); "this week" before 31 May 1973 (JTA, as "Nahal Samir"); moshav inaugurated 10 Feb 1977 | he/en 31.38000, 34.32194; GeoNames 31.38012, 34.32118 (and GeoNames "Nahal Qatif" 31.42507, 34.37340); 7.04 km | [S] on the date, [C] on the name |
-| 5 | Katif (moshav, "Katif B") | moshav | text: by mid-1977; no appendix row | planned and reported 31 May 1976 (JTA); foundation stone 10 Aug 1977 (he WP); first families Oct 1978 (album); 1977 / 1978 / 1985 (WP infoboxes) | he/en 31.37528, 34.31278; GeoNames 31.36667, 34.31667; 1.03 km | [C] |
+| 5 | Katif (moshav, "Katif B") | moshav | text: by mid-1977; no appendix row | JTA bulletin of 2 Jun 1976 (meeting of 31 May 1976) most likely concerns the row 4 outpost; foundation stone 10 Aug 1977 (he WP); first families Oct 1978 (album); 1977 / 1978 / 1985 (WP infoboxes) | he/en 31.37528, 34.31278; GeoNames 31.36667, 34.31667; 1.03 km | [C] |
 
 ## Row notes
 
@@ -157,16 +162,19 @@ what each date marks where a source says. "Bulletin" is the JTA archive date.
    days mark two events (the land, the ceremony) and Hebrew WP's "December" and the UN's 3 December match the
    second. The day on which the outpost was founded is not settled by a record: [S].
 
-2. **Nahal Netzarim [C].** Gvati's text: "נח״ל נצרים, כ־4 ק״מ דרומית־מערבית לעזה, ונח״ל מורג כ־3 ק״מ מדרום לחן־יונס,
+2. **Nahal Netzarim [C].** Gvati's text: "נח״ל נצרים, כ־4 ק״מ דרומית־מערבית לעזה, ונח״ל מורג כ־3 ק״מ מדרום לחן־יוניס,
    שתיהן הוקמו ב־1972" (Nahal Netzarim, about 4 km southwest of Gaza, and Nahal Morag, about 3 km south of Khan Yunis,
    both set up in 1972). No appendix row. Hebrew WP (oldid 42998096): "טקס העלייה על הקרקע התקיים בפורים, י"ד אדר
    תשל"ב, 29 בפברואר 1972" (cites Maariv, 1 Mar 1972); first settlers were Nahal cores of Betar and the Agricultural
    Union; "בנובמבר 1972 התקיים טקס לחנוכת הבתים" (cites Davar, 7 Nov 1972); civilianised later (outside this window).
    English WP (oldid 1378112844): "initially established in 1972 as a military base" and an infobox year 1984 (the civilianisation,
    per Bilig and Huberman, 22 July 1984). Album p. 39 (catalog 31): going up on the land printed "29.2.1972" beside
-   14 Adar 5732 (derived: 14 Adar 5732 = 29 Feb 1972, a Tuesday). JTA: bulletin 2 Mar 1972, the paragraph "Nahal Netzarim,
+   14 Adar 5732 (derived: 14 Adar 5732 = 29 Feb 1972, a Tuesday); the page puts the final site of the second Nahal outpost
+   in the Strip about 4 km southwest of Gaza "באזור המכונה 'אבו מדיאן'" (in the area called "Abu Madian"), which
+   squares the album's second outpost of 1970 (row 1) with Bilig and Huberman's Netzarim (the page text comes out of reading order; I quote the phrase only). JTA: bulletin 2 Mar 1972, the paragraph "Nahal Netzarim,
    a new Jewish settlement in the Gaza Strip, was officially established today. It is located south of Gaza on the
-   banks of the Gaza River" has no dateline of its own and follows the item datelined "JERUSALEM, March 1 (JTA)", so
+   banks of the Gaza River" is a separate brief below a printed rule, after the item on the Austrian Foreign Minister
+   datelined "JERUSALEM, March 1 (JTA)"; it has no dateline of its own, so
    "today" most likely reads 1 Mar 1972 (my reading); bulletin 8 Nov 1972, dateline "TEL AVIV, Nov. 7 (JTA)": "Ein
    Netzarim, a new nahal (para-military) settlement in the Gaza Strip was officially established yesterday ... will be
    populated by members of the Betar youth movement", so 6 Nov 1972. UN A/9148, p. 25, para. 57: "Reports appeared in Ha'aretz on 5 November 1972, in The Jerusalem Post on 6 and 7 November
@@ -176,8 +184,8 @@ what each date marks where a source says. "Bulletin" is the JTA archive date.
    events of rows 2 and 3 are the same press wave); UN A/8828, p. 17: the list taken from the
    Jerusalem Post of 20 July 1972 (Galili's Knesset statement of 19 July 1972) includes "Nahal Netzarim"; A/31/218, p.
    19, para. 62: "Nahal Netzarim, s.w. of Gaza town". **[C]:** 29 Feb 1972 (he WP, album: the land), 1 Mar 1972 (JTA,
-   "officially established") and 6 Nov 1972 (JTA, "officially established"; he WP: housing ceremony). All are in
-   1972; the sources mark different events and I did not settle which is the founding.
+   "officially established") and 6 Nov 1972 (JTA, "officially established"; he WP: housing ceremony). A/9148 para. 57 (above) also cites a Ha'aretz report of 5 Nov 1972, a day before the JTA "yesterday"
+   (6 Nov 1972). All are in 1972; the sources mark different events and I did not settle which is the founding.
 
 3. **Nahal Morag [C].** Gvati's text as in row 2 ("שתיהן הוקמו ב־1972"). No appendix row. Hebrew WP (oldid 41344101):
    "מורג הוקמה בט"ו בסיון תשל"ב (מאי 1972)" between Khan Yunis and Rafah, on the hill "אום כאלב", as a Nahal outpost of
@@ -197,7 +205,7 @@ what each date marks where a source says. "Bulletin" is the JTA archive date.
    שר-הסעד". His narrative: "הוקם המושב נצר חזני ע״ש מיכאל חזני, ממנהיגי הפועל המזרחי, ובסמיכות לו - מושב שיתופי:
    קטיף" and that the localities were set up in the Katif area (see the boundary section on the region label). Hebrew
    WP (oldid 43737999): "היישוב החל את דרכו בסוף מאי 1973 (כ"ז באייר תשל"ג) כהיאחזות נח"ל בשם "גדיש"", renamed
-   "קטיף" after some weeks; and "ב[כ"ב בשבט] תשל"ז (פברואר 1977)" a core of 12 families of the Ezra movement went up to the land for
+   "קטיף" after some weeks; and "בכ"ב בשבט תשל"ז (פברואר 1977)" a core of 12 families of the Ezra movement went up to the land for
    the civilian moshav; the Hebrew WP page on Katif adds "נח"ל גדיש (וכן גדישים, או סמירי)". English WP (oldid 1378112858):
    "founded as a paramilitary Nahal ... settlement called Gadish on May 29, 1973" and "In February 1977 the land was
    handed over to civilians as a moshav ... the first civilian village of Gush Katif" (its infobox says 1997, an
@@ -205,9 +213,9 @@ what each date marks where a source says. "Bulletin" is the JTA archive date.
    printed "29.5.1973" (derived: 27 Iyar 5733 = 29 May 1973, a Tuesday); a month later renamed "Gadishim"; p. 50: the
    civilianisation on 22 Shvat 5737, printed "10.2.1977" (derived: 22 Shvat 5737 = 10 Feb 1977, a Thursday). Bilig
    and Huberman p. 246: the outpost civilianised on 10 February 1977, Rabin attending (they cite Davar, 11 Feb 1977). JTA: bulletin
-   1 Jun 1973, item datelined "NEW YORK, May 31 (JTA)" (an Israel Bonds item), whose last sentence reads "A new nahal
-   settlement named Nahal Samir was established in the Gaza Strip this week" (the sentence has no dateline of its own;
-   "this week" before 31 May 1973); bulletin 14 Feb 1977, "JERUSALEM (JTA)" with no day: "A new moshav, called Netzer
+   1 Jun 1973, p. 4, a separate brief below a printed rule, after the Israel Bonds item datelined "NEW YORK, May 31
+   (JTA)": "A new nahal settlement named Nahal Samir was established in the Gaza Strip this week" (the brief has no
+   dateline of its own; "this week" most likely reads against 31 May 1973, my reading); bulletin 14 Feb 1977, "JERUSALEM (JTA)" with no day: "A new moshav, called Netzer
    Hazani, after the late Welfare Minister Michael Hazani, was inaugurated Thursday in the Gaza Strip", which reads
    10 Feb 1977 (the Thursday before the Monday bulletin, my reading); bulletin 17 Jan 1975, dateline "OGDA, Near Rafiah
    (south of Gaza Strip), Jan. 16 (JTA)": "the new moshavim of Nahal Morag and Nahal Katif will be built". UN A/31/218,
@@ -228,10 +236,20 @@ what each date marks where a source says. "Bulletin" is the JTA archive date.
    page katif.net (Wayback copy of 9 Feb 2006, https://web.archive.org/web/20060209224249/http://new.katif.net/city.php?page=17):
    "ראשוני המתיישבים עלו לקרקע בשנת תשל"ח - 1978". JTA: bulletin 2 Jun 1976, dateline "JERUSALEM, June 1 (JTA)": a
    kibbutz delegation met Rabin "yesterday" (31 May 1976) and had "no satisfactory explanation for the establishment
-   of Katif, a new settlement right in the heart of the Gaza Strip" (the delegates' words as JTA reports them). **[C]:** a settlement called Katif was being
-   established by 31 May 1976 (JTA), built from summer 1977 with a stone on 10 Aug 1977 (he WP), and first lived in
+   of Katif, a new settlement "right in the heart of the Gaza Strip," they said" (as printed, the inner quotes are
+   the paper's; "they" are the delegates, as JTA reports them). In 1976 "Katif" was still the name of the row 4 outpost
+   (Hebrew WP's Katif page; album p. 50, which uses it for the outpost in May 1974 and at its civilianisation), and Hebrew
+   WP has the moshav planned as "קטיף ב'" from 1977, so this item most likely concerns row 4's outpost, not a date for
+   this row. **[C]:** built from summer 1977 with a stone on 10 Aug 1977 (he WP), and first lived in
    October 1978 (album) or 1978 (katif.net, he WP); the English WP infobox says 1985. Whether it falls inside the
    window depends on what the date marks; the first families came after 31 December 1977.
+
+6. **Tel Or [GAP].** A/31/218, p. 19, para. 62 (rows 2 to 4) names a sixth place after "Gadish, between Deir Al Balah
+   and Khan Yunis": "and Tel Or, near Deir Al Balah". I could not identify it. Nothing under Tel Or or Tal Or turned up in
+   Hebrew or English Wikipedia (by the owner's check) or in the JTA archive (the two searches in "Searches": the fuzzy
+   search returned 100 items each and none contained the phrase), and Gvati has no such name. It is not a row; it is listed here
+   so the name sits in this note. Whether it is a variant spelling of one of the five, or a place that was not set up, is
+   not settled.
 
 ## JTA items and their datelines
 
@@ -241,9 +259,9 @@ Bulletin PDFs opened 2026-10-25; the dateline is as read on the page image. "-" 
 |---|---|---|---|---|
 | 13 Oct 1970 | pdfs.jta.org/1970/1970-10-13_197.pdf | Gaza development (Galili at Kfar Darom) | TEL AVIV, Oct. 12 (JTA) | speech date not given |
 | 19 Oct 1971 | pdfs.jta.org/1971/1971-10-19_198.pdf | Para-military settlements planned | TEL AVIV, Oct. 18 (JTA) | 18 Oct 1971 |
-| 2 Mar 1972 | pdfs.jta.org/1972/1972-03-02_043.pdf | Nahal Netzarim (in the Austrian minister item) | none of its own; item above "JERUSALEM, March 1 (JTA)" | "today", most likely 1 Mar 1972 |
+| 2 Mar 1972 | pdfs.jta.org/1972/1972-03-02_043.pdf | Nahal Netzarim (separate brief below a printed rule, after the Austrian minister item) | none of its own; the item above is datelined "JERUSALEM, March 1 (JTA)" | "today", most likely 1 Mar 1972 |
 | 8 Nov 1972 | pdfs.jta.org/1972/1972-11-08_215.pdf | New nahal settlement in Gaza Strip (Ein Netzarim) | TEL AVIV, Nov. 7 (JTA) | 6 Nov 1972 ("yesterday") |
-| 1 Jun 1973 | pdfs.jta.org/1973/1973-06-01_106.pdf | Rothberg item, last sentence Nahal Samir | NEW YORK, May 31 (JTA) | "this week", before 31 May 1973 |
+| 1 Jun 1973 | pdfs.jta.org/1973/1973-06-01_106.pdf | Nahal Samir (separate brief below a printed rule, after the Rothberg item) | none of its own; the item above is datelined NEW YORK, May 31 (JTA) | "this week", most likely before 31 May 1973 |
 | 17 Jan 1975 | pdfs.jta.org/1975/1975-01-17_012.pdf | JNF in the Rafiah program (Nahal Morag, Nahal Katif) | OGDA, Near Rafiah (south of Gaza Strip), Jan. 16 (JTA) | 16 Jan 1975 |
 | 2 Jun 1976 | pdfs.jta.org/1976/1976-06-02_106.pdf | Rabin hears kibbutz "doves" (Katif) | JERUSALEM, June 1 (JTA) | meeting 31 May 1976 |
 | 14 Feb 1977 | pdfs.jta.org/1977/1977-02-14_031.pdf | News brief, Netzer Hazani | JERUSALEM (JTA), no day | "Thursday", 10 Feb 1977 |
@@ -261,6 +279,9 @@ so "0" means no returned item contained the string, not that I read it and found
 | Query | Date range | Search URL | Total | Returned | Contain the term |
 |---|---|---|---|---|---|
 | `Kfar Darom` | 1967-06-01 to 1978-06-30 | `https://www.jta.org/wp-json/wp/v2/archive?search=Kfar+Darom&after=1967-06-01T00:00:00&before=1978-06-30T23:59:59&per_page=100&page=1` | 6 | 6 | 1 |
+| `Kefar Darom` | 1967-06-01 to 1978-06-30 | `https://www.jta.org/wp-json/wp/v2/archive?search=Kefar+Darom&after=1967-06-01T00:00:00&before=1978-06-30T23:59:59&per_page=100&page=1` | 2 | 2 | 1 |
+| `Tel Or` | 1967-06-01 to 1978-06-30 | `https://www.jta.org/wp-json/wp/v2/archive?search=Tel+Or&after=1967-06-01T00:00:00&before=1978-06-30T23:59:59&per_page=100&page=1` | 4776 | 100 | 0 |
+| `Tal Or` | 1967-06-01 to 1978-06-30 | `https://www.jta.org/wp-json/wp/v2/archive?search=Tal+Or&after=1967-06-01T00:00:00&before=1978-06-30T23:59:59&per_page=100&page=1` | 5364 | 100 | 0 |
 | `Kfar Daroum` | 1967-06-01 to 1978-06-30 | `https://www.jta.org/wp-json/wp/v2/archive?search=Kfar+Daroum&after=1967-06-01T00:00:00&before=1978-06-30T23:59:59&per_page=100&page=1` | 67 | 67 | 0 |
 | `Kfar Dorom` | 1967-06-01 to 1978-06-30 | `https://www.jta.org/wp-json/wp/v2/archive?search=Kfar+Dorom&after=1967-06-01T00:00:00&before=1978-06-30T23:59:59&per_page=100&page=1` | 33 | 33 | 0 |
 | `Bnai Darom` | 1967-06-01 to 1978-06-30 | `https://www.jta.org/wp-json/wp/v2/archive?search=Bnai+Darom&after=1967-06-01T00:00:00&before=1978-06-30T23:59:59&per_page=100&page=1` | 2 | 2 | 1 |
@@ -299,6 +320,9 @@ so "0" means no returned item contained the string, not that I read it and found
 | `moshav` | 1972-11-05 to 1972-11-12 | `https://www.jta.org/wp-json/wp/v2/archive?search=moshav&after=1972-11-05T00:00:00&before=1972-11-12T23:59:59&per_page=100&page=1` | 0 | 0 | 0 |
 | `moshav` | 1973-05-25 to 1973-06-05 | `https://www.jta.org/wp-json/wp/v2/archive?search=moshav&after=1973-05-25T00:00:00&before=1973-06-05T23:59:59&per_page=100&page=1` | 1 | 1 | 0 |
 
+The one item that contained `Kefar Darom` is the bulletin of 20 Nov 1972 ("Arab Summit Meeting Fails to Resolve
+Differences over Plans to Confront Israel, Jordan, Palestinians"), a security item that names "Kefar Darom" as a place
+near which terrorist acts were attributed to a network, with nothing on the founding of the outpost; it is not used.
 The items that contained `Kfar Darom`, `Bnai Darom`, `Netzarim`, `Ein Netzarim`, `Nahal Morag`, `Katif`, `Nahal Katif`,
 `Nahal Samir` and `Netzer Hazani` are the items in the datelines table; the one `Gadish` item (11 Jan 1977, "Rabin:
 Election Won't Stop Peace Quest") and the `Khan Yunis` and `Nahal` items were screened and not used. "Gaza Strip" windows of 1972-01-15
@@ -310,8 +334,11 @@ page text and are context only.
 - **After 1977.** Hebrew WP "גוש קטיף" (oldid 43690979) says the bloc grew with Gadid, Ganei Tal and Gan Or planned in 1977
   as Katif C to E (citing Davar, 24 Aug 1977, not opened), the Regional Council of May 1979, and after the evacuation of
   Sinai Neve Dekalim and Atzmona; Bilig and Huberman give Nisanit and Dugit and the civilianisation of Netzarim (22
-  July 1984) and Morag. Not researched here.
-- **Before the window.** The Kfar Darom of 1946 (one of the "11 points"; he WP, en WP) and its fall in 1948.
+  July 1984) and Morag. Not researched here. For after 1977 see #165.
+  The sibling notes [`kibbutzim-moshavim-1957-77.md`](kibbutzim-moshavim-1957-77.md) and
+  [`localities-1977-93-pre67.md`](../Era%201977-93/localities-1977-93-pre67.md) both leave the Gaza Strip out.
+- **Before the window.** The Kfar Darom of 1946 (one of the "11 points"; he WP, en WP) and its fall in 1948;
+  [`settlements-pre-1948-negev.md`](../Era%201882-1948/settlements-pre-1948-negev.md) already covers the 1946 Kfar Darom.
 - **The Rafah approaches and Sinai** (Dikla, Sadot, Netiv HaAsara, Yamit and the rest): PR #1657.
 - **Lines:** [`lines-1967-74.md`](lines-1967-74.md).
 
