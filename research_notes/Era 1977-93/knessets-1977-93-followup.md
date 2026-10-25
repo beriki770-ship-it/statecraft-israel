@@ -169,6 +169,80 @@ This confirms the date named in that law. It does **not**, by itself, establish 
 the then-applicable Basic Law's regular-term calculation. Nor does absence of a dissolution law in a database
 query prove that calculation. That narrower question remains **[GAP]**.
 
+## Second pass, 25 October 2026
+
+Status: research only, 25 October 2026, second pass on the rows the owner listed on
+[#146](https://github.com/eyalgolan/statecraft-israel/issues/146) on 24 October 2026. Every reading below was made by an AI agent
+on `checked: 2026-10-25`; a person's check is pending. Nothing in `content/` is changed.
+
+Access on 25 October 2026: from the machine used, every request to `fs.knesset.gov.il`, `knesset.gov.il/Odata` and
+`main.knesset.gov.il` was redirected (HTTP 303) to `https://www.knesset.gov.il/maintenance-page-geo`, so the Knesset's
+own law files, transcripts and facsimiles could not be opened in this pass. The Internet Archive's copies and the JTA
+archive could be opened.
+
+### G8 and line 63 of the original note: was 1 November 1988 the end of the term fixed by law?
+
+**[V, agent read 25 Oct 2026; a person's check pending]** The Knesset's English text of *Basic Law: The Knesset* (archive copy of 16 January 2013 [S2-1]) reads:
+
+- section 8: "The term of office of the Knesset shall be four years from the day on which it is elected."
+- section 9: "The elections to the Knesset shall take place on the third Tuesday of the month of Cheshvan in the year in which the tenure of the outgoing Knesset ends." Amendment No. 1 (passed 22 July 1959) adds: "But if the year which preceded that year was a leap year, the elections shall take place on the first Tuesday of that month."
+- section 36: "If the Knesset decides to dissolve itself, the term of office of the next Knesset shall run until the month of Cheshvan next following the termination of four years from the day of its election."
+
+The page prints Amendments No. 1 to No. 10, the last passed on 19 May 1987 (Sefer HaHukim 1215). None of Amendments
+No. 2 to No. 10 amends section 8, 9 or 36 (read by their headings: sections 7, 46, 20A, 31, 24, 42A and 42B, 6, 7A and 6).
+The page does not show whether any later amendment, from 27 May 1987 to 1 November 1988, touched these sections; that
+was not checked.
+
+Arithmetic, with the dates the original note already records. The 11th Knesset was elected on 23 July 1984 (L-DISS-10).
+Four years from that day end on 23 July 1988. The next Cheshvan after that is Cheshvan 5749. The Hebrew year that
+preceded it, 5748, is not a leap year, so section 9's first-Tuesday clause does not apply. 1 Cheshvan 5749 fell on
+Wednesday 12 October 1988; the Tuesdays of that month were 18 October (7 Cheshvan), 25 October (14 Cheshvan) and
+1 November 1988 (21 Cheshvan). The third Tuesday is 1 November 1988. The Hebrew dates were computed with the standard
+fixed-calendar arithmetic in a short script; the script reproduced the five Hebrew and civil date pairs printed on the
+same Knesset page (20 Iyar 5747 = 19 May 1987, 13 Av 5745 = 31 July 1985, 26 Adar II 5741 = 1 April 1981,
+16 Tammuz 5719 = 22 July 1959, 22 Shevat 5718 = 12 February 1958). The result is derived, not printed in any source read.
+
+So 1 November 1988 is what sections 8, 9 and 36 give for a Knesset elected on 23 July 1984, which is consistent with the
+absence of a dissolution law in OD-B and with the Twelfth Knesset Elections (Temporary Provisions) Law naming that day [J3].
+
+### C4 and G7: the date of the committee's decision against Kach
+
+**[V, agent read 25 Oct 2026; a person's check pending]** The JTA Daily News Bulletin of **Thursday, 6 October 1988**, vol. 66, no. 181, page 1, item "Kach Barred from
+Elections; Kahane Appealing to High Court" (original bulletin PDF opened and read as a page image [S2-2]) has the dateline
+"JERUSALEM, Oct. 5 (JTA)" and opens: "The Central Election Committee voted overwhelmingly Wednesday to bar Rabbi Meir
+Kahane's Kach party from running in the general elections Nov. 1." The dateline is 5 October 1988, which was a Wednesday
+(6 October was a Thursday). The decision date is therefore **5 October 1988**, consistent with the legible tail "…5, 1988"
+of the Versa text and with the Versa PDF's paragraph 1 [J1]. The same item says: "It was indicted on that count by a smaller majority" for the charge of rejecting
+the democratic nature of the state. The English Wikipedia value of 4 October 1988 is not supported by the bulletin; its
+underlying source was not found. The committee's own record and the Hebrew judgment were not opened (Knesset and court
+sites not reachable in this pass), so those originals stay **[GAP]**.
+
+### G6: Moledet
+
+**[V, agent read 25 Oct 2026; a person's check pending]** The JTA Daily News Bulletin of **Thursday, 25 August 1988**, vol. 66, no. 158, page 2, item "New Political
+Party Formed; Stresses Transfer of Arabs" (original bulletin PDF opened and read as a page image [S2-3]) has the dateline
+"TEL AVIV, Aug. 24 (JTA)" and says Rehavam Zeevi "launched his new Moledet (Motherland) political party at its inaugural
+meeting Tuesday night". Aug. 24, 1988 was a Wednesday, so the Tuesday is **23 August 1988**. This dates the inaugural
+meeting reported by the bulletin. It is not a registration date, and a registration record was not found, so the
+party's registration date stays **[GAP]**. This resolves, for the meeting only, the earlier row's limit that the report prints no civil date for that Tuesday.
+
+### Rows searched again and not closed
+
+- **C3, 16 January 1992 (Tehiya and Moledet leaving the government).** (25 Oct) Searched again and not found. Read:
+  nothing new that dates it. The JTA archive has no date-listing page for January 1992 that could be opened
+  (`https://www.jta.org/1992/01/16`, `/17`, `/20`, `/21`, `/22` each returned HTTP 404). Web searches limited to jta.org
+  (query: Moledet Tehiya quit Shamir government January 1992 peace talks Madrid JTA; and a second with "Ne'eman" "Zeevi" resign,
+  run 25 Oct 2026, 10 results each) returned results that were not the January 1992 bulletins; the search tool's
+  summaries are not a source and no figure is taken from them.
+- **22 March 1984 vote, facsimile (G7).** (25 Oct) Searched again and not found. The Knesset file server is blocked from
+  the machine used (see access note), so the scan was not opened.
+- **Primary founding dates of Dash, Shlomzion, Tehiya, Tami, Telem, Shas, Meretz, Degel Hatorah, Tzomet, the Arab Democratic
+  Party.** (25 Oct) Searched again and not found. Read: the JTA page of 18 June 1981 on Tami [only its text; no date for
+  the party's founding or for Abu Hatzeira's leaving the NRP beyond "a month ago"]. Web searches limited to jta.org
+  (queries about Yadin and the Democratic Movement for Change, Tami and Abu Hatzeira, and the Arab Democratic Party, run
+  25 Oct 2026, 10 results each) did not return a bulletin dating those events; no date is taken from the search tool's
+  summaries.
+
 ## Coverage and remaining work
 
 The C labels refer to section 6 of the original note. G labels below track its section 7 bullets;
@@ -179,7 +253,7 @@ they are research locators, not game-rule IDs or completion approvals.
 | C1: 1977 eligible voters | Additional official support for 2,236,293 [E1] | Origin of the older 2,236,478 value; original results notice. |
 | C2: PLP seats in 1988 | Official retrospective table re-read: one seat [E2] | Original notice and provenance of the older secondary two-seat statement. |
 | C3: January 1992 withdrawal | Government notice says 19 January; term fields end 21 January [J4, K6–K8] | Primary basis for 16 January, party announcement dates and any legal-effect explanation. |
-| C4: Kach committee decision | Readable translated judgment states 5 October 1988 [J1] | Original Hebrew/committee record and the source of 4 October. |
+| C4: Kach committee decision | Readable translated judgment states 5 October 1988 [J1]; second pass (25 Oct): JTA bulletin, dateline Oct. 5, "Wednesday" [S2-2] | Original Hebrew/committee record and the source of 4 October. |
 | C5: Morasha and Tehiya names | Archived table labels re-read [E3] | Contemporaneous legal list names and timing of any rename. |
 | C5: Flatto-Sharon name | No new successful reading | Original note's variants retain their old attribution; archive access failed. |
 | C5: Telem/Rafi/Ometz | Dated parliamentary names distinguished [K1–K3] | Extra-parliamentary renaming and electoral-registration dates. |
@@ -190,10 +264,10 @@ they are research locators, not game-rule IDs or completion approvals.
 | G4: session coverage | More Knesset 9 periods than the original note describes are now returned [K5] | Compare with an independent calendar; neither full session completeness nor constitutional term ends are proved. |
 | G5: member terms versus faction moves | Five Telem member records compared with faction records [K1–K3] | Full five-Knesset replacement/move audit and causes of membership changes. |
 | Original §3 [S]: Golomb/Amit, 13 May 1980 | Primary identity and faction-term records now read [K9–K10] | Announcement or decision dates, if needed, require their own sources. |
-| G6: founding of Shas, Meretz, Moledet, Degel Hatorah, Tzomet | Additional contemporary milestones and parliamentary dates [P1–P5, K1] | The exact founding/registration instruments; see the five-party table for each limit. |
+| G6: founding of Shas, Meretz, Moledet, Degel Hatorah, Tzomet | Additional contemporary milestones and parliamentary dates [P1–P5, K1]; second pass (25 Oct): Moledet inaugural meeting 23 August 1988 [S2-3] | The exact founding/registration instruments; see the five-party table for each limit. |
 | G7: 22 March 1984 reading | Official transcript records preliminary transfer/preparation for first reading [J5, K8] | Inspect the facsimile and resolve the DOC date-header error. |
-| G7: Kach date | See C4 | Original-language cross-check remains open. |
-| G8: 1 November 1988 fixed by law | Explicit election-day reference read [J3] | Then-applicable Basic Law and the regular-term calculation. |
+| G7: Kach date | Second pass (25 Oct): 5 October 1988 in the JTA bulletin of 6 Oct 1988 [S2-2] | Original Hebrew/committee record. |
+| G8: 1 November 1988 fixed by law | Explicit election-day reference read [J3]; second pass (25 Oct): sections 8, 9, 36 and the arithmetic give 1 November 1988 [S2-1] | Any amendment of those sections between 27 May 1987 and 1 Nov 1988 was not checked. |
 
 Other secondary-only statements in the original note are not automatically upgraded by these targeted reads.
 No missing figure is filled from a search snippet, an inaccessible source or a calendar inference.
@@ -233,6 +307,9 @@ Only the passages named were used, not a claim to have reviewed each entire sour
 | P4a | Noach Zevuluni's reporter archive, [Davar, 25 September 1988, p. 7](https://ranaz.co.il/articles/article2963_19880925.asp), opening paragraphs | Reproduced report, not the original newspaper scan; Friday decision distinguished from Sunday publication. |
 | P4b | Same reporter archive, [Davar, 27 September 1988, p. 3](https://ranaz.co.il/articles/article2965_19880927.asp), opening paragraphs | Reproduced report of the named list and signature drive, not proof of a registration date. |
 | P4c | Same reporter archive, [Davar, 30 September 1988, p. 3](https://ranaz.co.il/articles/article2970_19880930.asp), opening paragraph | Reproduced campaign-preparation report; original scan not read. |
+| S2-1 | Knesset, "Basic Law: The Knesset", English text, [archive copy of 16 January 2013](https://web.archive.org/web/20130116190525/http://www.knesset.gov.il/laws/special/eng/basic2_eng.htm), sections 8, 9, 36 and the headings and footnotes of Amendments No. 1 to No. 10 | `checked: 2026-10-25`. Archived HTML of the Knesset's English text read; the live Knesset site is not reachable from the machine used. Later amendments are not shown on this page. |
+| S2-2 | JTA, [Daily News Bulletin, 6 October 1988, no. 181, p. 1](http://pdfs.jta.org/1988/1988-10-06_181.pdf) (archive page: [Kach Barred from Elections; Kahane Appealing to High Court](https://www.jta.org/archive/kach-barred-from-elections-kahane-appealing-to-high-court)) | `checked: 2026-10-25`. The original bulletin PDF has no text layer; page 1 was rendered and read as an image. Dateline and first paragraph read. |
+| S2-3 | JTA, [Daily News Bulletin, 25 August 1988, no. 158, p. 2](http://pdfs.jta.org/1988/1988-08-25_158.pdf) (archive page: [New Political Party Formed; Stresses Transfer of Arabs](https://www.jta.org/archive/new-political-party-formed-stresses-transfer-of-arabs)) | `checked: 2026-10-25`. The original bulletin PDF has no text layer; page 2 was rendered at 220 dpi and read as an image. Dateline and first paragraph read. |
 | P5 | The Christian Science Monitor, [report of 29 December 1983](https://www.csmonitor.com/1983/1229/122930.html), publication line and opening paragraph | Contemporary report of an October announcement concerning Tzomet; no exact founding day. |
 
 ## AI assistance and review status
