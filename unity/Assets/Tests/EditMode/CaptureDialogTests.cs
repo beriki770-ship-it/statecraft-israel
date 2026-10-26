@@ -53,8 +53,9 @@ public class CaptureDialogTests
         }, events);
     }
 
-    /// <summary>Lydda's and Ramle's hexes (content/map/settlement_hexes.yaml; one hex each on the 4.4 km grid, #1183).</summary>
-    static readonly System.Collections.Generic.Dictionary<string, (int q, int r)> Hex = new() { ["lod"] = (-3, 23), ["ramla"] = (-4, 24) };
+    /// <summary>Lydda's and Ramle's target hexes (content/settlement_targets.yaml; one hex each on the 4.4 km grid, #1183).
+    /// Ramle's is (-3, 24), next to its settlement hex, which it shares with Rehovot (owner on #1796).</summary>
+    static readonly System.Collections.Generic.Dictionary<string, (int q, int r)> Hex = new() { ["lod"] = (-3, 23), ["ramla"] = (-3, 24) };
 
     static readonly Content C = Targets();
     static UiText En => UiText.Parse(AssetDatabase.LoadAssetAtPath<TextAsset>(UiPaths.Strings).text);
