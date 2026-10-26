@@ -677,6 +677,15 @@ city.reassign_halutz: "Reassign halutzim: 1 of {0}"
 city.reassign_veteran_halutz: "Reassign veteran pioneers: 1 of {0}"
 # A pioneer group's Return (R-QUAL-003); {0}: its name, site.group.
 pioneer.return: "Return {0} to civilian life"
+
+# Pioneer card (#1549).
+pioneer.card.open: "Open {0}"
+pioneer.card.location: "Hex: {0}"
+pioneer.card.track: "Track: {0}"
+pioneer.card.idle: "Idle"
+pioneer.card.working: "Working at {0}"
+pioneer.card.stop_first: "Stop the work on its project row before returning to civilian life."
+pioneer.card.work_ordered: "Build or Stop is ordered for this group. Remove that order before returning to civilian life."
 # City projects on the chosen hex (#1122): the city that builds it, Build for each content kind (its name, then cost and
 # turns from content), the order, and a project under way or finished. Refusals the map actions share use their
 # info.map_action_reason.* strings; these are the city projects' own.
@@ -877,3 +886,8 @@ why.cause.event_policy_from: "{0} set to {1} ({2})"
 why.cause.objective_completed: "{0}: completed, {1} points"
 why.cause.prisoners_returned: "Prisoners exchanged: {0:N0} prisoners returned to {1}"
 why.cause.soldiers_returned: "Prisoners exchanged: {0:N0} of our soldiers came home from {1}"
+
+# #1708 artillery action status. Hebrew: native review pending (#564).
+unit.artillery_move_missing: "Artillery cannot move yet: its movement points have not been set"
+unit.fire_ready: "Fire available"
+unit.fire_spent: "Fired this turn"
