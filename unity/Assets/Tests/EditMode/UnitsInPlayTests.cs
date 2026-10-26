@@ -468,7 +468,7 @@ public class UnitsInPlayTests
             Assert.Less(Km("brigade_7", "Hulda", 34.88333, 31.83222), 2.6f, "the 7th stands by Hulda");
             Assert.Greater(Km("brigade_7", "Hulda", 34.985, 31.77528), 3f, "and well away from Sar'a");
             Assert.Greater(Km("harel", "Sha'ar HaGai", 34.985, 31.77528), 3f, "Harel well away from Sar'a too");
-            Assert.AreEqual((-2, 23), Spot("harel", "Sha'ar HaGai"));
+            Assert.AreEqual((-2, 26), Spot("harel", "Sha'ar HaGai"));
             foreach (var (u, a) in anchors.Where(x => x.a.PlaceHex != null))
                 Assert.AreEqual((a.PlaceHex[0], a.PlaceHex[1]), (layer.Spots[a].Q, layer.Spots[a].R), $"{u.Id} {a.Place}: in its place_hex");
             var etzioni = layer.Spots[anchors.Single(x => x.u.Id == "etzioni").a];
