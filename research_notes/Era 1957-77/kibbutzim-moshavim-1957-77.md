@@ -406,7 +406,7 @@ held before June 1967. They stay in the table, flagged, and the owner decides.
 
 ## What was not done
 
-- **No contemporaneous source for any founding day.** I did not search or read the Jewish Telegraphic Agency archive
+- **No contemporaneous source for any founding day.** (26 Oct) The JTA archive was searched by title for Shilat, Kefar Rut and Yahel (S6), and only the Yahel web text above was read; no bulletin PDF was opened. In the first pass I did not search or read the Jewish Telegraphic Agency archive
   for any row, nor Davar, Maariv, Hamashkif, the Official Gazette or Jewish Agency records. The only look at the JTA
   archive was a listing of its item titles for 15 to 19 August 1977 (65 items, via `https://www.jta.org/wp-
   json/wp/v2/archive?after=1977-08-15T00:00:00&before=1977-08-20T00:00:00&per_page=100`, run 2026-10-25): no title
@@ -423,7 +423,7 @@ held before June 1967. They stay in the table, flagged, and the owner decides.
 
 ## Searches (every negative record)
 
-All run 2026-10-25.
+S1 to S4 run 2026-10-25; S5 to S7 run 2026-10-26.
 
 | Row | Query / method | Where | Result |
 |---|---|---|---|
@@ -432,7 +432,7 @@ All run 2026-10-25.
 | S3 | `titles=<Hebrew name>` with `redirects=1` for each row, then by hand `titles=` with a disambiguator where the first page was wrong | he.wikipedia.org MediaWiki API | First fetch needed a hand-chosen title for 10 rows (a missing page, a page on another topic or an unclear one: Zimrat, Moran, Sufa, En Hazeva, Zofar, Zarit, Hazon, Kishor, Giv'at Shappira, Alumim) and a disambiguation page for Adderet; each was refetched under the title in the last table. No row is left without a Hebrew article; Kefar Rozenwald is covered by the article "זרעית". |
 | S4 | Same, `langlinks` to English | en.wikipedia.org | 49 of 49 rows have an English article: 48 via the Hebrew language link (Kishor under the title Kishorit, which also describes the later community), Adderet by title (Aderet, Israel). |
 | S5 | WebSearch (built-in; no Tavily key on this box), 2026-10-26, three queries: Hebrew "ילקוט הפרסומים שילת מושב שם היישוב הכרזה 1977 חורון ב"; "nevo.co.il ילקוט הפרסומים שילת מושב מועצה אזורית גזר שמות יישובים הודעה"; English "Shilta Ramallah district depopulated village 1948 Khalidi All That Remains Latrun salient Jordan armistice" | Search snippets and result lists | Shilat, which side of the 1949 line: no armistice map or Yalkut HaPirsumim notice found. The Hebrew queries returned 9 and 8 result links, none a nevo.co.il or Reshumot page; I opened none of them. The English query returned Wikipedia pages and a PalQuest page, which I did not open; a snippet is not a source, so nothing from them is used. Row stays [GAP]. |
-| S6 | JTA archive REST endpoint `https://www.jta.org/wp-json/wp/v2/archive?search=<term>&after=<date>&before=<date>&per_page=50`, run 2026-10-26, titles only (no bulletin PDF opened) | jta.org | The search matches loosely (Shilat returned synagogue items). Shilat, 1977-08-01 to 1977-09-30: 5 results, none of the 5 titles names a moshav founding. 1977-01-01 to 1977-12-31: Shilta 6 results; Horon 17 (first 12 titles read); Latrun 90 (first 50 listed, first 12 titles read); Ayalon Valley 4; Kfar Rut 131 (first 12 titles read); Kfar Ruth 18 (first 12 titles read); Yahel 0. None of the titles read names Shilat, Kefar Rut or Yahel founding. No bulletin text was opened, so no row changes. |
+| S6 | JTA archive REST endpoint `https://www.jta.org/wp-json/wp/v2/archive?search=<term>&after=<date>&before=<date>&per_page=50`, run 2026-10-26, titles only (no bulletin PDF opened) | jta.org | The search matches loosely (Shilat returned synagogue items). Shilat, 1977-08-01 to 1977-09-30: 5 results, none of the 5 titles names a moshav founding. 1977-01-01 to 1977-12-31: Shilta 6 results; Horon 17 (first 12 titles read); Latrun 90 (first 50 listed, first 12 titles read); Ayalon Valley 4; Kfar Rut 131 (first 12 titles read); Kfar Ruth 18 (first 12 titles read); Yahel 0 (1977 only, which misses the 18 Nov 1976 date at line 130). Re-run 26 Oct for Yahel, 1976-11-01 to 1976-12-31: 3 results (X-WP-Total 3); the web text of two names Yahel: JTA bulletin of 17 Nov 1976, "Kibbutz Yahel in the Arava district, the first Reform kibbutz in Israel, will receive its first settlers this week" (https://www.jta.org/archive/kibbutz-yahel-in-the-arava-district-the-first), and of 23 Nov 1976, the Premier "praised the Reform Movement for establishing its first kibbutz, Yahel in the Arava region" (https://www.jta.org/archive/rabin-appeals-to-sadat-for-talks) [S, web text; datelines not read]. They fit the 18 Nov 1976 date ("this week") without fixing the day. None of the other titles read names Shilat or Kefar Rut founding. |
 | S7 | Globes article (https://www.globes.co.il/news/article.aspx?did=702225), opened via WebFetch 2026-10-26, asked for every sentence on Shilat's founding | globes.co.il | One founding sentence (quoted in the Shilat row), year 1977; no Green Line or Latrun mention, no day. Used as [S] for the year only. |
 
 ## Sources and revisions
