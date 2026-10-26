@@ -56,6 +56,7 @@ def render(hexes: dict, units: list[dict]) -> str:
                 raise ValueError(f"{u['id']} anchor {k}: no free land hex next to ({q}, {r})")
             p = hg.lonlat_to_km(a["lon"], a["lat"], hexes["bounds"])
             q, r = min(free, key=lambda c: math.dist(hg.hex_center_km(*c, hexes["hex_size_km"]), p))
+            taken.add((q, r))
         lines.append(f"  - {{ id: {u['id']}, anchor: {k}, q: {q}, r: {r} }}\n")
     return "".join(lines)
 
