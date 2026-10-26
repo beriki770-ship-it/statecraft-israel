@@ -85,7 +85,9 @@ public class HexVariantTests
     /// there rather than pinned twice.</summary>
     static readonly Dictionary<string, string> Before = new Dictionary<string, string>
     {
-        ["wheat_fields"] = "6/23/8dc0de48cc6e25f0 11/21/0ec106c62c81994e 8/23/0b8b66bfd537c34d",
+        // #1183: 4.4 km hexes, values scale with HexM: wheat_fields re-recorded on the 4.4 km build (same piece counts).
+        // The other four already differ on main on Linux (platform floats), so they keep their recorded values here.
+        ["wheat_fields"] = "6/23/4f58499d0ba97405 11/21/16b9d119633cacb1 8/23/027e8c11ef672ab7",
         ["grazing_land"] = "22/0/1389752806d94528 22/0/312ddbb3232f3c2b 22/0/fece2adb178546f6",
         ["citrus_orchard"] = "27/6/3fc025f769e42c67 27/6/1ec6cc42eb7d765f 27/6/c992d3cc18de5d6c",
         ["olive_terraces"] = "29/171/d46f8a175d59dccf 31/171/0f0b67936ea68a16 35/171/48024bc52f4d25e9",
