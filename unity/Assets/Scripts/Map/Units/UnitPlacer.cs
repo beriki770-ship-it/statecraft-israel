@@ -32,8 +32,8 @@ namespace Statecraft.Game.Map.Units
     }
 
     /// <summary>Puts every anchor of the unit data on one spot, once, from the data alone (review M9: a token never moves
-    /// because another unit appears). The spot lies within one hex step of the anchor point (review I2: about 8.7 km
-    /// between hex centres on 5 km hexes) and is the nearest to it, or, when the anchor has a sourced `toward` point on
+    /// because another unit appears). The spot lies within one hex step of the anchor point (review I2: about 7.6 km
+    /// between hex centres on 4.4 km hexes) and is the nearest to it, or, when the anchor has a sourced `toward` point on
     /// the unit's own side (review MF1), the nearest to that, among the following; an anchor with a sourced `place_hex`
     /// considers only that hex:
     /// 1. the centres of the anchor's own hex and its six neighbours, drawn full size;

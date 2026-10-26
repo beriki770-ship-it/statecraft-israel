@@ -348,7 +348,7 @@ next to the anchor on that side. The token stands at the clear spot nearest that
 - The 7th Brigade is anchored at Hulda, its headquarters for the Latrun attacks (Battles of Latrun), not at Latrun.
   The Arab Legion held Latrun and the Yalu–Beit Nuba ridge. The ground between was contested until the Beit Jiz and
   Beit Susin area was cleared on 28 May, and Sar'a was taken only on 13–14 July.
-- Harel stands by Saris on the corridor road, hex (-2,23), taken on 16–17 April 1948. It no longer stands by Sar'a and
+- Harel stands by Saris on the corridor road, hex (-2,26), taken on 16–17 April 1948. It no longer stands by Sar'a and
   Artuf.
 
 The test pins Etzioni's distance from the West Jerusalem point, Harel's hex, and the 7th within 2.6 km of Hulda; both
