@@ -135,7 +135,7 @@ day was found for any row below, so every day stays [GAP].
   Carmel named Yemin Orde in memory of the late British General Orde Wingate was dedicated yesterday at ceremonies
   attended by Premier David Ben Gurion". The bulletin date is 16 April 1953; the event date should be read from the
   dateline in the original PDF, and `http://pdfs.jta.org/` answered every request with a redirect (HTTP 302) to
-  `archive.jta.org`, so the dateline was not read and "yesterday" is not resolved (probably 15 April, our reading).
+  `archive.jta.org`, so the dateline was not read and "yesterday" is not resolved (probably 15 April, our reading). Re-tried 26 Oct: pdfs.jta.org now serves other bulletins (e.g. 1952-05-28_104), but no file answered for 15, 16 or 17 April 1953 at numbers 055 to 095, so the original is still not found.
   It is a dedication, not the day the village was founded. [V, agent read 26 Oct 2026; a person's check pending]
   JTA, query `Yemin Orde`, 1951-01-01 to 1957-12-31: 18 results, 1 page, 2 items whose text contains "Yemin" (this one
   and a 1955-06-24 item about Neve Yemin, unrelated).

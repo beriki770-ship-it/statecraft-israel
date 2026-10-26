@@ -129,7 +129,7 @@ day was found for any row below, so every day stays [GAP].
   (were divided) and the minority built a new settlement beside the old one. That is context for 1952, not a
   date for this kibbutz. [V, agent read 26 Oct 2026; a person's check pending]
   JTA, query `Givat Haim`, 1951-01-01 to 1957-12-31: 9 results, 1 page, 4 items whose text names the place. The
-  relevant one is the bulletin dated 1952-05-28, "Ben Gurion Deplores Split in Kibbutzim, Talks of Hardships"
+  relevant one is the bulletin dated 1952-05-28 (no. 104, http://pdfs.jta.org/1952/1952-05-28_104.pdf, p. 3, dateline on the page image "TEL AVIV, May 27. (JTA)", Ben Gurion "today expressed": 27 May 1952, derived; [S], agent read 26 Oct 2026), "Ben Gurion Deplores Split in Kibbutzim, Talks of Hardships"
   (https://www.jta.org/archive/ben-gurion-deplores-split-in-kibbutzim-talks-of-hardships): he was "speaking at the dedication of a new
   kibbutz whose members are Mapai Party followers who left Kfar Szold and Givat Haim, where Mapam settlers were in the
   majority". It does not name the new kibbutz, so that it is this one is our reading, which fits the founders
