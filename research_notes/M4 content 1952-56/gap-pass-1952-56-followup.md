@@ -35,8 +35,9 @@ positions on big decisions are left to #106. One combined file, because fewer th
     Secretary General Hassouna to Johnston, enclosing the Political Committee's 11 October resolution "approving the decision
     taken by the four states concerned with the plan for the development of the Jordan Valley and its tributaries."
   - The telegram's own comment reads that the program "in fact has received technical acceptance", and the body says the
-    Lebanese and Syrians had pressed for outright rejection and that the Foreign Ministers worked out a proposal under which the
-    Arab League would be asked to recognise the plan's technical validity and let each state approve it in its own time. Johnston
+    Lebanese and Syrians had pressed for outright rejection and that Johnston's side worked out the proposal ("We worked out
+    face-saving proposal for Lebanese wherein four Foreign Ministers would ask Arab League recognize technical validity JVP"); the four
+    Foreign Ministers then "recommended further study and postponement decision". Johnston
     left for Jerusalem on 12 October (footnote).
 - **Reading for the note.** The Arab League's formal step is dated 11 October 1955 (Political Committee resolution, passed on
   by letter on 15 October). It did not adopt the plan; it endorsed the four states' decision to keep the experts working.
@@ -64,11 +65,11 @@ positions on big decisions are left to #106. One combined file, because fewer th
 
 ### Reparations talks: where and when they opened
 
-- **[V, agent read 2026-10-26; a person's check pending]** JTA Daily News Bulletin, vol. XIX no. 57, Friday 20 March 1952,
+- **[V, agent read 2026-10-26; a person's check pending]** JTA Daily News Bulletin, vol. XIX no. 57, masthead "Friday 20 March 1952" as printed (20 March 1952 was a Thursday; [C] masthead day against date; the dateline "THE HAGUE, March 20" does not lag the masthead as the other bulletins do, e.g. 24 March datelined March 23, so by the usual lag the bulletin is probably Friday 21 March, our reading),
   item datelined "THE HAGUE, March 20", headed "German-Israeli talks open today in strongly guarded Dutch castle"
   (http://pdfs.jta.org/1952/1952-03-20_057.pdf, page 1; the file was found by trying file numbers 050 to 062 for 20 to 26 March). Printed: "The opening session of the Israeli-German negotiations for
   reparations payments by West Germany will be held tomorrow in an old castle at Wassenaar, a suburb of The Hague, it was
-  learned here today." "Tomorrow" from the dateline is 21 March. The headline says "open today", which the body contradicts; the postponement in the next bullet explains it, but no source read says so directly.
+  learned here today." "Tomorrow" from the dateline is 21 March. The headline says "open today", which the body contradicts. If the bulletin is really of Friday 21 March (see the masthead [C] above), the headline is simply that day's news; the postponement in the next bullet is another possible reason. No source read says which. The 21 March conclusion stands either way.
 - **[V, agent read 2026-10-26; a person's check pending]** JTA Daily News Bulletin, vol. XIX no. 58, Monday 24 March 1952,
   item datelined "THE HAGUE, March 23" (http://pdfs.jta.org/1952/1952-03-24_058.pdf, page 1): "The German-Jewish reparations
   talks which opened here Friday in historic Washington Castle in the suburb of Wassenaar will be resumed tomorrow and will last
