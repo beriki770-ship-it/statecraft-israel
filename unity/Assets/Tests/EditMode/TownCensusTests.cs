@@ -422,8 +422,9 @@ public class TownCensusTests
     /// measure; none would leave its floor loose. The placer does not count the budget: this test is the guard. Tel Aviv's
     /// floor (<see cref="TelAvivFloor"/>, #652) was measured with Kiryati's clearing already in place, so its one clearing
     /// takes nothing more and the floor stays.</summary>
-    /// #1183: 4.4 km hexes, values scale with HexM: no token stands in Haifa's town on the 4.4 km build (measured), so its budget is 0.
-    internal static readonly Dictionary<string, int> UnitClearingBudget = new Dictionary<string, int> { ["haifa"] = 0, ["tel_aviv"] = 1 };
+    /// #1183: on 4.4 km hexes no token stands in Haifa's or Tel Aviv's town (measured: Carmeli's and Kiryati's spots fall outside the towns' footprints,
+    /// the same alone and in the full EditMode run), so both budgets are 0 and the floors keep the houses those clearings took on 5 km.
+    internal static readonly Dictionary<string, int> UnitClearingBudget = new Dictionary<string, int> { ["haifa"] = 0, ["tel_aviv"] = 0 };
 
     [Test]
     public void HaifaAndTelAvivSpendTheirUnitClearingBudget()
@@ -434,11 +435,9 @@ public class TownCensusTests
             var (fc, fr, _) = map.KitFootprints.Single(f => f.id == kv.Key);
             var inTown = map.UnitClearings.Where(c => (c.centre - fc).magnitude < fr * Statecraft.Game.Map.Units.UnitGround.FootprintMargin).ToList();
             TestContext.WriteLine($"{kv.Key}: {inTown.Count} unit clearings {string.Join(" ", inTown.Select(c => c.centre))}");
-            // #1183: 4.4 km hexes, values scale with HexM: a budget is now a ceiling: Tel Aviv holds Kiryati's clearing in a run of TownCensusTests alone and none
-            // in the full EditMode run (measured), and Haifa none.
-            Assert.LessOrEqual(inTown.Count, kv.Value, kv.Key + ": unit clearings in the town");
+            Assert.AreEqual(kv.Value, inTown.Count, kv.Key + ": unit clearings in the town");
             var own = map.UnitSpots.Where(s => s.Value.InTown && inTown.Any(c => c.centre == new Vector2((float)s.Value.X, (float)s.Value.Z))).Select(s => s.Key.Place);
-            CollectionAssert.IsSubsetOf(own, new[] { kv.Key == "haifa" ? "Haifa" : "Tel Aviv" }, kv.Key + ": the clearing its floors were measured with");
+            CollectionAssert.AreEquivalent(kv.Value == 0 ? new string[0] : new[] { kv.Key == "haifa" ? "Haifa" : "Tel Aviv" }, own, kv.Key + ": the clearing its floors were measured with");
         }
     }
 
