@@ -29,3 +29,16 @@ def test_an_anchor_on_the_shore_takes_the_land_hex_a_settlement_would():
     land = {(h["q"], h["r"]) for h in HEXES["hexes"] if h["land"]}
     rows = yaml12.load(uah.render(HEXES, UNITS))["anchors"]
     assert all((r["q"], r["r"]) in land for r in rows), [r for r in rows if (r["q"], r["r"]) not in land]
+
+
+def test_an_enemy_anchor_on_a_players_locality_takes_the_nearest_free_neighbour():
+    """#1183 (owner, 22 October 2026, issuecomment-6350228026) and #1305 (issuecomment of 22 October): an enemy anchor
+    whose hex holds a player's locality (a settlement not in mvp.enemy_held_localities) goes on the nearest free land
+    neighbour, measured from the anchor's own point; free means no settlement and no other anchor. Otherwise the scripted
+    enemy move could never leave it (Movement.NoEntry for the enemy)."""
+    rows = yaml12.load(uah.render(HEXES, UNITS))["anchors"]
+    player = uah.player_locality_hexes()
+    enemy = {u["id"] for u in UNITS if u.get("side") != "israel"}
+    assert not [r for r in rows if r["id"] in enemy and (r["q"], r["r"]) in player]
+    pos = {(r["id"], r["anchor"]): (r["q"], r["r"]) for r in rows}
+    assert pos[("syrian_army", 1)] == (15, 6)   # the 11 June bridgehead, next to Rosh Pinna's (14, 6), the owner's hex
