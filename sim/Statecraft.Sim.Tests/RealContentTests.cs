@@ -102,6 +102,25 @@ public class RealContentTests
             targets.Where(enemyHeld.Contains).OrderBy(x => x, StringComparer.Ordinal));
     }
 
+    // Owner on #1796 (26 October 2026, "Contested + move target"): at 4.4 km (#1183) Ramla and Rehovot share hex (-4, 24), so
+    // Ramla's capture target is the neighbour nearest Ramla's point, (-3, 24). A unit standing on Rehovot's hex alone does not
+    // capture Ramla; one on (-3, 24) does.
+    [Fact]
+    public void AUnitAloneOnRehovotsHexDoesNotCaptureRamla()
+    {
+        Assert.Equal((-4, 24), C.SettlementHexes.Where(h => h.Id == "ramla" || h.Id == "rehovot").Select(h => (h.Q, h.R)).Distinct().Single());
+        GameState Held(int q, int r)
+        {
+            var s = Simulation.NewGame(C, 42, Mode.Historical);
+            s.Units.Clear();
+            s.Units.Add(1, new Unit(1, "recruit", q, r, side: Movement.PlayerSide, strength: 2));
+            SettlementControl.Capture(C, s, s.Date.AddDays(7), new List<Cause>());
+            return s;
+        }
+        Assert.False(Held(-4, 24).Settlements.ContainsKey("ramla"));
+        Assert.Equal(Movement.PlayerSide, Held(-3, 24).Settlements["ramla"].Owner);
+    }
+
     [Fact]
     public void MaimonBirthUsesHebrewBiographyDateAndSource()
     {

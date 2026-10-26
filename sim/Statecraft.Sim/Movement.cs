@@ -263,6 +263,9 @@ namespace Statecraft.Sim
             var ids = c.RulesAt(s.Date).Mvp!.EnemyHeldLocalities
                 .Where(id => !(s.Settlements.TryGetValue(id, out var x) && x.State == SettlementControl.Annexed)).ToList();
             var held = new HashSet<(int Q, int R)>(c.SettlementHexes.Where(h => ids.Contains(h.Id)).Select(h => (h.Q, h.R)));
+            // A target captured on a neighbour of its own hex (Ramla's, ContentLoader.TargetOnANeighbour, #1796): that hex too,
+            // so a retreat or a Raid's withdrawal still never ends where it would capture the place.
+            if (!enemy) held.UnionWith(c.SettlementTargets.Where(t => ids.Contains(t.Id)).Select(t => (t.Q, t.R)));
             return enemy ? new HashSet<(int Q, int R)>(c.SettlementHexes.Select(h => (h.Q, h.R)).Where(h => !held.Contains(h))) : held;
         }
 
