@@ -13,7 +13,7 @@ The question: which Israeli localities of the Shomron Regional Council were foun
 ## Short answer
 
 - **The list.** CBS localities file 2024, rows whose district is "אזור יהודה ושומרון", whose local authority is exactly "שומרון" and whose year of founding is 1978 to 1993: **20 rows**. By CBS year: 1978 (2), 1979 (1), 1981 (5), 1982 (2), 1983 (4), 1984 (2), 1987 (1), 1989 (1), 1990 (1), 1991 (1). **No row has a year of 1980, 1985, 1986, 1988, 1992 or 1993.** By CBS subdistrict (נפה): Tulkarm 10, Shechem (Nablus) 6, Jenin 4. In the 2009 CBS list of localities by form, 18 of the 20 are "יישוב קהילתי" (community settlement) and 2 (Nofim, Zufim) are "יישוב כפרי אחר, יהודי" (other rural settlement, Jewish).
-- **Dates.** **None of the 20 founding days is closed from a record of the day.** The sources I could open are Hebrew and English Wikipedia ([S]), 15 JTA bulletin items ([S], press), two UN Special Committee reports (press as the UN cites it), and two Official Gazette name lists (Yalkut HaPirsumim 3165 and 4012, a Government Names Committee list each, which date a name and give a map grid, not a founding). **10 rows carry a disagreement [C]**: Mevo Dotan, Elon More, Barqan, Hermesh, Ale Zahav, Berakha, Yizhar, Migdalim, Qiryat Netafim, Nofim. **10 rows are [S] on the year** (CBS, both Wikipedias and the table of the council's localities in Hebrew Wikipedia agree): Kefar Tappuah, Hinnanit, Yaqir, Enav, Shaqed, Itamar, Pedu'el, Zufim, Avne Hefez, Revava. Days that one source gives are tagged as that source's, not closed. (26 Oct) The second pass added one day from press: JTA dates the setting up of the 1979 site of Elon More to the morning of 7 June 1979 (row 3, T17); that is press, not a government record.
+- **Dates.** **None of the 20 founding days is closed from a record of the day.** The sources I could open are Hebrew and English Wikipedia ([S]), 21 JTA bulletin items ([S], press), two UN Special Committee reports (press as the UN cites it), and two Official Gazette name lists (Yalkut HaPirsumim 3165 and 4012, a Government Names Committee list each, which date a name and give a map grid, not a founding). **10 rows carry a disagreement [C]**: Mevo Dotan, Elon More, Barqan, Hermesh, Ale Zahav, Berakha, Yizhar, Migdalim, Qiryat Netafim, Nofim. **10 rows are [S] on the year** (CBS, both Wikipedias and the table of the council's localities in Hebrew Wikipedia agree): Kefar Tappuah, Hinnanit, Yaqir, Enav, Shaqed, Itamar, Pedu'el, Zufim, Avne Hefez, Revava. Days that one source gives are tagged as that source's, not closed. (26 Oct) The second pass added one day from press: JTA dates the setting up of the 1979 site of Elon More to the morning of 7 June 1979 (row 3, T17); that is press, not a government record.
 - **Coordinates.** All 20 rows have CBS coordinates (derived to WGS84, method below). 18 rows have an Official Gazette grid as an independent cross-check; 16 of the 18 differ from the CBS point by under 1.1 km on each axis on the rule of thumb below, Yaqir (1,281 m) and Berakha (1,190 m) by more. Ale Zahav and Revava have no Gazette entry I could find. English Wikipedia's own coordinates are within 160 m of the CBS point for 17 rows; Hinnanit (465 m), Yaqir (353 m) and Ale Zahav (601 m) are further.
 - **Primary sources.** The only primary documents opened are the CBS file and its notes, the Gazette pages, and two UN Special Committee reports (which print what the press said and cite it; none of those papers was opened). No government decision, Knesset record, Reshumot item or contemporaneous Hebrew newspaper was opened: the National Library of Israel and the State Archives returned HTTP 403 to this server (tested 25 October 2026, see "Searches"), so every Maariv and Davar article that Hebrew Wikipedia cites is unopened. **[GAP]**
 
@@ -143,7 +143,7 @@ Each row: the CBS facts, the Gazette, JTA where read, Hebrew and English Wikiped
 
 These are not in the table; the note does not decide whether they belong. **Derived** from the CBS file: 31 rows have the authority "שומרון"; 20 are in this note, 11 are not.
 
-- **Rows of the council with no CBS 2024 row (3 rows): Homesh, Ganim and Kadim.** Hebrew WP "מועצה אזורית שומרון" (oldid 44076805, fetched 2026-10-25, [S]) lists them in its table of the council's localities with the years 1978 (Homesh), 1983 (Ganim) and 1983 (Kadim), and says Homesh, Ganim, Kadim and Sa-Nur were evacuated in 2005 in the disengagement. **Derived:** the CBS 2024 file has no row with these names (a search of all 1,490 rows). Each has an entry in the Gazette list G2 (read from the page images, [V, agent read 2026-10-25; a person's check pending] for what it prints): חומש (Homesh), p. 1493, grid 1688.1902, “השם הזמני – מעלה נח"ל: יישוב קהילתי של העובד הלאומי, בשומרון” (the temporary name Ma'ale Nahal, a community settlement of HaOved HaLeumi, in Shomron); גנים (Ganim), p. 1492, grid 1820.2060, “השם הזמני – גנים ב', יישוב קהילתי, העובד הלאומי, בשומרון; שם סמלי” (the temporary name Ganim B, a community settlement, HaOved HaLeumi, in Shomron; a symbolic name); כדים (Kadim), p. 1493, grid 180.205, “השם הזמני – נחל גנים, גנים ב': היאחזות נח"ל, בשומרון” (the temporary name Nahal Ganim, Ganim B: a Nahal outpost, in Shomron). So the 20 rows of this note are not the whole council for 1978-1993. (26 Oct, second pass) Founding facts, all [S]: **Homesh.** Hebrew WP "חומש (יישוב)" (oldid 43895398, fetched 2026-10-26): “ב-1 בינואר 1978 נתפסו כ-700 דונם מתושבי הכפרים הפלסטינים בורקה וסילת א-דהר לצרכים צבאיים (צו תפיסה 4/78), ועליהן הוקמה באותה שנה היאחזות בשם מעלה נח"ל על ידי גרעין של תנועת הנוער הלאומי בית"ר, שאוזרחה והפכה להתנחלות באפריל 1980, אך היא אוזרחה רשמית ב-13 בינואר 1981” (on 1 January 1978 about 700 dunams were seized for military needs from the residents of the villages Burqa and Silat a-Dhahr; a Nahal outpost called Ma'ale Nahal was set up on them that year by a gar'in of Betar; it was civilianised and became a settlement in April 1980, but was officially civilianised on 13 January 1981). English WP "Homesh" (oldid 1375476883) files it under 1978. **Ganim.** Hebrew WP "גנים" (oldid 44026662): “גנים הוקם בינואר 1983 כהיאחזות נח"ל והתאזרח באותה שנה על ידי גרעין התיישבות מצפון הארץ של ארגון "העובד הלאומי" שהוקם שנה קודם לכן, שביקש להקים שרשרת יישובים בצפון־מזרח השומרון” (Ganim was set up in January 1983 as a Nahal outpost and civilianised that year by a settlement gar'in of HaOved HaLeumi, which wanted to set up a chain of localities in north-east Shomron); English WP "Ganim" (oldid 1376833016): “The settlement was founded in 1983 by members of Betar.” **Kadim.** Hebrew WP "כדים" (oldid 44026666): “כדים הוקמה בשם גנים ב' כהיאחזות נח"ל של גרעין מתנועת הנוער הלאומי בשנת 1983, ואוזרחה ב-28 בפברואר 1984” (Kadim was set up under the name Ganim B as a Nahal outpost of a gar'in of the Noar HaLeumi movement in 1983, and civilianised on 28 February 1984). JTA searches X7 to X12 (2026-10-26) found no item on the founding of any of the three: the 2 items with "Homesh" among the first 1,000 fetched are of 1988 (a settler, bus attacks), and an item with archive date 28 October 1992 names "Moshav Ganim" in a report from Jenin (bulletin not opened). They are 3 places that the year filter of this note does not take, because they have no CBS 2024 row; by Hebrew WP they were set up in 1978 and 1983. Still [GAP] for the days and for a government record.
+- **Rows of the council with no CBS 2024 row (3 rows): Homesh, Ganim and Kadim.** Hebrew WP "מועצה אזורית שומרון" (oldid 44076805, fetched 2026-10-25, [S]) lists them in its table of the council's localities with the years 1978 (Homesh), 1983 (Ganim) and 1983 (Kadim), and says Homesh, Ganim, Kadim and Sa-Nur were evacuated in 2005 in the disengagement. **Derived:** the CBS 2024 file has no row with these names (a search of all 1,490 rows). Each has an entry in the Gazette list G2 (read from the page images, [V, agent read 2026-10-25; a person's check pending] for what it prints): חומש (Homesh), p. 1493, grid 1688.1902, “השם הזמני – מעלה נח"ל: יישוב קהילתי של העובד הלאומי, בשומרון” (the temporary name Ma'ale Nahal, a community settlement of HaOved HaLeumi, in Shomron); גנים (Ganim), p. 1492, grid 1820.2060, “השם הזמני – גנים ב', יישוב קהילתי, העובד הלאומי, בשומרון; שם סמלי” (the temporary name Ganim B, a community settlement, HaOved HaLeumi, in Shomron; a symbolic name); כדים (Kadim), p. 1493, grid 180.205, “השם הזמני – נחל גנים, גנים ב': היאחזות נח"ל, בשומרון” (the temporary name Nahal Ganim, Ganim B: a Nahal outpost, in Shomron). So the 20 rows of this note are not the whole council for 1978-1993. (26 Oct, second pass) Founding facts, all [S]: **Homesh.** Hebrew WP "חומש (יישוב)" (oldid 43895398, fetched 2026-10-26): “ב-1 בינואר 1978 נתפסו כ-700 דונם מתושבי הכפרים הפלסטינים בורקה וסילת א-דהר לצרכים צבאיים (צו תפיסה 4/78), ועליהן הוקמה באותה שנה היאחזות בשם מעלה נח"ל על ידי גרעין של תנועת הנוער הלאומי בית"ר, שאוזרחה והפכה להתנחלות באפריל 1980, אך היא אוזרחה רשמית ב-13 בינואר 1981” (on 1 January 1978 about 700 dunams were seized for military needs from the residents of the villages Burqa and Silat a-Dhahr; a Nahal outpost called Ma'ale Nahal was set up on them that year by a gar'in of Betar; it was civilianised and became a settlement in April 1980, but was officially civilianised on 13 January 1981). English WP "Homesh" (oldid 1375476883) files it under 1978. **Ganim.** Hebrew WP "גנים" (oldid 44026662): “גנים הוקם בינואר 1983 כהיאחזות נח"ל והתאזרח באותה שנה על ידי גרעין התיישבות מצפון הארץ של ארגון "העובד הלאומי" שהוקם שנה קודם לכן, שביקש להקים שרשרת יישובים בצפון־מזרח השומרון” (Ganim was set up in January 1983 as a Nahal outpost and civilianised that year by a settlement gar'in of HaOved HaLeumi, which wanted to set up a chain of localities in north-east Shomron); English WP "Ganim" (oldid 1376833016): “The settlement was founded in 1983 by members of Betar.” The two articles name different founders (a HaOved HaLeumi gar'in in Hebrew WP, members of Betar in English WP) for the same year, and I did not resolve which is right (both [S]). **Kadim.** Hebrew WP "כדים" (oldid 44026666): “כדים הוקמה בשם גנים ב' כהיאחזות נח"ל של גרעין מתנועת הנוער הלאומי בשנת 1983, ואוזרחה ב-28 בפברואר 1984” (Kadim was set up under the name Ganim B as a Nahal outpost of a gar'in of the Noar HaLeumi movement in 1983, and civilianised on 28 February 1984). JTA searches X7 to X12 (2026-10-26) found no item on the founding of any of the three: the 2 items with "Homesh" among the first 1,000 fetched are of 1988 (a settler, bus attacks), and an item with archive date 28 October 1992 names "Moshav Ganim" in a report from Jenin (bulletin not opened). They are 3 places that the year filter of this note does not take, because they have no CBS 2024 row; by Hebrew WP they were set up in 1978 and 1983. Still [GAP] for the days and for a government record.
 - **The council's year table against the CBS year.** The table (41 rows, Hebrew WP, oldid 44076805, [S]) has a year column. For the 20 rows of this note, 12 equal the CBS year (Kefar Tappuah, Hinnanit, Yaqir, Enav, Shaqed, Berakha, Yizhar, Itamar, Pedu'el, Zufim, Avne Hefez, Revava) and 8 differ: Barqan 1977 (CBS 1981), Mevo Dotan 1981 (CBS 1978), Elon More 1980 (CBS 1979), Hermesh 1983 (CBS 1982), Ale Zahav 1983 (CBS 1982), Migdalim 1984 (CBS 1983), Qiryat Netafim 1984 (CBS 1983) and Nofim 1986 (CBS 1987). Yizhar's 1983 equals the CBS year; the civilian settling of 1984 is the year both articles file it under (row 12). Barqan is the only row that this table turns from [S] to [C]; the other seven were already [C]. **Derived:** by comparing the table with the CBS rows of the summary table.
 - **Founding year 1977 (3 rows):** Salit (3567), Rihan (3568) and Shavei Shomron (3571). Their year is before the window and they belong to `research_notes/Era 1957-77/west-bank-localities-1967-77.md` (PR #1663). Not researched here. Hebrew WP's table of the council's localities (below) gives Salit 1979 against the CBS 1977.
 - **Founding year after 1993 (2 rows):** Barukhin (3744, 2012) and Rahalim (3822, 2013). Hebrew WP's table of the council's localities (below) gives Barukhin 1999 and Rahelim 1991. (26 Oct, second pass) **Barukhin** ([S]): Hebrew WP "ברוכין" (oldid 43951291, fetched 2026-10-26): “היישוב הוקם ב-1999 על ידי גרעין בן שש משפחות מתלמידי ישיבת ארץ הצבי שביישוב פדואל הסמוך” (the settlement was set up in 1999 by a gar'in of six families of students of the Eretz HaTzvi yeshiva in the nearby Pedu'el); that is outside 1978-1993, so it has no row in this note. **Rahalim (Rahelim, Rachelim)** [C]: Hebrew WP "רחלים" (oldid 43835168, [S]): “היישוב הוקם בשנת ה'תשנ"ב, 1991, מייד לאחר פיגוע ירי ב-28 באוקטובר 1991, על אוטובוס...” (the settlement was set up in 1991 right after the shooting attack of 28 October 1991 on a bus; the article says it began as an outpost at the site of the attack); English WP "Rehelim" (oldid 1374536248, [S]): “The settlement was established in 1991”. JTA, read on the page images: T20 (bulletin of 29 October 1991, no. 201, page 1, dateline "JERUSALEM, Oct. 28 (JTA)"): the attack was “at 6:30 Monday evening, near the Tapuach junction” (Monday 28 October 1991, **derived**). T18 (bulletin of 4 December 1991, no. 226, dateline "JERUSALEM, Dec. 3 (JTA)"): “The new Jewish settlement established south of Nablus on Monday”; “The settlement, called Rahelim, was authorized by the Inner Cabinet at its Nov. 27 meeting and formally approved by Defense Minister Moshe Arens, who said it would be a paramilitary Nahal outpost for the time being.”; the settlement was “consisting initially of two mobile homes”. T19 (bulletin of 6 December 1991, no. 228, dateline "JERUSALEM, Dec. 5 (JTA)"): “15 settlers who ensconced themselves in three mobile homes”. So JTA puts the establishment on Monday **2 December 1991** (**derived**: dateline Dec. 3 and "on Monday"), after an Inner Cabinet decision of 27 November 1991, where Hebrew WP puts the founding right after the attack of 28 October; the two may be two steps (an outpost at the site, then the settlement), and I do not decide. Both are in 1991, inside the window; the CBS 2024 file gives 2013 for it (symbol 3822), so this note's CBS year filter leaves it out, which is a flag for the owner, not a decision. Search records X3 to X6. [GAP] only for a government record of the day.
@@ -181,8 +181,8 @@ Each item: the archive page (title, bulletin date), the bulletin PDF read as ima
 | T15 | 1980-01-03 (no. 2), http://pdfs.jta.org/1980/1980-01-03_002.pdf | JERUSALEM, Jan. 2 ("today") | "Government Defeats a No-confidence Motions over the Extension of the Evacuation of Elon Moreh" https://www.jta.org/archive/government-defeats-a-no-confidence-motions-over-the-extension-of-the-evacuation-of-elon-moreh | 2 Jan 1980 (Wednesday) | 2 |
 | T16 | 1979-06-04 (no. 106), http://pdfs.jta.org/1979/1979-06-04_106.pdf | JERUSALEM, June 3 | "New Gush Settlement Approved" https://www.jta.org/archive/new-gush-settlement-approved | 3 Jun 1979 (Cabinet decision, "today") | 3 |
 | T17 | 1979-06-08 (no. 110), http://pdfs.jta.org/1979/1979-06-08_110.pdf | TEL AVIV, June 7 | "Construction Begins on New Gush Settlement Near Nablus" https://www.jta.org/archive/construction-begins-on-new-gush-settlement-near-nablus | 7 Jun 1979 ("this morning"), derived | 3 |
-| T18 | 1991-12-04 (no. 226), http://pdfs.jta.org/1991/1991-12-04_226.pdf | JERUSALEM, Dec. 3 | "New Settlement Set Up in West Bank Had Endorsement of Likud Government" https://www.jta.org/archive/new-settlement-set-up-in-west-bank-had-endorsement-of-likud-government | 2 Dec 1991 ("on Monday"), derived | Rahelim |
-| T19 | 1991-12-06 (no. 228), http://pdfs.jta.org/1991/1991-12-06_228.pdf | JERUSALEM, Dec. 5 | "Settlers Will Be Allowed to Stay for Now at New West Bank Outpost" https://www.jta.org/archive/settlers-will-be-allowed-to-stay-for-now-at-new-west-bank-outpost | 2 Dec 1991 ("on Monday"), derived | Rahelim |
+| T18 | 1991-12-04 (no. 226), http://pdfs.jta.org/1991/1991-12-04_226.pdf | JERUSALEM, Dec. 3, page 2 | "New Settlement Set Up in West Bank Had Endorsement of Likud Government" https://www.jta.org/archive/new-settlement-set-up-in-west-bank-had-endorsement-of-likud-government | 2 Dec 1991 ("on Monday"), derived | Rahelim |
+| T19 | 1991-12-06 (no. 228), http://pdfs.jta.org/1991/1991-12-06_228.pdf | JERUSALEM, Dec. 5, page 2 | "Settlers Will Be Allowed to Stay for Now at New West Bank Outpost" https://www.jta.org/archive/settlers-will-be-allowed-to-stay-for-now-at-new-west-bank-outpost | 2 Dec 1991 ("on Monday"), derived | Rahelim |
 | T20 | 1991-10-29 (no. 201), http://pdfs.jta.org/1991/1991-10-29_201.pdf | JERUSALEM, Oct. 28 | "Attack 2 Days Before Peace Talks Leaves 2 Israelis Dead, 5 Injured" https://www.jta.org/archive/attack-2-days-before-peace-talks-leaves-2-israelis-dead-5-injured | 28 Oct 1991 ("Monday evening"), derived | Rahelim |
 | T21 | 1984-07-24 (no. 137), http://pdfs.jta.org/1984/1984-07-24_137.pdf | TEL AVIV, July 23, page 3 | "3 New Settlements Established" https://www.jta.org/archive/3-new-settlements-established | 22 or 23 Jul 1984, derived (see row 19) | 19 |
 
@@ -194,27 +194,27 @@ JTA archive search, run 2026-10-25 (UTC), endpoint `https://www.jta.org/wp-json/
 
 | Query (search term) | Pattern | Total | Fetched | Pages fetched / total | Hits | What the hits are |
 |---|---|---|---|---|---|---|
-| Itzhar | `Itzhar|Yitzhar|Yizhar` | 6461 | 1000 | 10 / 65 | 1 | 1: a person named Yizhar (1992); T12 is not among the first 1,000 |
+| Itzhar | `Itzhar\|Yitzhar\|Yizhar` | 6461 | 1000 | 10 / 65 | 1 | 1: a person named Yizhar (1992); T12 is not among the first 1,000 |
 | Itzhar, 19-22 July 1984 only | `Itzhar` | 3 | 3 | 1 / 1 | 1 | 1: T12 |
 | Dotan | `Dotan` | 58 | 58 | 1 / 1 | 27 | 27: 4 on the settlement (T13, T14, T15 and the 1984-08-13 item), 23 persons named Dotan |
 | Revava | `Revava` | 750 | 750 | 8 / 8 | 10 | 10: T10, T11, 8 others of April-May 1991 and a March 1991 housing list (read as contexts) |
-| Avnei Hefetz | `Hefetz|Hefez` | 29 | 29 | 1 / 1 | 5 | 5: T7, T9, a 1991 housing item and two others |
-| Tzofim | `Tzofim|Zufim|Tsofim|Sofim` | 20 | 20 | 1 / 1 | 2 | 2: scouts |
+| Avnei Hefetz | `Hefetz\|Hefez` | 29 | 29 | 1 / 1 | 5 | 5: T7, T9, a 1991 housing item and two others |
+| Tzofim | `Tzofim\|Zufim\|Tsofim\|Sofim` | 20 | 20 | 1 / 1 | 2 | 2: scouts |
 | Nofim | `Nofim` | 1 | 1 | 1 / 1 | 0 | 0 (1 result, no match) |
-| Peduel | `Peduel|Pedu'el` | 160 | 160 | 2 / 2 | 0 | 0 |
-| Alei Zahav | `Alei Zahav|Ale Zahav` | 12 | 12 | 1 / 1 | 0 | 0 (the pattern does not match the hyphenated "Alei-Zahav" of the 6 Mar 1991 item) |
+| Peduel | `Peduel\|Pedu'el` | 160 | 160 | 2 / 2 | 0 | 0 |
+| Alei Zahav | `Alei Zahav\|Ale Zahav` | 12 | 12 | 1 / 1 | 0 | 0 (the pattern does not match the hyphenated "Alei-Zahav" of the 6 Mar 1991 item) |
 | Hermesh | `Hermesh` | 88 | 88 | 1 / 1 | 1 | 1: T6 |
 | Shaked | `Shaked` | 3339 | 1000 | 10 / 34 | 9 | 9: persons (a historian, a state prosecutor) |
-| Einav | `Einav|Enav` | 16 | 16 | 1 / 1 | 2 | 2: a businessman; a settlement named in a murder report, 1989 |
+| Einav | `Einav\|Enav` | 16 | 16 | 1 / 1 | 2 | 2: a businessman; a settlement named in a murder report, 1989 |
 | Yakir | `Yakir` | 1986 | 1000 | 10 / 20 | 5 | 5: the Yakir junction and a taxi driver killed near it, 1988-1992 |
-| Hinanit | `Hinanit|Hinanith|Chinanit` | 51 | 51 | 1 / 1 | 1 | 1: a resident, 1988 |
+| Hinanit | `Hinanit\|Hinanith\|Chinanit` | 51 | 51 | 1 / 1 | 1 | 1: a resident, 1988 |
 | Itamar | `Itamar` | 557 | 557 | 6 / 6 | 69 | 69: persons named Itamar; none about the settlement (2 with a West Bank or Samaria word nearby: a professor) |
 | Kiryat Netafim | `Netafim` | 0 | 0 | 1 / 0 | 0 | 0 (the endpoint returned 0 results) |
 | Migdalim | `Migdalim` | 40 | 40 | 1 / 1 | 5 | 5: T7, T8, a 1984 shooting, a 1984 cabinet item |
-| Yitzhar | `Yitzhar|Yizhar` | 6437 | 1000 | 10 / 65 | 1 | 1: a person named Yizhar |
-| Bracha | `Bra[ck]?kha|Brakha|Bracha` | 1227 | 1000 | 10 / 13 | 18 | 18: the settlement named in 1983-1989 incident reports and in T6; persons and a foundation named Bracha |
-| Kfar Tapuah | `Tapu+ach|Tapuah|Tappuah` | 3 | 3 | 1 / 1 | 1 | 1: attack near the Tapuach junction, 1991 |
-| Mevo Dotan | `Mevo Dotan|Dotan` | 1 | 1 | 1 / 1 | 1 | 1: a soldier shot near Mevo Dotan, 1984 |
+| Yitzhar | `Yitzhar\|Yizhar` | 6437 | 1000 | 10 / 65 | 1 | 1: a person named Yizhar |
+| Bracha | `Bra[ck]?kha\|Brakha\|Bracha` | 1227 | 1000 | 10 / 13 | 18 | 18: the settlement named in 1983-1989 incident reports and in T6; persons and a foundation named Bracha |
+| Kfar Tapuah | `Tapu+ach\|Tapuah\|Tappuah` | 3 | 3 | 1 / 1 | 1 | 1: attack near the Tapuach junction, 1991 |
+| Mevo Dotan | `Mevo Dotan\|Dotan` | 1 | 1 | 1 / 1 | 1 | 1: a soldier shot near Mevo Dotan, 1984 |
 | Elon Moreh | `Elon More` | 995 | 995 | 10 / 10 | 76 | 76: 1979-1993; T1 to T5 read from the PDFs, the rest read as 400-character contexts only |
 | Barkan | `Barkan` | 734 | 734 | 8 / 8 | 3 | 3: two persons; one rabbi |
 
@@ -234,14 +234,14 @@ JTA archive search, run 2026-10-26 (UTC), same endpoint and columns as the table
 
 | ID | Query (search term) | Range (from to to) | Pattern | Total | Fetched | Hits and what they are |
 |---|---|---|---|---|---|---|
-| W1 | Tapuah | 1978-01-01 to 1978-12-31 | `Tapu+ach|Tapuah|Tappuah` | 4 | 4 | 3: archive pages https://www.jta.org/archive/knesset-committee-approves-plan-for-four-new-west-bank-settlements (1978-01-11), https://www.jta.org/archive/three-new-west-bank-settlements-are-said-to-be-military-sites (1978-02-02) and https://www.jta.org/archive/gush-emunim-has-new-settlement-plan (1978-07-06), on the plan for the settlement and a demand to speed it; bulletin PDFs and datelines not opened |
-| W2 | Tapuach | 1977-09-01 to 1979-12-31 | `Tapu+ach|Tapuah|Tappuah` | 4 | 4 | 4: the three of W1 and a march ending at the settlement (archive date 1979-05-03) |
-| W3 | Kfar Tapuach | 1978-01-01 to 1978-12-31 | `Tapu+ach|Tapuah|Tappuah` | 0 | 0 | 0 |
+| W1 | Tapuah | 1978-01-01 to 1978-12-31 | `Tapu+ach\|Tapuah\|Tappuah` | 4 | 4 | 3: archive pages https://www.jta.org/archive/knesset-committee-approves-plan-for-four-new-west-bank-settlements (1978-01-11), https://www.jta.org/archive/three-new-west-bank-settlements-are-said-to-be-military-sites (1978-02-02) and https://www.jta.org/archive/gush-emunim-has-new-settlement-plan (1978-07-06), on the plan for the settlement and a demand to speed it; bulletin PDFs and datelines not opened |
+| W2 | Tapuach | 1977-09-01 to 1979-12-31 | `Tapu+ach\|Tapuah\|Tappuah` | 4 | 4 | 4: the three of W1 and a march ending at the settlement (archive date 1979-05-03) |
+| W3 | Kfar Tapuach | 1978-01-01 to 1978-12-31 | `Tapu+ach\|Tapuah\|Tappuah` | 0 | 0 | 0 |
 | W4 | Hinanit | 1980-01-01 to 1981-12-31 | `Hinan` | 4 | 4 | 0 |
-| W5 | Hinanit | 1980-01-01 to 1984-12-31 | `Hinan|Chinan` | 19 | 19 | 0 |
+| W5 | Hinanit | 1980-01-01 to 1984-12-31 | `Hinan\|Chinan` | 19 | 19 | 0 |
 | W6 | Barkan | 1981-01-01 to 1981-12-31 | `Barkan` | 33 | 33 | 0 |
-| W7 | Bar Kan | 1977-01-01 to 1982-12-31 | `Bar.Kan|Barkan` | 877 | 877 (9 pages) | 0 |
-| W8 | Einav | 1981-11-01 to 1982-12-31 | `Einav|Enav` | 0 | 0 | 0 |
+| W7 | Bar Kan | 1977-01-01 to 1982-12-31 | `Bar.Kan\|Barkan` | 877 | 877 (9 pages) | 0 |
+| W8 | Einav | 1981-11-01 to 1982-12-31 | `Einav\|Enav` | 0 | 0 | 0 |
 | W9 | Shaked | 1981-05-01 to 1981-07-31 | `Shaked` | 54 | 54 | 0 |
 | W10 | Shaked settlement | 1981-01-01 to 1981-12-31 | `Shaked` | 27 | 27 | 0 |
 | W11 | Hermesh | 1983-01-01 to 1984-12-31 | `Hermesh` | 7 | 7 | 1: T6 |
@@ -249,22 +249,22 @@ JTA archive search, run 2026-10-26 (UTC), same endpoint and columns as the table
 | W13 | Alei-Zahav | 1983-01-01 to 1984-12-31 | `Zahav` | 2 | 2 | 0 |
 | W14 | Netafim | 1983-01-01 to 1986-12-31 | `Netafim` | 3 | 3 | 1: a drip-irrigation company (archive date 1983-02-03) |
 | W15 | Kiryat Netafim | 1982-01-01 to 1986-12-31 | `Netafim` | 0 | 0 | 0 |
-| W16 | Tel Hayim | 1979-01-01 to 1984-12-31 | `Tel Hayim|Tel Chaim|Tel Hai` | 76 | 76 | 1: T6 |
+| W16 | Tel Hayim | 1979-01-01 to 1984-12-31 | `Tel Hayim\|Tel Chaim\|Tel Hai` | 76 | 76 | 1: T6 |
 | W17 | Itamar | 1984-03-01 to 1984-07-31 | `Itamar` | 12 | 12 | 2: a defence lawyer and a professor |
-| W18 | Peduel | 1984-06-01 to 1984-10-31 | `Peduel|Pedu` | 2 | 2 | 0 |
+| W18 | Peduel | 1984-06-01 to 1984-10-31 | `Peduel\|Pedu` | 2 | 2 | 0 |
 | W19 | Deir Kala | 1984-01-01 to 1984-12-31 | `Deir` | 3 | 3 | 0 |
 | W20 | Nofim | 1982-01-01 to 1989-12-31 | `Nofim` | 1 | 1 | 0 |
-| W21 | Tzofim | 1989-03-01 to 1989-05-31 | `Tzofim|Zofim|Sofim|Tsofim|Tzufim|Zufim` | 1 | 1 | 0 |
+| W21 | Tzofim | 1989-03-01 to 1989-05-31 | `Tzofim\|Zofim\|Sofim\|Tsofim\|Tzufim\|Zufim` | 1 | 1 | 0 |
 | W22 | Tzofim settlement | 1989-01-01 to 1989-12-31 | same | 0 | 0 | 0 |
 | W23 | Tzufim | 1989-01-01 to 1989-12-31 | same | 1 | 1 | 0 |
-| X1 | Elon Moreh | 1979-05-25 to 1979-06-15 | `Elon|Eilon|Alon` read by title and archive date | 10 | 10 | items of 1979-06-04 to 1979-06-15 on the new site; T16 and T17 are among them |
+| X1 | Elon Moreh | 1979-05-25 to 1979-06-15 | `Elon\|Eilon\|Alon` read by title and archive date | 10 | 10 | items of 1979-06-04 to 1979-06-15 on the new site; T16 and T17 are among them |
 | X2 | settlement | 1979-06-01 to 1979-06-12 | not a pattern: items with a Nablus, Samaria or Elon string were listed | 20 | 20 | T16 (1979-06-04), T17 (1979-06-08) and items on the protests and the US reaction (not opened) |
-| X3 | Rachelim | 1991-10-20 to 1992-12-31 | `Rach?el?im|Rehelim|Rahelim|Rechelim` | 18 | 18 | 2: T18 and T19 |
+| X3 | Rachelim | 1991-10-20 to 1992-12-31 | `Rach?el?im\|Rehelim\|Rahelim\|Rechelim` | 18 | 18 | 2: T18 and T19 |
 | X4 | Rehelim | 1991-10-20 to 1992-12-31 | same | 2 | 2 | 2: T18 and T19 |
 | X5 | Tapuach junction | 1991-10-25 to 1991-11-30 | `Tapuach` | 1 | 1 | 1: T20 |
-| X6 | Rahel Drouk | 1991-10-25 to 1992-02-28 | `Drouk|Druk|Rachel` | 1 | 1 | 1: archive page https://www.jta.org/archive/at-place-where-two-settlers-died-call-is-made-for-more-settlements (1991-10-30), on the attack and a call for more settlements; bulletin not opened |
-| X7 | Homesh | 1978-01-01 to 1993-12-31 | `Homesh|Chomesh|Khomesh` | 2,257 | 1,000 (10 of 23 pages) | 2: 1988-06-27 and 1988-08-25 (a settler; bus attacks near the settlement) |
-| X8 | Maale Nahal | 1978-01-01 to 1981-12-31 | `Maale Nahal|Ma.ale Nachal` | 2 | 2 | 0 |
+| X6 | Rahel Drouk | 1991-10-25 to 1992-02-28 | `Drouk\|Druk\|Rachel` | 1 | 1 | 1: archive page https://www.jta.org/archive/at-place-where-two-settlers-died-call-is-made-for-more-settlements (1991-10-30), on the attack and a call for more settlements; bulletin not opened |
+| X7 | Homesh | 1978-01-01 to 1993-12-31 | `Homesh\|Chomesh\|Khomesh` | 2,257 | 1,000 (10 of 23 pages) | 2: 1988-06-27 and 1988-08-25 (a settler; bus attacks near the settlement) |
+| X8 | Maale Nahal | 1978-01-01 to 1981-12-31 | `Maale Nahal\|Ma.ale Nachal` | 2 | 2 | 0 |
 | X9 | Ganim | 1983-01-01 to 1985-12-31 | `Ganim` | 29 | 29 | 1: the Ir Ganim quarter of Jerusalem (1983-06-22) |
 | X10 | Kadim | 1983-01-01 to 1985-12-31 | `Kadim` | 18 | 18 | 3: "Kadima Aliya" El Al flights (1983-07 and 1983-08) |
 | X11 | Ganim | 1978-01-01 to 1993-12-31 | `Ganim` | 177 | 177 | 6: Ein Ganim and Ir Ganim in Jerusalem, Tel Ganim in Ramat Gan, and one with "Moshav Ganim" in a report from Jenin (1992-10-28) |
@@ -272,22 +272,22 @@ JTA archive search, run 2026-10-26 (UTC), same endpoint and columns as the table
 
 **Window searches.** Each window was run with the search terms "settlement" and "settlers" (two runs); the window is the one in which a source of the row names the founding or its month. "Total | Fetched" are the counts of the two runs (fetched equals total in all 28 runs, one page each unless the total is above 100: G3 and G7 took more pages); the pattern was matched in the full text of every item fetched. The result is 0 hits in all 28 runs.
 
-| ID | Rows | Range (from to to) | Pattern | Total (settlement, settlers) |
-|---|---|---|---|---|
-| G1 | 6 Yaqir | 1981-02-01 to 1981-03-20 | `Yakir|Yaqir|Yaakir` | 35 | 6 |
-| G2 | 4, 8 | 1981-06-01 to 1981-07-15 | `Shaked|Shaqed|Barkan|Barqan|Bar.Kan` | 22 | 6 |
-| G3 | 5 | 1980-06-01 to 1981-12-31 | `Hinan|Chinan|Hinnan` | 388 | 95 |
-| G4 | 7 | 1981-12-01 to 1981-12-31 | `Einav|Enav|Eynav` | 18 | 6 |
-| G5 | 7 | 1982-10-01 to 1982-10-31 | `Einav|Enav|Eynav` | 19 | 8 |
+| ID | Rows | Range (from to to) | Pattern | Total (settlement) | Total (settlers) |
+|---|---|---|---|---|---|
+| G1 | 6 Yaqir | 1981-02-01 to 1981-03-20 | `Yakir\|Yaqir\|Yaakir` | 35 | 6 |
+| G2 | 4, 8 | 1981-06-01 to 1981-07-15 | `Shaked\|Shaqed\|Barkan\|Barqan\|Bar.Kan` | 22 | 6 |
+| G3 | 5 | 1980-06-01 to 1981-12-31 | `Hinan\|Chinan\|Hinnan` | 388 | 95 |
+| G4 | 7 | 1981-12-01 to 1981-12-31 | `Einav\|Enav\|Eynav` | 18 | 6 |
+| G5 | 7 | 1982-10-01 to 1982-10-31 | `Einav\|Enav\|Eynav` | 19 | 8 |
 | G6 | 9 | 1983-04-01 to 1983-04-30 | `Hermesh` | 32 | 6 |
-| G7 | 10 | 1983-01-01 to 1984-12-31 | `Alei.Zahav|Ale.Zahav|Elei.Zahav` | 473 | 165 |
+| G7 | 10 | 1983-01-01 to 1984-12-31 | `Alei.Zahav\|Ale.Zahav\|Elei.Zahav` | 473 | 165 |
 | G8 | 13 | 1983-06-01 to 1983-09-30 | `Migdalim` | 79 | 36 |
 | G9 | 14 | 1983-09-18 to 1983-10-06 | `Netafim` | 17 | 3 |
-| G10 | 15 | 1984-05-05 to 1984-05-14 | `Itamar|Tel Hayim|Aguz` | 9 | 6 |
-| G11 | 16 | 1984-07-28 to 1984-09-05 | `Peduel|Pedu.el|Deir Kal|Deir Qal` | 30 | 5 |
-| G12 | 19 | 1984-07-18 to 1984-07-30 | `Hefe[tz]|Avnei|Avne ` | 10 | 4 |
+| G10 | 15 | 1984-05-05 to 1984-05-14 | `Itamar\|Tel Hayim\|Aguz` | 9 | 6 |
+| G11 | 16 | 1984-07-28 to 1984-09-05 | `Peduel\|Pedu.el\|Deir Kal\|Deir Qal` | 30 | 5 |
+| G12 | 19 | 1984-07-18 to 1984-07-30 | `Hefe[tz]\|Avnei\|Avne ` | 10 | 4 |
 | G13 | 17 | 1982-11-22 to 1982-12-02 | `Nofim` | 13 | 2 |
-| G14 | 18 | 1989-04-05 to 1989-04-14 | `Tz?ofim|Zufim|Sofim|Tsofim|Tzufin|Zofim|Tsufim` | 9 | 5 |
+| G14 | 18 | 1989-04-05 to 1989-04-14 | `Tz?ofim\|Zufim\|Sofim\|Tsofim\|Tzufin\|Zofim\|Tsufim` | 9 | 5 |
 
 W11 and W16 each had one hit, T6, read before; W14 had one, a company. A zero here is a count of strings in what the endpoint returned, not a statement that no JTA item exists; the endpoint is relevance-ranked and the Hebrew press that Hebrew Wikipedia cites was not reachable (see "What was not done").
 
