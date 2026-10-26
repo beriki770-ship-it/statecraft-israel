@@ -216,8 +216,8 @@ units:
       - {url: 'https://he.wikipedia.org/wiki/%D7%9E%D7%91%D7%A6%D7%A2_%D7%91%D7%A8%D7%95%D7%A9', checked: '2026-10-15'}
       - {url: 'https://en.wikipedia.org/wiki/Rosh_Pinna', checked: '2026-10-15'}
     # #1183 (owner, 26 October 2026): at 4.4 km the bridgehead token stands on (15, 6); (14, 7) is the Israeli-held hex
-    # next to it (I in every period, control_hexes_1948_49.yaml) and the nearest such hex to the toward point, Rosh Pinna
-    # (about 7 km; (15, 5) is about 11 km), so the token faces the bridgehead from Brosh's headquarters side, as the note says.
+    # next to it (I in every period, control_hexes_1948_49.yaml) nearer the toward point, Rosh Pinna (about 7 km; the other,
+    # (15, 5), is about 11 km), so the token faces the bridgehead from Brosh's headquarters side, as the note says.
     place_hex: [14, 7]
     sources:
     # Organisation of Haganah Heritage, Lexicon, "Brigade 2 Carmeli": the brigade's HQ and most of its forces in Operation Brosh (July 1948) against the Syrian bridgehead at Mishmar HaYarden.

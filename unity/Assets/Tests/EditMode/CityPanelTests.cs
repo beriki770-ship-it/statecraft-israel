@@ -943,9 +943,9 @@ public class CityPanelTests
         // its first hex; every other segment stays off a city's hex.
         bool AllCities(SegmentDef x) => x.Hexes.All(h => C.SettlementHexes.Any(t => (t.Q, t.R) == (h[0], h[1]) && bridge.State.Cities.ContainsKey(t.Id)));
         var parts = ui.Root.Query<VisualElement>().Where(x => x.name != null && x.name.StartsWith("corridor-part-")).ToList().Select(x => x.name).ToList();
-        var want = C.Corridors.SelectMany(d => d.Segments.Select((x, i) => (d, x, i))).Where(t => AllCities(t.x) && (t.x.Hexes[0][0], t.x.Hexes[0][1]) == CityHex)
-            .Select(t => $"corridor-part-{t.d.Id}-{t.i + 1}").ToList();
-        CollectionAssert.AreEqual(want, parts, "on a city's hex only the segments with no other hex that start there");
+        Assert.IsTrue(AllCities(C.Corridors.Single(d => d.Id == "tlv_haifa_rail").Segments[0]),
+            "precondition: the Yarkon link's one segment is all city hexes");
+        CollectionAssert.IsEmpty(parts, "Tel Aviv's hex carries no corridor part; the Yarkon link shows on its first hex, Petah Tikva's");
         foreach (var d in C.Corridors)
             for (int n = 1; n <= d.Segments.Count; n++)
             {

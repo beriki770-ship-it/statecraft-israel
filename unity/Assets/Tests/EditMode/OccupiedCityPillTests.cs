@@ -120,6 +120,7 @@ public class OccupiedCityPillTests
         var cam = Camera.main!;
         // Search round B's own drawn spot: on 4.4 km hexes the city's ground is town, so the placer can draw B on a
         // neighbouring hex (Tel Aviv's occupant stands on (-2, 20)), beyond the reach of a search round the city's centre.
+        // So this half proves a badge click selects B; it no longer has the badge over the city's own hex.
         var spot = new Vector3((float)placed.Spot.X, 0f, (float)placed.Spot.Z);
         spot.y = rig.Map.Terrain.SampleHeight(spot);
         var near = (Vector2)cam.WorldToScreenPoint(spot);
