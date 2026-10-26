@@ -51,7 +51,7 @@ public class StartingForcesTests
             ("negev", "Nir Am (Mekorot camp)", "veteran_soldier", "israel", 1, -11, 31),
             ("egyptian_expeditionary_force", "Gaza", "egyptian_army", "egypt", 10, -12, 31),
             ("arab_legion", "Ramallah", "arab_legion", "jordan", 5, 0, 25),
-            ("syrian_army", "South of Lake Tiberias, before Samakh", "syrian_army", "syria", 3, 12, 11),
+            ("syrian_army", "South of Lake Tiberias, before Samakh", "syrian_army", "syria", 3, 13, 10),
             ("iraqi_expeditionary_force", "The high ground over Gesher", "iraqi_army", "iraq", 3, 11, 12),
             ("arab_liberation_army", "al-Malikiyya", "arab_liberation_army", "ala", 4, 14, 4),
             ("brigade_7", "Hulda (headquarters for the Latrun attacks)", "veteran_soldier", "israel", 2, -4, 25),   // arrives (R-UNIT-009)
@@ -145,7 +145,7 @@ public class StartingForcesTests
         Assert.Equal(new[]
         {
             ("golani", 11, 11), ("carmeli", 6, 9), ("alexandroni", 0, 17), ("kiryati", -3, 21), ("givati", -6, 26), ("etzioni", 0, 26), ("harel", -3, 26),
-            ("negev", -11, 31), ("egyptian_expeditionary_force", -12, 31), ("arab_legion", 0, 25), ("syrian_army", 12, 11),
+            ("negev", -11, 31), ("egyptian_expeditionary_force", -12, 31), ("arab_legion", 0, 25), ("syrian_army", 13, 10),
             ("iraqi_expeditionary_force", 11, 12), ("arab_liberation_army", 14, 4), ("brigade_7", -4, 25),
         }, Real.StartingForces.Select(f => (f.Row, f.Q, f.R)));
 
