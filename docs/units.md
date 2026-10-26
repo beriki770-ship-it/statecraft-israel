@@ -317,7 +317,7 @@ own root rotation kept (the FBX axis turn, -90 degrees about X), so the camera's
   victory". That is wrong: the first victories were on 3 June 1948, by Modi Alon in an S-199. The file records this.
 
 **Placement** (`UnitPlacer.PlaceAll`). Every anchor is placed once, from the data alone, so a token never moves because
-another unit appears. Its spot is at most one hex step from the sourced place (about 8.7 km between hex centres on 5 km
+another unit appears. Its spot is at most one hex step from the sourced place (about 7.6 km between hex centres on 4.4 km
 hexes). It is the nearest such spot to the place, or to the anchor's sourced `toward` point when it has one (see below).
 The candidates are tried in three rounds:
 1. The centres of the anchor's own hex and its six neighbours, with the token at full size.
