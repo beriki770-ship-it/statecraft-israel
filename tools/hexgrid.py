@@ -28,7 +28,7 @@ Biome rules, first match wins (per hex, over the heightmap pixels / precipitatio
                   Jezreel and Hula valley margins)
 The distance is `coast_km`: from the hex centre to the nearest shore pixel (a sea pixel with a non-sea neighbour)
 that lies in a hex classed "sea" by rule 1. It is a pure function of the heightmap; a map with no sea gives infinity.
-Current counts (1102 hexes): coastal_plain 79, desert 332, hills 147, lake 16, lowland 30, mountains 251, sea 216, valley 31
+Current counts (1419 hexes, 4.4 km since #1183): coastal_plain 100, desert 430, hills 187, lake 22, lowland 42, mountains 319, sea 279, valley 40
 """
 import json
 import math

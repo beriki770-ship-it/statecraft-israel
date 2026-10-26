@@ -282,15 +282,17 @@ sites:
   - id: tzrifin
     name: Tzrifin
     name_he: צריפין
-    # Hex from the Hebrew Wikipedia point 31.9587 N, 34.8395 E (the Tzrifin article; tools/hexgrid.py), a modern point, not
+    # From the Hebrew Wikipedia point 31.9587 N, 34.8395 E (the Tzrifin article; tools/hexgrid.py), a modern point, not
     # the 1948-51 camp's position. The only source-given point is the 2016 survey's Compound 1 (ITM 185821, 651281, about
-    # 31.9541 N, 34.8487 E), the south-east compound of today's camp; it falls in the same hex (#785,
-    # issuecomment-6237625295). [GAP] A coordinate for the 1948-51 camp. No 1948 settlement in the hex.
+    # 31.9541 N, 34.8487 E), the south-east compound of today's camp (#785, issuecomment-6237625295). [GAP] A coordinate
+    # for the 1948-51 camp. At 4.4 km (#1183) the point falls in Rishon LeZion's hex (-4, 23), so the site stands on that
+    # hex's nearest free neighbour (owner, 22 October 2026, #1183 issuecomment-6340227456), whose centre is 8.6 km from the
+    # point. No 1948 settlement in the hex.
     q: -3
     r: 22
     kinds: [military_camp]
-    # Q-CAMP-1, R-CAMP-002: Rishon LeZion, about 3.9 km away. Petah Tikva, Rehovot and Tel Aviv are also one hex away; the
-    # tie goes to the nearest by km, Rishon LeZion (owner, 17 October 2026, #927; research note row C4).
+    # Q-CAMP-1, R-CAMP-002: Rishon LeZion, about 3.9 km away. Petah Tikva, Tel Aviv, Jaffa and Lod are also one hex away
+    # (4.4 km hexes, #1183); the tie goes to the nearest by km, Rishon LeZion (owner, 17 October 2026, #927; research note row C4).
     city: rishon_lezion
     # In the window: taken by the Givati Brigade on 18-19 May 1948 and an IDF camp from then; from 1949 Bahad 4, the IDF's
     # recruit training base, until 1967. SENSITIVE, owner review (#785): research note row C4 records a sensitivity
@@ -314,7 +316,8 @@ sites:
     # target (Q-SWAMP-3).
     name_he: ביצות החולה
     # The swamp hex: in the 1946 Survey of Palestine 1:250,000 map the marsh fills the valley north of Lake Hula, with "Hula
-    # Conces. Area" printed in it, and (14, 3) is the one hex it makes mostly wet; the lake itself is about a fifth of a hex
+    # Conces. Area" printed in it, and (14, 3) was the one hex of the 5 km grid it makes mostly wet (at 4.4 km, #1183, the site
+    # is the hex holding that hex's centre, (16, 3), not re-checked against the map); the lake itself is about a fifth of a hex
     # (research_notes/Map/historical-water-1948.md, findings 6 and 7, and section 2.5). No 1948 settlement in the hex. No
     # yishuv site may share it: a yishuv there would also gate hula_field (Projects.YishuvToBuildFirst). The one site stands
     # for the concession's works, of which the 1951 DMZ dispute was the Jordan work below the lake.

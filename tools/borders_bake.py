@@ -14,7 +14,7 @@ file order; libm only where stated below):
   2 a land hex whose centre lies inside a sub-district polygon takes that sub-district (the first in file order if a
     centre sat exactly on a shared edge);
   3 a land hex whose centre lies in water (a shore hex: the DEM at its centre is sea, 0 m, or below the Dead Sea's 1948
-    level) takes the region of the nearest land to its centre (the nearest DEM land pixel within one hex size, 5 km): the
+    level) takes the region of the nearest land to its centre (the nearest DEM land pixel within one hex size, 4.4 km): the
     sub-district containing that point, or within 0.5 km of it (the lines are simplified at about 120 m), else outside.
     So a shore hex follows its own coast: the coast is not a boundary, and a hex off the Sinai coast at Taba stays
     outside even though the Beersheba Sub-District is near;

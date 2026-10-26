@@ -110,7 +110,7 @@ public class SitesContentTests
     }
 
     /// <summary>R-CAMP-002 (owner, 17 October 2026, #927): a camp site's city is the MVP city nearest by hex distance, and a tie
-    /// goes to the nearest by km. Camp 80 has one city a hex away, Hadera. Tzrifin has four, and Rishon LeZion, about 3.9 km
+    /// goes to the nearest by km. Camp 80 has one city a hex away, Hadera. Tzrifin has five (4.4 km hexes, #1183), and Rishon LeZion, about 3.9 km
     /// away, is the nearest of them.</summary>
     // R-CAMP-002
     [Fact]
