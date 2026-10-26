@@ -203,7 +203,7 @@ hexes:   # [q, r, codes: one per period], ordered by r then q
   - [-6, 25, "cIIIIIIIIIIIIIII"]
   - [-5, 25, "IIIIIIIIIIIIIIII"]
   - [-4, 25, "IIIIIIIIIIIIIIII"]
-  - [-3, 25, "IIIIIIIIIIIIIIII"]
+  - [-3, 25, "AJJJJJJJJJJJJJJJ"]
   - [-2, 25, "AMMMMMMMMMMJJJJJ"]
   - [-1, 25, "AMMMMMMMMMMJJJJJ"]
   - [0, 25, "AMMMMMMMMMMJJJJJ"]

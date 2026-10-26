@@ -264,6 +264,18 @@ def test_huleiqat_is_egypts_from_8_july_to_19_october_1948():
     assert "disagree" in pin["why"]
 
 
+def test_latrun_is_jordans_from_11_june_1948():
+    """#1183 (owner, 26 October 2026): en.wiki (Latrun) has the British hand the fort to the Arab Legion on their withdrawal
+    and the fort stay a salient under Jordanian control after the 1949 armistice; on the 4.4 km grid the traced lines put
+    its hex on the Israeli side in every period, so the hex is pinned to Jordan, and the Legion's 11 June token stands on it."""
+    c = CODES[hg.settlement_hex(34.98139, 31.83194, HEXES)]
+    assert c[PERIODS.index("opening")] == "A", "the other side, unnamed, in the opening snapshot (#674)"
+    assert set(c[PERIODS.index("truce1"):]) == {"J"}, c
+    pin = {p["place"]: p for p in META["pinned_towns"]}["Latrun"]
+    assert (pin["from"], pin["until"], pin["holder"]) == ("1948-06-11", None, "jordan")
+    assert "salient under Jordanian control" in pin["why"]
+
+
 def test_the_ten_days_start_on_8_july_1948():
     """Review N1, pinned against the source's date, not the tool's constant."""
     by = {p["id"]: p for p in BAKED["periods"]}
