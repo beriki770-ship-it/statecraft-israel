@@ -121,6 +121,20 @@ public class RealContentTests
         Assert.Equal(Movement.PlayerSide, Held(-3, 24).Settlements["ramla"].Owner);
     }
 
+    // R-CTRL-020 with Ramla's moved target (#1796): a depopulated Ramla closes its capture hex (-3, 24), not Rehovot's (-4, 24).
+    [Fact]
+    public void ADepopulatedRamlaClosesItsTargetHexNotRehovots()
+    {
+        const string closed = "Units may not enter an enemy-held locality before its capture is possible";
+        var s = Simulation.NewGame(C, 42, Mode.Historical);
+        s.Units.Clear();
+        s.Units.Add(1, new Unit(1, "recruit", -4, 25, side: Movement.PlayerSide, strength: 2));   // next to both hexes
+        s.Settlements["ramla"] = new SettlementControl(depopulated: true);
+        string? Move(int q, int r) => Movement.Move(C, s, 1, q, r, new Dictionary<int, int>(), new List<Cause>());
+        Assert.Equal(closed, Move(-3, 24));
+        Assert.NotEqual(closed, Move(-4, 24));
+    }
+
     [Fact]
     public void MaimonBirthUsesHebrewBiographyDateAndSource()
     {
