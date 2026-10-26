@@ -71,7 +71,7 @@ https://www.jta.org/archive/three-israelis-killed-in-negev-during-terrorist-hija
   The women were killed by bullets later, as border police stormed the bus." That matches the first note's he.wiki body
   (one before, two during) and not en.wiki's lead.
 - **Number aboard.** "The bus was packed, but most of the 50 passengers managed to escape unhurt."
-- **Who the attackers were.** The same item gives two versions: passengers' account that they said they were from
+- **Who the attackers were.** The same item gives two versions: one passenger's account ("an Arabic speaking woman in the bus who conversed with them") that they said they were from
   one movement, and the defence minister's statement to the Knesset naming another. Not resolved here. [C]
 - The first note's [GAP] on a JTA bulletin for this attack is closed for the date, times and casualties above.
 
@@ -94,7 +94,7 @@ https://www.jta.org/archive/three-israelis-killed-in-negev-during-terrorist-hija
   9 June 1992 (computed here). This answers the first note's open "outcome of its court review". [V, agent read 25 Oct 2026; a person's check pending]
 - **Case numbers.** Israel Democracy Institute, "Disqualification of Electoral Lists and Candidates by the Central
   Elections Committee", https://en.idi.org.il/articles/33991 (opened 25 October 2026): "1992 Kach Upheld Appeal 2805/92
-  Kach v. Chair of the Central Elections Committee (13th Knesset)" and "Kahane Chai Upheld Appeal 2858/92". No dates
+  Kach v. Chair of the Central Elections Committee (13th Knesset)" and "Kahane Chai | Upheld | Appeal 2858/92 Movshovitz Chair of the Central Elections Committee (13th Knesset)" (table cells as printed). No dates
   on the page. [S]
 - **[GAP] the day of the committee's Kach ruling.** Searched again and not found. Read: the JTA bulletins of
   26, 27, 28 and 29 May and 1, 2, 3, 4, 5, 9 and 10 June 1992 (nos. 100 to 110), by OCR text search for "Kach" and
@@ -110,7 +110,7 @@ https://www.jta.org/archive/three-israelis-killed-in-negev-during-terrorist-hija
   https://www.jta.org/archive/israeli-cabinet-endorses-plan-giving-plo-formal-recognition, dateline "JERUSALEM,
   Sept. 12 (JTA)": "With a minimum of flourish Friday, Rabin signed the letter granting recognition to the PLO." The
   Sunday-dated item puts Friday at 10 September 1993 (computed here). [V, agent read 25 Oct 2026; a person's check pending]
-- **Expected Friday morning.** JTA, bulletin 10 September 1993 (no. 171), page 1, dateline "JERUSALEM, Sept. 9 (JTA)":
+- **Expected Friday morning.** JTA, bulletin 10 September 1993 (no. 171), page 1, dateline "JERUSALEM, Sept. 9 (JTA)" (https://www.jta.org/archive/israel-agrees-to-recognize-plo-in-a-historic-reversal-of-policy):
   "Rabin, in turn, was due to formalize Israel's recognition of the PLO by signing a letter to Arafat on Friday
   morning". The bulletin's own printed text of the two letters (page 2, OCR only) is dated "Sept. 9". [V, agent read 25 Oct 2026; a person's check pending]
 - **The letter's own date.** United Nations Information System on the Question of Palestine, "Israel-PLO recognition
@@ -185,13 +185,14 @@ re-read on the image.
 **[C] two figures against `events-1982-87.md`, both kept.**
 - **People convicted.** `events-1982-87.md` records "originally 27 defendants" at the start of the trial (its H2 and the
   14 May 1986 item). JTA, 5 April 1988: "Altogether 28 Israelis ... were convicted of terrorist acts from 1980 to
-  1984". JTA, 7 June 1989: "more than 20 convicted members". The three counts are not the same measure (defendants at the
+  1984". JTA, 7 June 1989: "more than 20 convicted members". JTA, 27 December 1990: "the last to be released of the 25 West Bank Jews convicted in the mid-1980s of violent acts against Arabs" [S, web text]. The three counts are not the same measure (defendants at the
   start of a trial, persons convicted, members still jailed), and none of the pages read reconciles them.
-- **Victims of the Hebron attack.** `events-1982-87.md` and JTA of 27 December 1990: three students. JTA of 7 June 1989:
-  "fatally shooting four Palestinians", in the same sentence as other crimes, so it may count a different set of
-  victims; the page does not say. Both numbers stand.
-- **The year of the attack** is "1983" in the 27 December 1990 item; the first note does not carry it and it is not
-  checked here.
+- **Victims of the Hebron attack.** `events-1982-87.md` and JTA of 27 December 1990: three students. JTA of 7 June 1989
+  says who the four were: "The three attacked the Islamic College in Hebron with machine guns in 1984, killing four
+  students and wounding more than 30 others" [S, web text]. Both numbers stand.
+- **[C] The year of the attack:** "1983" in the 27 December 1990 item ("convicted of the 1983 machine-gun slaying of
+  three Arab students at the Islamic College in Hebron") against "1984" in the 7 June 1989 item. Both kept; not
+  resolved here.
 
 ## What was not read
 
