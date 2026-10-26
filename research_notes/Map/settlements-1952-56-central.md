@@ -125,7 +125,7 @@ day was found for any row below, so every day stays [GAP].
   opened here, so no day.
 - (26 Oct) **Givat Haim (Ihud) (row 2).** Day still [GAP]. Gvati's chapter text on the Meuhad split does not
   name Givat Haim. It does date the movement's founding conference: "בשמחת-תורה תשי״ב (21.10.1951), נתכנסה בעמק
-  הירדן ועידת הייסוד של איחוד הקבוצות והקיבוצים", and says that in 5 large settlements with no clear majority "חולקו"
+  הירדן ועידת הייסוד של איחוד הקבוצות והקיבוצים" (the date "21.10.1951" as printed; [C]: Simchat Torah 5712 fell on 22 Oct 1951 in Israel, 21 Oct being Hoshana Raba, our computation), and says that in 5 large settlements with no clear majority "חולקו"
   (were divided) and the minority built a new settlement beside the old one. That is context for 1952, not a
   date for this kibbutz. [V, agent read 26 Oct 2026; a person's check pending]
   JTA, query `Givat Haim`, 1951-01-01 to 1957-12-31: 9 results, 1 page, 4 items whose text names the place. The
