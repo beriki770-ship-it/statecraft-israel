@@ -164,7 +164,7 @@ Revivim articles both say "משלושת המצפים".
   1948, p. 2, dateline "TEL AVIV, Sept. 27. (JTA)": "One was the shelling of the settlement of Bethel
   Eshel, near Beersheba", and "The Israeli Government statement declared that the U.N. has done
   nothing as yet about the attack on Beth Eshel." [V, agent read 2026-10-25; a person's check
-  pending] for the report on 27 September 1948 that the settlement was under shelling; the item
+  pending] for the report on 27 September 1948, in an Israeli complaint about truce violations, that the settlement was shelled; the item
   gives no day for the shelling itself. JTA bulletin of Friday 22 October 1948, p. 1, dateline
   "TEL AVIV, Oct. 21. (JTA)": Beersheba "fell to Israeli forces early this morning", and the
   communique "also revealed that the nearby Jewish settlements of Beth Eshal and Nevatim, which were
@@ -198,7 +198,7 @@ of Negev settlement. Be'erot Yitzhak has its own section below.
   disturbances
   ("נעזבה רוחמה בשלישית; בתיה נהרסו ומטעיה נעקרו"). [S, Wikipedia] No day for any of the three. [GAP]
 - (25 Oct) Searched again and not found: a year or day for the three abandonments. Read: the JTA
-  search (https://www.jta.org/?s=Ruhama and https://www.jta.org/?s=Ruhama+colony+Negev) "Ruhama" (run 2026-10-25) returned 0 archive items; "Ruhama colony Negev" returned 2, dated
+  search (https://www.jta.org/?s=Ruhama and https://www.jta.org/?s=Ruhama+colony+Negev) "Ruhama" (run 2026-10-25; re-run 2026-10-26: the site gives "10000 results", sorted by relevance, and page 1 of 10 had 0 archive items; only page 1 was read); "Ruhama colony Negev" (10 results in all, all on page 1) had 2 archive items, dated
   1947-12-19 and 1948-10-17. The web text of the first has no "Ruhama"; that of the second
   (https://www.jta.org/archive/battle-develops-in-negev-jewish-convoys-attacked-israeli-planes-go-into-action)
   names "the Dorot-Ruhama area" once, in a sentence on supply convoys under attack, with nothing on
@@ -503,8 +503,8 @@ explicitly it is recorded below; otherwise the original position is [GAP].
   bulletin does not name Urim.
 - (25 Oct) **[C] on the founding month.** en.wiki `Mivtahim`, oldid **1375608140**, infobox: "7
   January 1947 (kibbutz)"; he.wiki `מבטחים (מושב)`, the Haganah heritage page and the he.wiki
-  security-house table give 7 February 1947. [S, Wikipedia] for the January reading, no source read
-  gives a reason for it.
+  security-house table give 7 February 1947. [S, Wikipedia] for the January reading. The en.wiki body cites "Place Names in Israel" (Jerusalem, 1962, p. 105)
+  for 7 January 1947; that book was not opened, and no source read gives a reason for the difference.
 - (25 Oct) **Coordinate of the old kibbutz.** he.wiki `בתי הביטחון בנגב הצפוני`, oldid 42567087,
   row `מבטחים`: `31.2226235884501, 34.38533295561993` for the security house, which that row says is
   all that remains of the old kibbutz. [S, Wikipedia] It is 2.92 km from the CBS moshav point
@@ -537,8 +537,8 @@ Beit Eshel. [V, checked]
   agree it was abandoned, so that is [V]; the March 1949 month is [S].
 - Location: "ממזרח לצאלים", east of Tze'elim, per CET. Coordinate: [GAP].
 - (25 Oct) Searched again and not found: a coordinate, and the day in March 1949. Read: the JTA
-  search (https://www.jta.org/?s=Ramat+Hanegev+kibbutz and https://www.jta.org/?s=Ramat+Hanegev) for "Ramat Hanegev kibbutz" returned 7 archive items dated 1955-02-21 to 1993-11-25 and the
-  search for "Ramat Hanegev" 1 item dated 2006-06-09 (run 2026-10-25); all are after
+  search (https://www.jta.org/?s=Ramat+Hanegev+kibbutz and https://www.jta.org/?s=Ramat+Hanegev) for "Ramat Hanegev kibbutz" (27 results by relevance; only page 1 of 10 read) had 7 archive items dated 1955-02-21 to 1993-11-25. The
+  search for "Ramat Hanegev" gave 1 item dated 2006-06-09 when run 2026-10-25; re-run 2026-10-26 it gives 275 results and page 1 has no archive item (dates 2010-08-02 to 2026-10-25), so the 2006 result was not reproduced (the ranking has changed). All items seen are after
   March 1949 and none was opened. [GAP]
 
 ### Halutza
@@ -578,7 +578,7 @@ a separate point, not Sa'ad under another name.
   Hazla, the February group or a failed attempt, and does not place its Alumim. [S] on the
   existence of the name that day; whether it is Sa'ad under the founders' name or a place of its own
   is open and is not decided here. The day Alumim at Hazla was given up stays [GAP]: JTA search
-  "Alumim Negev" (https://www.jta.org/?s=Alumim+Negev, run 2026-10-25) returned 5 items, dated 1947-06-16, 1947-07-01, 1957-10-28,
+  "Alumim Negev" (https://www.jta.org/?s=Alumim+Negev, run 2026-10-25; 71 results by relevance, only page 1 of 10 read) had 5 archive items, dated 1947-06-16, 1947-07-01, 1957-10-28,
   1960-10-19 and 1961-02-16. The 1947-07-01 bulletin was read in print. The web text of the
   1947-06-16 item (https://www.jta.org/archive/u-n-probers-will-hold-first-meeting-in-jerusalem-today-no-hearings-this-week)
   reads: "The Jewish settlement of Alumim, in the Negev, was attacked last night by Arabs, who were
@@ -661,11 +661,14 @@ separately here.
   Mishmar HaNegev (1947); no day for any.
 - (25 Oct) **Still [GAP] after a second search.** The October 1946 positions of Be'eri, Hatzerim,
   Shoval, Mishmar HaNegev and Nevatim, and of Nirim's first site; a day for the moves of Gvulot,
-  Be'eri, Nevatim and Sa'ad; Beit Eshel's founding day in August 1943: JTA search "Beth Eshel Negev"
-  (6 items, 1947-12-15 to 2005-04-13), "Beth Eshel" (5 items, 1947-12-15 to 1951-02-13), "Negev
-  experimental stations 1943" (6 items, 1955-08-10 to 2008-08-22) and "Negev outposts Beersheba 1943
-  Jewish" (1 item, 2007-01-30), all run 2026-10-25 at https://www.jta.org/?s=<query with + for
-  spaces>; no item is dated 1943. Ramat HaNegev's coordinate and its March 1949 day: above.
+  Be'eri, Nevatim and Sa'ad; Beit Eshel's founding day in August 1943: JTA search, archive items on page 1
+  (10 per page, by relevance; only page 1 read unless said): "Beth Eshel Negev" (10 results in all; 6 archive
+  items, 1947-12-15 to 2005-04-13), "Beth Eshel" (283 results; 5 archive items, 1947-12-15 to 1951-02-13), "Negev
+  experimental stations 1943" (20 results; 6 archive items, 1955-08-10 to 2008-08-22) and "Negev outposts Beersheba 1943
+  Jewish" (3 results in all; 1 archive item, 2007-01-30), all run 2026-10-25 at `https://www.jta.org/?s=<query with + for
+  spaces>`, totals read 2026-10-26. For 1943, "Beth Eshel" was also sorted Oldest (`&sort_by=oldest`, 2026-10-26): pages 1-3
+  run from 27 April 1926 to 28 September 1948, and the only 1943 item is "Rabbi Hirsch Manichewitz, 52, Dies Suddenly in
+  New York" (11 October 1943), whose text has no "Eshel" or "Negev"; no item about Beit Eshel is dated 1943. Ramat HaNegev's coordinate and its March 1949 day: above.
 - Coordinates were taken from CBS, from Amudanan, and from coordinates written into the articles
   themselves. None was measured off a map, and no hex was computed here, since
   `tools/settlement_hexes.py` stays with #61.
