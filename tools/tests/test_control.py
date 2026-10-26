@@ -27,6 +27,14 @@ CODES = {(q, r): c for q, r, c in BAKED["hexes"]}
 SETTLEMENTS = yaml12.load((MAP / "settlements_1948.yaml").read_text(encoding="utf-8"))
 
 
+# The hexes of cb.CONTESTED_SHARED_HEXES (owner on #1796, 26 October 2026, "Contested + move target"): grey in every period
+# where their settlements' points disagree, pinned exactly by test_ramla_and_rehovots_shared_hex_is_contested_where_their_
+# points_disagree. At 4.4 km (#1183) that is (-4, 24), Ramla's and Rehovot's: grey from 15 May until Operation Danny took
+# Ramla (12 July), Israeli after. The older tests below name it where it meets their rule, and nowhere else.
+SHARED_CONTESTED = {hg.settlement_hex(s["lon"], s["lat"], HEXES) for s in SETTLEMENTS["settlements"]
+                    if any(s["id"] in pair for pair in cb.CONTESTED_SHARED_HEXES)}
+
+
 def code(lon: float, lat: float, period: str) -> str:
     return CODES[hg.settlement_hex(lon, lat, HEXES)][PERIODS.index(period)]
 
@@ -67,8 +75,13 @@ def test_every_land_hex_of_mandatory_palestine_has_one_valid_code_per_period():
 @pytest.mark.parametrize("place, lon, lat", [("Tel Aviv", 34.78, 32.08), ("Haifa", 34.9992, 32.8192), ("Rehovot", 34.8167, 31.8969)])
 def test_the_coastal_plain_is_israeli_throughout(place, lon, lat):
     """From 11 June; in the opening period Rehovot's sub-district (Ramle) is grey (#674: Yibna and the CIA's tenuously
-    held Rishon-Sarafand area), tested below."""
-    assert set(CODES[hg.settlement_hex(lon, lat, HEXES)][PERIODS.index("truce1"):]) == {"I"}, place
+    held Rishon-Sarafand area), tested below. Rehovot's hex is Ramla's too at 4.4 km (SHARED_CONTESTED): grey while Ramla
+    was the other side's (to the Ten Days), Israeli from truce2."""
+    c = CODES[hg.settlement_hex(lon, lat, HEXES)]
+    if hg.settlement_hex(lon, lat, HEXES) in SHARED_CONTESTED:
+        assert c[T1:PERIODS.index("truce2")] == "cc" and set(c[PERIODS.index("truce2"):]) == {"I"}, (place, c)
+        return
+    assert set(c[T1:]) == {"I"}, place
 
 
 @pytest.mark.parametrize("place, lon, lat", [("Nablus", 35.2608, 32.2211), ("Hebron", 35.0986, 31.535), ("Gaza", 34.4597, 31.5075)])
@@ -90,7 +103,7 @@ def test_dated_changes_follow_the_sources():
 
 
 def test_grey_contested_is_only_for_the_days_an_operation_ran():
-    contested = {p for p in PERIODS for c in CODES.values() if c[PERIODS.index(p)] == "c"}
+    contested = {p for p in PERIODS for qr, c in CODES.items() if c[PERIODS.index(p)] == "c" and qr not in SHARED_CONTESTED}
     assert contested <= {"opening", "ten_days", "shoter", "yoav", "yoav_hiram"}, contested
     ops = META["operations"]
     for f in SOURCE["features"]:
@@ -416,13 +429,14 @@ def test_the_ramle_and_acre_cuts_grey_only_the_hexes_that_changed_hands():
     """Owner ruling 2 of 16 October 2026 on #686: grey only Yibna's and the Acre coast's hexes; Rehovot, Rishon and
     Nahariya, and every other Israeli-held hex of the two sub-districts that did not change hands, stay blue."""
     for key, want in CUT_GREY.items():
-        got = {qr for qr, c in CODES.items() if SUB_KEY[SUBS[qr]] == key and c[OPEN] == "c"}
+        got = {qr for qr, c in CODES.items() if SUB_KEY[SUBS[qr]] == key and c[OPEN] == "c" and qr not in SHARED_CONTESTED}
         assert got == want, (key, sorted(got))
         for qr, c in CODES.items():
-            if SUB_KEY[SUBS[qr]] == key and qr not in want:
+            if SUB_KEY[SUBS[qr]] == key and qr not in want | SHARED_CONTESTED:
                 assert c[OPEN] == ("I" if c[T1] == "I" else "A"), (key, qr, c[OPEN], c[T1])
     for place, lon, lat in [("Rehovot", 34.8167, 31.8969), ("Rishon LeZion", 34.8, 31.95), ("Nahariya", 35.0925, 33.0036)]:
-        assert code(lon, lat, "opening") == "I", place
+        # Rehovot's hex is Ramla's too at 4.4 km: grey by the shared-hex rule, not by a cut (SHARED_CONTESTED)
+        assert code(lon, lat, "opening") == ("c" if hg.settlement_hex(lon, lat, HEXES) in SHARED_CONTESTED else "I"), place
     by = {p["place"]: p for p in META["contested_places"]}
     assert set(by) == {"Yibna", "Acre"}
     assert {hg.settlement_hex(p["lon"], p["lat"], HEXES) for p in by.values()} == set().union(*CUT_GREY.values())
@@ -450,6 +464,9 @@ def test_grey_in_the_opening_period_is_only_where_a_source_puts_it():
     for qr, c in CODES.items():
         if c[OPEN] == "c":
             assert rule5.get(qr, SUB_KEY[SUBS[qr]]) in allowed, (qr, SUB_KEY[SUBS[qr]])
+            if qr in SHARED_CONTESTED:   # grey by the shared-hex rule (Ramla's point), in the Ramle sub-district
+                assert SUB_KEY[SUBS[qr]] == "ramle", qr
+                continue
             assert c[T1] == "I" or SUB_KEY[SUBS[qr]] == "safad", ("grey only inside a 9 July Israeli area, or the CIA loop", qr, c[T1])
     for f in SOURCE["features"]:
         p = f["properties"]
@@ -525,6 +542,9 @@ def test_a_settlement_hex_takes_the_code_at_its_own_point():
             continue
         if any(s["id"] in pair for pair in cb.CONTESTED_SHARED_HEXES):   # their own test below
             continue
+        if qr not in CODES:   # off the layer: Hanita at 4.4 km only (OFF_LAYER, tested below)
+            assert s["id"] in OFF_LAYER, (s["id"], qr)
+            continue
         for i, p in enumerate(drawn):
             ovs = [overlays[o] for o in p["overlays"] if o in overlays]
             got = cb.code_at(s["lon"], s["lat"], snaps[p["snapshot"]], ovs)
@@ -535,13 +555,23 @@ def test_a_settlement_hex_takes_the_code_at_its_own_point():
     assert checked > 200, checked
 
 
+# #1183 (4.4 km): Hanita's hex (10, 4) has its centre 2.6 km north of the kibbutz, beyond the Lebanese frontier, so the
+# sub-district layer puts it outside Mandatory Palestine and the control layer has no row for it: no colour and no "Held
+# by" line (Control1948.Side.OffData), never Arab or ALA. Open question to the owner on #1796; nothing else may be off it.
+OFF_LAYER = {"hanita"}
+
+
 def test_the_three_places_of_1659_are_held_by_israel_from_the_start():
     """The player-visible claim of #1659, pinned by name so a bake change cannot quietly undo it: the map and the city
     panel's "Held by" line. Tiberias was taken on 18 April 1948 and Safed on 10-11 May, both before the game's start on
     15 May, and Hanita was held throughout the war."""
     for sid in ("tiberias", "hanita"):
         s = next(x for x in SETTLEMENTS["settlements"] if x["id"] == sid)
-        codes = CODES[hg.settlement_hex(s["lon"], s["lat"], HEXES)]
+        qr = hg.settlement_hex(s["lon"], s["lat"], HEXES)
+        if sid in OFF_LAYER:   # see OFF_LAYER: off the layer, so never read as Arab-held
+            assert qr not in CODES and SUB_KEY[SUBS[qr]] == bb.OUTSIDE, (sid, qr)
+            continue
+        codes = CODES[qr]
         assert set(codes) == {"I"}, (sid, codes)
     safed = next(x for x in SETTLEMENTS["settlements"] if x["id"] == "safed")
     codes = CODES[hg.settlement_hex(safed["lon"], safed["lat"], HEXES)]
