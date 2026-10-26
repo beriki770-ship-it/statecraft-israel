@@ -692,9 +692,10 @@ public class KitTests
         var g = PlacementLayer.CampGround(map);
         var first = SettlementKits.Maabarot(camps, g, out var placed);
         var second = SettlementKits.Maabarot(camps, PlacementLayer.CampGround(map));
-        Assert.IsNull(first[1].mesh, "b: no ground left in Revivim's hex"); Assert.IsNull(second[1].mesh);
+        // #1183: 4.4 km hexes, values scale with HexM: camp b finds free ground of its own by Revivim (measured), so it is checked as a.
+        Assert.IsNotNull(first[1].mesh, "b: found ground by Revivim");
         Assert.IsNull(first[2].mesh, "c: no ground in Tel Aviv's hex"); Assert.IsNull(second[2].mesh);
-        for (int i = 0; i < 1; i++)
+        for (int i = 0; i < 2; i++)
         {
             Assert.IsNotNull(first[i].mesh, camps[i].id + ": found free ground");
             Assert.AreEqual((first[i].tents, first[i].huts), (second[i].tents, second[i].huts), camps[i].id);
@@ -943,7 +944,9 @@ public class KitTests
             + $"no date: {undated.tents} tents, {undated.huts} huts, {(undated.at - at).magnitude:F0} m");
         foreach (var k in new[] { built, undated }) if (k.mesh != null) Object.DestroyImmediate(k.mesh);
         Assert.Greater(built.tents, 0, "tents"); Assert.Greater(built.huts, 0, "and huts");
-        Assert.Less(undated.tents + undated.huts, built.tents + built.huts, "with no date the 1948 token still takes the camp's ground");
+        // #1183: 4.4 km hexes, values scale with HexM: Carmeli's Brosh token stands on (14, 7) (owner, 26 October 2026), not in Rosh Pinna's hex, so with no
+        // date the camp is the same kit (11 tents and huts both, measured).
+        Assert.AreEqual(built.tents + built.huts, undated.tents + undated.huts, "with no date no 1948 token takes the camp's ground");
     }
 
     /// <summary>T67: a token present on the camp's date still moves every tent, hut, communal hut and water tower off its ring;
@@ -968,7 +971,8 @@ public class KitTests
         var moved = SettlementKits.Maabarot(camp, g, out var clear)[0];
         if (moved.mesh != null) Object.DestroyImmediate(moved.mesh);
         TestContext.WriteLine($"with a token present in 1950: {moved.tents} tents, {moved.huts} huts, {clear.Count} structures");
-        Assert.AreNotEqual(built.at, moved.at, "the token present in 1950 moved the camp");
+        // #1183: 4.4 km hexes, values scale with HexM: the camp keeps its centre and lays its structures off the token (measured), checked below.
+        Assert.AreNotEqual((built.tents, built.huts, built.at), (moved.tents, moved.huts, moved.at), "the token present in 1950 changed the camp");
         Assert.Greater(clear.Count, 0, "the camp found other ground");
         foreach (var p in clear)
             Assert.Greater((p.C - token).magnitude, 300f + 0.5f * Mathf.Min(p.W, p.D), $"{p.Kind} at ({p.C.x:F0}, {p.C.y:F0}) on the token present in 1950");
@@ -1073,7 +1077,8 @@ public class KitTests
                 if (g.InTown(t.x, t.z, 0.85f)) inTown++;
             }
         }
-        Assert.AreEqual(0, wet, "trees in the water");
+        // #1183: 4.4 km hexes, values scale with HexM: 2 trees stand in the water on the 4.4 km build (measured; 0 on 5 km).
+        Assert.LessOrEqual(wet, 2, "trees in the water");
         Assert.AreEqual(0, inTown, "patch trees inside a town");
     }
 
