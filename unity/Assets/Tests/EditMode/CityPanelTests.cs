@@ -1154,8 +1154,21 @@ public class CityPanelTests
     [TestCase(false)] [TestCase(true)]
     public void EverySettlementBlockNamesItsOwnCity(bool hebrew)
     {
-        var text = hebrew ? He : En; var bridge = Bridge(text);
-        var pair = C.SettlementHexes.Where(h => bridge.State.Cities.ContainsKey(h.Id)).GroupBy(h => (h.Q, h.R)).First(g => g.Count() > 1);
+        var text = hebrew ? He : En;
+        // No two cities share a hex on the 4.4 km grid (#1183), so the real content with Petah Tikva on Tel Aviv's hex.
+        var dir = Paths.Content;
+        var events = Directory.GetFiles(Path.Combine(dir, "events"), "*.yaml").Select(f => "events/" + Path.GetFileName(f)).ToList();
+        var shared = ContentLoader.Load(rel =>
+        {
+            var path = Path.Combine(dir, rel);
+            if (!File.Exists(path)) return null;
+            var t = File.ReadAllText(path);
+            if (rel != ContentLoader.SettlementHexesFileName) return t;
+            Assert.IsTrue(t.Contains("{ id: petah_tikva, q: -2, r: 21 }"), "settlement_hexes.yaml has Petah Tikva on (-2, 21)");
+            return t.Replace("{ id: petah_tikva, q: -2, r: 21 }", $"{{ id: petah_tikva, q: {CityHex.q}, r: {CityHex.r} }}");
+        }, events);
+        var bridge = new SimBridge(GameSession.New(shared, GoldenRun.Seed, Mode.Historical), text);
+        var pair = shared.SettlementHexes.Where(h => bridge.State.Cities.ContainsKey(h.Id)).GroupBy(h => (h.Q, h.R)).First(g => g.Count() > 1);
         var host = new VisualElement(); var projects = new VisualElement();
         GddHexPanel.Render(host, projects, bridge, text, pair.Key.Q, pair.Key.R, id => "name:" + id);
         foreach (var h in pair)
@@ -1165,7 +1178,7 @@ public class CityPanelTests
             Assert.AreEqual("name:" + h.Id, part!.Q<Label>("city-name").text);
             Assert.IsNotNull(part!.Q<Button>("city-workers-less"), "the name belongs to its own jobs stepper");
         }
-        var single = C.SettlementHexes.Where(h => bridge.State.Cities.ContainsKey(h.Id)).GroupBy(h => (h.Q, h.R)).First(g => g.Count() == 1);
+        var single = shared.SettlementHexes.Where(h => bridge.State.Cities.ContainsKey(h.Id)).GroupBy(h => (h.Q, h.R)).First(g => g.Count() == 1);
         GddHexPanel.Render(host, projects, bridge, text, single.Key.Q, single.Key.R, id => "name:" + id);
         Assert.IsNull(host.Q<Label>("city-name"), "one city's block is not named again under the panel's title");
     }

@@ -81,7 +81,14 @@ public class UnitsInPlayTests
             Assert.AreEqual(f.Side, row.Side, f.Row);
             var anchor = row.Anchors.First(a => string.CompareOrdinal(a.From, start) <= 0 && string.CompareOrdinal(start, a.To) < 0);
             Assert.AreEqual(anchor.Place, f.Anchor, f.Row);
-            Assert.AreEqual(HexPicker.FromLonLat(anchor.Lon, anchor.Lat, hexes.bounds, hexes.hex_size_km), (f.Q, f.R), f.Row);
+            var picked = HexPicker.FromLonLat(anchor.Lon, anchor.Lat, hexes.bounds, hexes.hex_size_km);
+            // tools/unit_anchor_hexes.py moves two kinds of anchor to a land neighbour (#1183): one in a water hex (Haifa's
+            // point on the 4.4 km grid, hexgrid.settlement_hex) and an enemy's on a settlement's hex (the Syrian Army's start
+            // on Degania Alef's, the owner's nearest-free-neighbour rule).
+            if ((f.Q, f.R) != picked)
+                Assert.IsTrue((!hexes.hexes.Single(h => (h.q, h.r) == picked).land || (f.Side != "israel" && C.SettlementHexes.Any(x => (x.Q, x.R) == picked)))
+                    && MapActions.Distance(f.Q, f.R, picked.q, picked.r) == 1 && hexes.hexes.Single(h => (h.q, h.r) == (f.Q, f.R)).land,
+                    $"{f.Row}: {(f.Q, f.R)} is a land neighbour of the anchor's water or settlement hex {picked}");
         }
     }
 
