@@ -266,8 +266,8 @@ Each section below gives the dated facts. A value that only Wikipedia gives is [
   position, not a finding.
 - **[S]** The attached article (read on the page image, which is rotated; it is the
   second PDF page, printed "Page 3", re-read at 300 dpi on 2026-10-26 with Ghostscript's default MediaBox, where the passages quoted here, including the
-  figures 800 and 30, are on the image; rendered with the PDF's smaller CropBox the line starts of that column are cut at
-  the gutter, but 800 and 30 are still visible; the text layer does not contain "800", so these figures rest on the image only), dateline "JERUSALEM, July 2": "A platoon of Israeli
+  figures 800 and 30, are on the image; the text layer is garbled OCR and does not contain "800", so these figures rest
+  on the image only), dateline "JERUSALEM, July 2": "A platoon of Israeli
   bulldozers has been busy for a month rearranging the rocky landscape of northeastern Jerusalem, preparing the way for a
   vast housing project that is expected to accommodate 5,000 families by 1971." "The plan, devised by a committee working
   out of the Premier's office, is to establish a crescent-shaped periphery of Jewish housing around the northern and
