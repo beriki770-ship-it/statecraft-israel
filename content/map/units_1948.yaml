@@ -1225,6 +1225,20 @@ units:
     end_basis: source
     end_note: "Dupuy p. 51 has the force attacking Gesher the next afternoon (16 May) and again the next day (17 May), and Ben-Gurion's diary of 16 May has the Iraqi army attacking farms in the Jordan Valley. The window keeps 15 May only, by the owner's decision (17 October 2026, on #860)."
     note: "Dupuy p. 51: the main force forded the Jordan near the pipeline south of Ma'ad and took the high ground over Gesher. Ben-Gurion's diary, 16 May: attacks on the Jordan valley farms from the direction of Naharayim. The coordinates are Gesher's."
+    # #1183: at 4.4 km Gesher's hex (11, 12) and every west-bank neighbour are Israeli-held (control_hexes_1948_49.yaml).
+    # Dupuy p. 51 ("occupied the high ground overlooking the settlement of Gesher") names no bank or spot, so no hex is
+    # sourced: by the owner's nearest-free-neighbour rule the token takes the non-Israeli neighbour nearest Gesher's point,
+    # (11, 13) on the east bank (about 7.1 km; (12, 12) is about 8.7 km), placed toward Naharayim, the diary's direction.
+    place_hex: [11, 13]
+    toward:
+      place: Naharayim
+      lon: 35.57285
+      lat: 32.6444
+      note: "Ben-Gurion's diary, 16 May 1948: the Iraqi attacks on the Jordan valley farms came from the direction of Naharayim, on the Transjordan side of the river (en.wiki, Naharayim)."
+      sources:
+      # Ben-Gurion's diary, 16 May 1948.
+      - {url: 'https://bengurionarchive.bgu.ac.il/en/node/12540', checked: '2026-10-13'}
+      - {url: 'https://en.wikipedia.org/wiki/Naharayim', checked: '2026-10-26'}
     sources:
     - {url: 'https://web.stanford.edu/group/tomzgroup/pmwiki/uploads/1793-1978-Dupuy-a-CLH.pdf', checked: '2026-10-13'}
     # Ben-Gurion's diary, 16 May 1948.
