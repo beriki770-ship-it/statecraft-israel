@@ -185,8 +185,8 @@ re-read on the image.
 **[C] two figures against `events-1982-87.md`, both kept.**
 - **People convicted.** `events-1982-87.md` records "originally 27 defendants" at the start of the trial (its H2 and the
   14 May 1986 item). JTA, 5 April 1988: "Altogether 28 Israelis ... were convicted of terrorist acts from 1980 to
-  1984". JTA, 7 June 1989: "more than 20 convicted members". JTA, 27 December 1990: "the last to be released of the 25 West Bank Jews convicted in the mid-1980s of violent acts against Arabs" [S, web text]. The three counts are not the same measure (defendants at the
-  start of a trial, persons convicted, members still jailed), and none of the pages read reconciles them.
+  1984". JTA, 7 June 1989: "more than 20 convicted members". JTA, 27 December 1990: "the last to be released of the 25 West Bank Jews convicted in the mid-1980s of violent acts against Arabs" [S, web text]. The four figures are not the same measure (defendants at the
+  start of a trial, persons convicted, members still jailed, Jews convicted in the mid-1980s), and none of the pages read reconciles them.
 - **Victims of the Hebron attack.** `events-1982-87.md` and JTA of 27 December 1990: three students. JTA of 7 June 1989
   says who the four were: "The three attacked the Islamic College in Hebron with machine guns in 1984, killing four
   students and wounding more than 30 others" [S, web text]. Both numbers stand.
