@@ -47,7 +47,7 @@ def test_the_whole_country_is_deterministic(country):
 def test_default_country_balances_villages_and_regional_landscape(country):
     hexes = {(h["q"], h["r"]): h for h in country["hexes"]}
     assert sum(h["prototype"] == "arab_village" for h in hexes.values()) == 67   # 4.4 km hexes since #1183
-    assert sum(bool(h["note"]) for h in hexes.values()) == 96
+    assert sum(bool(h["note"]) for h in hexes.values()) == 97   # Hanita kept out of the fringe (owner, 26 October 2026, #1183)
     variants = {h["prototype"] for h in hexes.values() if re.fullmatch(
         r"(wheat_fields|citrus_orchard|olive_terraces|mixed_farm|forest)_(north|centre|south)_[ab]", h["prototype"])}
     assert len(variants) == 22   # 16 on the 5 km grid
@@ -108,8 +108,10 @@ def test_environment_carries_no_tiles(country):
 
 def test_the_play_area_is_the_mandate_clipped_to_land(country):
     """defaults.clip mandate: every playing land hex is inside a Mandate sub-district; the land outside is a one-hex
-    environment fringe round it, and the rest of the game map (Lebanon, the Golan, Transjordan, Sinai) is dropped."""
-    inside = mb.mandate_hexes()
+    environment fringe round it, and the rest of the game map (Lebanon, the Golan, Transjordan, Sinai) is dropped. A core
+    settlement's hex plays even outside the sub-districts (Hanita on the 4.4 km grid; owner, 26 October 2026, #1183)."""
+    core = {s["id"] for s in mb.settlements(str(ROOT / "content/map/settlements_1948.yaml"))}
+    inside = mb.mandate_hexes() | {(h["q"], h["r"]) for h in country["hexes"] if h["note"] in core}
     land = [h for h in country["hexes"] if h["terrain"] != "water"]
     play = {(h["q"], h["r"]) for h in land if not h["env"]}
     assert play and play <= inside
