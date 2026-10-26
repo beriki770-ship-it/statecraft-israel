@@ -46,15 +46,15 @@ def test_the_whole_country_is_deterministic(country):
 
 def test_default_country_balances_villages_and_regional_landscape(country):
     hexes = {(h["q"], h["r"]): h for h in country["hexes"]}
-    assert sum(h["prototype"] == "arab_village" for h in hexes.values()) == 61
-    assert sum(bool(h["note"]) for h in hexes.values()) == 90
+    assert sum(h["prototype"] == "arab_village" for h in hexes.values()) == 67   # 4.4 km hexes since #1183
+    assert sum(bool(h["note"]) for h in hexes.values()) == 96
     variants = {h["prototype"] for h in hexes.values() if re.fullmatch(
         r"(wheat_fields|citrus_orchard|olive_terraces|mixed_farm|forest)_(north|centre|south)_[ab]", h["prototype"])}
-    assert len(variants) == 16
+    assert len(variants) == 22   # 16 on the 5 km grid
     # At 2,000, hills and the Carmel ridge return while these village hexes remain.
-    assert hexes[(11, 5)]["prototype"] == "upper_galilee_hills"
-    assert hexes[(4, 11)]["prototype"] == "carmel_ridge"
-    assert hexes[(9, 7)]["prototype"] == hexes[(4, 10)]["prototype"] == "arab_village"
+    assert hexes[(12, 6)]["prototype"] == "upper_galilee_hills"
+    assert hexes[(4, 13)]["prototype"] == "carmel_ridge"
+    assert hexes[(10, 8)]["prototype"] == hexes[(4, 12)]["prototype"] == "arab_village"   # Sakhnin, Ijzim
     core = {s["id"] for s in mb.settlements(str(ROOT / "content/map/settlements_1948.yaml"))}
     assert core <= {h["note"] for h in hexes.values()}
 
