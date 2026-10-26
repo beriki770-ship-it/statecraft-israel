@@ -242,7 +242,7 @@ public class MapLabelTests
     }
 
     /// <summary>Issue #1008: two locations in one hex stay two readable pills. Negba and the Iraq Suwaydan police fort share
-    /// hex (-7, 25), and West Jerusalem (the jerusalem settlement's pill) and East Jerusalem / Old City share (0, 23). Close up,
+    /// hex (-8, 28), and West Jerusalem (the jerusalem settlement's pill) and East Jerusalem / Old City share (0, 26). Close up,
     /// in English and in Hebrew, both pills of each pair are shown, and no two shown pills overlap.</summary>
     [UnityTest]
     public IEnumerator LocationsSharingAHexAreBothNamedAndNeverOverlap()
