@@ -254,7 +254,9 @@ def test_huleiqat_is_egypts_from_8_july_to_19_october_1948():
     c = CODES[hg.settlement_hex(34.6497, 31.6008, HEXES)]
     at = lambda p: c[PERIODS.index(p)]
     assert at("truce1") == "I", "Israeli before 8 July (Operation Barak, 13 May)"
-    for p in ("ten_days", "truce2", "shoter", "truce2b"):
+    # #1183 (4.4 km): in the Ten Days the hex is grey from the traced lines, which a pin does not override (rule 6).
+    assert at("ten_days") == "c"
+    for p in ("truce2", "shoter", "truce2b"):
         assert at(p) == "E", p
     assert at("october") == "I", "Israeli after 19 October"
     pin = {p["place"]: p for p in META["pinned_towns"]}["Huleiqat"]
@@ -341,7 +343,7 @@ OPENING_FEATURES = {"opening:israel", "opening:arab:unspecified", "cia_hula"} | 
 # Owner ruling 2 of 16 October 2026 on #686 (cut breadth): in the Ramle and Acre sub-districts grey only the hexes that
 # changed hands between 15 May and 10 June 1948: Yibna's (occupied 5 June) and Acre's (surrendered on the night of 17/18
 # May). Rehovot, Rishon and Nahariya, and every other hex of the two sub-districts, keep their 9 July side.
-CUT_GREY = {"ramle": {(-5, 22)}, "acre": {(7, 6)}}
+CUT_GREY = {"ramle": {(-6, 25)}, "acre": {(8, 7)}}   # Yibna's and Acre's hexes on the 4.4 km grid (#1183)
 # The Jewish settlements of the Gaza sub-district and of the Beersheba sub-district north of the 60-km northing whose 1948
 # site the repository already holds, sourced (settlements_1948.yaml; the closure check's anchors): Q3 "settlement hexes blue".
 SOUTH_SETTLEMENTS = {"Yad Mordechai": (34.5583, 31.5886), "Negba": (34.683, 31.6608), "Nir Am": (34.5808, 31.5194),
@@ -426,9 +428,12 @@ def test_the_rest_keeps_the_9_july_sides(place, lon, lat, want):
 
 def test_grey_in_the_opening_period_is_only_where_a_source_puts_it():
     allowed = {"acre", "jenin", "ramle", "jerusalem", "safad"}
+    # #1183 (4.4 km): Afula's hex takes the Nazareth sub-district by borders_bake rule 5, but its centre is in the
+    # Lajjun-Zir'in overlay (Jenin), so the hex is grey in a sub-district the list does not name.
+    rule5 = {(7, 13): "jenin"}
     for qr, c in CODES.items():
         if c[OPEN] == "c":
-            assert SUB_KEY[SUBS[qr]] in allowed, (qr, SUB_KEY[SUBS[qr]])
+            assert rule5.get(qr, SUB_KEY[SUBS[qr]]) in allowed, (qr, SUB_KEY[SUBS[qr]])
             assert c[T1] == "I" or SUB_KEY[SUBS[qr]] == "safad", ("grey only inside a 9 July Israeli area, or the CIA loop", qr, c[T1])
     for f in SOURCE["features"]:
         p = f["properties"]
