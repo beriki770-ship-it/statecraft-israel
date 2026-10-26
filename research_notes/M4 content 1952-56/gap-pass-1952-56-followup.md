@@ -65,7 +65,7 @@ positions on big decisions are left to #106. One combined file, because fewer th
 
 ### Reparations talks: where and when they opened
 
-- **[V, agent read 2026-10-26; a person's check pending]** JTA Daily News Bulletin, vol. XIX no. 57, masthead "Friday 20 March 1952" as printed (20 March 1952 was a Thursday; [C] masthead day against date; the dateline "THE HAGUE, March 20" does not lag the masthead as the other bulletins do, e.g. 24 March datelined March 23, so by the usual lag the bulletin is probably Friday 21 March, our reading),
+- **[V, agent read 2026-10-26; a person's check pending]** JTA Daily News Bulletin, vol. XIX no. 57, masthead "Friday, March 20, 1952" as printed (20 March 1952 was a Thursday; [C] masthead day against date; the dateline "THE HAGUE, March 20" does not lag the masthead as the other bulletins do, e.g. 24 March datelined March 23, so by the usual lag the bulletin is probably Friday 21 March, our reading),
   item datelined "THE HAGUE, March 20", headed "German-Israeli talks open today in strongly guarded Dutch castle"
   (http://pdfs.jta.org/1952/1952-03-20_057.pdf, page 1; the file was found by trying file numbers 050 to 062 for 20 to 26 March). Printed: "The opening session of the Israeli-German negotiations for
   reparations payments by West Germany will be held tomorrow in an old castle at Wassenaar, a suburb of The Hague, it was
