@@ -175,7 +175,7 @@ x 111,320 x cos 31.7). The two values are about 48 m apart (sqrt(48^2 + 1^2)).
   403 to this box, see "Gaps and what was tried"). No source I opened gives the day independently.
 - **Start and first residents.** Hebrew Wikipedia: "בניית השכונה החלה ב-1982 וראשוני הבתים אוכלסו ב-1985" (construction
   began in 1982 and the first houses were occupied in 1985; our translation); a Davar item of 15
-  November 1981 ("דנים בהתחלת עבודות התשתית לשכונה החדשה", on starting infrastructure work) is cited there for the
+  November 1981 ("דנים בהתחלת עבודות התשתית לשכונה החדשה ...", on starting infrastructure work; the headline goes on "בי־ם ליד הגבעה הצרפתית") is cited there for the
   sentence on the aim of a Jewish "רצף אורבני" (urban continuity) between French Hill and Neve Yaakov, not for the 1982
   start of building; it was not read [S, Wikipedia]. English Wikipedia: "established in
   1982", and "five districts: Center (1984), West (1988), East and North (1990), and South (1998)" [S, Wikipedia].
