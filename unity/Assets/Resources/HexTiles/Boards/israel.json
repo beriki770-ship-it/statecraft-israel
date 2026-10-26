@@ -111,6 +111,30 @@
    "region": "upper_galilee"
   },
   {
+   "q": 10,
+   "r": 3,
+   "terrain": "water",
+   "ground": "seabed",
+   "prototype": "",
+   "note": "",
+   "unit": "",
+   "facing": 0.0,
+   "env": false,
+   "region": "coastal_plain"
+  },
+  {
+   "q": 11,
+   "r": 3,
+   "terrain": "flat",
+   "ground": "grass",
+   "prototype": "",
+   "note": "",
+   "unit": "",
+   "facing": 0.0,
+   "env": true,
+   "region": "upper_galilee"
+  },
+  {
    "q": 15,
    "r": 3,
    "terrain": "hills",
@@ -163,11 +187,11 @@
    "r": 4,
    "terrain": "hills",
    "ground": "hills",
-   "prototype": "",
-   "note": "",
+   "prototype": "kibbutz",
+   "note": "hanita",
    "unit": "",
    "facing": 0.0,
-   "env": true,
+   "env": false,
    "region": "central_hills"
   },
   {

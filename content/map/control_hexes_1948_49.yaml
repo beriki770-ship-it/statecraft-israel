@@ -245,7 +245,7 @@ hexes:   # [q, r, codes: one per period], ordered by r then q
   - [0, 28, "AMMMMMMMMMMJJJJJ"]
   - [1, 28, "AMMMMMMMMMMJJJJJ"]
   - [-10, 29, "IEEEEEEEEIIIIIII"]
-  - [-9, 29, "-IcEEEEEEIIIIIII"]
+  - [-9, 29, "-IcEEEEIIIIIIIII"]
   - [-8, 29, "-McIIIIIIIIIIIII"]
   - [-7, 29, "AMcIIIIIIIIIIIII"]
   - [-6, 29, "AMMMMMccIIIIIIII"]
