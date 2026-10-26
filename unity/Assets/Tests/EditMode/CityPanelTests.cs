@@ -870,6 +870,12 @@ public class CityPanelTests
         panel.Show(CityHex.q, CityHex.r);
         Assert.IsNull(SegmentBox(ui, "tlv_haifa_rail", 1), "not on Tel Aviv's full column");
         Assert.IsNull(SegmentBox(ui, "tlv_netanya_road", 1), "a segment with a hex outside a city shows there, not here");
+        // A hex in several segments shows every one of them: the Netanya road's (-2, 20) lies in its segments 1 to 3.
+        var shared = SegmentHex("tlv_netanya_road", 2);
+        Assert.AreEqual(shared, SegmentHex("tlv_netanya_road", 1, 1), "precondition: segment 1 ends on segment 2's hex");
+        Assert.AreEqual(shared, SegmentHex("tlv_netanya_road", 3), "precondition: segment 3 starts on segment 2's hex");
+        panel.Show(shared.q, shared.r);
+        for (int n = 1; n <= 3; n++) Assert.IsNotNull(SegmentBox(ui, "tlv_netanya_road", n), $"the Netanya road's segment {n}");
         panel.Show(q, r);
         Assert.IsNotNull(ui.Root.Q("city-part-petah_tikva"), "the city's own part");
         var rail = SegmentBox(ui, "tlv_haifa_rail", 1);
