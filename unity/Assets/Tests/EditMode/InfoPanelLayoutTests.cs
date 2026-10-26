@@ -595,7 +595,7 @@ public class InfoPanelLayoutTests
         foreach (var id in s.Units.Values.Where(u => Projects.IsPioneer(u.Type)).Select(u => u.Id).ToList()) s.Units.Remove(id);
         s.Sites.Clear(); s.Corridors.Clear();
         var city = C.SettlementHexes.Single(x => x.Id == "tel_aviv");
-        for (int k = 0; k < 3; k++) { var id = s.NextId++; s.Units.Add(id, new Unit(id, "halutz", city.Q, city.R)); }
+        for (int k = 0; k < 3; k++) PioneerCardTests.Add(s, city.Q, city.R);
         s.Cities[city.Id] = s.Cities[city.Id].WithCraftsmen(2).WithQualified(new Qualified(1, 1, new[] { 3, 5 }));
         s.Policies[MapActions.MaabarotPolicy] = 1;
         yield return Rendered(1024, 768, g, (root, info) => info.Show(city.Q, city.R), root =>
@@ -737,10 +737,8 @@ public class InfoPanelLayoutTests
                                 Expect(Inside(link.worldBound, panel.worldBound), $"{link.name} {link.worldBound} leaves the panel {panel.worldBound}"); Expect(TextFits(link), $"'{link.text}' does not fit");
                             }
                         }
-                        // city-jobs: 'Jobs: 106 of 106 filled' already overflows its box at en 1024x768 on main with this city state
-                        // (measured on b56011ba, before this change); not this test's subject.
                         foreach (var line in panel.Query<TextElement>().ToList().Where(x => Shown(x) && !string.IsNullOrEmpty(x.text)
-                            && x.name != "city-jobs" && !root.Q<ScrollView>("info-pioneers").Contains(x)))
+                            && !root.Q<ScrollView>("info-pioneers").Contains(x)))
                         {
                             Expect(Inside(line.worldBound, panel.worldBound), $"'{line.text}' {line.worldBound} leaves the panel {panel.worldBound} ({line.name})");
                             Expect(TextFits(line), $"'{line.text}' does not fit its box {line.contentRect} ({line.name})");
