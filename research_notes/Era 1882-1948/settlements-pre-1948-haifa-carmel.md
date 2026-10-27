@@ -341,9 +341,10 @@ Hebrew Wikipedia pages below were read at the `oldid` given, checked 2026-10-23.
   `https://www.jta.org/wp-json/wp/v2/archive?search=Kfar+Atta&after=1933-01-01T00:00:00&before=1936-12-31T23:59:59`
   (run 27 Oct with `curl`) returned 4 items (1933-10-29 to 1936-10-13); the
   1936-10-13 item "Arabs End Strike After 175 Days; 88th Jew is Killed" was fetched and its text holds no
-  "Atta". Searches `Kfar+Ata` and `Kiryat+Ata` over 1925-01-01 to 1948-12-31 returned 30 (the per-page limit set in the URL; the true total is not known) and 4 items; the
+  "Atta". Searches `Kfar+Ata` and `Kiryat+Ata` over 1925-01-01 to 1948-12-31 returned 112 and 4 items (the `x-wp-total` header; same URL form as above); the
   Kiryat Ata items of 1938-11-04 and 1936-07-23 were fetched and hold no "Ata". The search is fuzzy, so a
   hit list is not a mention. Nothing is read from the 1934 to 1941 window that dates the rename. [GAP]
+  (second pass, 27 Oct, added after review) The `Kfar+Atta` search above also lists "Poles Visit Holy Land" (22 July 1934, page text): "A delegation of the "Avodath Israel" Society in Warsaw has arrived in Palestine to look over land owned by the Society at Kfar Atta." That shows the spelling "Kfar Atta" was in use in July 1934; English cannot tell עטא from אתא, so the [GAP] stays. [S, JTA archive page; agent read 27 Oct; a person's check pending]
 
 ### Kiryat Bialik (CBS 9500)
 - CBS **1934**. Not in Gvati's appendix. [checked 2026-10-23: no row]
@@ -370,7 +371,7 @@ Hebrew Wikipedia pages below were read at the `oldid` given, checked 2026-10-23.
   person's check pending] The JTA archive page text of 20 August 1934, "Refugee Town to Be Erected Near Haifa
   Bay" (`https://www.jta.org/archive/refugee-town-to-be-erected-near-haifa-bay`, page text only, the PDF was
   not opened), says the cornerstone of "Kiryath Bialik" "was laid in July, according to a report just
-  received here by the United Jewish Appeal", which agrees with he.wiki's July 1934. [S, JTA archive page]
+  received here by the United Jewish Appeal", which agrees with he.wiki's July 1934. [S, JTA archive page; agent read 27 Oct; a person's check pending]
 
 ### Kiryat Motzkin (CBS 8200)
 - CBS **1934**. Not in Gvati's appendix. [checked 2026-10-23: no row]
