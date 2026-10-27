@@ -4,6 +4,7 @@ their per-hex, per-period layer (content/map/control_hexes_1948_49.yaml, tools/c
 line the archive map dates 9 July; the localities stay as of 1948 (no per-village dates). Owner decision of 16 October
 2026 (#674, option b): from 15 May to 10 June 1948 the 9 July lines, adjusted (research note control-15-may-1948.md §9)."""
 import json
+import math
 import re
 from pathlib import Path
 from urllib.parse import urlparse
@@ -209,8 +210,10 @@ def test_no_assumed_box_overrides_a_source():
     ("Beersheba", 34.7867, 31.2522, "I", "october", "arm_1949-07-20"),
 ])
 def test_named_towns_show_their_sourced_side(town, lon, lat, side, first, last):
-    """Pins (S2, S3) and the towns around them: Qalqilya never Israeli, Mishmar HaYarden Syria's until July 1949."""
-    c = CODES[hg.settlement_hex(lon, lat, HEXES)]
+    """Pins (S2, S3) and the towns around them: Qalqilya never Israeli, Mishmar HaYarden Syria's until July 1949. A pin is
+    read on its own hex, which for Mishmar HaYarden is off Rosh Pinna's (owner on #1796, 27 October 2026, "Move the pin")."""
+    pinned = {p["place"]: qr for qr, p in cb.pin_hexes(SOURCE, HEXES)}
+    c = CODES[pinned.get(town) or hg.settlement_hex(lon, lat, HEXES)]
     for p in PERIODS[PERIODS.index(first):PERIODS.index(last) + 1]:
         got = c[PERIODS.index(p)]
         if got == "c":
@@ -324,7 +327,7 @@ def test_a_hex_takes_the_code_at_its_centre():
     snaps, overlays, periods = cb.load(SOURCE)
     drawn = [p for p in periods if p["snapshot"]]
     land = set(cb.mandate_hexes())
-    pinned = {hg.settlement_hex(p["lon"], p["lat"], HEXES) for p in META["pinned_towns"]}
+    pinned = {qr for qr, _ in cb.pin_hexes(SOURCE, HEXES)}
     # A mapped settlement's hex is the one exception: it takes the code at the settlement's own point (#1659), which
     # test_a_settlement_hex_takes_the_code_at_its_own_point covers instead.
     towns = {hg.settlement_hex(s["lon"], s["lat"], HEXES) for s in SETTLEMENTS["settlements"]}
@@ -531,7 +534,7 @@ def test_a_settlement_hex_takes_the_code_at_its_own_point():
     places, the pins and the Jerusalem area are excluded here and covered by their own tests."""
     snaps, overlays, periods = cb.load(SOURCE)
     drawn = [p for p in periods if p["snapshot"]]
-    pinned = {hg.settlement_hex(p["lon"], p["lat"], HEXES) for p in META["pinned_towns"]}
+    pinned = {qr for qr, _ in cb.pin_hexes(SOURCE, HEXES)}
     greyed = {hg.settlement_hex(p["lon"], p["lat"], HEXES) for p in META.get("contested_places", [])}
     checked = 0
     for s in SETTLEMENTS["settlements"]:
@@ -595,3 +598,29 @@ def test_ramla_and_rehovots_shared_hex_is_contested_where_their_points_disagree(
         want.append(a if a == b else "c")
     assert "c" in want and CODES[qr] == "".join(want), (CODES[qr], want)
     assert cb.CONTESTED_SHARED_HEXES == [frozenset({"ramla", "rehovot"})]
+
+
+def test_the_mishmar_hayarden_pin_moves_off_rosh_pinnas_hex():
+    """Owner on #1796, 27 October 2026, "Move the pin": at 4.4 km (#1183) the Mishmar HaYarden pin (Syria, 11 June 1948 -
+    20 July 1949) falls in Rosh Pinna's hex (14, 6) and painted a player city Syrian. A non-Israeli pin whose hex holds a
+    player's locality goes on the free land neighbour nearest its own point, the rule the owner gave the Syrian bridgehead
+    token (tools/unit_anchor_hexes.py), so Rosh Pinna's hex reads its own point and the pin's hex reads Syria."""
+    pin = {p["place"]: p for p in META["pinned_towns"]}["Mishmar HaYarden"]
+    assert hg.settlement_hex(pin["lon"], pin["lat"], HEXES) == (14, 6)
+    moved = dict((p["place"], qr) for qr, p in cb.pin_hexes(SOURCE, HEXES))["Mishmar HaYarden"]
+    towns = {hg.settlement_hex(s["lon"], s["lat"], HEXES) for s in SETTLEMENTS["settlements"]}
+    land = set(cb.mandate_hexes())
+    free = [(14 + dq, 6 + dr) for dq, dr in hg.NEIGHBOURS if (14 + dq, 6 + dr) in land and (14 + dq, 6 + dr) not in towns]
+    point = hg.lonlat_to_km(pin["lon"], pin["lat"], HEXES["bounds"])
+    assert moved == min(free, key=lambda c: math.dist(hg.hex_center_km(*c, HEXES["hex_size_km"]), point)), moved
+    # (15, 5), 5.4 km from the point. The bridgehead token's (15, 6) is 4.35 km but outside Mandatory Palestine on the
+    # sub-district layer, so the control layer has no row there and a pin on it would colour nothing.
+    assert moved == (15, 5) and (15, 6) not in land, moved
+    rp = next(s for s in SETTLEMENTS["settlements"] if s["id"] == "rosh_pinna")
+    assert hg.settlement_hex(rp["lon"], rp["lat"], HEXES) == (14, 6)
+    assert "S" not in CODES[(14, 6)], CODES[(14, 6)]
+    assert CODES[moved][PERIODS.index("truce1")] == "S", CODES[moved]
+    # Only this pin moves: every other pin keeps the hex holding its point.
+    for qr, p in cb.pin_hexes(SOURCE, HEXES):
+        if p["place"] != "Mishmar HaYarden":
+            assert qr == hg.settlement_hex(p["lon"], p["lat"], HEXES), p["place"]
