@@ -49,8 +49,8 @@ start of construction, the first residents, the place (coordinates from a named 
 
 ## Conventions and tags
 
-- **[V, agent read 2026-10-25; a person's check pending]**: what a primary document I opened prints. Here only the
-  United Nations document S/13844. A letter's content that is one government's position stays a position.
+- **[V, agent read 2026-10-25; a person's check pending]**: what a primary document I opened prints. In the first pass only the
+  United Nations document S/13844. Second pass (27 Oct 2026): also S/13843, A/35/133 and S/13859, tagged [V, agent read 2026-10-27; a person's check pending]. A letter's content that is one government's position stays a position.
 - **[S]** secondary: one source, or several that plainly copy one another. Contemporaneous press (JTA daily bulletin)
   is [S]. **[S, Wikipedia]**: the fact rests on Hebrew or English Wikipedia, read as wikitext of the revision named
   (`oldid`). Where Wikipedia cites a newspaper, a book or an organisation (for example Maariv, Davar, ARIJ), I give its
@@ -164,12 +164,12 @@ x 111,320 x cos 31.7). The two values are about 48 m apart (sqrt(48^2 + 1^2)).
     representative, quoted as a position, not a finding.
   - **[V, agent read 2026-10-27; a person's check pending]** Three more United Nations documents of March 1980 (second pass, read on the page images, from
     `https://documents.un.org/api/symbol/access?s=<symbol>&l=en&t=pdf`). Each is a government's or a committee's
-    position, not a finding, and none gives a size, a unit count or a neighbourhood name.
+    position, not a finding, and none gives a size for the Jerusalem land, a unit count or a neighbourhood name (S/13859 gives "150 hectares of land in the village of Al-Khadar near Bethlehem", which is elsewhere).
     - S/13843, "Letter dated 14 March 1980 from the Chairman of the Committee on the Exercise of the Inalienable Rights
       of the Palestinian People": "The expropriation by the Israeli authorities of vast areas of Arab-owned land in the
       vicinity of Jerusalem in order to establish new Israeli settlements".
     - A/35/133 (also S/13845), cover page: "Letter dated 14 March 1980 from the Permanent Representative of Egypt to the
-      United Nations addressed to the Secretary-General", enclosing a statement of the Egyptian Cabinet's spokesman "on
+      United Nations addressed to the Secretary-General" (the cover is dated 17 March 1980, the letter 14 March), enclosing a statement of the Egyptian Cabinet's spokesman "on
       the decision of the Israeli Cabinet to confiscate Arab land in Jerusalem". The annex page was read as text only and
       is not quoted.
     - S/13859, "Letter dated 25 March 1980 from the Permanent Representative of Morocco to the United Nations addressed
@@ -364,15 +364,7 @@ x 111,320 x cos 31.7). The two values are about 48 m apart (sqrt(48^2 + 1^2)).
   returned 404. The Maariv item of 8 March 1990 that Hebrew Wikipedia cites with the headline "פרברי ירושלים הכבושים - 8
   שכונות עם 124 אלף תושבים" (the occupied suburbs of Jerusalem: 8 neighbourhoods with 124 thousand residents; our
   translation of the title) would be a contemporaneous list; it was not read.
-- **[GAP] United Nations documents of 1991-93 on the Har Homa land and of 1980-90 on Pisgat Ze'ev.** Narrowed on 27 Oct
-  2026: the March 1980 land-taking now has three more UN texts (S/13843, A/35/133, S/13859, under "Land-taking, March
-  1980"); the Har Homa and Pisgat Ze'ev parts stay [GAP]. Second-pass searches of the UN Digital Library MARC search, run
-  27 Oct 2026 (same URL form; the search works, `"Abu Ghneim"` again returned 17 records): `Pisgat` 0 records,
-  `"Har Homa"` 3 (dated 3 and 4 March and 25 November 1997, after the window), `Homat Shmuel` 0, `"Ramat Shlomo"` 0, `"Givat Hamatos"` 0, `"Gilo"` 1 (A/56/992 of 19 June 2002, after
-  the window), and `expropriation Jerusalem 269__a:"1991*"`, `"1992*"` and `"1993*"` 0 each. Of the March 1980 list below,
-  S/13868 and A/35/158 (3 pages each) were opened as text only and have an Abu Dees passage but no Jerusalem
-  neighbourhood passage; S/14049 (3 July 1980, Uganda's support for resolution 476) has no land-taking passage; none is
-  used. First pass, 25 Oct 2026:
+- **[GAP] United Nations documents of 1991-93 on the Har Homa land and of 1980-90 on Pisgat Ze'ev.** Tried (25 Oct 2026),
   the UN Digital Library MARC search (`https://digitallibrary.un.org/search?ln=en&of=xm&rg=<n>&p=<query>`, counts are the
   page's own): `"Abu Ghneim"` (17 records on the page, earliest dated 28 February 1997); `"Jabal Abu Ghneim"` (15
   records, same); `"Abu Ghunaym"` (0); `Jerusalem 269__a:"1980-03*"` (9 records, listing S/14049, S/13868, A/35/158,
@@ -382,6 +374,14 @@ x 111,320 x cos 31.7). The two values are about 48 m apart (sqrt(48^2 + 1^2)).
   12 March 1980) is about a United States statement and has no land-taking passage, so it is not used; the others were
   not opened and the press release has no file on the page). A/50/168 (28 April 1995) and A/53/968 (20 May 1999) were opened; both are
   after the window and are not used.
+  (27 Oct) Narrowed: the March 1980 land-taking now has three more UN texts (S/13843, A/35/133, S/13859, under "Land-taking, March
+  1980"); the Har Homa and Pisgat Ze'ev parts stay [GAP]. Second-pass searches of the UN Digital Library MARC search, run
+  27 Oct 2026 (same URL form; the search works, `"Abu Ghneim"` again returned 17 records): `Pisgat` 0 records,
+  `"Har Homa"` 3 (dated 3 and 4 March and 25 November 1997, after the window), `Homat Shmuel` 0, `"Ramat Shlomo"` 0, `"Givat Hamatos"` 0, `"Gilo"` 1 (A/56/992 of 19 June 2002, after
+  the window), and `expropriation Jerusalem 269__a:"1991*"`, `"1992*"` and `"1993*"` 0 each. Of the March 1980 list above,
+  S/13868 and A/35/158 (3 pages each) were opened as text only and have an Abu Dees passage but no Jerusalem
+  neighbourhood passage; S/14049 (3 July 1980, Uganda's support for resolution 476) has no land-taking passage; none is
+  used.
 - **[GAP] A municipal or research-institute list.** Tried (25 Oct 2026), the Internet Archive advanced search
   (`https://archive.org/advancedsearch.php`): `title:("Pisgat Zeev") OR title:("Pisgat Ze'ev")` (1 result, a 2016 audio
   recording, not relevant); `title:(Jerusalem) AND (subject:(yearbook) OR title:(yearbook))` (0);
