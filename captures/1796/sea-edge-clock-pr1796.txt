@@ -1,0 +1,11 @@
+pr1796 water unpinned: peak ratio 0.674; line pixel luma ratio 0.850; background luma 0.033-0.225
+pr1796 water 0: peak ratio 0.665; line pixel luma ratio 0.870; background luma 0.046-0.217
+pr1796 water 25: peak ratio 0.697; line pixel luma ratio 0.870; background luma 0.040-0.236
+pr1796 water 50: peak ratio 0.704; line pixel luma ratio 0.850; background luma 0.036-0.238
+pr1796 water 75: peak ratio 0.689; line pixel luma ratio 0.858; background luma 0.033-0.235
+pr1796 water 100: peak ratio 0.668; line pixel luma ratio 0.869; background luma 0.046-0.236
+pr1796 water 150: peak ratio 0.682; line pixel luma ratio 0.842; background luma 0.049-0.224
+pr1796 water 200: peak ratio 0.627; line pixel luma ratio 0.861; background luma 0.046-0.233
+pr1796 water 300: peak ratio 0.729; line pixel luma ratio 0.859; background luma 0.066-0.212
+pr1796 water 400: peak ratio 0.683; line pixel luma ratio 0.859; background luma 0.069-0.224
+pr1796 water 600: peak ratio 0.677; line pixel luma ratio 0.878; background luma 0.056-0.251

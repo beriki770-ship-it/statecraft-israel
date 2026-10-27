@@ -1,0 +1,11 @@
+main water unpinned: peak ratio 0.796; line pixel luma ratio 0.841; background luma 0.075-0.128
+main water 0: peak ratio 0.796; line pixel luma ratio 0.841; background luma 0.089-0.144
+main water 25: peak ratio 0.800; line pixel luma ratio 0.841; background luma 0.084-0.155
+main water 50: peak ratio 0.799; line pixel luma ratio 0.841; background luma 0.083-0.131
+main water 75: peak ratio 0.774; line pixel luma ratio 0.841; background luma 0.083-0.144
+main water 100: peak ratio 0.812; line pixel luma ratio 0.840; background luma 0.080-0.134
+main water 150: peak ratio 0.785; line pixel luma ratio 0.841; background luma 0.075-0.134
+main water 200: peak ratio 0.792; line pixel luma ratio 0.841; background luma 0.076-0.144
+main water 300: peak ratio 0.810; line pixel luma ratio 0.841; background luma 0.069-0.138
+main water 400: peak ratio 0.784; line pixel luma ratio 0.850; background luma 0.077-0.154
+main water 600: peak ratio 0.771; line pixel luma ratio 0.849; background luma 0.076-0.144
