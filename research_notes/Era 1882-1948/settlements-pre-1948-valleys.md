@@ -412,7 +412,7 @@ Hebrew Wikipedia pages below were read at the `oldid` given, checked 2026-10-23.
   passage cites *Davar* of 23 February 1951, not opened here. **Our reading:** there was no single
   restoration event to date. The year stays a [GAP] in the sense that no source read gives one.
 
-- (third pass, 27 Oct) Moledet destroyed by fire in 1939, not in the passages read before. JTA daily
+- (third pass, 27 Oct) Moledet destroyed by an explosion in 1939, not in the passages read before. JTA daily
   bulletin of 27 June 1939 (page image, http://pdfs.jta.org/1939/1939-06-27_171.pdf, printed p. 3,
   opened 2026-10-27), item "Colony Wrecked by Explosion", dateline "JERUSALEM, June 26. (JTA)": "The
   Jewish settlement of Moledet in the vicinity of Beisan, established two years ago, was completely
@@ -456,7 +456,7 @@ Hebrew Wikipedia pages below were read at the `oldid` given, checked 2026-10-23.
   Not a map reading; Survey of Palestine sheets and GovMap were not opened.
 
 - (third pass, 27 Oct) Killing of Alexander Zeid, the date. JTA daily bulletin of 12 July 1938 (page
-  image, http://pdfs.jta.org/1938/1938-07-12_085.pdf, PDF pp. 1-2, opened 2026-10-27), closing paragraph of the lead item, whose
+  image, http://pdfs.jta.org/1938/1938-07-12_085.pdf, PDF pp. 1-2, opened 2026-10-27), last two sentences of the next-to-last paragraph of the lead item, whose
   dateline reads "JERUSALEM, July 11. (JTA)": "During the night, Arabs killed from ambush Alexander
   Zeid, 52, one of the oldest Jewish watchmen in Palestine. Zeid, who was slain while on duty between
   Sheikh Abrek and the newly established settlement of Kvutzath Alonim, had been a watchman since
@@ -527,12 +527,12 @@ column of Gvati's dates does not say what event a date records (see above).
 - (third pass, 27 Oct) Geva, year of founding. JTA daily bulletin of 12 September 1941 (page image,
   http://pdfs.jta.org/1941/1941-09-12_229.pdf, printed p. 3 (PDF p. 4), opened 2026-10-27), last sentence of the item "Twentieth Anniversary of En Harod Colony Celebrated in Palestine" (not a Geva item), dateline "JERUSALEM,
   Sept. 11. (JTA)": "\"Beth Etkin,\" in honor of Ahron Etkin, will be opened at Kvuzath Geva on
-  December 7th, when the colony will celebrate its twentieth anniversary." [V, agent read 2026-10-27; a person's check pending] Twenty years before
+  December 7th, when the colony will celebrate its twentieth anniversary." [V, agent read 2026-10-27; a person's check pending] **Computed here:** twenty years before
   7 December 1941 is December 1921, which agrees with CBS 1921 and he.wiki "1921" above; the item
   gives no founding day. This is a contemporary anniversary notice, not a founding record, and the row
-  stays without a Gvati day. In the same JTA search (query `Ginegar` and `Geva`, 1930 to 1950) the
+  stays without a Gvati day. In the same JTA search (queries `Ginegar` and `Geva`, `after=1930-01-01T00:00:00&before=1950-12-31T23:59:59` on the same endpoint as below, re-run 2026-10-27: `Ginegar` 48 results, 3 with the word in the returned record; `Geva` 187 results over 2 pages, 9 with the word in the returned record) the
   Keren Hayesod subsidy item of 26 Nov 1931 (bulletin date) lists Geva among settlements that no
-  longer needed subsidies, so Geva stood in 1931 (archive page text read; the bulletin PDF and its dateline were not opened). Afula and Bet Zeid
+  longer needed subsidies, so, **our reading:** Geva stood in 1931 (archive page text read; the bulletin PDF and its dateline were not opened). Afula and Bet Zeid
   are not touched by these items.
 - (third pass, 27 Oct) Searched again and not found, JTA archive search through
   `https://www.jta.org/wp-json/wp/v2/archive?search=<word>&after=<date>&before=<date>&per_page=100`,
