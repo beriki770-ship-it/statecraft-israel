@@ -670,7 +670,7 @@ public class ShareShotTests
         attempt.Ticket++; // a newer browser ticket can now belong to a site
         var count = attempt.Calls.Count;
         var button = attempt.Ui.Q<Button>("share-" + control);
-        using (var e = FocusOutEvent.GetPooled()) { e.target = button; button.SendEvent(e); }
+        button.Focus(); button.Blur();
         CollectionAssert.AreEqual(new[] { owner }, attempt.Cancelled);
         Assert.AreEqual(count, attempt.Calls.Count, "focus-out must not invalidate a released native promise");
         attempt.Presenter.Close();
