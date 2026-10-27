@@ -162,6 +162,20 @@ x 111,320 x cos 31.7). The two values are about 48 m apart (sqrt(48^2 + 1^2)).
     seizure was a prelude to the construction of 12,000 new Israeli dwellings and four factories, astride a new road to
     link two earlier illegally established quarters". That is the Arab Group's position as put by Jordan's
     representative, quoted as a position, not a finding.
+  - **[V, agent read 2026-10-27; a person's check pending]** Three more United Nations documents of March 1980 (second pass, read on the page images, from
+    `https://documents.un.org/api/symbol/access?s=<symbol>&l=en&t=pdf`). Each is a government's or a committee's
+    position, not a finding, and none gives a size, a unit count or a neighbourhood name.
+    - S/13843, "Letter dated 14 March 1980 from the Chairman of the Committee on the Exercise of the Inalienable Rights
+      of the Palestinian People": "The expropriation by the Israeli authorities of vast areas of Arab-owned land in the
+      vicinity of Jerusalem in order to establish new Israeli settlements".
+    - A/35/133 (also S/13845), cover page: "Letter dated 14 March 1980 from the Permanent Representative of Egypt to the
+      United Nations addressed to the Secretary-General", enclosing a statement of the Egyptian Cabinet's spokesman "on
+      the decision of the Israeli Cabinet to confiscate Arab land in Jerusalem". The annex page was read as text only and
+      is not quoted.
+    - S/13859, "Letter dated 25 March 1980 from the Permanent Representative of Morocco to the United Nations addressed
+      to the President of the Security Council", for the Islamic Conference: "The expropriation by the occupation
+      authorities of additional Arab lands north of the Holy City of Jerusalem". The word "additional" is the letter's; it
+      does not say which earlier land it adds to, and no other source I opened reports a second order after 11 March 1980.
   - **[C] size and units.** JTA: 1,000 acres and 10,000 housing units. Derived: 1,000 acres = 1,000 x 4.04686 = 4,046.86
     dunams, about the 4,000 dunums Jordan's letter gives, so the two size figures are of the same order; no source
     equates the two orders. Units: 10,000 (JTA) against 12,000 dwellings and four factories (Jordan's letter, citing
@@ -350,7 +364,15 @@ x 111,320 x cos 31.7). The two values are about 48 m apart (sqrt(48^2 + 1^2)).
   returned 404. The Maariv item of 8 March 1990 that Hebrew Wikipedia cites with the headline "פרברי ירושלים הכבושים - 8
   שכונות עם 124 אלף תושבים" (the occupied suburbs of Jerusalem: 8 neighbourhoods with 124 thousand residents; our
   translation of the title) would be a contemporaneous list; it was not read.
-- **[GAP] United Nations documents of 1991-93 on the Har Homa land and of 1980-90 on Pisgat Ze'ev.** Tried (25 Oct 2026),
+- **[GAP] United Nations documents of 1991-93 on the Har Homa land and of 1980-90 on Pisgat Ze'ev.** Narrowed on 27 Oct
+  2026: the March 1980 land-taking now has three more UN texts (S/13843, A/35/133, S/13859, under "Land-taking, March
+  1980"); the Har Homa and Pisgat Ze'ev parts stay [GAP]. Second-pass searches of the UN Digital Library MARC search, run
+  27 Oct 2026 (same URL form; the search works, `"Abu Ghneim"` again returned 17 records): `Pisgat` 0 records,
+  `"Har Homa"` 3 (dated 3 and 4 March and 25 November 1997, after the window), `Homat Shmuel` 0, `"Ramat Shlomo"` 0, `"Givat Hamatos"` 0, `"Gilo"` 1 (A/56/992 of 19 June 2002, after
+  the window), and `expropriation Jerusalem 269__a:"1991*"`, `"1992*"` and `"1993*"` 0 each. Of the March 1980 list below,
+  S/13868 and A/35/158 (3 pages each) were opened as text only and have an Abu Dees passage but no Jerusalem
+  neighbourhood passage; S/14049 (3 July 1980, Uganda's support for resolution 476) has no land-taking passage; none is
+  used. First pass, 25 Oct 2026:
   the UN Digital Library MARC search (`https://digitallibrary.un.org/search?ln=en&of=xm&rg=<n>&p=<query>`, counts are the
   page's own): `"Abu Ghneim"` (17 records on the page, earliest dated 28 February 1997); `"Jabal Abu Ghneim"` (15
   records, same); `"Abu Ghunaym"` (0); `Jerusalem 269__a:"1980-03*"` (9 records, listing S/14049, S/13868, A/35/158,
@@ -380,6 +402,8 @@ x 111,320 x cos 31.7). The two values are about 48 m apart (sqrt(48^2 + 1^2)).
 | JTA bulletins 1980-03-11 (No. 49), 1980-03-14 (No. 52), 1990-10-16 (No. 192), 1993-07-08 (No. 126), `pdfs.jta.org` page images | 2026-10-25 | datelines and quoted items above |
 | JTA bulletin 1992-11-26 (No. 223), all four pages | 2026-10-25 | the Sharon caravan item is not in it; not used |
 | UN S/13844, `digitallibrary.un.org/record/12320/files/S_13844-EN.pdf` | 2026-10-25 | Jordan's letter of 14 March 1980 |
+| UN S/13843, A/35/133 (page 1), S/13859, page images from `documents.un.org` | 2026-10-27 | the March 1980 UN texts above |
+| UN S/13868, A/35/158, S/14049 (text only) | 2026-10-27 | opened and not used |
 | UN S/13840 (record 12319), A/50/168, A/53/968 | 2026-10-25 | opened and not used (no land-taking passage in the window) |
 | English and Hebrew Wikipedia articles listed in "Conventions", wikitext by `oldid` | 2026-10-25 | years, plans, coordinates |
 | JTA archive web pages (text) for the items named under "Gaps" | 2026-10-25 | search records and the web text of the 1992-93 items |
