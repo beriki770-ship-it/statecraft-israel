@@ -192,7 +192,13 @@ public class BorderCivTests
         yield return null;
         RenderSample.TiltShift(false);
         BorderProof.Show(map);
-        var (inner, outer) = BorderTests.ProofEdge(map, PromoPose.Gameplay03.Lon, PromoPose.Gameplay03.Lat, "coastal_plain");
+        // #1183: the proof edge (-9, 29)-(-8, 29), about 47 km south-west of gameplay03. Bands render in whole pixels
+        // against a mirror of x.33 or x.67 px, so each reading is about -0.67, +0.33 or +1.33 over it. On 4.4 km hexes
+        // the edge nearest gameplay03, (-5, 24)-(-4, 24), draws B at 60 km 1 px under its mirror (-0.657 at the owner's
+        // macOS gate and on Linux), and (-5, 25) does the same; on this edge every variant at both distances measured
+        // inside the range on Linux (B at 60 km +0.32, B at 150 km +0.67; the lowest, A2 at 60 km, -0.34). The range
+        // itself is unchanged.
+        var (inner, outer) = BorderTests.ProofEdge(map, 34.64, 31.62, "coastal_plain");
         foreach (var distance in new[] { PromoPose.Gameplay03.Distance, 150000f })
         {
             BorderTests.LookAtEdge(map, rig, inner);
