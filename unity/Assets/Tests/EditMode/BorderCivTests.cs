@@ -323,7 +323,9 @@ public class BorderCivTests
         MapBorders.Variant = BorderVariant.A;
         RenderSample.TiltShift(false);
         BorderProof.Show(map);
-        var (inner, outer) = BorderTests.ProofEdge(map, PromoPose.Gameplay03.Lon, PromoPose.Gameplay03.Lat, "coastal_plain");
+        // #1183: GradeTests' proof edge by (-5, 25), 7 km south-east of gameplay03's point (accepted on #1796, bars unchanged).
+        // On 4.4 km hexes the edge nearest gameplay03, (-5, 24)-(-4, 24), has a railway drawn over the band.
+        var (inner, outer) = BorderTests.ProofEdge(map, 34.80, 31.86, "coastal_plain");
         BorderTests.LookAtEdge(map, rig, inner);
         rig.Distance = 150000f; rig.Apply();
         float pm = Median(BorderTests.WalkEdge(map, cam, inner, outer, 9, 1920, 1080).Select(w => BorderTests.Read(w, -1, BorderTests.Blueness, 0.45f).WidthPx));
@@ -437,7 +439,9 @@ public class BorderCivTests
         yield return null;
         RenderSample.TiltShift(false);
         BorderProof.Show(map);
-        var (inner, outer) = BorderTests.ProofEdge(map, PromoPose.Gameplay03.Lon, PromoPose.Gameplay03.Lat, "coastal_plain");
+        // #1183: GradeTests' proof edge by (-5, 25), 7 km south-east of gameplay03's point (accepted on #1796, bars unchanged).
+        // On 4.4 km hexes the edge nearest gameplay03, (-5, 24)-(-4, 24), has a railway drawn over the band.
+        var (inner, outer) = BorderTests.ProofEdge(map, 34.80, 31.86, "coastal_plain");
         BorderTests.LookAtEdge(map, rig, inner);
         (float band, float wash) Measure(BorderVariant v)
         {
