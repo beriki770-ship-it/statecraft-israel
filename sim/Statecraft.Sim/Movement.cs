@@ -262,11 +262,14 @@ namespace Statecraft.Sim
             // An annexed target is Israeli for good (R-CTRL-016, OWNER QUESTION 3 (a) on #799): not enemy-held.
             var ids = c.RulesAt(s.Date).Mvp!.EnemyHeldLocalities
                 .Where(id => !(s.Settlements.TryGetValue(id, out var x) && x.State == SettlementControl.Annexed)).ToList();
+            // The enemy's set is built from the player's localities, not as all hexes minus the enemy-held ones: at 4.4 km (#1183)
+            // Rehovot shares Ramla's hex (-4, 24), which must stay closed to the enemy while Ramla is enemy-held (owner review, #1796).
+            if (enemy) return new HashSet<(int Q, int R)>(c.SettlementHexes.Where(h => !ids.Contains(h.Id)).Select(h => (h.Q, h.R)));
             var held = new HashSet<(int Q, int R)>(c.SettlementHexes.Where(h => ids.Contains(h.Id)).Select(h => (h.Q, h.R)));
             // A target captured on a neighbour of its own hex (Ramla's, ContentLoader.TargetOnANeighbour, #1796): that hex too,
             // so a retreat or a Raid's withdrawal still never ends where it would capture the place.
-            if (!enemy) held.UnionWith(c.SettlementTargets.Where(t => ids.Contains(t.Id)).Select(t => (t.Q, t.R)));
-            return enemy ? new HashSet<(int Q, int R)>(c.SettlementHexes.Select(h => (h.Q, h.R)).Where(h => !held.Contains(h))) : held;
+            held.UnionWith(c.SettlementTargets.Where(t => ids.Contains(t.Id)).Select(t => (t.Q, t.R)));
+            return held;
         }
 
         /// <summary>R-MOVE-005 in Phase 6 (#1304): the hexes a move and its path may not enter. For the player, those of

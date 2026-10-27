@@ -135,6 +135,20 @@ public class RealContentTests
         Assert.NotEqual(closed, Move(-4, 24));
     }
 
+    // R-ENEMY-001 at 4.4 km (owner review of #1796, 27 October): Rehovot shares Ramla's hex (-4, 24), and Ramla being enemy-held
+    // must not open Rehovot's hex to an enemy move.
+    [Fact]
+    public void NoEnemyMoveEndsOnRehovotsHexItSharesWithRamla()
+    {
+        var s = Simulation.NewGame(C, 42, Mode.Historical);
+        var e = s.Units.Values.First(u => u.Side != Movement.PlayerSide);
+        s.Units.Clear();
+        s.Units.Add(1, new Unit(1, e.Type, -4, 25, side: e.Side, strength: 2));   // next to (-4, 24)
+        Assert.Contains((-4, 24), Movement.NoEntry(C, s, true));
+        Assert.Equal("Units may not enter an enemy-held locality before its capture is possible",
+            Movement.Move(C, s, 1, -4, 24, new Dictionary<int, int>(), new List<Cause>(), enemy: true));
+    }
+
     [Fact]
     public void MaimonBirthUsesHebrewBiographyDateAndSource()
     {
