@@ -32,6 +32,8 @@ namespace Statecraft.Game.UI
         public const string EndTurnWaitingClass = "end-turn-waiting";
         /// <summary>The line under an option that returns the course to the record (EventOption.Rejoin, #954; Statecraft.uss).</summary>
         public const string RejoinClass = "event-rejoin";
+        /// <summary>One line under an option for one of its effects, from the sim's preview (#1125, R-EVT-005; Statecraft.uss).</summary>
+        public const string EffectClass = "event-effect";
 
         readonly VisualElement card; readonly SimBridge bridge; readonly UiText text; readonly PortraitCatalog? portraits;
         readonly EventImageCatalog? photos;
@@ -285,6 +287,15 @@ namespace Statecraft.Game.UI
                 b.AddToClassList(OptionClass);
                 b.SetEnabled(!unpaid);
                 options.Add(b);
+                // What the option does, one line per effect, from the sim's preview (#1125, R-EVT-005): Unity only words it. Under
+                // the option like the rejoin line, so a Label takes no Tab stop. The rejoin effect has that line already, below.
+                foreach (var preview in EventSystem.OptionEffectPreviews(c, s, o))
+                {
+                    if (preview.Kind == OptionEffectPreviewKind.Rejoin) continue;
+                    var effect = new Label(EventEffectText.Format(preview, text));
+                    effect.AddToClassList("muted"); effect.AddToClassList(EffectClass);
+                    options.Add(effect);
+                }
                 if (o.Rejoin == "") continue;
                 // Under the option, not in it: the button's label stays the choice itself, and a Label takes no Tab stop.
                 var rejoin = new Label(text["event.rejoin"]);
