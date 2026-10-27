@@ -363,7 +363,9 @@ public class BorderTests
         yield return null;
         RenderSample.TiltShift(false);
         var layer = BorderProof.Show(map);
-        var (inner, outer) = ProofEdge(map, PromoPose.Gameplay03.Lon, PromoPose.Gameplay03.Lat, "coastal_plain");
+        // #1183: the proof edge by (-5, 25) at the point GradeTests uses (that move accepted on #1796, bars unchanged).
+        // On 4.4 km hexes the edge nearest gameplay03, (-5, 24)-(-4, 24), has a railway drawn over the band.
+        var (inner, outer) = ProofEdge(map, 34.80, 31.86, "coastal_plain");
         LookAtEdge(map, rig, inner);
         var walks = WalkEdge(map, cam, inner, outer, 9, 1920, 1080);
         var pw = new List<float>(); var sw = new List<float>();
