@@ -70,11 +70,13 @@ public class MapPressTests
     }
 }
 
-/// <summary>#1654 review (blocker): a right press is a right click (an order) or the camera's drag pan, never both. Real
-/// mouse events go through the Input System test fixture into MapPointer (its own right-button actions) and the project's
-/// Camera actions into CameraController.Tick, wired as GameRoot wires them (HoldsMouseDrag = RightTapCandidate). The UI
-/// recorder stands in for the map: HandleRightClick asks it once per right click. Edit mode sends no OnEnable, so the
-/// test sends it.</summary>
+/// <summary>#1654 review (blocker): a mouse press is a click or the camera's drag pan, never both. That was first
+/// settled for the right button (a click is an order); since #998 the left button drags the same way, and its tests live
+/// here beside the right ones rather than in a class of their own. Real mouse events go through the Input System test
+/// fixture into MapPointer (its own left- and right-button actions) and the project's Camera actions into
+/// CameraController.Tick, wired as GameRoot wires them (HoldsMouseDrag = RightTapCandidate || LeftTapCandidate). The UI
+/// recorder stands in for the map: it is asked once per click or order. Edit mode sends no OnEnable, so the test sends
+/// it.</summary>
 public class RightClickOrPanTests : InputTestFixture
 {
     static void Send(Object o, string message) =>
@@ -98,7 +100,7 @@ public class RightClickOrPanTests : InputTestFixture
             var clicks = Clicks;
             Pointer.IsOverUi = p => { clicks.Add(p); return true; };   // asked once per right click; true: no map needed
             var pointer = Pointer;
-            Controller.HoldsMouseDrag = () => pointer.RightTapCandidate;   // as GameRoot wires it
+            Controller.HoldsMouseDrag = () => pointer.RightTapCandidate || pointer.LeftTapCandidate;   // as GameRoot wires it
             Send(Controller, "Awake"); Send(Controller, "OnEnable"); Send(Pointer, "OnEnable");
         }
         public void Frame() { Controller.Tick(0.016f); Pointer.ProcessPresses(); }
@@ -181,5 +183,109 @@ public class RightClickOrPanTests : InputTestFixture
         Release(mouse.rightButton);
         rig.Frame();
         Assert.IsEmpty(rig.Clicks, "each event is stepped at its own position: the excursion makes it a drag");
+    }
+
+    /// <summary>Drags the left button, the same shape as <see cref="Drag"/> does the right one.</summary>
+    Vector3 LeftDrag(Rig rig, Vector2 from, params Vector2[] path)
+    {
+        Set(mouse.position, from);
+        rig.Frame();
+        Press(mouse.leftButton);
+        rig.Frame();
+        var at = from;
+        foreach (var p in path) { Move(mouse.position, p, p - at); at = p; rig.Frame(); }
+        var held = rig.View.LookAt;
+        Release(mouse.leftButton);
+        rig.Frame();
+        return held;
+    }
+
+    /// <summary>#998, owner's ruling of 22 October 2026: dragging the map with the left button pans it once the
+    /// pointer has moved more than a few pixels, and the drag selects nothing. Today the left button selects on its
+    /// press, so a drag both selects the hex it started on and leaves the map still.</summary>
+    [Test]
+    public void ALeftDragPastTheSlopPansAndSelectsNothing()
+    {
+        using var rig = new Rig();
+        var start = rig.View.LookAt;
+        var from = new Vector2(600, 400);
+        LeftDrag(rig, from, from + new Vector2(120, 0), from + new Vector2(240, 0));
+        Assert.IsEmpty(rig.Clicks, "a left drag selects nothing");
+        Assert.AreNotEqual(start, rig.View.LookAt, "and the map pans with it");
+    }
+
+    /// <summary>The other half of the same ruling: a plain left click still selects, and does not nudge the map. It
+    /// selects on the release now rather than the press, because a press cannot be known to be a drag until it moves;
+    /// the click is still queued per press, so each physical click acts exactly once (docs/m3-rulings.md, #1617).</summary>
+    [Test]
+    public void ALeftClickInsideTheSlopStillSelectsAndDoesNotPan()
+    {
+        using var rig = new Rig();
+        var start = rig.View.LookAt;
+        var at = new Vector2(600, 400);
+        LeftDrag(rig, at, at + new Vector2(4, -3));
+        CollectionAssert.AreEqual(new[] { at }, rig.Clicks, "a click inside the slop selects where it went down");
+        Assert.AreEqual(start, rig.View.LookAt, "and the map does not move");
+    }
+
+    /// <summary>#1791 review: docs/m3-rulings.md:74's per-press guarantee, restated on the new code path. Two physical
+    /// left clicks inside one frame - press, release, press, release before a single <c>Frame()</c> - are two clicks,
+    /// each at its own position. The left click is queued from the release callback now, so the guarantee rests on the
+    /// queue rather than on one sampled position per frame.</summary>
+    [Test]
+    public void TwoLeftClicksInsideOneFrameAreTwoClicksAtTheirOwnPositions()
+    {
+        using var rig = new Rig();
+        var first = new Vector2(600, 400);
+        var second = new Vector2(300, 200);
+        Set(mouse.position, first);
+        rig.Frame();
+        Press(mouse.leftButton);
+        Release(mouse.leftButton);
+        Move(mouse.position, second);
+        Press(mouse.leftButton);
+        Release(mouse.leftButton);
+        rig.Frame();
+        CollectionAssert.AreEqual(new[] { first, second }, rig.Clicks,
+            "each physical click acts exactly once, at its own position (docs/m3-rulings.md:74)");
+    }
+
+    /// <summary>The left twin of <see cref="ARightDragOutAndBackInsideOneFrameIsNoClick"/>: a press that goes out past
+    /// the slop and comes back inside one frame is a drag, not a click, because every move is stepped at its own
+    /// position rather than only the last one being sampled.</summary>
+    [Test]
+    public void ALeftDragOutAndBackInsideOneFrameIsNoClick()
+    {
+        using var rig = new Rig();
+        var from = new Vector2(700, 400);
+        Set(mouse.position, from);
+        rig.Frame();
+        // one slow frame: press, out past the slop, back and release, all before the next frame
+        Press(mouse.leftButton);
+        Move(mouse.position, from + new Vector2(200, 0));
+        Move(mouse.position, from);
+        Release(mouse.leftButton);
+        rig.Frame();
+        Assert.IsEmpty(rig.Clicks, "each event is stepped at its own position: the excursion makes it a drag");
+    }
+
+    /// <summary>#1791 review: until #998 a left drag could never pan, so dragging a panel's scrollbar was safe by
+    /// construction. Now it relies on the <c>dragFromUi</c> latch (<c>Gather</c>, which answers the UI question once on
+    /// the button's way down, and <c>Step</c>, which zeroes the drag when it is set), and nothing pinned that for the
+    /// left button.
+    /// <para>The second half is what keeps this from passing vacuously: the identical drag begun on the map does pan,
+    /// so the first half is the latch holding, not the left button failing to pan at all.</para></summary>
+    [Test]
+    public void ALeftDragStartingOverTheUiNeverPans()
+    {
+        using var rig = new Rig();
+        rig.Controller.IsOverUi = p => p.y > 1000;   // the top of the screen is a panel
+        var start = rig.View.LookAt;
+        var onUi = new Vector2(600, 1200);
+        LeftDrag(rig, onUi, onUi + new Vector2(120, 0), onUi + new Vector2(240, 0));
+        Assert.AreEqual(start, rig.View.LookAt, "a left drag that began on a panel does not pan the map");
+        var onMap = new Vector2(600, 400);
+        LeftDrag(rig, onMap, onMap + new Vector2(120, 0), onMap + new Vector2(240, 0));
+        Assert.AreNotEqual(start, rig.View.LookAt, "the identical drag begun on the map does pan");
     }
 }

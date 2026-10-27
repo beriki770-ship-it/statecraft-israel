@@ -37,7 +37,7 @@ public class MapPointerTickTests : InputTestFixture
             var asked = Asked;
             Pointer.IsOverUi = p => { asked.Add(p); return true; };   // true: the decision is recorded, no map needed
             var pointer = Pointer;
-            Controller.HoldsMouseDrag = () => pointer.RightTapCandidate;   // as GameRoot wires them
+            Controller.HoldsMouseDrag = () => pointer.RightTapCandidate || pointer.LeftTapCandidate;   // as GameRoot wires them
             Controller.HoldsTouchDrag = () => pointer.TouchTapCandidate;
             Send(Controller, "Awake"); Send(Controller, "OnEnable"); Send(Pointer, "OnEnable");
         }
