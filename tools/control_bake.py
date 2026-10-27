@@ -130,7 +130,9 @@ CONTESTED_SHARED_HEXES = [frozenset({"ramla", "rehovot"})]
 def pin_hexes(source: dict, hexes: dict) -> list:
     """[(hex, pin)]: each pin on the hex holding its point, placed as the game places settlements, except a non-Israeli pin
     on a player's locality, which takes the free land neighbour nearest its point (rule 6; owner on #1796, 27 October 2026).
-    At 4.4 km (#1183) the Mishmar HaYarden pin fell in Rosh Pinna's hex (14, 6) and painted a player city Syrian."""
+    At 4.4 km (#1183) the Mishmar HaYarden pin fell in Rosh Pinna's hex (14, 6) and painted a player city Syrian. Land here
+    is this layer's (Mandatory Palestine), so the pin colours the hex it lands on: the bridgehead token's (15, 6) is
+    outside it, and the pin goes on (15, 5). Unit anchors do not count against a hex: a pin is a colour, not a token."""
     pins = [(hexgrid.settlement_hex(p["lon"], p["lat"], hexes), p) for p in source["statecraft"].get("pinned_towns", [])]
     player, land = ua.player_locality_hexes(), set(mandate_hexes())
     taken = set(ua.settlement_hexes()) | {qr for qr, _ in pins}
