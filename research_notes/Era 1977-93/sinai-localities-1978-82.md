@@ -47,8 +47,8 @@ The question: which Israeli localities and Nahal outposts were founded in Sinai 
   localities lie between the 13 and the 15 (**derived**: 15 - 13 = 2); that is [GAP].
 - **Coordinates:** 2 of the 4 section A rows have a point from one source (Wikidata, [S]); 2 have none ([GAP]). No
   coordinate comes from a map I opened.
-- **Second pass (27 Oct 2026):** one of the open questions is narrowed (Kadesh Barnea existed as a settlement by 3 Feb
-  1982, JTA; when it was settled is still [GAP]); two counts and the 8 Jan 1978 Cabinet decision text are added from a
+- **Second pass (27 Oct 2026):** one of the open questions is narrowed (a place JTA calls "the Kadesh Barnes settlement" existed
+  by 3 Feb 1982, read as Kadesh Barnea (**derived**); when it was settled is still [GAP]); two counts and the 8 Jan 1978 Cabinet decision text are added from a
   US record and UN reports; the other open questions stay [GAP] with the search record. See "Second pass (27 Oct 2026)"
   below. Nothing above this line was changed.
 
