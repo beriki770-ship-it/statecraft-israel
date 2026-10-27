@@ -10,8 +10,9 @@ content/map/settlements_1948.yaml and the heightmap; writes content/map/control_
 
 The GeoJSON keeps the true polygons; the game shows them snapped to hex edges, as the promo does (owner ruling
 2026-10-11). For each period of the GeoJSON's `periods` (a snapshot and the overlays in force), every land hex of
-Mandatory Palestine (the sub-district layer's land: its regions but 'outside') takes one code at its probe: the hex's
-centre, or the settlement's own point where a mapped settlement sits in it (rule 0 below)
+Mandatory Palestine (the sub-district layer's land: its regions but 'outside'), and a mapped settlement's hex whose centre
+is off that land (Hanita's at 4.4 km), takes one code at its probe: the hex's centre, or the settlement's own point where
+a mapped settlement sits in it (rule 0 below)
 (deterministic: float64 arithmetic in a fixed order, features in file order; the even-odd ray cast of tools/borders_bake.py):
   0 a hex holding a mapped settlement (content/map/settlements_1948.yaml) is probed at the settlement's own point, not
     at the hex's centre, which can fall the other side of the traced line, and which says nothing about a shore town
@@ -187,7 +188,9 @@ def bake(source: dict, hexes: dict, water: np.ndarray, meta: dict) -> tuple[list
     applied = set()
     for h in hexes["hexes"]:
         qr = (h["q"], h["r"])
-        if qr not in land:
+        # A mapped settlement's hex gets a row even when its centre is off the land (owner on #1796, 27 October 2026,
+        # "Give it a row": Hanita's (10, 4) at 4.4 km, centre beyond the Lebanese frontier), coded at its own point.
+        if qr not in land and qr not in towns:
             continue
         lon, lat = h["lon"], h["lat"]
         probe = (lon, lat)

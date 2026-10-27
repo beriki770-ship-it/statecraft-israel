@@ -30,6 +30,7 @@ hexes:   # [q, r, codes: one per period], ordered by r then q
   - [16, 2, "cIIIIIIIIIIIIIII"]
   - [17, 2, "cIIIIIIIIIIIIIII"]
   - [16, 3, "cIIIIIIIIIIIIIII"]
+  - [10, 4, "IIIIIIIIIIIIIIII"]
   - [15, 4, "cIIIIIIIIIIIIIII"]
   - [16, 4, "cIIIIIIIIIIIIIII"]
   - [9, 5, "IIIIIIIIIIIIIIII"]
