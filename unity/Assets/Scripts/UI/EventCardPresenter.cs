@@ -292,7 +292,7 @@ namespace Statecraft.Game.UI
                 foreach (var preview in EventSystem.OptionEffectPreviews(c, s, o))
                 {
                     if (preview.Kind == OptionEffectPreviewKind.Rejoin) continue;
-                    var effect = new Label(EventEffectText.Format(preview, text));
+                    var effect = new Label(EffectLine(c, preview, text));
                     effect.AddToClassList("muted"); effect.AddToClassList(EffectClass);
                     options.Add(effect);
                 }
@@ -306,6 +306,24 @@ namespace Statecraft.Game.UI
             if (shown && !photoWaits && layer.enabledInHierarchy && openedFor != e.Id) { openedFor = e.Id; Opened?.Invoke(e.Id); }
             if (shown && focusedFor != e.Id) FocusCard(e.Id, force: false);
         }
+
+        /// <summary>One option-effect row in the UI's language. An indicator, money or policy is named as the top bar and the Why
+        /// panel name it (why.name.&lt;id&gt;, Hebrew in Hebrew), the sim's English name where the strings have none; a project
+        /// unlock takes the kind's own Hebrew name (ContentNames).</summary>
+        public static string EffectLine(Content c, OptionEffectPreview row, UiText text)
+        {
+            var key = "why.name." + row.ContextId;
+            var name = row.Kind switch
+            {
+                OptionEffectPreviewKind.Amount or OptionEffectPreviewKind.SetPolicy => text.Has(key) ? text[key] : null,
+                OptionEffectPreviewKind.ProjectUnlock => HebrewKindName(text, c.ProjectKinds.First(k => k.Id == row.ContextId)),
+                _ => null,
+            };
+            return EventEffectText.Format(row, text, name);
+        }
+
+        /// <summary>The kind's Hebrew name in Hebrew; null otherwise, so the sim's capitalised English row stands.</summary>
+        static string? HebrewKindName(UiText text, ProjectKind k) { var n = ContentNames.Of(text, k); return n == k.Name ? null : n; }
 
         /// <summary>An objective card's line under its text (#380; the owner's wording, #379): completed early, "Completed on
         /// {date}; historically {date}; n months early."; in the same calendar month, "Completed on time, as in history.";

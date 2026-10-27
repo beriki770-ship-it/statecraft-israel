@@ -772,16 +772,18 @@ sources: [{ url: ""https://example.org/record"", checked: 2026-10-17 }]
         else Assert.AreEqual(remaining == 1 ? "1 more decision waiting" : "2 more decisions waiting", actual);
     }
 
-    /// <summary>The Altalena card on 15 June 1948 with its content and state, so a test can ask the sim what each option does.</summary>
-    static (UiTestKit ui, Content c, GameState s, GameEvent e) AltalenaWithState(UiText text)
+    /// <summary>The Altalena card on 15 June 1948 with its content and state, so a test can ask the sim what each option does.
+    /// <c>before</c> is the state's hash taken before the presenter is built, so a test can prove that rendering the card changes nothing.</summary>
+    static (UiTestKit ui, Content c, GameState s, GameEvent e, string before) AltalenaWithState(UiText text)
     {
         var c = ContentLoader.Load(Paths.Content);
         var g = GameSession.New(c, GoldenRun.Seed, Mode.Historical);
         g.State.Date = new System.DateTime(1948, 6, 15);
         g.State.PendingEvents.Clear(); g.State.PendingEvents.Add("altalena");
+        var before = g.State.Hash();
         var ui = new UiTestKit();
         new EventCardPresenter(ui.Root, new SimBridge(g, text), text, null);
-        return (ui, c, g.State, c.Events.First(x => x.Id == "altalena"));
+        return (ui, c, g.State, c.Events.First(x => x.Id == "altalena"), before);
     }
 
     /// <summary>R-EVT-005, #1125: under each option the card lists what the option does, the sim's preview rows (the same
@@ -791,17 +793,16 @@ sources: [{ url: ""https://example.org/record"", checked: 2026-10-17 }]
     public void EachOptionListsItsEffectsUnderItFromTheSimPreview(bool hebrew)
     {
         var text = hebrew ? He : Text;
-        var (ui, c, s, e) = AltalenaWithState(text);
+        var (ui, c, s, e, before) = AltalenaWithState(text);
         using (ui)
         {
-            var before = s.Hash();
             var children = ui.Q<VisualElement>("event-options").Children().ToList();
             var listed = 0;
             foreach (var o in e.Options)
             {
                 var button = ui.Q<Button>("option-" + o.Id);
                 var rows = EventSystem.OptionEffectPreviews(c, s, o).Where(r => r.Kind != OptionEffectPreviewKind.Rejoin)
-                    .Select(r => EventEffectText.Format(r, text)).ToList();
+                    .Select(r => EventCardPresenter.EffectLine(c, r, text)).ToList();
                 var shown = children.Skip(children.IndexOf(button) + 1).TakeWhile(x => !(x is Button)).OfType<Label>()
                     .Where(x => x.ClassListContains(EventCardPresenter.EffectClass)).ToList();
                 Assert.AreEqual(rows, shown.Select(x => x.text).ToList(), o.Id);
@@ -815,12 +816,12 @@ sources: [{ url: ""https://example.org/record"", checked: 2026-10-17 }]
     }
 
     /// <summary>The wording itself, pinned in both languages: the first row of the first two options.
-    /// The Hebrew rows keep the English indicator name: EventEffectText documents that indicators have no Hebrew name field yet.</summary>
+    /// The Hebrew rows name the indicator as the top bar does (why.name.*), not the sim's English name.</summary>
     [TestCase(false, "Security +1.5%", "Security -2.5%")]
-    [TestCase(true, "Security: שינוי +1.5%", "Security: שינוי -2.5%")]
+    [TestCase(true, "ביטחון: שינוי +1.5%", "ביטחון: שינוי -2.5%")]
     public void TheEffectRowsReadInTheUiLanguage(bool hebrew, string enforceFirst, string compromiseFirst)
     {
-        var (ui, _, _, _) = AltalenaWithState(hebrew ? He : Text);
+        var (ui, _, _, _, _) = AltalenaWithState(hebrew ? He : Text);
         using (ui)
         {
             var children = ui.Q<VisualElement>("event-options").Children().ToList();
@@ -838,7 +839,8 @@ sources: [{ url: ""https://example.org/record"", checked: 2026-10-17 }]
         using var ui = new UiTestKit();
         new EventCardPresenter(ui.Root, bridge, Text, null);
         Assert.AreEqual(1, ui.Q<VisualElement>("event-options").Query<Label>(className: EventCardPresenter.RejoinClass).ToList().Count);
-        StringAssert.DoesNotContain("recorded course:", string.Join("|", ui.Q<VisualElement>("event-options")
-            .Query<Label>(className: EventCardPresenter.EffectClass).ToList().Select(x => x.text)));
+        var joined = string.Join("|", ui.Q<VisualElement>("event-options")
+            .Query<Label>(className: EventCardPresenter.EffectClass).ToList().Select(x => x.text));
+        Assert.IsFalse(joined.Contains("recorded course:", System.StringComparison.Ordinal), joined);
     }
 }
