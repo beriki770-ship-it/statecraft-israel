@@ -189,7 +189,7 @@ public class HudTests
         Assert.AreEqual("Score 150", label.text);
     }
 
-    // ---- The exhausted-turn count (#812, R-END-002): "1 of 3" beside the date while Money and Food are both out ----
+    // ---- The exhausted-turn count (#812, R-END-002): "1 of 3" under the date while Money and Food are both out ----
 
     [Test]
     public void TheBarCountsTheExhaustedTurnsAgainstTheDefeatLimit()
