@@ -46,7 +46,8 @@ namespace Statecraft.Game.Map.Units
     ///    one-hex limit, about <see cref="MeshStepM"/> apart on each ring, drawn compact and off the towns as in round 2: on
     ///    4.4 km hexes (#1183) the points above lie 1.1 to 2.9 km apart and can all miss the clear ground between villages
     ///    (Majdal, the Egyptian rear base, whose nearest clear ground lies 3.5 km south-west of its point, west of Ni'ilya). It
-    ///    runs last, so no anchor that found a spot before moves.
+    ///    runs last, so an anchor that found a spot in rounds 1-3 keeps it; a spot it finds holds its hex like any other.
+    ///    Ranked as above (by distance to a `toward` point when the anchor has one).
     /// A spot must be land (sea for a ship), on a hex no other anchor with an overlapping window holds, and clear (the
     /// caller's test: the ring off the settlement footprints except in round 3, the figures on land and off the railways
     /// and roads). An anchor with no such spot is left out and reported. The map holds no 1948 front line yet: where the
@@ -180,7 +181,8 @@ namespace Statecraft.Game.Map.Units
                 }
         }
 
-        /// <summary>Round 4's spacing (m): between its rings, and at most between two points on a ring.</summary>
+        /// <summary>Round 4's spacing (m): between its rings, and at most between two points on a ring. Its own constant, not
+        /// <see cref="TowardStepM"/>: the `toward` rings keep twelve points a ring, this mesh keeps the spacing.</summary>
         public const double MeshStepM = 500.0;
 
         /// <summary>Round 4's candidate spots, each with its nearest hex: the anchor's point <paramref name="p"/>, then rings

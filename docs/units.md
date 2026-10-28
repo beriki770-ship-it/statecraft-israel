@@ -339,7 +339,8 @@ The candidates are tried in four rounds:
    apart on each ring, with the token compact and off the towns as in round 2. On 4.4 km hexes (#1183) the points of
    rounds 1-3 lie 1.1 to 2.9 km apart and can all miss the clear ground between villages: Majdal, the Egyptian rear base,
    found none among them (every one touched a village's disc or a route's corridor), while clear ground lies 3.5 km
-   south-west of its point, west of Ni'ilya. The round runs last, so no anchor that found a spot before moves.
+   south-west of its point, west of Ni'ilya. The round runs last, so an anchor placed in rounds 1-3 keeps its spot (a
+   round-4 spot holds its hex like any other; measured on the game map, no other anchor and no camp moved).
 
 A spot is clear when:
 - the ring's disc stays off every settlement footprint (the kits' discs, times 1.1);
