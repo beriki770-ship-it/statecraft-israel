@@ -85,12 +85,12 @@ Quotes from Dupuy are given with the PDF's letter-spacing removed and with comma
    from the sea. Numbers and the "surrounded" claim differ; neither is a position on the first-truce day [C].
 3. **Isdud on 1 June.** The Israeli delegation spokesman's statement (JTA 2 June, dateline 1 June) puts "the coastal plain from the Lebanese
    border down to Isdud--the Arab border city under the partition plan" under full Israeli control. Dupuy p. 58 has the
-   Egyptians entering Ashdod on 29 May and reaching the bridge just north of it ("dug in" is this note's reading). The spokesman's sentence is an Israeli claim (the item says only that a spokesman at Lake Success was answering Cairo and Amman communiques; a review agent's check, read 28 October, a person's check pending), and the two accounts are kept side by side without a ruling [C].
+   Egyptians entering Ashdod on 29 May and reaching the bridge just north of it ("dug in" is this note's reading). The spokesman's sentence is an Israeli claim (the item says only that a spokesman at Lake Success was answering Cairo and Amman communiques; agent read 2026-10-28; a person's check pending), and the two accounts are kept side by side without a ruling [C].
 4. **Where the force's forward post stood at the first truce.** The yaml's `egyptian_expeditionary_force` rows say Isdud forward,
    Majdal rear (`content/map/units_1948.yaml`, the rows for 11 June to 8 July). Dupuy p. 80 puts the 2nd Brigade (HQ Majdal)
    responsible for "the Ashdod area" at the truce expiry; JTA 11 July has an Egyptian armoured force "driving from Isdud" on
    8 July; FRUS doc. 486 (ORE 38-48 of 27 July, describing 18 July) has "Egyptian-occupied area near Isdud". These agree on Isdud and Majdal; none of them
-   is dated 11 June to 7 July. For those four weeks the only dated front-line list is the Arab claim of AP 13 June (Gaza, Majdal, Isdud, then southeast to Faluja and Beit Jibrin, Hebron and Beersheba, with spearheads to Artuf and Bethlehem), which agrees with the yaml's Isdud forward and Majdal rear [C, one side only]. JTA 11 June (10 June) and JTA 27 June (25 June) put Egyptian lines at the "Ishdud-Yibneh pocket" and "in the vicinity of Ishdud"; Dupuy pp. 71-72 puts the contested Majdal-Hebron road and Huleiqat in the truce.
+   is dated 11 June to 7 July. For those four weeks the only dated front-line list is the Arab claim of AP 13 June (Gaza, Majdal, Isdud, then southeast to Faluja and Beit Jibrin, Hebron and Beersheba, with spearheads to Artuf and Bethlehem), which agrees with the yaml's Isdud forward and Majdal rear [C]; the list is one side's claim. JTA 11 June (10 June) and JTA 27 June (25 June) put Egyptian lines at the "Ishdud-Yibneh pocket" and "in the vicinity of Ishdud"; Dupuy pp. 71-72 puts the contested Majdal-Hebron road and Huleiqat in the truce.
 5. **When Majdal was reached.** Dupuy p. 58, "on that day" after 21 May, so 21 May by reading order; the repo's yaml note gives
    21 to 24 May. JTA 28 May (dateline 27 May) has Majdal already "a major Egyptian invasion base". `research_notes/M4 war mode/war-1948.md` line 120 (en.wiki) has the Egyptians reaching Majdal on 24 May and stopping on 28 May at a destroyed bridge north of Isdud, against Dupuy p. 58 entering Ashdod on 29 May. No source read dates the
    arrival to a single day [C].
@@ -112,7 +112,7 @@ Quotes from Dupuy are given with the PDF's letter-spacing removed and with comma
 ## Search log
 
 All searches 28 October 2026 from this box, built-in tools only (no Tavily key); JTA wp-json search over `archive` items,
-`https://www.jta.org/wp-json/wp/v2/archive?search=<word>&after=<from>T00:00:00&before=<to>T00:00:00&per_page=100`; counts are
+`https://www.jta.org/wp-json/wp/v2/archive?search=<word>&after=<from>T00:00:00&before=<to>T23:59:59&per_page=100`; counts are
 `x-wp-total`. Items returned were scanned by script for the place name together with "Egypt" within about 200 characters; the
 items listed above were then opened as page images and their datelines read. Items that matched only on the place name were not
 opened as page images; the 1 and 7 June and 9 July items that mention Isdud and the Egyptian column (seen in the scan) were
