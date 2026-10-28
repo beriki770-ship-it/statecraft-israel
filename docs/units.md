@@ -325,7 +325,7 @@ own root rotation kept (the FBX axis turn, -90 degrees about X), so the camera's
 **Placement** (`UnitPlacer.PlaceAll`). Every anchor is placed once, from the data alone, so a token never moves because
 another unit appears. Its spot is at most one hex step from the sourced place (about 7.6 km between hex centres on 4.4 km
 hexes). It is the nearest such spot to the place, or to the anchor's sourced `toward` point when it has one (see below).
-The candidates are tried in three rounds:
+The candidates are tried in four rounds:
 1. The centres of the anchor's own hex and its six neighbours, with the token at full size.
 2. If none is clear, those centres plus six points inside each hex, with the token **compact**: half the ring and half
    the trio's spread, to fit beside a town. Yiftach at Lydda and the squadron at Herzliya stand compact.
@@ -335,6 +335,11 @@ The candidates are tried in three rounds:
    stands in a building. The clearing may cut only into the anchor's own town, never a neighbour's. Kiryati (Tel Aviv),
    Carmeli (Haifa) and Etzioni (West Jerusalem) stand this way. Haifa and Tel Aviv each have a budget of one such
    clearing, and their census floors are measured with it (#588, owner, 18 October 2026; `TownCensusTests`).
+4. If none of those is clear, the anchor's point and rings round it every 500 m out to the one-hex limit, about 500 m
+   apart on each ring, with the token compact and off the towns as in round 2. On 4.4 km hexes (#1183) the points of
+   rounds 1-3 lie 1.1 to 2.9 km apart and can all miss the clear ground between villages: Majdal, the Egyptian rear base,
+   found none among them (every one touched a village's disc or a route's corridor), while clear ground lies 3.5 km
+   south-west of its point, west of Ni'ilya. The round runs last, so no anchor that found a spot before moves.
 
 A spot is clear when:
 - the ring's disc stays off every settlement footprint (the kits' discs, times 1.1);

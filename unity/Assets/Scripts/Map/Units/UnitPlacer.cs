@@ -41,7 +41,12 @@ namespace Statecraft.Game.Map.Units
     ///    <see cref="InsideOffsets"/> of the hex circumradius), and rings round a `toward` point, drawn compact;
     /// 3. then, when the anchor's whole neighbourhood is town (Tel Aviv), the same compact points with the ring allowed
     ///    into the town: the one that reaches least deep into it (then the nearest; with a `toward` point, simply the nearest
-    ///    to it) is taken, and the kits keep a clearing for it (MapScene), so the token never stands in a building.
+    ///    to it) is taken, and the kits keep a clearing for it (MapScene), so the token never stands in a building;
+    /// 4. then, when none of those is clear, the anchor's point and rings round it every <see cref="MeshStepM"/> out to the
+    ///    one-hex limit, about <see cref="MeshStepM"/> apart on each ring, drawn compact and off the towns as in round 2: on
+    ///    4.4 km hexes (#1183) the points above lie 1.1 to 2.9 km apart and can all miss the clear ground between villages
+    ///    (Majdal, the Egyptian rear base, whose nearest clear ground lies 3.5 km south-west of its point, west of Ni'ilya). It
+    ///    runs last, so no anchor that found a spot before moves.
     /// A spot must be land (sea for a ship), on a hex no other anchor with an overlapping window holds, and clear (the
     /// caller's test: the ring off the settlement footprints except in round 3, the figures on land and off the railways
     /// and roads). An anchor with no such spot is left out and reported. The map holds no 1948 front line yet: where the
@@ -96,11 +101,13 @@ namespace Statecraft.Game.Map.Units
                     var near = new List<int>();
                     for (int i = 0; i < hexes.Count; i++) if (MapActions.Distance(hexes[i].Q, hexes[i].R, hq, hr) <= MaxShift) near.Add(i);
                     AnchorSpot? best = null;
-                    foreach (var round in new[] { 1, 2, 3 })
+                    foreach (var round in new[] { 1, 2, 3, 4 })
                     {
                         bool compact = round > 1, inTown = round == 3;
                         double bestD = double.MaxValue, bestDepth = double.MaxValue;
-                        foreach (var (i, x, z) in Candidates(near, centres, hexSizeM, compact, a.Toward != null ? target : ((double, double)?)null))
+                        var points = round == 4 ? Mesh(centres, p, maxOffset)
+                            : Candidates(near, centres, hexSizeM, compact, a.Toward != null ? target : ((double, double)?)null);
+                        foreach (var (i, x, z) in points)
                         {
                             var h = hexes[i];
                             if (h.Land == sea || MapActions.Distance(h.Q, h.R, hq, hr) > MaxShift) continue;
@@ -171,6 +178,26 @@ namespace Statecraft.Game.Map.Units
                     double x = t.x + Math.Cos(Math.PI / 6.0 * k) * rad, z = t.z + Math.Sin(Math.PI / 6.0 * k) * rad;
                     yield return (Nearest(centres, (x, z)), x, z);
                 }
+        }
+
+        /// <summary>Round 4's spacing (m): between its rings, and at most between two points on a ring.</summary>
+        public const double MeshStepM = 500.0;
+
+        /// <summary>Round 4's candidate spots, each with its nearest hex: the anchor's point <paramref name="p"/>, then rings
+        /// round it every <see cref="MeshStepM"/> out to <paramref name="reach"/>, each with as many points as keep them at
+        /// most <see cref="MeshStepM"/> apart.</summary>
+        static IEnumerable<(int i, double x, double z)> Mesh((double x, double z)[] centres, (double x, double z) p, double reach)
+        {
+            yield return (Nearest(centres, p), p.x, p.z);
+            for (double rad = MeshStepM; rad <= reach; rad += MeshStepM)
+            {
+                int n = (int)Math.Ceiling(2.0 * Math.PI * rad / MeshStepM);
+                for (int k = 0; k < n; k++)
+                {
+                    double x = p.x + Math.Cos(2.0 * Math.PI * k / n) * rad, z = p.z + Math.Sin(2.0 * Math.PI * k / n) * rad;
+                    yield return (Nearest(centres, (x, z)), x, z);
+                }
+            }
         }
 
         /// <summary>The spot for a sim unit's anchor that <see cref="PlaceAll"/> found no clear spot for. Every unit the sim has
