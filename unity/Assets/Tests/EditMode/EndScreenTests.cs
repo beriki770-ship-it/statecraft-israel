@@ -132,6 +132,23 @@ public class EndScreenTests
             Date(anchor.Date), anchor.Jews.ToString("N0", System.Globalization.CultureInfo.InvariantCulture)), k.Line("population"));
     }
 
+    /// <summary>The armistice history note (Q-DEF-4 (b), the owner's approved text, #1315) sits right under a war loss's line and
+    /// nowhere else: the other outcomes have no note yet.</summary>
+    [Test]
+    public void AWarLossShowsTheArmisticeNoteUnderItsLineAndOtherOutcomesShowNone()
+    {
+        using var k = new Kit(En, s => { s.Date = C.End; s.GameOver = GameOverCodes.DefeatWar; });
+        var names = k.Ui.Q<ScrollView>("end-screen-rows").Children().Select(x => x.name).ToList();
+        CollectionAssert.AreEqual(new[] { "end-screen-outcome", "end-screen-note" }, names.Take(2), "the note follows the outcome line");
+        Assert.AreEqual(En["end.outcome.defeat_war"], k.Line("outcome"));
+        Assert.AreEqual(En["end.note.defeat_war"], k.Line("note"));
+        StringAssert.Contains("four armistice agreements in 1949", k.Line("note"));
+        using var he = new Kit(He, s => { s.Date = C.End; s.GameOver = GameOverCodes.DefeatWar; });
+        Assert.AreEqual(He["end.note.defeat_war"], he.Line("note"));
+        using var ended = new Kit(En, Ended);
+        Assert.IsFalse(ended.Ui.Q<ScrollView>("end-screen-rows").Children().Any(x => x.name == "end-screen-note"), "no note for the MVP end");
+    }
+
     [Test]
     public void CloseRebuildAndTheFirstNewGamePressKeepTheStateAndTheSave()
     {

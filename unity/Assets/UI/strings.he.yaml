@@ -864,6 +864,8 @@ advisor.dayan.defeat_war.text: "יחידה צבאית של האויב מחזיק
 # defeat_economy: תורות, so שלוש, not שלושה (owner, 24 October 2026: "plural of תור is תורות").
 advisor.ben_gurion.defeat_economy.text: "שלוש תורות ברציפות הסתיימו כשהחוב שלנו בתקרה או מעליה ומלאי המזון ריק, וזה מסיים את המשחק."
 end.outcome.defeat_war: "האויב מחזיק בעיר."
+# The history note under the war loss's line: the note's agent-checked Hebrew; native review pending (#564).
+end.note.defeat_war: "בהיסטוריה, ישראל חתמה ב-1949 על ארבעה הסכמי שביתת נשק: עם מצרים ב-24 בפברואר, עם לבנון ב-23 במרץ, עם ירדן ב-3 באפריל ועם סוריה ב-20 ביולי. אלה היו הסכמי שביתת נשק ולא הסכמי שלום, ונועדו, כלשון החלטת מועצת הביטחון שעליה ענו, להקל על המעבר מן ההפוגה הנוכחית לשלום של קבע."
 advisor.meyerson.budget_unsubmitted.text: "בתקציב יש שינויים שלא הוגשו. הם לא ייכנסו לתוקף בסיום התור עד שתגישו את התקציב."
 advisor.dayan.arms_out.text: "אימון צבאי דורש נשק, ונשק נצרך בהתקפות. קניית נשק בכסף לפני שהמלאי אוזל שומרת את האפשרויות האלה פתוחות."
 
