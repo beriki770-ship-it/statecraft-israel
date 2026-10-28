@@ -711,6 +711,9 @@ namespace Statecraft.Game.UI
             var score = root.Q<Label>("score");   // the GDD loop only (#380): hidden when HudModel gives none
             score.text = m.Score;
             score.style.display = m.Score.Length == 0 ? DisplayStyle.None : DisplayStyle.Flex;
+            var exhausted = root.Q<Label>("exhausted");   // hidden while ExhaustedTurns is 0 (R-END-002)
+            exhausted.text = m.Exhausted;
+            exhausted.style.display = m.Exhausted.Length == 0 ? DisplayStyle.None : DisplayStyle.Flex;
             Set("treasury", m.Treasury); Set("immigration", m.Immigration); Set("security", m.Security);
             Set("support", m.Support); Set("standing", m.Standing); Set("fx", m.Fx);
             // Social cohesion: the GDD loop only (#380), as the score; a hidden meter takes no room in the bar.
