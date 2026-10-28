@@ -5,7 +5,7 @@ using Statecraft.Sim;
 
 /// <summary>The end report (GDD Phase 7 PR 7, D-H4; #810): a pure reading of the final state. It carries the outcome code, the
 /// state's score, each objective with the player's date beside the historical date, the national parameters and the one
-/// comparison with history Q-END-2 allows, the population against its CBS anchor. The score's parts wait for #809.</summary>
+/// comparison with history Q-END-2 allows, the population against its CBS anchor. The score's parts are #809's (ScoreParts).</summary>
 public class EndReportTests
 {
     static readonly Content Real = ContentLoader.Load(RealContentTests.ContentRoot());
@@ -31,6 +31,11 @@ public class EndReportTests
         Assert.Equal(s.Date, r.Date);
         Assert.True(s.Score > 0);
         Assert.Equal(s.Score, r.Score);   // the state's own total: no part is recomputed here (#809)
+        // The parts are ScoreParts.For's reading of the same state (R-SCORE-001), so they sum to the score.
+        Assert.Equal(ScoreParts.For(s).ObjectivePoints, r.ScoreParts.ObjectivePoints);
+        Assert.Equal(ScoreParts.For(s).TimingBonuses, r.ScoreParts.TimingBonuses);
+        Assert.Equal(ScoreParts.For(s).PrisonerPoints, r.ScoreParts.PrisonerPoints);
+        Assert.Equal(r.Score, r.ScoreParts.ObjectivePoints + r.ScoreParts.TimingBonuses + r.ScoreParts.PrisonerPoints);
         // Every objective in content order, done or not, with its historical date; the player's date only when completed.
         Assert.Equal(Real.Objectives.Select(o => o.Id), r.Objectives.Select(o => o.Id));
         var first = Real.Objectives[0];
