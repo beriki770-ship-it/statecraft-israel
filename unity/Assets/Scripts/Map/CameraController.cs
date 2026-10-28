@@ -86,6 +86,12 @@ namespace Statecraft.Game.Map
         public Func<bool>? HoldsMouseDrag;
         /// <summary>The same for a one-finger drag and a tap (MapPointer.TouchTapCandidate).</summary>
         public Func<bool>? HoldsTouchDrag;
+        /// <summary>The trackpad pinch since the last frame, as the summed NSEvent magnification (positive = the fingers
+        /// spread). macOS sends a pinch as magnify events, which Unity's player passes to neither the Input System nor the
+        /// wheel (the owner found zooming did nothing in the macOS player, 27 Oct 2026), so TrackpadPinch.mm collects them
+        /// in the macOS player; elsewhere there is none (0). In the browser a pinch arrives as a wheel event instead
+        /// (WheelInput.jslib). Test seam (internal): an edit-mode test cannot make a Cocoa magnify event.</summary>
+        internal Func<float> TrackpadMagnification = DrainTrackpadMagnification;
 
         CameraRig rig = null!;
         InputAction? pan, dragPan, zoom, zoomKeys, orbit;
@@ -109,6 +115,7 @@ namespace Statecraft.Game.Map
             touchPosition.performed += ctx => touchDrag.Move(ctx.ReadValue<Vector2>());
             mousePress.Enable(); mousePosition.Enable(); touchPress.Enable(); touchPosition.Enable();
             DrainWheel();   // events from while the camera was off (a menu) are not a zoom
+            TrackpadMagnification();   // nor is a pinch from then
 
             var map = InputSystem.actions?.FindActionMap("Camera", throwIfNotFound: true);
             if (map == null) return;
@@ -144,18 +151,30 @@ namespace Statecraft.Game.Map
             var mouseGated = HoldsMouseDrag != null;
             var drag = mouseGated ? mouseDrag.Take(HoldsMouseDrag!()) : dragPan.ReadValue<Vector2>();
             var fromUi = down && mouseDrag.FromUi;
-            var zoomRaw = WheelOr(zoom.ReadValue<float>());
+            var zoomRaw = WheelOr(zoom.ReadValue<float>()) + MagnifyNotches(TrackpadMagnification());
             var ts = Touchscreen.current;
             if (ts != null)
             {
+                // A second finger that pressed and lifted inside this update is already up when FingersDown samples, so
+                // a pinch would read as a one-finger drag and pan the map (#1792). Count the presses as well, and when
+                // two fingers touched, this frame is neither a drag nor a zoom: there is no live second finger to
+                // measure a pinch against, and guessing one from a finger that is gone would be worse than waiting.
+                var touched = 0;
+                foreach (var t in ts.touches)
+                    if (DownThisUpdate(t)) touched++;
                 switch (FingersDown(ts, out var a, out var b))
                 {
                     // one finger drags the map; its press observer latches the UI origin
-                    case 1:
+                    case 1 when touched < 2:
                         drag += HoldsTouchDrag != null ? touchDrag.Take(HoldsTouchDrag()) : a.delta.ReadValue();
                         fromUi |= touchDrag.FromUi;
                         down = true;
                         pointer = a.position.ReadValue();
+                        break;
+                    // one finger left, but two touched this update: a pinch, so neither a drag nor a zoom, and the
+                    // travel the press observer recorded must not arrive as a late pan on the next frame (#1795 review)
+                    case 1:
+                        touchDrag.Discard();
                         break;
                     // a pinch zooms by how far the fingers move; the UI check follows the first finger
                     case 2:
@@ -209,7 +228,20 @@ namespace Statecraft.Game.Map
             }
         }
 
-        /// <summary>The first two touches down (2 stands for two or more), or fewer.</summary>
+        /// <summary>Whether a finger was down at any point in this input update: pressed now, or pressed during the
+        /// update even though it has already lifted. <c>isPressed</c> alone is level state read once a frame, so a
+        /// finger whose whole press and release arrive between two samples is invisible to it and a pinch replays as a
+        /// one-finger pan or lets the thumb select (#1792). The press edge survives that, which is also how
+        /// <c>MapPointer.Tick</c> reads the primary finger's own press.</summary>
+        /// <remarks>Same class as #1661's one-update flick (#1777): a gesture that opens and closes between two
+        /// samples cannot be seen by level state, only by its edges.</remarks>
+        public static bool DownThisUpdate(UnityEngine.InputSystem.Controls.TouchControl t) =>
+            t.press.isPressed || t.press.wasPressedThisFrame;
+
+        /// <summary>The first two touches down <em>now</em> (2 stands for two or more), or fewer. Level state on
+        /// purpose: a finger that has already lifted contributes no ongoing drag, so counting it here would turn a
+        /// one-update flick into a pan. Whether a finger merely touched during the update is a separate question,
+        /// asked by <see cref="DownThisUpdate"/> at the call site (#1792).</summary>
         static int FingersDown(Touchscreen ts, out UnityEngine.InputSystem.Controls.TouchControl a,
             out UnityEngine.InputSystem.Controls.TouchControl b)
         {
@@ -258,6 +290,26 @@ namespace Statecraft.Game.Map
             return actionValue;
 #endif
         }
+
+        /// <summary>A trackpad pinch in wheel notches, positive = in: <paramref name="magnification"/> is the summed NSEvent
+        /// magnification, which scales the view by 1 + m, so the camera comes 1 + m times closer, as far as the fingers
+        /// moved ((1 - ZoomPerStep)^notches = 1 / (1 + m)). A sum at or below -1 (no real pinch sends one) counts as the
+        /// farthest step out that 1 + m = 0.01 gives, never a NaN.</summary>
+        public static float MagnifyNotches(float magnification) =>
+            magnification == 0f ? 0f : -Mathf.Log(Mathf.Max(1f + magnification, 0.01f)) / Mathf.Log(1f - ZoomPerStep);
+
+        static float DrainTrackpadMagnification()
+        {
+#if UNITY_STANDALONE_OSX && !UNITY_EDITOR
+            return StatecraftMagnifyDrain();
+#else
+            return 0f;
+#endif
+        }
+
+#if UNITY_STANDALONE_OSX && !UNITY_EDITOR
+        [System.Runtime.InteropServices.DllImport("__Internal")] static extern float StatecraftMagnifyDrain();
+#endif
 
         void DrainWheel()
         {
