@@ -76,6 +76,7 @@ map tokens; this note narrows to the two dates and adds strength figures and Ara
 [C] The totals differ by what they count: Glubb counts the field armies on 15 May; Shlaim adds irregulars; O'Ballance
 counts regulars "in the field in Palestine"; the CIA counts forces "in or near Palestine" in late July. None of these
 is a count for 11 June itself. No source found gives a country-by-country total dated 11 June. [GAP]
+(Second pass, 28 Oct: still [GAP]. Read again for a figure dated 11 June or the days around it, none found: Dupuy, pp. 80 to 91 and 100, which give the Israeli side at the first truce ("49,000 at the beginning of the first truce", p. 89) but no Arab count for 11 June; Hughes, "The Conduct of Operations", *War in History* 26(4), 2019, p. 542, which has the Legion only for May (see section 2); FRUS 1948 vol. V part 2 (full TEI text on raw.githubusercontent.com/HistoryAtState/frus, all documents dated 20 May to 8 July searched for a number followed by men, troops or soldiers beside an Arab army name: no army total found; document 345, 29 May, gives only "Approximately 2000 women, children, old and religious people" of the Old City); CIA Near East/Africa Branch summaries for weeks ending 7 and 14 July 1948 (archive.org, text read: no Arab strength figure). The first-pass record above stands.) [V, agent read 2026-10-28; a person's check pending]
 
 The CIA table of 27 July 1948 [V] (FRUS d486), in Palestine / near Palestine / total: Transjordan 6,000 / 4,000 /
 10,000; Iraq 9,000 / 1,000 / 10,000; Egypt 5,000 / 8,000 / 13,000; Syria 1,000 / 1,500 / 2,500; Lebanon none /
@@ -156,6 +157,7 @@ Jerusalem area [V].
   2,000 to 3,000 soldiers with many guns and tanks [V] Ben-Gurion diary, 31 May 1948.
 - Whole force: no figure dated 11 June found [GAP]. O'Ballance: stepped up during the truce to about 18,000, with more
   Sudanese, North African and Saudi volunteers [V] p. 137. CIA, 27 July: 5,000 in Palestine and 8,000 near it [V].
+  (Second pass, 28 Oct: still [GAP]. Two dated items added. (1) Before the truce: "Unofficial reports circulating here indicate that a 3,500-man Egyptian armored column located less than six miles from Rehovoth", JTA bulletin of 2 June 1948 (No. 127), p. 2, Tel Aviv dispatch dated "June 1", read on the page image [V, agent read 2026-10-28; a person's check pending]. It is an unofficial report of one column on 1 June, not a count of the force, and not for 11 June. (2) After the truce: Dupuy says the Egyptian force in the south "totalled four brigades when the first truce expired" (9 July) and that by September and early October the total in Palestine "rose to about 18,000 men" in nine infantry battalions plus a volunteer brigade, pp. 80 and 91 [V, agent read 2026-10-28; a person's check pending]. Neither is for 11 June. JTA bulletins of 1 to 10 June 1948 (pdfs.jta.org, nine PDFs, OCR'd locally on 2026-10-28) were searched for a number with men or troops beside Egypt, Egyptian and the other armies: only the 3,500-man line above.)
 
 ## 2. Arab Legion (#228)
 
@@ -258,6 +260,7 @@ Wilhelma 32.0233, 34.9136.
   O'Ballance p. 137 ("reduced from about 5,000 to 4,000").
 - The 3rd Brigade at Latrun: 2,300 men plus 800 auxiliaries (Morris p. 221, [S, carried]).
 - No other figure dated 11 June found [GAP]. CIA, 27 July: 6,000 in Palestine, 4,000 near it [V].
+  (Second pass, 28 Oct: still [GAP], with one May figure added. "In May 1948, the force numbered 6,000 soldiers, of which 4,500 were ready for front-line battle, paid and equipped by the British; by the war's end in March 1949, the Legion had boosted its numbers to 14,700", Hughes, "The Conduct of Operations: Glubb Pasha, the Arab Legion, and the First Arab-Israeli War, 1948-49", *War in History* 26(4), 2019, p. 542 (open accepted-manuscript PDF at bura.brunel.ac.uk/bitstream/2438/16047/6/FullText.pdf) [V, agent read 2026-10-28; a person's check pending]. This matches Rogan's "6,000 troops in May 1948" (section 5, Lebanon) and Glubb's 4,500. Hughes's endnote 13 for the sentence cites El-Edroos, *Hashemite Arab Army*, pp. 249 to 251, and a Glubb Papers note on strength at 31 March 1949, so the 4,500 is not shown to be independent of Glubb. It is a May figure, not 11 June. He adds that the 5th and 6th mechanized regiments "were raised in June 1948" by amalgamating independent garrison companies with new recruits (p. 541 of the same article), so the Legion was being enlarged around the truce, but he gives no date or number.)
 
 ## 3. Syrian Army (#229)
 
@@ -312,6 +315,7 @@ a combined Lebanese, ALA and Syrian attack on al-Malikiyya on 6 June, with the L
 
 **Strength on 11 June.** Not found for the date [GAP]. During the truce the bridgehead force was reorganised into two
 brigades of three small battalions each, about 2,500 men in and around it [V] O'Ballance p. 150. CIA, 27 July: 1,000 in Palestine, 1,500 near it [V].
+(Second pass, 28 Oct: still [GAP]. Searched again: Dupuy pp. 80 to 91 and 100 has no Syrian count for 11 June; JTA bulletins of 1 to 10 June 1948 (OCR'd 2026-10-28) have no Syrian strength figure; the CIA summaries for weeks ending 7 and 14 July 1948 have none. JTA wp-json search (https://www.jta.org/wp-json/wp/v2/archive?search=WORD&after=1948-06-05T00:00:00&before=1948-06-13T00:00:00, run 28 Oct) returned for "strength" 4 items, "Egyptians" 8, "Iraqis" 4, "Lebanese" 6, "Liberation" 2; the titles and the 10 June bulletin pages read show no Arab strength count.)
 
 ## 4. Iraqi expeditionary force (#230)
 
@@ -393,6 +397,7 @@ pending.] Tags as in the conventions above.
   and Arab forces on the eve of Britain's withdrawal at 74,000 and 19,200, respectively. Wilson, *King 'Abdullah*,
   p. 170." So the figures are Glubb's, cited to his p. 94 of the 1957 London edition; the second cited work, Madi and
   Musa's Arabic history of Jordan (p. 472), was not opened and its own source is not known. Whether Madi and Musa is a second count or repeats Glubb is not known until p. 472 is read. [GAP]
+  (Second pass, 28 Oct: still [GAP]. archive.org advanced search, 28 Oct, for the Arabic title words (taarikh al-Urdunn, al-qarn al-ishrin), for the creator "Sulayman Musa" and for "tarikh al-urdunn": 0 or only unrelated Jordan histories (16 results for the Arabic title words, none by Madi and Musa; 0 for the creator; 0 for the transliterated title). No copy of the book was found to open.)
 - **Glubb, *A Soldier with the Arabs* (1957): printed page not read [GAP].** The Internet Archive copies checked are lending-only
   and their text could not be opened from this box; only the full-text search snippets were read: "Thus the total Arab
   forces which took the field on May 15th, 1948, may be estimated as follows: Egypt 10,000 Arab Legion ..." (joined
@@ -402,6 +407,7 @@ pending.] Tags as in the conventions above.
   estimated the man-power strength of the Arab forces ready for field combat on May, 15, 1948 as follows: ...
   Lebanon 1,000". The 21,500 total was seen only in Davis. Rogan's footnote puts the table at p. 94 of the London edition; that
   page number is Rogan's, not read by me. Glubb counts what "took the field", not the whole army. [S]
+  (Second pass, 28 Oct: still [GAP]. archive.org metadata read on 28 Oct: all three Glubb copies (`soldierwitharabs0000glub`, `soldierwitharabs0000glub_g2w7`, `soldierwitharabs0000sirj`) carry `access-restricted-item: true`; the in-book search endpoint for `soldierwitharabs0000glub` (query "took the field on May 15th") returned "Item not available". The only newly read source for a May count is Hughes, p. 542, "In May 1948, the force numbered 6,000 soldiers, of which 4,500 were ready for front-line battle" (see section 2), which does not carry Glubb's Lebanese 1,000.)
 - **What each figure counts.** Glubb and Rogan: the troops that took the field in May 1948, 1,000 for Lebanon.
   O'Ballance (p. 82, as the note above carries it, not re-read here): about 3,500 in five infantry battalions plus about
   2,000 gendarmes, that is the army on paper. Morris (p. 258, carried, not re-read here): about 3,500 in four
@@ -409,6 +415,7 @@ pending.] Tags as in the conventions above.
   the field, the other the whole army; the sources do not say how the 1,000 was reached. [S]
 - **Not reached [GAP]:** the printed Glubb page; Madi and Musa; O'Ballance and Morris pages (lending copies); whether
   any other work counts the Lebanese in the field on 15 May independently of Glubb.
+  (Second pass, 28 Oct: the Glubb page and Madi and Musa stay unread, see above. O'Ballance and Morris were not re-opened, they are lending copies. No independent count of the Lebanese in the field on 15 May was found in Dupuy pp. 80 to 100, Hughes (Legion only), or FRUS 1948 vol. V part 2.)
 
 **Positions on 15 May** [C]
 - At the border on the al-Malikiyya route [V] Lorch, snippet ("The Lebanese army selected the central one, the Malkya
@@ -440,6 +447,7 @@ pending.] Tags as in the conventions above.
 **Strength on 11 June.** Not found [GAP]. CIA, 27 July: none inside Palestine, 1,800 near it [V]. Searched and
   not found: the JTA daily bulletins of 10 to 17 June 1948 (scans at pdfs.jta.org, OCR'd locally 2026-10-17) carry
   Lebanese operational mentions but no strength figure.
+  (Second pass, 28 Oct: still [GAP]. Added to the search record: JTA bulletins of 1 to 9 June 1948 (OCR'd 2026-10-28) and the CIA summaries for weeks ending 7 and 14 July 1948 carry no Lebanese strength figure; Dupuy p. 100 gives the revived ALA, not the Lebanese army.)
 
 ## 6. Arab Liberation Army (#232)
 
@@ -480,6 +488,7 @@ broken up in Jaffa [V] al-Qawuqji part II, pp. 5, 7.
 
 **Strength on 11 June.** Reduced during the truce to about 2,000 and placed under Lebanese command [V] O'Ballance
 p. 138. No figure dated 11 June found [GAP].
+(Second pass, 28 Oct: still [GAP]. Dupuy p. 100 gives the revived ALA at "about 3,100 men, with ten artillery pieces and about ten armored cars" after its defeat at Nazareth in July, and says that at the time of the first truce its northern units "held most of west central Galilee from Nazareth north to the Lebanese border" (p. 84) [V, agent read 2026-10-28; a person's check pending]. Neither is a count for 11 June. The 3,100 (a later, revived force) and O'Ballance's 2,000 (truce period) are for different dates and are not set against each other. No ALA figure for 11 June in JTA bulletins of 1 to 10 June 1948 or the CIA summaries for weeks ending 7 and 14 July.)
 
 ## 7. Local Palestinian Arab forces (#233)
 
