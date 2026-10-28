@@ -358,8 +358,11 @@ next to the anchor on that side. The token stands at the clear spot nearest that
   Artuf.
 
 The test pins Etzioni's distance from the West Jerusalem point, Harel's hex, and the 7th within 2.6 km of Hulda; both
-the 7th and Harel stay more than 3 km from Sar'a. With the control layer (`control_hexes_1948_49.yaml`) the placer also keeps an Arab force's spot off the hexes Israel held on the anchor's first day (#226, ruling 9; on 4.4 km hexes, #1183, Isdud's nearest clear centre was the Israeli-held hex east of it); Israeli tokens keep the `toward` rule above. `EveryAnchorStandsWithinOneHexClearOfTheTownsAndTheRoutes`
-checks every anchor and logs each spot and its distance.
+the 7th and Harel stay more than 3 km from Sar'a. With the control layer (`control_hexes_1948_49.yaml`) the placer
+also keeps an Arab force's spot off the hexes Israel held on the anchor's first day (#226, ruling 9). On 4.4 km hexes
+(#1183) Isdud's nearest clear centre was the Israeli-held hex east of it. Israeli tokens keep the `toward` rule above,
+and a unit the sim moves is placed without the control layer.
+`EveryAnchorStandsWithinOneHexClearOfTheTownsAndTheRoutes` checks every anchor and logs each spot and its distance.
 
 **Look.**
 - **Models:** the slice's models and the authored-prefab hook.
