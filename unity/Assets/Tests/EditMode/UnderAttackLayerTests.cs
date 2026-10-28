@@ -27,7 +27,7 @@ public class UnderAttackLayerTests
     static UiText En => UiText.Parse(AssetDatabase.LoadAssetAtPath<TextAsset>(UiPaths.Strings).text);
     static Material Load(string name) => AssetDatabase.LoadAssetAtPath<Material>($"Assets/Materials/{name}.mat");
 
-    static Cause Engagement(int q, int r) => new Cause("map", $"{q},{r}", 0, $"The attack on hex {q},{r}", key: WhyKeys.Engagement);
+    static Cause Engagement(int q, int r) => new Cause("map", FormattableString.Invariant($"{q},{r}"), 0, $"The attack on hex {q},{r}", key: WhyKeys.Engagement);
     static StepResult Turn(params Cause[] why) => new StepResult(GameSession.New(C, GoldenRun.Seed, Mode.Historical).State, why, new Rejection[0]);
 
     MapScene? map;
