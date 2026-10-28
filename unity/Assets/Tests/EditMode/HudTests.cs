@@ -204,11 +204,11 @@ public class HudTests
         var limit = bridge.Content.RulesAt(bridge.State.Date).Mvp!.DefeatTurns!.Value;
         bridge.State.ExhaustedTurns = 1;
         hud.Render();
-        Assert.AreEqual($"Money and Food ran out: 1 of {limit}", label.text);
+        Assert.AreEqual($"Money and Food ran out: turn 1 of {limit}", label.text);
         Assert.AreEqual(DisplayStyle.Flex, label.style.display.value);
         // The value carries left-to-right marks in a Hebrew line (U+200E, #543), as every Hebrew value does.
         var he = HudModel.From(bridge, He).Exhausted;
-        Assert.AreEqual($"הכסף והמזון אזלו: 1 מתוך {limit}", he.Replace("\u200E", ""));
+        Assert.AreEqual($"הכסף והמזון אזלו: תור 1 מתוך {limit}", he.Replace("\u200E", ""));
     }
 
     // ---- Social cohesion (#380): a resource meter, only in the GDD loop, from the morale indicator ----
