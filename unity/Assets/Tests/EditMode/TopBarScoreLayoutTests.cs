@@ -75,6 +75,7 @@ public class TopBarScoreLayoutTests
                 bridge.State.Score = WorstScore;
                 bridge.State.Date = WorstDate(hebrew);
                 bridge.State.Turn = WorstTurn;
+                bridge.State.ExhaustedTurns = 2;   // #812: the exhausted-turn count shows under the date and must fit the plate too
                 var hud = new HudPresenter(root, bridge, text);
                 try
                 {
@@ -95,6 +96,11 @@ public class TopBarScoreLayoutTests
                         // #625: the year, turn and date labels lie inside the frame too, at the widest date.
                         if (!Inside(o.worldBound, ContentBox(box))) problems.Add($"{at}: {other} '{o.text}' {o.worldBound} leaves the date box's frame {ContentBox(box)}");
                     }
+                    var exhausted = root.Q<Label>("exhausted");
+                    if (!Inside(exhausted.worldBound, ContentBox(box))) problems.Add($"{at}: '{exhausted.text}' {exhausted.worldBound} leaves the date box's frame {ContentBox(box)}");
+                    if (!Whole(exhausted)) problems.Add($"{at}: '{exhausted.text}' is clipped in {exhausted.contentRect}");
+                    foreach (var other in new[] { "turn", "date" })
+                        if (!Apart(exhausted.worldBound, root.Q<Label>(other).worldBound)) problems.Add($"{at}: '{exhausted.text}' {exhausted.worldBound} overlaps {other}");
                 }
                 finally
                 {
