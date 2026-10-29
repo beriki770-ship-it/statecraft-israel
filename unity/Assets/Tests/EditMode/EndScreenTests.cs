@@ -132,6 +132,17 @@ public class EndScreenTests
             Date(anchor.Date), anchor.Jews.ToString("N0", System.Globalization.CultureInfo.InvariantCulture)), k.Line("population"));
     }
 
+    // Q-END-3: the prisoners returned, worded as Defence words them, only when some went home (no zero row).
+    [Test]
+    public void ShowsThePrisonersReturnedOnlyWhenSomeWentHome()
+    {
+        using (var none = new Kit(En, Ended))
+            CollectionAssert.DoesNotContain(none.Ui.Q<ScrollView>("end-screen-rows").Children().Select(x => x.name), "end-screen-prisoners");
+        using var k = new Kit(En, s => { Ended(s); s.PrisonersReturned["lebanon"] = 4; });
+        Assert.AreEqual("Prisoners returned: 4,000", k.Line("prisoners"));
+        Assert.AreEqual(He.Format("defence.prisoners_returned", 4000), EndScreenPresenter.Lines(C, k.Bridge.State, He).Single(l => l.Name == "prisoners").Text);
+    }
+
     [Test]
     public void CloseRebuildAndTheFirstNewGamePressKeepTheStateAndTheSave()
     {
