@@ -120,6 +120,8 @@ Revivim articles both say "משלושת המצפים".
   "לאחר מלחמת העצמאות עבר הקיבוץ לאתר צפוני מהמצפה"; "the base" in the en.wiki sentence is the
   "nearby military base" of that article, not stated to be the mitzpe, so whether the two directions
   differ is open. Day [GAP].
+  The table prints the same point (31.204928, 34.455571) for its Gvulot and Gvim rows, so it is not
+  used for either.
 - (third pass, 29 Oct) **Printed map reading of the move.** Survey of Palestine 1:100,000 sheet 14 Rafah, as
   reprinted by the Israeli Survey Department (footer read on the image: "Reprinted with minor road
   revision S. of P. Feb. 1947" and, in Hebrew, "הודפס ע"י מחלקת המדידות ישראל, כסלו תשי"ט נובמבר 1958 (ד/פ 350)", and in purple Hebrew "עדכון כבישים ויישובים אוקטובר 1955", roads and settlements updated October 1955), image fetched 2026-10-29 from the Palestine Open Maps sheet list
@@ -135,8 +137,6 @@ Revivim articles both say "משלושת המצפים".
   "south". Whether the printed "Gevulot (הרוס)" is the 1943 mitzpe or the kibbutz's 1946 to 1949 site is not
   stated on the sheet, so the question of which direction the first pass's "the base" points is still open.
   No day for the move [GAP].
-  The table prints the same point (31.204928, 34.455571) for its Gvulot and Gvim rows, so it is not
-  used for either.
 - Departure base for Urim and Nirim in October 1946. [S, Wikipedia]
 
 ### Revivim
@@ -218,6 +218,7 @@ of Negev settlement. Be'erot Yitzhak has its own section below.
   (https://www.jta.org/archive/battle-develops-in-negev-jewish-convoys-attacked-israeli-planes-go-into-action)
   names "the Dorot-Ruhama area" once, in a sentence on supply convoys under attack, with nothing on
   an abandonment. The PDFs were not read.
+  [GAP]
 - (third pass, 29 Oct) **Third abandonment dated: 24 August 1938.** The first-pass search used the spelling
   "Ruhama"; the archive prints "Ruchama". JTA bulletin of Thursday 25 August 1938, p. 1, opened as a page
   image (http://pdfs.jta.org/1938/1938-08-25_123.pdf), dateline "JERUSALEM, Aug. 24 (JTA)", in the dispatch
@@ -235,7 +236,6 @@ of Negev settlement. Be'erot Yitzhak has its own section below.
   without an abandonment: 18 February 1937 ("Several cows were killed in an attack by Arab bandits on the
   colony of Ruchama", dateline HAIFA, Feb. 17, page image read; `[V, agent read 2026-10-29; a person's check pending]`) and, in the same search, 22 June 1936 (not
   opened as print; the sentence may refer to the Jerusalem quarter of that name, so it is not used).
-  [GAP]
 - **[C] on the founding of the present kibbutz.** The article gives both: "ב-1 בדצמבר 1943 עלו חברי
   השומר הצעיר, חידשו את הבאר והחלו להקים גדר ואת מבני הקיבוץ, טקס העלייה הרשמית לקרקע התבצע במרץ
   1944 ומהווה את ראשיתו של היישוב הנוכחי". [S, Wikipedia] So 1 December 1943 is the arrival and March 1944 the
