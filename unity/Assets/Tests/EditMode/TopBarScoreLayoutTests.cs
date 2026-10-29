@@ -97,9 +97,13 @@ public class TopBarScoreLayoutTests
                         if (!Inside(o.worldBound, ContentBox(box))) problems.Add($"{at}: {other} '{o.text}' {o.worldBound} leaves the date box's frame {ContentBox(box)}");
                     }
                     var exhausted = root.Q<Label>("exhausted");
+                    // The label must really be shown before its geometry means anything: a hidden label has no box to overlap.
+                    if (exhausted.resolvedStyle.display == DisplayStyle.None || exhausted.resolvedStyle.visibility == Visibility.Hidden
+                        || exhausted.worldBound.width <= 0f || exhausted.worldBound.height <= 0f)
+                        problems.Add($"{at}: the exhausted label is not shown ({exhausted.resolvedStyle.display}, {exhausted.resolvedStyle.visibility}, {exhausted.worldBound})");
                     if (!Inside(exhausted.worldBound, ContentBox(box))) problems.Add($"{at}: '{exhausted.text}' {exhausted.worldBound} leaves the date box's frame {ContentBox(box)}");
                     if (!Whole(exhausted)) problems.Add($"{at}: '{exhausted.text}' is clipped in {exhausted.contentRect}");
-                    foreach (var other in new[] { "turn", "date" })
+                    foreach (var other in new[] { "year", "score", "turn", "date" })
                         if (!Apart(exhausted.worldBound, root.Q<Label>(other).worldBound)) problems.Add($"{at}: '{exhausted.text}' {exhausted.worldBound} overlaps {other}");
                 }
                 finally
