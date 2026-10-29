@@ -1,0 +1,31 @@
+BASE  total 3540 passed 3500 failed 26 skipped 14 inconclusive 0
+HEAD  total 3540 passed 3508 failed 18 skipped 14 inconclusive 0
+FAILS ON BOTH: 18
+  BorderCivTests.EveryVariantDrawsTheWidthsItsMirrorPredicts
+  BorderTests.ASharedEdgeDrawsOneCentredBandAndTheFrontierKeepsTheFullBand
+  BorderTests.BothStylesFollowTheEdgeAtAboutThePromoWidthAtGameplay03
+  CollectionImportTests.BuildBundlesWritesTheChecksBesideTheShippedBundles
+  CollectionStreamTests.ABuiltBundleServesItsPrefabsThroughTheBuildsSource
+  CollectionStreamTests.ABundleDamagedInsideItsDataWarnsOnceAndIsNeverRead
+  CollectionStreamTests.ABundleOverHttpIsServedAfterTwoTooManyRequests
+  EventVideoTests.AClipThatFailsPutsThePhotographBackAndDropsTheSwitch
+  EventVideoTests.TheSwitchShowsOnlyForAnEventWithAClipAndSwapsTheLabel
+  HexVariantTests.BaseTileBuildsAsBefore("citrus_orchard")
+  HexVariantTests.BaseTileBuildsAsBefore("grazing_land")
+  HexVariantTests.BaseTileBuildsAsBefore("olive_terraces")
+  HexVariantTests.BaseTileBuildsAsBefore("pine_forest")
+  MapLabelTests.EveryCityKeepsItsNameCloseUp
+  MapLabelTests.EveryCityKeepsItsNameCloseUpWithTheUnits
+  OutcomeClipTests.TheLayerTakesTheFocusEnterSkipsAndTheFocusGoesBack
+  SeaTests.TheSurfWalksSeeTheBreakersAndNotTheWhitecaps
+  VisualHarnessTests.SubshadersThatExcludeGles3AreSkippedButOneMustCompile
+HEAD-ONLY: 0
+BASE-ONLY: 8
+  MapPointerTickTests.AFastSwipeAcrossFramesPansAndSelectsNothing  :: Unhandled log message: '[Error] Cached unprocessed value unexpectedly became outdated for unknown reason, new value '1' old value '0'.'. Use UnityEngine.TestToo
+  MapPointerTickTests.AFlickInsideOneInputUpdateSelectsNothing  :: Unhandled log message: '[Error] Cached unprocessed value unexpectedly became outdated for unknown reason, new value '1' old value '0'.'. Use UnityEngine.TestToo
+  MapPointerTickTests.APanLiftedRightAfterCrossingTheSlopIsNotLost  :: Unhandled log message: '[Error] Cached unprocessed value unexpectedly became outdated for unknown reason, new value '1' old value '0'.'. Use UnityEngine.TestToo
+  MapPointerTickTests.APinchWhoseSecondFingerLivesInsideOneUpdateDoesNotPan  :: Unhandled log message: '[Error] Cached unprocessed value unexpectedly became outdated for unknown reason, new value '1' old value '0'.'. Use UnityEngine.TestToo
+  MapPointerTickTests.APinchWhoseSecondFingerLivesInsideOneUpdateRefusesTheThumbsTap  :: Unhandled log message: '[Error] Cached unprocessed value unexpectedly became outdated for unknown reason, new value '1' old value '0'.'. Use UnityEngine.TestToo
+  MapPointerTickTests.APinchWhoseSecondFingerSpansFramesCorrectlyRefusesTheThumbsTap  :: Unhandled log message: '[Error] Cached unprocessed value unexpectedly became outdated for unknown reason, new value '1' old value '0'.'. Use UnityEngine.TestToo
+  MapPointerTickTests.AStillPressInsideOneInputUpdateSelectsWhereItWasPressed  :: Unhandled log message: '[Error] Cached unprocessed value unexpectedly became outdated for unknown reason, new value '1' old value '0'.'. Use UnityEngine.TestToo
+  MapPointerTickTests.ATapOverTwoFramesSelectsWhereTheFingerLanded  :: Unhandled log message: '[Error] Cached unprocessed value unexpectedly became outdated for unknown reason, new value '1' old value '0'.'. Use UnityEngine.TestToo

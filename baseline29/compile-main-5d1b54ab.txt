@@ -1,0 +1,7 @@
+
+Build succeeded.
+    0 Warning(s)
+    0 Error(s)
+
+Time Elapsed 00:00:19.73
+unity compile: Statecraft.Game and Statecraft.Tests.EditMode build with 0 errors and 0 warnings
