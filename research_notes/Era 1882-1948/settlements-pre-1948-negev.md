@@ -131,8 +131,9 @@ Revivim articles both say "משלושת המצפים".
   Measured on the page with the sheet's own 1 km grid squares (about 237 px per km at the file's resolution):
   the circle lies about 1.64 km east and 0.96 km south of the "Gevulot (הרוס)" symbol, so about 1.9 km on a
   bearing of about 120 degrees (computed here, symbol centres read by eye, good to about 0.1 km; the sheet
-  grid is not converted to WGS84). **[C] with both Wikipedia readings:** he.wiki puts the new site north or
-  north-east of the mitzpe, en.wiki 1.5 km south of "the base". The printed sheet puts the 1958 Gvulot
+  grid is not converted to WGS84). **[C] with both Wikipedia readings:** he.wiki (`גבולות` oldid 43752363 and
+  `בתי הביטחון בנגב הצפוני` oldid 42567087, both text checked in those revisions on 29 October 2026) puts the new site north or
+  north-east of the mitzpe, en.wiki (`Gvulot` oldid 1375588946, text checked in that revision) 1.5 km south of "the base". The printed sheet puts the 1958 Gvulot
   south-east of the ruin it labels Gevulot, which fits neither direction exactly and is nearer en.wiki's
   "south". Whether the printed "Gevulot (הרוס)" is the 1943 mitzpe or the kibbutz's 1946 to 1949 site is not
   stated on the sheet, so the question of which direction the first pass's "the base" points is still open.
@@ -230,7 +231,7 @@ of Negev settlement. Be'erot Yitzhak has its own section below.
   the 1936 to 1939 disturbances; the bulletin does not call it the third. A second item of the same search, JTA of 9 September 1938 (text read, not the print; spelled "Ruchema"): the colony "has been completely burned down by Arab terrorists" after the last settler was evacuated. The spelling "Ruchema" was not in the search terms used for the other windows below. The same search method found
   nothing for the other two: JTA archive search "Ruchama" 15 August 1929 to 30 June 1930 returned 1 item
   with no mention of Ruchama or Ruhama, and 1 January 1917 to 31 December 1920 returned 0 items (REST API
-  `https://www.jta.org/wp-json/wp/v2/archive?search=Ruchama&after=..&before=..`, run 2026-10-29 with the
+  `https://www.jta.org/wp-json/wp/v2/archive?search=Ruchama&after=1929-08-15T00:00:00&before=1930-06-30T00:00:00` (1 item) and `https://www.jta.org/wp-json/wp/v2/archive?search=Ruchama&after=1917-01-01T00:00:00&before=1920-12-31T00:00:00` (0 items), both HTTP 200 on re-run 2026-10-29 with the
   User-Agent `statecraft-israel-research/1.0 (+https://github.com/eyalgolan/statecraft-israel)`; the text of each returned item was searched for the two spellings). The 1929 and
   First World War abandonments stay [GAP]. Two other items in the 1936 to 1939 window name the colony
   without an abandonment: 18 February 1937 ("Several cows were killed in an attack by Arab bandits on the
