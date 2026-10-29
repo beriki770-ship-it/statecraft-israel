@@ -50,6 +50,21 @@ public class EndReportTests
         Assert.Equal(s.Indicators["intl_standing"], r.InternationalSupport);
     }
 
+    // Q-SCORE-2, R-OBJ-006: the score of a run that completes every objective on its historical date, read from content.
+    [Fact]
+    public void TheReferenceScoreIsWhatCompletingEveryObjectiveOnItsHistoricalDateScores()
+    {
+        var s = Ended();
+        Assert.Equal(200, EndReport.For(Real, s).ReferenceScore);   // 100 each: the three infrastructure parts count once, plus absorption
+
+        // The same number by playing it: every objective recorded on its reference date, no timing bonus on time.
+        var perfect = Simulation.NewGame(Real, GoldenRun.Seed, Mode.Historical);
+        foreach (var o in Real.Objectives)
+            Assert.True(Objectives.Record(Real, perfect, Real.RulesAt(perfect.Date).Mvp!, o.Id, o.ReferenceDate, new List<Cause>()));
+        perfect.GameOver = GameOverCodes.MvpEnded;
+        Assert.Equal(perfect.Score, EndReport.For(Real, perfect).ReferenceScore);
+    }
+
     // R-END-005
     [Fact]
     public void ADefeatReportsItsCause()

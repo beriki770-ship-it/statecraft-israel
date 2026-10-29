@@ -20,6 +20,10 @@ namespace Statecraft.Sim
         public int Score { get; }
         /// <summary>The parts of <see cref="Score"/> (R-SCORE-001); they sum to it.</summary>
         public ScoreParts ScoreParts { get; }
+        /// <summary>What completing every objective on its historical date scores (Q-SCORE-2, owner, 17 October 2026): objective_points
+        /// for each objective, the parts of one part_of group counted once (R-OBJ-006), and no timing bonus on the day. The end screen
+        /// shows it beside the score; 0 when the content has no GDD objectives.</summary>
+        public int ReferenceScore { get; }
         /// <summary>Every objective, in objectives.yaml's order (Q-CARD-2), completed or not.</summary>
         public IReadOnlyList<EndObjective> Objectives { get; }
         /// <summary>The GDD's two national parameters (0 to 1: morale shown as Social cohesion, intl_standing as International
@@ -32,10 +36,10 @@ namespace Statecraft.Sim
         /// before <see cref="Date"/>, with its sources; null when the game ended before the first anchor.</summary>
         public PopulationAnchor? PopulationHistory { get; }
 
-        EndReport(string outcome, DateTime date, int score, ScoreParts scoreParts, IReadOnlyList<EndObjective> objectives, double cohesion, double support,
+        EndReport(string outcome, DateTime date, int score, ScoreParts scoreParts, int referenceScore, IReadOnlyList<EndObjective> objectives, double cohesion, double support,
             double population, PopulationAnchor? history)
         {
-            Outcome = outcome; Date = date; Score = score; ScoreParts = scoreParts; Objectives = objectives; SocialCohesion = cohesion;
+            Outcome = outcome; Date = date; Score = score; ScoreParts = scoreParts; ReferenceScore = referenceScore; Objectives = objectives; SocialCohesion = cohesion;
             InternationalSupport = support; Population = population; PopulationHistory = history;
         }
 
@@ -50,7 +54,10 @@ namespace Statecraft.Sim
                 : new EndObjective(o.Id, o.Card, o.ReferenceDate, null, null)).ToList();
             // The anchors are few and dated; the latest one not after the end is the comparison (ties cannot happen: dates are unique).
             var history = c.PopulationAnchors.Where(a => a.Date <= s.Date).OrderBy(a => a.Date).LastOrDefault();
-            return new EndReport(s.GameOver, s.Date, s.Score, Sim.ScoreParts.For(s), objectives, s.Indicators["morale"], s.Indicators["intl_standing"],
+            // The base pays once per objective with no part_of and once per part_of group, as Objectives.Record awards it.
+            var paying = c.Objectives.Select(o => o.PartOf == "" ? o.Id : o.PartOf).Distinct(StringComparer.Ordinal).Count();
+            var reference = paying * (c.RulesAt(s.Date).Mvp?.ObjectivePoints ?? 0);
+            return new EndReport(s.GameOver, s.Date, s.Score, Sim.ScoreParts.For(s), reference, objectives, s.Indicators["morale"], s.Indicators["intl_standing"],
                 s.TotalPopulation, history);
         }
     }

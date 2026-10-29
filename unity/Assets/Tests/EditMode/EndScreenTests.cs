@@ -111,12 +111,15 @@ public class EndScreenTests
         Assert.IsTrue(k.End.IsOpen, "a loaded ended game opens on its end screen");
         var s = k.Bridge.State; var r = EndReport.For(C, s);
         var names = k.Ui.Q<ScrollView>("end-screen-rows").Children().Select(x => x.name).ToList();
-        var expected = new[] { "outcome", "score" }.Concat(r.Objectives.Select(o => "objective-" + o.Id))
+        var expected = new[] { "outcome", "score", "score-reference" }.Concat(r.Objectives.Select(o => "objective-" + o.Id))
             .Concat(new[] { "cohesion", "standing", "population" }).Select(n => "end-screen-" + n);
         CollectionAssert.AreEqual(expected, names, "the report's parts, in order");
         Assert.AreEqual(En["end.outcome.mvp_ended"], k.Line("outcome"));
         Assert.AreEqual(En.Format("hud.score", s.Score), k.Line("score"));
         Assert.Greater(s.Score, 0);
+        Assert.AreEqual(200, r.ReferenceScore, "the reference is the sim's number (Q-SCORE-2)");
+        Assert.AreEqual(En.Format("end.reference_score", r.ReferenceScore), k.Line("score-reference"));
+        StringAssert.Contains("200", k.Line("score-reference"));
         // The first objective: the card's title, the player's date and the historical date (Q-END-1).
         var first = C.Objectives.Single(o => o.Id == "absorb_immigrants");   // by id: the first in id order, as before R-OBJ-007
         string Date(System.DateTime d) => En.Format("date.day_month_year", d.Day, En["date.month_" + d.Month], d.Year);

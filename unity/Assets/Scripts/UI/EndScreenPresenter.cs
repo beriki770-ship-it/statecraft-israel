@@ -68,7 +68,7 @@ namespace Statecraft.Game.UI
         /// <summary>True in the frame the screen closed (GameRoot's Escape poll, as TurnReportPresenter.ClosedThisFrame).</summary>
         public bool ClosedThisFrame => closedAt == UnityEngine.Time.frameCount;
 
-        /// <summary>The screen's lines for an ended game, in order: the outcome, the score, one per objective, Social cohesion,
+        /// <summary>The screen's lines for an ended game, in order: the outcome, the score, the reference score, one per objective, Social cohesion,
         /// International Support and the population with its CBS anchor. Every value is the report's.</summary>
         public static IReadOnlyList<(string Name, string Text)> Lines(Content c, GameState s, UiText t)
         {
@@ -81,6 +81,8 @@ namespace Statecraft.Game.UI
                 ("outcome", t.Has(outcome) ? t[outcome] : t["order.game_over"]),
                 ("score", t.Format("hud.score", r.Score)),
             };
+            // Q-SCORE-2: beside the score, what a run on the historical dates scores (the sim's number; nothing computed here).
+            if (r.ReferenceScore > 0) lines.Add(("score-reference", t.Format("end.reference_score", r.ReferenceScore)));
             foreach (var o in r.Objectives)
             {
                 var title = EventSystem.Title(c, s, c.Events.First(e => e.Id == o.Card));   // as the objective's card shows it
