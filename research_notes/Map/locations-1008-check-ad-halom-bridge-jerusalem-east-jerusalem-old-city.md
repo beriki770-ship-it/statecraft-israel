@@ -51,8 +51,9 @@ he.wiki and Dupuy, Golani Brigade in en.wiki) and on when it was built (a 13th-c
 (2) **`jerusalem`**: the row's latitude and longitude (31.7819444, 35.2194444) are the figures en.wiki prints
 (31°46'55"N 35°13'10"E, 0 m); Wikidata, the row's cited coordinate source, gives 31.7819, 35.2194 with a stated precision of
 about 0.0106 degrees (about 1 km), 6 m from the row. he.wiki prints a point 1,503 m away. The names "West Jerusalem" and
-"East Jerusalem" are, according to en.wiki and he.wiki, the names of the two halves after the 1949 armistice; the JTA bulletins
-of 14 May to 5 June 1948 print neither (searches below), and speak of "the new city";
+"East Jerusalem" are, according to en.wiki and he.wiki, the names of the two halves after the 1949 armistice; a search of the JTA
+web text of 14 May to 5 June 1948 finds neither (searches below; web text, not the bulletin PDFs, so
+this does not show what the printed bulletins say), and the bulletins speak of "the new city";
 (3) **`east_jerusalem_old_city`, starting control**: the row says `israeli` from 15 May 1948. What the sources say is narrower:
 the Jewish Quarter, with between 1,500 and 1,600 Jews (JTA), was held and besieged. On 18 May (JTA of 19 May) the Jewish units
 that had broken into the Old City during the night were forced to withdraw from it under heavy fire, while "the Jewish defenders
