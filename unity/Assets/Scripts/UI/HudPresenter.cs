@@ -150,6 +150,9 @@ namespace Statecraft.Game.UI
         /// inner rule (7 px in). The plate grows to
         /// hold them (its height is a minimum), rather than shift its lines.</summary>
         public const float PlateSidePx = 18f, PlateEdgePx = 9f;
+        /// <summary>The stylesheet's side padding of the plate (12 + 10 px, either language); the clearance that replaces it widens
+        /// the plate by the difference, so the turn and the date keep their one row at the 15 px size.</summary>
+        const float StylesheetPlatePadPx = 22f;
         readonly VisualElement turnBox;
         readonly IVisualElementScheduledItem floorCheck;
         readonly EventCallback<GeometryChangedEvent> onRootGeometry;
@@ -447,8 +450,9 @@ namespace Statecraft.Game.UI
             // At least the widest date line too, so the plate keeps its width when the month changes (PromoHudTests): at 25 px
             // (a phone upright, #642) the Hebrew 31 October 1956 is about 196 px, wider than 230 px less the padding.
             plate.style.minWidth = raised ? new StyleLength(UnityEngine.Mathf.Max(PlateWidthPx, DateLinePerPx * smallTextSize + 2f * PlateSidePx + 2f))
-                                          : exhaustedSize > ExhaustedPx ? new StyleLength(PlateWidthPx) : new StyleLength(StyleKeyword.Null);
-            StyleLength Px(float v) => raised ? new StyleLength(v) : new StyleLength(StyleKeyword.Null);
+                                          : exhaustedSize > ExhaustedPx ? new StyleLength(PlateWidthPx + 2f * PlateSidePx - StylesheetPlatePadPx) : new StyleLength(StyleKeyword.Null);
+            // The frame clearance holds when either the 15 px text or the 13 px exhausted line is raised (they floor at different scales).
+            StyleLength Px(float v) => raised || exhaustedSize > ExhaustedPx ? new StyleLength(v) : new StyleLength(StyleKeyword.Null);
             plate.style.paddingTop = Px(PlateEdgePx); plate.style.paddingBottom = Px(PlateEdgePx);
             plate.style.paddingLeft = Px(PlateSidePx); plate.style.paddingRight = Px(PlateSidePx);
         }

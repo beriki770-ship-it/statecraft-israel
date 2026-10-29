@@ -118,4 +118,48 @@ public class TopBarScoreLayoutTests
             }
         Assert.IsEmpty(problems, string.Join("\n", problems));
     }
+
+    /// <summary>#812 review: where only the 13 px exhausted line is raised (1600x900, scale about 0.85: 13 px is under the
+    /// floor, 15 px is not), the plate still takes its frame clearance (PlateSidePx, PlateEdgePx). Inside(ContentBox) alone
+    /// would not show it: it reads the plate's current padding, whatever that is.</summary>
+    [UnityTest]
+    public IEnumerator TheExhaustedLineRaisedAloneKeepsThePlatesFrameClearance()
+    {
+        var text = En;
+        var rt = new RenderTexture(1600, 900, 0);
+        var ps = Object.Instantiate(AssetDatabase.LoadAssetAtPath<PanelSettings>(UiPaths.Panel));
+        ps.targetTexture = rt;
+        var go = new GameObject("ExhaustedClearanceTest");
+        go.SetActive(false);
+        var doc = go.AddComponent<UIDocument>();
+        doc.panelSettings = ps;
+        doc.visualTreeAsset = AssetDatabase.LoadAssetAtPath<VisualTreeAsset>(UiPaths.GameUxml);
+        go.SetActive(true);
+        var root = doc.rootVisualElement;
+        root.Q("root").RemoveFromClassList("loading");
+        var bridge = new SimBridge(GameSession.New(Gdd, GoldenRun.Seed, Mode.Historical), text);
+        bridge.State.ExhaustedTurns = 2;
+        var hud = new HudPresenter(root, bridge, text);
+        try
+        {
+            var exhausted = root.Q<Label>("exhausted");
+            for (int i = 0; i < 20 && float.IsNaN(exhausted.worldBound.width); i++) yield return null;
+            for (int i = 0; i < 3; i++) yield return null;
+            var scale = root.panel.scaledPixelsPerPoint;
+            Assert.Greater(exhausted.resolvedStyle.fontSize, HudPresenter.ExhaustedPx, $"precondition: the exhausted line is raised (scale {scale:0.###})");
+            Assert.AreEqual(HudPresenter.SmallTextPx, root.Q<Label>("date").resolvedStyle.fontSize, 0.01f, $"precondition: the 15 px text is not raised (scale {scale:0.###})");
+            var s = root.Q(className: "date-box").resolvedStyle;
+            // Layout snaps to whole screen pixels (9 px at 0.833 resolves to 9.6), so compare within a screen pixel.
+            var tol = 1f / scale;
+            Assert.AreEqual(HudPresenter.PlateEdgePx, s.paddingTop, tol, "plate paddingTop is the frame clearance");
+            Assert.AreEqual(HudPresenter.PlateEdgePx, s.paddingBottom, tol, "plate paddingBottom is the frame clearance");
+            Assert.AreEqual(HudPresenter.PlateSidePx, s.paddingLeft, tol, "plate paddingLeft is the frame clearance");
+            Assert.AreEqual(HudPresenter.PlateSidePx, s.paddingRight, tol, "plate paddingRight is the frame clearance");
+        }
+        finally
+        {
+            hud.Dispose();
+            Object.DestroyImmediate(go); Object.DestroyImmediate(ps); rt.Release(); Object.DestroyImmediate(rt);
+        }
+    }
 }
