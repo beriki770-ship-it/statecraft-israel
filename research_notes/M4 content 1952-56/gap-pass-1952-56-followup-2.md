@@ -11,8 +11,8 @@ stay with #106: the rows below record who decided or approved, and what was prin
 
 - **[V, agent read 2026-10-29; a person's check pending]** the page or page image named was opened and read by an AI agent on
   29 October 2026. Quotes are copied from the printed page image (JTA bulletin pages, UN report pages) or from the FRUS volume text
-  (TEI file `frus1952-54v09p1.xml` or `frus1955-57v14.xml` / `frus1955-57v15.xml` at
-  `https://raw.githubusercontent.com/HistoryAtState/frus`, the same text as on history.state.gov).
+  (TEI file `frus1952-54v09p1.xml` or `frus1955-57v14.xml` / `frus1955-57v15.xml`, each at
+  `https://raw.githubusercontent.com/HistoryAtState/frus/6170e4b32c1224002db2fe0c5d8d910597cddc2e/volumes/<file>`, commit 6170e4b3, the same text as on history.state.gov).
 - **[S]** a report of what unnamed sources or a spokesman said, read on 29 October 2026. **[C]** sources disagree, every value kept.
   **[GAP]** still open; the row says what was tried.
 - JTA dates follow the dateline rule: a bulletin's masthead date is the bulletin day; the event day is the dateline on the item and
@@ -60,7 +60,7 @@ reaction narrowed), five are narrowed (202, 595, 596, 756, 777) and one (637) is
   printed bulletin (the first pass had it [S]); Molotov's reply is dated 15 July; the announcement was made on 20 July 1953.
 - **Still [GAP]:** the full texts of the two letters. The bulletin quotes passages and describes the rest. Israel's published
   documents were not reached from this box.
-- Search record (built-in tools, JTA wp-json): `https://www.jta.org/wp-json/wp/v2/archive?search=Molotov&after=1953-06-01&before=1953-08-15`,
+- Search record (built-in tools, JTA wp-json): `https://www.jta.org/wp-json/wp/v2/archive?search=Molotov&after=1953-06-01T00:00:00&before=1953-08-15T00:00:00`,
   run 29 October 2026, 5 items returned: 21 July (the item above), 22 July (two items), 24 July and 29 July. The 24 and 29 July items
   were not opened.
 
