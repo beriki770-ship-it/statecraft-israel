@@ -65,6 +65,20 @@ public class EndReportTests
         Assert.Equal(perfect.Score, EndReport.For(Real, perfect).ReferenceScore);
     }
 
+    // A group id and a standalone objective id are separate namespaces: a part_of equal to a standalone objective's id still pays both.
+    [Fact]
+    public void AGroupIdEqualToAStandaloneObjectiveIdStillCountsBoth()
+    {
+        var c = ContentLoader.Load(RealContentTests.ContentRoot());
+        foreach (var o in c.Objectives.Where(o => o.PartOf != "")) o.PartOf = "absorb_immigrants";
+        var s = Simulation.NewGame(c, GoldenRun.Seed, Mode.Historical);
+        foreach (var o in c.Objectives)
+            Assert.True(Objectives.Record(c, s, c.RulesAt(s.Date).Mvp!, o.Id, o.ReferenceDate, new List<Cause>()));
+        s.GameOver = GameOverCodes.MvpEnded;
+        Assert.Equal(200, s.Score);
+        Assert.Equal(s.Score, EndReport.For(c, s).ReferenceScore);
+    }
+
     // R-END-005
     [Fact]
     public void ADefeatReportsItsCause()

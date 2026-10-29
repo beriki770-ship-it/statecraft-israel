@@ -54,8 +54,10 @@ namespace Statecraft.Sim
                 : new EndObjective(o.Id, o.Card, o.ReferenceDate, null, null)).ToList();
             // The anchors are few and dated; the latest one not after the end is the comparison (ties cannot happen: dates are unique).
             var history = c.PopulationAnchors.Where(a => a.Date <= s.Date).OrderBy(a => a.Date).LastOrDefault();
-            // The base pays once per objective with no part_of and once per part_of group, as Objectives.Record awards it.
-            var paying = c.Objectives.Select(o => o.PartOf == "" ? o.Id : o.PartOf).Distinct(StringComparer.Ordinal).Count();
+            // The base pays once per objective with no part_of and once per part_of group, as Objectives.Record awards it. The two
+            // are separate namespaces: a group id may equal a standalone objective's id and both still pay.
+            var paying = c.Objectives.Count(o => o.PartOf == "")
+                + c.Objectives.Where(o => o.PartOf != "").Select(o => o.PartOf).Distinct(StringComparer.Ordinal).Count();
             var reference = paying * (c.RulesAt(s.Date).Mvp?.ObjectivePoints ?? 0);
             return new EndReport(s.GameOver, s.Date, s.Score, Sim.ScoreParts.For(s), reference, objectives, s.Indicators["morale"], s.Indicators["intl_standing"],
                 s.TotalPopulation, history);
