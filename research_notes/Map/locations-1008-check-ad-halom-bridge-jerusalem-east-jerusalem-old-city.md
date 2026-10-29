@@ -59,7 +59,7 @@ the Jewish Quarter, with between 1,500 and 1,600 Jews (JTA), was held and besieg
 that had broken into the Old City during the night were forced to withdraw from it under heavy fire, while "the Jewish defenders
 inside the [O]ld City were still holding out"; so the Jews did not leave the Old City, only the units that had entered it did.
 Nothing the agent read says the rest of the Old City was Israeli-held on 15 May, and he.wiki says the Arab Legion took the Old
-City in the war, without a date. The Knesset PDF the row cites says (read by a review agent): "On May 14, 1948, upon the
+City in the war, without a date. The Knesset PDF the row cites says (read by a review agent only; first on the list for a person's check): "On May 14, 1948, upon the
 departure of the British from the country, the Israeli forces began to take over compounds held by the Mandatory government.",
 "On May 18, the Arab Legion reached Jerusalem and entered the Old City." and "On May 28, the Jewish Quarter fell into the hands
 of the Jordanians, its defenders were taken prisoner and its synagogues were demolished." The row's own YAML comment scopes the 28 May change to "the Jewish Quarter fell to the Jordanians on that date", which is what the sources say; the `starting_control` value is the wider claim. The 28 May change to Arab forces matches both JTA and
@@ -86,7 +86,7 @@ is a 2-page PDF titled "Liberation of Jerusalem" that a review agent read on 28 
 | JTA-5 | JTA Daily News Bulletin, Sunday 30 May 1948, `http://pdfs.jta.org/1948/1948-05-30_125.pdf`, page 2, lead item (page image, 200 dpi, two crops read; the file's page 1 carries the masthead, its issue number is hand-corrected, the number printed in the file name is 125) | 28 Oct 2026 | the Old City on 28 May 1948 |
 | JTA-6 | JTA Daily News Bulletin, Tuesday 1 June 1948, `http://pdfs.jta.org/1948/1948-06-01_126.pdf`, page 1 (page image, 200 dpi, whole page read) | 28 Oct 2026 | the Old City surrender on "Friday", Egyptians at Isdud |
 | JTA-W | JTA wp-json items 729977 (1 June 1948), 729993 (2 June), 730060 (7 June), 730115 (10 June), web text only | 28 Oct 2026 | Isdud in June 1948 [S] |
-| KN | Knesset, "Liberation of Jerusalem", `https://m.knesset.gov.il/En/About/Documents/JerEnPDF1.pdf` (2 pages), read by a review agent | 28 Oct 2026 | the rows' cited control source [V, read by a review agent 28 Oct 2026; a person's check pending]; not opened by this agent (the address returns an HTML page titled "Unavailable" to this box, re-tried on 28 Oct 2026 with a browser User-Agent and on `main.knesset.gov.il`) |
+| KN | Knesset, "Liberation of Jerusalem", `https://m.knesset.gov.il/En/About/Documents/JerEnPDF1.pdf` (2 pages), read by a review agent | 28 Oct 2026 | the rows' cited control source [V, read by a review agent 28 Oct 2026; a person's check pending, first on the list]; not opened by this agent (the address returns an HTML page titled "Unavailable" to this box, re-tried on 28 Oct 2026 with a browser User-Agent and on `main.knesset.gov.il`) |
 
 Not reached or not used: the Knesset PDF named in summary item (4) (read by a review agent only; this box got "Unavailable"), the Israeli archives (National Library, State Archives, IDF
 Maarachot) and the Israel Air Force article that he.wiki cites for 29 May (not tried on this day; the first slice recorded
