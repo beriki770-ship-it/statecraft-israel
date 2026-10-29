@@ -145,7 +145,7 @@ reaction narrowed), five are narrowed (202, 595, 596, 756, 777) and one (637) is
   28-29/3/1954 at 24.00 hrs. J.T.", place "Nabhalin Village", "nine persons, eight men and one woman, were killed and fourteen others
   were injured". Paragraph 1 says the verbal complaint was made "On 29 March 1954, at 0700 hours" about an incident "seven hours
   earlier". So the raid was in the night of 28 to 29 March, about midnight. The first pass's "28 March" (a FRUS footnote giving
-  Jordan's wording) is not wrong but is the evening of the 28th; FRUS 785 (Byroade to Dulles, 7 April 1954) itself says the Commission
+  Jordan's wording) is not wrong but gives the date the night began (the complaint itself reads "28-29/3/1954 at 24.00 hrs"); FRUS 785 (Byroade to Dulles, 7 April 1954) itself says the Commission
   condemned Israel for "an organized military attack March 29".
   - The Commission met in the early morning of 30 March without Israel and adopted a resolution condemning Israel (S/3251, section III,
     paragraphs 8 to 11). Israel had refused to receive the complaint and had declined to attend (paragraph 9).
@@ -189,7 +189,8 @@ reaction narrowed), five are narrowed (202, 595, 596, 756, 777) and one (637) is
   preventive than punitive nature", and FRUS 456 (Jerusalem, 14 December), which reports General Burns saying Ben-Gurion was "well
   aware" of the attack when he saw Burns on 11 December. Both are [S] (embassy and consulate reports of conversations).
 - **Reading for the note.** The only source read says Ben-Gurion approved it himself on 10 December, on Dayan's advice, with no
-  consultation of the Mapai ministers and without the Cabinet Foreign Affairs Committee. A Cabinet vote is not mentioned. Still
+  consultation of the Mapai ministers; the source reports Shapira's complaint that it had not been approved by his Cabinet Foreign Affairs
+  Committee (his reported complaint, not a finding about the decision). A Cabinet vote is not mentioned. Still
   **[GAP]**: the Israeli record (Cabinet minutes, the Defence Minister's own diary, or a scholarly account), none reachable here.
   Whether the Cabinet as a whole was consulted afterwards is not read.
 
