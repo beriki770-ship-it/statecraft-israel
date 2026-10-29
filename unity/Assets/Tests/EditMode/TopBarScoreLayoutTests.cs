@@ -103,6 +103,10 @@ public class TopBarScoreLayoutTests
                         problems.Add($"{at}: the exhausted label is not shown ({exhausted.resolvedStyle.display}, {exhausted.resolvedStyle.visibility}, {exhausted.worldBound})");
                     if (!Inside(exhausted.worldBound, ContentBox(box))) problems.Add($"{at}: '{exhausted.text}' {exhausted.worldBound} leaves the date box's frame {ContentBox(box)}");
                     if (!Whole(exhausted)) problems.Add($"{at}: '{exhausted.text}' is clipped in {exhausted.contentRect}");
+                    // The owner's text floor (#624) covers this line like the date's: on screen it is at least TextFloorPx.
+                    var onScreen = exhausted.resolvedStyle.fontSize * root.panel.scaledPixelsPerPoint;
+                    if (onScreen < HudPresenter.TextFloorPx - 0.01f)
+                        problems.Add($"{at}: the exhausted line is {onScreen:0.##} px on screen ({exhausted.resolvedStyle.fontSize} px at {root.panel.scaledPixelsPerPoint:0.###}; under the {HudPresenter.TextFloorPx} px floor)");
                     foreach (var other in new[] { "year", "score", "turn", "date" })
                         if (!Apart(exhausted.worldBound, root.Q<Label>(other).worldBound)) problems.Add($"{at}: '{exhausted.text}' {exhausted.worldBound} overlaps {other}");
                 }
