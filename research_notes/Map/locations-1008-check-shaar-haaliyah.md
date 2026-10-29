@@ -48,14 +48,14 @@ right under the repo's rule, and the camp is drawn on the hex east of the hex th
 "Sha'ar HaAliyah" there: it shows open ground with no printed building closer than about 120 m, a group of building marks about 330 m to the
 north under the name "Et Tajadid", and "St. Luke's Sch." about 450 m east-south-east. The sheet is a Mandate-era map, so it predates the
 Israeli camp and cannot confirm the name, and it does not say whether the building group is the British barracks that the
-dissertation abstract and he.wiki say the camp was built on; it does show that the point is on the Haifa coast plain, near a
+dissertation abstract and he.wiki (oldid 42247530) say the camp was built on; it does show that the point is on the Haifa coast plain, near a
 printed "St. Luke's" name. No source read gives a coordinate for the camp other than Wikidata's;
 (3) **Opening**: the row's `historical_reference: March 1949` matches the dissertation abstract the row cites ("opened in March,
-1949 on the Haifa coast") and he.wiki, which gives 14 March 1949 for the first group. No item returned by the JTA API searches mentions the
+1949 on the Haifa coast") and he.wiki (oldid 42247530), which gives 14 March 1949 for the first group. No item returned by the JTA API searches mentions the
 camp (searches below), so the day is [S] only;
-(4) **Names**: the row carries one name for a place that was also called "St. Luke's" (the British camp it replaced, per he.wiki),
+(4) **Names**: the row carries one name for a place that was also called "St. Luke's" (the British camp it replaced, per he.wiki oldid 42247530),
 "Shaar Haaliya Processing Camp" (the entrance sign, per the dissertation abstract) and "Shaar Aliyah" and "Shaar Haaliya Camp"
-(JTA). There is also a second camp, "Sha'ar Aliyah B", from 1951 (he.wiki), which is not this row;
+(JTA). There is also a second camp, "Sha'ar Aliyah B", from 1951 (he.wiki oldid 42247530), which is not this row;
 (5) the camp's role is attested by contemporaneous primary text: JTA (dateline 28 Dec 1949) reports UJA chairman Henry
 Morgenthau Jr. as saying in New York that Shaar Aliyah was "the reception camp through which all new immigrants must pass";
 The Jerusalem Post of 26 May 1950 reports a Jewish Agency announcement that physically fit unmarried immigrants of 17 to 35
@@ -79,13 +79,14 @@ The Jerusalem Post of 26 May 1950 reports a Jewish Agency announcement that phys
 | JP-OCR | The `_djvu.txt` OCR files of 209 *Jerusalem Post* issues of 1950 (details under "Searches run") | 28 Oct 2026 | negative and positive search record; OCR text only [S] |
 | JTA-W | JTA wp-json items 737666 (29 Dec 1949) and 742663 (13 Mar 1951), web text only | 28 Oct 2026 | the same two passages as JTA-A and JTA-B, found by search [S] |
 
-Not reached or not used: the National Library of Israel (the *Davar* articles that he.wiki cites for 1950, 1951, 1953 and 1962,
+Not reached or not used: the National Library of Israel (the *Davar* articles that he.wiki (oldid 42247530) cites for 1950, 1951, 1953 and 1962,
 and the 1956 map of west Haifa) answered HTTP 403 with a "Checking your browser" page from this box on 28 Oct 2026, with a
-browser User-Agent as well; the two footnotes that he.wiki prints at the end of its paragraph with 14 March 1949 and the 200 dunams, Segev's
+browser User-Agent as well; the two footnotes that he.wiki (oldid 42247530) prints at the end of its paragraph with 14 March 1949 and the 200 dunams, Segev's
 *1949: The First Israelis* (p. 124) and Seidelman's *Under Quarantine* (2020), neither opened; the AJS Perspectives article by Seidelman (the connection
-failed); the CBS list of boundary changes 1948-2004 that he.wiki cites for 1958; the Israel State Archives and the Israel
+failed); the CBS list of boundary changes 1948-2004 that he.wiki (oldid 42247530) cites for 1958; the Israel State Archives and the Israel
 Land Administration plan database (not tried). Where a cell quotes a claim that rests on a source the agent did not open, it is
 marked as a Wikipedia claim.
+On 29 Oct 2026 the agent asked the he.wikipedia API (`prop=revisions`, `rvdir=older`, `rvlimit=1`, `rvstart` 28 Oct 2026 23:59:59 UTC, the day the note was opened and first committed, and again at 29 Oct 2026 00:12:33 UTC, the date of the last commit) for the revision of "שער העלייה" current on those dates. Both return oldid 42247530 (25 Nov 2025; the previous revision is 40918987 of 24 Apr 2025), so every he.wiki claim in this note is read in that one revision. The quoted and cited text of lines 47-88 (the conversion of the British military camp, "St. Luke's", 200 dunams, 14 March 1949, the Segev and Seidelman footnotes, "Sha'ar Aliyah B" in 1951, the Davar articles of 1950, 1951, 1953 and 1962, the 1956 map, 1958) was found in oldid 42247530. The en.wikipedia claim is pinned at oldid 1368227199 (7 Aug 2026), the revision current on 28 Oct 2026 per the same query.
 
 ## `shaar_haaliyah` (row: `Sha'ar HaAliyah`, `שער העלייה`, reception_camp, lon 34.95745, lat 32.8160806, q 5, r 8, `historical_reference: March 1949`)
 
