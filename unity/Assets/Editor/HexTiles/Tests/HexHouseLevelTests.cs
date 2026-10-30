@@ -12,8 +12,8 @@ using UnityEngine;
 
 /// <summary>#1901: the lighter level of Tal Heuberger's generated town houses (HexHouseLevels), which the Tiberias basalt
 /// houses draw. Three promises: the boards keep their triangle budgets with it (counted as HexPrototypeTests counts them),
-/// Tal's delivered files stay byte for byte as delivered, and the lighter mesh keeps his seams and texture (every vertex
-/// one of his own, exact; no seam or edge opened; the corners where three UV charts meet all kept; no new see-through).</summary>
+/// Tal's delivered files stay byte for byte as delivered, and the lighter mesh keeps their seams and texture (every vertex
+/// one of their own, exact; no seam or edge opened; the corners where three UV charts meet all kept; no new see-through).</summary>
 public class HexHouseLevelTests
 {
     const string Review = "Assets/Editor/Generated1948Review/", BasaltHouse = "tiles:tiberias_town/basalt_house";

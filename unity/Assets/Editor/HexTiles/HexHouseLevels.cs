@@ -10,9 +10,9 @@ using UnityEngine;
 namespace Statecraft.HexTiles
 {
     /// <summary>A lighter level of Tal Heuberger's generated town houses for the hex-tile boards (#1901), made in the editor
-    /// from his delivered FBX, which is never written. Each house gets three new files beside his, in
-    /// Assets/Editor/Generated1948Review/&lt;id&gt;/: &lt;id&gt;-light.asset (the mesh), &lt;id&gt;-light.prefab (his prefab with that
-    /// mesh, his material) and &lt;id&gt;-light.json (the source FBX's hash and the settings). HexModels.HouseLevels says which
+    /// from their delivered FBX, which is never written. Each house gets three new files beside theirs, in
+    /// Assets/Editor/Generated1948Review/&lt;id&gt;/: &lt;id&gt;-light.asset (the mesh), &lt;id&gt;-light.prefab (their prefab with that
+    /// mesh, their material) and &lt;id&gt;-light.json (the source FBX's hash and the settings). HexModels.HouseLevels says which
     /// hex-tile ids draw one; HexHouseLevelTests holds the promises.
     ///
     /// How: quadric-error half-edge collapse (Garland and Heckbert 1997), so every vertex left is one of Tal's own, with its

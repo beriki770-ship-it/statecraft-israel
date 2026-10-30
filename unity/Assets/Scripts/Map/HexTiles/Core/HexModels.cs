@@ -119,7 +119,7 @@ namespace Statecraft.HexTiles
         public static bool DrawCollectionFigures = true;
 
         /// <summary>Hex-tile ids drawn as one of Tal Heuberger's generated town houses at its lighter level (#1901; made in
-        /// the editor by HexHouseLevels from his FBX, which stays as delivered): Tiberias's basalt houses are house 04. The
+        /// the editor by HexHouseLevels from their FBX, which stays as delivered): Tiberias's basalt houses are house 04. The
         /// houses are editor review art until they have their own streamed bundle (docs/generated-buildings-props.md), so
         /// only the editor draws them; a player keeps the tile's stand-in.</summary>
         public static readonly (string id, string prefab)[] HouseLevels =
