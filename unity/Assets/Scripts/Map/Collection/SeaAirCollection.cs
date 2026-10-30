@@ -122,10 +122,6 @@ namespace Statecraft.Game.Map.Collection
             return wants;
         }
 
-        /// <summary>DESIGN VALUE: the Spitfire flies this many of its own (map) wingspans above the highest ground under it,
-        /// clear in the air at every zoom, never on the ground.</summary>
-        public const float SpitfireAltitudeSpans = 4f;
-
         /// <summary>The Spitfire's spot: over the board's western edge (world x = 0 is lon0, GeoFrame) at el-Arish's latitude, one
         /// wingspan in, so the whole aircraft is over the board, flying in from el-Arish (due east).</summary>
         public static Vector2 EdgeSpot(GeoFrame frame) =>
@@ -339,14 +335,15 @@ namespace Statecraft.Game.Map.Collection
         internal const float SpitfireNoseEastYaw = 90f;
 
         /// <summary>The Spitfire in level flight over <paramref name="at"/>: nose east, wingspan at its map size,
-        /// <see cref="SpitfireAltitudeSpans"/> wingspans above the highest ground under it (UnitShowcase.LoopFloor).</summary>
+        /// UnitShowcase.AltitudeM (4,200 m) above the highest ground under it (UnitShowcase.LoopFloor), where the unit tokens'
+        /// aircraft fly (#2014).</summary>
         void Fly(GameObject go, GameObject prefab, Vector2 at)
         {
             go.transform.localRotation = Quaternion.Euler(0f, SpitfireNoseEastYaw, 0f) * prefab.transform.localRotation;
             var b = Bounds(go); float span = b.size.z;
             go.transform.localScale *= span > 1e-3f ? SizeOf(Spitfire) / span : 1f;
             float size = SizeOf(Spitfire);
-            var pos = new Vector3(at.x, Statecraft.Game.Map.Units.UnitShowcase.LoopFloor(map!, new Vector3(at.x, 0f, at.y), size) + SpitfireAltitudeSpans * size, at.y);
+            var pos = new Vector3(at.x, Statecraft.Game.Map.Units.UnitShowcase.LoopFloor(map!, new Vector3(at.x, 0f, at.y), size) + Statecraft.Game.Map.Units.UnitShowcase.AltitudeM, at.y);
             go.transform.position = pos; b = Bounds(go);
             go.transform.position += pos - b.center;
             foreach (var r in go.GetComponentsInChildren<Renderer>(true)) r.shadowCastingMode = ShadowCastingMode.On;

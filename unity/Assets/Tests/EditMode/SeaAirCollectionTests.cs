@@ -107,9 +107,9 @@ public class SeaAirCollectionTests
 
     /// <summary>#1932 (c), "In flight / board edge only": el-Arish lies west of the board (so there is no hex or airfield to
     /// stand on), and the Spitfire is drawn over the board's western edge at el-Arish's latitude, the whole aircraft over the
-    /// board and within two wingspans of the edge, nose east (wingspan north-south at its map size), at least three wingspans
-    /// above the highest ground under it: never on the ground. Only the far mesh is asked, once, and nothing draws before
-    /// the stream answers.</summary>
+    /// board and within two wingspans of the edge, nose east (wingspan north-south at its map size), 4,200 m above the highest
+    /// ground under it, the unit tokens' aircraft altitude (UnitShowcase.AltitudeM, #2014): never on the ground. Only the far
+    /// mesh is asked, once, and nothing draws before the stream answers.</summary>
     [Test]
     public void TheSpitfireFliesOverTheWesternBoardEdgeTowardElArishAndNeverStandsOnTheBoard()
     {
@@ -131,7 +131,9 @@ public class SeaAirCollectionTests
         Assert.AreEqual(span, b.size.z, 1f, "wingspan north-south at its size: the nose points east or west");
         Assert.Greater(b.size.z, b.size.x, "the fuselage lies east-west");
         float floor = Statecraft.Game.Map.Units.UnitShowcase.LoopFloor(map, new Vector3(at.x, 0f, at.z), span);
-        Assert.GreaterOrEqual(b.min.y, floor + 3f * span, "in flight, well above the highest ground under it");
+        Assert.AreEqual(floor + 4200f, at.y, 1f, "4,200 m above the highest ground under it, the unit tokens' aircraft altitude (#2014)");
+        Assert.AreEqual(Statecraft.Game.Map.Units.UnitShowcase.AltitudeM, at.y - floor, 1f, "UnitShowcase.AltitudeM, no number duplicated");
+        Assert.Greater(b.min.y, floor, "in flight, never on the ground");
         Assert.AreEqual(1, layer.KeepClear.Count(k => (k[0].center - b.center).magnitude < 1f && (k[0].size - b.size).magnitude < 1f), "the labels keep clear of it");
     }
 
@@ -160,7 +162,7 @@ public class SeaAirCollectionTests
             Assert.AreEqual(asked.Count, asked.Select(a => a.id).Distinct().Count(), "each model once");
             AnswerAll();
             CollectionAssert.IsEmpty(layer.Missing, "every craft found a spot on " + date.ToString("d MMM yyyy"));
-            Assert.AreEqual(SeaAirCollection.Wants(date, C).Count, layer.Placed.Count);
+            Assert.AreEqual(date.Year == 1948 ? 5 : 4, layer.Placed.Count, "three boats, then the Altalena and the Spitfire on 15 June 1948, the C-54 on 15 August 1949");
             var spots = layer.Placed.Select(p => p.At).ToArray();
             CollectionGeometryFixture.Craft(map, date.AddMonths(1), Array.Empty<Placement>(), C); AnswerAll();
             CollectionGeometryFixture.Craft(map, date, Array.Empty<Placement>(), C); AnswerAll();
