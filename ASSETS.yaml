@@ -1258,11 +1258,11 @@ rules:
     status: verified
     note: "Editor review only; all campaign activation held pending streaming and Eyal's art/sensitivity sign-off after screenshots. 01, 03 and 05 were regenerated on 24 October 2026 at the owner's request on #1379, replacing provider originals with roof gaps or a rear opening. No rights change to older assets."
   # Lighter levels of the generated town houses (#1901, PR #1994): derived meshes, made in the editor from the FBX rows above.
-  - glob: "unity/Assets/Editor/Generated1948Review/generated-1948-0*/*-light.asset"
+  - glob: "unity/Assets/Editor/Generated1948Review/generated-1948-0[1-5]-*/*-light.asset"
     licence: CC-BY-NC-ND-4.0
     ai_generated: true
     artist: "Tal Heuberger"
-    source: "Derived from Tal Heuberger's originals (the generated-1948-01 to 05 house FBX files above) by unity/Assets/Editor/HexTiles/HexHouseLevels.cs: a quadric-error half-edge collapse that keeps a subset of his own vertices (exact positions, UVs and normals) and adds none. Each <id>-light.json beside the mesh records the source FBX path, its SHA-256, the settings and the triangle counts."
+    source: "Derived from Tal Heuberger's originals (the FBX files in the generated-1948-01 to 05 house folders, listed in the ASSETS.yaml rows for unity/Assets/Editor/Generated1948Review/generated-1948-0N-*/*.fbx) by unity/Assets/Editor/HexTiles/HexHouseLevels.cs: a quadric-error half-edge collapse that keeps a subset of his own vertices (exact positions, UVs and normals) and adds none. Each <id>-light.json beside the mesh records the source FBX path, its SHA-256, the settings and the triangle counts."
     status: verified
     note: "Same licence as the originals, CC BY-NC-ND 4.0, credit Tal Heuberger, with Tal's permission for these lighter derived meshes (30 October 2026, recorded by the owner in PR #1994). The prefabs and JSON records beside them retain the code-row terms. Editor review only, as the rows above."
   - glob: "unity/Assets/Art/Collection/generated-1948-06-bedouin-b-enclosed-striped-tent/*.fbx"
