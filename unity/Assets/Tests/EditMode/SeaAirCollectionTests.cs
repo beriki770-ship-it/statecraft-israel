@@ -90,9 +90,9 @@ public class SeaAirCollectionTests
         CollectionAssert.DoesNotContain(Keys(new DateTime(1950, 9, 25)), "lod-c54");
     }
 
-    /// <summary>#1932 (c): the Egyptian Spitfire from the first sourced Spitfire raid, 15 May 1948, to the al-Arish Operational
-    /// Diary's last Spitfire sortie, 2 January 1949 (the research note's rows R2, R4 and A3): the turns of 15 May to 15 December
-    /// 1948, at el-Arish's place, which is off the board.</summary>
+    /// <summary>#1932 (c): the Egyptian Spitfire from 15 May 1948 to the al-Arish Operational Diary's last Spitfire sortie,
+    /// 2 January 1949 (rows R2, R4 and A3 of #1894's research note, an AI draft not yet checked by a person): the turns of
+    /// 15 May to 15 December 1948, at el-Arish's place, which is off the board.</summary>
     [Test]
     public void TheSpitfireIsWantedOnlyOnItsSourcedDates()
     {

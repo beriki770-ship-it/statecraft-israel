@@ -58,9 +58,10 @@ namespace Statecraft.Game.Map.Collection
         /// <summary>Tal Heuberger's Egyptian Spitfire, only in flight at the board's western edge toward el-Arish (owner ruling,
         /// 30 October 2026, #1932: "(c) In flight / board edge only"; no airfield on the board). el-Arish was the REAF's "only
         /// 'front-line' aerodrome" (research note egyptian-air-bases-and-raids-1948-1872.md, row A1), at 31.132072 N, 33.803376 E
-        /// (en.wiki "Arish", checked 30 October 2026), about 0.4 degrees west of the board. It shows from the first sourced
-        /// Spitfire raid, 15 May 1948 (rows R2, R4), to the last sortie of Spitfire no. 651 in the al-Arish Operational Diary,
-        /// 2 January 1949 (row A3, which covers that one aircraft from 9 June 1948): the turns of 15 May to 15 December 1948.</summary>
+        /// (en.wiki "Arish", checked 30 October 2026), about 0.4 degrees west of the board. The dates come from #1894's
+        /// research note, an AI draft not yet checked by a person: 15 May 1948 (rows R2, R4, the first Spitfire raid in the note)
+        /// to the last sortie of Spitfire no. 651 in the al-Arish Operational Diary, 2 January 1949 (row A3, which covers that
+        /// one aircraft from 9 June 1948): the turns of 15 May to 15 December 1948.</summary>
         public static readonly DateTime SpitfireFrom = new DateTime(1948, 5, 15), SpitfireTo = new DateTime(1949, 1, 2);
         public const double ElArishLon = 33.803376, ElArishLat = 31.132072;
 
