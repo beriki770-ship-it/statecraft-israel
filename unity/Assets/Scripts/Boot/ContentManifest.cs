@@ -28,9 +28,9 @@ namespace Statecraft.Game.Boot
 
         /// <summary>Baked map files that are not YAML, listed when present: the runtime forms of the 1948 localities and of the
         /// route paths and the region files (boot budget, issue #321). Their YAML still ships: each runtime file is checked
-        /// against it.</summary>
+        /// against it. Also the true armistice lines, which the "armisticelines" map mode draws as they are (#237).</summary>
         public static readonly IReadOnlyList<string> RuntimeData = new[] { "map/localities_1948.tsv", "map/route_paths_1948.tsv",
-            "map/subdistrict_hexes_1948.tsv", "map/armistice_hexes_1949.tsv", "map/control_hexes_1948_49.tsv" };
+            "map/subdistrict_hexes_1948.tsv", "map/armistice_hexes_1949.tsv", "map/control_hexes_1948_49.tsv", "map/armistice_lines_1949.geojson" };
 
         [Serializable] sealed class ManifestJson { public string[] files = new string[0]; }
         [Serializable] sealed class BundleJson { public string[] files = new string[0]; public string[] texts = new string[0]; }
