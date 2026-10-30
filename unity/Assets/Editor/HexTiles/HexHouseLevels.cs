@@ -51,7 +51,13 @@ namespace Statecraft.HexTiles
             public string tool = nameof(HexHouseLevels), source = "", source_sha256 = "";
             public int source_triangles, triangles;
             public float uv_tolerance_texels = UvToleranceTexels, edge_tolerance = EdgeTolerance, max_error = MaxError;
+            public string provenance = Provenance;
         }
+
+        /// <summary>The derived meshes' provenance line, written into every -light.json (ASSETS.yaml has the same row).</summary>
+        const string Provenance = "Derived from Tal Heuberger's original (the source FBX above) by HexHouseLevels. Same licence, "
+            + "CC BY-NC-ND 4.0, credit Tal Heuberger, with Tal's permission for these lighter derived meshes (30 October 2026, "
+            + "recorded by the owner in PR #1994).";
 
         [MenuItem("Statecraft/Hex Tiles/Build the generated houses' lighter levels")]
         public static void Build()
