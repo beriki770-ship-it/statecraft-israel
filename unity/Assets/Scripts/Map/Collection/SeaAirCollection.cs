@@ -18,7 +18,9 @@ namespace Statecraft.Game.Map.Collection
     /// (Kfar Vitkin on the 20th, aground off Tel Aviv on the 21st, shelled on the 22nd: the card's sources). One ship on one
     /// turn stands at one place, so it stands off Tel Aviv, where it ran aground and burned;</item>
     /// <item>a C-54 at Lod (Lydda) Airport while Operation Magic Carpet's main airlift ran, from July 1949 to its last flights
-    /// into Lydda on 24 September 1950 (<see cref="C54From"/>, <see cref="C54To"/>).</item>
+    /// into Lydda on 24 September 1950 (<see cref="C54From"/>, <see cref="C54To"/>);</item>
+    /// <item>the Egyptian Spitfire in flight over the western board edge toward el-Arish, from 15 May 1948 to 2 January 1949
+    /// (<see cref="SpitfireFrom"/>, <see cref="SpitfireTo"/>, #1932), never on a hex or an airfield.</item>
     /// </list>
     /// The boats lie on the open sea past the surf, where SeaCraft's own boats sail (SeaCraft.OffshoreNearM to OffshoreM out
     /// from the same shore points), each hull clear of the harbour works, of SeaCraft's boats and of each other
@@ -36,6 +38,7 @@ namespace Statecraft.Game.Map.Collection
         public const string FishingBoat = "vehicle-fishing-boat-1948-v2wl";
         public const string Steamer = "vehicle-immigrant-steamer-1948-v2wl";
         public const string C54 = "figure-vehicle-c54-skymaster-1948-v2";
+        public const string Spitfire = CollectionCatalog.EgyptianSpitfire;
 
         /// <summary>The card whose window dates the Altalena (content/events/altalena.yaml).</summary>
         public const string AltalenaEvent = "altalena";
@@ -52,16 +55,27 @@ namespace Statecraft.Game.Map.Collection
         /// checked 18 October 2026). Taken by the IDF on 10 July 1948 (Operation Danny); flights resumed on 24 November 1948.</summary>
         public const double LodLon = 34.88278, LodLat = 32.00944;
 
+        /// <summary>Tal Heuberger's Egyptian Spitfire, only in flight at the board's western edge toward el-Arish (owner ruling,
+        /// 30 October 2026, #1932: "(c) In flight / board edge only"; no airfield on the board). el-Arish was the REAF's "only
+        /// 'front-line' aerodrome" (research note egyptian-air-bases-and-raids-1948-1872.md, row A1), at 31.132072 N, 33.803376 E
+        /// (en.wiki "Arish", checked 30 October 2026), about 0.4 degrees west of the board. It shows from the first sourced
+        /// Spitfire raid, 15 May 1948 (rows R2, R4), to the last sortie of Spitfire no. 651 in the al-Arish Operational Diary,
+        /// 2 January 1949 (row A3, which covers that one aircraft from 9 June 1948): the turns of 15 May to 15 December 1948.</summary>
+        public static readonly DateTime SpitfireFrom = new DateTime(1948, 5, 15), SpitfireTo = new DateTime(1949, 1, 2);
+        public const double ElArishLon = 33.803376, ElArishLat = 31.132072;
+
         /// <summary>The real long side (m, seen from above) each model stands for. The Altalena was USS LST-138, an LST-1-class
         /// tank landing ship (en.wiki "Altalena Affair" and "LST-1-class tank landing ship", its LST-100 to LST-199 list),
         /// 328 ft overall (en.wiki "USS LST-1", the class's lead ship: "328 ft (100 m) oa"); the C-54's wingspan is 35.81 m (en.wiki
-        /// "Douglas C-54 Skymaster", C-54G); all checked 18 October 2026. The steamer and the fishing boat are generic models,
+        /// "Douglas C-54 Skymaster", C-54G); all checked 18 October 2026.
+        /// The Spitfire's is its wingspan, 36 ft 10 in (11.23 m), the standard wing of the Mk V and the Mk IX alike (en.wiki
+        /// "Supermarine Spitfire", checked 30 October 2026; the research note's two candidate marks, its Disagreements table). The steamer and the fishing boat are generic models,
         /// no one ship, so theirs are DESIGN VALUES, typical of the kind: an 80 m immigrant steamer and a 10 m wooden fishing
         /// boat.</summary>
         const float FootM = 0.3048f;
         public static float RealLengthM(string model) => model switch
         {
-            Altalena => 328f * FootM, C54 => 35.81f, Steamer => 80f, FishingBoat => 10f,
+            Altalena => 328f * FootM, C54 => 35.81f, Steamer => 80f, FishingBoat => 10f, Spitfire => 11.23f,
             _ => throw new ArgumentException($"'{model}' is not one of #669's models", nameof(model)),
         };
 
@@ -100,8 +114,18 @@ namespace Statecraft.Game.Map.Collection
             if (card != null && card.To is DateTime to && date >= card.From && date < to)
                 wants.Add(new Want("tel-aviv-altalena", Altalena, "tel_aviv"));
             if (date >= C54From && date <= C54To) wants.Add(new Want("lod-c54", C54, "lod"));
+            if (date >= SpitfireFrom && date <= SpitfireTo) wants.Add(new Want("el-arish-spitfire", Spitfire, "el_arish"));
             return wants;
         }
+
+        /// <summary>DESIGN VALUE: the Spitfire flies this many of its own (map) wingspans above the highest ground under it,
+        /// clear in the air at every zoom, never on the ground.</summary>
+        public const float SpitfireAltitudeSpans = 4f;
+
+        /// <summary>The Spitfire's spot: over the board's western edge (world x = 0 is lon0, GeoFrame) at el-Arish's latitude, one
+        /// wingspan in, so the whole aircraft is over the board, flying in from el-Arish (due east).</summary>
+        public static Vector2 EdgeSpot(GeoFrame frame) =>
+            new Vector2(SizeOf(Spitfire), frame.ToWorld(ElArishLon, ElArishLat, 0).z);
 
         /// <summary>A boat's spot: out from its coast's shore point (SeaCraft.Coasts) between SeaCraft.OffshoreNearM and
         /// OffshoreM, at a seeded spread along the shore, the first whose hull passes SeaCraft.Clear against the harbour works
@@ -155,10 +179,12 @@ namespace Statecraft.Game.Map.Collection
         IEnumerable<(string key, Vector3 at, float radius)> Anchors()
         {
             if (map == null) yield break;
+            var edge = EdgeSpot(map.Frame);   // the Spitfire's anchor is on the ground under it; only its distance counts
             foreach (var w in wants)
             {
                 var c = SeaCraft.Coasts.FirstOrDefault(x => x.place == w.Place);
-                yield return (w.Key, w.Model == C54 ? map.Frame.ToWorld(LodLon, LodLat, 0) : map.Frame.ToWorld(c.lon, c.lat, 0), SizeOf(w.Model));
+                yield return (w.Key, w.Model == C54 ? map.Frame.ToWorld(LodLon, LodLat, 0) : w.Model == Spitfire ? new Vector3(edge.x, 0, edge.y)
+                    : map.Frame.ToWorld(c.lon, c.lat, 0), SizeOf(w.Model));
             }
         }
         void RefreshResidency()
@@ -211,7 +237,7 @@ namespace Statecraft.Game.Map.Collection
         List<WildlifeLayer.Want>? wildlife;
         DateTime date;
 
-        /// <summary>The craft drawn (key, model, spot at the water's or ground's height): a test aid.</summary>
+        /// <summary>The craft drawn (key, model, spot at the water's or ground's height; the Spitfire's centre in the air): a test aid.</summary>
         public readonly List<(string Key, string Model, Vector3 At)> Placed = new List<(string, string, Vector3)>();
         /// <summary>The craft wanted but not drawn: the model did not stream, or no spot was clear (a test aid).</summary>
         public readonly List<string> Missing = new List<string>();
@@ -277,11 +303,12 @@ namespace Statecraft.Game.Map.Collection
                 Vector2? at = null;
                 if (prefab != null)
                 {
-                    at = w.Model == C54 ? LandSpot(ground) : SeaSpot(w, ground, works, boats);
-                    if (at != null && w.Model != C54) boats.Add(new SeaCraft.Craft(SeaCraft.Kind.Steamer, at.Value, Heading, SizeOf(w.Model), w.Place));
+                    at = w.Model == C54 ? LandSpot(ground) : w.Model == Spitfire ? EdgeSpot(map.Frame) : SeaSpot(w, ground, works, boats);
+                    if (at != null && w.Model != C54 && w.Model != Spitfire) boats.Add(new SeaCraft.Craft(SeaCraft.Kind.Steamer, at.Value, Heading, SizeOf(w.Model), w.Place));
                 }
                 if (at == null) { Missing.Add(w.Key); continue; }
                 var go = Instantiate(prefab!, transform, false); go.name = w.Key;
+                if (w.Model == Spitfire) { Fly(go, prefab!, at.Value); continue; }
                 // The yaw goes on top of the prefab's own rotation: every Collection Far prefab's root carries the FBX axis
                 // conversion (-90 degrees about X), and setting the yaw alone lays a model on its side (#979).
                 go.transform.localRotation = prefab!.transform.localRotation;
@@ -301,6 +328,26 @@ namespace Statecraft.Game.Map.Collection
             var plane = Placed.Where(p => p.Model == C54).Select(p => (new Vector2(p.At.x, p.At.z), 0.5f * SizeOf(C54))).ToList();
             Statecraft.Game.Map.Units.UnitShowcase.HideTrees(map, Name, plane);
             Debug.Log($"SEA/AIR: {Placed.Count} collection craft placed, {Missing.Count} not drawn");
+        }
+
+        /// <summary>DESIGN VALUE: the yaw (degrees, on top of the prefab's own rotation) that points the Spitfire model's nose
+        /// east, read off its top-down capture.</summary>
+        internal const float SpitfireNoseEastYaw = 90f;
+
+        /// <summary>The Spitfire in level flight over <paramref name="at"/>: nose east, wingspan at its map size,
+        /// <see cref="SpitfireAltitudeSpans"/> wingspans above the highest ground under it (UnitShowcase.LoopFloor).</summary>
+        void Fly(GameObject go, GameObject prefab, Vector2 at)
+        {
+            go.transform.localRotation = Quaternion.Euler(0f, SpitfireNoseEastYaw, 0f) * prefab.transform.localRotation;
+            var b = Bounds(go); float span = b.size.z;
+            go.transform.localScale *= span > 1e-3f ? SizeOf(Spitfire) / span : 1f;
+            float size = SizeOf(Spitfire);
+            var pos = new Vector3(at.x, Statecraft.Game.Map.Units.UnitShowcase.LoopFloor(map!, new Vector3(at.x, 0f, at.y), size) + SpitfireAltitudeSpans * size, at.y);
+            go.transform.position = pos; b = Bounds(go);
+            go.transform.position += pos - b.center;
+            foreach (var r in go.GetComponentsInChildren<Renderer>(true)) r.shadowCastingMode = ShadowCastingMode.On;
+            Placed.Add((go.name, Spitfire, pos));
+            keepAll.Add(new[] { Bounds(go) });
         }
 
         /// <summary>The ground the other 1948 Collection layers hold (GameRoot shows them first), for the C-54 to keep off, as

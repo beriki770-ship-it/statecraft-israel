@@ -287,6 +287,42 @@ public class TalModelsShots
         }
     }
 
+    /// <summary>#1932 (c): the Egyptian Spitfire in flight over the western board edge toward el-Arish on the opening turn (15 May
+    /// 1948, the first sourced Spitfire raid), close (the closest zoom), at a gameplay zoom and in an overview of the southern
+    /// coast. "Before" withholds the Spitfire; the camera looks at its spot in the air both times.</summary>
+    IEnumerator Spitfire(bool hebrew, bool after)
+    {
+        var savedCraft = SeaAirCollection.Request;
+        try
+        {
+            yield return Boot(hebrew);
+            var map = Object.FindFirstObjectByType<MapScene>();
+            var state = root.Bridge!.State; var content = root.Bridge.Content;
+            SeaAirCollection.Request = Answer(Array.Empty<string>());
+            Drop(map, SeaAirCollection.Name);
+            var layer = CollectionGeometryFixture.Craft(map, state.Date, state.Placements, content)!;
+            var plane = layer.Placed.Single(p => p.Model == SeaAirCollection.Spitfire);
+            if (!after)
+            {
+                SeaAirCollection.Request = Answer(new[] { SeaAirCollection.Spitfire });
+                Drop(map, SeaAirCollection.Name);
+                layer = CollectionGeometryFixture.Craft(map, state.Date, state.Placements, content)!;
+            }
+            Debug.Log($"SHOT spitfire {(after ? "after" : "before")} on {state.Date:yyyy-MM-dd}: drawn {layer.Placed.Count(p => p.Model == SeaAirCollection.Spitfire)}, at {plane.At}, span {SeaAirCollection.SizeOf(SeaAirCollection.Spitfire)} m");
+            foreach (var (what, distance) in new[] { ("close", CameraController.MinDistance), ("gameplay", 40000f), ("overview", 150000f) })
+            {
+                Look(plane.At, distance);
+                for (int i = 0; i < 5; i++) yield return null;
+                CivMovementShots.Shot(rt!, Path.Combine("..", "tal-models-shots", $"spitfire-{what}-{(after ? "after" : "before")}-{(hebrew ? "he" : "en")}"));
+                Debug.Log($"SHOT spitfire {what} from {distance:F0} m, camera {Camera.main.transform.position}");
+            }
+        }
+        finally { SeaAirCollection.Request = savedCraft; }
+    }
+
+    [UnityTest] public IEnumerator SpitfireBeforeEnglish() { yield return Spitfire(false, false); }
+    [UnityTest] public IEnumerator SpitfireAfterEnglish() { yield return Spitfire(false, true); }
+
     [UnityTest] public IEnumerator MalikiyyaEnglish() { yield return Malikiyya(false); }
     [UnityTest] public IEnumerator MalikiyyaHebrew() { yield return Malikiyya(true); }
 

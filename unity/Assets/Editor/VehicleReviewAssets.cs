@@ -15,7 +15,6 @@ namespace Statecraft.Game.EditorTools
     /// <summary>Lossless import of three documented GLB compatibility exports, exclusively for editor review.</summary>
     public static class VehicleReviewAssets
     {
-        public const string Folder = VehicleReviewCatalog.Folder;
         public const string CatalogPath = VehicleReviewCatalog.Path;
         static readonly string[] Labels = { "Egyptian Spitfire candidate", "Syrian Renault R35 candidate", "Egyptian Dakota C-47 candidate" };
 
@@ -28,7 +27,7 @@ namespace Statecraft.Game.EditorTools
             catalog.entries = new VehicleReviewCatalog.Entry[VehicleReviewCatalog.Ids.Length];
             for (int i = 0; i < VehicleReviewCatalog.Ids.Length; i++)
             {
-                var id = VehicleReviewCatalog.Ids[i]; var dir = Folder + "/" + id; var file = dir + "/" + id + "-compatibility.fbx";
+                var id = VehicleReviewCatalog.Ids[i]; var dir = VehicleReviewCatalog.DirOf(id); var file = VehicleReviewCatalog.ModelOf(id);
                 var importer = AssetImporter.GetAtPath(file) as ModelImporter ?? throw new FileNotFoundException("Documented compatibility FBX missing", file);
                 importer.useFileScale = true; importer.importAnimation = true; importer.animationType = ModelImporterAnimationType.Generic;
                 importer.animationCompression = ModelImporterAnimationCompression.Off; importer.clipAnimations = Array.Empty<ModelImporterClipAnimation>();
@@ -38,12 +37,17 @@ namespace Statecraft.Game.EditorTools
                 importer.optimizeMeshPolygons = false; importer.optimizeMeshVertices = false; importer.assetBundleName = "";
                 importer.SaveAndReimport();
                 var texturePath = dir + "/" + id + "_basecolor.jpg";
-                var texture = (TextureImporter)AssetImporter.GetAtPath(texturePath); texture.mipmapEnabled = true; texture.sRGBTexture = true;
+                var texture = (TextureImporter)AssetImporter.GetAtPath(texturePath);
                 texture.GetSourceTextureWidthAndHeight(out int width, out int height);
-                texture.maxTextureSize = Mathf.NextPowerOfTwo(Mathf.Max(width, height));
-                texture.textureCompression = TextureImporterCompression.Uncompressed; texture.crunchedCompression = false;
-                foreach (string platform in new[] { "Standalone", "WebGL", "Android", "iPhone" }) texture.ClearPlatformTextureSettings(platform);
-                texture.assetBundleName = ""; texture.SaveAndReimport();
+                // A placed model's map keeps the streamed import it ships with (compressed, as the placed tent's); review-only maps stay uncompressed.
+                if (!VehicleReviewCatalog.Placed(id))
+                {
+                    texture.mipmapEnabled = true; texture.sRGBTexture = true;
+                    texture.maxTextureSize = Mathf.NextPowerOfTwo(Mathf.Max(width, height));
+                    texture.textureCompression = TextureImporterCompression.Uncompressed; texture.crunchedCompression = false;
+                    foreach (string platform in new[] { "Standalone", "WebGL", "Android", "iPhone" }) texture.ClearPlatformTextureSettings(platform);
+                    texture.assetBundleName = ""; texture.SaveAndReimport();
+                }
                 var material = AssetDatabase.LoadAssetAtPath<Material>(dir + "/" + id + ".mat");
                 if (material == null) { material = new Material(Shader.Find("Universal Render Pipeline/Lit")); AssetDatabase.CreateAsset(material, dir + "/" + id + ".mat"); }
                 material.SetTexture("_BaseMap", AssetDatabase.LoadAssetAtPath<Texture2D>(texturePath)); material.SetFloat("_Smoothness", 0f);
