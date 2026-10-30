@@ -126,7 +126,8 @@ namespace Statecraft.Game.Map.Collection
         /// flying in from el-Arish (due east). DESIGN VALUE: 30 km in (owner, #2014: "Move it inward"). Nearer the edge,
         /// CameraController.Step holds the player's view on the map and the aircraft sits at or past the frame's left edge;
         /// from 25 km in the whole aircraft is in frame at 40 and 150 km, and from 30 km in it clears the button rail on the
-        /// left (measured, #2014). At the closest zoom (6 km) the camera is below its 4,200 m altitude wherever it flies.</summary>
+        /// left (measured, #2014). At the closest zoom (6 km) the camera is below its 4,200 m altitude at every spot measured
+        /// along this latitude, so no spot here frames it there.</summary>
         public static Vector2 EdgeSpot(GeoFrame frame) =>
             new Vector2(30000f, frame.ToWorld(ElArishLon, ElArishLat, 0).z);
 
