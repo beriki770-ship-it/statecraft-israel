@@ -110,7 +110,7 @@ reaction narrowed), five are narrowed (202, 595, 596, 756, 777) and one (637) is
 
 ### Correction to the first-pass date of the walkout
 
-- The first pass dates the walkout 22 March 1954 (heading of B3, line 570, line 590). **After review of the printed record it is
+- The first pass dates the walkout 22 March 1954 (heading of B3, the B3 Date(s) bullet, the Card A option (a) line). **After review of the printed record it is
   23 March 1954.** The Commission began the Israeli complaint on 22 March and the vote and walkout came on 23 March:
   - **[V, agent read 2026-10-29; a person's check pending]** JTA, Wednesday 24 March 1954, page 1, "Israel Walks Out of Armistice
     Commission; Protests Stand on Ambush", dateline "JERUSALEM, March 23. (JTA)" (http://pdfs.jta.org/1954/1954-03-24_057.pdf): "The Israeli
@@ -142,7 +142,7 @@ reaction narrowed), five are narrowed (202, 595, 596, 756, 777) and one (637) is
 
 - **[V, agent read 2026-10-29; a person's check pending]** UN document S/3251 (25 June 1954), page 2, read on the page image
   (https://digitallibrary.un.org/record/603129/files/S_3251-EN.pdf): the written Jordanian complaint gives "Date and Time of Complaint:
-  28-29/3/1954 at 24.00 hrs. J.T.", place "Nabhalin Village", "nine persons, eight men and one woman, were killed and fourteen others
+  28-29/3/1954 at 24.00 hrs. J.T.", place "Nahhalin Village", "nine persons, eight men and one woman, were killed and fourteen others
   were injured". Paragraph 1 says the verbal complaint was made "On 29 March 1954, at 0700 hours" about an incident "seven hours
   earlier". So the raid was in the night of 28 to 29 March, about midnight. The first pass's "28 March" (a FRUS footnote giving
   Jordan's wording) is not wrong but gives the date the night began (the complaint itself reads "28-29/3/1954 at 24.00 hrs"); FRUS 785 (Byroade to Dulles, 7 April 1954) itself says the Commission
