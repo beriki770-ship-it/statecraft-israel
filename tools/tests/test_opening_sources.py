@@ -10,7 +10,7 @@ from datetime import date
 from pathlib import Path
 
 import pytest
-import yaml
+import yaml12
 
 REPO = Path(__file__).resolve().parents[2]
 OPENING = REPO / "unity/Assets/UI/Opening/opening.yaml"
@@ -47,7 +47,7 @@ def problems(doc):
 
 
 def actual():
-    return yaml.safe_load(OPENING.read_text(encoding="utf-8"))
+    return yaml12.load(OPENING.read_text(encoding="utf-8"))
 
 
 def reviewed_fixture():
