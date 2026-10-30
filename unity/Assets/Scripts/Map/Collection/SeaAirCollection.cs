@@ -25,7 +25,8 @@ namespace Statecraft.Game.Map.Collection
     /// The boats lie on the open sea past the surf, where SeaCraft's own boats sail (SeaCraft.OffshoreNearM to OffshoreM out
     /// from the same shore points), each hull clear of the harbour works, of SeaCraft's boats and of each other
     /// (SeaCraft.Clear). Every craft is at the one world scale of the map's ambient models (<see cref="SizeOf"/>: 24x real,
-    /// set by the steam train; #1030, #1033). The C-54 stands on the nearest free ground by the airport, clear of the kits,
+    /// set by the steam train; #1030, #1033), except the Spitfire at the unit tokens'
+    /// aircraft scale (420x, #2014). The C-54 stands on the nearest free ground by the airport, clear of the kits,
     /// routes, units and the player's placements, with the kit trees under it left out (VegetationLayer.Hide, as under the
     /// unit figures). Every craft draws at every zoom, as SeaCraft's boats do. Each model is the Far mesh, asked of
     /// <see cref="CollectionStream"/> when first wanted, so nothing is fetched before the first frame. It fails open: a model
@@ -82,8 +83,10 @@ namespace Statecraft.Game.Map.Collection
 
         /// <summary>The model's long side on the map (m): its real size at the one world scale of every Tal Heuberger model that is not
         /// a game piece (SettlementKits.ModelScale, 24x: an 8.5 m house as long as the steam train's 204 m locomotive car; the
-        /// owner, 18 October 2026, #1033: "Train scale for all ambient life"). The Altalena is 2.4 km, the C-54 860 m across.</summary>
-        public static float SizeOf(string model) => RealLengthM(model) * SettlementKits.ModelScale;
+        /// owner, 18 October 2026, #1033: "Train scale for all ambient life"). The Altalena is 2.4 km, the C-54 860 m across. The one exception is the
+        /// Spitfire, drawn at the unit tokens' aircraft scale (UnitShowcase.AircraftScale, 420x: 4.7 km across), so it reads at strategic zoom (owner ruling, #2014).</summary>
+        public static float SizeOf(string model) =>
+            RealLengthM(model) * (model == Spitfire ? Statecraft.Game.Map.Units.UnitShowcase.AircraftScale : SettlementKits.ModelScale);
 
         /// <summary>DESIGN VALUE: every craft lies with its length east-west (SeaCraft heading 0), side-on to the gameplay
         /// camera looking north, as SeaCraft's boats lie. A model is turned 0 or 90 degrees about the vertical, on top of its

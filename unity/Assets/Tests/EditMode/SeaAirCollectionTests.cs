@@ -122,7 +122,8 @@ public class SeaAirCollectionTests
         AnswerAll();
         var (key, model, at) = layer.Placed.Single(p => p.Model == SeaAirCollection.Spitfire);
         float span = SeaAirCollection.SizeOf(SeaAirCollection.Spitfire);
-        Assert.AreEqual(11.23f * SettlementKits.ModelScale, span, 0.5f, "its 11.23 m wingspan at the one world scale");
+        Assert.AreEqual(11.23f * Statecraft.Game.Map.Units.UnitShowcase.AircraftScale, span, 0.5f, "its 11.23 m wingspan at the unit tokens' aircraft scale");
+        Assert.AreEqual(span, SeaAirCollection.RealLengthM(SeaAirCollection.Spitfire) * 420f, 0.5f, "the owner's 420x (#2014)");
         var b = WorldBounds(layer.transform.Find(key)!.gameObject);
         Assert.GreaterOrEqual(b.min.x, 0f, "the whole aircraft is over the board");
         Assert.LessOrEqual(b.max.x, 2f * span, "at the board's western edge");
@@ -231,7 +232,7 @@ public class SeaAirCollectionTests
     /// Tal Heuberger's locomotive and tender at RouteTrain.Scale x ServiceTrain.ModelSize / ServiceTrain.Cars), the band about its
     /// real size at the one world scale (SettlementKits.ModelScale, 24x: an 8.5 m house is one car): the Altalena, a 100 m
     /// LST, about 11.8 cars; the 80 m steamer about 9.4; the 10 m fishing boat about 1.2; the C-54's 35.8 m wingspan about
-    /// 4.2. No ship dwarfs its town: each is shorter than its port's kit footprint is across and than a whole-town model
+    /// 4.2; the Spitfire, at the unit tokens' aircraft scale (420x, #2014), its 11.2 m wingspan about 23. No ship dwarfs its town: each is shorter than its port's kit footprint is across and than a whole-town model
     /// (TownLandmarks.SizeM).</summary>
     [Test]
     public void EveryCraftIsAtTheTrainScaleAndNoShipDwarfsItsTown()
@@ -244,7 +245,7 @@ public class SeaAirCollectionTests
         var bands = new Dictionary<string, (float lo, float hi)>
         {
             [SeaAirCollection.Altalena] = (11f, 12.5f), [SeaAirCollection.Steamer] = (8f, 11f),
-            [SeaAirCollection.FishingBoat] = (0.9f, 1.5f), [SeaAirCollection.C54] = (3.9f, 4.5f), [SeaAirCollection.Spitfire] = (1.1f, 1.6f),
+            [SeaAirCollection.FishingBoat] = (0.9f, 1.5f), [SeaAirCollection.C54] = (3.9f, 4.5f), [SeaAirCollection.Spitfire] = (22f, 24f),
         };
         var seen = new HashSet<string>();
         var bad = new List<string>();
