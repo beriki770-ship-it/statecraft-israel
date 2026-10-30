@@ -16,7 +16,7 @@ The evidence must distinguish monthly changes, twelve-month changes and changes 
 | Bank crisis, 1983 | [V, agent read 2026-10-23; a person's check pending] Contemporary BoI account, S5; explicitly retrospective study, S6 | Arrangement outlined by S6 and S22; closure and report dates from dated reporting, S18–S19; the inquiry report and the arrangement's decision text not read |
 | Stabilization, 1985 | [V] BoI's contemporary prices chapter, S3 | Cabinet decision and full fiscal implementation records not read |
 | US aid | [V, agent read 2026-10-23; a person's check pending] Dated request and signing statement, S9–S10 | Enacted 1985 ESF amount in S16; FY1977–1993 schedule in section 5 from a secondary compilation (S20); payments not established |
-| Loan guarantees | [V, agent read 2026-10-23; a person's check pending] Official codified authority and GAO summary, S11–S12 | Actual issues and deductions under the 1992 program still not established (section 5) |
+| Loan guarantees | [V, agent read 2026-10-23; a person's check pending] Official codified authority and GAO summary, S11–S12 | Deductions of $437 million (1993/94) and $216.8 million (1994/95) reported by JTA (S24, S25, section 5); annual issues, later deductions and a primary text still open |
 | Defence share of GDP | [V, R, agent read 2026-10-23; a person's check pending] CBS 1579, Table 4: both GDP columns for 1977–1993, S14 | BoI 1995 vintage compared in section 6; later vintages and any gameplay measure stay open |
 | Sheqel dates | [V] BoI currency history and dated appendix, S7–S8 | No display-date decision is made |
 | 1957–1977 / 1977 price-base bridge | [V] S15's published link coefficients, section 2 | Which base the 1957–1977 era uses stays with #24/#116 |
