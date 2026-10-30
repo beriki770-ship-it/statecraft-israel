@@ -646,7 +646,10 @@ public class StartScreenTests
                 var centres = Regex.Matches(line!, @"(\S+)=([0-9.]+),([0-9.]+)").Cast<Match>().ToDictionary(m => m.Groups[1].Value,
                     m => new Vector2(window.xMin + window.width * float.Parse(m.Groups[2].Value, System.Globalization.CultureInfo.InvariantCulture),
                                      window.yMin + window.height * float.Parse(m.Groups[3].Value, System.Globalization.CultureInfo.InvariantCulture)));
-                var shown = save ? StartScreenPresenter.Buttons : StartScreenPresenter.Buttons.Where(b => b != "start-continue").ToArray();
+                Assert.AreEqual(DisplayStyle.None, rig.Ui.Q<Button>("start-opening-replay").resolvedStyle.display,
+                    "the standalone Rig has no opening provider; full GameRoot replay is tested by OpeningRoutingTests");
+                var shown = save ? new[] { "start-continue", "start-new-game", "start-star", "start-listen" }
+                    : new[] { "start-new-game", "start-star", "start-listen" };
                 CollectionAssert.AreEqual(shown, centres.Keys, $"save={save}: {line}");
                 foreach (var (name, at) in centres.Select(kv => (kv.Key, kv.Value)))
                 {
