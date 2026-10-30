@@ -185,6 +185,90 @@ public class ArmisticeLinesTests
         CollectionAssert.IsNotSubsetOf(new[] { "syria_adl" }, release, "a draft feature waits for the owner's review");
     }
 
+    /// <summary>Owner review of #2012: a release build's data holds no draft feature, in the copied file and in the bundle
+    /// the web boot fetches (ContentSync copies with release for a player without the Development option); a development
+    /// copy ships the file as it is.</summary>
+    [Test]
+    public void AReleaseBuildShipsNoDraftFeature()
+    {
+        var drafts = ArmisticeLines.Parse(GeoText).Where(f => !f.Reviewed).Select(f => f.Id).ToList();
+        Assert.AreEqual(5, drafts.Count, "the five flagged on 23 October 2026");
+        var target = Path.Combine(Path.GetTempPath(), "statecraft-armlines-release-" + Guid.NewGuid().ToString("N"));
+        try
+        {
+            ContentManifest.Copy(Paths.Content, target, release: true);
+            ContentManifest.Verify(Paths.Content, target, release: true);
+            var (_, texts) = ContentManifest.ParseBundle(File.ReadAllText(Path.Combine(target, ContentManifest.BundleFileName)));
+            foreach (var shipped in new[] { File.ReadAllText(Path.Combine(target, "map", ArmisticeLines.FileName)), texts["map/" + ArmisticeLines.FileName] })
+            {
+                foreach (var id in drafts) StringAssert.DoesNotContain($"\"id\":\"{id}\"", shipped, $"{id} is not shipped");
+                var kept = ArmisticeLines.Parse(shipped);
+                Assert.AreEqual(11, kept.Count, "the signed-off features are all shipped");
+                Assert.IsTrue(kept.All(f => f.Reviewed));
+            }
+            ContentManifest.Copy(Paths.Content, target);
+            Assert.AreEqual(GeoText, File.ReadAllText(Path.Combine(target, "map", ArmisticeLines.FileName)), "a development copy is the file as it is");
+        }
+        finally { if (Directory.Exists(target)) Directory.Delete(target, true); }
+    }
+
+    /// <summary>Owner review of #2012: a fixed ground width thins to about a pixel at the full-map zoom, so farther out than
+    /// the gameplay zoom the lines are drawn wider, the low-accuracy ones still wider (and still dashed); closer in they
+    /// keep their ground width.</summary>
+    [Test]
+    public void FarOutTheLinesAreDrawnWiderAndCloseInAsBefore()
+    {
+        Assert.AreEqual(1f, ArmisticeLines.WidthScale(30000f), "close in: the ground width");
+        Assert.AreEqual(1f, ArmisticeLines.WidthScale(ArmisticeLines.WidthsSetAtM), "the gameplay zoom: the ground width");
+        float far = ArmisticeLines.WidthScale(CameraController.MaxDistance);
+        Assert.That(far, Is.InRange(2.5f, 3.2f), "the full-map zoom: about as much wider as the camera is farther (250 / 90 km)");
+        Assert.AreEqual(far, ArmisticeLines.WidthScale(float.PositiveInfinity));
+        // The dashes lengthen with the width, so the dashed lines keep their look.
+        var straight = new List<Vector2> { Vector2.zero, new Vector2(20000f, 0f) };
+        var firstDash = ArmisticeLines.Dashes(straight, far)[0];
+        Assert.AreEqual(ArmisticeLines.DashM * ArmisticeLines.DashOn * far, firstDash[firstDash.Count - 1].x, 1f);
+
+        var root = Overlay(After);
+        try
+        {
+            var drawn = Drawn(root);
+            foreach (var id in new[] { "egypt_el_auja_dmz", "jordan_adl_d_arava" })
+            {
+                var line = drawn[id];
+                var filter = line.GetComponent<MeshFilter>();
+                line.ShowFor(30000f);
+                var close = filter.sharedMesh; var closeSize = close.bounds.size;
+                Assert.AreEqual(1f, line.Scale, id);
+                line.ShowFor(CameraController.MaxDistance);
+                Assert.AreEqual(far, line.Scale, id);
+                var farSize = filter.sharedMesh.bounds.size;
+                // A wider ribbon: its footprint grows by about the extra width (at least half of it on the wider side).
+                float extra = ((line.LowAccuracy ? ArmisticeLines.LowAccuracyWidthM : ArmisticeLines.WidthM) * (far - 1f)) / 2f;
+                Assert.Greater(Mathf.Max(farSize.x - closeSize.x, farSize.z - closeSize.z), extra, $"{id} is wider far out");
+                line.ShowFor(30000f);
+                Assert.AreSame(close, filter.sharedMesh, $"{id}: back in, the same ground-width mesh");
+            }
+        }
+        finally { Object.DestroyImmediate(root); }
+    }
+
+    /// <summary>The wiring (review of #2012, optional): with the mode asked for, building the map builds the overlay under the
+    /// terrain; the other cases call ArmisticeLines.Build directly.</summary>
+    [Test]
+    public void TheMapBuildsTheOverlayWhenTheModeIsAsked()
+    {
+        var was = ArmisticeLines.Wanted;
+        ArmisticeLines.Wanted = () => true;
+        try
+        {
+            var built = RouteTests.BuildMap();
+            var root = built.Terrain.transform.Find(ArmisticeLines.RootName);
+            Assert.IsNotNull(root, "Terrain/ArmisticeLines");
+            Assert.AreEqual(16, root.GetComponentsInChildren<ArmisticeLine>(true).Length, "the editor draws every feature");
+        }
+        finally { ArmisticeLines.Wanted = was; map = null; }
+    }
+
     [Test]
     public void TheWebGLBuildShipsTheTrueLinesAndTheMapReadsThem()
     {

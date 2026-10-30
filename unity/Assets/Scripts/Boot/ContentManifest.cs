@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using Statecraft.Game.Map;
 using UnityEngine;
 
 namespace Statecraft.Game.Boot
@@ -60,12 +61,22 @@ namespace Statecraft.Game.Boot
         }
 
         /// <summary>bundle.json for <paramref name="files"/> (paths relative to <paramref name="contentDir"/>), each text
-        /// read as the disk path reads it (File.ReadAllText), so the content hash is the disk's.</summary>
-        public static string WriteBundle(string contentDir, IReadOnlyList<string> files) => JsonUtility.ToJson(new BundleJson
+        /// read as the disk path reads it (File.ReadAllText), so the content hash is the disk's; a <paramref name="release"/>
+        /// build's as <see cref="Shipped"/> gives it.</summary>
+        public static string WriteBundle(string contentDir, IReadOnlyList<string> files, bool release = false) => JsonUtility.ToJson(new BundleJson
         {
             files = files.ToArray(),
-            texts = files.Select(f => File.ReadAllText(Path.Combine(contentDir, f))).ToArray(),
+            texts = files.Select(f => Shipped(contentDir, f, release)).ToArray(),
         });
+
+        /// <summary>A file's text as a build ships it: the source's, but a <paramref name="release"/> build's true armistice
+        /// lines hold only the features the owner has signed off (ArmisticeLines.ReleaseText; owner review of #2012). The
+        /// sim never reads that file, so the content hash is the same either way.</summary>
+        static string Shipped(string contentDir, string file, bool release)
+        {
+            var text = File.ReadAllText(Path.Combine(contentDir, file));
+            return release && file == "map/" + ArmisticeLines.FileName ? ArmisticeLines.ReleaseText(text) : text;
+        }
 
         /// <summary>Parses bundle.json into the file list (as manifest.json lists it) and each file's text; throws
         /// InvalidDataException when it is not a bundle.</summary>
@@ -84,9 +95,9 @@ namespace Statecraft.Game.Boot
         }
 
         /// <summary>Checks a copy made by Copy: manifest.json equals Collect(contentDir) and every listed file exists, and
-        /// bundle.json lists the same files with each one's text as the source has it. Throws InvalidDataException naming
-        /// the problem.</summary>
-        public static void Verify(string contentDir, string targetDir)
+        /// bundle.json lists the same files with each one's text as the source has it (as a <paramref name="release"/> build
+        /// ships it). Throws InvalidDataException naming the problem.</summary>
+        public static void Verify(string contentDir, string targetDir, bool release = false)
         {
             var expected = Collect(contentDir);
             var written = Parse(File.ReadAllText(Path.Combine(targetDir, FileName)));
@@ -100,11 +111,12 @@ namespace Statecraft.Game.Boot
             if (!expected.SequenceEqual(files))
                 throw new InvalidDataException($"{BundleFileName} in {targetDir} does not match the content files ({files.Count} listed, {expected.Count} expected)");
             foreach (var f in files)
-                if (texts[f] != File.ReadAllText(Path.Combine(contentDir, f))) throw new InvalidDataException($"{f}: its text in {BundleFileName} differs from the source");
+                if (texts[f] != Shipped(contentDir, f, release)) throw new InvalidDataException($"{f}: its text in {BundleFileName} differs from the source");
         }
 
-        /// <summary>Replaces <paramref name="targetDir"/> with a copy of the collected files plus manifest.json and bundle.json.</summary>
-        public static List<string> Copy(string contentDir, string targetDir)
+        /// <summary>Replaces <paramref name="targetDir"/> with a copy of the collected files plus manifest.json and bundle.json;
+        /// for a <paramref name="release"/> build, the files as <see cref="Shipped"/> gives them.</summary>
+        public static List<string> Copy(string contentDir, string targetDir, bool release = false)
         {
             var files = Collect(contentDir);
             if (Directory.Exists(targetDir)) Directory.Delete(targetDir, true);
@@ -112,10 +124,11 @@ namespace Statecraft.Game.Boot
             {
                 var to = Path.Combine(targetDir, f);
                 Directory.CreateDirectory(Path.GetDirectoryName(to)!);
-                File.Copy(Path.Combine(contentDir, f), to);
+                if (release && f == "map/" + ArmisticeLines.FileName) File.WriteAllText(to, Shipped(contentDir, f, release));
+                else File.Copy(Path.Combine(contentDir, f), to);
             }
             File.WriteAllText(Path.Combine(targetDir, FileName), Write(files));
-            File.WriteAllText(Path.Combine(targetDir, BundleFileName), WriteBundle(contentDir, files));
+            File.WriteAllText(Path.Combine(targetDir, BundleFileName), WriteBundle(contentDir, files, release));
             return files;
         }
     }

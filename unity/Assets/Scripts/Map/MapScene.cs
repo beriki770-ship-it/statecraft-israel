@@ -590,8 +590,8 @@ namespace Statecraft.Game.Map
             DiagLog.BootPhase("routes built");
             // The 1949 armistice lines as their true polylines (#237), only in the map mode asked for with the
             // "armisticelines" flag; a missing or malformed file means no overlay and a warning. Display only.
-            if (ArmisticeLines.Requested() && inputs.ArmisticeLinesGeojson == "") Debug.LogWarning($"ARMISTICE LINES: {ArmisticeLines.FileName} is missing; no overlay");
-            else if (ArmisticeLines.Requested())
+            if (ArmisticeLines.Wanted() && inputs.ArmisticeLinesGeojson == "") Debug.LogWarning($"ARMISTICE LINES: {ArmisticeLines.FileName} is missing; no overlay");
+            else if (ArmisticeLines.Wanted())
             {
                 try
                 {

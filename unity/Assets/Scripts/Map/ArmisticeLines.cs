@@ -16,7 +16,8 @@ namespace Statecraft.Game.Map
     /// every feature of content/map/armistice_lines_1949.geojson drawn as a thin dark line draped on the ground, over the
     /// hex-snapped bands (<see cref="Armistice1949"/>), which stay as they are. A map mode, off unless asked for
     /// ("armisticelines" in the WebGL page URL, -armisticelines on desktop and in the editor): with the flag the map builds
-    /// it, without it nothing is built. A release build draws only the features the owner has signed off (<see cref="ForBuild"/>).
+    /// it, without it nothing is built. A release build draws only the features the owner has signed off (<see cref="ForBuild"/>) and ships only those
+    /// (<see cref="ReleaseText"/>). Zoomed out past the gameplay zoom the lines widen with the distance (<see cref="WidthScale"/>).
     /// Each feature shows from its own shown_from date, as the bands do. Features traced
     /// from the low-resolution scan (source_quality: low_res_scan, the Jordan lines) are drawn dashed and a step lighter, so
     /// they read as low accuracy without a legend and without colour alone. Zones (the Demilitarized Zones, including the
@@ -33,6 +34,10 @@ namespace Statecraft.Game.Map
         /// <summary>The low-accuracy lines' width: half as wide again, so the dashes hold their own between the hill
         /// villages' trees and houses, and the wider line hints at the wider error (about +-1-3 km).</summary>
         public const float LowAccuracyWidthM = 300f;
+        /// <summary>The camera distance the widths above are set for: the opening and gameplay zoom (CameraRig.Distance;
+        /// about 52 m a pixel at 1080 px). Farther out the lines widen with the distance (<see cref="WidthScale"/>), since a
+        /// fixed ground width thins to about a pixel at the full-map zoom (owner review of #2012).</summary>
+        public const float WidthsSetAtM = 90000f;
         /// <summary>The low-accuracy dashes: a DashM period, DashOn of it drawn (1 km dashes, 0.6 km gaps; about 19 and 12 px
         /// at the gameplay zoom).</summary>
         public const float DashM = 1600f, DashOn = 0.625f;
@@ -49,6 +54,10 @@ namespace Statecraft.Game.Map
             /// <summary>The lines in lon/lat: one per LineString, per MultiLineString member, or per polygon ring (closed).</summary>
             public List<List<(double lon, double lat)>> Parts = new List<List<(double lon, double lat)>>();
         }
+
+        /// <summary>Whether this run draws the overlay (MapScene.Build asks). A seam: a test turns the mode on to build the map
+        /// with it.</summary>
+        internal static Func<bool> Wanted = Requested;
 
         public static bool Requested() =>
             Requested(Application.absoluteURL, Environment.GetCommandLineArgs(), Application.platform == RuntimePlatform.WebGLPlayer);
@@ -99,6 +108,43 @@ namespace Statecraft.Game.Map
         public static List<Feature> ForBuild(IEnumerable<Feature> features, bool devBuild) =>
             features.Where(f => devBuild || f.Reviewed).ToList();
 
+        /// <summary>The file as a release build ships it (ContentManifest.Copy for a release player): only the features
+        /// <see cref="ForBuild"/> draws in a release build, cut out of the text so the header and every kept feature stay as
+        /// written. A release build must not ship the draft lines it does not draw (owner review of #2012).</summary>
+        public static string ReleaseText(string geojson)
+        {
+            var signedOff = new HashSet<string>(ForBuild(Parse(geojson), devBuild: false).Select(f => f.Id));
+            // The "features" array's items, split at its top-level commas (brackets and braces counted outside strings).
+            int open = geojson.IndexOf('[', geojson.IndexOf("\"features\"", StringComparison.Ordinal)), from = open + 1, depth = 0, i = from;
+            var kept = new List<string>();
+            for (bool quoted = false; ; i++)
+            {
+                char c = geojson[i];
+                if (quoted) { if (c == '\\') i++; else if (c == '"') quoted = false; }
+                else if (c == '"') quoted = true;
+                else if (depth == 0 && (c == ',' || c == ']'))
+                {
+                    var item = geojson.Substring(from, i - from);
+                    if (signedOff.Contains(Parse("{\"features\": [" + item + "]}")[0].Id)) kept.Add(item);
+                    from = i + 1;
+                    if (c == ']') break;
+                }
+                else if (c == '{' || c == '[') depth++;
+                else if (c == '}' || c == ']') depth--;
+            }
+            return geojson.Substring(0, open + 1) + string.Join(",", kept) + geojson.Substring(i);
+        }
+
+        /// <summary>How much wider than WidthM / LowAccuracyWidthM, and how much longer the dashes, a line is drawn seen from
+        /// <paramref name="distanceM"/>: 1 up to <see cref="WidthsSetAtM"/>, then in proportion to the distance (so about the
+        /// gameplay width on screen), in steps of a factor of the square root of 2 so each step's mesh is made once, up to
+        /// the farthest zoom (CameraController.MaxDistance: about 2.8).</summary>
+        public static float WidthScale(float distanceM)
+        {
+            float d = Mathf.Min(distanceM, CameraController.MaxDistance);
+            return d <= WidthsSetAtM ? 1f : Mathf.Pow(2f, Mathf.Round(2f * Mathf.Log(d / WidthsSetAtM, 2f)) / 2f);
+        }
+
         static Dictionary<object, object> Map(Dictionary<object, object> o, string key, string id) =>
             o.TryGetValue(key, out var v) && v is Dictionary<object, object> d ? d : throw new InvalidDataException($"{FileName}: {id}: no {key}");
 
@@ -122,21 +168,22 @@ namespace Statecraft.Game.Map
         }
 
         /// <summary>The drawn pieces of a dashed <paramref name="line"/> (world x, z): from its start, DashOn of every DashM
-        /// period, each piece following the line's bends.</summary>
-        public static List<List<Vector2>> Dashes(List<Vector2> line)
+        /// period (times <paramref name="scale"/>, the <see cref="WidthScale"/> it is drawn at), each piece following the
+        /// line's bends.</summary>
+        public static List<List<Vector2>> Dashes(List<Vector2> line, float scale = 1f)
         {
             var dashes = new List<List<Vector2>>();
             List<Vector2>? dash = null;
-            float s = 0f, on = DashM * DashOn;
+            float s = 0f, period = DashM * scale, on = period * DashOn;
             for (int i = 1; i < line.Count; i++)
             {
                 var a = line[i - 1]; var b = line[i]; float len = (b - a).magnitude;
                 float t = 0f;
                 while (t < len)
                 {
-                    float phase = (s + t) % DashM;
+                    float phase = (s + t) % period;
                     bool drawn = phase < on;
-                    float step = Mathf.Min(len - t, drawn ? on - phase : DashM - phase);
+                    float step = Mathf.Min(len - t, drawn ? on - phase : period - phase);
                     if (drawn)
                     {
                         if (dash == null) { dash = new List<Vector2> { Vector2.Lerp(a, b, t / len) }; dashes.Add(dash); }
@@ -153,7 +200,7 @@ namespace Statecraft.Game.Map
 
         /// <summary>Builds the overlay under <paramref name="terrain"/> (a map rebuild destroys it): one child per feature,
         /// shown as at <paramref name="date"/>, each a ribbon mesh in a copy of <paramref name="lineMaterial"/> (the selected
-        /// hex's unlit material) per style. Meshes and materials are owned by the root's MapRuntimeAssets, which also
+        /// hex's unlit material) per style, at the gameplay width until the camera says otherwise (ArmisticeLine.ShowFor). Meshes and materials are owned by the root's MapRuntimeAssets, which also
         /// unregisters the "armisticelines" toggle. Returns the root.</summary>
         public static GameObject Build(Terrain terrain, GeoFrame frame, IReadOnlyList<Feature> features, Material lineMaterial, DateTime date)
         {
@@ -175,24 +222,28 @@ namespace Statecraft.Game.Map
             var data = terrain.terrainData; var origin = terrain.transform.position;
             foreach (var f in features)
             {
-                var pieces = new List<(string id, List<Vector2> line, float width)>();
-                foreach (var part in f.Parts)
+                var world = f.Parts.Select(part => part.Select(p => { var v = frame.ToWorld(p.lon, p.lat, 0); return new Vector2(v.x, v.z); }).ToList()).ToList();
+                // The line's mesh at a width scale: widths and dashes scaled together, so the dashed lines keep their look.
+                Mesh MeshAt(float scale)
                 {
-                    var world = part.Select(p => { var v = frame.ToWorld(p.lon, p.lat, 0); return new Vector2(v.x, v.z); }).ToList();
-                    if (f.LowAccuracy) pieces.AddRange(Dashes(world).Select(d => (f.Id, d, LowAccuracyWidthM)));
-                    else pieces.Add((f.Id, world, WidthM));
+                    var pieces = new List<(string id, List<Vector2> line, float width)>();
+                    foreach (var line in world)
+                        if (f.LowAccuracy) pieces.AddRange(Dashes(line, scale).Select(d => (f.Id, d, LowAccuracyWidthM * scale)));
+                        else pieces.Add((f.Id, line, WidthM * scale));
+                    var mesh = assets.Own(RouteLayer.Geometry(pieces, data, origin).ToMesh($"{RootName} {f.Id}"));
+                    mesh.UploadMeshData(true);
+                    return mesh;
                 }
-                var mesh = assets.Own(RouteLayer.Geometry(pieces, data, origin).ToMesh($"{RootName} {f.Id}"));
-                mesh.UploadMeshData(true);
                 var go = new GameObject(f.Id);
                 go.transform.SetParent(lines.transform, false);
-                go.AddComponent<MeshFilter>().sharedMesh = mesh;
+                go.AddComponent<MeshFilter>();
                 var r = go.AddComponent<MeshRenderer>();
                 r.sharedMaterial = f.LowAccuracy ? low : firm;
                 r.shadowCastingMode = UnityEngine.Rendering.ShadowCastingMode.Off;
                 r.receiveShadows = false;
                 var mark = go.AddComponent<ArmisticeLine>();
                 mark.Id = f.Id; mark.ShownFrom = f.ShownFrom; mark.LowAccuracy = f.LowAccuracy;
+                mark.MeshAt = MeshAt; mark.DrawAt(1f);
             }
             ShowAt(root, date);
             assets.OnTeardown(VisualToggles.Register(ToggleName, on => { if (lines != null) lines.SetActive(on); }));

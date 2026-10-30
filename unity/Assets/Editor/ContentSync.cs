@@ -17,12 +17,16 @@ namespace Statecraft.Game.EditorTools
 
         public int callbackOrder => 0;
 
-        public void OnPreprocessBuild(BuildReport report) => Sync();
+        /// <summary>A release player (no Development option) ships only the armistice lines the owner has signed off
+        /// (ContentManifest.Copy; owner review of #2012); a development build ships them all, as it draws them all.</summary>
+        public void OnPreprocessBuild(BuildReport report) => Sync((report.summary.options & BuildOptions.Development) == 0);
 
-        public static void Sync()
+        public static void Sync() => Sync(release: true);
+
+        static void Sync(bool release)
         {
-            var files = ContentManifest.Copy(Paths.Content, Target);
-            try { ContentManifest.Verify(Paths.Content, Target); }
+            var files = ContentManifest.Copy(Paths.Content, Target, release);
+            try { ContentManifest.Verify(Paths.Content, Target, release); }
             catch (InvalidDataException e) { throw new BuildFailedException("ContentSync: " + e.Message); }
             UnityEngine.Debug.Log($"ContentSync: {files.Count} files to {Target}");
             var source = Path.Combine(Paths.RepoRoot, "sim", "Statecraft.Sim.Tests");
