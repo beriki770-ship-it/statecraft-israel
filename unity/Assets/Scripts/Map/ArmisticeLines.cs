@@ -16,9 +16,9 @@ namespace Statecraft.Game.Map
     /// every feature of content/map/armistice_lines_1949.geojson drawn as a thin dark line draped on the ground, over the
     /// hex-snapped bands (<see cref="Armistice1949"/>), which stay as they are. A map mode, off unless asked for
     /// ("armisticelines" in the WebGL page URL, -armisticelines on desktop and in the editor): with the flag the map builds
-    /// it, without it nothing is built. A release build draws only the features the owner has signed off (<see cref="ForBuild"/>) and ships only those
-    /// (<see cref="ReleaseText"/>). Zoomed out past the gameplay zoom the lines widen with the distance (<see cref="WidthScale"/>).
-    /// Each feature shows from its own shown_from date, as the bands do. Features traced
+    /// it, without it nothing is built. A release build draws only the features the owner has signed off
+    /// (<see cref="ForBuild"/>) and ships only those (<see cref="ReleaseText"/>). Zoomed out past the gameplay zoom the lines
+    /// widen with the distance (<see cref="WidthScale"/>). Each feature shows from its own shown_from date, as the bands do. Features traced
     /// from the low-resolution scan (source_quality: low_res_scan, the Jordan lines) are drawn dashed and a step lighter, so
     /// they read as low accuracy without a legend and without colour alone. Zones (the Demilitarized Zones, including the
     /// two Syrian parts too narrow to hold a hex centre) are drawn as their closed outlines. Reuses the route ribbons'
@@ -114,7 +114,8 @@ namespace Statecraft.Game.Map
         public static string ReleaseText(string geojson)
         {
             var signedOff = new HashSet<string>(ForBuild(Parse(geojson), devBuild: false).Select(f => f.Id));
-            // The "features" array's items, split at its top-level commas (brackets and braces counted outside strings).
+            // The "features" array's items, split at its top-level commas (brackets and braces counted outside strings). The
+            // header holds no "features" key or text (tools/armistice_digitise.py writes it), so the first one is the array's.
             int open = geojson.IndexOf('[', geojson.IndexOf("\"features\"", StringComparison.Ordinal)), from = open + 1, depth = 0, i = from;
             var kept = new List<string>();
             for (bool quoted = false; ; i++)
@@ -200,7 +201,8 @@ namespace Statecraft.Game.Map
 
         /// <summary>Builds the overlay under <paramref name="terrain"/> (a map rebuild destroys it): one child per feature,
         /// shown as at <paramref name="date"/>, each a ribbon mesh in a copy of <paramref name="lineMaterial"/> (the selected
-        /// hex's unlit material) per style, at the gameplay width until the camera says otherwise (ArmisticeLine.ShowFor). Meshes and materials are owned by the root's MapRuntimeAssets, which also
+        /// hex's unlit material) per style, at the gameplay width until the camera says otherwise
+        /// (ArmisticeLine.ShowFor). Meshes and materials are owned by the root's MapRuntimeAssets, which also
         /// unregisters the "armisticelines" toggle. Returns the root.</summary>
         public static GameObject Build(Terrain terrain, GeoFrame frame, IReadOnlyList<Feature> features, Material lineMaterial, DateTime date)
         {

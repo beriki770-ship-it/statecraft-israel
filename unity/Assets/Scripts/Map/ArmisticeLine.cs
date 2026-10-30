@@ -27,7 +27,8 @@ namespace Statecraft.Game.Map
             if (scale != Scale) DrawAt(scale);
         }
 
-        /// <summary>Draws the line at a width scale; each scale's mesh is made once, on first use (a few steps per zoom range).</summary>
+        /// <summary>Draws the line at a width scale; each scale's mesh is made once, on first use. At most three steps past the
+        /// gameplay zoom, so the first zoom-out past each costs one rebuild of the lines (a one-off hitch, in an opt-in mode).</summary>
         internal void DrawAt(float scale)
         {
             if (MeshAt == null) return;
