@@ -58,7 +58,9 @@ namespace Statecraft.Sim
             // are separate namespaces: a group id may equal a standalone objective's id and both still pay.
             var paying = c.Objectives.Count(o => o.PartOf == "")
                 + c.Objectives.Where(o => o.PartOf != "").Select(o => o.PartOf).Distinct(StringComparer.Ordinal).Count();
-            var reference = paying * (c.RulesAt(s.Date).Mvp?.ObjectivePoints ?? 0);
+            // Scoring reads the rules of the date its turn started from. The state keeps no turn start, but a turn never crosses an
+            // era's start (Simulation.TurnEnd cuts it there), so the day before the end date is in the era the last turn started in.
+            var reference = paying * (c.RulesAt(s.Date.AddDays(-1)).Mvp?.ObjectivePoints ?? 0);
             return new EndReport(s.GameOver, s.Date, s.Score, Sim.ScoreParts.For(s), reference, objectives, s.Indicators["morale"], s.Indicators["intl_standing"],
                 s.TotalPopulation, history);
         }

@@ -234,6 +234,42 @@ eras:
         Assert.Equal(160, r.State.Score);   // 100 and the capped bonus; the later era would give 1 + 60
     }
 
+    // R-END-005: the end report's reference score reads objective_points from the rules the last turn started in, as scoring
+    // does, not from the end date's era. The last turn here starts on 29 May in the founding era and ends on 12 June, the
+    // later era's first day, whose override says 1.
+    [Fact]
+    public void TheReferenceScoreReadsTheRulesTheLastTurnStartedIn()
+    {
+        const string eras = @"
+eras:
+  - id: founding
+    name: The Founding
+    from: 1948-05-15
+    to: 1948-06-12
+    systems: { loop: gdd }
+  - id: later
+    name: A Later Chapter
+    from: 1948-06-12
+    to: 1957-01-01
+    systems: { loop: gdd }
+";
+        var o = Fixture.Gdd(new Dictionary<string, string> { ["eras.yaml"] = eras, ["objectives.yaml"] = ObjectivesYaml });
+        var card = Card.Replace("from: 1948-05-15", "from: 1948-06-12");
+        var dir = Fixture.Write(o, new Dictionary<string, string> { ["first_card.yaml"] = card });
+        System.IO.Directory.CreateDirectory(System.IO.Path.Combine(dir, "rules"));
+        System.IO.File.WriteAllText(System.IO.Path.Combine(dir, "rules", "later.yaml"), "mvp: { objective_points: 1 }\n");
+        var c = ContentLoader.Load(dir);
+
+        var r = StartBuilding(c);
+        while (r.State.Sites["site_a"].BuiltOn == null) r = Step(c, r.State);
+        Assert.Equal(D("1948-06-12"), r.State.Date);
+        r.State.GameOver = GameOverCodes.MvpEnded;
+        foreach (var k in new[] { "morale", "intl_standing" }) r.State.Indicators.TryAdd(k, 0);   // the report reads both; the fixture defines neither
+        var report = EndReport.For(c, r.State);
+        Assert.Equal(100, report.ScoreParts.ObjectivePoints);   // scoring used the founding era's 100
+        Assert.Equal(report.ScoreParts.ObjectivePoints, report.ReferenceScore);   // one objective, done on its reference date or not: the same base
+    }
+
     // R-OBJ-001: a build that is stopped completes nothing.
     [Fact]
     public void AStoppedBuildCompletesNothing()
