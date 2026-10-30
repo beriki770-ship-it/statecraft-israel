@@ -21,7 +21,8 @@ namespace Statecraft.Sim
         /// <summary>The parts of <see cref="Score"/> (R-SCORE-001); they sum to it.</summary>
         public ScoreParts ScoreParts { get; }
         /// <summary>What completing every objective on its historical date scores (Q-SCORE-2, owner, 17 October 2026): objective_points
-        /// for each objective, the parts of one part_of group counted once (R-OBJ-006), and no timing bonus on the day. The end screen
+        /// for each objective, the parts of one part_of group counted once (R-OBJ-006), and no timing bonus on the day. Each pays with
+        /// the rules of the turn that ends on its reference date (a group's: its latest part's), as scoring would. The end screen
         /// shows it beside the score; 0 when the content has no GDD objectives.</summary>
         public int ReferenceScore { get; }
         /// <summary>Every objective, in objectives.yaml's order (Q-CARD-2), completed or not.</summary>
@@ -54,13 +55,14 @@ namespace Statecraft.Sim
                 : new EndObjective(o.Id, o.Card, o.ReferenceDate, null, null)).ToList();
             // The anchors are few and dated; the latest one not after the end is the comparison (ties cannot happen: dates are unique).
             var history = c.PopulationAnchors.Where(a => a.Date <= s.Date).OrderBy(a => a.Date).LastOrDefault();
-            // The base pays once per objective with no part_of and once per part_of group, as Objectives.Record awards it. The two
-            // are separate namespaces: a group id may equal a standalone objective's id and both still pay.
-            var paying = c.Objectives.Count(o => o.PartOf == "")
-                + c.Objectives.Where(o => o.PartOf != "").Select(o => o.PartOf).Distinct(StringComparer.Ordinal).Count();
-            // Scoring reads the rules of the date its turn started from. The state keeps no turn start, but a turn never crosses an
-            // era's start (Simulation.TurnEnd cuts it there), so the day before the end date is in the era the last turn started in.
-            var reference = paying * (c.RulesAt(s.Date.AddDays(-1)).Mvp?.ObjectivePoints ?? 0);
+            // The base pays once per objective with no part_of and once per part_of group, as Objectives.Record awards it: a group
+            // with its last part, so on the latest part's reference date. The two are separate namespaces: a group id may equal a
+            // standalone objective's id and both still pay.
+            var paysOn = c.Objectives.Where(o => o.PartOf == "").Select(o => o.ReferenceDate)
+                .Concat(c.Objectives.Where(o => o.PartOf != "").GroupBy(o => o.PartOf, StringComparer.Ordinal).Select(g => g.Max(o => o.ReferenceDate)));
+            // Scoring reads the rules of the date the turn started from. A turn that ends on a reference date never crosses an era's
+            // start (Simulation.TurnEnd cuts it there), so the day before that date is in the era the turn started in.
+            var reference = paysOn.Sum(d => c.RulesAt(d.AddDays(-1)).Mvp?.ObjectivePoints ?? 0);
             return new EndReport(s.GameOver, s.Date, s.Score, Sim.ScoreParts.For(s), reference, objectives, s.Indicators["morale"], s.Indicators["intl_standing"],
                 s.TotalPopulation, history);
         }

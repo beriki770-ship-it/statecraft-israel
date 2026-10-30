@@ -234,11 +234,11 @@ eras:
         Assert.Equal(160, r.State.Score);   // 100 and the capped bonus; the later era would give 1 + 60
     }
 
-    // R-END-005: the end report's reference score reads objective_points from the rules the last turn started in, as scoring
-    // does, not from the end date's era. The last turn here starts on 29 May in the founding era and ends on 12 June, the
-    // later era's first day, whose override says 1.
+    // R-END-005: the end report's reference score reads objective_points from the rules of the turn that ends on the objective's
+    // reference date (12 June 1949, in the later era, whose override says 1), not from the turn that scored it. Here the objective
+    // completes early, on 12 June 1948, the later era's first day, in a turn that started on 29 May in the founding era.
     [Fact]
-    public void TheReferenceScoreReadsTheRulesTheLastTurnStartedIn()
+    public void TheReferenceScoreReadsTheRulesOfTheReferenceDateNotOfTheTurnThatScored()
     {
         const string eras = @"
 eras:
@@ -267,7 +267,7 @@ eras:
         foreach (var k in new[] { "morale", "intl_standing" }) r.State.Indicators.TryAdd(k, 0);   // the report reads both; the fixture defines neither
         var report = EndReport.For(c, r.State);
         Assert.Equal(100, report.ScoreParts.ObjectivePoints);   // scoring used the founding era's 100
-        Assert.Equal(report.ScoreParts.ObjectivePoints, report.ReferenceScore);   // one objective, done on its reference date or not: the same base
+        Assert.Equal(1, report.ReferenceScore);   // on its reference date it would have paid the later era's 1
     }
 
     // R-OBJ-001: a build that is stopped completes nothing.
