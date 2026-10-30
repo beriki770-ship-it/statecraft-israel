@@ -80,7 +80,7 @@ gives the same day.
   for. **[GAP]**
   - (third pass, 29 Oct 2026) **Category check only, still [GAP].** I listed the members of the Hebrew Wikipedia
     categories "יישובים שהוקמו ב-1952" to "יישובים שהוקמו ב-1956" (57, 53, 30, 49 and 35 members, MediaWiki API
-    `list=categorymembers`, run 29 Oct 2026; the same counts came back when re-run on 29 Oct 2026 for the link repair. Category membership is a live list, not a page revision, so it has no oldid) and intersected them with "הנגב: יישובים" (224 members), "הנגב המערבי:
+    `list=categorymembers`, run 29 Oct 2026; the same counts came back on a second run the same day. Category membership is a live list, not a page revision, so it has no oldid) and intersected them with "הנגב: יישובים" (224 members), "הנגב המערבי:
     יישובים" (15) and "הערבה: יישובים" (44). Every locality that fell in the intersection is already a row of this
     note (the other hits were a regional council, a subcategory and Sde Yoav, which is excluded above). A Negev
     locality that was founded in 1952-56 and later abandoned would appear in these categories only if someone

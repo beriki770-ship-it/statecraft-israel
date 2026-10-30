@@ -220,7 +220,7 @@ of Negev settlement. Be'erot Yitzhak has its own section below.
   names "the Dorot-Ruhama area" once, in a sentence on supply convoys under attack, with nothing on
   an abandonment. The PDFs were not read.
   [GAP]
-- (third pass, 29 Oct) **Third abandonment dated: 24 August 1938.** The first-pass search used the spelling
+- (third pass, 29 Oct) **Third abandonment, dated by inference: 24 August 1938 (the bulletin does not call it the third).** The first-pass search used the spelling
   "Ruhama"; the archive prints "Ruchama". JTA bulletin of Thursday 25 August 1938, p. 1, opened as a page
   image (http://pdfs.jta.org/1938/1938-08-25_123.pdf), dateline "JERUSALEM, Aug. 24 (JTA)", in the dispatch
   that opens with the wounding of the Acting District Commissioner in Jenin: "ABANDONMENT OF THE
@@ -716,7 +716,7 @@ separately here.
   spaces>`, totals read 2026-10-26. For 1943, "Beth Eshel" was also sorted Oldest (`&sort_by=oldest`, 2026-10-26): pages 1-3
   run from 27 April 1926 to 28 September 1948, and the only 1943 item is "Rabbi Hirsch Manichewitz, 52, Dies Suddenly in
   New York" (11 October 1943), whose text has no "Eshel" or "Negev"; no item about Beit Eshel is dated 1943. Ramat HaNegev's coordinate and its March 1949 day: above.
-- (third pass, 29 Oct) **What the third pass added.** Ruhama's third abandonment: 24 August 1938 (JTA, dateline
+- (third pass, 29 Oct) **What the third pass added.** Ruhama's third abandonment, by inference: 24 August 1938 (JTA, dateline
   read). Mivtahim: named as a Jewish-held road end on 6 to 7 December 1948 (JTA), evacuation day [GAP].
   Gvulot: the printed 1958 reprint of Rafah sheet 14 shows the present site about 1.9 km south-east of
   "Gevulot (הרוס)". Still [GAP] after searches this day, with no item returned by them: the day of the
