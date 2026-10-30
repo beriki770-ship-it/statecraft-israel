@@ -13,7 +13,8 @@ using UnityEngine.UIElements;
 
 /// <summary>The score in the top bar's date box (#380, 7b): a worst-case score stays inside the box's frame, on no other
 /// text, and whole, at every window size the HUD's tests use, in English and Hebrew. At the widest date the year, turn
-/// and date labels stay inside that frame too (#625).</summary>
+/// and date labels stay inside that frame too (#625). Each runs with no exhausted turns (the line hidden, the plate as
+/// before #812) and with two (the line shown under the date).</summary>
 public class TopBarScoreLayoutTests
 {
     static readonly Content Gdd = ContentLoader.Load(Paths.Content);   // the real game: GDD since the cutover
@@ -56,7 +57,7 @@ public class TopBarScoreLayoutTests
     public IEnumerator AWorstCaseScoreStaysInsideTheDateBox()
     {
         var problems = new List<string>();
-        foreach (var (language, text, hebrew) in new[] { ("en", En, false), ("he", He, true) })
+        foreach (var (language, text, hebrew, turns) in new[] { ("en", En, false, 0), ("en", En, false, 2), ("he", He, true, 0), ("he", He, true, 2) })
             foreach (var (w, h) in InfoPanelLayoutTests.Windows)
             {
                 var rt = new RenderTexture(w, h, 0);
@@ -75,14 +76,14 @@ public class TopBarScoreLayoutTests
                 bridge.State.Score = WorstScore;
                 bridge.State.Date = WorstDate(hebrew);
                 bridge.State.Turn = WorstTurn;
-                bridge.State.ExhaustedTurns = 2;   // #812: the exhausted-turn count shows under the date and must fit the plate too
+                bridge.State.ExhaustedTurns = turns;   // #812: above 0 the count shows under the date and must fit the plate too
                 var hud = new HudPresenter(root, bridge, text);
                 try
                 {
                     var score = root.Q<Label>("score");
                     for (int i = 0; i < 20 && float.IsNaN(score.worldBound.width); i++) yield return null;
                     for (int i = 0; i < 3; i++) yield return null;   // the bar's tier classes settle after the first layout
-                    var at = $"{language} {w}x{h}";
+                    var at = $"{language} {w}x{h} exhausted {turns}";
                     Assert.AreEqual(text.Format("hud.score", WorstScore), score.text, $"{at}: precondition: the worst score shows");
                     Assert.AreEqual(text.Format("hud.date", Statecraft.Game.Map.Control1948.DateText(WorstDate(hebrew), k => text[k])), root.Q<Label>("date").text, $"{at}: precondition: the widest date shows");
                     var box = root.Q(className: "date-box");
@@ -97,18 +98,25 @@ public class TopBarScoreLayoutTests
                         if (!Inside(o.worldBound, ContentBox(box))) problems.Add($"{at}: {other} '{o.text}' {o.worldBound} leaves the date box's frame {ContentBox(box)}");
                     }
                     var exhausted = root.Q<Label>("exhausted");
-                    // The label must really be shown before its geometry means anything: a hidden label has no box to overlap.
-                    if (exhausted.resolvedStyle.display == DisplayStyle.None || exhausted.resolvedStyle.visibility == Visibility.Hidden
-                        || exhausted.worldBound.width <= 0f || exhausted.worldBound.height <= 0f)
-                        problems.Add($"{at}: the exhausted label is not shown ({exhausted.resolvedStyle.display}, {exhausted.resolvedStyle.visibility}, {exhausted.worldBound})");
-                    if (!Inside(exhausted.worldBound, ContentBox(box))) problems.Add($"{at}: '{exhausted.text}' {exhausted.worldBound} leaves the date box's frame {ContentBox(box)}");
-                    if (!Whole(exhausted)) problems.Add($"{at}: '{exhausted.text}' is clipped in {exhausted.contentRect}");
-                    // The owner's text floor (#624) covers this line like the date's: on screen it is at least TextFloorPx.
-                    var onScreen = exhausted.resolvedStyle.fontSize * root.panel.scaledPixelsPerPoint;
-                    if (onScreen < HudPresenter.TextFloorPx - 0.01f)
-                        problems.Add($"{at}: the exhausted line is {onScreen:0.##} px on screen ({exhausted.resolvedStyle.fontSize} px at {root.panel.scaledPixelsPerPoint:0.###}; under the {HudPresenter.TextFloorPx} px floor)");
-                    foreach (var other in new[] { "year", "score", "turn", "date" })
-                        if (!Apart(exhausted.worldBound, root.Q<Label>(other).worldBound)) problems.Add($"{at}: '{exhausted.text}' {exhausted.worldBound} overlaps {other}");
+                    if (turns == 0)
+                    {
+                        if (exhausted.resolvedStyle.display != DisplayStyle.None) problems.Add($"{at}: the exhausted label '{exhausted.text}' shows with no exhausted turns");
+                    }
+                    else
+                    {
+                        // The label must really be shown before its geometry means anything: a hidden label has no box to overlap.
+                        if (exhausted.resolvedStyle.display == DisplayStyle.None || exhausted.resolvedStyle.visibility == Visibility.Hidden
+                            || exhausted.worldBound.width <= 0f || exhausted.worldBound.height <= 0f)
+                            problems.Add($"{at}: the exhausted label is not shown ({exhausted.resolvedStyle.display}, {exhausted.resolvedStyle.visibility}, {exhausted.worldBound})");
+                        if (!Inside(exhausted.worldBound, ContentBox(box))) problems.Add($"{at}: '{exhausted.text}' {exhausted.worldBound} leaves the date box's frame {ContentBox(box)}");
+                        if (!Whole(exhausted)) problems.Add($"{at}: '{exhausted.text}' is clipped in {exhausted.contentRect}");
+                        // The owner's text floor (#624) covers this line like the date's: on screen it is at least TextFloorPx.
+                        var onScreen = exhausted.resolvedStyle.fontSize * root.panel.scaledPixelsPerPoint;
+                        if (onScreen < HudPresenter.TextFloorPx - 0.01f)
+                            problems.Add($"{at}: the exhausted line is {onScreen:0.##} px on screen ({exhausted.resolvedStyle.fontSize} px at {root.panel.scaledPixelsPerPoint:0.###}; under the {HudPresenter.TextFloorPx} px floor)");
+                        foreach (var other in new[] { "year", "score", "turn", "date" })
+                            if (!Apart(exhausted.worldBound, root.Q<Label>(other).worldBound)) problems.Add($"{at}: '{exhausted.text}' {exhausted.worldBound} overlaps {other}");
+                    }
                 }
                 finally
                 {
@@ -192,6 +200,70 @@ public class TopBarScoreLayoutTests
                     Object.DestroyImmediate(go); Object.DestroyImmediate(ps); rt.Release(); Object.DestroyImmediate(rt);
                 }
             }
+        Assert.IsEmpty(problems, string.Join("\n", problems));
+    }
+
+    /// <summary>Review of #1961: at the scale where only the 13 px exhausted line is raised (1600x900, as above), a hidden line
+    /// (no exhausted turns) leaves the plate as the stylesheet has it: no inline width, minimum width or padding. Showing the
+    /// line then gives the plate its clearance, and hiding it again takes the clearance back.</summary>
+    [UnityTest]
+    public IEnumerator AHiddenExhaustedLineLeavesThePlateAsItWas()
+    {
+        var problems = new List<string>();
+        foreach (var (language, text, hebrew) in new[] { ("en", En, false), ("he", He, true) })
+        {
+            var rt = new RenderTexture(1600, 900, 0);
+            var ps = Object.Instantiate(AssetDatabase.LoadAssetAtPath<PanelSettings>(UiPaths.Panel));
+            ps.targetTexture = rt;
+            var go = new GameObject("HiddenExhaustedTest");
+            go.SetActive(false);
+            var doc = go.AddComponent<UIDocument>();
+            doc.panelSettings = ps;
+            doc.visualTreeAsset = AssetDatabase.LoadAssetAtPath<VisualTreeAsset>(UiPaths.GameUxml);
+            go.SetActive(true);
+            var root = doc.rootVisualElement;
+            root.Q("root").RemoveFromClassList("loading");
+            root.Q("root").EnableInClassList(UiLanguage.HebrewClass, hebrew);
+            var bridge = new SimBridge(GameSession.New(Gdd, GoldenRun.Seed, Mode.Historical), text);
+            bridge.State.ExhaustedTurns = 0;
+            var hud = new HudPresenter(root, bridge, text);
+            try
+            {
+                var date = root.Q<Label>("date");
+                for (int i = 0; i < 20 && float.IsNaN(date.worldBound.width); i++) yield return null;
+                for (int i = 0; i < 3; i++) yield return null;
+                var exhausted = root.Q<Label>("exhausted");
+                var plate = root.Q(className: "date-box");
+                Assert.Greater(exhausted.style.fontSize.value.value, HudPresenter.ExhaustedPx, $"{language}: precondition: the scale raises the exhausted line");
+                Assert.AreEqual(HudPresenter.SmallTextPx, date.resolvedStyle.fontSize, 0.01f, $"{language}: precondition: the 15 px text is not raised");
+                void Expect(string state, bool clearance)
+                {
+                    var st = plate.style;
+                    var inline = new[] { ("width", st.width.keyword), ("minWidth", st.minWidth.keyword), ("paddingTop", st.paddingTop.keyword),
+                        ("paddingBottom", st.paddingBottom.keyword), ("paddingLeft", st.paddingLeft.keyword), ("paddingRight", st.paddingRight.keyword) };
+                    foreach (var (prop, keyword) in inline)
+                        if ((keyword == StyleKeyword.Null) == clearance)
+                            problems.Add($"{language} {state}: the plate's {prop} is {(clearance ? "the stylesheet's" : "set inline")}");
+                    if (clearance && st.paddingLeft.value.value != HudPresenter.PlateSidePx)
+                        problems.Add($"{language} {state}: the plate's paddingLeft {st.paddingLeft.value.value} is not the clearance {HudPresenter.PlateSidePx}");
+                }
+                Expect("hidden", false);
+                bridge.State.ExhaustedTurns = 2;
+                hud.Render();
+                yield return null;
+                Assert.AreEqual(DisplayStyle.Flex, exhausted.resolvedStyle.display, $"{language}: precondition: two exhausted turns show the line");
+                Expect("shown", true);
+                bridge.State.ExhaustedTurns = 0;
+                hud.Render();
+                yield return null;
+                Expect("hidden again", false);
+            }
+            finally
+            {
+                hud.Dispose();
+                Object.DestroyImmediate(go); Object.DestroyImmediate(ps); rt.Release(); Object.DestroyImmediate(rt);
+            }
+        }
         Assert.IsEmpty(problems, string.Join("\n", problems));
     }
 }

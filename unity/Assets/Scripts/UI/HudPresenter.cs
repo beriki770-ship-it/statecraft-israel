@@ -445,14 +445,16 @@ namespace Statecraft.Game.UI
         void PadPlate(VisualElement plate, bool raised)
         {
             // Raised, the plate sizes to its widest line (the turn and the date, a line each, never wrapped), at least 230 px.
-            // The raised exhausted line (#812) is never wrapped either, so it too lets the plate size to it.
-            plate.style.width = raised || exhaustedSize > ExhaustedPx ? new StyleLength(StyleKeyword.Auto) : new StyleLength(StyleKeyword.Null);
+            // The raised exhausted line (#812) is never wrapped either, so it too lets the plate size to it, but only while it
+            // shows (Render): a hidden line leaves the plate as it was (review of #1961).
+            var lineUp = exhaustedSize > ExhaustedPx && exhaustedLine != null && exhaustedLine.style.display == DisplayStyle.Flex;
+            plate.style.width = raised || lineUp ? new StyleLength(StyleKeyword.Auto) : new StyleLength(StyleKeyword.Null);
             // At least the widest date line too, so the plate keeps its width when the month changes (PromoHudTests): at 25 px
             // (a phone upright, #642) the Hebrew 31 October 1956 is about 196 px, wider than 230 px less the padding.
             plate.style.minWidth = raised ? new StyleLength(UnityEngine.Mathf.Max(PlateWidthPx, DateLinePerPx * smallTextSize + 2f * PlateSidePx + 2f))
-                                          : exhaustedSize > ExhaustedPx ? new StyleLength(PlateWidthPx + 2f * PlateSidePx - StylesheetPlatePadPx) : new StyleLength(StyleKeyword.Null);
+                                          : lineUp ? new StyleLength(PlateWidthPx + 2f * PlateSidePx - StylesheetPlatePadPx) : new StyleLength(StyleKeyword.Null);
             // The frame clearance holds when either the 15 px text or the 13 px exhausted line is raised (they floor at different scales).
-            StyleLength Px(float v) => raised || exhaustedSize > ExhaustedPx ? new StyleLength(v) : new StyleLength(StyleKeyword.Null);
+            StyleLength Px(float v) => raised || lineUp ? new StyleLength(v) : new StyleLength(StyleKeyword.Null);
             plate.style.paddingTop = Px(PlateEdgePx); plate.style.paddingBottom = Px(PlateEdgePx);
             plate.style.paddingLeft = Px(PlateSidePx); plate.style.paddingRight = Px(PlateSidePx);
         }
@@ -735,7 +737,9 @@ namespace Statecraft.Game.UI
             score.style.display = m.Score.Length == 0 ? DisplayStyle.None : DisplayStyle.Flex;
             var exhausted = root.Q<Label>("exhausted");   // hidden while ExhaustedTurns is 0 (R-END-002)
             exhausted.text = m.Exhausted;
+            var wasShown = exhausted.style.display == DisplayStyle.Flex;
             exhausted.style.display = m.Exhausted.Length == 0 ? DisplayStyle.None : DisplayStyle.Flex;
+            if (wasShown != m.Exhausted.Length > 0) SetCompact(bar.layout.width);   // the plate's raised layout follows the line (PadPlate)
             Set("treasury", m.Treasury); Set("immigration", m.Immigration); Set("security", m.Security);
             Set("support", m.Support); Set("standing", m.Standing); Set("fx", m.Fx);
             // Social cohesion: the GDD loop only (#380), as the score; a hidden meter takes no room in the bar.
