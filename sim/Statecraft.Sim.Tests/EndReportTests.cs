@@ -129,7 +129,9 @@ public class EndReportTests
         var s = Ended();
         Assert.Equal(0, EndReport.For(Real, s).PrisonersReturned);
         s.PrisonersReturned["lebanon"] = 4; s.PrisonersReturned["egypt"] = 2;
-        Assert.Equal(6 * Real.RulesAt(s.Date).Mvp!.PeoplePerUnit, EndReport.For(Real, s).PrisonersReturned);
+        // What the Defence screen shows for these six units (DefencePresenter: units times rules.yaml's 1,000 people a unit).
+        Assert.Equal(1000, Real.RulesAt(s.Date).Mvp!.PeoplePerUnit);
+        Assert.Equal(6000, EndReport.For(Real, s).PrisonersReturned);
     }
 
     [Fact]

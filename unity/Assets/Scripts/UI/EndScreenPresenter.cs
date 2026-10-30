@@ -69,7 +69,8 @@ namespace Statecraft.Game.UI
         public bool ClosedThisFrame => closedAt == UnityEngine.Time.frameCount;
 
         /// <summary>The screen's lines for an ended game, in order: the outcome, the score, one per objective, Social cohesion,
-        /// International Support, the population with its CBS anchor and, when some went home, the prisoners returned. Every value is the report's.</summary>
+        /// International Support, the population with its CBS anchor and, when some went home, the prisoners returned. Every
+        /// value is the report's.</summary>
         public static IReadOnlyList<(string Name, string Text)> Lines(Content c, GameState s, UiText t)
         {
             var r = EndReport.For(c, s);
