@@ -79,6 +79,23 @@ public class EndReportTests
         Assert.Equal(s.Score, EndReport.For(c, s).ReferenceScore);
     }
 
+    /// <summary>The fixture above has no prisoner points; here a real exchange (Prisoners.Return, the producer) scores some and the
+    /// report carries that part.</summary>
+    // R-END-005
+    [Fact]
+    public void ThePrisonerPartCarriesAScoreFromARealExchange()
+    {
+        var s = Ended();
+        s.PrisonersHeld["egypt"] = 2;
+        Prisoners.Return(Real, s, "egypt", new List<Cause>());
+        var expected = 2 * Real.RulesAt(s.Date).Mvp!.PointsPerPrisonerUnitReturned!.Value;
+        Assert.True(expected > 0);
+        var r = EndReport.For(Real, s);
+        Assert.Equal(expected, r.ScoreParts.PrisonerPoints);
+        Assert.Equal(s.Score, r.Score);
+        Assert.Equal(r.Score, r.ScoreParts.ObjectivePoints + r.ScoreParts.TimingBonuses + r.ScoreParts.PrisonerPoints);
+    }
+
     // R-END-005
     [Fact]
     public void ADefeatReportsItsCause()
