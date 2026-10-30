@@ -122,10 +122,13 @@ namespace Statecraft.Game.Map.Collection
             return wants;
         }
 
-        /// <summary>The Spitfire's spot: over the board's western edge (world x = 0 is lon0, GeoFrame) at el-Arish's latitude, one
-        /// wingspan in, so the whole aircraft is over the board, flying in from el-Arish (due east).</summary>
+        /// <summary>The Spitfire's spot: near the board's western edge (world x = 0 is lon0, GeoFrame) at el-Arish's latitude,
+        /// flying in from el-Arish (due east). DESIGN VALUE: 30 km in (owner, #2014: "Move it inward"). Nearer the edge,
+        /// CameraController.Step holds the player's view on the map and the aircraft sits at or past the frame's left edge;
+        /// from 25 km in the whole aircraft is in frame at 40 and 150 km, and from 30 km in it clears the button rail on the
+        /// left (measured, #2014). At the closest zoom (6 km) the camera is below its 4,200 m altitude wherever it flies.</summary>
         public static Vector2 EdgeSpot(GeoFrame frame) =>
-            new Vector2(SizeOf(Spitfire), frame.ToWorld(ElArishLon, ElArishLat, 0).z);
+            new Vector2(30000f, frame.ToWorld(ElArishLon, ElArishLat, 0).z);
 
         /// <summary>A boat's spot: out from its coast's shore point (SeaCraft.Coasts) between SeaCraft.OffshoreNearM and
         /// OffshoreM, at a seeded spread along the shore, the first whose hull passes SeaCraft.Clear against the harbour works

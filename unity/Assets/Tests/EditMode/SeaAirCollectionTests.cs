@@ -106,10 +106,11 @@ public class SeaAirCollectionTests
     }
 
     /// <summary>#1932 (c), "In flight / board edge only": el-Arish lies west of the board (so there is no hex or airfield to
-    /// stand on), and the Spitfire is drawn over the board's western edge at el-Arish's latitude, the whole aircraft over the
-    /// board and within two wingspans of the edge, nose east (wingspan north-south at its map size), 4,200 m above the highest
-    /// ground under it, the unit tokens' aircraft altitude (UnitShowcase.AltitudeM, #2014): never on the ground. Only the far
-    /// mesh is asked, once, and nothing draws before the stream answers.</summary>
+    /// stand on), and the Spitfire is drawn near the board's western edge at el-Arish's latitude, 30 km in from the edge (owner,
+    /// #2014: "Move it inward", so the player's camera at 40 and 150 km frames the whole aircraft), the whole aircraft over
+    /// the board, nose east (wingspan north-south at its map size), 4,200 m above the highest ground under it, the unit
+    /// tokens' aircraft altitude (UnitShowcase.AltitudeM, #2014): never on the ground. Only the far mesh is asked, once, and
+    /// nothing draws before the stream answers.</summary>
     [Test]
     public void TheSpitfireFliesOverTheWesternBoardEdgeTowardElArishAndNeverStandsOnTheBoard()
     {
@@ -126,7 +127,7 @@ public class SeaAirCollectionTests
         Assert.AreEqual(span, SeaAirCollection.RealLengthM(SeaAirCollection.Spitfire) * 420f, 0.5f, "the owner's 420x (#2014)");
         var b = WorldBounds(layer.transform.Find(key)!.gameObject);
         Assert.GreaterOrEqual(b.min.x, 0f, "the whole aircraft is over the board");
-        Assert.LessOrEqual(b.max.x, 2f * span, "at the board's western edge");
+        Assert.AreEqual(30000f, at.x, 1f, "30 km in from the board's western edge (#2014)");
         Assert.AreEqual(elArish.z, at.z, 1f, "at el-Arish's latitude");
         Assert.AreEqual(span, b.size.z, 1f, "wingspan north-south at its size: the nose points east or west");
         Assert.Greater(b.size.z, b.size.x, "the fuselage lies east-west");
