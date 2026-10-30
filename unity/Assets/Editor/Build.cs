@@ -140,17 +140,22 @@ namespace Statecraft.Game.EditorTools
 
         const string OpeningCatalogPath = "Assets/Resources/OpeningContent.asset";
 
-        /// <summary>The opening (#530) in a shareable build: its catalog must load and its three photographs must have the
-        /// owner's sensitivity review, as event photographs do. Its text is not gated here: a player shows the opening only once
-        /// the text and every source are checked too (OpeningContent.MayPresent), so draft text ships unseen, and the nightly
-        /// -shareable builds go on.</summary>
+        /// <summary>The opening (#530) in a shareable build: its catalog must load, its three photographs must have the
+        /// owner's sensitivity review, as event photographs do, and its text must be reviewed with every source checked
+        /// (owner, "Photos and text"), so a shareable build carries neither draft photographs nor draft text.</summary>
         public static string? OpeningShareableRefusal(OpeningContent? opening)
         {
             if (opening == null) return "the opening catalog is missing or did not load (" + OpeningCatalogPath + ")";
             try
             {
-                return opening.Read().PhotosReviewed ? null
-                    : "an opening photograph needs the owner's sensitivity review (" + OpeningContent.SourcePath + ", sensitivity_reviewed)";
+                var data = opening.Read();
+                var reasons = new List<string>();
+                if (!data.PhotosReviewed)
+                    reasons.Add("an opening photograph needs the owner's sensitivity review (" + OpeningContent.SourcePath + ", sensitivity_reviewed)");
+                if (!data.TextReviewed)
+                    reasons.Add("the opening text needs the owner's review and every source checked (" + OpeningContent.SourcePath
+                        + ", status: " + Statecraft.Sim.ReleaseGate.ReviewedStatus + " and checked: on each source)");
+                return reasons.Count == 0 ? null : string.Join("; ", reasons);
             }
             catch (InvalidOperationException e) { return "the opening cannot be read: " + e.Message; }
         }

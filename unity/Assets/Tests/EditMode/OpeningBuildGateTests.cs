@@ -14,9 +14,9 @@ using YamlDotNet.RepresentationModel;
 using Object = UnityEngine.Object;
 
 /// <summary>The opening's build gate (#530): a shareable build refuses an opening photograph without the owner's sensitivity
-/// review, and the photo manifest lists the three photographs so the packager checks them too. Draft text does not refuse the
-/// build (the player hides it, OpeningContent.MayPresent). Fixtures change cloned objects and YAML in memory only, never the
-/// reviews on disk. Build is in the Editor assembly, so it is reached by reflection, as BuildGateTests does.</summary>
+/// review, and draft text or an unchecked source (owner, "Photos and text"); the photo manifest lists the three photographs
+/// so the packager checks them too. Fixtures change cloned objects and YAML in memory only, never the reviews on disk.
+/// Build is in the Editor assembly, so it is reached by reflection, as BuildGateTests does.</summary>
 public class OpeningBuildGateTests
 {
     readonly List<Object> owned = new List<Object>();
@@ -67,14 +67,18 @@ public class OpeningBuildGateTests
     [TearDown]
     public void Clean() { for (int i = owned.Count - 1; i >= 0; i--) Object.DestroyImmediate(owned[i]); owned.Clear(); }
 
-    [Test]
-    public void DraftTextDoesNotRefuseTheBuildBecauseThePlayerHidesIt()
+    [TestCase("draft status")]
+    [TestCase("unchecked source")]
+    public void GatedTextRefusesTheShareableBuild(string gap)
     {
         var gate = Require("OpeningShareableRefusal");
-        var draft = Fixture(doc => Set(doc, "status", "draft"));
-        Assert.IsTrue(draft.Read().PhotosReviewed, "precondition: reviewed photographs");
-        Assert.IsNull(gate.Invoke(null, new object?[] { draft }));
-        Assert.IsFalse(OpeningContent.MayPresent(draft.Read(), editorPreview: false), "a player does not show draft text");
+        var draft = Fixture(doc =>
+        {
+            if (gap == "draft status") Set(doc, "status", "draft");
+            else Sources((YamlMappingNode)Get(doc, "closing"))[0].Children.Remove(new YamlScalarNode("checked"));
+        });
+        Assert.IsTrue(draft.Read().PhotosReviewed, "precondition: reviewed photographs, so only the text is gated");
+        Assert.IsNotNull(gate.Invoke(null, new object?[] { draft }), gap + ": gated text must not reach a shareable build");
     }
 
     [Test]
