@@ -1,3 +1,3 @@
-- The end screen shows the sourced history note under a war loss's line: the four armistice agreements of 1949 and that
-  they were armistices, not peace treaties (the owner's approved text, #1315; English and Hebrew, the Hebrew awaiting its
-  native read, #564). Other endings have no note yet (Refs #812).
+- The end screen can show a cause's sourced history note under its line (Q-DEF-4 (b)); a cause without a note goes
+  straight from its line to the score. The armistice note for a war loss is held out of the strings until the person's
+  check of the history note is recorded, so no ending shows a note yet (Refs #812).

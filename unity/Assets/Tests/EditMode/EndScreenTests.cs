@@ -132,21 +132,33 @@ public class EndScreenTests
             Date(anchor.Date), anchor.Jews.ToString("N0", System.Globalization.CultureInfo.InvariantCulture)), k.Line("population"));
     }
 
-    /// <summary>The armistice history note (Q-DEF-4 (b), the owner's approved text, #1315) sits right under a war loss's line and
-    /// nowhere else: the other outcomes have no note yet.</summary>
+    /// <summary>A cause's history note (Q-DEF-4 (b)) sits right under its line when the strings carry one, and nowhere else.
+    /// The armistice note is held out of the strings until the person's check is recorded, so a fixture string stands in.</summary>
     [Test]
-    public void AWarLossShowsTheArmisticeNoteUnderItsLineAndOtherOutcomesShowNone()
+    public void AWarLossShowsItsHistoryNoteUnderItsLineAndOtherOutcomesShowNone()
     {
-        using var k = new Kit(En, s => { s.Date = C.End; s.GameOver = GameOverCodes.DefeatWar; });
+        var withNote = UiText.Parse(AssetDatabase.LoadAssetAtPath<TextAsset>(UiPaths.Strings).text + "\nend.note.defeat_war: \"Fixture note.\"\n");
+        using var k = new Kit(withNote, s => { s.Date = C.End; s.GameOver = GameOverCodes.DefeatWar; });
         var names = k.Ui.Q<ScrollView>("end-screen-rows").Children().Select(x => x.name).ToList();
-        CollectionAssert.AreEqual(new[] { "end-screen-outcome", "end-screen-note" }, names.Take(2), "the note follows the outcome line");
-        Assert.AreEqual(En["end.outcome.defeat_war"], k.Line("outcome"));
-        Assert.AreEqual(En["end.note.defeat_war"], k.Line("note"));
-        StringAssert.Contains("four armistice agreements in 1949", k.Line("note"));
-        using var he = new Kit(He, s => { s.Date = C.End; s.GameOver = GameOverCodes.DefeatWar; });
-        Assert.AreEqual(He["end.note.defeat_war"], he.Line("note"));
-        using var ended = new Kit(En, Ended);
+        CollectionAssert.AreEqual(new[] { "end-screen-outcome", "end-screen-note", "end-screen-score" }, names.Take(3), "the note follows the outcome line");
+        Assert.AreEqual("Fixture note.", k.Line("note"));
+        Assert.IsTrue(k.Ui.Q<Label>("end-screen-note").ClassListContains("end-screen-note"));
+        using var ended = new Kit(withNote, Ended);
         Assert.IsFalse(ended.Ui.Q<ScrollView>("end-screen-rows").Children().Any(x => x.name == "end-screen-note"), "no note for the MVP end");
+    }
+
+    /// <summary>With no note in the strings (the shipped EN and HE files, until the person's check), a war loss goes straight
+    /// from its line to the score: no note row, no empty gap. Adding the note string back means updating this test too.</summary>
+    [Test]
+    public void AWarLossWithNoNoteStringGoesStraightFromItsLineToTheScore()
+    {
+        foreach (var text in new[] { En, He })
+        {
+            using var k = new Kit(text, s => { s.Date = C.End; s.GameOver = GameOverCodes.DefeatWar; });
+            var names = k.Ui.Q<ScrollView>("end-screen-rows").Children().Select(x => x.name).ToList();
+            CollectionAssert.AreEqual(new[] { "end-screen-outcome", "end-screen-score" }, names.Take(2), "the score follows the outcome line");
+            CollectionAssert.DoesNotContain(names, "end-screen-note");
+        }
     }
 
     [Test]

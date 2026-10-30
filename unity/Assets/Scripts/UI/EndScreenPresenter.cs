@@ -80,7 +80,7 @@ namespace Statecraft.Game.UI
             {
                 ("outcome", t.Has(outcome) ? t[outcome] : t["order.game_over"]),
             };
-            // The sourced history note under the cause's line (Q-DEF-4 (b)); only the causes with an approved note have one.
+            // The sourced history note under the cause's line (Q-DEF-4 (b)); only a cause whose note is in the strings has one.
             var note = "end.note." + r.Outcome;
             if (t.Has(note)) lines.Add(("note", t[note]));
             lines.Add(("score", t.Format("hud.score", r.Score)));
