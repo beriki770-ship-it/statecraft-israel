@@ -81,7 +81,7 @@ namespace Statecraft.Game.Map.Collection
         /// <summary>Tal Heuberger's Bedouin civilian and enclosed striped Bedouin tent, at the Bedouin camp areas (owner, 27 October
         /// 2026, #756: "Sign off all 19").</summary>
         public const string BedouinCivilian = "figure-bedouin-civilian-1948-v1", BedouinTent = "generated-1948-06-bedouin-b-enclosed-striped-tent";
-        /// <summary>Tal Heuberger's Egyptian Spitfire, shown in flight at the western board edge toward el-Arish (owner, 27 October
+        /// <summary>Tal Heuberger's Egyptian Spitfire, shown in flight near the western board edge (30 km in) toward el-Arish (owner, 27 October
         /// 2026, #756: "Sign off all 19"; 30 October 2026, #1932: "(c) In flight / board edge only").</summary>
         public const string EgyptianSpitfire = "generated-1948-13-egyptian-spitfire";
         /// <summary>Tal Heuberger's Lebanese regular, the figure of the Lebanese army's map-only token at al-Malikiyya (owner, 27

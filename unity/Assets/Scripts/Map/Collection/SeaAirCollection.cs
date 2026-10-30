@@ -19,7 +19,7 @@ namespace Statecraft.Game.Map.Collection
     /// turn stands at one place, so it stands off Tel Aviv, where it ran aground and burned;</item>
     /// <item>a C-54 at Lod (Lydda) Airport while Operation Magic Carpet's main airlift ran, from July 1949 to its last flights
     /// into Lydda on 24 September 1950 (<see cref="C54From"/>, <see cref="C54To"/>);</item>
-    /// <item>the Egyptian Spitfire in flight over the western board edge toward el-Arish, from 15 May 1948 to 2 January 1949
+    /// <item>the Egyptian Spitfire in flight near the western board edge (30 km in) toward el-Arish, from 15 May 1948 to 2 January 1949
     /// (<see cref="SpitfireFrom"/>, <see cref="SpitfireTo"/>, #1932), never on a hex or an airfield.</item>
     /// </list>
     /// The boats lie on the open sea past the surf, where SeaCraft's own boats sail (SeaCraft.OffshoreNearM to OffshoreM out
@@ -56,7 +56,7 @@ namespace Statecraft.Game.Map.Collection
         /// checked 18 October 2026). Taken by the IDF on 10 July 1948 (Operation Danny); flights resumed on 24 November 1948.</summary>
         public const double LodLon = 34.88278, LodLat = 32.00944;
 
-        /// <summary>Tal Heuberger's Egyptian Spitfire, only in flight at the board's western edge toward el-Arish (owner ruling,
+        /// <summary>Tal Heuberger's Egyptian Spitfire, only in flight near the board's western edge (30 km in) toward el-Arish (owner ruling,
         /// 30 October 2026, #1932: "(c) In flight / board edge only"; no airfield on the board). el-Arish was the REAF's "only
         /// 'front-line' aerodrome" (research note egyptian-air-bases-and-raids-1948-1872.md, row A1), at 31.132072 N, 33.803376 E
         /// (en.wiki "Arish", checked 30 October 2026), about 0.4 degrees west of the board. The dates come from #1894's

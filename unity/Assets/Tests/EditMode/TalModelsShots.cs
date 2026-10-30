@@ -287,7 +287,7 @@ public class TalModelsShots
         }
     }
 
-    /// <summary>#1932 (c): the Egyptian Spitfire in flight over the western board edge toward el-Arish on the opening turn (15 May
+    /// <summary>#1932 (c): the Egyptian Spitfire in flight near the western board edge (30 km in) toward el-Arish on the opening turn (15 May
     /// 1948, the first sourced Spitfire raid), close (the closest zoom), at a gameplay zoom and in an overview of the southern
     /// coast. "Before" withholds the Spitfire. Each shot is the player's camera (CameraRig.Pitch, yaw 0) aimed at the ground
     /// under the plane and held on the map as CameraController.Step holds it, so it shows what a player sees (#2014).</summary>
