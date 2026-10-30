@@ -194,5 +194,5 @@ BRACKET_EXEMPT = {"jish"}
 def test_name_he_has_no_wikipedia_qualifier_and_no_direction_marks():
     """#2042: name_he is the 1948 name, not he.wiki's disambiguation ("חממה (יישוב היסטורי)"), and carries no U+200E/U+200F."""
     bad = [p["id"] for p in PLACES
-           if ("(" in p["name_he"] and p["id"] not in BRACKET_EXEMPT) or "‎" in p["name_he"] or "‏" in p["name_he"]]
+           if ("(" in p["name_he"] and p["id"] not in BRACKET_EXEMPT) or "\u200e" in p["name_he"] or "\u200f" in p["name_he"]]
     assert bad == []
