@@ -1,6 +1,6 @@
 # Immigration, emigration and population, 1977-1993
 
-Researched 23 October 2026. Every URL below not marked "(opened 24 Oct)" was opened on 23 October. Research note for issue #147 (1977-93, the
+Researched 23 October 2026. Every URL below was opened on 23 October unless its row gives another date. Research note for issue #147 (1977-93, the
 research part only, opened by the owner's ruling of 22 October 2026 on #49). Research only: nothing here is drafted
 for the game, and no file in `content/` is changed. The `aliyah.yaml` rows, #102's emigration rows and the calibration
 checkpoints stay paused.
