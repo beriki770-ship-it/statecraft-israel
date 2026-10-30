@@ -68,8 +68,9 @@ namespace Statecraft.Game.UI
         /// <summary>True in the frame the screen closed (GameRoot's Escape poll, as TurnReportPresenter.ClosedThisFrame).</summary>
         public bool ClosedThisFrame => closedAt == UnityEngine.Time.frameCount;
 
-        /// <summary>The screen's lines for an ended game, in order: the outcome, its history note when it has one, the score, one per objective, Social cohesion,
-        /// International Support and the population with its CBS anchor. Every value is the report's.</summary>
+        /// <summary>The screen's lines for an ended game, in order: the outcome, its history note when it has one, the score,
+        /// one per objective, Social cohesion, International Support and the population with its CBS anchor. Every value is
+        /// the report's.</summary>
         public static IReadOnlyList<(string Name, string Text)> Lines(Content c, GameState s, UiText t)
         {
             var r = EndReport.For(c, s);
@@ -80,9 +81,10 @@ namespace Statecraft.Game.UI
             {
                 ("outcome", t.Has(outcome) ? t[outcome] : t["order.game_over"]),
             };
-            // The sourced history note under the cause's line (Q-DEF-4 (b)); only a cause whose note is in the strings has one.
+            // The sourced history note under the cause's line (Q-DEF-4 (b)); only a cause whose note is in the strings has one,
+            // and only under that cause's own line, never under the generic one.
             var note = "end.note." + r.Outcome;
-            if (t.Has(note)) lines.Add(("note", t[note]));
+            if (t.Has(outcome) && t.Has(note)) lines.Add(("note", t[note]));
             lines.Add(("score", t.Format("hud.score", r.Score)));
             foreach (var o in r.Objectives)
             {

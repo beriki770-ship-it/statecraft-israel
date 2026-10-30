@@ -147,8 +147,9 @@ public class EndScreenTests
         Assert.IsFalse(ended.Ui.Q<ScrollView>("end-screen-rows").Children().Any(x => x.name == "end-screen-note"), "no note for the MVP end");
     }
 
-    /// <summary>With no note in the strings (the shipped EN and HE files, until the person's check), a war loss goes straight
-    /// from its line to the score: no note row, no empty gap. Adding the note string back means updating this test too.</summary>
+    /// <summary>A regression guard (it passes without the note change too): with no note in the strings (the shipped EN and HE
+    /// files, until the person's check), a war loss goes straight from its line to the score: no note row, no empty gap.
+    /// Adding the note string back means updating this test too.</summary>
     [Test]
     public void AWarLossWithNoNoteStringGoesStraightFromItsLineToTheScore()
     {
@@ -159,6 +160,20 @@ public class EndScreenTests
             CollectionAssert.AreEqual(new[] { "end-screen-outcome", "end-screen-score" }, names.Take(2), "the score follows the outcome line");
             CollectionAssert.DoesNotContain(names, "end-screen-note");
         }
+    }
+
+    /// <summary>A note follows only its own cause's line: an outcome with no line of its own (a legacy code, shown as the
+    /// generic game-over line) gets no note even when the strings carry one for it.</summary>
+    [Test]
+    public void ANoteNeverFollowsTheGenericGameOverLine()
+    {
+        var withNote = UiText.Parse(AssetDatabase.LoadAssetAtPath<TextAsset>(UiPaths.Strings).text + "\nend.note.coalition_collapse: \"Fixture note.\"\n");
+        Assert.IsFalse(withNote.Has("end.outcome." + GameOverCodes.CoalitionCollapse), "precondition: the legacy code has no outcome line");
+        using var k = new Kit(withNote, s => { s.Date = C.End; s.GameOver = GameOverCodes.CoalitionCollapse; });
+        Assert.AreEqual(withNote["order.game_over"], k.Line("outcome"), "precondition: the generic line shows");
+        var names = k.Ui.Q<ScrollView>("end-screen-rows").Children().Select(x => x.name).ToList();
+        CollectionAssert.AreEqual(new[] { "end-screen-outcome", "end-screen-score" }, names.Take(2), "the score follows the generic line");
+        CollectionAssert.DoesNotContain(names, "end-screen-note");
     }
 
     [Test]
