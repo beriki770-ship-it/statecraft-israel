@@ -265,11 +265,11 @@ namespace Statecraft.Sim
             // The enemy's set is built from the player's localities, not as all hexes minus the enemy-held ones: at 4.4 km (#1183)
             // Rehovot shares Ramla's hex (-4, 24), which must stay closed to the enemy while Ramla is enemy-held (owner review, #1796).
             if (enemy) return new HashSet<(int Q, int R)>(c.SettlementHexes.Where(h => !ids.Contains(h.Id)).Select(h => (h.Q, h.R)));
-            var held = new HashSet<(int Q, int R)>(c.SettlementHexes.Where(h => ids.Contains(h.Id)).Select(h => (h.Q, h.R)));
-            // A target captured on a neighbour of its own hex (Ramla's, ContentLoader.TargetOnANeighbour, #1796): that hex too,
-            // so a retreat or a Raid's withdrawal still never ends where it would capture the place.
-            held.UnionWith(c.SettlementTargets.Where(t => ids.Contains(t.Id)).Select(t => (t.Q, t.R)));
-            return held;
+            // A target's hex, not its settlement's, as in Closed: for Ramla (ContentLoader.TargetOnANeighbour, #1796) that is
+            // (-3, 24), so a retreat or a Raid's withdrawal never ends where it would capture the place, while Rehovot's shared
+            // settlement hex (-4, 24) stays open (owner review, #1796).
+            return new HashSet<(int Q, int R)>(c.SettlementHexes.Where(h => ids.Contains(h.Id) && !c.SettlementTargets.Any(t => t.Id == h.Id))
+                .Select(h => (h.Q, h.R)).Concat(c.SettlementTargets.Where(t => ids.Contains(t.Id)).Select(t => (t.Q, t.R))));
         }
 
         /// <summary>R-MOVE-005 in Phase 6 (#1304): the hexes a move and its path may not enter. For the player, those of

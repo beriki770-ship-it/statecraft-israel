@@ -42,3 +42,20 @@ def test_an_enemy_anchor_on_a_players_locality_takes_the_nearest_free_neighbour(
     assert not [r for r in rows if r["id"] in enemy and (r["q"], r["r"]) in player]
     pos = {(r["id"], r["anchor"]): (r["q"], r["r"]) for r in rows}
     assert pos[("syrian_army", 1)] == (15, 6)   # the 11 June bridgehead, next to Rosh Pinna's (14, 6), the owner's hex
+
+
+def test_a_hex_shared_by_a_player_locality_and_an_enemy_held_one_is_the_players_in_any_row_order(monkeypatch):
+    """#1796 (owner review, 31 October 2026): at 4.4 km Rehovot shares Ramla's hex (-4, 24). Ramla is enemy-held, Rehovot
+    is not, so the hex is a player's locality whichever row comes last in settlement_hexes.yaml (Movement.NoEntry builds
+    the enemy's set from the player's settlements' rows, not from one id per hex)."""
+    assert (-4, 24) in uah.player_locality_hexes()
+    load = uah.yaml12.load
+
+    def reversed_rows(text):
+        data = load(text)
+        if isinstance(data, dict) and "settlements" in data:
+            data["settlements"] = list(reversed(data["settlements"]))
+        return data
+
+    monkeypatch.setattr(uah.yaml12, "load", reversed_rows)
+    assert (-4, 24) in uah.player_locality_hexes()

@@ -37,9 +37,12 @@ def settlement_hexes() -> dict[tuple[int, int], str]:
 
 
 def player_locality_hexes() -> set[tuple[int, int]]:
-    """The hexes of settlements the enemy may not enter: every one not in mvp.enemy_held_localities (Movement.NoEntry)."""
+    """The hexes of settlements the enemy may not enter: every one not in mvp.enemy_held_localities (Movement.NoEntry).
+    By id, not by settlement_hexes()'s one id per hex: Rehovot's (-4, 24), which Ramla shares (#1796), is the player's in
+    any row order."""
     held = set(yaml12.load((ROOT / "content" / "rules.yaml").read_text(encoding="utf-8"))["mvp"]["enemy_held_localities"])
-    return {h for h, sid in settlement_hexes().items() if sid not in held}
+    rows = yaml12.load((MAP / "settlement_hexes.yaml").read_text(encoding="utf-8"))["settlements"]
+    return {(s["q"], s["r"]) for s in rows if s["id"] not in held}
 
 
 def render(hexes: dict, units: list[dict]) -> str:

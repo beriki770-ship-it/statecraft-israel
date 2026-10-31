@@ -149,6 +149,16 @@ public class RealContentTests
             Movement.Move(C, s, 1, -4, 24, new Dictionary<int, int>(), new List<Cause>(), enemy: true));
     }
 
+    // R-MOVE-005 for the player at 4.4 km (owner review of #1796, 31 October): an enemy-held Ramla closes its target hex (-3, 24)
+    // to a retreat or a Raid's withdrawal, not Rehovot's (-4, 24), which it shares with Ramla.
+    [Fact]
+    public void AnEnemyHeldRamlaClosesItsTargetHexNotRehovotsToThePlayer()
+    {
+        var s = Simulation.NewGame(C, 42, Mode.Historical);
+        Assert.Contains((-3, 24), Movement.NoEntry(C, s));
+        Assert.DoesNotContain((-4, 24), Movement.NoEntry(C, s));
+    }
+
     [Fact]
     public void MaimonBirthUsesHebrewBiographyDateAndSource()
     {
