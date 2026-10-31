@@ -85,6 +85,33 @@ public class VehicleReviewTests
     }
     static string AssetFile(string path) => System.IO.Path.GetFullPath(System.IO.Path.Combine(Application.dataPath, "..", path));
 
+    /// <summary>#2014: the review menu only shows a placed model (the Spitfire); it must not re-import, re-texture or re-save
+    /// the model, material and prefab the game ships. Every file Import writes is put back afterwards, so a run leaves the
+    /// tree as it found it.</summary>
+    [Test]
+    public void ImportLeavesThePlacedModelsShippedFilesUntouched()
+    {
+        var before = new[] { VehicleReviewCatalog.Folder }.Concat(VehicleReviewCatalog.Ids.Where(VehicleReviewCatalog.Placed).Select(VehicleReviewCatalog.DirOf))
+            .SelectMany(d => System.IO.Directory.GetFiles(AssetFile(d), "*", System.IO.SearchOption.AllDirectories))
+            .ToDictionary(f => f, System.IO.File.ReadAllBytes);
+        var shipped = VehicleReviewCatalog.Ids.Where(VehicleReviewCatalog.Placed)
+            .SelectMany(id => new[] { ".fbx.meta", ".mat", ".prefab" }.Select(ext => AssetFile(VehicleReviewCatalog.DirOf(id) + "/" + id + ext))).ToArray();
+        Assert.IsNotEmpty(shipped, "the Spitfire is placed (#1932)");
+        string[] changed;
+        try
+        {
+            // Editor code lives in Assembly-CSharp-Editor, which a test assembly cannot reference (as in PortraitImportTests).
+            Type.GetType("Statecraft.Game.EditorTools.VehicleReviewAssets, Assembly-CSharp-Editor")!.GetMethod("Import")!.Invoke(null, null);
+            changed = shipped.Where(f => !System.IO.File.ReadAllBytes(f).SequenceEqual(before[f])).ToArray();
+        }
+        finally
+        {
+            foreach (var file in before.Keys.Where(f => !System.IO.File.ReadAllBytes(f).SequenceEqual(before[f]))) System.IO.File.WriteAllBytes(file, before[file]);
+            AssetDatabase.Refresh();
+        }
+        CollectionAssert.IsEmpty(changed, "Import rewrote the shipped files of a placed model");
+    }
+
     [TestCase(0, 7177)]
     [TestCase(1, 6329)]
     [TestCase(2, 6854)]

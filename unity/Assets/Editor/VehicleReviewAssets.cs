@@ -28,6 +28,13 @@ namespace Statecraft.Game.EditorTools
             for (int i = 0; i < VehicleReviewCatalog.Ids.Length; i++)
             {
                 var id = VehicleReviewCatalog.Ids[i]; var dir = VehicleReviewCatalog.DirOf(id); var file = VehicleReviewCatalog.ModelOf(id);
+                // Existing token presentation envelopes; no assertion of relative physical size.
+                var entry = new VehicleReviewCatalog.Entry { id = id, label = Labels[i],
+                    longSideM = i == 1 ? UnitFigures.VehicleLengthShare * UnitBadge.FigureHeightM * UnitShowcase.FigureScale : 11.2f * UnitShowcase.AircraftScale };
+                catalog.entries[i] = entry;
+                // A placed model (#1932: the Spitfire) ships as the game imports it (model, compressed map, material, prefab);
+                // the review only shows its prefab and never re-imports or re-saves those files (#2014).
+                if (VehicleReviewCatalog.Placed(id)) { entry.model = AssetDatabase.LoadAssetAtPath<GameObject>(dir + "/" + id + ".prefab"); continue; }
                 var importer = AssetImporter.GetAtPath(file) as ModelImporter ?? throw new FileNotFoundException("Documented compatibility FBX missing", file);
                 importer.useFileScale = true; importer.importAnimation = true; importer.animationType = ModelImporterAnimationType.Generic;
                 importer.animationCompression = ModelImporterAnimationCompression.Off; importer.clipAnimations = Array.Empty<ModelImporterClipAnimation>();
@@ -39,31 +46,23 @@ namespace Statecraft.Game.EditorTools
                 var texturePath = dir + "/" + id + "_basecolor.jpg";
                 var texture = (TextureImporter)AssetImporter.GetAtPath(texturePath);
                 texture.GetSourceTextureWidthAndHeight(out int width, out int height);
-                // A placed model's map keeps the streamed import it ships with (compressed, as the placed tent's); review-only maps stay uncompressed.
-                if (!VehicleReviewCatalog.Placed(id))
-                {
-                    texture.mipmapEnabled = true; texture.sRGBTexture = true;
-                    texture.maxTextureSize = Mathf.NextPowerOfTwo(Mathf.Max(width, height));
-                    texture.textureCompression = TextureImporterCompression.Uncompressed; texture.crunchedCompression = false;
-                    foreach (string platform in new[] { "Standalone", "WebGL", "Android", "iPhone" }) texture.ClearPlatformTextureSettings(platform);
-                    texture.assetBundleName = ""; texture.SaveAndReimport();
-                }
+                texture.mipmapEnabled = true; texture.sRGBTexture = true;
+                texture.maxTextureSize = Mathf.NextPowerOfTwo(Mathf.Max(width, height));
+                texture.textureCompression = TextureImporterCompression.Uncompressed; texture.crunchedCompression = false;
+                foreach (string platform in new[] { "Standalone", "WebGL", "Android", "iPhone" }) texture.ClearPlatformTextureSettings(platform);
+                texture.assetBundleName = ""; texture.SaveAndReimport();
                 var material = AssetDatabase.LoadAssetAtPath<Material>(dir + "/" + id + ".mat");
                 if (material == null) { material = new Material(Shader.Find("Universal Render Pipeline/Lit")); AssetDatabase.CreateAsset(material, dir + "/" + id + ".mat"); }
                 material.SetTexture("_BaseMap", AssetDatabase.LoadAssetAtPath<Texture2D>(texturePath)); material.SetFloat("_Smoothness", 0f);
                 material.SetFloat("_Cull", (float)CullMode.Off); material.enableInstancing = true; EditorUtility.SetDirty(material);
                 var source = AssetDatabase.LoadAssetAtPath<GameObject>(file);
                 var instance = (GameObject)PrefabUtility.InstantiatePrefab(source);
-                GameObject prefab;
                 try
                 {
                     foreach (var renderer in instance.GetComponentsInChildren<MeshRenderer>(true)) renderer.sharedMaterial = material;
-                    prefab = PrefabUtility.SaveAsPrefabAsset(instance, dir + "/" + id + ".prefab");
+                    entry.model = PrefabUtility.SaveAsPrefabAsset(instance, dir + "/" + id + ".prefab");
                 }
                 finally { Object.DestroyImmediate(instance); }
-                // Existing token presentation envelopes; no assertion of relative physical size.
-                catalog.entries[i] = new VehicleReviewCatalog.Entry { id = id, label = Labels[i], model = prefab,
-                    longSideM = i == 1 ? UnitFigures.VehicleLengthShare * UnitBadge.FigureHeightM * UnitShowcase.FigureScale : 11.2f * UnitShowcase.AircraftScale };
                 Debug.Log("VEHICLE ORIGINAL IMPORT " + id + ": " + AssetDatabase.LoadAllAssetsAtPath(file).OfType<Mesh>().Sum(m => (int)m.GetIndexCount(0) / 3) + " triangles; original " + width + "x" + height + " map; no LOD");
             }
             catalog.Validate(); EditorUtility.SetDirty(catalog); AssetDatabase.SaveAssets();
