@@ -966,6 +966,8 @@ public class InfoPanelLayoutTests
         if (hebrew)
         {
             Assert.GreaterOrEqual(lines.Length,2,"both refusals are listed");
+            CollectionAssert.Contains(lines,SimBridge.ReasonText(text,attackWhy!,c,namesHe),"the attack refusal, in Hebrew");
+            CollectionAssert.Contains(lines,SimBridge.ReasonText(text,reinforceWhy!,c,namesHe),"the reinforce refusal, in Hebrew");
             foreach (var line in lines) StringAssert.DoesNotMatch("[A-Za-z]",line,"a refusal line in the sim's English");
         }
         else { CollectionAssert.Contains(lines,attackWhy);CollectionAssert.Contains(lines,reinforceWhy); }
