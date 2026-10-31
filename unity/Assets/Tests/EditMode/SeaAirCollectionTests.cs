@@ -138,6 +138,40 @@ public class SeaAirCollectionTests
         Assert.AreEqual(1, layer.KeepClear.Count(k => (k[0].center - b.center).magnitude < 1f && (k[0].size - b.size).magnitude < 1f), "the labels keep clear of it");
     }
 
+    /// <summary>#2014 merge with v0.3.2's residency: Rebuild registers the Spitfire in its model's originals before Fly's
+    /// early continue, so when its window ends (the 15 January 1949 turn) the object is destroyed before its model's lease
+    /// is released. With the continue first, the lease would be released while the Spitfire is still on the map.</summary>
+    [Test]
+    public void TheSpitfireIsGoneBeforeItsLeaseIsReleasedWhenItsWindowEnds()
+    {
+        var map = OpenMap();
+        var go = new GameObject(SeaAirCollection.Name); go.transform.SetParent(map.Terrain.transform, false);
+        var layer = go.AddComponent<SeaAirCollection>();
+        // Private map field: the same construction reference ShowAt sets, before the first demand (as CollectionGeometryFixture).
+        typeof(SeaAirCollection).GetField("map", System.Reflection.BindingFlags.Instance | System.Reflection.BindingFlags.NonPublic)!.SetValue(layer, map);
+        var released = new List<(string id, bool spitfireDrawn)>();
+        layer.ConfigureResidency(new CollectionResidencyPolicy(1000000, 1000001, 1000000, 1000001, int.MaxValue, "TEST ONLY"),
+            (id, detail, done) => { SeaAirCollection.Request(id, detail, done); return new ReleaseProbe(() => released.Add((id, layer.transform.Find("el-arish-spitfire") != null))); });
+
+        SeaAirCollection.ShowAt(map, new DateTime(1948, 12, 15), Array.Empty<Placement>(), C);
+        AnswerAll();
+        Assert.IsNotNull(layer.transform.Find("el-arish-spitfire"), "the Spitfire is drawn on 15 December 1948");
+        Assert.AreEqual(layer.Placed.Count, layer.KeepClear.Count, "labels keep clear of every drawn craft");
+
+        SeaAirCollection.ShowAt(map, new DateTime(1949, 1, 15), Array.Empty<Placement>(), C);
+        Assert.AreEqual(1, released.Count(r => r.id == SeaAirCollection.Spitfire), "the Spitfire's lease is released once its window ends");
+        Assert.IsFalse(released.Single(r => r.id == SeaAirCollection.Spitfire).spitfireDrawn, "the Spitfire object is gone before its lease is released");
+        Assert.IsNull(layer.transform.Find("el-arish-spitfire"));
+        Assert.IsFalse(layer.Placed.Any(p => p.Model == SeaAirCollection.Spitfire));
+        Assert.AreEqual(layer.Placed.Count, layer.KeepClear.Count, "labels keep clear of every drawn craft, and of nothing else");
+    }
+
+    sealed class ReleaseProbe : IDisposable
+    {
+        Action? done; public ReleaseProbe(Action done) { this.done = done; }
+        public void Dispose() { var call = done; done = null; call?.Invoke(); }
+    }
+
     /// <summary>Nothing is drawn until the stream answers, and only the far mesh, once per model. Then every craft is drawn,
     /// each boat on the open sea (the heightmap's 0 m), its hull passing SeaCraft's own clearance (open sea round it, clear of
     /// the harbour works and of SeaCraft's boats and each other) and at least SeaCraft.OffshoreNearM out from its shore point
