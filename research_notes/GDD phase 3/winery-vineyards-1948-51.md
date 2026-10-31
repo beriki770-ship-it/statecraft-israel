@@ -133,14 +133,20 @@ be read without one.
   wine-cellars of Rishon-Lezion" and land "set aside for the cultivation of wine grapes by growers connected with the
   Rishon- Lezion cellars" (the scan prints "Rishon- Lezion" with a break). The lines around these sentences do not name
   the district they describe, so the snippets do not show that it is the town's own land. The sentences tie the
-  vineyards and the growers to the cellars, not to the town.
+  vineyards and the growers to the cellars, not to the town. The second sentence reads in full in the scan: "In recent
+  years special areas have been set aside for the cul- tivation of wine grapes by growers connected with the Rishon-
+  Lezion cellars." The only dating in it is "In recent years", which counted back from 1957 is the closest thing to a
+  date in the passage; the person checking should look on the page for a year. Re-read 2026-10-31 on the same
+  archive.org search.
 - **[S, agent read 2026-10-31; a person's check pending]** English Wikipedia, "Carmel Winery",
   `https://en.wikipedia.org/w/index.php?title=Carmel_Winery&oldid=1328303280` (revision of 19 December 2025). It says
   of Edmond de Rothschild: "His first vineyards were planted near Rishon LeZion", with French rootstock imported in 1882
   and a large wine cellar begun in Rishon LeZion, and that the Rishon LeZion Winery was built in 1890. After the First
   World War "Many of the vineyards were uprooted and replanted with citrus trees"; "during the Second World War, the
   industry began to grow again". For today it says the Central Coastal Plain and the Judean Lowlands region "supplies the Rishon
-  LeZion Winery". Nothing on it dates a Rishon vineyard to 1948-51. The resource comment in `content/cities.yaml` says
+  LeZion Winery". Nothing on it dates a Rishon vineyard to 1948-51. In the raw wikitext of this revision the History and Wineries
+  sections (and the Overview and Vineyards sections) carry a "section unsourced" tag dated December 2023, which fits the
+  [S] grade. The resource comment in `content/cities.yaml` says
   "Carmel Winery's first vineyards"; the article says Rothschild's first vineyards.
 - **JTA search, none found.** Run 2026-10-31 on `https://www.jta.org/wp-json/wp/v2/archive?search=<term>&after=1948-05-14&before=1951-12-31`,
   with the terms `Rishon`, `Rishon-le-Zion`, `Rishon Lezion`, `Rishon LeZion`, `Rishon le Zion`, `Rishon wine cellars`,
@@ -156,10 +162,10 @@ be read without one.
 | Rishon LeZion had wine cellars in 1948-51 | JTA 27 July 1950 (page image) | Yes: the bulletin is 27 July 1950 and the dateline 26 July 1950 | [V, agent read 2026-10-31; a person's check pending] |
 | The cellars shipped wine to the US in 1949-50 | Same item: 35,000 cases, $900,000 retail, about $700,000 up on 1949 | Yes (announcement, not a delivery record) | [V, agent read 2026-10-31; a person's check pending] |
 | The town's chief agricultural activity is largely viniculture | Hoffman 1950, one sentence stitched from search lines | No: a 1950 book, present tense, same text in a 1955 scan | [Sn] |
-| Vineyards connected to the cellars | Halperin 1957 | No: 1957, district not named | [Sn] |
-| Rothschild's first vineyards were planted near the town | Wikipedia, oldid 1328303280 | No: 1880s | [S] |
+| Vineyards connected to the cellars | Halperin 1957 | No: 1957, district not named | [Sn, agent read 2026-10-31; a person's check pending] |
+| Rothschild's first vineyards were planted near the town | Wikipedia, oldid 1328303280 | No: 1880s | [S, agent read 2026-10-31; a person's check pending] |
 | Vineyards stayed in the town after the First World War | Encyclopaedia Judaica (above): vineyards partly replaced, citrus principal | No: earlier than 1914 | [C] with Hoffman |
-| The town's own vineyards existed in 1948-51 | Nothing read dates it | Not found | [GAP] |
+| The town's own vineyards existed in 1948-51 | Nothing read dates it | Not found | [G] |
 
 Winery activity is a separate claim from vineyards in the town, and grapes brought from elsewhere are a third. The
 sources read support the first (1950, [V]) and say the second only in an undated present tense. None supports the third
@@ -170,7 +176,7 @@ or rules it out.
 The current claim is **not supported** by anything read that is dated to 1948-51. What is missing is a page, from 1948-51
 or close to it, that places vineyards in or beside Rishon LeZion (the Palestine Post or Hebrew press on JPress, the
 co-operative's reports, the 1949/50 agricultural census by settlement, or the context of Hoffman p. 109 opened in the
-book). A person with a borrowing account opening Hoffman p. 109, Halperin and Viteles would close it.
+book). A person with a borrowing account opening Hoffman p. 109, Halperin and Viteles is the next step.
 
 Proposed wording for a person to review (nothing has been changed in `content/`): "Rishon LeZion's wine cellars were in
 operation and exporting in 1950 (JTA, 27 July 1950). A 1950 book calls the town's farming largely viniculture, but it is
