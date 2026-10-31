@@ -1,15 +1,11 @@
 """The opening's sources and image records (#530, plan PR 10): every paragraph, the closing line too, has sources a person
 has checked (a `checked:` date on each), and every photograph has its alt text, credit and the owner's sensitivity review.
 An AI reading and an in-memory fixture are never a person's sign-off.
-
-The real file is a draft until the owner's source check, so its test is a strict xfail: it reports the missing checks
-today, and fails as XPASS the day opening.yaml is fully checked, which is the cue to remove the marker.
 """
 import copy
 from datetime import date
 from pathlib import Path
 
-import pytest
 import yaml12
 
 REPO = Path(__file__).resolve().parents[2]
@@ -62,7 +58,6 @@ def reviewed_fixture():
     return doc
 
 
-@pytest.mark.xfail(strict=True, reason="opening.yaml is a draft: the owner's source check and text review are pending (#530)")
 def test_the_real_opening_has_every_check():
     assert problems(actual()) == [], "\n".join(problems(actual()))
 
