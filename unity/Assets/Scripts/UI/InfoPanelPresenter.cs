@@ -749,8 +749,8 @@ namespace Statecraft.Game.UI
                 showReachable?.Invoke(hexes);
             }
             moveButton.style.display = moves != null ? DisplayStyle.Flex : DisplayStyle.None;
-            // Fortify and Hold (#754): each offered only where the sim's Orders.Check takes it; else the sim's reason, as given,
-            // on Israel's units only (an enemy's card would only repeat the sim's English "That unit is not yours").
+            // Fortify and Hold (#754): each offered only where the sim's Orders.Check takes it; else the sim's reason, in the UI's
+            // language (#2045), on Israel's units only (an enemy's card would only repeat "That unit is not yours").
             var orderUnit = OrderUnit(); var shownUnit = ShownUnit();
             var own = unit?.Token.Unit.Side == UnitData.Israel;
             var refusals = new List<string>();
@@ -758,7 +758,7 @@ namespace Statecraft.Game.UI
             {
                 var why = orderUnit is int ou ? Orders.Check(c, s, ou, order) : null;
                 button.style.display = orderUnit != null && why == null ? DisplayStyle.Flex : DisplayStyle.None;
-                if (why != null && own && !refusals.Contains(why)) refusals.Add(why);
+                if (why != null && own && SimBridge.ReasonText(text, why) is var said && !refusals.Contains(said)) refusals.Add(said);
             }
             // Attack (#754): offered where the sim's Combat.Check takes some hex; its refusals in reach show as the others'.
             var attacks = AttackTargets();
