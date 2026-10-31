@@ -74,7 +74,15 @@ namespace Statecraft.Game.UI
         public static IReadOnlyList<(string Name, string Text)> Lines(Content c, GameState s, UiText t)
         {
             var r = EndReport.For(c, s);
-            string Date(DateTime d) => t.Format("date.day_month_year", d.Day, t["date.month_" + d.Month], d.Year);
+            // A Hebrew date goes between RLE and PDF (#2060): left bare in a line laid out left to right, the bidi rules pull
+            // its day onto the next word and its year to the line's far end. Not RLI/PDI: UI Toolkit's advanced text generator
+            // still drew the date in that order with the isolates (measured on 6000.3), the embedding keeps it whole.
+            // English dates are left as they are.
+            string Date(DateTime d)
+            {
+                var value = t.Format("date.day_month_year", d.Day, t["date.month_" + d.Month], d.Year);
+                return UiDirection.HasRightToLeft(value) ? "\u202B" + value + "\u202C" : value;
+            }
             // The GDD loop ends only as the MVP end or a defeat (R-END-002, R-END-005); the legacy codes get the generic line.
             var outcome = "end.outcome." + r.Outcome;
             var lines = new List<(string, string)>
