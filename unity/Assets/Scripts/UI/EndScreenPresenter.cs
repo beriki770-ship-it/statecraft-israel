@@ -69,8 +69,8 @@ namespace Statecraft.Game.UI
         public bool ClosedThisFrame => closedAt == UnityEngine.Time.frameCount;
 
         /// <summary>The screen's lines for an ended game, in order: the outcome, its history note when it has one, the score,
-        /// one per objective, Social cohesion, International Support, the population with its CBS anchor and, when some went
-        /// home, the prisoners returned. Every value is the report's.</summary>
+        /// the reference score, one per objective, Social cohesion, International Support, the population with its CBS anchor
+        /// and, when some went home, the prisoners returned. Every value is the report's.</summary>
         public static IReadOnlyList<(string Name, string Text)> Lines(Content c, GameState s, UiText t)
         {
             var r = EndReport.For(c, s);
@@ -86,6 +86,8 @@ namespace Statecraft.Game.UI
             var note = "end.note." + r.Outcome;
             if (t.Has(outcome) && t.Has(note)) lines.Add(("note", t[note]));
             lines.Add(("score", t.Format("hud.score", r.Score)));
+            // Q-SCORE-2: beside the score, what a run on the historical dates scores (the sim's number; nothing computed here).
+            if (r.ReferenceScore > 0) lines.Add(("score-reference", t.Format("end.reference_score", r.ReferenceScore)));
             foreach (var o in r.Objectives)
             {
                 var title = EventSystem.Title(c, s, c.Events.First(e => e.Id == o.Card));   // as the objective's card shows it
