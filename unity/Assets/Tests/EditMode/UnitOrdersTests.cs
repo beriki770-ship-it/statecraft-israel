@@ -430,6 +430,33 @@ public class UnitOrdersTests
         }
     }
 
+    /// <summary>#2072, owner review item 1: a Reinforce the sim refuses for Arms ("Tel Aviv: not enough Arms for basic training
+    /// (need ..)") reaches the player through SimBridge, in Hebrew whole: the town and the course in Hebrew too, no Latin
+    /// letter. The bridge queues it (a Reinforce waits for End turn) and End turn raises the sim's refusal.</summary>
+    [Test]
+    public void AReinforceRefusedThroughTheBridgeReadsInHebrewWhole()
+    {
+        var he = UiText.Parse(AssetDatabase.LoadAssetAtPath<TextAsset>(UiPaths.StringsHebrew).text, "strings.he.yaml");
+        var namesHe = SettlementPlacer.Parse(File.ReadAllText(Path.Combine(Paths.Content, "map", SettlementPlacer.DefaultFileName))).ToDictionary(t => t.Id, t => t.NameHe);
+        using var ui = new UiTestKit();
+        var g = GameSession.New(C, GoldenRun.Seed, Mode.Historical);
+        var bridge = new SimBridge(g, he) { TownNamesHe = namesHe };
+        using var toast = new ToastPresenter(ui.Root, bridge, he) { TownNamesHe = namesHe };
+        var token = UnitRoster.FromState(Units, C, g.State, _ => true, (row, a, q, r) => a).Single(x => x.Unit.Id == "golani");
+        var id = UnitCard.SimUnit(C, g.State, token.Unit)!.Value;
+        var u = g.State.Units[id];
+        var city = C.SettlementHexes.Single(h => h.Id == "tel_aviv");
+        g.State.Units[id] = new Unit(u.Id, u.Type, city.Q, city.R, u.Service, u.Side, u.Strength - 2, u.Order, u.OrderTarget, u.HomeCity, u.Strength);
+        g.State.Arms = 0;
+        Assert.IsNull(bridge.Queue(new Reinforce(id, "tel_aviv", 2)), "the bridge queues it");
+        var rejected = bridge.EndTurn().Rejected.Single(x => x.Command is Reinforce).Reason;
+        StringAssert.StartsWith("Tel Aviv: not enough Arms for basic training", rejected, "the sim's English, with a town and a course");
+        var line = ui.Q<Label>("toast").text;
+        StringAssert.Contains(namesHe["tel_aviv"], line, "the town in Hebrew");
+        StringAssert.Contains(he["why.cause.course.basic"], line, "the course in Hebrew");
+        StringAssert.DoesNotMatch("[A-Za-z]", line, "no English left in the refusal");
+    }
+
     /// <summary>Codex's review of #1527, finding 3, on the card: once Send home is queued for a unit, the card offers it no
     /// other order (Move, Fortify, Hold, Attack, Reinforce, Skip, nor Send home again) and says the unit goes home.</summary>
     [Test]

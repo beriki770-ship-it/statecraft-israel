@@ -275,7 +275,11 @@ namespace Statecraft.Game.UI
             return course != null ? text["why.cause.course." + Training.CourseId(course)] : value;
         }
 
-        string? Refuse(string reason) { reason = ReasonText(text, reason); Refused?.Invoke(reason); return reason; }
+        /// <summary>Each settlement's Hebrew name (name_he), by id, for <see cref="Refuse"/>'s Hebrew (#2072): GameRoot sets it, as
+        /// it sets the card's and the toast's.</summary>
+        public IReadOnlyDictionary<string, string>? TownNamesHe { get; set; }
+
+        string? Refuse(string reason) { reason = ReasonText(text, reason, Content, TownNamesHe); Refused?.Invoke(reason); return reason; }
 
         static void Notify(Action? handlers)
         {

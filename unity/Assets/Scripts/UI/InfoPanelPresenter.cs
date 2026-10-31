@@ -758,7 +758,7 @@ namespace Statecraft.Game.UI
             {
                 var why = orderUnit is int ou ? Orders.Check(c, s, ou, order) : null;
                 button.style.display = orderUnit != null && why == null ? DisplayStyle.Flex : DisplayStyle.None;
-                if (why != null && own && SimBridge.ReasonText(text, why) is var said && !refusals.Contains(said)) refusals.Add(said);
+                if (why != null && own && SimBridge.ReasonText(text, why, c, townNamesHe) is var said && !refusals.Contains(said)) refusals.Add(said);
             }
             // Attack (#754): offered where the sim's Combat.Check takes some hex; its refusals in reach show as the others', in the
             // UI's language too (#2072), each once.
