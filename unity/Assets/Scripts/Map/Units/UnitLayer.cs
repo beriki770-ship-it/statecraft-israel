@@ -507,7 +507,15 @@ namespace Statecraft.Game.Map.Units
         /// <summary>Selects a drawn unit by id (the ring goes round it), or clears the selection (null).</summary>
         public void Select(string? id)
         {
-            if (ring != null) { ring.transform.SetParent(null); if (Application.isPlaying) Destroy(ring); else DestroyImmediate(ring); ring = null; }
+            if (ring != null)
+            {
+                // Each ring has its own mesh (UnitShowcase.Ring), owned by the layer's assets until teardown: free it with
+                // the ring, or every selection keeps one more alive for the session (#2043).
+                var mesh = ring.GetComponent<MeshFilter>().sharedMesh;
+                ring.transform.SetParent(null);
+                if (Application.isPlaying) { Destroy(ring); Destroy(mesh); } else { DestroyImmediate(ring); DestroyImmediate(mesh); }
+                ring = null;
+            }
             var hit = placed.FirstOrDefault(p => p.Token.Unit.Id == id);
             Selected = id != null && hit.Token != null ? id : null;
             if (Selected == null) return;
