@@ -43,7 +43,6 @@ namespace Statecraft.Sim
 
         static string Refused(string format, params object[] values) => string.Format(System.Globalization.CultureInfo.InvariantCulture, format, values);
 
-
         /// <summary>The course a type trains in, in text the player reads: the facility's, or the guns' or the armoured cars' own
         /// at a military camp (R-UNIT-008).</summary>
         public static string Course(UnitType t) =>
