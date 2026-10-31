@@ -103,24 +103,24 @@ public class HebrewUiTests
         var namesHe = SettlementPlacer.Parse(File.ReadAllText(Path.Combine(Paths.Content, "map", SettlementPlacer.DefaultFileName))).ToDictionary(t => t.Id, t => t.NameHe);
         var place = c.SettlementNames.Single(x => x.Value == "Rishon LeZion");
         var recruit = c.UnitTypes.Single(t => t.Id == "recruit");
-        object Town = new object(), Course = new object();
+        object townSlot = new object(), courseSlot = new object();
         // Each format's values in the sim's order (Combat.Check, Training.Reinforce/Start), and the key it reads as.
         var filled = new Dictionary<string, (string key, object[] values)>
         {
             [Statecraft.Sim.Combat.RefusedArms] = ("unit.attack_refused.arms", new object[] { 12, 3 }),
-            [Statecraft.Sim.Training.RefusedNotInCity] = ("unit.reinforce_refused.not_in_city", new object[] { 41, Town }),
+            [Statecraft.Sim.Training.RefusedNotInCity] = ("unit.reinforce_refused.not_in_city", new object[] { 41, townSlot }),
             [Statecraft.Sim.Training.RefusedNoCourse] = ("unit.reinforce_refused.no_course", new object[] { 41 }),
             [Statecraft.Sim.Training.RefusedNoLosses] = ("unit.reinforce_refused.no_losses", new object[] { 41 }),
             [Statecraft.Sim.Training.RefusedRoomOne] = ("unit.reinforce_refused.room_one", new object[] { 41, 1 }),
             [Statecraft.Sim.Training.RefusedRoomMany] = ("unit.reinforce_refused.room_many", new object[] { 41, 5 }),
-            [Statecraft.Sim.Training.RefusedNoCamp] = ("unit.reinforce_refused.no_camp", new object[] { Town }),
-            [Statecraft.Sim.Training.RefusedNoIndustry] = ("unit.reinforce_refused.no_industry", new object[] { Town }),
-            [Statecraft.Sim.Training.RefusedNoHakhshara] = ("unit.reinforce_refused.no_hakhshara", new object[] { Town }),
-            [Statecraft.Sim.Training.RefusedIdle] = ("unit.reinforce_refused.idle", new object[] { Town, 6 }),
-            [Statecraft.Sim.Training.RefusedArms] = ("unit.reinforce_refused.arms", new object[] { Town, Course, 12, 3 }),
+            [Statecraft.Sim.Training.RefusedNoCamp] = ("unit.reinforce_refused.no_camp", new object[] { townSlot }),
+            [Statecraft.Sim.Training.RefusedNoIndustry] = ("unit.reinforce_refused.no_industry", new object[] { townSlot }),
+            [Statecraft.Sim.Training.RefusedNoHakhshara] = ("unit.reinforce_refused.no_hakhshara", new object[] { townSlot }),
+            [Statecraft.Sim.Training.RefusedIdle] = ("unit.reinforce_refused.idle", new object[] { townSlot, 6 }),
+            [Statecraft.Sim.Training.RefusedArms] = ("unit.reinforce_refused.arms", new object[] { townSlot, courseSlot, 12, 3 }),
         };
-        object English(object v) => v == Town ? place.Value : v == Course ? Statecraft.Sim.Training.Course(recruit) : v;
-        object Hebrew(object v) => v == Town ? namesHe[place.Key] : v == Course ? He["why.cause.course." + Statecraft.Sim.Training.CourseId(recruit)] : v;
+        object English(object v) => v == townSlot ? place.Value : v == courseSlot ? Statecraft.Sim.Training.Course(recruit) : v;
+        object Hebrew(object v) => v == townSlot ? namesHe[place.Key] : v == courseSlot ? He["why.cause.course." + Statecraft.Sim.Training.CourseId(recruit)] : v;
         string Slots(string line) => string.Join(",", Regex.Matches(line, @"\{\d+\}").Cast<Match>().Select(m => m.Value));
         var formats = check.GetFields(System.Reflection.BindingFlags.Public | System.Reflection.BindingFlags.Static)
             .Where(f => f.IsLiteral && f.Name.StartsWith("Refused")).Select(f => (string)f.GetRawConstantValue()).ToList();

@@ -432,7 +432,8 @@ public class UnitOrdersTests
 
     /// <summary>#2072, owner review item 1: a Reinforce the sim refuses for Arms ("Tel Aviv: not enough Arms for basic training
     /// (need ..)") reaches the player through SimBridge, in Hebrew whole: the town and the course in Hebrew too, no Latin
-    /// letter. The bridge queues it (a Reinforce waits for End turn) and End turn raises the sim's refusal.</summary>
+    /// letter. The bridge queues it (a Reinforce waits for End turn) and End turn raises the sim's refusal, which the toast
+    /// reads. SimBridge.Refuse never sees it: a queue-time refusal (Orders, Combat, Movement) carries no town or course.</summary>
     [Test]
     public void AReinforceRefusedThroughTheBridgeReadsInHebrewWhole()
     {
