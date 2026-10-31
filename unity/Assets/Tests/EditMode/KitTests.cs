@@ -1347,7 +1347,9 @@ public class KitTests
         int far = veg.LastDrawn;
         TestContext.WriteLine($"trees {veg.Count}: drawn at gameplay03 {near}, at diorama02 {far}");
         Assert.Greater(near, 1000); Assert.Less(far, veg.Count * 0.6f, "the overview thins the far tiles");
-        VisualToggles.Set("trees", false); RenderSample.Render(cam, 320, 180);
+        // Move to the near pose with the trees off: a layer that still drew would report `near` there, not `far` (#2026).
+        Assert.AreNotEqual(near, far);
+        VisualToggles.Set("trees", false); PromoPose.Gameplay03.Apply(rig, map.Frame); RenderSample.Render(cam, 320, 180);
         Assert.AreEqual(far, veg.LastDrawn, "the trees toggle stops the draws (no new submission)");
     }
 
