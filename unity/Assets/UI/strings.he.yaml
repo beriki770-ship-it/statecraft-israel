@@ -1029,7 +1029,7 @@ unit.order_refused.already: "היחידה כבר קיבלה פקודה זו"
 
 # #2072 Attack and Reinforce refusals (Combat.Check, Training.Reinforce), shown on the unit card and in the toast. A
 # settlement in {0}/{1} opens the line as its label or follows a prefix, so no verb agrees with its gender (HE-15).
-# For the native reviewer (#564).
+# Approved by Beri, a native speaker, on #2072 (31 Oct 2026), all 20 lines as written. For the native reviewer (#564).
 unit.attack_refused.no_hex: "יש לבחור משושה להתקפה"
 unit.attack_refused.truce: "הפוגה בתוקף"
 unit.attack_refused.out_of_range: "המשושה מחוץ לטווח של היחידה"
