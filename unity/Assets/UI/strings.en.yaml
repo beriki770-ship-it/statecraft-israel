@@ -915,6 +915,14 @@ unit.artillery_move_missing: "Artillery cannot move yet: its movement points hav
 unit.fire_ready: "Fire available"
 unit.fire_spent: "Fired this turn"
 
+# #2045 standing-order refusals (Orders.Check), shown on the unit card.
+unit.order_refused.unknown_order: "That order is not known"
+unit.order_refused.no_unit: "There is no such unit"
+unit.order_refused.not_military: "Only a military unit takes that order"
+unit.order_refused.not_yours: "That unit is not yours"
+unit.order_refused.artillery_hold: "Artillery does not hold ground"
+unit.order_refused.already: "That unit already has that order"
+
 # #1682 remaining Cause producers. English report wording preserved.
 why.cause.workers_assigned: "{0}: {1} groups in work"
 why.cause.wages_paid: "{0}: jobs paid {1}"
