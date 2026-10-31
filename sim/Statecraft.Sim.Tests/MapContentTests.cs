@@ -17,6 +17,49 @@ public class MapContentTests
         Assert.Equal(("town_a", "city", "must_have"), (c.MapLocations[0].Id, c.MapLocations[0].Kind, c.MapLocations[0].Priority));
     }
 
+    // #1007, owner 21 October 2026: an outpost is optional map metadata, with no implied gameplay role.
+    [Fact]
+    public void AnOptionalOutpostLoadsAsMetadataOnly()
+    {
+        var yaml = Fixture.Files["map/locations_1948.yaml"]
+            .Replace("kind: city", "kind: outpost")
+            .Replace("priority: must_have", "priority: optional")
+            .Replace("managed_city: true", "managed_city: false");
+        var c = ContentLoader.Load(Fixture.Write(new Dictionary<string, string>
+            { ["map/locations_1948.yaml"] = yaml }));
+        var location = Assert.Single(c.MapLocations);
+
+        Assert.Equal("outpost", location.Kind);
+        Assert.Equal("optional", location.Priority);
+        Assert.True(location.Marker);
+        Assert.False(location.ManagedCity);
+        Assert.False(location.DesignatedSite);
+        Assert.False(location.SettlementControlTarget);
+    }
+
+    [Fact]
+    public void UmmRashrashIsAnOptionalOutpostWithoutGameplayRoles()
+    {
+        var c = ContentLoader.Load(RealContentTests.ContentRoot());
+        var location = Assert.Single(c.MapLocations, x => x.Id == "umm_rashrash");
+
+        Assert.Equal("Umm Rashrash", location.Name);
+        Assert.Equal("אום רשרש", location.NameHe);
+        Assert.Equal("outpost", location.Kind);
+        Assert.Equal("optional", location.Priority);
+        Assert.True(c.HexAt(location.Q, location.R)!.Land);
+        Assert.True(location.Marker);
+        Assert.False(location.ManagedCity);
+        Assert.False(location.DesignatedSite);
+        Assert.False(location.SettlementControlTarget);
+        Assert.Empty(location.StartingControl);
+        Assert.Null(location.ControlChange);
+        Assert.DoesNotContain(c.Cities, x => x.Id == location.Id);
+        Assert.DoesNotContain(c.Sites, x => x.Id == location.Id);
+        Assert.DoesNotContain(c.SettlementTargets, x => x.Id == location.Id);
+        Assert.DoesNotContain(c.SettlementHexes, x => x.Id == location.Id);
+    }
+
     [Theory]
     [InlineData("kind: city", "kind: citty", "locations[town_a].kind", "unknown kind")]
     [InlineData("priority: must_have", "priority: urgent", "locations[town_a].priority", "unknown priority")]
@@ -158,7 +201,8 @@ public class MapContentTests
         Assert.Equal(1102, c.Hexes.Count);
         Assert.Equal(870, c.Hexes.Count(h => h.Land));
         Assert.Equal(25, c.SettlementHexes.Count);
-        Assert.Equal(10, c.MapLocations.Count);
+        Assert.Equal(11, c.MapLocations.Count);
+        Assert.Equal(10, c.MapLocations.Count(x => x.Priority == "must_have"));
         Assert.Contains(c.SettlementHexes, s => s.Id == "tiberias");
         Assert.Contains(c.MapLocations, x => x.Id == "jerusalem" && x.Name == "West Jerusalem" && x.StartingControl == "israeli");
         var eastJerusalem = Assert.Single(c.MapLocations, x => x.Id == "east_jerusalem_old_city");
