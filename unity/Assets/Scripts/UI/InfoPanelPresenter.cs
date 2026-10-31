@@ -363,7 +363,7 @@ namespace Statecraft.Game.UI
             // The enemy units there (Combat's defenders: a side, not Israel's; Check has made sure there is one).
             var names = s.Units.Values.Where(u => u.Q == q && u.R == r && u.Side != "" && u.Side != Movement.PlayerSide).Select(u => unitName?.Invoke(u.Id)).Where(n => !string.IsNullOrEmpty(n)).ToList();
             var who = names.Count > 0 ? string.Join(", ", names) : string.Format(CultureInfo.InvariantCulture, "{0},{1}", q, r);
-            var bands = Combat.Outcomes(c, s, p.Row).Select(b => text.Format(b.Retreat ? "unit.attack_band_retreat" : "unit.attack_band",
+            var bands = Combat.Outcomes(c, s, p.Row, unit).Select(b => text.Format(b.Retreat ? "unit.attack_band_retreat" : "unit.attack_band",
                 b.Faces, b.Of, b.AttackersLose, b.DefendersLose));
             return text.Format("unit.attack_odds", who, p.RatioPercent) + "\n" + string.Join("\n", bands);   // one band a line
         }
