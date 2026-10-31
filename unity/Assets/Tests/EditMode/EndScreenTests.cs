@@ -296,4 +296,32 @@ public class EndScreenTests
         Assert.AreEqual(He["hud.new_game"], k.Ui.Q<Button>("end-screen-new-game").text);
         StringAssert.StartsWith(He["hud.caption.cohesion"] + ":", k.Line("cohesion"));
     }
+
+    /// <summary>#2060: in Hebrew each date an end-screen line inserts sits between RLE and PDF (U+202B, U+202C), so it
+    /// reads as one unit right after "ב־" ("20 בספטמבר 1949") even in a line laid out left to right, instead of the bidi
+    /// rules pulling its day onto the next word and its year to the line's far end. The lines are compared ordinally, so
+    /// every direction mark counts. The titles are read back from the lines: #2041 decides which title shows, this test
+    /// pins the dates around it.</summary>
+    [Test]
+    public void HebrewIsolatesEachDateItInserts()
+    {
+        using var k = new Kit(He, Ended);
+        var first = C.Objectives.Single(o => o.Id == "absorb_immigrants");
+        const char Lrm = '\u200E', Rle = '\u202B', Pdf = '\u202C';
+        string Date(System.DateTime d) => $"{Rle}{Lrm}{d.Day}{Lrm} ב{He["date.month_" + d.Month]} {Lrm}{d.Year}{Lrm}{Pdf}";
+        var line = k.Line("objective-" + first.Id);
+        var title = line.Substring("יעד ".Length, line.IndexOf(": הושלם", System.StringComparison.Ordinal) - "יעד ".Length);
+        var expected = "יעד " + title + ": הושלם ב־" + Date(first.ReferenceDate.AddMonths(-1)) + "; בהיסטוריה ב־" + Date(first.ReferenceDate);
+        Assert.IsTrue(string.Equals(expected, line, System.StringComparison.Ordinal), "expected\n" + Escape(expected) + "\nbut was\n" + Escape(line));
+        var open = C.Objectives.First(o => o.Id != first.Id);   // Ended completes only the first
+        var openLine = k.Line("objective-" + open.Id);
+        var openTitle = openLine.Substring("יעד ".Length, openLine.IndexOf(": לא הושלם", System.StringComparison.Ordinal) - "יעד ".Length);
+        var openExpected = "יעד " + openTitle + ": לא הושלם; בהיסטוריה ב־" + Date(open.ReferenceDate);
+        Assert.IsTrue(string.Equals(openExpected, openLine, System.StringComparison.Ordinal), "expected\n" + Escape(openExpected) + "\nbut was\n" + Escape(openLine));
+        var anchor = EndReport.For(C, k.Bridge.State).PopulationHistory!;
+        Assert.GreaterOrEqual(k.Line("population").IndexOf(Date(anchor.Date), System.StringComparison.Ordinal), 0, "the population line's date too: " + Escape(k.Line("population")));
+    }
+
+    /// <summary>The line with its invisible marks spelled out, for a failure message.</summary>
+    static string Escape(string s) => string.Concat(s.Select(c => c < 0x2000 || c > 0x206F ? c.ToString() : $"<U+{(int)c:X4}>"));
 }
