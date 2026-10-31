@@ -309,10 +309,10 @@ public class Gdd03EventRulesTests
     {
         "absorb_immigrants:dbab4d5af95361ac47b8f72894780ca1779b283e99cea8e96d19c4c9e96de135", // re-pinned for #1065 (Beri's native Hebrew read)
         "altalena:d2c85de2ba034928441a67e490862b265f693d005e000553622bd80fbcb7ede8", // re-pinned for #1065 (Beri's native Hebrew read)
-        "armistice_egypt:e4b745fcd6753398d5a988e26f9e84dc7c0bbb303e52315e07c6b2202fa8dbee", // re-pinned for #1065 (Beri's native Hebrew read)
-        "armistice_jordan:3356343149b53b723ee73698308d7b3474fb026d97f9c26d332e953240f83ef2", // re-pinned for #1065 (Beri's native Hebrew read)
-        "armistice_lebanon:7aa5b70927057078437be5e36a0b5e35a3ae4d86fd45b02425082281bacd9a55", // re-pinned for #1065 (Beri's native Hebrew read)
-        "armistice_syria:1573d6425173e532b18028bd1910dccb93f0d5532dc8ba793a64689a57f4d945", // re-pinned for #1065 (Beri's native Hebrew read)
+        "armistice_egypt:d361db22977057e24e0cb515afbfee37439cbdce38e465960b4978d082f5704f", // re-pinned for #1065 (Beri's native Hebrew read)
+        "armistice_jordan:484bedf4869f6b01aec1a2d400c577183654a6d36930da065a77ddf203cf4450", // re-pinned for #1065 (Beri's native Hebrew read)
+        "armistice_lebanon:81141de094d4d536c6c0e22b93a0d3704a3f1d999b3813a51c2d08f2ae8ecf11", // re-pinned for #1065 (Beri's native Hebrew read)
+        "armistice_syria:2b83f89ff2effe21e01d511a7ea1e0a41f937ee96e39a16977ab6f7e8999257e", // re-pinned for #1065 (Beri's native Hebrew read)
         "austerity_1949:7b4534f4982116745eef2ab2f959ad52faf6efa8efb7f0f5bda3844bac590cc4", // re-pinned for #1065 (Beri's native Hebrew read)
         "bernadotte_assassination:ea0f988df86957b3e56bf6cd0322f5d33adc927d969509e94ec67aa53e7ed0c5", // re-pinned for #1065 (Beri's native Hebrew read)
         "burma_road_complete:f48054bb7720b93b582cae4e168f13595a4360ee62e91e12815df08de384e6e3",
