@@ -129,8 +129,12 @@ public class SeaAirCollectionTests
         Assert.GreaterOrEqual(b.min.x, 0f, "the whole aircraft is over the board");
         Assert.AreEqual(30000f, at.x, 1f, "30 km in from the board's western edge (#2014)");
         Assert.AreEqual(elArish.z, at.z, 1f, "at el-Arish's latitude");
-        Assert.AreEqual(span, b.size.z, 1f, "wingspan north-south at its size: the nose points east or west");
+        Assert.AreEqual(span, b.size.z, 1f, "wingspan north-south at its size: the nose points east");
         Assert.Greater(b.size.z, b.size.x, "the fuselage lies east-west");
+        // The model's nose is its mesh's -y: the propeller disc and the wings sit at that end, the tailplane and the tail
+        // wheel at the other (vertex slices of the FBX along its fuselage, 31 October 2026).
+        var go = layer.transform.Find(key)!;
+        Assert.Greater(Vector3.Dot(go.TransformDirection(Vector3.down), Vector3.right), 0.9f, "the nose points east, toward the board");
         float floor = Statecraft.Game.Map.Units.UnitShowcase.LoopFloor(map, new Vector3(at.x, 0f, at.z), span);
         Assert.AreEqual(floor + 4200f, at.y, 1f, "4,200 m above the highest ground under it, the unit tokens' aircraft altitude (#2014)");
         Assert.AreEqual(Statecraft.Game.Map.Units.UnitShowcase.AltitudeM, at.y - floor, 1f, "UnitShowcase.AltitudeM, no number duplicated");
