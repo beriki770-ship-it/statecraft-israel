@@ -241,21 +241,13 @@ public class StartingForcesTests
     // R-UNIT-006, Q-START-3 (#743, owner, 20 October 2026): a shareable build waits until every row the sim starts a unit
     // from is fact-checked. The owner person-checked the twelve real ones on 21 October 2026 (#1240), and Etzioni and the
     // 7th (#1241) after them (https://github.com/eyalgolan/statecraft-israel/issues/793#issuecomment-6338280840). Six of
-    // them got an order target later (#2135), sourced on 1 November 2026, which no person has checked yet (#2722), so
-    // those six wait, naming the target.
+    // them got an order target later (#2135), sourced on 1 November 2026; the owner person-checked those targets on
+    // 5 November 2026 (https://github.com/eyalgolan/statecraft-israel/issues/2722#issuecomment-6659810393), so none waits.
     [Fact]
     public void TheReleaseGateWaitsForEveryStartingRowToBeFactChecked()
     {
         Assert.Equal(14, Real.StartingForces.Count);
-        Assert.Equal(new[]
-        {
-            "brigade_7: order_targets[0] (al-Malikiyya), sources checked 2026-11-01, row checked 2026-10-22",
-            "carmeli: order_targets[0] (Manara), sources checked 2026-11-01, row checked 2026-10-21",
-            "givati: order_targets[0] (Huleiqat), sources checked 2026-11-01, row checked 2026-10-21",
-            "harel: order_targets[0] (Latrun police fort), sources checked 2026-11-01, row checked 2026-10-21",
-            "kiryati: order_targets[0] (Ramle), sources checked 2026-11-01, row checked 2026-10-21",
-            "negev: order_targets[0] (Beersheba), sources checked 2026-11-01, row checked 2026-10-21",
-        }, ReleaseGate.StartingForcesUnchecked(Real));
+        Assert.Empty(ReleaseGate.StartingForcesUnchecked(Real));
         var c = Load(Row("b", "israel", 20), Row("a", "israel", 20, q: 2, status: "fact-checked", extra: "  checked_on: '2026-10-21'\n"));
         Assert.Equal(new[] { "b" }, ReleaseGate.StartingForcesUnchecked(c));
     }
