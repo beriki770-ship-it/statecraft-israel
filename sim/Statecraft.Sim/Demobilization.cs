@@ -40,6 +40,8 @@ namespace Statecraft.Sim
 
         /// <summary>Send home's refusal while no armistice is signed (#2707: a constant, for the UI's string).</summary>
         public const string RefusedNoArmistice = "No armistice is signed";
+        /// <summary>Send home's refusal while the armistice on the unit's front is unsigned, formatted with the front's name ({0}).</summary>
+        public const string RefusedFrontArmistice = "The armistice with {0} is not signed";
 
         /// <summary>R-UNIT-005's refusals: null when <see cref="Give"/> takes the order, else the reason shown to the player.
         /// Changes nothing: the unit card asks it before it offers Send home. Refused for an unknown unit, a unit with no
@@ -53,7 +55,7 @@ namespace Statecraft.Sim
             if (u.Side != Movement.PlayerSide) return "That unit is not yours";
             var front = Front(s, u, attacked);
             if (front != null)
-                return Signed(s, front) ? null : $"The armistice with {PlayerText.Capitalised(front)} is not signed";
+                return Signed(s, front) ? null : string.Format(CultureInfo.InvariantCulture, RefusedFrontArmistice, PlayerText.Capitalised(front));
             return Prisoners.Fronts.Any(f => Signed(s, f)) ? null : RefusedNoArmistice;
         }
 

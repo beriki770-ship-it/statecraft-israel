@@ -104,15 +104,19 @@ namespace Statecraft.Sim
                 .Concat(c.UnitOrderTargets.Where(k => k.Key.Row == x.Unit && (k.Value.Q, k.Value.R) == (x.Q, x.R)).Select(k => (DateTime?)k.Value.To))
                 .Max();
 
+        /// <summary><see cref="Choose"/>'s refusals (#2707: constants, for the UI's strings).</summary>
+        public const string RefusedNotWaiting = "That event is not waiting for a decision";
+        public const string RefusedNoOption = "That event has no such option";
+
         /// <summary>Returns null on success, or the reason the choice was rejected. <paramref name="spent"/> is the movement
         /// points the turn's orders have spent so far, which an option's unit orders share (R-ENEMY-005).
         /// A refused unit order goes into <paramref name="rejected"/>, as the player's refused orders do.</summary>
         public static string? Choose(Content c, GameState s, string eventId, string optionId, List<Cause> why, Dictionary<int, int>? spent = null, List<Rejection>? rejected = null)
         {
             PopulationLedger.RefuseAggregate(s);
-            if (!s.PendingEvents.Contains(eventId)) return "That event is not waiting for a decision";
+            if (!s.PendingEvents.Contains(eventId)) return RefusedNotWaiting;
             var option = Get(c, eventId).Options.FirstOrDefault(o => o.Id == optionId);
-            if (option == null) return "That event has no such option";
+            if (option == null) return RefusedNoOption;
             Resolve(c, s, eventId, option, "chosen", why, spent: spent, rejected: rejected);
             return null;
         }

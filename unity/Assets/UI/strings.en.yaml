@@ -1134,6 +1134,12 @@ budget.refused.sum: "Budget shares must sum to 1"
 budget.refused.negative: "Budget shares cannot be negative"
 unit.order_refused.names_no_hex: "That order names no hex"
 
+# #2707, batch 5: an event answer End turn refuses (EventSystem.Choose) and Send home's refusal on one front (Demobilization),
+# the sim's own text, word for word; {0} is the front, named as the map names it (map.front_*).
+event.refused.not_waiting: "That event is not waiting for a decision"
+event.refused.no_option: "That event has no such option"
+unit.send_home_refused.front: "The armistice with {0} is not signed"
+
 # #2072 Attack and Reinforce refusals (Combat.Check, Training.Reinforce), shown on the unit card and in the toast. Each
 # English line is the sim's own text; {0}, {1}... are the values it fills in.
 unit.attack_refused.no_hex: "An attack names a hex"

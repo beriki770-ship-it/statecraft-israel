@@ -200,6 +200,40 @@ public class HebrewUiTests
         }
     }
 
+    // #2707 item 2, batch 5: an event answer End turn refuses, through the real toast (a choice queued for an event that is
+    // not waiting), then both event answers and Send home's refusal on each front through ReasonText, the front named as the
+    // map names it (map.front_*). English stays the sim's own; the Hebrew has no Latin letter left.
+    [Test]
+    public void TheEventAnswersAndTheFrontArmisticeReadInHebrew()
+    {
+        var game = Boot(UiLanguage.Hebrew);
+        var bridge = game.Bridge!;
+        var c = bridge.Content;
+        var idle = c.Events.First(e => e.Options.Count > 0 && !bridge.State.PendingEvents.Contains(e.Id));
+        Assert.IsNull(bridge.Queue(new Statecraft.Sim.ChooseEventOption(idle.Id, idle.Options[0].Id)), "precondition: the choice is queued");
+        bridge.EndTurn();
+        StringAssert.Contains(He.Format("toast.refused", He["event.refused.not_waiting"]), Ui.Q<Label>("toast").text,
+            "the toast says in Hebrew that the event is not waiting");
+
+        var cases = new List<(string reason, string expected)>
+        {
+            (Statecraft.Sim.EventSystem.RefusedNotWaiting, He["event.refused.not_waiting"]),
+            (Statecraft.Sim.EventSystem.RefusedNoOption, He["event.refused.no_option"]),
+        };
+        foreach (var front in Statecraft.Sim.Prisoners.Fronts)
+            cases.Add((string.Format(System.Globalization.CultureInfo.InvariantCulture, Statecraft.Sim.Demobilization.RefusedFrontArmistice,
+                    Statecraft.Sim.PlayerText.Capitalised(front)),
+                He.Format("unit.send_home_refused.front", He["map.front_" + front])));
+        Assert.AreEqual(6, cases.Count, "two event answers and four fronts");
+        foreach (var (reason, expected) in cases)
+        {
+            Assert.AreEqual(reason, SimBridge.ReasonText(En, reason, c), "the English string is the sim's own");
+            Assert.AreEqual(expected, SimBridge.ReasonText(He, reason, c), reason);
+            StringAssert.IsMatch("[\u05D0-\u05EA]", expected, reason);
+            StringAssert.DoesNotMatch("[A-Za-z]", expected, reason);
+        }
+    }
+
     // #2707 catch-all: every Refused* constant anywhere in the sim reaches the toast (ReasonText) in Hebrew under Hebrew, and
     // as the sim's own English under English. A format is filled with distinct numbers, so its pattern must take any value;
     // the values themselves are the per-check tests' (above, CityProjectPanelTests). A refusal still a bare literal in the

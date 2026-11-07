@@ -1368,6 +1368,11 @@ budget.refused.sum: "סכום חלקי התקציב חייב להיות 1"
 budget.refused.negative: "חלק בתקציב לא יכול להיות שלילי"
 unit.order_refused.names_no_hex: "הפקודה הזאת אינה מציינת משבצת"
 
+# #2707, batch 5: an event answer and Send home on one front ({0}: map.front_*). Agent-drafted Hebrew; for the native read in #564.
+event.refused.not_waiting: "האירוע הזה אינו ממתין להחלטה"
+event.refused.no_option: "לאירוע הזה אין אפשרות כזאת"
+unit.send_home_refused.front: "עדיין לא נחתם הסכם שביתת נשק עם {0}"
+
 # #2072 Attack and Reinforce refusals (Combat.Check, Training.Reinforce), shown on the unit card and in the toast. A
 # settlement in {0}/{1} opens the line as its label or follows a prefix, so no verb agrees with its gender (HE-15).
 # Approved by Beri, a native speaker, on #2072 (31 Oct 2026), all 20 lines as written. For the native reviewer (#564).

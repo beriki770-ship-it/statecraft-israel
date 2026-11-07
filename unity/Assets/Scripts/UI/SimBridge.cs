@@ -288,6 +288,9 @@ namespace Statecraft.Game.UI
             [Pools.RefusedCount] = "arms.refused_count",
             [SecuritySystem.RefusedMobilization] = "defence.refused_mobilization",
             [Demobilization.RefusedNoArmistice] = "unit.send_home_refused.no_armistice",
+            // #2707 batch 5: the event answers End turn refuses (EventSystem.Choose).
+            [EventSystem.RefusedNotWaiting] = "event.refused.not_waiting",
+            [EventSystem.RefusedNoOption] = "event.refused.no_option",
             // #2707, batch 2: the workers, craftsmen and pioneers orders, pioneer work, a city project cancel and a training cancel.
             [Cities.RefusedNoRole] = "city.assign_refused.no_role",
             [Cities.RefusedNegativeWorkers] = "city.assign_refused.negative",
@@ -317,6 +320,8 @@ namespace Statecraft.Game.UI
         static readonly (Regex pattern, string key)[] ReasonFormats = new (string format, string key)[]
         {
             (Combat.RefusedArms, "unit.attack_refused.arms"),
+            // #2707 batch 5: Send home on a front whose armistice is unsigned; ReasonValue names the front as the map does.
+            (Demobilization.RefusedFrontArmistice, "unit.send_home_refused.front"),
             (Training.RefusedNotInCity, "unit.reinforce_refused.not_in_city"),
             (Training.RefusedNoCourse, "unit.reinforce_refused.no_course"),
             (Training.RefusedNoLosses, "unit.reinforce_refused.no_losses"),
@@ -381,6 +386,9 @@ namespace Statecraft.Game.UI
         static string ReasonValue(UiText text, string value, Content? c, IReadOnlyDictionary<string, string>? townsHe)
         {
             if (c == null) return value;
+            // #2707 batch 5: a front (Send home's refusal) in Hebrew as the map names it (map.front_*); English keeps the sim's.
+            var front = Prisoners.Fronts.FirstOrDefault(f => PlayerText.Capitalised(f) == value);
+            if (front != null) return text["ui.lang"] == UiLanguage.Hebrew ? text["map.front_" + front] : value;
             var town = c.SettlementNames.FirstOrDefault(n => n.Value == value).Key;
             if (town != null)
                 return text["ui.lang"] == UiLanguage.Hebrew && townsHe != null && townsHe.TryGetValue(town, out var he) && !string.IsNullOrWhiteSpace(he) ? he : value;
